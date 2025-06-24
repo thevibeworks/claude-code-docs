@@ -53,7 +53,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           use_bedrock: "true"
-          model: "us.anthropic.claude-3-5-sonnet-20241022-v2:0"
+          model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
           direct_prompt: |
             We've fetched the latest Claude Code documentation from docs.anthropic.com and there are changes to commit.
 
