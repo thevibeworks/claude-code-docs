@@ -57,10 +57,12 @@ jobs:
       - name: Claude analyzes, commits, and creates PR
         if: steps.changes.outputs.changes == 'true'
         uses: anthropics/claude-code-base-action@beta
+        env:
+          CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
         with:
-          github_token: ${{ steps.app-token.outputs.token }}
           use_bedrock: "true"
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
+          allowed_tools: "Bash(*),Read,Write,Edit,MultiEdit,Glob,Grep,LS"
           prompt: |
             We've fetched the latest Claude Code documentation from docs.anthropic.com and there are changes to commit.
 
