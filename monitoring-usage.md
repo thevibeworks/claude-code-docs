@@ -105,6 +105,22 @@ The following environment variables control which attributes are included in met
 
 These variables help control the cardinality of metrics, which affects storage requirements and query performance in your metrics backend. Lower cardinality generally means better performance and lower storage costs but less granular data for analysis.
 
+### Multi-Team Organization Support
+
+Organizations with multiple teams or departments can add custom attributes to distinguish between different groups using the `OTEL_RESOURCE_ATTRIBUTES` environment variable:
+
+```bash
+# Add custom attributes for team identification
+export OTEL_RESOURCE_ATTRIBUTES="department=engineering,team.id=platform,cost_center=eng-123"
+```
+
+These custom attributes will be included in all metrics and events, allowing you to:
+
+* Filter metrics by team or department
+* Track costs per cost center
+* Create team-specific dashboards
+* Set up alerts for specific teams
+
 ### Example Configurations
 
 ```bash
@@ -152,6 +168,18 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 
 ## Available Metrics and Events
 
+### Standard Attributes
+
+All metrics and events share these standard attributes:
+
+| Attribute           | Description                                                   | Controlled By                                       |
+| ------------------- | ------------------------------------------------------------- | --------------------------------------------------- |
+| `session.id`        | Unique session identifier                                     | `OTEL_METRICS_INCLUDE_SESSION_ID` (default: true)   |
+| `app.version`       | Current Claude Code version                                   | `OTEL_METRICS_INCLUDE_VERSION` (default: false)     |
+| `organization.id`   | Organization UUID (when authenticated)                        | Always included when available                      |
+| `user.account_uuid` | Account UUID (when authenticated)                             | `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` (default: true) |
+| `terminal.type`     | Terminal type (e.g., `iTerm.app`, `vscode`, `cursor`, `tmux`) | Always included when detected                       |
+
 ### Metrics
 
 Claude Code exports the following metrics:
@@ -168,48 +196,68 @@ Claude Code exports the following metrics:
 
 ### Metric Details
 
-All metrics share these standard attributes:
-
-* `session.id`: Unique session identifier (controlled by `OTEL_METRICS_INCLUDE_SESSION_ID`)
-* `app.version`: Current Claude Code version (controlled by `OTEL_METRICS_INCLUDE_VERSION`)
-* `organization.id`: Organization UUID (when authenticated)
-* `user.account_uuid`: Account UUID (when authenticated, controlled by `OTEL_METRICS_INCLUDE_ACCOUNT_UUID`)
-
 #### Session Counter
 
-Emitted at the start of each session.
+Incremented at the start of each session.
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
 
 #### Lines of Code Counter
 
-Emitted when code is added or removed.
+Incremented when code is added or removed.
 
-Additional attribute: `type` (`"added"` or `"removed"`)
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `type`: (`"added"`, `"removed"`)
 
 #### Pull Request Counter
 
-Emitted when creating pull requests via Claude Code.
+Incremented when creating pull requests via Claude Code.
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
 
 #### Commit Counter
 
-Emitted when creating git commits via Claude Code.
+Incremented when creating git commits via Claude Code.
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
 
 #### Cost Counter
 
-Emitted after each API request.
+Incremented after each API request.
 
-Additional attribute: `model`
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `model`: Model identifier (e.g., "claude-3-5-sonnet-20241022")
 
 #### Token Counter
 
-Emitted after each API request.
+Incremented after each API request.
 
-Additional attributes: `type` (`"input"`, `"output"`, `"cacheRead"`, `"cacheCreation"`) and `model`
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `type`: (`"input"`, `"output"`, `"cacheRead"`, `"cacheCreation"`)
+* `model`: Model identifier (e.g., "claude-3-5-sonnet-20241022")
 
 #### Code Edit Tool Decision Counter
 
-Emitted when user accepts or rejects Edit, MultiEdit, Write, or NotebookEdit tool usage.
+Incremented when user accepts or rejects Edit, MultiEdit, Write, or NotebookEdit tool usage.
 
-Additional attributes: `tool` (tool name: `"Edit"`, `"MultiEdit"`, `"Write"`, `"NotebookEdit"`) and `decision` (`"accept"`, `"reject"`)
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `tool`: Tool name (`"Edit"`, `"MultiEdit"`, `"Write"`, `"NotebookEdit"`)
+* `decision`: User decision (`"accept"`, `"reject"`)
+* `language`: Programming language of the edited file (e.g., `"TypeScript"`, `"Python"`, `"JavaScript"`, `"Markdown"`). Returns `"unknown"` for unrecognized file extensions.
 
 ### Events
 
@@ -217,69 +265,84 @@ Claude Code exports the following events via OpenTelemetry logs/events (when `OT
 
 #### User Prompt Event
 
-* **Event Name**: `claude_code.user_prompt`
-* **Description**: Logged when a user submits a prompt
-* **Attributes**:
-  * All standard attributes (user.id, session.id, etc.)
-  * `event.name`: `"user_prompt"`
-  * `event.timestamp`: ISO 8601 timestamp
-  * `prompt_length`: Length of the prompt
-  * `prompt`: Prompt content (redacted by default, enable with `OTEL_LOG_USER_PROMPTS=1`)
+Logged when a user submits a prompt.
+
+**Event Name**: `claude_code.user_prompt`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"user_prompt"`
+* `event.timestamp`: ISO 8601 timestamp
+* `prompt_length`: Length of the prompt
+* `prompt`: Prompt content (redacted by default, enable with `OTEL_LOG_USER_PROMPTS=1`)
 
 #### Tool Result Event
 
-* **Event Name**: `claude_code.tool_result`
-* **Description**: Logged when a tool completes execution
-* **Attributes**:
-  * All standard attributes
-  * `event.name`: `"tool_result"`
-  * `event.timestamp`: ISO 8601 timestamp
-  * `name`: Name of the tool
-  * `success`: `"true"` or `"false"`
-  * `duration_ms`: Execution time in milliseconds
-  * `error`: Error message (if failed)
+Logged when a tool completes execution.
+
+**Event Name**: `claude_code.tool_result`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"tool_result"`
+* `event.timestamp`: ISO 8601 timestamp
+* `name`: Name of the tool
+* `success`: `"true"` or `"false"`
+* `duration_ms`: Execution time in milliseconds
+* `error`: Error message (if failed)
 
 #### API Request Event
 
-* **Event Name**: `claude_code.api_request`
-* **Description**: Logged for each API request to Claude
-* **Attributes**:
-  * All standard attributes
-  * `event.name`: `"api_request"`
-  * `event.timestamp`: ISO 8601 timestamp
-  * `model`: Model used (e.g., "claude-3-5-sonnet-20241022")
-  * `cost_usd`: Estimated cost in USD
-  * `duration_ms`: Request duration in milliseconds
-  * `input_tokens`: Number of input tokens
-  * `output_tokens`: Number of output tokens
-  * `cache_read_tokens`: Number of tokens read from cache
-  * `cache_creation_tokens`: Number of tokens used for cache creation
+Logged for each API request to Claude.
+
+**Event Name**: `claude_code.api_request`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"api_request"`
+* `event.timestamp`: ISO 8601 timestamp
+* `model`: Model used (e.g., "claude-3-5-sonnet-20241022")
+* `cost_usd`: Estimated cost in USD
+* `duration_ms`: Request duration in milliseconds
+* `input_tokens`: Number of input tokens
+* `output_tokens`: Number of output tokens
+* `cache_read_tokens`: Number of tokens read from cache
+* `cache_creation_tokens`: Number of tokens used for cache creation
 
 #### API Error Event
 
-* **Event Name**: `claude_code.api_error`
-* **Description**: Logged when an API request to Claude fails
-* **Attributes**:
-  * All standard attributes
-  * `event.name`: `"api_error"`
-  * `event.timestamp`: ISO 8601 timestamp
-  * `model`: Model used (e.g., "claude-3-5-sonnet-20241022")
-  * `error`: Error message
-  * `status_code`: HTTP status code (if applicable)
-  * `duration_ms`: Request duration in milliseconds
-  * `attempt`: Attempt number (for retried requests)
+Logged when an API request to Claude fails.
+
+**Event Name**: `claude_code.api_error`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"api_error"`
+* `event.timestamp`: ISO 8601 timestamp
+* `model`: Model used (e.g., "claude-3-5-sonnet-20241022")
+* `error`: Error message
+* `status_code`: HTTP status code (if applicable)
+* `duration_ms`: Request duration in milliseconds
+* `attempt`: Attempt number (for retried requests)
 
 #### Tool Decision Event
 
-* **Event Name**: `claude_code.tool_decision`
-* **Description**: Logged when a tool permission decision is made (accept/reject)
-* **Attributes**:
-  * All standard attributes
-  * `event.name`: `"tool_decision"`
-  * `event.timestamp`: ISO 8601 timestamp
-  * `tool_name`: Name of the tool (e.g., "Read", "Edit", "MultiEdit", "Write", "NotebookEdit", etc.)
-  * `decision`: Either `"accept"` or `"reject"`
-  * `source`: Decision source - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"`
+Logged when a tool permission decision is made (accept/reject).
+
+**Event Name**: `claude_code.tool_decision`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"tool_decision"`
+* `event.timestamp`: ISO 8601 timestamp
+* `tool_name`: Name of the tool (e.g., "Read", "Edit", "MultiEdit", "Write", "NotebookEdit", etc.)
+* `decision`: Either `"accept"` or `"reject"`
+* `source`: Decision source - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"`
 
 ## Interpreting Metrics and Events Data
 

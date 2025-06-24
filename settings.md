@@ -17,8 +17,8 @@ Code through hierarchical settings:
 * For enterprise deployments of Claude Code, we also support **enterprise
   managed policy settings**. These take precedence over user and project
   settings. System administrators can deploy policies to
-  `/Library/Application Support/ClaudeCode/policies.json` on macOS and
-  `/etc/claude-code/policies.json` on Linux and Windows via WSL.
+  `/Library/Application Support/ClaudeCode/managed-settings.json` on macOS and
+  `/etc/claude-code/managed-settings.json` on Linux and Windows via WSL.
 
 ```JSON Example settings.json
 {
