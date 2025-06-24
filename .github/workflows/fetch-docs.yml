@@ -15,12 +15,20 @@ jobs:
       pull-requests: write
       issues: write
       id-token: write
+    env:
+      AWS_REGION: us-west-2
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-west-2
 
       - name: Fetch Claude Code docs
         run: ./fetchccdocs.sh --format md --out .
@@ -43,8 +51,9 @@ jobs:
         if: steps.changes.outputs.changes == 'true'
         uses: anthropics/claude-code-action@beta
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          use_bedrock: "true"
+          model: "us.anthropic.claude-3-5-sonnet-20241022-v2:0"
           direct_prompt: |
             We've fetched the latest Claude Code documentation from docs.anthropic.com and there are changes to commit.
 
