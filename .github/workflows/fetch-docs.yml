@@ -62,7 +62,6 @@ jobs:
         with:
           use_bedrock: "true"
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
-          allowed_tools: "Bash(*),Read,Write,Edit,MultiEdit,Glob,Grep,LS"
           prompt: |
             We've fetched the latest Claude Code documentation from docs.anthropic.com and there are changes to commit.
 
