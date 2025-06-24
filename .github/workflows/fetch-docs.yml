@@ -1,0 +1,81 @@
+name: Fetch Claude Code Docs
+
+on:
+  schedule:
+    # Daily at 00:00 LA time (08:00 UTC during standard time, 07:00 UTC during daylight time)
+    # Using 08:00 UTC as baseline - GitHub Actions runs in UTC
+    - cron: "0 8 * * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  fetch-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch Claude Code docs
+        run: ./fetchccdocs.sh --format md --out .
+
+      - name: Check for meaningful changes
+        id: changes
+        run: |
+          # Exclude metadata-only changes
+          git add .
+          if git diff --cached --name-only | grep -v '\.metadata\.json$' | head -1; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Found meaningful documentation changes"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "Only metadata changes detected, skipping commit"
+            git reset HEAD .
+          fi
+
+      - name: Claude analyzes, commits, and creates PR
+        if: steps.changes.outputs.changes == 'true'
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          direct_prompt: |
+            We've fetched the latest Claude Code documentation from docs.anthropic.com and there are changes to commit.
+
+            Please complete this full workflow:
+
+            **Step 1: Analysis & Commit**
+            1. Review the changed files to understand what was updated
+            2. Create a new branch (name: docs/auto-update-$(date +%Y%m%d-%H%M%S))
+            3. Update CHANGELOG.md (create if doesn't exist):
+               - Add new entry at the top: ## $(date +%Y-%m-%d) - Documentation Update
+               - TL;DR: [One line summary]
+               - Detailed breakdown of what changed
+               - Impact assessment
+               - Keep existing entries below
+            4. Commit with this exact format:
+
+            ```
+            docs: update Claude Code documentation
+
+            - [Super brief summary of key changes]
+            - Fetched from docs.anthropic.com on $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+            🤖 Generated with [Claude Code](https://claude.ai/code)
+
+            Authored-By: Claude <noreply@anthropic.com>
+            ```
+
+            **Step 2: Create PR**
+            5. Create a pull request:
+               - Title: "docs: automated Claude Code documentation update"
+               - Body: Use the changelog entry, format with ## Summary, ## Changes, ## Impact
+               - Target: main branch
+
+            Complete both steps in this single session.

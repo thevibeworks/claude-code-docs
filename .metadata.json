@@ -1,0 +1,9 @@
+{
+  "fetch_date": "2025-06-21T14:47:04Z",
+  "claude_version": "1.0.31 (Claude Code)",
+  "total_urls": 27,
+  "downloaded": 27,
+  "failed": 0,
+  "format": "md",
+  "source": "https://docs.anthropic.com/sitemap.xml"
+}
