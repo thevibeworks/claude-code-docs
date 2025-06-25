@@ -1,0 +1,40 @@
+{
+  "name": "claude-code-docs-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server providing structured access to Claude Code documentation",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch"
+  },
+  "bin": {
+    "claude-code-docs-mcp": "./dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol", 
+    "claude-code",
+    "documentation",
+    "ai-assistant"
+  ],
+  "author": "Claude Code Documentation Server",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "fs-extra": "^11.2.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.0.0",
+    "fuse.js": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/markdown-it": "^14.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
