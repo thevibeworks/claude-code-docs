@@ -2,6 +2,8 @@
 
 This repository contains Claude Code documentation and resources for **learning about [Claude Code](https://claude.ai/code)** - Anthropic's official CLI tool.
 
+![Claude Code in Action](https://raw.githubusercontent.com/lroolle/claude-code-docs/main/screenshot.png)
+
 
 ## Quick Start for How to Use Claude Code
 
