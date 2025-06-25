@@ -38,7 +38,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Fetch Claude Code docs
-        run: ./fetchccdocs.sh --format md --out .
+        run: ./fetchccdocs.sh --format md
 
       - name: Check for meaningful changes
         id: changes

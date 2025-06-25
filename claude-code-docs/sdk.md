@@ -8,10 +8,23 @@ The SDK is available for command line, TypeScript, and Python usage.
 
 ## Authentication
 
-To use the Claude Code SDK, we recommend creating a dedicated API key:
+The Claude Code SDK supports multiple authentication methods:
+
+### Anthropic API key
+
+To use the Claude Code SDK directly with Anthropic's API, we recommend creating a dedicated API key:
 
 1. Create an Anthropic API key in the [Anthropic Console](https://console.anthropic.com/)
-2. Then, set the `ANTHROPIC_API_KEY` environment variable. We recommend storing this key securely (eg. using a Github [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions))
+2. Then, set the `ANTHROPIC_API_KEY` environment variable. We recommend storing this key securely (e.g., using a Github [secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions))
+
+### Third-Party API credentials
+
+The SDK also supports third-party API providers:
+
+* **Amazon Bedrock**: Set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
+* **Google Vertex AI**: Set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
+
+For detailed configuration instructions for third-party providers, see the [Amazon Bedrock](/en/docs/claude-code/amazon-bedrock) and [Google Vertex AI](/en/docs/claude-code/google-vertex-ai) documentation.
 
 ## Basic SDK usage
 
