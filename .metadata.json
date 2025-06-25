@@ -1,9 +1,9 @@
 {
-  "fetch_date": "2025-06-25T06:05:22Z",
-  "claude_version": "1.0.31 (Claude Code)",
+  "fetch_date": "2025-06-25T08:10:16Z",
+  "claude_version": "unknown",
   "total_urls": 31,
-  "downloaded": 31,
-  "failed": 0,
+  "downloaded": 30,
+  "failed": 1,
   "format": "md",
   "sitemaps": {
     "docs": {
@@ -18,8 +18,8 @@
     },
     "github": {
       "url": "https://github.com/anthropics/claude-code",
-      "downloaded": 1,
-      "failed": 0
+      "downloaded": 0,
+      "failed": 1
     }
   }
 }
