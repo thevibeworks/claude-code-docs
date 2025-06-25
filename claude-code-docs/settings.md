@@ -60,6 +60,7 @@ Code through hierarchical settings:
 | `additionalDirectories`        | Additional [working directories](iam#working-directories) that Claude has access to                                                                | `[ "../docs/" ]`                 |
 | `defaultMode`                  | Default [permission mode](iam#permission-modes) when opening Claude Code                                                                           | `"allowEdits"`                   |
 | `disableBypassPermissionsMode` | Set to `"disable"` to prevent `bypassPermissions` mode from being activated. See [managed policy settings](iam#enterprise-managed-policy-settings) | `"disable"`                      |
+| `forceLoginMethod`             | Use `claudeai` to restrict login to subscription plans only, `console` to restrict login to Anthropic Console (API usage billing) accounts only    | `claudeai`                       |
 
 ### Settings precedence
 
@@ -132,7 +133,7 @@ To set a global configuration, use `claude config set -g <key> <value>`:
 
 | Key                     | Description                                                      | Example                                                                    |
 | :---------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| `autoUpdaterStatus`     | Enable or disable the auto-updater (default: `enabled`)          | `disabled`                                                                 |
+| `autoUpdates`           | Whether to enable automatic updates (default: `true`)            | `false`                                                                    |
 | `preferredNotifChannel` | Where you want to receive notifications (default: `iterm2`)      | `iterm2`, `iterm2_with_bell`, `terminal_bell`, or `notifications_disabled` |
 | `theme`                 | Color theme                                                      | `dark`, `light`, `light-daltonized`, or `dark-daltonized`                  |
 | `verbose`               | Whether to show full bash and command outputs (default: `false`) | `true`                                                                     |

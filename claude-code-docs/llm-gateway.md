@@ -83,7 +83,21 @@ export CLAUDE_CODE_API_KEY_HELPER_TTL_MS=3600000
 
 This value will be sent as `Authorization`, `Proxy-Authorization`, and `X-Api-Key` headers, although `Authorization` may be overwritten (see [Google Vertex AI through LiteLLM](#google-vertex-ai-through-litellm)). The `apiKeyHelper` has lower precedence than `ANTHROPIC_AUTH_TOKEN` or `ANTHROPIC_API_KEY`.
 
-#### Provider-specific configurations
+#### Unified endpoint (recommended)
+
+Using LiteLLM's [Anthropic format endpoint](https://docs.litellm.ai/docs/anthropic_unified):
+
+```bash
+export ANTHROPIC_BASE_URL=https://litellm-server:4000
+```
+
+**Benefits of the unified endpoint over pass-through endpoints:**
+
+* Load balancing
+* Fallbacks
+* Consistent support for cost tracking and end-user tracking
+
+#### Provider-specific pass-through endpoints (alternative)
 
 ##### Anthropic API through LiteLLM
 
@@ -139,14 +153,6 @@ export CLOUD_ML_REGION=us-east5
 3. Update LiteLLM header configuration:
 
 Ensure your LiteLLM config has `general_settings.litellm_key_header_name` set to `Proxy-Authorization`, since the pass-through GCP token will be located on the `Authorization` header.
-
-#### Unified endpoint
-
-Using LiteLLM's [Anthropic format endpoint](https://docs.litellm.ai/docs/anthropic_unified):
-
-```bash
-export ANTHROPIC_BASE_URL=https://litellm-server:4000
-```
 
 ### Model selection
 
