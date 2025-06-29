@@ -10,7 +10,7 @@ Make sure you have:
 
 * [Installed Claude Code](/en/docs/claude-code/setup)
 * A terminal or command prompt open
-* A code project to work with (or use our [sample project](https://github.com/anthropics/claude-code-quickstart))
+* A code project to work with
 
 ## Step 1: Start your first session
 
@@ -239,4 +239,4 @@ Now that you've learned the basics, explore more advanced features:
 
 * **In Claude Code**: Type `/help` or ask "how do I..."
 * **Documentation**: You're here! Browse other guides
-* **Community**: Join our [Discord](https://discord.gg/anthropic) for tips and support
+* **Community**: Join our [Discord](https://www.anthropic.com/discord) for tips and support
