@@ -2,9 +2,9 @@ name: Fetch Claude Code Docs
 
 on:
   schedule:
-    # Daily at 00:00 LA time (08:00 UTC during standard time, 07:00 UTC during daylight time)
-    # Using 08:00 UTC as baseline - GitHub Actions runs in UTC
-    - cron: "0 8 * * *"
+    # Daily at 00:00 LA time (07:00 UTC during daylight time, 08:00 UTC during standard time)
+    # Using 07:00 UTC for PDT (Pacific Daylight Time)
+    - cron: "0 7 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
