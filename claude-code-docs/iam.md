@@ -66,12 +66,12 @@ A rule that is just the tool name matches any use of that tool. For example, add
 
 Claude Code supports several permission modes that can be set as the `defaultMode` in [settings files](/en/docs/claude-code/settings#settings-files):
 
-| Mode                | Description                                                             |
-| :------------------ | :---------------------------------------------------------------------- |
-| `default`           | Standard behavior - prompts for permission on first use of each tool    |
-| `acceptEdits`       | Automatically accepts file edits within the working directories         |
-| `plan`              | Plan mode - Claude can analyze but not modify files or execute commands |
-| `bypassPermissions` | Skips all permission prompts. (Dangerous, use with caution)             |
+| Mode                | Description                                                                  |
+| :------------------ | :--------------------------------------------------------------------------- |
+| `default`           | Standard behavior - prompts for permission on first use of each tool         |
+| `acceptEdits`       | Automatically accepts file edit permissions for the session                  |
+| `plan`              | Plan mode - Claude can analyze but not modify files or execute commands      |
+| `bypassPermissions` | Skips all permission prompts (requires safe environment - see warning below) |
 
 #### Working directories
 
@@ -137,6 +137,10 @@ When multiple settings sources exist, they are applied in the following order (h
 5. User settings (`~/.claude/settings.json`)
 
 This hierarchy ensures that organizational policies are always enforced while still allowing flexibility at the project and user levels where appropriate.
+
+### Additional permission control with hooks
+
+[Claude Code hooks](/en/docs/claude-code/hooks) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.
 
 ## Credential management
 

@@ -2,6 +2,10 @@
 
 > Stay up to date with the latest features and improvements to Claude Code
 
+## June 30, 2025
+
+* Claude Code now supports [hooks](/en/docs/claude-code/hooks). Special thanks to community input in [Github Issues](https://github.com/anthropics/claude-code/issues/712).
+
 ## June 18, 2025
 
 * Claude Code now supports SSE and HTTP transports for MCP servers, enabling real-time communication

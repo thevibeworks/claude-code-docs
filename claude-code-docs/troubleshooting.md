@@ -141,8 +141,7 @@ After restoring your system, follow the recommended solution above to set up a u
 
 If Claude Code can't update automatically, it may be due to permission issues with your npm global prefix directory. Follow the [recommended solution](#recommended-solution-create-a-user-writable-npm-prefix) above to fix this.
 
-If you prefer to disable the auto-updater instead, you can use:
-If you prefer to disable the auto-updater instead , you can
+If you prefer to disable the auto-updater instead, you can
 set the `DISABLE_AUTOUPDATER` [environment variable](settings#environment-variables) to `1`
 
 ## Permissions and authentication

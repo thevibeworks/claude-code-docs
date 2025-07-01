@@ -157,6 +157,10 @@ For iTerm 2 alerts when tasks complete:
 
 Note that these notifications are specific to iTerm 2 and not available in the default macOS Terminal.
 
+#### Custom notification hooks
+
+For advanced notification handling, you can create [notification hooks](/en/docs/claude-code/hooks#notification) to run your own logic.
+
 ### Handling large inputs
 
 When working with extensive code or long instructions:

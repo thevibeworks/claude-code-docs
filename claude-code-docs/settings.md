@@ -60,7 +60,6 @@ Code through hierarchical settings:
 | `additionalDirectories`        | Additional [working directories](iam#working-directories) that Claude has access to                                                                | `[ "../docs/" ]`                 |
 | `defaultMode`                  | Default [permission mode](iam#permission-modes) when opening Claude Code                                                                           | `"allowEdits"`                   |
 | `disableBypassPermissionsMode` | Set to `"disable"` to prevent `bypassPermissions` mode from being activated. See [managed policy settings](iam#enterprise-managed-policy-settings) | `"disable"`                      |
-| `forceLoginMethod`             | Use `claudeai` to restrict login to subscription plans only, `console` to restrict login to Anthropic Console (API usage billing) accounts only    | `claudeai`                       |
 
 ### Settings precedence
 
@@ -161,6 +160,15 @@ Claude Code has access to a set of powerful tools that help it understand and mo
 | **Write**        | Creates or overwrites files                          | Yes                 |
 
 Permission rules can be configured using `/allowed-tools` or in [permission settings](/en/docs/claude-code/settings#available-settings).
+
+### Extending tools with hooks
+
+You can run custom commands before or after any tool executes using
+[Claude Code hooks](/en/docs/claude-code/hooks).
+
+For example, you could automatically run a Python formatter after Claude
+modifies Python files, or prevent modifications to production configuration
+files by blocking Write operations to certain paths.
 
 ## See also
 
