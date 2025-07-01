@@ -1,14 +1,14 @@
 {
-  "fetch_date": "2025-06-29T08:30:05Z",
+  "fetch_date": "2025-07-01T07:22:23Z",
   "claude_version": "unknown",
-  "total_urls": 31,
-  "downloaded": 30,
+  "total_urls": 32,
+  "downloaded": 31,
   "failed": 1,
   "format": "md",
   "sitemaps": {
     "docs": {
       "url": "https://docs.anthropic.com/sitemap.xml",
-      "downloaded": 27,
+      "downloaded": 28,
       "failed": 0
     },
     "anthropic": {
