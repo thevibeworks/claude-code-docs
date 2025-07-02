@@ -55,12 +55,12 @@ export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=us-east5
 export ANTHROPIC_VERTEX_PROJECT_ID=YOUR-PROJECT-ID
 
-# Optional: Disable prompt caching if not enabled
+# Optional: Disable prompt caching if needed
 export DISABLE_PROMPT_CACHING=1
 ```
 
 <Note>
-  For heightened rate limits and prompt caching enablement, contact Google Cloud support. Once enabled, remove the `DISABLE_PROMPT_CACHING` setting.
+  [Prompt caching](/en/docs/build-with-claude/prompt-caching) is automatically supported when you specify the `cache_control` ephemeral flag. To disable it, set `DISABLE_PROMPT_CACHING=1`. For heightened rate limits, contact Google Cloud support.
 </Note>
 
 ### 5. Model configuration

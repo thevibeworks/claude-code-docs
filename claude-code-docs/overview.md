@@ -36,6 +36,8 @@ Use Claude Code to accelerate development with the following key capabilities:
 * Searching through git history, resolving merge conflicts, and creating commits and PRs
 * Browsing documentation and resources from the internet using web search
 
+Claude Code provides a comprehensive set of [tools](/en/docs/claude-code/settings#tools-available-to-claude) for interacting with your development environment, including file operations, code search, web browsing, and more. Understanding these tools helps you leverage Claude Code's full capabilities.
+
 ### Security and privacy by design
 
 Your code's security is paramount. Claude Code's architecture ensures:
