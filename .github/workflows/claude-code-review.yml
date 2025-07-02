@@ -17,7 +17,11 @@ jobs:
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
-       contains(github.event.comment.body, '@claude'))
+       contains(github.event.comment.body, '@claude') &&
+       (github.actor == 'lroolle' || 
+        github.actor == github.repository_owner ||
+        github.actor == 'github-actions[bot]' ||
+        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)))
 
     runs-on: ubuntu-latest
     permissions:
@@ -125,8 +129,8 @@ jobs:
           #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
           #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
 
-          # Allow Claude Code full repository management capabilities
-          allowed_tools: "Bash(gh pr*),Bash(git*),Bash(gh issue*),Bash(gh release*),Bash(npm*),Bash(ls*),Bash(cat*),Bash(grep*)"
+          # Allow Claude Code full repository management capabilities (matches .claude/settings.json)
+          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./fetchccdocs.sh:*)"
 
           # Optional: Skip review for certain conditions
           # if: |
