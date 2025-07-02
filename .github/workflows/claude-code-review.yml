@@ -17,13 +17,11 @@ jobs:
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
-       contains(github.event.comment.body, '@claude') &&
-       (github.actor == github.repository_owner ||
-        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)))
+       contains(github.event.comment.body, '@claude'))
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
       issues: write
       id-token: write
@@ -51,6 +49,14 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: us-west-2
 
+      - name: Setup GitHub CLI and Git
+        run: |
+          # GitHub CLI is pre-installed on ubuntu-latest, but ensure it's configured
+          gh --version
+          git --version
+          git config --global user.name "Claude Code"
+          git config --global user.email "claude-code@anthropic.com"
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@beta
@@ -66,14 +72,44 @@ jobs:
 
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
+            You are the autonomous maintainer of the claude-code-docs repository - a documentation and resources repository for Claude Code.
 
-            Be constructive and helpful in your feedback.
+            **Your Authority**: You have full decision-making power to:
+            - Review and merge PRs that improve the repository
+            - Reject PRs that don't align with the repository's purpose
+            - Request changes or additional information
+            - Manage repository quality and consistency
+
+            **Repository Purpose**: Educational Claude Code documentation and resources for developers learning to use Claude Code effectively.
+
+            **Decision Framework**:
+            1. **Auto-merge immediately** if changes are:
+               - Documentation updates from automation (github-actions[bot])
+               - Minor fixes, typos, or formatting improvements
+               - New helpful examples or tutorials
+               - Security updates or dependency bumps
+               - Workflow improvements that enhance automation
+
+            2. **Review and provide feedback** for:
+               - Significant content changes or new features
+               - Changes that might affect user experience
+               - Structural modifications to the repository
+
+            3. **Request human review** only for:
+               - Suspicious or potentially malicious content
+               - Major architectural changes
+               - Legal or compliance concerns
+
+            **Your Actions**: 
+            - Comment with your decision rationale
+            - Merge using `gh pr merge {PR_NUMBER} --squash` if appropriate
+            - For significant updates, mention @lroolle in your comment to notify the maintainer
+
+            **Notification Guidelines**:
+            - Tag @lroolle for: major documentation restructures, new feature announcements, breaking changes, security updates, or workflow modifications
+            - No need to tag for: routine doc updates, typo fixes, minor formatting changes
+
+            Be decisive, helpful, and focused on maintaining a high-quality learning resource for Claude Code users.
 
           # Optional: Customize review based on file types
           # direct_prompt: |
@@ -89,10 +125,11 @@ jobs:
           #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
           #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
 
-          # Optional: Add specific tools for running tests or linting
-          # allowed_tools: "Bash(npm run test),Bash(npm run lint),Bash(npm run typecheck)"
+          # Allow Claude Code full repository management capabilities
+          allowed_tools: "Bash(gh pr*),Bash(git*),Bash(gh issue*),Bash(gh release*),Bash(npm*),Bash(ls*),Bash(cat*),Bash(grep*)"
 
           # Optional: Skip review for certain conditions
           # if: |
           #   !contains(github.event.pull_request.title, '[skip-review]') &&
           #   !contains(github.event.pull_request.title, '[WIP]')
+

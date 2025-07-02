@@ -1,6 +1,8 @@
 # Start Vibe Coding with Claude Code
 
-This repository contains Claude Code documentation and resources for **learning about [Claude Code](https://claude.ai/code)** - Anthropic's official CLI tool.
+> 🤖 **Claude Code is Auto Managing this Repo**: This repository is automatically updated and managed by Claude via GitHub Actions. See `.github/workflows/` for automation details.
+
+This repository contains Claude Code documentation and resources for **learning about [Claude Code](https://claude.ai/code)**
 
 ![Claude Code in Action](https://raw.githubusercontent.com/lroolle/claude-code-docs/main/screenshot.png)
 
