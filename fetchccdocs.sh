@@ -40,10 +40,18 @@ mkdir -p "$OUTPUT_DIR/claude-code-docs"
 mkdir -p "$OUTPUT_DIR/anthropic-blog"
 
 METADATA_FILE="$OUTPUT_DIR/.metadata.json"
+MANIFEST_FILE="$OUTPUT_DIR/claude-code-manifest.json"
 FETCH_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-CLAUDE_VERSION="unknown"
-if command -v claude &>/dev/null; then
-  CLAUDE_VERSION=$(claude --version 2>/dev/null || echo "unknown")
+
+# Get latest version from npm registry
+LATEST_NPM_VERSION="unknown"
+if command -v curl &>/dev/null && command -v jq &>/dev/null; then
+  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null | \
+    jq -r '.latest' 2>/dev/null || echo "unknown")
+elif command -v curl &>/dev/null; then
+  # Fallback without jq
+  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null | \
+    grep -o '"latest":"[^"]*"' | cut -d'"' -f4 || echo "unknown")
 fi
 
 download_doc() {
@@ -174,6 +182,19 @@ fetch_github_content() {
   echo "$github_success $github_fail"
 }
 
+fetch_npm_manifest() {
+  local manifest_file=$1
+  
+  echo "[INFO] Fetching Claude Code npm manifest..." >&2
+  
+  if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" -o "$manifest_file" 2>/dev/null; then
+    echo "[OK] NPM manifest saved to $manifest_file" >&2
+  else
+    echo "[FAIL] Could not fetch npm manifest" >&2
+    return 1
+  fi
+}
+
 # Process each sitemap
 echo "[INFO] Processing sitemaps..."
 DOCS_RESULT=$(process_sitemap "$SITEMAP_URL" "docs" "https://docs\\.anthropic\\.com/en/[^<]*claude-code[^<]*" "direct" "")
@@ -182,6 +203,9 @@ ANTHROPIC_RESULT=$(process_sitemap "$ANTHROPIC_SITEMAP_URL" "anthropic" "https:/
 # Fetch GitHub content
 echo "[INFO] Fetching GitHub content..."
 GITHUB_RESULT=$(fetch_github_content "$OUTPUT_DIR")
+
+# Fetch npm manifest
+fetch_npm_manifest "$MANIFEST_FILE"
 
 # Parse results with defaults
 read DOCS_SUCCESS DOCS_FAIL <<<"${DOCS_RESULT:-0 0}"
@@ -207,60 +231,98 @@ if [[ $TOTAL -eq 0 ]]; then
   echo "[WARN] No URLs found to fetch, exiting gracefully"
   cat >"$METADATA_FILE" <<EOF
 {
-  "fetch_date": "$FETCH_DATE",
-  "claude_version": "$CLAUDE_VERSION",
-  "total_urls": 0,
-  "downloaded": 0,
-  "failed": 0,
-  "format": "$FORMAT",
-  "sitemaps": {
+  "metadata": {
+    "version": "1.0",
+    "fetch_date": "$FETCH_DATE",
+    "format": "$FORMAT"
+  },
+  "versions": {
+    "latest_npm": "$LATEST_NPM_VERSION",
+    "npm_package": "@anthropic-ai/claude-code"
+  },
+  "sources": {
     "docs": {
+      "name": "Anthropic Documentation",
       "url": "$SITEMAP_URL",
-      "downloaded": 0,
-      "failed": 0
+      "pattern": "claude-code",
+      "output_dir": "claude-code-docs",
+      "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     },
-    "anthropic": {
+    "blog": {
+      "name": "Anthropic Blog", 
       "url": "$ANTHROPIC_SITEMAP_URL",
-      "downloaded": 0,
-      "failed": 0
+      "pattern": "claude-code",
+      "output_dir": "anthropic-blog",
+      "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     },
     "github": {
+      "name": "GitHub Repository",
       "url": "$GITHUB_REPO_URL",
-      "downloaded": 0,
-      "failed": 0
+      "files": ["CHANGELOG.md"],
+      "output_dir": "claude-code",
+      "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     }
   },
-  "error": "No URLs found in sitemaps"
+  "summary": {
+    "total_sources": 3,
+    "total_files": 0,
+    "total_downloaded": 0,
+    "total_failed": 0,
+    "success_rate": 0,
+    "error": "No URLs found in sitemaps"
+  }
 }
 EOF
   echo "[INFO] Created metadata file with error status"
   exit 0
 fi
 
+# Calculate success rate
+SUCCESS_RATE=0
+if [[ $TOTAL -gt 0 ]]; then
+  SUCCESS_RATE=$(echo "scale=1; $SUCCESS * 100 / $TOTAL" | bc 2>/dev/null || echo "$((SUCCESS * 100 / TOTAL))")
+fi
+
 cat >"$METADATA_FILE" <<EOF
 {
-  "fetch_date": "$FETCH_DATE",
-  "claude_version": "$CLAUDE_VERSION",
-  "total_urls": $TOTAL,
-  "downloaded": $SUCCESS,
-  "failed": $FAIL,
-  "format": "$FORMAT",
-  "sitemaps": {
+  "metadata": {
+    "version": "1.0",
+    "fetch_date": "$FETCH_DATE",
+    "format": "$FORMAT"
+  },
+  "versions": {
+    "latest_npm": "$LATEST_NPM_VERSION",
+    "npm_package": "@anthropic-ai/claude-code"
+  },
+  "sources": {
     "docs": {
+      "name": "Anthropic Documentation",
       "url": "$SITEMAP_URL",
-      "downloaded": $DOCS_SUCCESS,
-      "failed": $DOCS_FAIL
+      "pattern": "claude-code",
+      "output_dir": "claude-code-docs",
+      "stats": { "downloaded": $DOCS_SUCCESS, "failed": $DOCS_FAIL, "total": $((DOCS_SUCCESS + DOCS_FAIL)) }
     },
-    "anthropic": {
-      "url": "$ANTHROPIC_SITEMAP_URL",
-      "downloaded": $ANTHROPIC_SUCCESS,
-      "failed": $ANTHROPIC_FAIL
+    "blog": {
+      "name": "Anthropic Blog",
+      "url": "$ANTHROPIC_SITEMAP_URL", 
+      "pattern": "claude-code",
+      "output_dir": "anthropic-blog",
+      "stats": { "downloaded": $ANTHROPIC_SUCCESS, "failed": $ANTHROPIC_FAIL, "total": $((ANTHROPIC_SUCCESS + ANTHROPIC_FAIL)) }
     },
     "github": {
+      "name": "GitHub Repository",
       "url": "$GITHUB_REPO_URL",
-      "downloaded": $GITHUB_SUCCESS,
-      "failed": $GITHUB_FAIL
+      "files": ["CHANGELOG.md"],
+      "output_dir": "claude-code",
+      "stats": { "downloaded": $GITHUB_SUCCESS, "failed": $GITHUB_FAIL, "total": $((GITHUB_SUCCESS + GITHUB_FAIL)) }
     }
+  },
+  "summary": {
+    "total_sources": 3,
+    "total_files": $TOTAL,
+    "total_downloaded": $SUCCESS,
+    "total_failed": $FAIL,
+    "success_rate": $SUCCESS_RATE
   }
 }
 EOF

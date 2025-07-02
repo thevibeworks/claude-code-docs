@@ -21,6 +21,7 @@ jobs:
        (github.actor == 'lroolle' || 
         github.actor == github.repository_owner ||
         github.actor == 'github-actions[bot]' ||
+        github.actor == 'claude-yolo[bot]' ||
         contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)))
 
     runs-on: ubuntu-latest
