@@ -1,25 +1,41 @@
 {
-  "fetch_date": "2025-07-02T07:20:58Z",
-  "claude_version": "unknown",
-  "total_urls": 32,
-  "downloaded": 31,
-  "failed": 1,
-  "format": "md",
-  "sitemaps": {
+  "metadata": {
+    "version": "1.0",
+    "fetch_date": "2025-07-02T10:13:15Z",
+    "format": "md"
+  },
+  "versions": {
+    "latest_npm": "1.0.40",
+    "npm_package": "@anthropic-ai/claude-code"
+  },
+  "sources": {
     "docs": {
+      "name": "Anthropic Documentation",
       "url": "https://docs.anthropic.com/sitemap.xml",
-      "downloaded": 28,
-      "failed": 0
+      "pattern": "claude-code",
+      "output_dir": "claude-code-docs",
+      "stats": { "downloaded": 28, "failed": 0, "total": 28 }
     },
-    "anthropic": {
-      "url": "https://www.anthropic.com/sitemap.xml",
-      "downloaded": 3,
-      "failed": 0
+    "blog": {
+      "name": "Anthropic Blog",
+      "url": "https://www.anthropic.com/sitemap.xml", 
+      "pattern": "claude-code",
+      "output_dir": "anthropic-blog",
+      "stats": { "downloaded": 3, "failed": 0, "total": 3 }
     },
     "github": {
+      "name": "GitHub Repository",
       "url": "https://github.com/anthropics/claude-code",
-      "downloaded": 0,
-      "failed": 1
+      "files": ["CHANGELOG.md"],
+      "output_dir": "claude-code",
+      "stats": { "downloaded": 0, "failed": 1, "total": 1 }
     }
+  },
+  "summary": {
+    "total_sources": 3,
+    "total_files": 32,
+    "total_downloaded": 31,
+    "total_failed": 1,
+    "success_rate": 96.8
   }
 }
