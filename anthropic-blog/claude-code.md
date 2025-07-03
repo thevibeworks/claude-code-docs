@@ -6,7 +6,14 @@ Markdown Content:
 Your code’s new collaborator
 ----------------------------
 
+Your code’s new collaborator
+----------------------------
+
 Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command.Your tools. Your workflow. Your codebase, evolving at thought speed.
+
+✢
+
+Smooshing…
 
 Trusted by engineers at
 -----------------------
@@ -29,6 +36,14 @@ Watch as Claude Code tackles an unfamiliar Next.js project, builds new functiona
 ![Image 6: Video thumbnail: Introducing Claude Code](https://img.youtube.com/vi/AJpK3YTTKZ4/sddefault.jpg)
 
 Claude Code embeds Claude Opus 4—the same model our researchers and engineers use—right in your terminal. It has deep codebase awareness and the ability to edit files and run commands directly in your environment.
+
+✢
+
+Crunching…
+
+✢
+
+Clauding…
 
 ### Powerful intelligence
 
@@ -84,6 +99,14 @@ Works with all of your command line tools
 What could you do with Claude Code?
 -----------------------------------
 
+✢
+
+Mulling…
+
+✢
+
+Vibing…
+
 ### Code onboarding
 
 Claude Code maps and explains entire codebases in a few seconds. It uses agentic search to understand project structure and dependencies without you having to manually select context files.
@@ -117,26 +140,6 @@ Anton Biryukov
 Staff Software Engineer at Ramp
 
 ![Image 23: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
-
-“
-
-Claude Code marks a threshold moment for AI in software development. At Intercom, it enables us to build applications we wouldn't have had bandwidth for—from AI labeling tools to ROI calculators for our Sales team. Its ability to handle complex, multi-step tasks sets it apart from alternatives. Claude Code is fundamentally changing what's possible for our engineering teams.
-
-Fergal Reid
-
-VP of AI at Intercom
-
-![Image 24: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
-
-“
-
-Some interesting data on how Anthropic’s Sonnet 3.5 seems to remain by far the most capable LLM for coding. Every single leading GenAI-powered IDE (Cursor, Windsurf, Zed, Copilot etc) favor this model. A good question: how is Claude *so* much better for code generation?
-
-Bradley Silicani
-
-COO, Anrok
-
-![Image 25: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
 
 What developers say about Claude Code
 -------------------------------------
@@ -174,7 +177,7 @@ Pay-as-you-go with standard Anthropic API pricing.
 
 Prices shown do not include applicable tax. [Usage limits](https://support.anthropic.com/en/articles/9797557-usage-limit-best-practices) may apply.
 
-![Image 26](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed67fc18fe086b196a7cab_Hands-Build.svg)
+![Image 24](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed67fc18fe086b196a7cab_Hands-Build.svg)
 
 Education plan
 --------------
@@ -194,21 +197,21 @@ Resources for successful adoption across your institution
 Get the technical rundown
 -------------------------
 
-![Image 27](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026809a6058737d33fa527_f81f07f771658cd88aa48f8832e27510_Code-Document.svg)
+![Image 25](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026809a6058737d33fa527_f81f07f771658cd88aa48f8832e27510_Code-Document.svg)
 
 Developer docs
 
 Claude Code documentation
 -------------------------
 
-![Image 28](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b7964de6dd5ae87c762_Nodes-BookOpen.svg)
+![Image 26](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b7964de6dd5ae87c762_Nodes-BookOpen.svg)
 
 Developer docs
 
 Claude Code tutorials
 ---------------------
 
-![Image 29](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026880cf9c298703e171db_10db2d4c511ab2f304fe012f04a87a78_Code-Presentation.svg)
+![Image 27](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026880cf9c298703e171db_10db2d4c511ab2f304fe012f04a87a78_Code-Presentation.svg)
 
 Case study
 
@@ -217,6 +220,9 @@ How Anthropic teams use Claude Code
 
 FAQs
 ----
+
+Create what’s exciting. Maintain what’s essential.Create what’s exciting.Maintain what’s essential.
+---------------------------------------------------------------------------------------------------
 
 Learn more
 
