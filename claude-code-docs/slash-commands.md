@@ -95,7 +95,7 @@ For example:
 
 ```bash
 # Command definition
-echo "Fix issue #$ARGUMENTS following our coding standards" > .claude/commands/fix-issue.md
+echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/fix-issue.md
 
 # Usage
 > /project:fix-issue 123
