@@ -76,7 +76,7 @@ jobs:
         with:
           use_bedrock: "true"
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
-          github_token: ${{ steps.app-token.outputs.token }}
+          github_token: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || steps.app-token.outputs.token }}
 
           # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)
           # model: "us.anthropic.claude-opus-4-20250514-v1:0"
