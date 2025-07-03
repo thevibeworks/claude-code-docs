@@ -187,11 +187,21 @@ fetch_npm_manifest() {
   
   echo "[INFO] Fetching Claude Code npm manifest..." >&2
   
-  if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" -o "$manifest_file" 2>/dev/null; then
-    echo "[OK] NPM manifest saved to $manifest_file" >&2
+  if command -v jq &>/dev/null; then
+    if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" 2>/dev/null | \
+       jq '.' > "$manifest_file" 2>/dev/null; then
+      echo "[OK] NPM manifest saved to $manifest_file (formatted)" >&2
+    else
+      echo "[FAIL] Could not fetch npm manifest" >&2
+      return 1
+    fi
   else
-    echo "[FAIL] Could not fetch npm manifest" >&2
-    return 1
+    if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" -o "$manifest_file" 2>/dev/null; then
+      echo "[OK] NPM manifest saved to $manifest_file (raw - jq not available)" >&2
+    else
+      echo "[FAIL] Could not fetch npm manifest" >&2
+      return 1
+    fi
   fi
 }
 

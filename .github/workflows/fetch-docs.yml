@@ -39,7 +39,7 @@ jobs:
         run: |
           # Exclude metadata-only changes
           git add .
-          if git diff --cached --name-only | grep -v '\.metadata\.json$' | head -1; then
+          if git diff --cached --name-only | grep -v -E '\.(metadata|claude-code-manifest)\.json$' | head -1; then
             echo "changes=true" >> $GITHUB_OUTPUT
             echo "Found meaningful documentation changes"
           else
@@ -53,15 +53,15 @@ jobs:
         id: analyze
         run: |
           # Get list of changed files
-          CHANGED_FILES=$(git diff --cached --name-only | grep -v '\.metadata\.json$' | sort)
+          CHANGED_FILES=$(git diff --cached --name-only | grep -v -E '\.(metadata|claude-code-manifest)\.json$' | sort)
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          
+
           # Get summary stats
           FILES_COUNT=$(echo "$CHANGED_FILES" | wc -l)
           echo "files_count=$FILES_COUNT" >> $GITHUB_OUTPUT
-          
+
           # Get timestamp
           FETCH_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           echo "fetch_time=$FETCH_TIME" >> $GITHUB_OUTPUT
@@ -71,22 +71,24 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.app-token.outputs.token }}
+          author: "claude-yolo[bot] <claude-yolo@lroole.com>"
+          committer: "claude-yolo[bot] <claude-yolo@lroole.com>"
           commit-message: |
             docs: update Claude Code documentation
-            
+
             Updated ${{ steps.analyze.outputs.files_count }} files from docs.anthropic.com
             Fetched: ${{ steps.analyze.outputs.fetch_time }}
           title: "docs: update Claude Code documentation (${{ steps.analyze.outputs.files_count }} files)"
           body: |
             ## Documentation Update
-            
+
             Automated update fetched from docs.anthropic.com on **${{ steps.analyze.outputs.fetch_time }}**.
-            
+
             ### Changed Files (${{ steps.analyze.outputs.files_count }})
             ```
             ${{ steps.analyze.outputs.changed_files }}
             ```
-            
+
             ### Details
             - Source: docs.anthropic.com  
             - Workflow: Fetch Claude Code Docs
