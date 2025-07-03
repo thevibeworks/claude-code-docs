@@ -59,8 +59,8 @@ jobs:
           # GitHub CLI is pre-installed on ubuntu-latest, but ensure it's configured
           gh --version
           git --version
-          git config --global user.name "Claude Code"
-          git config --global user.email "claude-code@anthropic.com"
+          git config --global user.name "claude-yolo[bot]"
+          git config --global user.email "claude-yolo@lroole.com"
 
       - name: Run Claude Code Review
         id: claude-review
@@ -78,10 +78,10 @@ jobs:
           # Allow Claude Code full repository management capabilities (matches .claude/settings.json)
           allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./fetchccdocs.sh:*)"
 
-          # Optional: Skip review for certain conditions
-          if: |
-            !contains(github.event.pull_request.title, '[skip-review]') &&
-            !contains(github.event.pull_request.title, '[WIP]')
+          # # Optional: Skip review for certain conditions
+          # if: |
+          #   !contains(github.event.pull_request.title, '[skip-review]') &&
+          #   !contains(github.event.pull_request.title, '[WIP]')
 
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
