@@ -18,7 +18,7 @@ jobs:
       (github.event_name == 'issue_comment' &&
        github.event.issue.pull_request &&
        contains(github.event.comment.body, '@claude') &&
-       (github.actor == 'lroolle' || 
+       (github.actor == 'lroolle' ||
         github.actor == github.repository_owner ||
         github.actor == 'github-actions[bot]' ||
         github.actor == 'claude-yolo[bot]' ||
@@ -26,10 +26,10 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: write
       issues: write
-      id-token: write
+      id-token: read
     env:
       AWS_REGION: us-west-2
 
@@ -75,6 +75,14 @@ jobs:
           # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)
           # model: "us.anthropic.claude-opus-4-20250514-v1:0"
 
+          # Allow Claude Code full repository management capabilities (matches .claude/settings.json)
+          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./fetchccdocs.sh:*)"
+
+          # Optional: Skip review for certain conditions
+          if: |
+            !contains(github.event.pull_request.title, '[skip-review]') &&
+            !contains(github.event.pull_request.title, '[WIP]')
+
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
             You are the autonomous maintainer of the claude-code-docs repository - a documentation and resources repository for Claude Code.
@@ -105,7 +113,7 @@ jobs:
                - Major architectural changes
                - Legal or compliance concerns
 
-            **Your Actions**: 
+            **Your Actions**:
             - Comment with your decision rationale
             - Merge using `gh pr merge {PR_NUMBER} --squash` if appropriate
             - For significant updates, mention @lroolle in your comment to notify the maintainer
@@ -129,12 +137,3 @@ jobs:
           #   ${{ github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' &&
           #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
           #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
-
-          # Allow Claude Code full repository management capabilities (matches .claude/settings.json)
-          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./fetchccdocs.sh:*)"
-
-          # Optional: Skip review for certain conditions
-          # if: |
-          #   !contains(github.event.pull_request.title, '[skip-review]') &&
-          #   !contains(github.event.pull_request.title, '[WIP]')
-
