@@ -39,7 +39,7 @@ jobs:
         run: |
           # Exclude metadata-only changes
           git add .
-          if git diff --cached --name-only | grep -v -E '\.(metadata|claude-code-manifest)\.json$' | head -1; then
+          if git diff --cached --name-only | grep -v -E '(\.metadata|claude-code-manifest)\.json$' | head -1; then
             echo "changes=true" >> $GITHUB_OUTPUT
             echo "Found meaningful documentation changes"
           else
@@ -53,7 +53,7 @@ jobs:
         id: analyze
         run: |
           # Get list of changed files
-          CHANGED_FILES=$(git diff --cached --name-only | grep -v -E '\.(metadata|claude-code-manifest)\.json$' | sort)
+          CHANGED_FILES=$(git diff --cached --name-only | grep -v -E '(\.metadata|claude-code-manifest)\.json$' | sort)
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT

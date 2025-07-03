@@ -64,6 +64,9 @@ jobs:
 
       - name: Run Claude Code Review
         id: claude-review
+        if: |
+          !contains(github.event.pull_request.title, '[skip-review]') &&
+          !contains(github.event.pull_request.title, '[WIP]')
         uses: anthropics/claude-code-action@beta
         env:
           CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
@@ -77,11 +80,6 @@ jobs:
 
           # Allow Claude Code full repository management capabilities (matches .claude/settings.json)
           allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./fetchccdocs.sh:*)"
-
-          # # Optional: Skip review for certain conditions
-          # if: |
-          #   !contains(github.event.pull_request.title, '[skip-review]') &&
-          #   !contains(github.event.pull_request.title, '[WIP]')
 
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
