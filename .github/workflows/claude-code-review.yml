@@ -29,6 +29,9 @@ jobs:
       contents: write
       pull-requests: write
       issues: write
+      actions: read
+      checks: write
+      statuses: write
       id-token: write
     env:
       AWS_REGION: us-west-2
