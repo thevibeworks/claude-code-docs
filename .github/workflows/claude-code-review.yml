@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: Generate GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@beta
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -77,6 +77,10 @@ jobs:
           use_bedrock: "true"
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
           github_token: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || steps.app-token.outputs.token }}
+          
+          # TODO: When PR #117 is merged, replace conditional token logic with:
+          # allow_bot_users: true
+          # github_token: ${{ steps.app-token.outputs.token }}
 
           # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)
           # model: "us.anthropic.claude-opus-4-20250514-v1:0"
