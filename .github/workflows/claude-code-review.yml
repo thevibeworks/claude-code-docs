@@ -70,17 +70,14 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        uses: anthropics/claude-code-action@beta
+        uses: thevibeworks/claude-code-action@fix/allow-bot-users
         env:
           CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
         with:
           use_bedrock: "true"
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
-          github_token: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || steps.app-token.outputs.token }}
-          
-          # TODO: When PR #117 is merged, replace conditional token logic with:
-          # allow_bot_users: true
-          # github_token: ${{ steps.app-token.outputs.token }}
+          github_token: ${{ steps.app-token.outputs.token }}
+          allow_bot_users: true
 
           # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)
           # model: "us.anthropic.claude-opus-4-20250514-v1:0"
