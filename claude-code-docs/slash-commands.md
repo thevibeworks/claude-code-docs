@@ -34,27 +34,25 @@ Custom slash commands allow you to define frequently-used prompts as Markdown fi
 ### Syntax
 
 ```
-/<prefix>:<command-name> [arguments]
+/<command-name> [arguments]
 ```
 
 #### Parameters
 
-| Parameter        | Description                                                         |
-| :--------------- | :------------------------------------------------------------------ |
-| `<prefix>`       | Command scope (`project` for project-specific, `user` for personal) |
-| `<command-name>` | Name derived from the Markdown filename (without `.md` extension)   |
-| `[arguments]`    | Optional arguments passed to the command                            |
+| Parameter        | Description                                                       |
+| :--------------- | :---------------------------------------------------------------- |
+| `<command-name>` | Name derived from the Markdown filename (without `.md` extension) |
+| `[arguments]`    | Optional arguments passed to the command                          |
 
 ### Command types
 
 #### Project commands
 
-Commands stored in your repository and shared with your team.
+Commands stored in your repository and shared with your team. When listed in `/help`, these commands show "(project)" after their description.
 
-**Location**: `.claude/commands/`\
-**Prefix**: `/project:`
+**Location**: `.claude/commands/`
 
-In the following example, we create the `/project:optimize` command:
+In the following example, we create the `/optimize` command:
 
 ```bash
 # Create a project command
@@ -64,12 +62,11 @@ echo "Analyze this code for performance issues and suggest optimizations:" > .cl
 
 #### Personal commands
 
-Commands available across all your projects.
+Commands available across all your projects. When listed in `/help`, these commands show "(user)" after their description.
 
-**Location**: `~/.claude/commands/`\
-**Prefix**: `/user:`
+**Location**: `~/.claude/commands/`
 
-In the following example, we create the  `/user:security-review` command:
+In the following example, we create the `/security-review` command:
 
 ```bash
 # Create a personal command
@@ -81,11 +78,9 @@ echo "Review this code for security vulnerabilities:" > ~/.claude/commands/secur
 
 #### Namespacing
 
-Organize commands in subdirectories to create namespaced commands.
+Organize commands in subdirectories. The subdirectory name appears in the command's description to help identify its source.
 
-**Structure**: `<prefix>:<namespace>:<command>`
-
-For example, a file at `.claude/commands/frontend/component.md` creates the command `/project:frontend:component`
+For example, a file at `.claude/commands/frontend/component.md` creates the command `/component` with description showing "(project:frontend)"
 
 #### Arguments
 
@@ -98,7 +93,7 @@ For example:
 echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/fix-issue.md
 
 # Usage
-> /project:fix-issue 123
+> /fix-issue 123
 ```
 
 #### Bash command execution

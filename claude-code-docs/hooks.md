@@ -74,18 +74,20 @@ Then press Esc until you return to the REPL. Your hook is now registered!
 Run `/hooks` again or check `~/.claude/settings.json` to see your configuration:
 
 ```json
-"hooks": {
-  "PreToolUse": [
-    {
-      "matcher": "Bash",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "jq -r '\"\\(.tool_input.command) - \\(.tool_input.description // \"No description\")\"' >> ~/.claude/bash-command-log.txt"
-        }
-      ]
-    }
-  ]
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '\"\\(.tool_input.command) - \\(.tool_input.description // \"No description\")\"' >> ~/.claude/bash-command-log.txt"
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -130,7 +132,7 @@ Hooks are organized by matchers, where each matcher can have multiple hooks:
   * `type`: Currently only `"command"` is supported
   * `command`: The bash command to execute
   * `timeout`: (Optional) How long a command should run, in seconds, before
-    canceling all in-progress hooks.
+    canceling that specific command.
 
 ## Hook Events
 
@@ -179,6 +181,7 @@ event-specific data:
   transcript_path: string  // Path to conversation JSON
 
   // Event-specific fields
+  hook_event_name: string
   ...
 }
 ```
@@ -191,6 +194,7 @@ The exact schema for `tool_input` depends on the tool.
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "hook_event_name": "PreToolUse",
   "tool_name": "Write",
   "tool_input": {
     "file_path": "/path/to/file.txt",
@@ -207,6 +211,7 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "hook_event_name": "PostToolUse",
   "tool_name": "Write",
   "tool_input": {
     "file_path": "/path/to/file.txt",
@@ -225,8 +230,8 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
-  "message": "Task completed successfully",
-  "title": "Claude Code"
+  "hook_event_name": "Notification",
+  "message": "Task completed successfully"
 }
 ```
 
@@ -240,6 +245,7 @@ from running indefinitely.
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "hook_event_name": "Stop",
   "stop_hook_active": true
 }
 ```
@@ -537,7 +543,7 @@ This prevents malicious hook modifications from affecting your current session.
 ## Hook Execution Details
 
 * **Timeout**: 60-second execution limit by default, configurable per command.
-  * If any individual command times out, all in-progress hooks are cancelled.
+  * A timeout for an individual command does not affect the other commands.
 * **Parallelization**: All matching hooks run in parallel
 * **Environment**: Runs in current directory with Claude Code's environment
 * **Input**: JSON via stdin

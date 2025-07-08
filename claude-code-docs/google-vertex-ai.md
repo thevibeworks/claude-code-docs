@@ -57,10 +57,21 @@ export ANTHROPIC_VERTEX_PROJECT_ID=YOUR-PROJECT-ID
 
 # Optional: Disable prompt caching if needed
 export DISABLE_PROMPT_CACHING=1
+
+# Optional: Override regions for specific models
+export VERTEX_REGION_CLAUDE_3_5_HAIKU=us-central1
+export VERTEX_REGION_CLAUDE_3_5_SONNET=us-east5
+export VERTEX_REGION_CLAUDE_3_7_SONNET=us-east5
+export VERTEX_REGION_CLAUDE_4_0_OPUS=europe-west4
+export VERTEX_REGION_CLAUDE_4_0_SONNET=us-east5
 ```
 
 <Note>
   [Prompt caching](/en/docs/build-with-claude/prompt-caching) is automatically supported when you specify the `cache_control` ephemeral flag. To disable it, set `DISABLE_PROMPT_CACHING=1`. For heightened rate limits, contact Google Cloud support.
+</Note>
+
+<Note>
+  When using Vertex AI, the `/login` and `/logout` commands are disabled since authentication is handled through Google Cloud credentials.
 </Note>
 
 ### 5. Model configuration

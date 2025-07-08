@@ -60,10 +60,17 @@ Set the following environment variables to enable Bedrock:
 # Enable Bedrock integration
 export CLAUDE_CODE_USE_BEDROCK=1
 export AWS_REGION=us-east-1  # or your preferred region
+
+# Optional: Override the region for the small/fast model (Haiku)
+export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
 ```
 
 <Note>
   `AWS_REGION` is a required environment variable. Claude Code does not read from the `.aws` config file for this setting.
+</Note>
+
+<Note>
+  When using Bedrock, the `/login` and `/logout` commands are disabled since authentication is handled through AWS credentials.
 </Note>
 
 ### 4. Model configuration
@@ -88,7 +95,29 @@ export ANTHROPIC_MODEL='arn:aws:bedrock:us-east-2:your-account-id:application-in
 
 ## IAM configuration
 
-Create an IAM policy with the required permissions for Claude Code.
+Create an IAM policy with the required permissions for Claude Code:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream",
+        "bedrock:ListInferenceProfiles"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:*:*:inference-profile/*",
+        "arn:aws:bedrock:*:*:application-inference-profile/*"
+      ]
+    }
+  ]
+}
+```
+
+For more restrictive permissions, you can limit the Resource to specific inference profile ARNs.
 
 For details, see [Bedrock IAM documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/security-iam.html).
 
