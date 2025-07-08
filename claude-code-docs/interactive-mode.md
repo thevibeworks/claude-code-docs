@@ -74,7 +74,7 @@ Enable vim-style editing with `/vim` command or configure permanently via `/conf
 | `.`            | Repeat last change      |
 
 <Tip>
-  Configure your preferred line break behavior in terminal settings. Run `/terminal-setup` to install Shift+Enter binding for iTerm2 and VSCode terminals.
+  Configure your preferred line break behavior in terminal settings. Run `/terminal-setup` to install Shift+Enter binding for iTerm2 and VS Code terminals.
 </Tip>
 
 ## Command history
