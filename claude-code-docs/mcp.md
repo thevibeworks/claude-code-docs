@@ -140,6 +140,42 @@ Select your scope based on:
 * **Project scope**: Team-shared servers, project-specific tools, or services required for collaboration
 * **User scope**: Personal utilities needed across multiple projects, development tools, or frequently-used services
 
+### Environment variable expansion in `.mcp.json`
+
+Claude Code supports environment variable expansion in `.mcp.json` files, allowing teams to share configurations while maintaining flexibility for machine-specific paths and sensitive values like API keys.
+
+**Supported syntax:**
+
+* `${VAR}` - Expands to the value of environment variable `VAR`
+* `${VAR:-default}` - Expands to `VAR` if set, otherwise uses `default`
+
+**Expansion locations:**
+Environment variables can be expanded in:
+
+* `command` - The server executable path
+* `args` - Command-line arguments
+* `env` - Environment variables passed to the server
+* `url` - For SSE/HTTP server types
+* `headers` - For SSE/HTTP server authentication
+
+**Example with variable expansion:**
+
+```json
+{
+  "mcpServers": {
+    "api-server": {
+      "type": "sse",
+      "url": "${API_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+If a required environment variable is not set and has no default value, Claude Code will fail to parse the config.
+
 ## Authenticate with remote MCP servers
 
 Many remote MCP servers require authentication. Claude Code supports OAuth 2.0 authentication flow for secure connection to these servers.

@@ -28,7 +28,7 @@ This page provides an overview of available deployment options and helps you cho
       <td>Prompt caching</td>
       <td>Enabled by default</td>
       <td>Enabled by default</td>
-      <td>Contact Google for enablement</td>
+      <td>Enabled by default</td>
     </tr>
 
     <tr>
