@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-07-11T07:22:02Z",
+    "fetch_date": "2025-07-11T09:35:45Z",
     "format": "md"
   },
   "versions": {
@@ -18,7 +18,7 @@
     },
     "blog": {
       "name": "Anthropic Blog",
-      "url": "https://www.anthropic.com/sitemap.xml", 
+      "url": "https://www.anthropic.com/sitemap.xml",
       "pattern": "claude-code",
       "output_dir": "anthropic-blog",
       "stats": { "downloaded": 3, "failed": 0, "total": 3 }
@@ -27,15 +27,15 @@
       "name": "GitHub Repository",
       "url": "https://github.com/anthropics/claude-code",
       "files": ["CHANGELOG.md"],
-      "output_dir": "claude-code",
-      "stats": { "downloaded": 0, "failed": 1, "total": 1 }
+      "output_dir": "release-notes",
+      "stats": { "downloaded": 1, "failed": 0, "total": 1 }
     }
   },
   "summary": {
     "total_sources": 3,
     "total_files": 33,
-    "total_downloaded": 32,
-    "total_failed": 1,
-    "success_rate": 96.9
+    "total_downloaded": 33,
+    "total_failed": 0,
+    "success_rate": 100.0
   }
 }

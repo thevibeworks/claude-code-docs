@@ -6,7 +6,7 @@
 set -uo pipefail
 
 FORMAT="md"
-OUTPUT_DIR="."
+OUTPUT_DIR="content"
 SITEMAP_URL="https://docs.anthropic.com/sitemap.xml"
 ANTHROPIC_SITEMAP_URL="https://www.anthropic.com/sitemap.xml"
 GITHUB_REPO_URL="https://github.com/anthropics/claude-code"
@@ -38,6 +38,7 @@ echo "[INFO] Using sitemaps: $SITEMAP_URL and $ANTHROPIC_SITEMAP_URL"
 # Create directory structure
 mkdir -p "$OUTPUT_DIR/claude-code-docs"
 mkdir -p "$OUTPUT_DIR/anthropic-blog"
+mkdir -p "$OUTPUT_DIR/release-notes"
 
 METADATA_FILE="$OUTPUT_DIR/.metadata.json"
 MANIFEST_FILE="$OUTPUT_DIR/claude-code-manifest.json"
@@ -46,11 +47,11 @@ FETCH_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 # Get latest version from npm registry
 LATEST_NPM_VERSION="unknown"
 if command -v curl &>/dev/null && command -v jq &>/dev/null; then
-  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null | \
+  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null |
     jq -r '.latest' 2>/dev/null || echo "unknown")
 elif command -v curl &>/dev/null; then
   # Fallback without jq
-  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null | \
+  LATEST_NPM_VERSION=$(curl -sSL "https://registry.npmjs.org/-/package/@anthropic-ai/claude-code/dist-tags" 2>/dev/null |
     grep -o '"latest":"[^"]*"' | cut -d'"' -f4 || echo "unknown")
 fi
 
@@ -169,7 +170,7 @@ fetch_github_content() {
 
   echo "[INFO] Fetching GitHub content..." >&2
 
-  local changelog_file="$output_dir/claude-code/CHANGELOG.md"
+  local changelog_file="$output_dir/release-notes/CHANGELOG.md"
   echo "[DEBUG] Fetching CHANGELOG.md..." >&2
   if curl -sS -f -L "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md" -o "$changelog_file"; then
     echo "[OK] CHANGELOG.md" >&2
@@ -184,12 +185,12 @@ fetch_github_content() {
 
 fetch_npm_manifest() {
   local manifest_file=$1
-  
+
   echo "[INFO] Fetching Claude Code npm manifest..." >&2
-  
+
   if command -v jq &>/dev/null; then
-    if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" 2>/dev/null | \
-       jq '.' > "$manifest_file" 2>/dev/null; then
+    if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" 2>/dev/null |
+      jq '.' >"$manifest_file" 2>/dev/null; then
       echo "[OK] NPM manifest saved to $manifest_file (formatted)" >&2
     else
       echo "[FAIL] Could not fetch npm manifest" >&2
@@ -259,7 +260,7 @@ if [[ $TOTAL -eq 0 ]]; then
       "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     },
     "blog": {
-      "name": "Anthropic Blog", 
+      "name": "Anthropic Blog",
       "url": "$ANTHROPIC_SITEMAP_URL",
       "pattern": "claude-code",
       "output_dir": "anthropic-blog",
@@ -269,7 +270,7 @@ if [[ $TOTAL -eq 0 ]]; then
       "name": "GitHub Repository",
       "url": "$GITHUB_REPO_URL",
       "files": ["CHANGELOG.md"],
-      "output_dir": "claude-code",
+      "output_dir": "release-notes",
       "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     }
   },
@@ -314,7 +315,7 @@ cat >"$METADATA_FILE" <<EOF
     },
     "blog": {
       "name": "Anthropic Blog",
-      "url": "$ANTHROPIC_SITEMAP_URL", 
+      "url": "$ANTHROPIC_SITEMAP_URL",
       "pattern": "claude-code",
       "output_dir": "anthropic-blog",
       "stats": { "downloaded": $ANTHROPIC_SUCCESS, "failed": $ANTHROPIC_FAIL, "total": $((ANTHROPIC_SUCCESS + ANTHROPIC_FAIL)) }
@@ -323,7 +324,7 @@ cat >"$METADATA_FILE" <<EOF
       "name": "GitHub Repository",
       "url": "$GITHUB_REPO_URL",
       "files": ["CHANGELOG.md"],
-      "output_dir": "claude-code",
+      "output_dir": "release-notes",
       "stats": { "downloaded": $GITHUB_SUCCESS, "failed": $GITHUB_FAIL, "total": $((GITHUB_SUCCESS + GITHUB_FAIL)) }
     }
   },
