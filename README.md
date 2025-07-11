@@ -84,6 +84,34 @@ claude "Help me configure environment variables for my team using the settings d
 claude "Using the settings documentation, create a settings.json that allows npm scripts, git commands, but blocks network requests"
 ```
 
+## 🚀 MCP Server Integration
+
+This repository now includes a **Model Context Protocol (MCP) server** that provides structured access to all Claude Code documentation through Claude Code itself!
+
+### Quick Setup
+
+1. **Install the MCP server:**
+   ```bash
+   ./install-mcp-server.sh
+   ```
+
+2. **Start using it with Claude Code:**
+   ```bash
+   claude "Search the documentation for MCP integration"
+   claude "I'm new to Claude Code, give me a beginner learning path"
+   claude "Help me troubleshoot authentication issues"
+   ```
+
+### MCP Server Features
+
+- 🔍 **Smart Documentation Search** - Find answers across all Claude Code docs
+- 📚 **Personalized Learning Paths** - Get step-by-step guidance based on your skill level
+- 🆘 **Contextual Help** - Get specific help for your current situation or errors  
+- 📈 **Progress Tracking** - Track your learning journey with badges and achievements
+- 🧠 **Concept Explanations** - Deep dive into Claude Code concepts with examples
+
+[📖 Read the full MCP Server documentation](MCP_SERVER_README.md)
+
 ## Disclaimer
 
 This is an unofficial mirror for **educational purposes**. For official documentation, visit https://docs.anthropic.com/claude-code. For commercial use, please consult Anthropic's [commercial terms](https://www.anthropic.com/legal/commercial-terms).
