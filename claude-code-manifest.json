@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "1.0.44",
+  "version": "1.0.48",
   "author": {
     "name": "Boris Cherny",
     "email": "boris@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@1.0.44",
+  "_id": "@anthropic-ai/claude-code@1.0.48",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -53,17 +53,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "81fc62bb9d2b4dfd100787831fc30b081f16dcee",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.44.tgz",
-    "fileCount": 53,
-    "integrity": "sha512-GCX0KeMcyhLlfs/dLWlMiHShAMmjt8d7xcVUS53z7VnV6s3cIIrRPsKQ/xX/Q9rFm5dSVmRnzU88Ku28fb3QKQ==",
+    "shasum": "a3e2af27d879ed68f9e947a0a47c93b0423cd667",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.48.tgz",
+    "fileCount": 54,
+    "integrity": "sha512-h63VBAZZ6Pl/DlYW2PjbfUeicZ4r9VSl8dymD3d+1lZEHwCPgfMpu3g+30+FDMs79Xqc7qSDm6CRnMApxhbjqw==",
     "signatures": [
       {
-        "sig": "MEYCIQClMqSLA4YAnV2KmhEaoHZL7GBcn8TDHzMBdf6SAhRj+QIhAOML9KFSNVb5fA9fFpFLAWrO01ZXP9i8adlML1rhxElg",
+        "sig": "MEQCIE89e6ELdkKyMkyFw2/IghLFbV/JQuZ4U/hikz9t6FDjAiBrwdHOMcnZgla//ADjLwfcw5GH8ZV6p2SSVZjHdOIL4w==",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 169291968
+    "unpackedSize": 169319485
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -71,7 +71,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "2c6e7111dd6094236ded24490091e44f6f3e5226",
+  "gitHead": "679a85dcd3f107f392279df8906208e6350fc70d",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\"",
     "preinstall": "node scripts/preinstall.js"
@@ -88,9 +88,10 @@
   "_npmVersion": "10.8.2",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
-  "_nodeVersion": "20.19.2",
+  "_nodeVersion": "20.19.3",
   "dependencies": {},
   "_hasShrinkwrap": false,
+  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@img/sharp-linux-arm": "^0.33.5",
     "@img/sharp-linux-x64": "^0.33.5",
@@ -100,7 +101,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_1.0.44_1751921712325_0.4088958128488962",
+    "tmp": "tmp/claude-code_1.0.48_1752109406299_0.6445420867899667",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }

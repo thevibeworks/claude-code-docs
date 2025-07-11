@@ -43,13 +43,19 @@ Code through hierarchical settings:
 
 `settings.json` supports a number of options:
 
-| Key                   | Description                                                                                                                                                                                                    | Example                         |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------ |
-| `apiKeyHelper`        | Custom script, to be executed in `/bin/sh`, to generate an auth value. This value will generally be sent as `X-Api-Key`, `Authorization: Bearer`, and `Proxy-Authorization: Bearer` headers for model requests | `/bin/generate_temp_api_key.sh` |
-| `cleanupPeriodDays`   | How long to locally retain chat transcripts (default: 30 days)                                                                                                                                                 | `20`                            |
-| `env`                 | Environment variables that will be applied to every session                                                                                                                                                    | `{"FOO": "bar"}`                |
-| `includeCoAuthoredBy` | Whether to include the `co-authored-by Claude` byline in git commits and pull requests (default: `true`)                                                                                                       | `false`                         |
-| `permissions`         | See table below for structure of permissions.                                                                                                                                                                  |                                 |
+| Key                          | Description                                                                                                                                                                                                    | Example                                                 |
+| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------ |
+| `apiKeyHelper`               | Custom script, to be executed in `/bin/sh`, to generate an auth value. This value will generally be sent as `X-Api-Key`, `Authorization: Bearer`, and `Proxy-Authorization: Bearer` headers for model requests | `/bin/generate_temp_api_key.sh`                         |
+| `cleanupPeriodDays`          | How long to locally retain chat transcripts (default: 30 days)                                                                                                                                                 | `20`                                                    |
+| `env`                        | Environment variables that will be applied to every session                                                                                                                                                    | `{"FOO": "bar"}`                                        |
+| `includeCoAuthoredBy`        | Whether to include the `co-authored-by Claude` byline in git commits and pull requests (default: `true`)                                                                                                       | `false`                                                 |
+| `permissions`                | See table below for structure of permissions.                                                                                                                                                                  |                                                         |
+| `hooks`                      | Configure custom commands to run before or after tool executions. See [hooks documentation](hooks)                                                                                                             | `{"PreToolUse": {"Bash": "echo 'Running command...'"}}` |
+| `model`                      | Override the default model to use for Claude Code                                                                                                                                                              | `"claude-3-5-sonnet-20241022"`                          |
+| `forceLoginMethod`           | Use `claudeai` to restrict login to Claude.ai accounts, `console` to restrict login to Anthropic Console (API usage billing) accounts                                                                          | `claudeai`                                              |
+| `enableAllProjectMcpServers` | Automatically approve all MCP servers defined in project `.mcp.json` files                                                                                                                                     | `true`                                                  |
+| `enabledMcpjsonServers`      | List of specific MCP servers from `.mcp.json` files to approve                                                                                                                                                 | `["memory", "github"]`                                  |
+| `disabledMcpjsonServers`     | List of specific MCP servers from `.mcp.json` files to reject                                                                                                                                                  | `["filesystem"]`                                        |
 
 ### Permission settings
 
@@ -150,7 +156,6 @@ Claude Code has access to a set of powerful tools that help it understand and mo
 
 | Tool             | Description                                          | Permission Required |
 | :--------------- | :--------------------------------------------------- | :------------------ |
-| **Agent**        | Runs a sub-agent to handle complex, multi-step tasks | No                  |
 | **Bash**         | Executes shell commands in your environment          | Yes                 |
 | **Edit**         | Makes targeted edits to specific files               | Yes                 |
 | **Glob**         | Finds files based on pattern matching                | No                  |
@@ -160,7 +165,7 @@ Claude Code has access to a set of powerful tools that help it understand and mo
 | **NotebookEdit** | Modifies Jupyter notebook cells                      | Yes                 |
 | **NotebookRead** | Reads and displays Jupyter notebook contents         | No                  |
 | **Read**         | Reads the contents of files                          | No                  |
-| **TodoRead**     | Reads the current session's task list                | No                  |
+| **Task**         | Runs a sub-agent to handle complex, multi-step tasks | No                  |
 | **TodoWrite**    | Creates and manages structured task lists            | No                  |
 | **WebFetch**     | Fetches content from a specified URL                 | Yes                 |
 | **WebSearch**    | Performs web searches with domain filtering          | Yes                 |

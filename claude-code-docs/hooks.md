@@ -123,8 +123,8 @@ Hooks are organized by matchers, where each matcher can have multiple hooks:
 }
 ```
 
-* **matcher**: Pattern to match tool names (only applicable for `PreToolUse` and
-  `PostToolUse`)
+* **matcher**: Pattern to match tool names, case-sensitive (only applicable for
+  `PreToolUse` and `PostToolUse`)
   * Simple strings match exactly: `Write` matches only the Write tool
   * Supports regex: `Edit|Write` or `Notebook.*`
   * If omitted or empty string, hooks run for all matching events
@@ -133,6 +133,10 @@ Hooks are organized by matchers, where each matcher can have multiple hooks:
   * `command`: The bash command to execute
   * `timeout`: (Optional) How long a command should run, in seconds, before
     canceling that specific command.
+
+<Warning>
+  `"matcher": "*"` is invalid. Instead, omit "matcher" or use `"matcher": ""`.
+</Warning>
 
 ## Hook Events
 
@@ -159,15 +163,28 @@ Recognizes the same matcher values as PreToolUse.
 
 ### Notification
 
-Runs when Claude Code sends notifications.
+Runs when Claude Code sends notifications. Notifications are sent when:
+
+1. Claude needs your permission to use a tool. Example: "Claude needs your permission to use Bash"
+2. The prompt input has been idle for at least 60 seconds. "Claude is waiting for your input"
 
 ### Stop
 
-Runs when the main Claude Code agent has finished responding.
+Runs when the main Claude Code agent has finished responding. Does not run if
+the stoppage occurred due to a user interrupt.
 
 ### SubagentStop
 
 Runs when a Claude Code subagent (Task tool call) has finished responding.
+
+### PreCompact
+
+Runs before Claude Code is about to run a compact operation.
+
+**Matchers:**
+
+* `manual` - Invoked from `/compact`
+* `auto` - Invoked from auto-compact (due to full context window)
 
 ## Hook Input
 
@@ -250,6 +267,21 @@ from running indefinitely.
 }
 ```
 
+### PreCompact Input
+
+For `manual`, `custom_instructions` comes from what the user passes into
+`/compact`. For `auto`, `custom_instructions` is empty.
+
+```json
+{
+  "session_id": "abc123",
+  "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "hook_event_name": "PreCompact",
+  "trigger": "manual",
+  "custom_instructions": ""
+}
+```
+
 ## Hook Output
 
 There are two ways for hooks to return output back to Claude Code. The output
@@ -280,6 +312,7 @@ Hooks communicate status through exit codes, stdout, and stderr:
 | `Notification` | N/A, shows stderr to user only                  |
 | `Stop`         | Blocks stoppage, shows error to Claude          |
 | `SubagentStop` | Blocks stoppage, shows error to Claude subagent |
+| `PreCompact`   | N/A, shows stderr to user only                  |
 
 ### Advanced: JSON Output
 
