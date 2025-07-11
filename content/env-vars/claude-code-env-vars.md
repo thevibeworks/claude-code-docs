@@ -1,6 +1,6 @@
 # Claude Code Environment Variables
 
-Found **216 unique environment variables** supported by Claude Code from v1.0.40 package analysis (verified complete).
+Found **225 unique environment variables** supported by Claude Code from v1.0.48 package analysis (verified complete).
 
 ## Extraction Methodology & Best Practices
 
@@ -8,13 +8,13 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 
 1. **Primary extraction from main CLI bundle:**
    ```bash
-   rg -o 'process\.env\.[A-Z_][A-Z0-9_]*' package/cli.js | sed 's/process\.env\.//' | sort | uniq > vars_cli.txt
+   rg -o 'process\.env\.[a-zA-Z_][a-zA-Z0-9_]*' package/cli.js | sed 's/process\.env\.//' | sort | uniq > vars_cli.txt
    ```
 
 2. **Check additional files in package:**
    ```bash
-   rg -o 'process\.env\.[A-Z_][A-Z0-9_]*' package/sdk.mjs | sed 's/process\.env\.//' | sort | uniq > vars_sdk.txt
-   rg -o 'process\.env\.[A-Z_][A-Z0-9_]*' package/scripts/preinstall.js | sed 's/process\.env\.//' | sort | uniq > vars_scripts.txt
+   rg -o 'process\.env\.[a-zA-Z_][a-zA-Z0-9_]*' package/sdk.mjs | sed 's/process\.env\.//' | sort | uniq > vars_sdk.txt
+   rg -o 'process\.env\.[a-zA-Z_][a-zA-Z0-9_]*' package/scripts/preinstall.js | sed 's/process\.env\.//' | sort | uniq > vars_scripts.txt
    ```
 
 3. **Combine and deduplicate:**
@@ -40,7 +40,7 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 
 ### Extraction Notes
 
-- **Pattern**: `process\.env\.[A-Z_][A-Z0-9_]*` captures standard env var naming
+- **Pattern**: `process\.env\.[a-zA-Z_][a-zA-Z0-9_]*` captures both uppercase and lowercase env var naming
 - **Sources**: cli.js (main), sdk.mjs (4 vars), scripts/preinstall.js (0 vars in v1.0.40)
 - **False positives**: Manually verify vars that look suspicious or too generic
 - **Categories**: Group by function (auth, cloud providers, debugging, etc.) for maintainability
@@ -58,8 +58,10 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 ## Model & API Settings
 - `ANTHROPIC_MODEL` - Specify which model to use
 - `ANTHROPIC_SMALL_FAST_MODEL` - Small/fast model for quick operations
-- `ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION_AWS_REGION` - AWS region for small model
+- `ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION` - AWS region for small model
 - `CLAUDE_CODE_MAX_OUTPUT_TOKENS` - Maximum output tokens limit
+- `CLAUDE_CODE_MAX_RETRIES` - Maximum retry attempts for API calls
+- `CLAUDE_CODE_OAUTH_TOKEN` - OAuth token for authentication
 - `API_TIMEOUT_MS` - API request timeout in milliseconds
 - `MAX_THINKING_TOKENS` - Maximum tokens for thinking/reasoning
 - `MAX_MCP_OUTPUT_TOKENS` - Maximum MCP output tokens
@@ -70,12 +72,10 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `DISABLE_PROMPT_CACHING` - Disable prompt caching
 - `CLAUDE_CODE_DISABLE_FINE_GRAINED_TOOL_STREAMING` - Disable fine-grained tool streaming
 - `DISABLE_INTERLEAVED_THINKING` - Disable interleaved thinking mode
-- `DISABLE_NON_ESSENTIAL_MODEL_CALLS` - Skip non-essential model calls
 - `DISABLE_COST_WARNINGS` - Disable cost warning notifications
 - `DISABLE_ERROR_REPORTING` - Disable error reporting
 - `CLAUDE_CODE_ENABLE_UNIFIED_READ_TOOL` - Enable unified read tool
 - `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` - Disable non-essential network traffic
-- `CLAUDE_CODE_DISABLE_COST_REPORTING` - Disable cost reporting
 
 ## Cloud Provider Authentication Bypass
 - `CLAUDE_CODE_SKIP_BEDROCK_AUTH` - Skip AWS Bedrock authentication
@@ -95,10 +95,13 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `GOOGLE_CLOUD_PROJECT` - GCP project ID
 - `GOOGLE_APPLICATION_CREDENTIALS` - GCP service account credentials
 - `GOOGLE_CLOUD_QUOTA_PROJECT` - GCP quota project
+- `google_cloud_project` - GCP project ID (lowercase)
+- `google_application_credentials` - GCP service account credentials (lowercase)
+- `gcloud_project` - Google Cloud project (alternate form)
 - `ANTHROPIC_VERTEX_PROJECT_ID` - Vertex AI project ID
 - `VERTEX_BASE_URL` - Custom Vertex base URL
 - `VERTEX_REGION_CLAUDE_3_5_HAIKU` - Vertex region for Claude 3.5 Haiku
-- `VERTEX_REGION_CLAUDE_3_5_SONNET` - Vertex region for Claude 3.5 Sonnet  
+- `VERTEX_REGION_CLAUDE_3_5_SONNET` - Vertex region for Claude 3.5 Sonnet
 - `VERTEX_REGION_CLAUDE_3_7_SONNET` - Vertex region for Claude 3.7 Sonnet
 - `VERTEX_REGION_CLAUDE_4_0_OPUS` - Vertex region for Claude 4.0 Opus
 - `VERTEX_REGION_CLAUDE_4_0_SONNET` - Vertex region for Claude 4.0 Sonnet
@@ -124,6 +127,7 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `NODE_V8_COVERAGE` - V8 coverage output directory
 - `DEV` - Development mode flag
 - `IS_DEMO` - Demo mode flag
+- `IS_SANDBOX` - Sandbox environment flag
 - `DISABLE_ERROR_REPORTING` - Disable error reporting
 - `CLAUDE_CODE_ENTRYPOINT` - Application entrypoint
 - `CLAUDE_CODE_ACTION` - Current action being performed
@@ -168,6 +172,11 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `HTTP_PROXY` - HTTP proxy URL
 - `HTTPS_PROXY` - HTTPS proxy URL
 - `NO_PROXY` - No proxy domains
+- `http_proxy` - HTTP proxy URL (lowercase)
+- `https_proxy` - HTTPS proxy URL (lowercase)
+- `no_proxy` - No proxy domains (lowercase)
+- `grpc_proxy` - gRPC proxy URL
+- `no_grpc_proxy` - No gRPC proxy domains
 - `ANTHROPIC_CUSTOM_HEADERS` - Custom headers for Anthropic API
 - `ANTHROPIC_BETAS` - Beta features to enable
 - `CLAUDE_CODE_CLIENT_CERT` - Client certificate for TLS authentication
@@ -256,7 +265,6 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `VTE_VERSION` - VTE terminal version
 - `XTERM_VERSION` - Xterm version
 - `WT_SESSION` - Windows Terminal session
-- `TMUX` - Tmux session
 - `STY` - Screen session
 
 ## Remote Access
@@ -275,6 +283,7 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `COREPACK_ENABLE_AUTO_PIN` - Corepack auto-pin
 - `NODE_OPTIONS` - Node.js options
 - `PKG_CONFIG_PATH` - pkg-config path
+- `npm_package_config_libvips` - npm package config for libvips
 
 ## Development Tools
 - `VSCODE_GIT_ASKPASS_MAIN` - VS Code Git askpass
@@ -308,8 +317,11 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `JEST_WORKER_ID` - Jest worker ID
 - `C` - C locale override
 - `__CFB` - CloudFlare bypass
+- `__CFBundleIdentifier` - macOS bundle identifier
 - `ZDOTDIR` - Zsh dot directory
 - `CLAUBBIT` - Custom Claude bit flag
+- `comspec` - Windows command interpreter
+- `ConEmuTask` - ConEmu task environment
 - `CLAUDE_CODE_DONT_INHERIT_ENV` - Don't inherit environment
 - `CLAUDE_CODE_EXTRA_BODY` - Extra request body data
 - `CLAUDE_SDK_MCP_SERVERS` - SDK MCP servers configuration
@@ -318,7 +330,6 @@ Found **216 unique environment variables** supported by Claude Code from v1.0.40
 - `DETECT_GCP_RETRIES` - Detect GCP retries
 - `FLY_REGION` - Fly.io region
 - `DYNO` - Heroku dyno identifier
-- `FORCE_AUTO_BACKGROUND_TASKS` - Force auto background tasks
 - `FORCE_CODE_TERMINAL` - Force code terminal
 - `ENABLE_BACKGROUND_TASKS` - Enable background tasks
 
