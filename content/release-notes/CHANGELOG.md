@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.51
+
+- Added support for native Windows (requires Git for Windows)
+- Added support for Bedrock API keys through environment variable AWS_BEARER_TOKEN_BEDROCK
+- Settings: /doctor can now help you identify and fix invalid setting files
+- `--append-system-prompt` can now be used in interactive mode, not just --print/-p.
+- Increased auto-compact warning threshold from 60% to 80%
+- Fixed an issue with handling user directories with spaces for shell snapshots
+- OTEL resource now includes os.type, os.version, host.arch, and wsl.version (if running on Windows Subsystem for Linux)
+- Custom slash commands: Fixed user-level commands in subdirectories
+- Plan mode: Fixed issue where rejected plan from sub-task would get discarded
+
 ## 1.0.48
 
 - Fixed a bug in v1.0.45 where the app would sometimes freeze on launch
@@ -17,7 +29,7 @@
 - Fixed config file corruption issue by enforcing atomic writes
 - Updated prompt input undo to Ctrl+\_ to avoid breaking existing Ctrl+U behavior, matching zsh's undo shortcut
 - Stop Hooks: Fixed transcript path after /clear and fixed triggering when loop ends with tool call
-- Custom slash commands: Restored namespacing in command names based on subdirectories. For example, .claude/frontend/component.md is now /frontend:component, not /component.
+- Custom slash commands: Restored namespacing in command names based on subdirectories. For example, .claude/commands/frontend/component.md is now /frontend:component, not /component.
 
 ## 1.0.44
 

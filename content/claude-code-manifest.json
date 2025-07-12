@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "1.0.48",
+  "version": "1.0.51",
   "author": {
     "name": "Boris Cherny",
     "email": "boris@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@1.0.48",
+  "_id": "@anthropic-ai/claude-code@1.0.51",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -53,17 +53,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "a3e2af27d879ed68f9e947a0a47c93b0423cd667",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.48.tgz",
-    "fileCount": 54,
-    "integrity": "sha512-h63VBAZZ6Pl/DlYW2PjbfUeicZ4r9VSl8dymD3d+1lZEHwCPgfMpu3g+30+FDMs79Xqc7qSDm6CRnMApxhbjqw==",
+    "shasum": "6bfc318fb4f6797be9f227a730d6ed2cc88144bc",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.51.tgz",
+    "fileCount": 52,
+    "integrity": "sha512-annBc4ez7nDPbp+di6bjIQGiAdmdVln4k3gAYioym2MxOEl3py5s7SsoR+dNSmfgfIHUdKBTbtXnXD5rkmO5aA==",
     "signatures": [
       {
-        "sig": "MEQCIE89e6ELdkKyMkyFw2/IghLFbV/JQuZ4U/hikz9t6FDjAiBrwdHOMcnZgla//ADjLwfcw5GH8ZV6p2SSVZjHdOIL4w==",
+        "sig": "MEUCIQCX3WPHTJRT2ohoYKPo80Va7M2OhEJXVKAEugazrizGNQIgLsYBIs2wCOQbElCUFmhQIX11ixIyRNxBNlPjBYp4j7I=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 169319485
+    "unpackedSize": 169326573
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -71,18 +71,12 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "679a85dcd3f107f392279df8906208e6350fc70d",
+  "gitHead": "8588bea4a02f77ddb6458bfe27ae7d7e977c5c2e",
   "scripts": {
-    "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\"",
-    "preinstall": "node scripts/preinstall.js"
+    "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
   "_npmUser": {
     "name": "wolffiex",
-    "actor": {
-      "name": "wolffiex",
-      "type": "user",
-      "email": "wolffiex@anthropic.com"
-    },
     "email": "wolffiex@anthropic.com"
   },
   "_npmVersion": "10.8.2",
@@ -101,7 +95,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_1.0.48_1752109406299_0.6445420867899667",
+    "tmp": "tmp/claude-code_1.0.51_1752274273682_0.4269767506162381",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
