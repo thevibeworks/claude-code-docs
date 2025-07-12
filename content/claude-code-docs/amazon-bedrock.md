@@ -52,6 +52,14 @@ aws sso login --profile=<your-profile-name>
 export AWS_PROFILE=your-profile-name
 ```
 
+**Option D: Bedrock API keys**
+
+```bash
+export AWS_BEARER_TOKEN_BEDROCK=your-bedrock-api-key
+```
+
+Bedrock API keys provide a simpler authentication method without needing full AWS credentials. [Learn more about Bedrock API keys](https://aws.amazon.com/blogs/machine-learning/accelerate-ai-development-with-amazon-bedrock-api-keys/).
+
 ### 3. Configure Claude Code
 
 Set the following environment variables to enable Bedrock:
@@ -91,7 +99,14 @@ export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-3-5-haiku-20241022-v1:0'
 
 # Using application inference profile ARN
 export ANTHROPIC_MODEL='arn:aws:bedrock:us-east-2:your-account-id:application-inference-profile/your-model-id'
+
+# Optional: Disable prompt caching if needed
+export DISABLE_PROMPT_CACHING=1
 ```
+
+<Note>
+  [Prompt caching](/en/docs/build-with-claude/prompt-caching) may not be available in all regions
+</Note>
 
 ## IAM configuration
 

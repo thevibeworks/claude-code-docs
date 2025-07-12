@@ -92,7 +92,14 @@ export ANTHROPIC_SMALL_FAST_MODEL='claude-3-5-haiku@20241022'
 
 ## IAM configuration
 
-Grant the required IAM roles for Claude Code.
+Assign the required IAM permissions:
+
+The `roles/aiplatform.user` role includes the required permissions:
+
+* `aiplatform.endpoints.predict` - Required for model invocation
+* `aiplatform.endpoints.computeTokens` - Required for token counting
+
+For more restrictive permissions, create a custom role with only the permissions above.
 
 For details, see [Vertex IAM documentation](https://cloud.google.com/vertex-ai/docs/general/access-control).
 

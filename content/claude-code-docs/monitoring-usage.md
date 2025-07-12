@@ -411,10 +411,14 @@ For organizations requiring Daily/Weekly/Monthly Active User (DAU/WAU/MAU) metri
 
 ## Service Information
 
-All metrics are exported with:
+All metrics and events are exported with the following resource attributes:
 
-* Service Name: `claude-code`
-* Service Version: Current Claude Code version
+* `service.name`: `claude-code`
+* `service.version`: Current Claude Code version
+* `os.type`: Operating system type (e.g., `linux`, `darwin`, `windows`)
+* `os.version`: Operating system version string
+* `host.arch`: Host architecture (e.g., `amd64`, `arm64`)
+* `wsl.version`: WSL version number (only present when running on Windows Subsystem for Linux)
 * Meter Name: `com.anthropic.claude_code`
 
 ## Security/Privacy Considerations
