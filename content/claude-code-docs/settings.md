@@ -16,9 +16,10 @@ Code through hierarchical settings:
   * `.claude/settings.local.json` for settings that are not checked in, useful for personal preferences and experimentation. Claude Code will configure git to ignore `.claude/settings.local.json` when it is created.
 * For enterprise deployments of Claude Code, we also support **enterprise
   managed policy settings**. These take precedence over user and project
-  settings. System administrators can deploy policies to
-  `/Library/Application Support/ClaudeCode/managed-settings.json` on macOS and
-  `/etc/claude-code/managed-settings.json` on Linux and Windows via WSL.
+  settings. System administrators can deploy policies to:
+  * macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
+  * Linux and WSL: `/etc/claude-code/managed-settings.json`
+  * Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
 
 ```JSON Example settings.json
 {

@@ -6,8 +6,6 @@
 
 ### Windows installation issues: errors in WSL
 
-Currently, Claude Code does not run directly in Windows, and instead requires WSL.
-
 You might encounter the following issues in WSL:
 
 **OS/platform detection issues**: If you receive an error during installation, WSL may be using Windows `npm`. Try:

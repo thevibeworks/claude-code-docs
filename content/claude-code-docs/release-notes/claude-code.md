@@ -1,4 +1,4 @@
-# Claude Code release notes
+# Claude Code
 
 > Stay up to date with the latest features and improvements to Claude Code
 
