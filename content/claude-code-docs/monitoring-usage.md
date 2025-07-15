@@ -50,7 +50,8 @@ Administrators can configure OpenTelemetry settings for all users through the ma
 The managed settings file is located at:
 
 * macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
-* Linux: `/etc/claude-code/managed-settings.json`
+* Linux and WSL: `/etc/claude-code/managed-settings.json`
+* Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
 
 Example managed settings configuration:
 

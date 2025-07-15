@@ -121,8 +121,9 @@ For enterprise deployments of Claude Code, we support enterprise managed policy 
 
 System administrators can deploy policies to:
 
-* **macOS**: `/Library/Application Support/ClaudeCode/managed-settings.json`
-* **Linux and Windows (via WSL)**: `/etc/claude-code/managed-settings.json`
+* macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
+* Linux and WSL: `/etc/claude-code/managed-settings.json`
+* Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
 
 These policy files follow the same format as regular [settings files](/en/docs/claude-code/settings#settings-files) but cannot be overridden by user or project settings. This ensures consistent security policies across your organization.
 

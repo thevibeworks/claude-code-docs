@@ -98,6 +98,11 @@ if [[ "$MEANINGFUL" == "true" ]]; then
   exit 0
 else
   echo "No meaningful changes detected"
+  if [[ -n "$OTHER_CHANGES" ]]; then
+    echo "Reason: Documentation changes ($LINES_CHANGED lines) below threshold (100+ lines required)"
+  else
+    echo "Reason: Only metadata/manifest changes detected"
+  fi
   git reset HEAD .
   exit 1
 fi
