@@ -4,12 +4,14 @@
 
 The preconfigured [devcontainer setup](https://code.visualstudio.com/docs/devcontainers/containers) works seamlessly with VS Code's Remote - Containers extension and similar tools.
 
-The container's enhanced security measures (isolation and firewall rules) allow you to run `claude --dangerously-skip-permissions` to bypass permission prompts for unattended operation. We've included a [reference implementation](https://github.com/anthropics/claude-code/tree/main/.devcontainer) that you can customize for your needs.
+The container's enhanced security measures (isolation and firewall rules) allow you to run `claude --dangerously-skip-permissions` to bypass permission prompts for unattended operation.
+We've included a [reference implementation](https://github.com/anthropics/claude-code/tree/main/.devcontainer) that you can customize for your needs.
 
 <Warning>
-  While the devcontainer provides substantial protections, no system is
-  completely immune to all attacks. Always maintain good security practices and
-  monitor Claude's activities.
+  While the devcontainer provides substantial protections, no system is completely immune to all attacks.
+  When executed with `--dangerously-skip-permissions`, devcontainers do not prevent a malicious project from exfiltrating anything accessible in the devcontainer including Claude Code credentials.
+  We recommend only using devcontainers when developing with trusted repositories.
+  Always maintain good security practices and monitor Claude's activities.
 </Warning>
 
 ## Key features
@@ -41,6 +43,7 @@ The devcontainer setup consists of three primary components:
 The container implements a multi-layered security approach with its firewall configuration:
 
 * **Precise access control**: Restricts outbound connections to whitelisted domains only (npm registry, GitHub, Anthropic API, etc.)
+* **Allowed outbound connections**: The firewall permits outbound DNS and SSH connections
 * **Default-deny policy**: Blocks all other external network access
 * **Startup verification**: Validates firewall rules when the container initializes
 * **Isolation**: Creates a secure development environment separated from your main system

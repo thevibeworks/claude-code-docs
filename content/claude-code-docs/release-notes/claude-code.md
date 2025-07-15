@@ -4,7 +4,7 @@
 
 ## June 30, 2025
 
-* Claude Code now supports [hooks](/en/docs/claude-code/hooks). Special thanks to community input in [Github Issues](https://github.com/anthropics/claude-code/issues/712).
+* Claude Code now supports [hooks](/en/docs/claude-code/hooks-guide). Special thanks to community input in [Github Issues](https://github.com/anthropics/claude-code/issues/712).
 
 ## June 18, 2025
 
