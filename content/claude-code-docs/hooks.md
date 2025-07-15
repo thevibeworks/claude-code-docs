@@ -1,95 +1,10 @@
-# Hooks
+# Hooks reference
 
-> Customize and extend Claude Code's behavior by registering shell commands
+> This page provides reference documentation for implementing hooks in Claude Code.
 
-# Introduction
-
-Claude Code hooks are user-defined shell commands that execute at various points
-in Claude Code's lifecycle. Hooks provide deterministic control over Claude
-Code's behavior, ensuring certain actions always happen rather than relying on
-the LLM to choose to run them.
-
-Example use cases include:
-
-* **Notifications**: Customize how you get notified when Claude Code is awaiting
-  your input or permission to run something.
-* **Automatic formatting**: Run `prettier` on .ts files, `gofmt` on .go files,
-  etc. after every file edit.
-* **Logging**: Track and count all executed commands for compliance or
-  debugging.
-* **Feedback**: Provide automated feedback when Claude Code produces code that
-  does not follow your codebase conventions.
-* **Custom permissions**: Block modifications to production files or sensitive
-  directories.
-
-By encoding these rules as hooks rather than prompting instructions, you turn
-suggestions into app-level code that executes every time it is expected to run.
-
-<Warning>
-  Hooks execute shell commands with your full user permissions without
-  confirmation. You are responsible for ensuring your hooks are safe and secure.
-  Anthropic is not liable for any data loss or system damage resulting from hook
-  usage. Review [Security Considerations](#security-considerations).
-</Warning>
-
-## Quickstart
-
-In this quickstart, you'll add a hook that logs the shell commands that Claude
-Code runs.
-
-Quickstart Prerequisite: Install `jq` for JSON processing in the command line.
-
-### Step 1: Open hooks configuration
-
-Run the `/hooks` [slash command](/en/docs/claude-code/slash-commands) and select
-the `PreToolUse` hook event.
-
-`PreToolUse` hooks run before tool calls and can block them while providing
-Claude feedback on what to do differently.
-
-### Step 2: Add a matcher
-
-Select `+ Add new matcher…` to run your hook only on Bash tool calls.
-
-Type `Bash` for the matcher.
-
-### Step 3: Add the hook
-
-Select `+ Add new hook…` and enter this command:
-
-```bash
-jq -r '"\(.tool_input.command) - \(.tool_input.description // "No description")"' >> ~/.claude/bash-command-log.txt
-```
-
-### Step 4: Save your configuration
-
-For storage location, select `User settings` since you're logging to your home
-directory. This hook will then apply to all projects, not just your current
-project.
-
-Then press Esc until you return to the REPL. Your hook is now registered!
-
-### Step 5: Verify your hook
-
-Run `/hooks` again or check `~/.claude/settings.json` to see your configuration:
-
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '\"\\(.tool_input.command) - \\(.tool_input.description // \"No description\")\"' >> ~/.claude/bash-command-log.txt"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+<Tip>
+  For a quickstart guide with examples, see [Get started with Claude Code hooks](/en/docs/claude-code/hooks-guide).
+</Tip>
 
 ## Configuration
 
@@ -170,8 +85,7 @@ Runs when Claude Code sends notifications. Notifications are sent when:
 
 ### Stop
 
-Runs when the main Claude Code agent has finished responding. Does not run if
-the stoppage occurred due to a user interrupt.
+Runs when the main Claude Code agent has finished responding. Does not run if the stoppage occurred due to a user interrupt.
 
 ### SubagentStop
 
@@ -489,50 +403,9 @@ You can target specific MCP tools or entire MCP servers:
 
 ## Examples
 
-### Code Formatting
-
-Automatically format code after file modifications:
-
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/home/user/scripts/format-code.sh"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Notification
-
-Customize the notification that is sent when Claude Code requests permission or
-when the prompt input has become idle.
-
-```json
-{
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ~/my_custom_notifier.py"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+<Tip>
+  For practical examples including code formatting, notifications, and file protection, see [More Examples](/en/docs/claude-code/hooks-guide#more-examples) in the get started guide.
+</Tip>
 
 ## Security Considerations
 
@@ -586,17 +459,36 @@ This prevents malicious hook modifications from affecting your current session.
 
 ## Debugging
 
-To troubleshoot hooks:
+### Basic Troubleshooting
 
-1. Check if `/hooks` menu displays your configuration
-2. Verify that your [settings files](/en/docs/claude-code/settings) are valid
-   JSON
-3. Test commands manually
-4. Check exit codes
-5. Review stdout and stderr format expectations
-6. Ensure proper quote escaping
-7. Use `claude --debug` to debug your hooks. The output of a successful hook
-   appears like below.
+If your hooks aren't working:
+
+1. **Check configuration** - Run `/hooks` to see if your hook is registered
+2. **Verify syntax** - Ensure your JSON settings are valid
+3. **Test commands** - Run hook commands manually first
+4. **Check permissions** - Make sure scripts are executable
+5. **Review logs** - Use `claude --debug` to see hook execution details
+
+Common issues:
+
+* **Quotes not escaped** - Use `\"` inside JSON strings
+* **Wrong matcher** - Check tool names match exactly (case-sensitive)
+* **Command not found** - Use full paths for scripts
+
+### Advanced Debugging
+
+For complex hook issues:
+
+1. **Inspect hook execution** - Use `claude --debug` to see detailed hook execution
+2. **Validate JSON schemas** - Test hook input/output with external tools
+3. **Check environment variables** - Verify Claude Code's environment is correct
+4. **Test edge cases** - Try hooks with unusual file paths or inputs
+5. **Monitor system resources** - Check for resource exhaustion during hook execution
+6. **Use structured logging** - Implement logging in your hook scripts
+
+### Debug Output Example
+
+Use `claude --debug` to see hook execution details:
 
 ```
 [DEBUG] Executing hooks for PostToolUse:Write

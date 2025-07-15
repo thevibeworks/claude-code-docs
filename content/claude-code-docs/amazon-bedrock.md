@@ -26,10 +26,6 @@ First, ensure you have access to the required Claude models in your AWS account:
 
 Claude Code uses the default AWS SDK credential chain. Set up your credentials using one of these methods:
 
-<Note>
-  Claude Code does not currently support dynamic credential management (such as automatically calling `aws sts assume-role`). You will need to run `aws configure`, `aws sso login`, or set the `AWS_` environment variables yourself.
-</Note>
-
 **Option A: AWS CLI configuration**
 
 ```bash
@@ -60,6 +56,50 @@ export AWS_BEARER_TOKEN_BEDROCK=your-bedrock-api-key
 
 Bedrock API keys provide a simpler authentication method without needing full AWS credentials. [Learn more about Bedrock API keys](https://aws.amazon.com/blogs/machine-learning/accelerate-ai-development-with-amazon-bedrock-api-keys/).
 
+#### Advanced credential configuration
+
+Claude Code supports two configuration settings for dynamic AWS credential management:
+
+##### `awsAuthRefresh`
+
+This setting specifies a command for foreground authentication operations where output is visible to the user. It is typically used for SSO browser flows.
+
+Example:
+
+```json
+{
+  "awsAuthRefresh": "aws sso login --profile myprofile"
+}
+```
+
+##### `awsCredentialExport`
+
+This setting specifies a command that outputs AWS credentials in JSON format to stdout. The output is not displayed to the user, but is used by Claude Code for subsequent Bedrock requests.
+
+Required output format is JSON with the following properties:
+
+```json
+{
+  "Credentials": {
+    "AccessKeyId": "value",
+    "SecretAccessKey": "value",
+    "SessionToken": "value"
+  }
+}
+```
+
+Example:
+
+```json
+{
+  "awsCredentialExport": "aws sts get-session-token --profile myprofile --output json"
+}
+```
+
+<Note>
+  These settings can be used to call scripts that invoke alternative identity systems.
+</Note>
+
 ### 3. Configure Claude Code
 
 Set the following environment variables to enable Bedrock:
@@ -73,13 +113,11 @@ export AWS_REGION=us-east-1  # or your preferred region
 export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
 ```
 
-<Note>
-  `AWS_REGION` is a required environment variable. Claude Code does not read from the `.aws` config file for this setting.
-</Note>
+When enabling Bedrock for Claude Code, keep the following in mind:
 
-<Note>
-  When using Bedrock, the `/login` and `/logout` commands are disabled since authentication is handled through AWS credentials.
-</Note>
+* `AWS_REGION` is a required environment variable. Claude Code does not read from the `.aws` config file for this setting.
+* When using Bedrock, the `/login` and `/logout` commands are disabled since authentication is handled through AWS credentials.
+* You can use settings files for environment variables like `AWS_PROFILE` that you don't want to leak to other processes. See [Settings](/en/docs/claude-code/settings) for more information.
 
 ### 4. Model configuration
 

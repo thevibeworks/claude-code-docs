@@ -107,6 +107,7 @@ Claude Code supports the following environment variables to control its behavior
 | `CLAUDE_CODE_SKIP_BEDROCK_AUTH`            | Skip AWS authentication for Bedrock (e.g. when using an LLM gateway)                                                                                               |
 | `CLAUDE_CODE_SKIP_VERTEX_AUTH`             | Skip Google authentication for Vertex (e.g. when using an LLM gateway)                                                                                             |
 | `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | Equivalent of setting `DISABLE_AUTOUPDATER`, `DISABLE_BUG_COMMAND`, `DISABLE_ERROR_REPORTING`, and `DISABLE_TELEMETRY`                                             |
+| `CLAUDE_CODE_DISABLE_TERMINAL_TITLE`       | Set to `1` to disable automatic terminal title updates based on conversation context                                                                               |
 | `DISABLE_AUTOUPDATER`                      | Set to `1` to disable automatic updates. This takes precedence over the `autoUpdates` configuration setting.                                                       |
 | `DISABLE_BUG_COMMAND`                      | Set to `1` to disable the `/bug` command                                                                                                                           |
 | `DISABLE_COST_WARNINGS`                    | Set to `1` to disable cost warning messages                                                                                                                        |
@@ -178,7 +179,7 @@ Permission rules can be configured using `/allowed-tools` or in [permission sett
 ### Extending tools with hooks
 
 You can run custom commands before or after any tool executes using
-[Claude Code hooks](/en/docs/claude-code/hooks).
+[Claude Code hooks](/en/docs/claude-code/hooks-guide).
 
 For example, you could automatically run a Python formatter after Claude
 modifies Python files, or prevent modifications to production configuration
