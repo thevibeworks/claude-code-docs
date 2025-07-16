@@ -41,7 +41,7 @@ jobs:
             echo "changes=true" >> $GITHUB_OUTPUT
             echo "meaningful=true" >> $GITHUB_OUTPUT
           else
-            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "changes=false" >> $GITHUB_OUTPUT
             echo "meaningful=false" >> $GITHUB_OUTPUT
           fi
 
