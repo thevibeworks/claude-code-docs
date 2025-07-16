@@ -106,6 +106,36 @@ The following environment variables control which attributes are included in met
 
 These variables help control the cardinality of metrics, which affects storage requirements and query performance in your metrics backend. Lower cardinality generally means better performance and lower storage costs but less granular data for analysis.
 
+### Dynamic Headers
+
+For enterprise environments that require dynamic authentication, you can configure a script to generate headers dynamically:
+
+#### Settings Configuration
+
+Add to your `.claude/settings.json`:
+
+```json
+{
+  "otelHeadersHelper": "/bin/generate_opentelemetry_headers.sh"
+}
+```
+
+#### Script Requirements
+
+The script must output valid JSON with string key-value pairs representing HTTP headers:
+
+```bash
+#!/bin/bash
+# Example: Multiple headers
+echo "{\"Authorization\": \"Bearer $(get-token.sh)\", \"X-API-Key\": \"$(get-api-key.sh)\"}"
+```
+
+#### Important Limitations
+
+**Headers are fetched only at startup, not during runtime.** This is due to OpenTelemetry exporter architecture limitations.
+
+For scenarios requiring frequent token refresh, use an OpenTelemetry Collector as a proxy that can refresh its own headers.
+
 ### Multi-Team Organization Support
 
 Organizations with multiple teams or departments can add custom attributes to distinguish between different groups using the `OTEL_RESOURCE_ATTRIBUTES` environment variable:
@@ -194,6 +224,7 @@ Claude Code exports the following metrics:
 | `claude_code.cost.usage`              | Cost of the Claude Code session                 | USD    |
 | `claude_code.token.usage`             | Number of tokens used                           | tokens |
 | `claude_code.code_edit_tool.decision` | Count of code editing tool permission decisions | count  |
+| `claude_code.active_time.total`       | Total active time in seconds                    | s      |
 
 ### Metric Details
 
@@ -260,6 +291,14 @@ Incremented when user accepts or rejects Edit, MultiEdit, Write, or NotebookEdit
 * `decision`: User decision (`"accept"`, `"reject"`)
 * `language`: Programming language of the edited file (e.g., `"TypeScript"`, `"Python"`, `"JavaScript"`, `"Markdown"`). Returns `"unknown"` for unrecognized file extensions.
 
+#### Active Time Counter
+
+Tracks actual time spent actively using Claude Code (not idle time). This metric is incremented during user interactions such as typing prompts or receiving responses.
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+
 ### Events
 
 Claude Code exports the following events via OpenTelemetry logs/events (when `OTEL_LOGS_EXPORTER` is configured):
@@ -289,10 +328,14 @@ Logged when a tool completes execution.
 * All [standard attributes](#standard-attributes)
 * `event.name`: `"tool_result"`
 * `event.timestamp`: ISO 8601 timestamp
-* `name`: Name of the tool
+* `tool_name`: Name of the tool
 * `success`: `"true"` or `"false"`
 * `duration_ms`: Execution time in milliseconds
 * `error`: Error message (if failed)
+* `decision`: Either `"accept"` or `"reject"`
+* `source`: Decision source - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"`
+* `tool_parameters`: JSON string containing tool-specific parameters (when available)
+  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `sandbox`
 
 #### API Request Event
 

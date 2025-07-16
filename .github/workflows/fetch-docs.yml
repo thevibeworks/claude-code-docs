@@ -39,11 +39,13 @@ jobs:
         run: |
           if ./scripts/check-changes.sh; then
             echo "changes=true" >> $GITHUB_OUTPUT
+            echo "meaningful=true" >> $GITHUB_OUTPUT
           else
-            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "meaningful=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Analyze changes for PR
+      - name: Analyze changes for commit/PR
         if: steps.changes.outputs.changes == 'true'
         id: analyze
         run: |
@@ -53,6 +55,25 @@ jobs:
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
+          # Get meaningful file list (exclude metadata)
+          MEANINGFUL_FILES=$(echo "$CHANGED_FILES" | head -10)
+          if [[ $(echo "$CHANGED_FILES" | wc -l) -gt 10 ]]; then
+            MEANINGFUL_FILES="$MEANINGFUL_FILES
+          ... and $(($(echo "$CHANGED_FILES" | wc -l) - 10)) more files"
+          fi
+          echo "meaningful_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$MEANINGFUL_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          # Check for Claude version changes
+          CLAUDE_VERSION_CHANGE=""
+          if git diff --cached content/claude-code-manifest.json | grep -q '"version"'; then
+            OLD_VERSION=$(git show HEAD:content/claude-code-manifest.json | jq -r '.version' 2>/dev/null || echo "unknown")
+            NEW_VERSION=$(jq -r '.version' content/claude-code-manifest.json 2>/dev/null || echo "unknown")
+            CLAUDE_VERSION_CHANGE="Claude Code: $OLD_VERSION → $NEW_VERSION"
+          fi
+          echo "claude_version_change=$CLAUDE_VERSION_CHANGE" >> $GITHUB_OUTPUT
+
           # Get summary stats
           FILES_COUNT=$(echo "$CHANGED_FILES" | wc -l)
           echo "files_count=$FILES_COUNT" >> $GITHUB_OUTPUT
@@ -61,8 +82,35 @@ jobs:
           FETCH_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
           echo "fetch_time=$FETCH_TIME" >> $GITHUB_OUTPUT
 
-      - name: Commit and create pull request
-        if: steps.changes.outputs.changes == 'true'
+          # Get line count for summary
+          TOTAL_LINES=$(git diff --cached --numstat | awk '{sum += $1 + $2} END {print sum}')
+          echo "total_lines=$TOTAL_LINES" >> $GITHUB_OUTPUT
+
+      - name: Commit minor changes
+        if: steps.changes.outputs.changes == 'true' && steps.changes.outputs.meaningful == 'false'
+        run: |
+          COMMIT_MSG="docs: minor documentation updates
+
+          Updated ${{ steps.analyze.outputs.files_count }} files (${{ steps.analyze.outputs.total_lines }} lines)
+          Fetched: ${{ steps.analyze.outputs.fetch_time }}"
+          
+          if [[ -n "${{ steps.analyze.outputs.claude_version_change }}" ]]; then
+            COMMIT_MSG="$COMMIT_MSG
+
+          ${{ steps.analyze.outputs.claude_version_change }}"
+          fi
+
+          COMMIT_MSG="$COMMIT_MSG
+
+          Files changed:
+          ${{ steps.analyze.outputs.meaningful_files }}
+
+          🤖 Generated with Claude Code"
+
+          git commit -m "$COMMIT_MSG"
+
+      - name: Create pull request for meaningful changes
+        if: steps.changes.outputs.changes == 'true' && steps.changes.outputs.meaningful == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ steps.app-token.outputs.token }}

@@ -101,7 +101,7 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `ANTHROPIC_VERTEX_PROJECT_ID` - Vertex AI project ID
 - `VERTEX_BASE_URL` - Custom Vertex base URL
 - `VERTEX_REGION_CLAUDE_3_5_HAIKU` - Vertex region for Claude 3.5 Haiku
-- `VERTEX_REGION_CLAUDE_3_5_SONNET` - Vertex region for Claude 3.5 Sonnet
+- `VERTEX_REGION_CLAUDE_3_5_SONNET` - Vertex region for Claude 3.5 Sonnet  
 - `VERTEX_REGION_CLAUDE_3_7_SONNET` - Vertex region for Claude 3.7 Sonnet
 - `VERTEX_REGION_CLAUDE_4_0_OPUS` - Vertex region for Claude 4.0 Opus
 - `VERTEX_REGION_CLAUDE_4_0_SONNET` - Vertex region for Claude 4.0 Sonnet
