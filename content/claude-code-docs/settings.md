@@ -128,10 +128,6 @@ Claude Code supports the following environment variables to control its behavior
 
 ## Configuration options
 
-We are in the process of migrating global configuration to `settings.json`.
-
-`claude config` will be deprecated in place of [settings.json](#settings-files)
-
 To manage your configurations, use the following commands:
 
 * List settings: `claude config list`
