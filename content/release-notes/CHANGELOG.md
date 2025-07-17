@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.54
+
+- Hooks: Added UserPromptSubmit hook and the current working directory to hook inputs
+- Custom slash commands: Added argument-hint to frontmatter
+- Windows: OAuth uses port 45454 and properly constructs browser URL
+- Windows: mode switching now uses alt + m, and plan mode renders properly
+- Shell: Switch to in-memory shell snapshot to file-related errors
+
+## 1.0.53
+
+- Updated @-mention file truncation from 100 lines to 2000 lines
+- Add helper script settings for AWS token refresh: awsAuthRefresh (for foreground operations like aws sso login) and awsCredentialExport (for background operation with STS-like response).
+
+## 1.0.52
+
+- Added support for MCP server instructions
+
 ## 1.0.51
 
 - Added support for native Windows (requires Git for Windows)
