@@ -43,6 +43,21 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+          permission-checks: write
+          permission-statuses: write
+
+      - name: Token sanity check
+        run: |
+          echo "=== Token Permission Info ==="
+          gh api repos/${{ github.repository }} --jq '.permissions'
+          echo "::warning::repo.permissions is not reliable for App tokens (always shows push:false)"
+          echo "App token configured with: contents:write, pull_requests:write, issues:write, checks:write, statuses:write"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -72,10 +87,11 @@ jobs:
           !contains(github.event.pull_request.title, '[WIP]')
         uses: thevibeworks/claude-code-action@feat/allow-bot-actor
         env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
-          OVERRIDE_GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           use_bedrock: "true"
+          github_token: ${{ steps.app-token.outputs.token }}
           model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
           allow_bot_actor: true
           # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)

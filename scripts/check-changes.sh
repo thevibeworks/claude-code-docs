@@ -79,7 +79,7 @@ if [[ -n "$OTHER_CHANGES" ]]; then
   
   [[ "$VERBOSE" == "true" ]] && echo "Documentation changes: $FILES_CHANGED files, $LINES_CHANGED lines"
   
-  if [[ "$LINES_CHANGED" -gt 100 ]]; then
+  if [[ "$LINES_CHANGED" -gt 10 ]]; then
     [[ "$VERBOSE" == "true" ]] && echo "Substantial documentation changes ($LINES_CHANGED lines) - meaningful!"
     MEANINGFUL=true
     REASONS+=("$FILES_CHANGED documentation files changed ($LINES_CHANGED lines)")

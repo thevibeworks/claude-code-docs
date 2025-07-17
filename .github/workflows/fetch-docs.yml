@@ -25,6 +25,22 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
+
+      # Make the writable token the default for all later steps in this job
+      - name: Export token for subsequent steps
+        run: echo "GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
+
+      - name: Token sanity check
+        run: |
+          echo "=== Token Permission Info ==="
+          gh api repos/${{ github.repository }} --jq '.permissions'
+          echo "::warning::repo.permissions is not reliable for App tokens (always shows push:false)"
+          echo "App token configured with: contents:write, pull_requests:write, issues:write"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
