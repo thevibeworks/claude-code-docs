@@ -49,6 +49,25 @@ Hooks are organized by matchers, where each matcher can have multiple hooks:
   * `timeout`: (Optional) How long a command should run, in seconds, before
     canceling that specific command.
 
+For events like `UserPromptSubmit`, `Notification`, `Stop`, and `SubagentStop` that don't use matchers, you can omit the matcher field:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/prompt-validator.py"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 <Warning>
   `"matcher": "*"` is invalid. Instead, omit "matcher" or use `"matcher": ""`.
 </Warning>
@@ -83,6 +102,10 @@ Runs when Claude Code sends notifications. Notifications are sent when:
 1. Claude needs your permission to use a tool. Example: "Claude needs your permission to use Bash"
 2. The prompt input has been idle for at least 60 seconds. "Claude is waiting for your input"
 
+### UserPromptSubmit
+
+Runs when the user submits a prompt, before Claude processes it. This allows you to add additional context based on the prompt/conversation, validate prompts, or block certain types of prompts.
+
 ### Stop
 
 Runs when the main Claude Code agent has finished responding. Does not run if the stoppage occurred due to a user interrupt.
@@ -110,6 +133,7 @@ event-specific data:
   // Common fields
   session_id: string
   transcript_path: string  // Path to conversation JSON
+  cwd: string              // The current working directory when the hook is invoked
 
   // Event-specific fields
   hook_event_name: string
@@ -124,7 +148,8 @@ The exact schema for `tool_input` depends on the tool.
 ```json
 {
   "session_id": "abc123",
-  "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "cwd": "/Users/...",
   "hook_event_name": "PreToolUse",
   "tool_name": "Write",
   "tool_input": {
@@ -141,7 +166,8 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 ```json
 {
   "session_id": "abc123",
-  "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "cwd": "/Users/...",
   "hook_event_name": "PostToolUse",
   "tool_name": "Write",
   "tool_input": {
@@ -160,9 +186,22 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 ```json
 {
   "session_id": "abc123",
-  "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "cwd": "/Users/...",
   "hook_event_name": "Notification",
   "message": "Task completed successfully"
+}
+```
+
+### UserPromptSubmit Input
+
+```json
+{
+  "session_id": "abc123",
+  "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "cwd": "/Users/...",
+  "hook_event_name": "UserPromptSubmit",
+  "prompt": "Write a function to calculate the factorial of a number"
 }
 ```
 
@@ -219,14 +258,15 @@ Hooks communicate status through exit codes, stdout, and stderr:
 
 #### Exit Code 2 Behavior
 
-| Hook Event     | Behavior                                        |
-| -------------- | ----------------------------------------------- |
-| `PreToolUse`   | Blocks the tool call, shows error to Claude     |
-| `PostToolUse`  | Shows error to Claude (tool already ran)        |
-| `Notification` | N/A, shows stderr to user only                  |
-| `Stop`         | Blocks stoppage, shows error to Claude          |
-| `SubagentStop` | Blocks stoppage, shows error to Claude subagent |
-| `PreCompact`   | N/A, shows stderr to user only                  |
+| Hook Event         | Behavior                                                           |
+| ------------------ | ------------------------------------------------------------------ |
+| `PreToolUse`       | Blocks the tool call, shows stderr to Claude                       |
+| `PostToolUse`      | Shows stderr to Claude (tool already ran)                          |
+| `Notification`     | N/A, shows stderr to user only                                     |
+| `UserPromptSubmit` | Blocks prompt processing, erases prompt, shows stderr to user only |
+| `Stop`             | Blocks stoppage, shows stderr to Claude                            |
+| `SubagentStop`     | Blocks stoppage, shows stderr to Claude subagent                   |
+| `PreCompact`       | N/A, shows stderr to user only                                     |
 
 ### Advanced: JSON Output
 
@@ -250,6 +290,7 @@ If `continue` is false, Claude stops processing after the hooks run.
   blocks a specific tool call and provides automatic feedback to Claude.
 * For `PostToolUse`, this is different from `"decision": "block"`, which
   provides automated feedback to Claude.
+* For `UserPromptSubmit`, this prevents the prompt from being processed.
 * For `Stop` and `SubagentStop`, this takes precedence over any
   `"decision": "block"` output.
 * In all cases, `"continue" = false` takes precedence over any
@@ -280,6 +321,20 @@ to Claude.
 
 * "block" automatically prompts Claude with `reason`.
 * `undefined` does nothing. `reason` is ignored.
+
+```json
+{
+  "decision": "block" | undefined,
+  "reason": "Explanation for decision"
+}
+```
+
+#### `UserPromptSubmit` Decision Control
+
+`UserPromptSubmit` hooks can control whether a user prompt is processed.
+
+* `"block"` prevents the prompt from being processed. The submitted prompt is erased from context. `"reason"` is shown to the user but not added to context.
+* `undefined` allows the prompt to proceed normally. `"reason"` is ignored.
 
 ```json
 {
@@ -353,6 +408,47 @@ if issues:
         print(f"• {message}", file=sys.stderr)
     # Exit code 2 blocks tool call and shows stderr to Claude
     sys.exit(2)
+```
+
+#### UserPromptSubmit Example: Adding Context and Validation
+
+```python
+#!/usr/bin/env python3
+import json
+import sys
+import re
+import datetime
+
+# Load input from stdin
+try:
+    input_data = json.load(sys.stdin)
+except json.JSONDecodeError as e:
+    print(f"Error: Invalid JSON input: {e}", file=sys.stderr)
+    sys.exit(1)
+
+prompt = input_data.get("prompt", "")
+
+# Check for sensitive patterns
+sensitive_patterns = [
+    (r"(?i)\b(password|secret|key|token)\s*[:=]", "Prompt contains potential secrets"),
+]
+
+for pattern, message in sensitive_patterns:
+    if re.search(pattern, prompt):
+        # Use JSON output to block with a specific reason
+        output = {
+            "decision": "block",
+            "reason": f"Security policy violation: {message}. Please rephrase your request without sensitive information."
+        }
+        print(json.dumps(output))
+        sys.exit(0)
+
+# Add current time to context
+context = f"Current time: {datetime.datetime.now()}"
+print(context)
+
+# Allow the prompt to proceed with the additional context
+sys.exit(0)
 ```
 
 ## Working with MCP Tools
