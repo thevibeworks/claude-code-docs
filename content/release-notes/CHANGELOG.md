@@ -1,9 +1,5 @@
 # Changelog
 
-## 1.0.52
-
-- Added support for MCP server instructions
-
 ## 1.0.51
 
 - Added support for native Windows (requires Git for Windows)
