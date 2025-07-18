@@ -144,7 +144,7 @@ Automatically format TypeScript files after editing:
         "hooks": [
           {
             "type": "command",
-            "command": "if echo '$(.tool_input.file_path)' | grep -q '\\.ts$'; then npx prettier --write '$(.tool_input.file_path)'; fi"
+            "command": "jq -r '.tool_input.file_path' | { read file_path; if echo \"$file_path\" | grep -q '\\.ts$'; then npx prettier --write \"$file_path\"; fi; }"
           }
         ]
       }
