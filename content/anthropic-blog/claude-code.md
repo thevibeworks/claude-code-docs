@@ -1,4 +1,4 @@
-Title: Claude Code: Deep Coding at Terminal Velocity \ Anthropic
+Title: Claude Code: Deep coding at terminal velocity \ Anthropic
 
 URL Source: https://www.anthropic.com/claude-code
 
@@ -6,7 +6,7 @@ Markdown Content:
 Your code’s new collaborator
 ----------------------------
 
-Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command.Your tools. Your workflow. Your codebase, evolving at thought speed.
+Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command. Your tools. Your workflow. Your codebase, evolving at thought speed.
 
 Trusted by engineers at
 -----------------------
