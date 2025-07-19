@@ -58,7 +58,7 @@ You can view & manage Claude Code's tool permissions with `/permissions`. This U
 * **Additional directories** extend Claude's file access to directories beyond the initial working directory.
 * **Default mode** controls Claude's permission behavior when encountering new requests.
 
-Permission rules use the format: `Tool(optional-specifier)`
+Permission rules use the format: `Tool` or `Tool(optional-specifier)`
 
 A rule that is just the tool name matches any use of that tool. For example, adding `Bash` to the list of allow rules would allow Claude Code to use the Bash tool without requiring user approval.
 
@@ -85,7 +85,7 @@ Files in additional directories follow the same permission rules as the original
 
 #### Tool-specific permission rules
 
-Some tools use the optional specifier for more fine-grained permission controls. For example, an allow rule with `Bash(git diff:*)` would allow Bash commands that start with `git diff`. The following tools support permission rules with specifiers:
+Some tools support more fine-grained permission controls:
 
 **Bash**
 
@@ -115,6 +115,10 @@ Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore
 * `mcp__puppeteer` Matches any tool provided by the `puppeteer` server (name configured in Claude Code)
 * `mcp__puppeteer__puppeteer_navigate` Matches the `puppeteer_navigate` tool provided by the `puppeteer` server
 
+### Additional permission control with hooks
+
+[Claude Code hooks](/en/docs/claude-code/hooks-guide) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.
+
 ### Enterprise managed policy settings
 
 For enterprise deployments of Claude Code, we support enterprise managed policy settings that take precedence over user and project settings. This allows system administrators to enforce security policies that users cannot override.
@@ -138,10 +142,6 @@ When multiple settings sources exist, they are applied in the following order (h
 5. User settings (`~/.claude/settings.json`)
 
 This hierarchy ensures that organizational policies are always enforced while still allowing flexibility at the project and user levels where appropriate.
-
-### Additional permission control with hooks
-
-[Claude Code hooks](/en/docs/claude-code/hooks-guide) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.
 
 ## Credential management
 
