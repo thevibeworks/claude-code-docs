@@ -20,6 +20,7 @@ Model Context Protocol (MCP) is an open protocol that enables LLMs to access ext
 
     # Example: Adding a local server
     claude mcp add my-server -e API_KEY=123 -- /path/to/server arg1 arg2
+    # This creates: command="/path/to/server", args=["arg1", "arg2"]
     ```
   </Step>
 
@@ -77,6 +78,17 @@ Model Context Protocol (MCP) is an open protocol that enables LLMs to access ext
   * Claude Code supports SSE (Server-Sent Events) and streamable HTTP servers for real-time communication
   * Use `/mcp` to authenticate with remote servers that require OAuth 2.0 authentication
 </Tip>
+
+<Warning>
+  **Windows Users**: On native Windows (not WSL), local MCP servers that use `npx` require the `cmd /c` wrapper to ensure proper execution.
+
+  ```bash
+  # This creates command="cmd" which Windows can execute
+  claude mcp add my-server -- cmd /c npx -y @some/package
+  ```
+
+  Without the `cmd /c` wrapper, you'll encounter "Connection closed" errors because Windows cannot directly execute `npx`.
+</Warning>
 
 ## Understanding MCP server scopes
 
