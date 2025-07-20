@@ -104,7 +104,7 @@ echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/f
 
 #### Bash command execution
 
-Execute bash commands before the slash command runs using the `!` prefix. The output is included in the command context.
+Execute bash commands before the slash command runs using the `!` prefix. The output is included in the command context. You *must* include `allowed-tools` with the `Bash` tool, but you can choose the specific bash commands to allow.
 
 For example:
 
@@ -152,6 +152,7 @@ Command files support:
 * **YAML frontmatter** for metadata:
   * `allowed-tools`: List of tools the command can use
   * `description`: Brief description of the command
+  * `argument-hint`: The arguments expected for the slash command. Example: `argument-hint: add [tagId] | remove [tagId] | list`. This hint is shown to the user when auto-completing the slash command.
 * **Dynamic content** with bash commands (`!`) and file references (`@`)
 * **Prompt instructions** as the main content
 
