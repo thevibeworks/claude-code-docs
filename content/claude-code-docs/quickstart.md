@@ -39,6 +39,10 @@ You'll see the Claude Code prompt inside a new interactive session:
 > Try "create a util logging.py that..." 
 ```
 
+<Tip>
+  Your credentials are securely stored on your system. Learn more in [Credential Management](/en/docs/claude-code/iam#credential-management).
+</Tip>
+
 ## Step 3: Ask your first question
 
 Let's start with understanding your codebase. Try one of these commands:
