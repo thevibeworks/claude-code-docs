@@ -42,6 +42,10 @@ Claude Code offers the following authentication options:
 2. **Claude App (with Pro or Max plan)**: Subscribe to Claude's [Pro or Max plan](https://www.anthropic.com/pricing) for a unified subscription that includes both Claude Code and the web interface. Get more value at the same price point while managing your account in one place. Log in with your Claude.ai account. During launch, choose the option that matches your subscription type.
 3. **Enterprise platforms**: Configure Claude Code to use [Amazon Bedrock or Google Vertex AI](/en/docs/claude-code/third-party-integrations) for enterprise deployments with your existing cloud infrastructure.
 
+<Note>
+  Claude Code securely stores your credentials. See [Credential Management](/en/docs/claude-code/iam#credential-management) for details.
+</Note>
+
 ## Windows setup
 
 **Option 1: Claude Code within WSL**
