@@ -145,4 +145,9 @@ This hierarchy ensures that organizational policies are always enforced while st
 
 ## Credential management
 
-Claude Code supports authentication via Claude.ai credentials, Anthropic API credentials, Bedrock Auth, and Vertex Auth. On macOS, the API keys, OAuth tokens, and other credentials are stored on encrypted macOS Keychain. Alternately, the setting [apiKeyHelper](/en/docs/claude-code/settings#available-settings) can be set to a shell script which returns an API key. By default, this helper is called after 5 minutes or on HTTP 401 response; specifying environment variable `CLAUDE_CODE_API_KEY_HELPER_TTL_MS` defines a custom refresh interval.
+Claude Code securely manages your authentication credentials:
+
+* **Storage location**: On macOS, API keys, OAuth tokens, and other credentials are stored in the encrypted macOS Keychain.
+* **Supported authentication types**: Claude.ai credentials, Anthropic API credentials, Bedrock Auth, and Vertex Auth.
+* **Custom credential scripts**: The [`apiKeyHelper`](/en/docs/claude-code/settings#available-settings) setting can be configured to run a shell script that returns an API key.
+* **Refresh intervals**: By default, `apiKeyHelper` is called after 5 minutes or on HTTP 401 response. Set `CLAUDE_CODE_API_KEY_HELPER_TTL_MS` environment variable for custom refresh intervals.
