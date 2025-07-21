@@ -1,6 +1,6 @@
 # Claude Code Environment Variables
 
-Found **225 unique environment variables** supported by Claude Code from v1.0.48 package analysis (verified complete).
+Found **234 unique environment variables** supported by Claude Code from v1.0.54 package analysis (verified complete).
 
 ## Extraction Methodology & Best Practices
 
@@ -89,6 +89,7 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `AWS_SESSION_TOKEN` - AWS session token
 - `AWS_PROFILE` - AWS profile name
 - `AWS_EXECUTION_ENV` - AWS execution environment
+- `AWS_BEARER_TOKEN_BEDROCK` - Bearer token for AWS Bedrock authentication
 - `BEDROCK_BASE_URL` - Custom Bedrock base URL
 
 ## Google Cloud Configuration
@@ -115,6 +116,8 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `BASH_MAX_OUTPUT_LENGTH` - Maximum bash output length
 - `MCP_TIMEOUT` - MCP operation timeout
 - `MCP_TOOL_TIMEOUT` - MCP tool-specific timeout
+- `MCP_OAUTH_CALLBACK_PORT` - OAuth callback port for MCP server authentication
+- `MCP_SERVER_CONNECTION_BATCH_SIZE` - Batch size for MCP server connections
 - `USE_BUILTIN_RIPGREP` - Use built-in ripgrep instead of system
 - `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR` - Maintain project working directory
 - `CLAUDE_CODE_OTEL_SHUTDOWN_TIMEOUT_MS` - OpenTelemetry shutdown timeout
@@ -131,6 +134,9 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `DISABLE_ERROR_REPORTING` - Disable error reporting
 - `CLAUDE_CODE_ENTRYPOINT` - Application entrypoint
 - `CLAUDE_CODE_ACTION` - Current action being performed
+- `CLAUDE_CODE_DISABLE_COMMAND_INJECTION_CHECK` - Disable security checks for command injection
+- `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` - Disable terminal title updates
+- `CLAUDE_CODE_GIT_BASH_PATH` - Path to Git Bash executable (Windows)
 - `DISABLE_AUTOUPDATER` - Disable automatic updates
 - `DISABLE_BUG_COMMAND` - Disable bug reporting command
 - `IGNORE_TEST_WIN32` - Ignore Windows 32-bit tests
@@ -290,6 +296,8 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `GRACEFUL_FS_PLATFORM` - Graceful-fs platform override
 - `TEST_GRACEFUL_FS_GLOBAL_PATCH` - Test graceful-fs patching
 - `__MINIMATCH_TESTING_PLATFORM__` - Minimatch testing platform
+- `CHOKIDAR_INTERVAL` - File watcher polling interval (milliseconds)
+- `CHOKIDAR_USEPOLLING` - Enable polling mode for file watcher
 
 ## Graphics & Libraries
 - `SHARP_FORCE_GLOBAL_LIBVIPS` - Force global libvips for Sharp
@@ -320,7 +328,8 @@ Found **225 unique environment variables** supported by Claude Code from v1.0.48
 - `__CFBundleIdentifier` - macOS bundle identifier
 - `ZDOTDIR` - Zsh dot directory
 - `CLAUBBIT` - Custom Claude bit flag
-- `comspec` - Windows command interpreter
+- `comspec` - Windows command interpreter (lowercase)
+- `COMSPEC` - Windows command interpreter (uppercase)
 - `ConEmuTask` - ConEmu task environment
 - `CLAUDE_CODE_DONT_INHERIT_ENV` - Don't inherit environment
 - `CLAUDE_CODE_EXTRA_BODY` - Extra request body data
