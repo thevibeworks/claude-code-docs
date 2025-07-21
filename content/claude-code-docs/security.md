@@ -47,6 +47,7 @@ Prompt injection is a technique where an attacker attempts to override or manipu
 * **Command injection detection**: Suspicious bash commands require manual approval even if previously allowlisted
 * **Fail-closed matching**: Unmatched commands default to requiring manual approval
 * **Natural language descriptions**: Complex bash commands include explanations for user understanding
+* **Secure credential storage**: API keys and tokens are encrypted. See [Credential Management](/en/docs/claude-code/iam#credential-management)
 
 **Best practices for working with untrusted content**:
 
