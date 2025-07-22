@@ -44,7 +44,7 @@ export ANTHROPIC_AUTH_TOKEN=sk-litellm-static-key
 }
 ```
 
-This value will be sent as the `Authorization` and `Proxy-Authorization` headers, although `Authorization` may be overwritten (see Vertex "Client-specified credentials" below).
+This value will be sent as the `Authorization` header.
 
 ##### Dynamic API key with helper
 
@@ -81,7 +81,7 @@ jwt encode \
 export CLAUDE_CODE_API_KEY_HELPER_TTL_MS=3600000
 ```
 
-This value will be sent as `Authorization`, `Proxy-Authorization`, and `X-Api-Key` headers, although `Authorization` may be overwritten (see [Google Vertex AI through LiteLLM](#google-vertex-ai-through-litellm)). The `apiKeyHelper` has lower precedence than `ANTHROPIC_AUTH_TOKEN` or `ANTHROPIC_API_KEY`.
+This value will be sent as `Authorization` and `X-Api-Key` headers. The `apiKeyHelper` has lower precedence than `ANTHROPIC_AUTH_TOKEN` or `ANTHROPIC_API_KEY`.
 
 #### Unified endpoint (recommended)
 
@@ -121,8 +121,6 @@ export CLAUDE_CODE_USE_BEDROCK=1
 
 Using [pass-through endpoint](https://docs.litellm.ai/docs/pass_through/vertex_ai):
 
-**Recommended: Proxy-specified credentials**
-
 ```bash
 export ANTHROPIC_VERTEX_BASE_URL=https://litellm-server:4000/vertex_ai/v1
 export ANTHROPIC_VERTEX_PROJECT_ID=your-gcp-project-id
@@ -130,29 +128,6 @@ export CLAUDE_CODE_SKIP_VERTEX_AUTH=1
 export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=us-east5
 ```
-
-**Alternative: Client-specified credentials**
-
-If you prefer to use local GCP credentials:
-
-1. Authenticate with GCP locally:
-
-```bash
-gcloud auth application-default login
-```
-
-2. Set Claude Code environment:
-
-```bash
-export ANTHROPIC_VERTEX_BASE_URL=https://litellm-server:4000/vertex_ai/v1
-export ANTHROPIC_VERTEX_PROJECT_ID=your-gcp-project-id
-export CLAUDE_CODE_USE_VERTEX=1
-export CLOUD_ML_REGION=us-east5
-```
-
-3. Update LiteLLM header configuration:
-
-Ensure your LiteLLM config has `general_settings.litellm_key_header_name` set to `Proxy-Authorization`, since the pass-through GCP token will be located on the `Authorization` header.
 
 ### Model selection
 

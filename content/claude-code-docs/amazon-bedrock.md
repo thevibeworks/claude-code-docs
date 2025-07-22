@@ -58,25 +58,26 @@ Bedrock API keys provide a simpler authentication method without needing full AW
 
 #### Advanced credential configuration
 
-Claude Code supports two configuration settings for dynamic AWS credential management:
+Claude Code supports automatic credential refresh for AWS SSO and corporate identity providers. Add these settings to your Claude Code settings file (see [Settings](/en/docs/claude-code/settings) for file locations).
 
-##### `awsAuthRefresh`
+When Claude Code detects that your AWS credentials are expired (either locally based on their timestamp or when Bedrock returns a credential error), it will automatically run your configured `awsAuthRefresh` and/or `awsCredentialExport` commands to obtain new credentials before retrying the request.
 
-This setting specifies a command for foreground authentication operations where output is visible to the user. It is typically used for SSO browser flows.
-
-Example:
+##### Example configuration
 
 ```json
 {
-  "awsAuthRefresh": "aws sso login --profile myprofile"
+  "awsAuthRefresh": "aws sso login --profile myprofile",
+  "env": {
+    "AWS_PROFILE": "myprofile"
+  }
 }
 ```
 
-##### `awsCredentialExport`
+##### Configuration settings explained
 
-This setting specifies a command that outputs AWS credentials in JSON format to stdout. The output is not displayed to the user, but is used by Claude Code for subsequent Bedrock requests.
+**`awsAuthRefresh`**: Use this for commands that modify the `.aws` directory (e.g., updating credentials, SSO cache, or config files). Output is shown to the user (but user input is not supported), making it suitable for browser-based authentication flows where the CLI displays a code to enter in the browser.
 
-Required output format is JSON with the following properties:
+**`awsCredentialExport`**: Only use this if you cannot modify `.aws` and must directly return credentials. Output is captured silently (not shown to the user). The command must output JSON in this format:
 
 ```json
 {
@@ -87,18 +88,6 @@ Required output format is JSON with the following properties:
   }
 }
 ```
-
-Example:
-
-```json
-{
-  "awsCredentialExport": "aws sts get-session-token --profile myprofile --output json"
-}
-```
-
-<Note>
-  These settings can be used to call scripts that invoke alternative identity systems.
-</Note>
 
 ### 3. Configure Claude Code
 
