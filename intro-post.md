@@ -45,7 +45,7 @@ Stop following tutorials that lead nowhere. Use Claude Code to build actual soft
 npm install -g @anthropic-ai/claude-code
 
 # Clone the learning repository
-git clone https://github.com/lroolle/claude-code-docs
+git clone https://github.com/thevibeworks/claude-code-docs
 cd claude-code-docs
 
 # Start your first vibe coding session
