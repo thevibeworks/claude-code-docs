@@ -5,6 +5,11 @@ on:
     # Every hour
     - cron: "0 * * * *"
   workflow_dispatch: # Allow manual trigger
+    inputs:
+      min_lines_threshold:
+        description: 'Minimum lines changed to consider changes meaningful'
+        required: false
+        default: '100'
 
 jobs:
   fetch-docs:
@@ -52,6 +57,8 @@ jobs:
 
       - name: Check for meaningful changes
         id: changes
+        env:
+          MIN_LINES_THRESHOLD: ${{ github.event.inputs.min_lines_threshold || '100' }}
         run: |
           if ./scripts/check-changes.sh; then
             echo "changes=true" >> $GITHUB_OUTPUT

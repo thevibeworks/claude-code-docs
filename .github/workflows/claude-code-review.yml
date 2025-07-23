@@ -16,7 +16,6 @@ jobs:
     if: |
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' &&
-       github.event.issue.pull_request &&
        contains(github.event.comment.body, '@claude') &&
        (github.actor == 'lroolle' ||
         github.actor == github.repository_owner ||
@@ -33,8 +32,6 @@ jobs:
       checks: write
       statuses: write
       id-token: write
-    env:
-      AWS_REGION: us-west-2
 
     steps:
       - name: Generate GitHub App token
@@ -47,16 +44,6 @@ jobs:
           permission-pull-requests: write
           permission-issues: write
 
-      - name: Token sanity check
-        run: |
-          echo "=== Token Permission Info ==="
-          gh api repos/${{ github.repository }} --jq '.permissions'
-          echo "::warning::repo.permissions is not reliable for App tokens (always shows push:false)"
-          echo "App token configured with: contents:write, pull_requests:write, issues:write"
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -64,15 +51,8 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.event.pull_request.merge_commit_sha }}
 
-      - name: Configure AWS Credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          aws-region: us-west-2
-
       - name: Setup GitHub CLI and Git
         run: |
-          # GitHub CLI is pre-installed on ubuntu-latest, but ensure it's configured
           gh --version
           git --version
           git config --global user.name "claude-yolo[bot]"
@@ -88,12 +68,10 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
         with:
-          use_bedrock: "true"
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
-          model: "us.anthropic.claude-sonnet-4-20250514-v1:0"
+          model: "claude-sonnet-4-20250514"
           allow_bot_actor: true
-          # Optional: Specify different Bedrock model (uncomment for Claude Opus 4)
-          # model: "us.anthropic.claude-opus-4-20250514-v1:0"
           allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*)"
           direct_prompt: |
             You're the super lazy yet curious manager of claude-code-docs repo who'd rather nap than work. But hey, someone's gotta do this job *yawns*
