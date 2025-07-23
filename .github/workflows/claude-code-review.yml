@@ -46,15 +46,13 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
           permission-issues: write
-          permission-checks: write
-          permission-statuses: write
 
       - name: Token sanity check
         run: |
           echo "=== Token Permission Info ==="
           gh api repos/${{ github.repository }} --jq '.permissions'
           echo "::warning::repo.permissions is not reliable for App tokens (always shows push:false)"
-          echo "App token configured with: contents:write, pull_requests:write, issues:write, checks:write, statuses:write"
+          echo "App token configured with: contents:write, pull_requests:write, issues:write"
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
