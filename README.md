@@ -4,7 +4,7 @@
 
 This repository contains Claude Code documentation and resources for **learning about [Claude Code](https://claude.ai/code)**
 
-![Claude Code in Action](https://raw.githubusercontent.com/lroolle/claude-code-docs/main/screenshot.png)
+![Claude Code in Action](https://raw.githubusercontent.com/thevibeworks/claude-code-docs/main/screenshot.png)
 
 
 ## Quick Start for How to Use Claude Code
@@ -20,11 +20,11 @@ npm install -g @anthropic-ai/claude-code
 ### Getting Started
 
 
-> **GitHub Repository**: https://github.com/lroolle/claude-code-docs
+> **GitHub Repository**: https://github.com/thevibeworks/claude-code-docs
 
 1. **Clone this repository**:
    ```bash
-   git clone https://github.com/lroolle/claude-code-docs
+   git clone https://github.com/thevibeworks/claude-code-docs
    cd claude-code-docs
    ```
 
