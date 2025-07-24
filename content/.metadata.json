@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-07-24T05:31:36Z",
+    "fetch_date": "2025-07-24T10:30:04Z",
     "format": "md"
   },
   "versions": {
@@ -14,7 +14,7 @@
       "url": "https://docs.anthropic.com/sitemap.xml",
       "pattern": "claude-code",
       "output_dir": "claude-code-docs",
-      "stats": { "downloaded": 31, "failed": 0, "total": 31 }
+      "stats": { "downloaded": 30, "failed": 1, "total": 31 }
     },
     "blog": {
       "name": "Anthropic Blog",
@@ -34,8 +34,8 @@
   "summary": {
     "total_sources": 3,
     "total_files": 35,
-    "total_downloaded": 35,
-    "total_failed": 0,
-    "success_rate": 100.0
+    "total_downloaded": 34,
+    "total_failed": 1,
+    "success_rate": 97.1
   }
 }
