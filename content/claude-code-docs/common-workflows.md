@@ -159,6 +159,66 @@ Suppose you need to update old code to use modern patterns and practices.
 
 ***
 
+## Use specialized sub agents
+
+Suppose you want to use specialized AI sub agents to handle specific tasks more effectively.
+
+<Steps>
+  <Step title="View available sub agents">
+    ```
+    > /agents
+    ```
+
+    This shows all available sub agents and lets you create new ones.
+  </Step>
+
+  <Step title="Use sub agents automatically">
+    Claude Code will automatically delegate appropriate tasks to specialized sub agents:
+
+    ```
+    > review my recent code changes for security issues
+    ```
+
+    ```
+    > run all tests and fix any failures
+    ```
+  </Step>
+
+  <Step title="Explicitly request specific sub agents">
+    ```
+    > use the code-reviewer sub agent to check the auth module
+    ```
+
+    ```
+    > have the debugger sub agent investigate why users can't log in
+    ```
+  </Step>
+
+  <Step title="Create custom sub agents for your workflow">
+    ```
+    > /agents
+    ```
+
+    Then select "Create New sub agent" and follow the prompts to define:
+
+    * Sub agent type (e.g., `api-designer`, `performance-optimizer`)
+    * When to use it
+    * Which tools it can access
+    * Its specialized system prompt
+  </Step>
+</Steps>
+
+<Tip>
+  Tips:
+
+  * Create project-specific sub agents in `.claude/agents/` for team sharing
+  * Use descriptive `description` fields to enable automatic delegation
+  * Limit tool access to what each sub agent actually needs
+  * Check the [sub agents documentation](/en/docs/claude-code/sub-agents) for detailed examples
+</Tip>
+
+***
+
 ## Work with tests
 
 Suppose you need to add tests for uncovered code.
@@ -763,6 +823,50 @@ Suppose you want to create personal slash commands that work across all your pro
   * Personal commands are only available to you and not shared with your team
   * Personal commands work across all your projects
   * You can use these for consistent workflows across different codebases
+</Tip>
+
+***
+
+## Ask Claude about its capabilities
+
+Claude has built-in access to its documentation and can answer questions about its own features and limitations.
+
+### Example questions
+
+```
+> can Claude Code create pull requests?
+```
+
+```
+> how does Claude Code handle permissions?
+```
+
+```
+> what slash commands are available?
+```
+
+```
+> how do I use MCP with Claude Code?
+```
+
+```
+> how do I configure Claude Code for Amazon Bedrock?
+```
+
+```
+> what are the limitations of Claude Code?
+```
+
+<Note>
+  Claude provides documentation-based answers to these questions. For executable examples and hands-on demonstrations, refer to the specific workflow sections above.
+</Note>
+
+<Tip>
+  Tips:
+
+  * Claude always has access to the latest Claude Code documentation, regardless of the version you're using
+  * Ask specific questions to get detailed answers
+  * Claude can explain complex features like MCP integration, enterprise configurations, and advanced workflows
 </Tip>
 
 ***

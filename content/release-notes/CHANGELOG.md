@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.60
+
+- You can now create custom subagents for specialized tasks! Run /agents to get started
+
 ## 1.0.59
 
 - Rename CLAUDE_CODE_BASH_PREFIX to CLAUDE_CODE_SHELL_PREFIX
