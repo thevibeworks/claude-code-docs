@@ -1,5 +1,39 @@
 # Changelog
 
+## 1.0.59
+
+- Rename CLAUDE_CODE_BASH_PREFIX to CLAUDE_CODE_SHELL_PREFIX
+- SDK: Added tool confirmation support with canUseTool callback
+- SDK: Allow specifying env for spawned process
+- Hooks: Exposed PermissionDecision to hooks (including "ask")
+- Hooks: UserPromptSubmit now supports additionalContext in advanced JSON output
+- Fixed issue where some Max users that specified Opus would still see fallback to Sonnet
+
+## 1.0.58
+
+- Added support for reading PDFs
+- MCP: Improved server health status display in 'claude mcp list'
+- Hooks: Added CLAUDE_PROJECT_DIR env var for hook commands
+
+## 1.0.57
+
+- Added support for specifying a model in slash commands
+- Improved permission messages to help Claude understand allowed tools
+- Fix: Remove trailing newlines from bash output in terminal wrapping
+
+## 1.0.56
+
+- Windows: Enabled shift+tab for mode switching on versions of Node.js that support terminal VT mode
+- Fixes for WSL IDE detection
+- Fix an issue causing awsRefreshHelper changes to .aws directory not to be picked up
+
+## 1.0.55
+
+- Clarified knowledge cutoff for Opus 4 and Sonnet 4 models
+- Windows: fixed Ctrl+Z crash
+- SDK: Added ability to capture error logging
+- Add --system-prompt-file option to override system prompt in print mode
+
 ## 1.0.54
 
 - Hooks: Added UserPromptSubmit hook and the current working directory to hook inputs

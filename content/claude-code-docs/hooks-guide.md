@@ -8,7 +8,8 @@ Code's behavior, ensuring certain actions always happen rather than relying on
 the LLM to choose to run them.
 
 <Tip>
-  For reference documentation on hooks, see [Hooks reference](/en/docs/claude-code/hooks).
+  For reference documentation on hooks, see [Hooks
+  reference](/en/docs/claude-code/hooks).
 </Tip>
 
 Example use cases for hooks include:
@@ -31,12 +32,15 @@ suggestions into app-level code that executes every time it is expected to run.
   You must consider the security implication of hooks as you add them, because hooks run automatically during the agent loop with your current environment's credentials.
   For example, malicious hooks code can exfiltrate your data. Always review your hooks implementation before registering them.
 
-  For full security best practices, see [Security Considerations](/en/docs/claude-code/hooks#security-considerations) in the hooks reference documentation.
+  For full security best practices, see
+  [Security Considerations](/en/docs/claude-code/hooks#security-considerations) in
+  the hooks reference documentation.
 </Warning>
 
 ## Hook Events Overview
 
-Claude Code provides several hook events that run at different points in the workflow:
+Claude Code provides several hook events that run at different points in the
+workflow:
 
 * **PreToolUse**: Runs before tool calls (can block them)
 * **PostToolUse**: Runs after tool calls complete
@@ -44,7 +48,8 @@ Claude Code provides several hook events that run at different points in the wor
 * **Stop**: Runs when Claude Code finishes responding
 * **SubagentStop**: Runs when subagent tasks complete
 
-Each event receives different data and can control Claude's behavior in different ways.
+Each event receives different data and can control Claude's behavior in
+different ways.
 
 ## Quickstart
 
@@ -69,9 +74,7 @@ Select `+ Add new matcher…` to run your hook only on Bash tool calls.
 
 Type `Bash` for the matcher.
 
-<Note>
-  Use an empty string `""` to match all tools. The `*` character is not a valid matcher on its own.
-</Note>
+<Note>You can use `*` to match all tools.</Note>
 
 ### Step 3: Add the hook
 
@@ -128,7 +131,9 @@ ls - Lists files and directories
 ## More Examples
 
 <Note>
-  For a complete example implementation, see the [bash command validator example](https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py) in our public codebase.
+  For a complete example implementation, see the [bash command validator
+  example](https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py)
+  in our public codebase.
 </Note>
 
 ### Code Formatting Hook
@@ -199,6 +204,11 @@ Block edits to sensitive files:
 
 ## Learn more
 
-* For reference documentation on hooks, see [Hooks reference](/en/docs/claude-code/hooks).
-* For comprehensive security best practices and safety guidelines, see [Security Considerations](/en/docs/claude-code/hooks#security-considerations) in the hooks reference documentation.
-* For troubleshooting steps and debugging techniques, see [Debugging](/en/docs/claude-code/hooks#debugging) in the hooks reference documentation.
+* For reference documentation on hooks, see
+  [Hooks reference](/en/docs/claude-code/hooks).
+* For comprehensive security best practices and safety guidelines, see
+  [Security Considerations](/en/docs/claude-code/hooks#security-considerations)
+  in the hooks reference documentation.
+* For troubleshooting steps and debugging techniques, see
+  [Debugging](/en/docs/claude-code/hooks#debugging) in the hooks reference
+  documentation.
