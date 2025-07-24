@@ -57,17 +57,11 @@ if git diff --cached --name-only | grep -q "content/claude-code-manifest.json"; 
   fi
 fi
 
-# 2. Check CHANGELOG for new features
+# 2. Check CHANGELOG for updates (any CHANGELOG update is meaningful)
 if git diff --cached --name-only | grep -E "(CHANGELOG|changelog)" >/dev/null 2>&1; then
-  [[ "$VERBOSE" == "true" ]] && echo "CHANGELOG updated, checking for new features..."
-
-  if git diff --cached | grep -E "^\+.*(\[feat\]|\[feature\]|### Added|### Changed)" >/dev/null 2>&1; then
-    [[ "$VERBOSE" == "true" ]] && echo "CHANGELOG updated with new features - meaningful!"
-    MEANINGFUL=true
-    REASONS+=("CHANGELOG updated with new features")
-  else
-    [[ "$VERBOSE" == "true" ]] && echo "CHANGELOG updated but no new features detected"
-  fi
+  [[ "$VERBOSE" == "true" ]] && echo "CHANGELOG updated - automatically meaningful!"
+  MEANINGFUL=true
+  REASONS+=("CHANGELOG updated")
 fi
 
 # 3. Check for substantial documentation changes
