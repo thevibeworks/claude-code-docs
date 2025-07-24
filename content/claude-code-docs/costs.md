@@ -20,6 +20,27 @@ When using Anthropic API, you can limit the total Claude Code workspace spend. T
 
 On Bedrock and Vertex, Claude Code does not send metrics from your cloud. In order to get cost metrics, several large enterprises reported using [LiteLLM](/en/docs/claude-code/bedrock-vertex-proxies#litellm), which is an open-source tool that helps companies [track spend by key](https://docs.litellm.ai/docs/proxy/virtual_keys#tracking-spend). This project is unaffiliated with Anthropic and we have not audited its security.
 
+### Rate limit recommendations
+
+When setting up Claude Code for teams, consider these Token Per Minute (TPM) per-user recommendations based on your organization size:
+
+| Team size     | TPM per user |
+| ------------- | ------------ |
+| 1-5 users     | 200k-300k    |
+| 5-20 users    | 100k-150k    |
+| 20-50 users   | 50k-75k      |
+| 50-100 users  | 25k-35k      |
+| 100-500 users | 15k-20k      |
+| 500+ users    | 10k-15k      |
+
+For example, if you have 200 users, you might request 20k TPM for each user, or 4 million total TPM (200\*20,000 = 4 million).
+
+The TPM per user decreases as team size grows because we expect fewer users to use Claude Code concurrently in larger organizations. These rate limits apply at the organization level, not per individual user, which means individual users can temporarily consume more than their calculated share when others aren't actively using the service.
+
+<Note>
+  If you anticipate scenarios with unusually high concurrent usage (such as live training sessions with large groups), you may need higher TPM allocations per user.
+</Note>
+
 ## Reduce token usage
 
 * **Compact conversations:**

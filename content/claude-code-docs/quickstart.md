@@ -65,8 +65,22 @@ Claude will analyze your files and provide a summary. You can also ask more spec
 > explain the folder structure
 ```
 
+You can also ask Claude about its own capabilities:
+
+```
+> what can Claude Code do?
+```
+
+```
+> how do I use slash commands in Claude Code?
+```
+
+```
+> can Claude Code work with Docker?
+```
+
 <Note>
-  Claude Code reads your files as needed - you don't have to manually add context.
+  Claude Code reads your files as needed - you don't have to manually add context. Claude also has access to its own documentation and can answer questions about its features and capabilities.
 </Note>
 
 ## Step 4: Make your first code change

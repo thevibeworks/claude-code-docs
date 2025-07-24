@@ -7,6 +7,7 @@
 | Command                   | Purpose                                                                        |
 | :------------------------ | :----------------------------------------------------------------------------- |
 | `/add-dir`                | Add additional working directories                                             |
+| `/agents`                 | Manage custom AI sub agents for specialized tasks                              |
 | `/bug`                    | Report bugs (sends conversation to Anthropic)                                  |
 | `/clear`                  | Clear conversation history                                                     |
 | `/compact [instructions]` | Compact conversation with optional focus instructions                          |
