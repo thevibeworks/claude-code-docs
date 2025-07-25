@@ -11,9 +11,17 @@ Your code’s new collaborator
 
 Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command. Your tools. Your workflow. Your codebase, evolving at thought speed.
 
-✻
+██████╗██╗ █████╗ ██╗ ██╗██████╗ ███████╗
 
-Hustling…
+██╔════╝██║ ██╔══██╗██║ ██║██╔══██╗██╔════╝
+
+██║ ██║ ███████║██║ ██║██║ ██║█████╗
+
+██║ ██║ ██╔══██║██║ ██║██║ ██║██╔══╝
+
+╚██████╗███████╗██║ ██║╚██████╔╝██████╔╝███████╗
+
+╚═════╝╚══════╝╚═╝ ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
 
 Trusted by engineers at
 -----------------------
@@ -39,11 +47,11 @@ Claude Code embeds Claude Opus 4—the same model our researchers and engineers 
 
 ✻
 
-Clauding…
+Manifesting…
 
 ✻
 
-Reticulating…
+Deliberating…
 
 ### Powerful intelligence
 
@@ -110,11 +118,11 @@ What could you do with Claude Code?
 
 ✻
 
-Cerebrating…
+Mulling…
 
 ✻
 
-Crunching…
+Hustling…
 
 ### Code onboarding
 
@@ -220,7 +228,7 @@ Developer docs
 Claude Code tutorials
 ---------------------
 
-![Image 30](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026880cf9c298703e171db_10db2d4c511ab2f304fe012f04a87a78_Code-Presentation.svg)
+![Image 30](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b792381adee206836ac_Nodes-Presentation.svg)
 
 Case study
 
