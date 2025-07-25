@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.61
+
+- Added --settings flag to load settings from a JSON file
+
 ## 1.0.60
 
 - You can now create custom subagents for specialized tasks! Run /agents to get started
