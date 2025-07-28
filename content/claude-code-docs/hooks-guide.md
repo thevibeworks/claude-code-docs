@@ -43,7 +43,7 @@ workflow:
 * **PostToolUse**: Runs after tool calls complete
 * **Notification**: Runs when Claude Code sends notifications
 * **Stop**: Runs when Claude Code finishes responding
-* **Sub Agent Stop**: Runs when sub agent tasks complete
+* **Subagent Stop**: Runs when subagent tasks complete
 
 Each event receives different data and can control Claude's behavior in
 different ways.

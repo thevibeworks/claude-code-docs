@@ -159,21 +159,21 @@ Suppose you need to update old code to use modern patterns and practices.
 
 ***
 
-## Use specialized sub agents
+## Use specialized subagents
 
-Suppose you want to use specialized AI sub agents to handle specific tasks more effectively.
+Suppose you want to use specialized AI subagents to handle specific tasks more effectively.
 
 <Steps>
-  <Step title="View available sub agents">
+  <Step title="View available subagents">
     ```
     > /agents
     ```
 
-    This shows all available sub agents and lets you create new ones.
+    This shows all available subagents and lets you create new ones.
   </Step>
 
-  <Step title="Use sub agents automatically">
-    Claude Code will automatically delegate appropriate tasks to specialized sub agents:
+  <Step title="Use subagents automatically">
+    Claude Code will automatically delegate appropriate tasks to specialized subagents:
 
     ```
     > review my recent code changes for security issues
@@ -184,24 +184,24 @@ Suppose you want to use specialized AI sub agents to handle specific tasks more 
     ```
   </Step>
 
-  <Step title="Explicitly request specific sub agents">
+  <Step title="Explicitly request specific subagents">
     ```
-    > use the code-reviewer sub agent to check the auth module
+    > use the code-reviewer subagent to check the auth module
     ```
 
     ```
-    > have the debugger sub agent investigate why users can't log in
+    > have the debugger subagent investigate why users can't log in
     ```
   </Step>
 
-  <Step title="Create custom sub agents for your workflow">
+  <Step title="Create custom subagents for your workflow">
     ```
     > /agents
     ```
 
-    Then select "Create New sub agent" and follow the prompts to define:
+    Then select "Create New subagent" and follow the prompts to define:
 
-    * Sub agent type (e.g., `api-designer`, `performance-optimizer`)
+    * Subagent type (e.g., `api-designer`, `performance-optimizer`)
     * When to use it
     * Which tools it can access
     * Its specialized system prompt
@@ -211,10 +211,10 @@ Suppose you want to use specialized AI sub agents to handle specific tasks more 
 <Tip>
   Tips:
 
-  * Create project-specific sub agents in `.claude/agents/` for team sharing
+  * Create project-specific subagents in `.claude/agents/` for team sharing
   * Use descriptive `description` fields to enable automatic delegation
-  * Limit tool access to what each sub agent actually needs
-  * Check the [sub agents documentation](/en/docs/claude-code/sub-agents) for detailed examples
+  * Limit tool access to what each subagent actually needs
+  * Check the [subagents documentation](/en/docs/claude-code/sub-agents) for detailed examples
 </Tip>
 
 ***

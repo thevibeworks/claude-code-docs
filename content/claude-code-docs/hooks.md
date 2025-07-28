@@ -102,7 +102,7 @@ Runs after Claude creates tool parameters and before processing the tool call.
 
 **Common matchers:**
 
-* `Task` - Sub agent tasks (see [sub agents documentation](/en/docs/claude-code/sub-agents))
+* `Task` - Subagent tasks (see [subagents documentation](/en/docs/claude-code/sub-agents))
 * `Bash` - Shell commands
 * `Glob` - File pattern matching
 * `Grep` - Content search
@@ -139,7 +139,7 @@ the stoppage occurred due to a user interrupt.
 
 ### SubagentStop
 
-Runs when a Claude Code sub agent (Task tool call) has finished responding.
+Runs when a Claude Code subagent (Task tool call) has finished responding.
 
 ### PreCompact
 
