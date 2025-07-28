@@ -80,14 +80,14 @@ Settings are applied in order of precedence:
 4. Shared project settings
 5. User settings
 
-## Sub agent configuration
+## Subagent configuration
 
-Claude Code supports custom AI sub agents that can be configured at both user and project levels. These sub agents are stored as Markdown files with YAML frontmatter:
+Claude Code supports custom AI subagents that can be configured at both user and project levels. These subagents are stored as Markdown files with YAML frontmatter:
 
-* **User sub agents**: `~/.claude/agents/` - Available across all your projects
-* **Project sub agents**: `.claude/agents/` - Specific to your project and can be shared with your team
+* **User subagents**: `~/.claude/agents/` - Available across all your projects
+* **Project subagents**: `.claude/agents/` - Specific to your project and can be shared with your team
 
-Sub agent files define specialized AI assistants with custom prompts and tool permissions. Learn more about creating and using sub agents in the [sub agents documentation](/en/docs/claude-code/sub-agents).
+Subagent files define specialized AI assistants with custom prompts and tool permissions. Learn more about creating and using subagents in the [subagents documentation](/en/docs/claude-code/sub-agents).
 
 ## Environment variables
 
