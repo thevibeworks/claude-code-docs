@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.63
+
+- Windows: Fixed file search, @agent mentions, and custom slash commands functionality
+
 ## 1.0.62
 
 - Added @-mention support with typeahead for custom agents. @<your-custom-agent> to invoke it
