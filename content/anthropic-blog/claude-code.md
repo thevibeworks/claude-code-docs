@@ -11,9 +11,7 @@ Your code’s new collaborator
 
 Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command. Your tools. Your workflow. Your codebase, evolving at thought speed.
 
-✢
-
-Conjuring…
+██████╗██╗ █████╗ ██╗ ██╗██████╗ ███████╗
 
 Trusted by engineers at
 -----------------------
@@ -37,13 +35,13 @@ Watch as Claude Code tackles an unfamiliar Next.js project, builds new functiona
 
 Claude Code embeds Claude Opus 4—the same model our researchers and engineers use—right in your terminal. It has deep codebase awareness and the ability to edit files and run commands directly in your environment.
 
-✢
+✳
 
-Hatching…
+Calculating…
 
-✢
+✳
 
-Forming…
+Reticulating…
 
 ### Powerful intelligence
 
@@ -108,13 +106,13 @@ Your terminal is where real work happens. Claude Code connects with the tools th
 What could you do with Claude Code?
 -----------------------------------
 
-✢
+✳
 
-Inferring…
+Ideating…
 
-✢
+✳
 
-Considering…
+Transmuting…
 
 ### Code onboarding
 
