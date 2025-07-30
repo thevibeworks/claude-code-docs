@@ -83,9 +83,32 @@ Traditional method shown in the [install steps above](#install-and-authenticate)
 ### Native binary installation (Alpha)
 
 * Use `claude install` from an existing installation
-* or `curl -fsSL claude.ai/install.sh | bash` for a fresh install
+* Or for a fresh install:
+  * **macOS, Linux, WSL**:
+    ```bash
+    # Install stable version (default)
+    curl -fsSL https://claude.ai/install.sh | bash
+
+    # Install latest version
+    curl -fsSL https://claude.ai/install.sh | bash -s latest
+
+    # Install specific version number
+    curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
+    ```
+  * **Windows PowerShell**:
+    ```powershell
+    # Install stable version (default)
+    irm https://claude.ai/install.ps1 | iex
+
+    # Install latest version
+    & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) latest
+
+    # Install specific version number
+    & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) 1.0.58
+    ```
+  * **Valid version options**: `"latest"`, `"stable"`, or a specific version number (e.g., `"1.0.58"`)
 * Currently in alpha testing
-* Platform support: macOS, Linux, Windows (via WSL)
+* Platform support: macOS (x64, arm64), Linux (x64, arm64), Windows (x64, arm64 via Windows 11 x64 emulation)
 
 ## Running on AWS or GCP
 

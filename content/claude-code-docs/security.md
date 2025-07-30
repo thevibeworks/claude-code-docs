@@ -39,6 +39,16 @@ Prompt injection is a technique where an attacker attempts to override or manipu
 * **Input sanitization**: Prevents command injection by processing user inputs
 * **Command blocklist**: Blocks risky commands that fetch arbitrary content from the web like `curl` and `wget`
 
+### Privacy safeguards
+
+We have implemented several safeguards to protect your data, including:
+
+* Limited retention periods for sensitive information
+* Restricted access to user session data
+* Clear policies against using feedback for model training
+
+For full details, please review our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) and [Privacy Policy](https://www.anthropic.com/legal/privacy).
+
 ### Additional safeguards
 
 * **Network request approval**: Tools that make network requests require user approval by default
@@ -68,6 +78,14 @@ Prompt injection is a technique where an attacker attempts to override or manipu
 Claude Code allows users to configure Model Context Protocol (MCP) servers. The list of allowed MCP servers is configured in your source code, as part of Claude Code settings engineers check into source control.
 
 We encourage either writing your own MCP servers or using MCP servers from providers that you trust. You are able to configure Claude Code permissions for MCP servers. Anthropic does not manage or audit any MCP servers.
+
+## Data flow and dependencies
+
+![Claude Code data flow diagram](https://mintlify.s3.us-west-1.amazonaws.com/anthropic/images/claude-code-data-flow.png)
+
+Claude Code is installed from [NPM](https://www.npmjs.com/package/@anthropic-ai/claude-code). Claude Code runs locally. In order to interact with the LLM, Claude Code sends data over the network. This data includes all user prompts and model outputs. The data is encrypted in transit via TLS and is not encrypted at rest. Claude Code is compatible with most popular VPNs and LLM proxies.
+
+Claude Code is built on Anthropic's APIs. For details regarding our API's security controls, including our API logging procedures, please refer to compliance artifacts offered in the [Anthropic Trust Center](https://trust.anthropic.com).
 
 ## Security best practices
 
