@@ -9,15 +9,34 @@ This quickstart guide will have you using AI-powered coding assistance in just a
 Make sure you have:
 
 * A terminal or command prompt open
-* [Node.js 18 or newer installed](https://nodejs.org/en/download/)
 * A code project to work with
 
 ## Step 1: Install Claude Code
 
-To install Claude Code, run the following command:
+### NPM Install
+
+If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
 
 ```sh
 npm install -g @anthropic-ai/claude-code
+```
+
+### Native Install
+
+<Tip>
+  Alternatively, try our new native install, now in beta.
+</Tip>
+
+**macOS, Linux, WSL:**
+
+```bash
+curl -fsSL claude.ai/install.sh | bash
+```
+
+**Windows PowerShell:**
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
 ```
 
 ## Step 2: Start your first session
