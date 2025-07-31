@@ -74,41 +74,51 @@ If you encounter any issues during installation, consult the [troubleshooting gu
 
 Traditional method shown in the [install steps above](#install-and-authenticate)
 
+### Native binary installation (Beta)
+
+If you have an existing installation of Claude Code, use `claude install` to start the native binary installation.
+
+For a fresh install, run the following command:
+
+**macOS, Linux, WSL:**
+
+```bash
+# Install stable version (default)
+curl -fsSL https://claude.ai/install.sh | bash
+
+# Install latest version
+curl -fsSL https://claude.ai/install.sh | bash -s latest
+
+# Install specific version number
+curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
+```
+
+**Windows PowerShell:**
+
+```powershell
+# Install stable version (default)
+irm https://claude.ai/install.ps1 | iex
+
+# Install latest version
+& ([scriptblock]::Create((irm https://claude.ai/install.ps1))) latest
+
+# Install specific version number
+& ([scriptblock]::Create((irm https://claude.ai/install.ps1))) 1.0.58
+
+```
+
+The native Claude Code installer is supported on macOS, Linux, and Windows.
+
+<Tip>
+  Make sure that you remove any outdated aliases or symlinks.
+  Once your installation is complete, run `claude doctor` to verify the installation.
+</Tip>
+
 ### Local installation
 
 * After global install via npm, use `claude migrate-installer` to move to local
 * Avoids autoupdater npm permission issues
 * Some users may be automatically migrated to this method
-
-### Native binary installation (Alpha)
-
-* Use `claude install` from an existing installation
-* Or for a fresh install:
-  * **macOS, Linux, WSL**:
-    ```bash
-    # Install stable version (default)
-    curl -fsSL https://claude.ai/install.sh | bash
-
-    # Install latest version
-    curl -fsSL https://claude.ai/install.sh | bash -s latest
-
-    # Install specific version number
-    curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
-    ```
-  * **Windows PowerShell**:
-    ```powershell
-    # Install stable version (default)
-    irm https://claude.ai/install.ps1 | iex
-
-    # Install latest version
-    & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) latest
-
-    # Install specific version number
-    & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) 1.0.58
-    ```
-  * **Valid version options**: `"latest"`, `"stable"`, or a specific version number (e.g., `"1.0.58"`)
-* Currently in alpha testing
-* Platform support: macOS (x64, arm64), Linux (x64, arm64), Windows (x64, arm64 via Windows 11 x64 emulation)
 
 ## Running on AWS or GCP
 
