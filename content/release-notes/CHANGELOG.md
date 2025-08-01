@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.65
+
+- IDE: Fixed connection stability issues and error handling for diagnostics
+- Windows: Fixed shell environment setup for users without .bashrc files
+
 ## 1.0.64
 
 - Agents: Added model customization support - you can now specify which model an agent should use
