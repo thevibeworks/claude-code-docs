@@ -72,13 +72,34 @@ Code through hierarchical settings:
 
 ### Settings precedence
 
-Settings are applied in order of precedence:
+Settings are applied in order of precedence (highest to lowest):
 
-1. Enterprise policies (see [IAM documentation](/en/docs/claude-code/iam#enterprise-managed-policy-settings))
-2. Command line arguments
-3. Local project settings
-4. Shared project settings
-5. User settings
+1. **Enterprise managed policies** (`managed-settings.json`)
+   * Deployed by IT/DevOps
+   * Cannot be overridden
+
+2. **Command line arguments**
+   * Temporary overrides for a specific session
+
+3. **Local project settings** (`.claude/settings.local.json`)
+   * Personal project-specific settings
+
+4. **Shared project settings** (`.claude/settings.json`)
+   * Team-shared project settings in source control
+
+5. **User settings** (`~/.claude/settings.json`)
+   * Personal global settings
+
+This hierarchy ensures that enterprise security policies are always enforced while still allowing teams and individuals to customize their experience.
+
+### Key points about the configuration system
+
+* **Memory files (CLAUDE.md)**: Contain instructions and context that Claude loads at startup
+* **Settings files (JSON)**: Configure permissions, environment variables, and tool behavior
+* **Slash commands**: Custom commands that can be invoked during a session with `/command-name`
+* **MCP servers**: Extend Claude Code with additional tools and integrations
+* **Precedence**: Higher-level configurations (Enterprise) override lower-level ones (User/Project)
+* **Inheritance**: Settings are merged, with more specific settings adding to or overriding broader ones
 
 ## Subagent configuration
 
