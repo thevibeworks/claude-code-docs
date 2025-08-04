@@ -764,10 +764,10 @@ Suppose you want to create flexible slash commands that can accept additional in
 <Steps>
   <Step title="Create a command file with the $ARGUMENTS placeholder">
     ```bash
-    echo "Find and fix issue #$ARGUMENTS. Follow these steps: 1.
+    echo 'Find and fix issue #$ARGUMENTS. Follow these steps: 1.
     Understand the issue described in the ticket 2. Locate the relevant code in
     our codebase 3. Implement a solution that addresses the root cause 4. Add
-    appropriate tests 5. Prepare a concise PR description" >
+    appropriate tests 5. Prepare a concise PR description' >
     .claude/commands/fix-issue.md 
     ```
   </Step>
