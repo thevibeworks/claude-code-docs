@@ -61,9 +61,9 @@ Percentage of times users accept code editing tool usage, including:
 * API key users are displayed by **API key identifier**
 * OAuth users are displayed by **email address**
 
-**Avg daily spend:** Per-user average spend for the current month. For example, on July 10, this reflects the average daily spend over 10 days.
+**Spend this month:** Per-user total spend for the current month.
 
-**Avg lines/day:** Per-user average of accepted code lines for the current month.
+**Lines this month:** Per-user total of accepted code lines for the current month.
 
 ## Using analytics effectively
 

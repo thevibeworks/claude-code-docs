@@ -152,6 +152,33 @@ These custom attributes will be included in all metrics and events, allowing you
 * Create team-specific dashboards
 * Set up alerts for specific teams
 
+<Warning>
+  **Important formatting requirements for OTEL\_RESOURCE\_ATTRIBUTES:**
+
+  The `OTEL_RESOURCE_ATTRIBUTES` environment variable follows the [W3C Baggage specification](https://www.w3.org/TR/baggage/), which has strict formatting requirements:
+
+  * **No spaces allowed**: Values cannot contain spaces. For example, `user.organizationName=My Company` is invalid
+  * **Format**: Must be comma-separated key=value pairs: `key1=value1,key2=value2`
+  * **Allowed characters**: Only US-ASCII characters excluding control characters, whitespace, double quotes, commas, semicolons, and backslashes
+  * **Special characters**: Characters outside the allowed range must be percent-encoded
+
+  **Examples:**
+
+  ```bash
+  # ❌ Invalid - contains spaces
+  export OTEL_RESOURCE_ATTRIBUTES="org.name=John's Organization"
+
+  # ✅ Valid - use underscores or camelCase instead
+  export OTEL_RESOURCE_ATTRIBUTES="org.name=Johns_Organization"
+  export OTEL_RESOURCE_ATTRIBUTES="org.name=JohnsOrganization"
+
+  # ✅ Valid - percent-encode special characters if needed
+  export OTEL_RESOURCE_ATTRIBUTES="org.name=John%27s%20Organization"
+  ```
+
+  Note: Quoting the entire key=value pair (e.g., `"key=value with spaces"`) is not supported by the OpenTelemetry specification and will result in attributes being prefixed with quotes.
+</Warning>
+
 ### Example Configurations
 
 ```bash
