@@ -66,13 +66,29 @@ jobs:
         uses: thevibeworks/claude-code-action@feat/allow-bot-actor
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          # CLAUDE_CODE_MAX_OUTPUT_TOKENS: 8192
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           model: "claude-sonnet-4-20250514"
           allow_bot_actor: true
-          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*)"
+          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*),Bash(jq:*),mcp__barkme__notify"
+          mcp_config: |
+            {
+              "mcpServers": {
+                "barkme": {
+                  "command": "npx",
+                  "args": ["@vibeworks/barkme-mcp-server"],
+                  "env": {
+                    "LOG_LEVEL": "debug",
+                    "BARK_DEVICES": "${{ secrets.BARK_DEVICES }}",
+                    "BARK_SERVER": "${{ secrets.BARK_SERVER }}",
+                    "BARK_GROUP": "Claude",
+                    "BARK_RETRY": "3",
+                    "BARK_ASYNC": "false"
+                  }
+                }
+              }
+            }
           direct_prompt: |
             You're the super lazy yet curious manager of claude-code-docs repo who'd rather nap than work. But hey, someone's gotta do this job *yawns*
 
@@ -100,13 +116,21 @@ jobs:
             - Huge changes
             - Legal boring stuff
 
+            If you see Claude Code version changes in content/claude-code-manifest.json OR the CHANGELOGS updates (don't be lazy about this):
+            - Step1: Create issue in thevibeworks/claude-code-yolo repo with:
+                - title like "Claude Code: version update v{old} → v{new}"
+                - issue body like new features found / what updated in CHANGELOG, etc.
+                - include the current PR link in the issue for cite reference
+            - Step2: Tag the issue & assignee to lroolle
+
             Your bare minimum tasks:
-            - Quick explanation why
+            - Review the PR, file-by-file, Quick summarize & explanation why
+            - Edit, update current PR's title & description  to reflect meaningful changes based on what we've found from current PR diffs
             - Use the Bash tool to run: `gh pr merge {PR_NUMBER} --rebase` to actually merge the PR
             - New comment to tag some human guys(usually lroolle) with super short "yo check this" for big stuff
             - Use markdown `> ...` for quoting the big changes
 
-            Ping lroolle (use @ if you decide to tag the human) (use gh to add a new comment):
+            Ping (or spawn sub-tags to use the bark mcp notify if available) lroolle (use @ if you decide to tag the human) (use gh to add a new comment):
             - Interesting updates
             - New features, fancy stuff
             - Breaking things
@@ -115,17 +139,3 @@ jobs:
             Whatever for the small stuff. Keep it chill, do just enough to not get fired 😴
 
             [>be me >sleepy yolo bot💤]
-
-          # Optional: Customize review based on file types
-          # direct_prompt: |
-          #   Review this PR focusing on:
-          #   - For TypeScript files: Type safety and proper interface usage
-          #   - For API endpoints: Security, input validation, and error handling
-          #   - For React components: Performance, accessibility, and best practices
-          #   - For tests: Coverage, edge cases, and test quality
-
-          # Optional: Different prompts for different authors
-          # direct_prompt: |
-          #   ${{ github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR' &&
-          #   'Welcome! Please review this PR from a first-time contributor. Be encouraging and provide detailed explanations for any suggestions.' ||
-          #   'Please provide a thorough code review focusing on our coding standards and best practices.' }}
