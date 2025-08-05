@@ -381,9 +381,10 @@ export const MCPServersTable = ({platform = "all"}) => {
         fontSize: '0.75rem',
         fontWeight: 500,
         minWidth: 'fit-content',
-        marginTop: '0.5rem'
+        marginTop: '0.5rem',
+        marginBottom: 0
       }}>
-                        {platform === "claudeCode" ? "Command:" : "URL"}
+                        {platform === "claudeCode" ? "Command" : "URL"}
                       </p>
                       <div className="command-row">
                         <code>
