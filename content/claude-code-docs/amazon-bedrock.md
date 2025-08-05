@@ -121,7 +121,7 @@ To customize models, use one of these methods:
 
 ```bash
 # Using inference profile ID
-export ANTHROPIC_MODEL='us.anthropic.claude-opus-4-20250514-v1:0'
+export ANTHROPIC_MODEL='us.anthropic.claude-opus-4-1-20250805-v1:0'
 export ANTHROPIC_SMALL_FAST_MODEL='us.anthropic.claude-3-5-haiku-20241022-v1:0'
 
 # Using application inference profile ARN
