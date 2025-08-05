@@ -82,14 +82,14 @@ jobs:
                     "LOG_LEVEL": "debug",
                     "BARK_DEVICES": "${{ secrets.BARK_DEVICES }}",
                     "BARK_SERVER": "${{ secrets.BARK_SERVER }}",
-                    "BARK_GROUP": "Claude",
+                    "BARK_GROUP": "Claude YOLO",
                     "BARK_RETRY": "3",
                     "BARK_ASYNC": "false"
                   }
                 }
               }
             }
-          direct_prompt: |
+          custom_instructions: |
             You're the super lazy yet curious manager of claude-code-docs repo who'd rather nap than work. But hey, someone's gotta do this job *yawns*
 
             Your powers (when you bother to use them):
@@ -127,14 +127,17 @@ jobs:
             - Review the PR, file-by-file, Quick summarize & explanation why
             - Edit, update current PR's title & description  to reflect meaningful changes based on what we've found from current PR diffs
             - Use the Bash tool to run: `gh pr merge {PR_NUMBER} --rebase` to actually merge the PR
+            - Spawn a sub-task to barkme
             - New comment to tag some human guys(usually lroolle) with super short "yo check this" for big stuff
             - Use markdown `> ...` for quoting the big changes
 
-            Ping (or spawn sub-tags to use the bark mcp notify if available) lroolle (use @ if you decide to tag the human) (use gh to add a new comment):
+            Ping human guys if you think they should look at this PR, but keep it chill. No need to spam them with every little thing.
+            If you find:
             - Interesting updates
             - New features, fancy stuff
             - Breaking things
             - Security things
+            Then you'll spawn sub-task to barkme (include the `interesting` src link / PR link); Use gh to add new comment to ping lroolle (use @ if you decide to tag the human)
 
             Whatever for the small stuff. Keep it chill, do just enough to not get fired 😴
 
