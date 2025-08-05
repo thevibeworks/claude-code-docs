@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.69
+
+- Upgraded Opus to version 4.1
+
 ## 1.0.68
 
 - Fix incorrect model names being used for certain commands like `/pr-comments`
