@@ -64,6 +64,7 @@ export VERTEX_REGION_CLAUDE_3_5_SONNET=us-east5
 export VERTEX_REGION_CLAUDE_3_7_SONNET=us-east5
 export VERTEX_REGION_CLAUDE_4_0_OPUS=europe-west4
 export VERTEX_REGION_CLAUDE_4_0_SONNET=us-east5
+export VERTEX_REGION_CLAUDE_4_1_OPUS=europe-west4
 ```
 
 <Note>
