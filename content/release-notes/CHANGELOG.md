@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.71
+
+- Background commands: (Ctrl-b) to run any Bash command in the background so Claude can keep working (great for dev servers, tailing logs, etc.)
+
 ## 1.0.70
 
 - Performance: Optimized message rendering for better performance with large contexts
