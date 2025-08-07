@@ -216,7 +216,8 @@ export const MCPServersTable = ({platform = "all"}) => {
     description: "Monitor errors, debug production issues",
     documentation: "https://docs.sentry.io/product/sentry-mcp/",
     urls: {
-      http: "https://mcp.sentry.dev/sse"
+      sse: "https://mcp.sentry.dev/sse",
+      http: "https://mcp.sentry.dev/mcp"
     },
     authentication: {
       type: "oauth"
@@ -661,7 +662,7 @@ If a required environment variable is not set and has no default value, Claude C
 
 ```bash
 # 1. Add the Sentry MCP server
-claude mcp add --transport http sentry https://mcp.sentry.dev/sse
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 
 # 2. Use /mcp to authenticate with your Sentry account
 > /mcp
@@ -693,7 +694,7 @@ Many cloud-based MCP servers require authentication. Claude Code supports OAuth 
     For example:
 
     ```bash
-    claude mcp add --transport http sentry https://mcp.sentry.dev/sse
+    claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
     ```
   </Step>
 
