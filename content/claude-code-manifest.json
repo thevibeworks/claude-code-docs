@@ -1,1 +1,101 @@
-"timeout of 30000ms exceeded"
+{
+  "name": "@anthropic-ai/claude-code",
+  "version": "1.0.71",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "_id": "@anthropic-ai/claude-code@1.0.71",
+  "maintainers": [
+    {
+      "name": "zak-anthropic",
+      "email": "zak@anthropic.com"
+    },
+    {
+      "name": "benjmann",
+      "email": "ben@anthropic.com"
+    },
+    {
+      "name": "nikhil-anthropic",
+      "email": "nikhil@anthropic.com"
+    },
+    {
+      "name": "ejlangev-ant",
+      "email": "ethan.langevin@anthropic.com"
+    },
+    {
+      "name": "jv-anthropic",
+      "email": "jv@anthropic.com"
+    },
+    {
+      "name": "sbidasaria",
+      "email": "sbidasaria@anthropic.com"
+    },
+    {
+      "name": "wolffiex",
+      "email": "wolffiex@anthropic.com"
+    },
+    {
+      "name": "igorkofman",
+      "email": "kofman@gmail.com"
+    },
+    {
+      "name": "felixrieseberg-anthropic",
+      "email": "f@anthropic.com"
+    }
+  ],
+  "homepage": "https://github.com/anthropics/claude-code",
+  "bugs": {
+    "url": "https://github.com/anthropics/claude-code/issues"
+  },
+  "bin": {
+    "claude": "cli.js"
+  },
+  "dist": {
+    "shasum": "b237ce14450e0c5ff7c930408378207b68234482",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.71.tgz",
+    "fileCount": 53,
+    "integrity": "sha512-2Z1HU8TiOSRZSZdHCPs+ih942cteUQ9Yx1EHHW5fO9y+gwxPYDR8Xbh/rAJMl/G58cJIn2jRiZmkWcGMN+Iqqg==",
+    "signatures": [
+      {
+        "sig": "MEUCIE1nW7LElfmd6D/QsK3cer5gh4JhZ450FcTLCkOFrPM4AiEA1EPw6yV5HJuOAC82SWHzdLn0+sFvPI0gF5PtpXus2gk=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "unpackedSize": 156021936
+  },
+  "main": "sdk.mjs",
+  "type": "module",
+  "types": "sdk.d.ts",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "gitHead": "8200797bf8ee756294449361610a15bb82ac2f7f",
+  "scripts": {
+    "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
+  },
+  "_npmUser": {
+    "name": "wolffiex",
+    "email": "wolffiex@anthropic.com"
+  },
+  "_npmVersion": "10.8.2",
+  "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
+  "directories": {},
+  "_nodeVersion": "20.19.4",
+  "dependencies": {},
+  "_hasShrinkwrap": false,
+  "readmeFilename": "README.md",
+  "optionalDependencies": {
+    "@img/sharp-linux-arm": "^0.33.5",
+    "@img/sharp-linux-x64": "^0.33.5",
+    "@img/sharp-win32-x64": "^0.33.5",
+    "@img/sharp-darwin-x64": "^0.33.5",
+    "@img/sharp-linux-arm64": "^0.33.5",
+    "@img/sharp-darwin-arm64": "^0.33.5"
+  },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/claude-code_1.0.71_1754602389260_0.9054267255450061",
+    "host": "s3://npm-registry-packages-npm-production"
+  }
+}
