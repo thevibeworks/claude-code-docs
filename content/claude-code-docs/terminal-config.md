@@ -6,6 +6,8 @@
 
 Claude cannot control the theme of your terminal. That's handled by your terminal application. You can match Claude Code's theme to your terminal any time via the `/config` command.
 
+For additional customization of the Claude Code interface itself, you can configure a [custom status line](/en/docs/claude-code/statusline) to display contextual information like the current model, working directory, or git branch at the bottom of your terminal.
+
 ### Line breaks
 
 You have several options for entering linebreaks into Claude Code:
