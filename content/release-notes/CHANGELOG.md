@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.70
+
+- Performance: Optimized message rendering for better performance with large contexts
+- Windows: Fixed native file search, ripgrep, and subagent functionality
+- Added support for @-mentions in slash command arguments
+
 ## 1.0.69
 
 - Upgraded Opus to version 4.1
