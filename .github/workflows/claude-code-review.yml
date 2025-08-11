@@ -83,6 +83,7 @@ jobs:
                     "BARK_DEVICES": "${{ secrets.BARK_DEVICES }}",
                     "BARK_SERVER": "${{ secrets.BARK_SERVER }}",
                     "BARK_GROUP": "Claude YOLO",
+                    "BARK_ICON": "https://avatars.githubusercontent.com/in/1452392",
                     "BARK_RETRY": "3",
                     "BARK_ASYNC": "false"
                   }
