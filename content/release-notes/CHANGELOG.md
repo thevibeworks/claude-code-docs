@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.72
+
+- Ask permissions: have Claude Code always ask for confirmation to use specific tools with /permissions
+
 ## 1.0.71
 
 - Background commands: (Ctrl-b) to run any Bash command in the background so Claude can keep working (great for dev servers, tailing logs, etc.)
