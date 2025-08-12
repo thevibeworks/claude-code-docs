@@ -1,11 +1,11 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-08-11T20:27:10Z",
+    "fetch_date": "2025-08-12T02:04:35Z",
     "format": "md"
   },
   "versions": {
-    "latest_npm": "1.0.72",
+    "latest_npm": "1.0.73",
     "npm_package": "@anthropic-ai/claude-code"
   },
   "sources": {
