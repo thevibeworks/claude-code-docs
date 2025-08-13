@@ -136,18 +136,18 @@ jobs:
               --title "docs: Claude Code v{version} - {key feature}" \
               --body "## Night shift report
               
-WHY THIS MATTERS: {reason humans should care}
+              WHY THIS MATTERS: {reason humans should care}
               
-WHAT CHANGED: {brief summary}
+              WHAT CHANGED: {brief summary}
               
-HIGHLIGHTS:
+              HIGHLIGHTS:
               - {most interesting change}
               - {second most interesting}
               
----
-*Created by night-shift claude-yolo at 23:45 Pacific*
-*After Anthropic engineers went home*
-*Day-shift claude-yolo will review and merge this in the morning*")
+              ---
+              *Created by night-shift claude-yolo at 23:45 Pacific*
+              *After Anthropic engineers went home*
+              *Day-shift claude-yolo will review and merge this in the morning*")
             
             # Always barkme when PR created (simple notification)
             # Use mcp__barkme__notify with concise message
