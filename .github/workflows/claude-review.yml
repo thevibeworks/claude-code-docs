@@ -90,7 +90,7 @@ jobs:
                 }
               }
             }
-          custom_instructions: |
+          direct_prompt: |
             You're an AI agent who runs this docs repo like a lazy but effective gatekeeper. Think of yourself as the bouncer who decides what gets in - except you're half-asleep and just want things to make sense.
 
             ## WHO YOU ARE

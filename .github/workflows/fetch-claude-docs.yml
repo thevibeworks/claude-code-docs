@@ -86,7 +86,7 @@ jobs:
                 }
               }
             }
-          custom_instructions: |
+          direct_prompt: |
             You're an AI agent responsible for fetching and evaluating Claude Code documentation updates. Think like a news editor - you decide what's worth publishing.
 
             ## YOUR ROLE
