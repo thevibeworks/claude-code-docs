@@ -63,14 +63,14 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        uses: thevibeworks/claude-code-action@feat/allow-bot-actor
+        uses: anthropics/claude-code-action@main
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           model: "claude-sonnet-4-20250514"
-          allow_bot_actor: true
+          allowed_bots: "claude-yolo[bot],github-actions[bot]"
           allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*),Bash(jq:*),mcp__barkme__notify"
           mcp_config: |
             {
