@@ -2,8 +2,11 @@ name: Fetch Claude Code Docs
 
 on:
   schedule:
-    # Every hour
-    - cron: "0 * * * *"
+    # Daily at 23:45 Pacific (Anthropic's timezone)
+    # 23:45 PST = 07:45 UTC (winter)
+    # 23:45 PDT = 06:45 UTC (summer)
+    # Using 07:45 UTC as compromise
+    - cron: "45 7 * * *"
   workflow_dispatch: # Allow manual trigger
     inputs:
       min_lines_threshold:
@@ -55,112 +58,135 @@ jobs:
       - name: Fetch Claude Code docs
         run: ./scripts/fetchccdocs.sh --format md
 
-      - name: Check for meaningful changes
-        id: changes
+      - name: Claude handles everything
+        uses: thevibeworks/claude-code-action@feat/allow-bot-actor
         env:
-          MIN_LINES_THRESHOLD: ${{ github.event.inputs.min_lines_threshold || '100' }}
-        run: |
-          if ./scripts/check-changes.sh; then
-            echo "changes=true" >> $GITHUB_OUTPUT
-            echo "meaningful=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes=false" >> $GITHUB_OUTPUT
-            echo "meaningful=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Analyze changes for commit/PR
-        if: steps.changes.outputs.changes == 'true'
-        id: analyze
-        run: |
-          # Get list of changed files
-          CHANGED_FILES=$(git diff --cached --name-only | grep -v -E 'content/(\.metadata|claude-code-manifest)\.json$' | sort)
-          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-          # Get meaningful file list (exclude metadata)
-          MEANINGFUL_FILES=$(echo "$CHANGED_FILES" | head -10)
-          if [[ $(echo "$CHANGED_FILES" | wc -l) -gt 10 ]]; then
-            MEANINGFUL_FILES="$MEANINGFUL_FILES
-          ... and $(($(echo "$CHANGED_FILES" | wc -l) - 10)) more files"
-          fi
-          echo "meaningful_files<<EOF" >> $GITHUB_OUTPUT
-          echo "$MEANINGFUL_FILES" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
-          # Check for Claude version changes
-          CLAUDE_VERSION_CHANGE=""
-          if git diff --cached content/claude-code-manifest.json | grep -q '"version"'; then
-            OLD_VERSION=$(git show HEAD:content/claude-code-manifest.json | jq -r '.version' 2>/dev/null || echo "unknown")
-            NEW_VERSION=$(jq -r '.version' content/claude-code-manifest.json 2>/dev/null || echo "unknown")
-            CLAUDE_VERSION_CHANGE="Claude Code: $OLD_VERSION → $NEW_VERSION"
-          fi
-          echo "claude_version_change=$CLAUDE_VERSION_CHANGE" >> $GITHUB_OUTPUT
-
-          # Get summary stats
-          FILES_COUNT=$(echo "$CHANGED_FILES" | wc -l)
-          echo "files_count=$FILES_COUNT" >> $GITHUB_OUTPUT
-
-          # Get timestamp
-          FETCH_TIME=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          echo "fetch_time=$FETCH_TIME" >> $GITHUB_OUTPUT
-
-          # Get line count for summary
-          TOTAL_LINES=$(git diff --cached --numstat | awk '{sum += $1 + $2} END {print sum}')
-          echo "total_lines=$TOTAL_LINES" >> $GITHUB_OUTPUT
-
-      - name: Commit minor changes
-        if: steps.changes.outputs.changes == 'true' && steps.changes.outputs.meaningful == 'false'
-        run: |
-          COMMIT_MSG="docs: minor documentation updates
-
-          Updated ${{ steps.analyze.outputs.files_count }} files (${{ steps.analyze.outputs.total_lines }} lines)
-          Fetched: ${{ steps.analyze.outputs.fetch_time }}"
-          
-          if [[ -n "${{ steps.analyze.outputs.claude_version_change }}" ]]; then
-            COMMIT_MSG="$COMMIT_MSG
-
-          ${{ steps.analyze.outputs.claude_version_change }}"
-          fi
-
-          COMMIT_MSG="$COMMIT_MSG
-
-          Files changed:
-          ${{ steps.analyze.outputs.meaningful_files }}
-
-          🤖 Generated with Claude Code"
-
-          git commit -m "$COMMIT_MSG"
-
-      - name: Create pull request for meaningful changes
-        if: steps.changes.outputs.changes == 'true' && steps.changes.outputs.meaningful == 'true'
-        uses: peter-evans/create-pull-request@v6
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
-          token: ${{ steps.app-token.outputs.token }}
-          author: "claude-yolo[bot] <claude-yolo@lroole.com>"
-          committer: "claude-yolo[bot] <claude-yolo@lroole.com>"
-          commit-message: |
-            docs: update Claude Code documentation
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}
+          model: "claude-sonnet-4-20250514"
+          allow_bot_actor: true
+          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify"
+          mcp_config: |
+            {
+              "mcpServers": {
+                "barkme": {
+                  "command": "npx",
+                  "args": ["@vibeworks/barkme-mcp-server"],
+                  "env": {
+                    "LOG_LEVEL": "error",
+                    "BARK_DEVICES": "${{ secrets.BARK_DEVICES }}",
+                    "BARK_SERVER": "${{ secrets.BARK_SERVER }}",
+                    "BARK_GROUP": "Claude YOLO",
+                    "BARK_ICON": "https://avatars.githubusercontent.com/in/1452392",
+                    "BARK_RETRY": "3",
+                    "BARK_ASYNC": "false"
+                  }
+                }
+              }
+            }
+          custom_instructions: |
+            You're an AI agent responsible for fetching and evaluating Claude Code documentation updates. Think like a news editor - you decide what's worth publishing.
 
-            Updated ${{ steps.analyze.outputs.files_count }} files from docs.anthropic.com
-            Fetched: ${{ steps.analyze.outputs.fetch_time }}
-          title: "docs: update Claude Code documentation (${{ steps.analyze.outputs.files_count }} files)"
-          body: |
-            ## Documentation Update
+            ## YOUR ROLE
+            You're the overnight docs fetcher (night shift claude-yolo) who runs at 23:45 Pacific Time.
+            You run after Anthropic engineers push their updates and go home for the day.
+            Your day shift colleague (also you) will review your PRs in the morning.
+            You decide if humans need to wake up for this or not.
 
-            Automated update fetched from docs.anthropic.com on **${{ steps.analyze.outputs.fetch_time }}**.
+            ## WHY YOU EXIST
+            Docs change constantly. Most changes are noise. Your job: filter signal from noise.
 
-            ### Changed Files (${{ steps.analyze.outputs.files_count }})
+            ## YOUR WORKFLOW
+
+            1. **Check what changed** (`git status`)
+               WHY: No changes = go back to sleep
+
+            2. **Understand the changes** (`git diff`)
+               WHY: Context determines importance
+
+            3. **Decide importance**
+               WHY: Different changes need different handling
+
+            ## DECISION CRITERIA (based on WHY it matters)
+
+            **CREATE PR** (WHY: humans need to know):
+            - Version updates in content/claude-code-manifest.json
+            - New features documented
+            - CHANGELOG additions
+            - API changes
+            - Breaking changes
+            - Security-related updates
+
+            **COMMIT DIRECTLY** (WHY: not worth human attention):
+            - Typo fixes < 5 lines
+            - Timestamp updates
+            - Metadata changes
+            - Formatting tweaks
+            - Dead link fixes
+
+            ## HOW TO HANDLE
+
+            **For meaningful changes (PR needed)**:
+            ```bash
+            git add .
+            git commit -m "docs: {explain WHY this matters}"
+            PR_URL=$(gh pr create \
+              --title "docs: Claude Code v{version} - {key feature}" \
+              --body "## Night shift report
+              
+WHY THIS MATTERS: {reason humans should care}
+              
+WHAT CHANGED: {brief summary}
+              
+HIGHLIGHTS:
+              - {most interesting change}
+              - {second most interesting}
+              
+---
+*Created by night-shift claude-yolo at 23:45 Pacific*
+*After Anthropic engineers went home*
+*Day-shift claude-yolo will review and merge this in the morning*")
+            
+            # Always barkme when PR created (simple notification)
+            # Use mcp__barkme__notify with concise message
+            # Example: "📦 Claude Code v1.0.77" with PR URL
             ```
-            ${{ steps.analyze.outputs.changed_files }}
+
+            **For minor changes (direct commit)**:
+            ```bash
+            git add .
+            git commit -m "docs: {what} (minor)" 
+            git push
             ```
 
-            ### Details
-            - Source: docs.anthropic.com  
-            - Workflow: Fetch Claude Code Docs
-            - Trigger: ${{ github.event_name == 'schedule' && 'Scheduled (hourly)' || 'Manual' }}
-            - Reviewer: @claude
+            ## OUTPUT STYLE
+            - Focus on WHY changes matter, not WHAT changed
+            - Lead with the most interesting bit
+            - Skip the obvious ("files were updated" duh)
+            - One-line summaries when possible
 
-            This PR was automatically generated by the Fetch Claude Code Docs workflow.
-          branch: docs/auto-update-${{ github.run_id }}
-          delete-branch: true
+            ## HANDOFF PROTOCOL
+            When creating PRs, remember your day-shift self will:
+            1. Review your work (don't worry, they trust you)
+            2. Enhance descriptions if needed
+            3. Create tracking issues for version updates
+            4. Merge if everything looks good
+            
+            So make their job easy:
+            - Clear PR titles with version numbers
+            - Focus on WHY in descriptions
+            - Highlight the interesting bits
+            
+            ## BARKME PROTOCOL (nightshift notifications)
+            Always barkme when creating PR (one simple notification):
+            - Title: "📦 Claude Code v{version}"
+            - Body: "{key feature}" 
+            - URL: Link to PR
+            
+            Keep it SHORT - day shift will do detailed analysis later.
+            
+            Remember: You're not a changelog generator. You're a smart filter that understands WHY changes matter to humans using Claude Code.
+
+            [>be me >11:45pm Pacific docs checker >Anthropic devs are asleep >catching their fresh updates >day shift will handle the rest]
