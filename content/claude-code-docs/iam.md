@@ -54,7 +54,8 @@ Claude Code uses a tiered permission system to balance power and safety:
 You can view & manage Claude Code's tool permissions with `/permissions`. This UI lists all permission rules and the settings.json file they are sourced from.
 
 * **Allow** rules will allow Claude Code to use the specified tool without further manual approval.
-* **Deny** rules will prevent Claude Code from using the specified tool. Deny rules take precedence over allow rules.
+* **Ask** rules will ask the user for confirmation whenever Claude Code tries to use the specified tool. Ask rules take precedence over allow rules.
+* **Deny** rules will prevent Claude Code from using the specified tool. Deny rules take precedence over allow and ask rules.
 * **Additional directories** extend Claude's file access to directories beyond the initial working directory.
 * **Default mode** controls Claude's permission behavior when encountering new requests.
 
