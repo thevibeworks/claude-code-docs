@@ -45,6 +45,13 @@ jobs:
       - name: Fetch Claude Code docs
         run: ./scripts/fetchccdocs.sh --format md
 
+      - name: Setup GitHub CLI and Git
+        run: |
+          gh --version
+          git --version
+          git config --global user.name "claude-yolo[bot]"
+          git config --global user.email "claude-yolo@lroole.com"
+
       - name: Claude handles everything
         uses: anthropics/claude-code-action@main
         env:
