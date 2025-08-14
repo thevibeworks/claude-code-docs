@@ -7,6 +7,11 @@ on:
     # 23:45 PDT = 06:45 UTC (summer)
     # Using 07:45 UTC as compromise
     - cron: "45 7 * * *"
+    # Daily at 19:00 Los Angeles time
+    # 19:00 PST = 03:00 UTC (winter)
+    # 19:00 PDT = 02:00 UTC (summer)
+    # Using 03:00 UTC as compromise
+    - cron: "0 3 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
