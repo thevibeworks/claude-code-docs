@@ -11,6 +11,10 @@
 * **Shell**: Works best in Bash, Zsh or Fish
 * **Location**: [Anthropic supported countries](https://www.anthropic.com/supported-countries)
 
+### Additional dependencies
+
+* **ripgrep**: Claude Code depends on `ripgrep` for core functionality. While it is typically included in your Claude Code installation, you may need to independently install `ripgrep` on some distributions (like Alpine Linux or other musl-based distributions).
+
 ## Standard installation
 
 To install Claude Code, run the following command:

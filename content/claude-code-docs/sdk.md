@@ -275,13 +275,14 @@ The Claude Code SDK allows you to interface with Claude Code in non-interactive 
 
     The TypeScript SDK accepts all arguments supported by the [command line](/en/docs/claude-code/cli-reference), as well as the following additional options:
 
-    | Argument                     | Description                         | Default                                                       |
-    | :--------------------------- | :---------------------------------- | :------------------------------------------------------------ |
-    | `abortController`            | Abort controller                    | `new AbortController()`                                       |
-    | `cwd`                        | Current working directory           | `process.cwd()`                                               |
-    | `executable`                 | Which JavaScript runtime to use     | `node` when running with Node.js, `bun` when running with Bun |
-    | `executableArgs`             | Arguments to pass to the executable | `[]`                                                          |
-    | `pathToClaudeCodeExecutable` | Path to the Claude Code executable  | Executable that ships with `@anthropic-ai/claude-code`        |
+    | Argument                     | Description                         | Default                                                                              |
+    | :--------------------------- | :---------------------------------- | :----------------------------------------------------------------------------------- |
+    | `abortController`            | Abort controller                    | `new AbortController()`                                                              |
+    | `cwd`                        | Current working directory           | `process.cwd()`                                                                      |
+    | `executable`                 | Which JavaScript runtime to use     | `node` when running with Node.js, `bun` when running with Bun                        |
+    | `executableArgs`             | Arguments to pass to the executable | `[]`                                                                                 |
+    | `pathToClaudeCodeExecutable` | Path to the Claude Code executable  | Executable that ships with `@anthropic-ai/claude-code`                               |
+    | `permissionMode`             | Permission mode for the session     | `"default"` (options: `"default"`, `"acceptEdits"`, `"plan"`, `"bypassPermissions"`) |
   </Tab>
 
   <Tab title="Python">
@@ -495,6 +496,50 @@ For multi-turn conversations, you can resume conversations or continue from the 
     ```
   </Tab>
 </Tabs>
+
+### Using Plan Mode
+
+Plan Mode allows Claude to analyze code without making modifications, useful for code reviews and planning changes.
+
+<Tabs>
+  <Tab title="Command line">
+    ```bash
+    claude -p "Review this code" --permission-mode plan
+    ```
+  </Tab>
+
+  <Tab title="TypeScript">
+    ```ts
+    import { query } from "@anthropic-ai/claude-code";
+
+    for await (const message of query({
+      prompt: "Your prompt here",
+      options: {
+        permissionMode: 'plan'
+      }
+    })) {
+      if (message.type === "result") {
+        console.log(message.result);
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="Python">
+    ```python
+    from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+
+    async with ClaudeSDKClient(
+        options=ClaudeCodeOptions(permission_mode='plan')
+    ) as client:
+        await client.query("Your prompt here")
+    ```
+  </Tab>
+</Tabs>
+
+<Note>
+  Plan Mode restricts editing, file creation, and command execution. See [permission modes](/en/docs/claude-code/iam#permission-modes) for details.
+</Note>
 
 ### Custom system prompts
 
