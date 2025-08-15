@@ -2,6 +2,10 @@
 
 > Stay up to date with the latest features and improvements to Claude Code
 
+<Note>
+  **Version Update Notice**: Claude Code releases new versions frequently. The NPM package may be ahead of what's documented here. For the most up-to-date version information and detailed changelogs, please check the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the claude-code repository.
+</Note>
+
 ## June 30, 2025
 
 * Claude Code now supports [hooks](/en/docs/claude-code/hooks-guide). Special thanks to community input in [Github Issues](https://github.com/anthropics/claude-code/issues/712).
@@ -28,6 +32,10 @@
 
 * Claude Code, the agentic command line tool, is now officially available in research preview.
 
+## Version-Specific Updates
+
+The releases shown above represent major milestones. Claude Code also publishes frequent incremental updates with bug fixes, performance improvements, and minor features.
+
 <Note>
-  For a full changelog, see [CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repo.
+  **For detailed version-by-version changes**, including all versions from 1.0.x onwards, see the complete [CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the claude-code repository. This includes specific version numbers (like 1.0.65, 1.0.73, etc.) that you see when updating your Claude Code installation.
 </Note>

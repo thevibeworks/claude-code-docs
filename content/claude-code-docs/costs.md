@@ -22,16 +22,16 @@ On Bedrock and Vertex, Claude Code does not send metrics from your cloud. In ord
 
 ### Rate limit recommendations
 
-When setting up Claude Code for teams, consider these Token Per Minute (TPM) per-user recommendations based on your organization size:
+When setting up Claude Code for teams, consider these Token Per Minute (TPM) and Request Per Minute (RPM) per-user recommendations based on your organization size:
 
-| Team size     | TPM per user |
-| ------------- | ------------ |
-| 1-5 users     | 200k-300k    |
-| 5-20 users    | 100k-150k    |
-| 20-50 users   | 50k-75k      |
-| 50-100 users  | 25k-35k      |
-| 100-500 users | 15k-20k      |
-| 500+ users    | 10k-15k      |
+| Team size     | TPM per user | RPM per user |
+| ------------- | ------------ | ------------ |
+| 1-5 users     | 200k-300k    | 5-7          |
+| 5-20 users    | 100k-150k    | 2.5-3.5      |
+| 20-50 users   | 50k-75k      | 1.25-1.75    |
+| 50-100 users  | 25k-35k      | 0.62-0.87    |
+| 100-500 users | 15k-20k      | 0.37-0.47    |
+| 500+ users    | 10k-15k      | 0.25-0.35    |
 
 For example, if you have 200 users, you might request 20k TPM for each user, or 4 million total TPM (200\*20,000 = 4 million).
 

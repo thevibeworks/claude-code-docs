@@ -16,12 +16,13 @@
 
 ### Multiline input
 
-| Method         | Shortcut       | Context                 |
-| :------------- | :------------- | :---------------------- |
-| Quick escape   | `\` + `Enter`  | Works in all terminals  |
-| macOS default  | `Option+Enter` | Default on macOS        |
-| Terminal setup | `Shift+Enter`  | After `/terminal-setup` |
-| Paste mode     | Paste directly | For code blocks, logs   |
+| Method           | Shortcut       | Context                           |
+| :--------------- | :------------- | :-------------------------------- |
+| Quick escape     | `\` + `Enter`  | Works in all terminals            |
+| macOS default    | `Option+Enter` | Default on macOS                  |
+| Terminal setup   | `Shift+Enter`  | After `/terminal-setup`           |
+| Control sequence | `Ctrl+J`       | Line feed character for multiline |
+| Paste mode       | Paste directly | For code blocks, logs             |
 
 ### Quick commands
 

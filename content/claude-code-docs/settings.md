@@ -50,7 +50,7 @@ Code through hierarchical settings:
 | Key                          | Description                                                                                                                                                           | Example                                                     |
 | :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
 | `apiKeyHelper`               | Custom script, to be executed in `/bin/sh`, to generate an auth value. This value will be sent as `X-Api-Key` and `Authorization: Bearer` headers for model requests  | `/bin/generate_temp_api_key.sh`                             |
-| `cleanupPeriodDays`          | How long to locally retain chat transcripts (default: 30 days)                                                                                                        | `20`                                                        |
+| `cleanupPeriodDays`          | How long to locally retain chat transcripts based on last activity date (default: 30 days)                                                                            | `20`                                                        |
 | `env`                        | Environment variables that will be applied to every session                                                                                                           | `{"FOO": "bar"}`                                            |
 | `includeCoAuthoredBy`        | Whether to include the `co-authored-by Claude` byline in git commits and pull requests (default: `true`)                                                              | `false`                                                     |
 | `permissions`                | See table below for structure of permissions.                                                                                                                         |                                                             |
@@ -105,6 +105,12 @@ This hierarchy ensures that enterprise security policies are always enforced whi
 * **MCP servers**: Extend Claude Code with additional tools and integrations
 * **Precedence**: Higher-level configurations (Enterprise) override lower-level ones (User/Project)
 * **Inheritance**: Settings are merged, with more specific settings adding to or overriding broader ones
+
+### System prompt availability
+
+<Note>
+  Unlike for claude.ai, we do not publish Claude Code's internal system prompt on this website. Use CLAUDE.md files or `--append-system-prompt` to add custom instructions to Claude Code's behavior.
+</Note>
 
 ### Excluding sensitive files
 

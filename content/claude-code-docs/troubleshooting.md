@@ -146,6 +146,60 @@ To fix this issue:
 
 This will allow the ESC key to properly function for canceling Claude Code operations instead of being captured by PyCharm's "Switch focus to Editor" action.
 
+## Markdown formatting issues
+
+Claude Code sometimes generates markdown files with missing language tags on code fences, which can affect syntax highlighting and readability in GitHub, editors, and documentation tools.
+
+### Missing language tags in code blocks
+
+If you notice code blocks like this in generated markdown:
+
+````markdown
+```
+function example() {
+  return "hello";
+}
+```
+````
+
+Instead of properly tagged blocks like:
+
+````markdown
+```javascript
+function example() {
+  return "hello";
+}
+```
+````
+
+**Solutions:**
+
+1. **Ask Claude to add language tags**: Simply request "Please add appropriate language tags to all code blocks in this markdown file."
+
+2. **Use post-processing hooks**: Set up automatic formatting hooks to detect and add missing language tags. See the [markdown formatting hook example](/en/docs/claude-code/hooks-guide#markdown-formatting-hook) for implementation details.
+
+3. **Manual verification**: After generating markdown files, review them for proper code block formatting and request corrections if needed.
+
+### Inconsistent spacing and formatting
+
+If generated markdown has excessive blank lines or inconsistent spacing:
+
+**Solutions:**
+
+1. **Request formatting corrections**: Ask Claude to "Fix spacing and formatting issues in this markdown file."
+
+2. **Use formatting tools**: Set up hooks to run markdown formatters like `prettier` or custom formatting scripts on generated markdown files.
+
+3. **Specify formatting preferences**: Include formatting requirements in your prompts or project [memory](/en/docs/claude-code/memory) files.
+
+### Best practices for markdown generation
+
+To minimize formatting issues:
+
+* **Be explicit in requests**: Ask for "properly formatted markdown with language-tagged code blocks"
+* **Use project conventions**: Document your preferred markdown style in [CLAUDE.md](/en/docs/claude-code/memory)
+* **Set up validation hooks**: Use post-processing hooks to automatically verify and fix common formatting issues
+
 ## Getting more help
 
 If you're experiencing issues not covered here:

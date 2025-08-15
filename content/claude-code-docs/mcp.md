@@ -448,6 +448,18 @@ claude mcp add airtable --env AIRTABLE_API_KEY=YOUR_KEY \
   -- npx -y airtable-mcp-server
 ```
 
+<Note>
+  **Understanding the "--" parameter:**
+  The `--` (double dash) separates Claude's own CLI flags from the command and arguments that get passed to the MCP server. Everything before `--` are options for Claude (like `--env`, `--scope`), and everything after `--` is the actual command to run the MCP server.
+
+  For example:
+
+  * `claude mcp add myserver -- npx server` → runs `npx server`
+  * `claude mcp add myserver --env KEY=value -- python server.py --port 8080` → runs `python server.py --port 8080` with `KEY=value` in environment
+
+  This prevents conflicts between Claude's flags and the server's flags.
+</Note>
+
 ### Option 2: Add a remote SSE server
 
 SSE (Server-Sent Events) servers provide real-time streaming connections. Many cloud services use this for live updates.
@@ -518,7 +530,7 @@ claude mcp remove github
   claude mcp add my-server -- cmd /c npx -y @some/package
   ```
 
-  Without the `cmd /c` wrapper, you'll encounter "Connection closed" errors because Windows cannot directly execute `npx`.
+  Without the `cmd /c` wrapper, you'll encounter "Connection closed" errors because Windows cannot directly execute `npx`. (See the note above for an explanation of the `--` parameter.)
 </Warning>
 
 ## MCP installation scopes
@@ -745,7 +757,7 @@ If you have a JSON configuration for an MCP server, you can add it directly:
 
   * Make sure the JSON is properly escaped in your shell
   * The JSON must conform to the MCP server configuration schema
-  * You can use `--scope global` to add the server to your global configuration instead of the project-specific one
+  * You can use `--scope user` to add the server to your user configuration instead of the project-specific one
 </Tip>
 
 ## Import MCP servers from Claude Desktop
@@ -776,7 +788,7 @@ If you've already configured MCP servers in Claude Desktop, you can import them:
 
   * This feature only works on macOS and Windows Subsystem for Linux (WSL)
   * It reads the Claude Desktop configuration file from its standard location on those platforms
-  * Use the `--scope global` flag to add servers to your global configuration
+  * Use the `--scope user` flag to add servers to your user configuration
   * Imported servers will have the same names as in Claude Desktop
   * If servers with the same names already exist, they will get a numerical suffix (e.g., `server_1`)
 </Tip>

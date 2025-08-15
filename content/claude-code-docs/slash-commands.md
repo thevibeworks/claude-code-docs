@@ -79,14 +79,11 @@ echo "Review this code for security vulnerabilities:" > ~/.claude/commands/secur
 
 #### Namespacing
 
-Organize commands in subdirectories. The subdirectories determine the command's
-full name. The description will show whether the command comes from the project
-directory (`.claude/commands`) or the user-level directory (`~/.claude/commands`).
+Organize commands in subdirectories. The subdirectories are used for organization and appear in the command description, but they do not affect the command name itself. The description will show whether the command comes from the project directory (`.claude/commands`) or the user-level directory (`~/.claude/commands`), along with the subdirectory name.
 
-Conflicts between user and project level commands are not supported. Otherwise,
-multiple commands with the same base file name can coexist.
+Conflicts between user and project level commands are not supported. Otherwise, multiple commands with the same base file name can coexist.
 
-For example, a file at `.claude/commands/frontend/component.md` creates the command `/frontend:component` with description showing "(project)".
+For example, a file at `.claude/commands/frontend/component.md` creates the command `/component` with description showing "(project:frontend)".
 Meanwhile, a file at `~/.claude/commands/component.md` creates the command `/component` with description showing "(user)".
 
 #### Arguments

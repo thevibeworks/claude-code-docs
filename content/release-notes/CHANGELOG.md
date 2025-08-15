@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.81
+
+- Released output styles, including new built-in educational output styles "Explanatory" and "Learning". Docs: https://docs.anthropic.com/en/docs/claude-code/output-styles
+- Agents: Fix custom agent loading when agent files are unparsable
+
+## 1.0.80
+
+- UI improvements: Fix text contrast for custom subagent colors and spinner rendering issues
+
+## 1.0.77
+
+- Bash tool: Fix heredoc and multiline string escaping, improve stderr redirection handling
+- SDK: Add session support and permission denial tracking
+- Fix token limit errors in conversation summarization
+- Opus Plan Mode: New setting in `/model` to run Opus only in plan mode, Sonnet otherwise
+
 ## 1.0.73
 
 - MCP: Support multiple config files with `--mcp-config file1.json file2.json`

@@ -116,6 +116,20 @@ Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore
 * `mcp__puppeteer` Matches any tool provided by the `puppeteer` server (name configured in Claude Code)
 * `mcp__puppeteer__puppeteer_navigate` Matches the `puppeteer_navigate` tool provided by the `puppeteer` server
 
+<Warning>
+  Unlike other permission types, MCP permissions do NOT support wildcards (`*`).
+
+  To approve all tools from an MCP server:
+
+  * ✅ Use: `mcp__github` (approves ALL GitHub tools)
+  * ❌ Don't use: `mcp__github__*` (wildcards are not supported)
+
+  To approve specific tools only, list each one:
+
+  * ✅ Use: `mcp__github__get_issue`
+  * ✅ Use: `mcp__github__list_issues`
+</Warning>
+
 ### Additional permission control with hooks
 
 [Claude Code hooks](/en/docs/claude-code/hooks-guide) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.

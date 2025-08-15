@@ -47,6 +47,10 @@ Your status line command receives structured data via stdin in JSON format:
   "workspace": {
     "current_dir": "/current/working/directory",
     "project_dir": "/original/project/directory"
+  },
+  "version": "1.0.80",
+  "output_style": {
+    "name": "default"
   }
 }
 ```

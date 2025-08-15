@@ -2,6 +2,8 @@ Title: Claude Code: Deep coding at terminal velocity \ Anthropic
 
 URL Source: https://www.anthropic.com/claude-code
 
+Published Time: Sat, 09 Aug 2025 08:42:38 GMT
+
 Markdown Content:
 Your code’s new collaborator
 ----------------------------
@@ -13,7 +15,7 @@ Command-line AI, from concept to commit
 
 Watch as Claude Code tackles an unfamiliar Next.js project, builds new functionality, creates tests, and fixes what’s broken—all from the command line. Join Boris and Cat as they show you what coding feels like when you’re not doing it alone.
 
-![Image 1: Video thumbnail: Introducing Claude Code](https://img.youtube.com/vi/AJpK3YTTKZ4/sddefault.jpg)
+![Image 1](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67f86fb392281ccbac9ead79_maxresdefault.jpg)
 
 Claude Code embeds Claude Opus 4.1—the same model our researchers and engineers use—right in your terminal. It has deep codebase awareness and the ability to edit files and run commands directly in your environment.
 
