@@ -2,16 +2,8 @@ name: Fetch Claude Code Docs
 
 on:
   schedule:
-    # Daily at 23:45 Pacific (Anthropic's timezone)
-    # 23:45 PST = 07:45 UTC (winter)
-    # 23:45 PDT = 06:45 UTC (summer)
-    # Using 07:45 UTC as compromise
-    - cron: "45 7 * * *"
-    # Daily at 19:00 Los Angeles time
-    # 19:00 PST = 03:00 UTC (winter)
-    # 19:00 PDT = 02:00 UTC (summer)
-    # Using 03:00 UTC as compromise
-    - cron: "0 3 * * *"
+    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
+    - cron: "0 */6 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -130,28 +122,8 @@ jobs:
 
             **For meaningful changes (PR needed)**:
             ```bash
-            git add .
-            git commit -m "docs: {explain WHY this matters}"
-            PR_URL=$(gh pr create \
-              --title "docs: Claude Code v{version} - {key feature}" \
-              --body "## Night shift report
-              
-              WHY THIS MATTERS: {reason humans should care}
-              
-              WHAT CHANGED: {brief summary}
-              
-              HIGHLIGHTS:
-              - {most interesting change}
-              - {second most interesting}
-              
-              ---
-              *Created by night-shift claude-yolo at 23:45 Pacific*
-              *After Anthropic engineers went home*
-              *Day-shift claude-yolo will review and merge this in the morning*")
-            
-            # Always barkme when PR created (simple notification)
-            # Use mcp__barkme__notify with concise message
-            # Example: "📦 Claude Code v1.0.77" with PR URL
+            PR_URL=$(./scripts/create-docs-pr.sh "{key feature}" "{why it matters}" "{version}")
+            # Barkme notification with PR URL
             ```
 
             **For minor changes (direct commit)**:
