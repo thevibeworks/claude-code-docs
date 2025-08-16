@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "1.0.81",
+  "version": "1.0.83",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@1.0.81",
+  "_id": "@anthropic-ai/claude-code@1.0.83",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -53,17 +53,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "3cfb2651635ae00769cbc6f731628a4ba2880a0f",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.81.tgz",
+    "shasum": "334f9039b060c7b24f5b17272bc77af559ee1adc",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.83.tgz",
     "fileCount": 53,
-    "integrity": "sha512-kiRgAhQ2vuodkHDAZjuR0aaNchl9SZLq0QF46JKsOw0Ik1eyEN0tdsF++AV//Ub1j4iS1fGIrU10uE7aqFfKYw==",
+    "integrity": "sha512-Mm+88khPbg9eAUbrWGirigWeC4xu2hH0ns3+lnfKWX3e8RJDOV9vnCHjzbEIVXvvvw1YmeIO7TxsFk5/MVuhGA==",
     "signatures": [
       {
-        "sig": "MEUCIQDU6ysVd0JNC8UTTQkhgdRtQZ7OCzwFtWdX0HutjXwibAIgFlqJGDOFU5t8wIHZkK+zZ32/B0j+1sNslcJTikBKCTc=",
+        "sig": "MEYCIQDRd4B0K4atDokJKc7oI2tVxIlr+7qKId3Uf1VVoApyiAIhANMQVDWFFQYdx01h5Rix3Q/pEFcsvtankCDk85RUgRhL",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 156077704
+    "unpackedSize": 156080033
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -71,7 +71,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "85d61efeca5cb7af12b85f75e85889d72856faef",
+  "gitHead": "46e926dde2a58b2ba146a45b39e09a60bc96b211",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
@@ -95,7 +95,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_1.0.81_1755189679555_0.6833592798102819",
+    "tmp": "tmp/claude-code_1.0.83_1755299169046_0.34962599929092475",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
