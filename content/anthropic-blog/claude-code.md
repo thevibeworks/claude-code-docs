@@ -11,9 +11,27 @@ Your code’s new collaborator
 
 Unleash Claude’s raw power directly in your terminal. Search million-line codebases instantly. Turn hours-long workflows into a single command. Your tools. Your workflow. Your codebase, evolving at thought speed.
 
-✻
+██████╗██╗ █████╗ ██╗ ██╗██████╗ ███████╗
 
-Actioning…
+██╔════╝██║ ██╔══██╗██║ ██║██╔══██╗██╔════╝
+
+██║ ██║ ███████║██║ ██║██║ ██║█████╗
+
+██║ ██║ ██╔══██║██║ ██║██║ ██║██╔══╝
+
+╚██████╗███████╗██║ ██║╚██████╔╝██████╔╝███████╗
+
+╚═════╝╚══════╝╚═╝ ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+
+██████╗ ██████╗ ██████╗ ███████╗
+
+██╔════╝██╔═══██╗██╔══██╗██╔════╝
+
+██║ ██║ ██║██║ ██║█████╗
+
+██║ ██║ ██║██║ ██║██╔══╝
+
+╚██████╗╚██████╔╝██████╔╝███████╗
 
 Command-line AI, from concept to commit
 ---------------------------------------
@@ -26,11 +44,11 @@ Claude Code embeds Claude Opus 4.1—the same model our researchers and engineer
 
 ✻
 
-Processing…
+Pondering…
 
 ✻
 
-Transmuting…
+Pondering…
 
 ### Powerful intelligence
 
@@ -97,11 +115,11 @@ What could you do with Claude Code?
 
 ✻
 
-Marinating…
+Forming…
 
 ✻
 
-Reticulating…
+Considering…
 
 ### Code onboarding
 
