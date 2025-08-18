@@ -4,29 +4,29 @@
 
 ## Built-in slash commands
 
-| Command                   | Purpose                                                                        |
-| :------------------------ | :----------------------------------------------------------------------------- |
-| `/add-dir`                | Add additional working directories                                             |
-| `/agents`                 | Manage custom AI subagents for specialized tasks                               |
-| `/bug`                    | Report bugs (sends conversation to Anthropic)                                  |
-| `/clear`                  | Clear conversation history                                                     |
-| `/compact [instructions]` | Compact conversation with optional focus instructions                          |
-| `/config`                 | View/modify configuration                                                      |
-| `/cost`                   | Show token usage statistics                                                    |
-| `/doctor`                 | Checks the health of your Claude Code installation                             |
-| `/help`                   | Get usage help                                                                 |
-| `/init`                   | Initialize project with CLAUDE.md guide                                        |
-| `/login`                  | Switch Anthropic accounts                                                      |
-| `/logout`                 | Sign out from your Anthropic account                                           |
-| `/mcp`                    | Manage MCP server connections and OAuth authentication                         |
-| `/memory`                 | Edit CLAUDE.md memory files                                                    |
-| `/model`                  | Select or change the AI model                                                  |
-| `/permissions`            | View or update [permissions](/en/docs/claude-code/iam#configuring-permissions) |
-| `/pr_comments`            | View pull request comments                                                     |
-| `/review`                 | Request code review                                                            |
-| `/status`                 | View account and system statuses                                               |
-| `/terminal-setup`         | Install Shift+Enter key binding for newlines (iTerm2 and VSCode only)          |
-| `/vim`                    | Enter vim mode for alternating insert and command modes                        |
+| Command                   | Purpose                                                                                                                                      |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/add-dir`                | Add additional working directories                                                                                                           |
+| `/agents`                 | Manage custom AI subagents for specialized tasks                                                                                             |
+| `/bug`                    | Report bugs (sends conversation to Anthropic)                                                                                                |
+| `/clear`                  | Clear conversation history                                                                                                                   |
+| `/compact [instructions]` | Compact conversation with optional focus instructions                                                                                        |
+| `/config`                 | View/modify configuration                                                                                                                    |
+| `/cost`                   | Show token usage statistics (see [cost tracking guide](/en/docs/claude-code/costs#using-the-cost-command) for subscription-specific details) |
+| `/doctor`                 | Checks the health of your Claude Code installation                                                                                           |
+| `/help`                   | Get usage help                                                                                                                               |
+| `/init`                   | Initialize project with CLAUDE.md guide                                                                                                      |
+| `/login`                  | Switch Anthropic accounts                                                                                                                    |
+| `/logout`                 | Sign out from your Anthropic account                                                                                                         |
+| `/mcp`                    | Manage MCP server connections and OAuth authentication                                                                                       |
+| `/memory`                 | Edit CLAUDE.md memory files                                                                                                                  |
+| `/model`                  | Select or change the AI model                                                                                                                |
+| `/permissions`            | View or update [permissions](/en/docs/claude-code/iam#configuring-permissions)                                                               |
+| `/pr_comments`            | View pull request comments                                                                                                                   |
+| `/review`                 | Request code review                                                                                                                          |
+| `/status`                 | View account and system statuses                                                                                                             |
+| `/terminal-setup`         | Install Shift+Enter key binding for newlines (iTerm2 and VSCode only)                                                                        |
+| `/vim`                    | Enter vim mode for alternating insert and command modes                                                                                      |
 
 ## Custom slash commands
 

@@ -8,11 +8,24 @@ For team usage, Claude Code charges by API token consumption. On average, Claude
 
 ## Track your costs
 
-* Use `/cost` to see current session usage
-* **Anthropic Console users**:
-  * Check [historical usage](https://support.anthropic.com/en/articles/9534590-cost-and-usage-reporting-in-console) in the Anthropic Console (requires Admin or Billing role)
-  * Set [workspace spend limits](https://support.anthropic.com/en/articles/9796807-creating-and-managing-workspaces) for the Claude Code workspace (requires Admin role)
-* **Pro and Max plan users**: Usage is included in your subscription
+### Using the `/cost` command
+
+<Note>
+  The `/cost` command is not intended for Claude Max and Pro subscribers.
+</Note>
+
+The `/cost` command provides detailed token usage statistics for your current session:
+
+```
+Total cost:            $0.55
+Total duration (API):  6m 19.7s
+Total duration (wall): 6h 33m 10.2s
+Total code changes:    0 lines added, 0 lines removed
+```
+
+### Additional tracking options
+
+Check [historical usage](https://support.anthropic.com/en/articles/9534590-cost-and-usage-reporting-in-console) in the Anthropic Console (requires Admin or Billing role) and set [workspace spend limits](https://support.anthropic.com/en/articles/9796807-creating-and-managing-workspaces) for the Claude Code workspace (requires Admin role).
 
 ## Managing costs for teams
 
@@ -81,6 +94,34 @@ Claude Code uses tokens for some background functionality even when idle:
 * **Command processing**: Some commands like `/cost` may generate requests to check status
 
 These background processes consume a small amount of tokens (typically under \$0.04 per session) even without active interaction.
+
+## Tracking version changes and updates
+
+### Current version information
+
+To check your current Claude Code version and installation details:
+
+```bash
+claude doctor
+```
+
+This command shows your version, installation type, and system information.
+
+### Understanding changes in Claude Code behavior
+
+Claude Code regularly receives updates that may change how features work, including cost reporting:
+
+* **Version tracking**: Use `claude doctor` to see your current version
+* **Behavior changes**: Features like `/cost` may display information differently across versions
+* **Documentation access**: Claude always has access to the latest documentation, which can help explain current feature behavior
+
+### When cost reporting changes
+
+If you notice changes in how costs are displayed (such as the `/cost` command showing different information):
+
+1. **Verify your version**: Run `claude doctor` to confirm your current version
+2. **Consult documentation**: Ask Claude directly about current feature behavior, as it has access to up-to-date documentation
+3. **Contact support**: For specific billing questions, contact Anthropic support through your Console account
 
 <Note>
   For team deployments, we recommend starting with a small pilot group to
