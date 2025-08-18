@@ -43,14 +43,17 @@ export const MCPServersTable = ({platform = "all"}) => {
     description: "Access designs, export assets",
     documentation: "https://help.figma.com/hc/en-us/articles/32132100833559",
     urls: {
-      sse: "http://127.0.0.1:3845/sse"
+      http: "http://127.0.0.1:3845/mcp"
+    },
+    customCommands: {
+      claudeCode: "claude mcp add --transport http figma-dev-mode-mcp-server http://127.0.0.1:3845/mcp"
     },
     availability: {
       claudeCode: true,
       mcpConnector: false,
       claudeDesktop: false
     },
-    notes: "Requires Figma Desktop with Dev Mode MCP Server"
+    notes: "Requires latest Figma Desktop with Dev Mode MCP Server. If you have an existing server at http://127.0.0.1:3845/sse, delete it first before adding the new one."
   }, {
     name: "Asana",
     category: "Project Management & Documentation",
