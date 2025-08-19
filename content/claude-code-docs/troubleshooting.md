@@ -146,6 +146,29 @@ To fix this issue:
 
 This will allow the ESC key to properly function for canceling Claude Code operations instead of being captured by PyCharm's "Switch focus to Editor" action.
 
+### Search and discovery issues
+
+If Search tool, `@file` mentions, custom agents, and custom slash commands aren't working, install system `ripgrep`:
+
+```bash
+# macOS (Homebrew)  
+brew install ripgrep
+
+# Windows (winget)
+winget install BurntSushi.ripgrep.MSVC
+
+# Ubuntu/Debian
+sudo apt install ripgrep
+
+# Alpine Linux
+apk add ripgrep
+
+# Arch Linux
+pacman -S ripgrep
+```
+
+Then set `USE_BUILTIN_RIPGREP=0` in your [environment](/en/docs/claude-code/settings#environment-variables).
+
 ## Markdown formatting issues
 
 Claude Code sometimes generates markdown files with missing language tags on code fences, which can affect syntax highlighting and readability in GitHub, editors, and documentation tools.

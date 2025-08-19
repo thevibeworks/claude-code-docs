@@ -13,7 +13,7 @@
 
 ### Additional dependencies
 
-* **ripgrep**: Claude Code depends on `ripgrep` for core functionality. While it is typically included in your Claude Code installation, you may need to independently install `ripgrep` on some distributions (like Alpine Linux or other musl-based distributions).
+* **ripgrep**: Usually included with Claude Code. If search functionality fails, see [search troubleshooting](/en/docs/claude-code/troubleshooting#search-and-discovery-issues).
 
 ## Standard installation
 
@@ -96,6 +96,10 @@ curl -fsSL https://claude.ai/install.sh | bash -s latest
 # Install specific version number
 curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
 ```
+
+<Note>
+  **Alpine Linux and other musl/uClibc-based distributions**: The native build requires you to install `ripgrep`. Install (Alpine: `apk add ripgrep`) and set `USE_BUILTIN_RIPGREP=0`.
+</Note>
 
 **Windows PowerShell:**
 
