@@ -302,6 +302,182 @@ export const MCPServersTable = ({platform = "all"}) => {
       claudeDesktop: false
     },
     notes: "Generate a user-specific URL at mcp.zapier.com"
+  }, {
+    name: "Box",
+    category: "Project Management & Documentation",
+    description: "Ask questions about your enterprise content, get insights from unstructured data, automate content workflows",
+    documentation: "https://box.dev/guides/box-mcp/remote/",
+    urls: {
+      http: "https://mcp.box.com/"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Canva",
+    category: "Design & Media",
+    description: "Browse, summarize, autofill, and even generate new Canva designs directly from Claude",
+    documentation: "https://www.canva.dev/docs/connect/canva-mcp-server-setup/",
+    urls: {
+      http: "https://mcp.canva.com/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Daloopa",
+    category: "Databases & Data Management",
+    description: "Supplies high quality fundamental financial data sourced from SEC Filings, investor presentations",
+    documentation: "https://docs.daloopa.com/docs/daloopa-mcp",
+    urls: {
+      http: "https://mcp.daloopa.com/server/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Fireflies",
+    category: "Project Management & Documentation",
+    description: "Extract valuable insights from meeting transcripts and summaries",
+    documentation: "https://guide.fireflies.ai/articles/8272956938-learn-about-the-fireflies-mcp-server-model-context-protocol",
+    urls: {
+      http: "https://api.fireflies.ai/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "HubSpot",
+    category: "Databases & Data Management",
+    description: "Access and manage HubSpot CRM data by fetching contacts, companies, and deals, and creating and updating records",
+    documentation: "https://developers.hubspot.com/mcp",
+    urls: {
+      http: "https://mcp.hubspot.com/anthropic"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Hugging Face",
+    category: "Development & Testing Tools",
+    description: "Provides access to Hugging Face Hub information and Gradio AI Applications",
+    documentation: "https://huggingface.co/settings/mcp",
+    urls: {
+      http: "https://huggingface.co/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Jam",
+    category: "Development & Testing Tools",
+    description: "Debug faster with AI agents that can access Jam recordings like video, console logs, network requests, and errors",
+    documentation: "https://jam.dev/docs/debug-a-jam/mcp",
+    urls: {
+      http: "https://mcp.jam.dev/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Monday",
+    category: "Project Management & Documentation",
+    description: "Manage monday.com boards by creating items, updating columns, assigning owners, setting timelines, adding CRM activities, and writing summaries",
+    documentation: "https://developer.monday.com/apps/docs/mondaycom-mcp-integration",
+    urls: {
+      sse: "https://mcp.monday.com/sse"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Netlify",
+    category: "Infrastructure & DevOps",
+    description: "Create, deploy, and manage websites on Netlify. Control all aspects of your site from creating secrets to enforcing access controls to aggregating form submissions",
+    documentation: "https://docs.netlify.com/build/build-with-ai/netlify-mcp-server/",
+    urls: {
+      http: "https://netlify-mcp.netlify.app/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Stytch",
+    category: "Infrastructure & DevOps",
+    description: "Configure and manage Stytch authentication services, redirect URLs, email templates, and workspace settings",
+    documentation: "https://stytch.com/docs/workspace-management/stytch-mcp",
+    urls: {
+      http: "http://mcp.stytch.dev/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
+    name: "Vercel",
+    category: "Infrastructure & DevOps",
+    description: "Vercel's official MCP server, allowing you to search and navigate documentation, manage projects and deployments, and analyze deployment logs—all in one place",
+    documentation: "https://vercel.com/docs/mcp/vercel-mcp",
+    urls: {
+      http: "https://mcp.vercel.com/"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
   }];
   const filteredServers = servers.filter(server => {
     if (platform === "claudeCode") {
