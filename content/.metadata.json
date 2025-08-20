@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-08-20T12:51:56Z",
+    "fetch_date": "2025-08-20T18:35:54Z",
     "format": "md"
   },
   "versions": {
@@ -21,7 +21,7 @@
       "url": "https://www.anthropic.com/sitemap.xml",
       "pattern": "claude-code",
       "output_dir": "anthropic-blog",
-      "stats": { "downloaded": 5, "failed": 0, "total": 5 }
+      "stats": { "downloaded": 6, "failed": 0, "total": 6 }
     },
     "github": {
       "name": "GitHub Repository",
@@ -33,8 +33,8 @@
   },
   "summary": {
     "total_sources": 3,
-    "total_files": 40,
-    "total_downloaded": 40,
+    "total_files": 41,
+    "total_downloaded": 41,
     "total_failed": 0,
     "success_rate": 100.0
   }
