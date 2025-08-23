@@ -141,6 +141,18 @@ the stoppage occurred due to a user interrupt.
 
 Runs when a Claude Code subagent (Task tool call) has finished responding.
 
+### SessionEnd
+
+Runs when a Claude Code session ends. Useful for cleanup tasks, logging session
+statistics, or saving session state.
+
+The `reason` field in the hook input will be one of:
+
+* `clear` - Session cleared with /clear command
+* `logout` - User logged out
+* `prompt_input_exit` - User exited while prompt input was visible
+* `other` - Other exit reasons
+
 ### PreCompact
 
 Runs before Claude Code is about to run a compact operation.
@@ -285,6 +297,18 @@ For `manual`, `custom_instructions` comes from what the user passes into
 }
 ```
 
+### SessionEnd Input
+
+```json
+{
+  "session_id": "abc123",
+  "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
+  "cwd": "/Users/...",
+  "hook_event_name": "SessionEnd",
+  "reason": "exit"
+}
+```
+
 ## Hook Output
 
 There are two ways for hooks to return output back to Claude Code. The output
@@ -320,6 +344,7 @@ Hooks communicate status through exit codes, stdout, and stderr:
 | `SubagentStop`     | Blocks stoppage, shows stderr to Claude subagent                   |
 | `PreCompact`       | N/A, shows stderr to user only                                     |
 | `SessionStart`     | N/A, shows stderr to user only                                     |
+| `SessionEnd`       | N/A, shows stderr to user only                                     |
 
 ### Advanced: JSON Output
 
@@ -332,8 +357,10 @@ All hook types can include these optional fields:
 ```json
 {
   "continue": true, // Whether Claude should continue after hook execution (default: true)
-  "stopReason": "string" // Message shown when continue is false
+  "stopReason": "string", // Message shown when continue is false
+
   "suppressOutput": true, // Hide stdout from transcript mode (default: false)
+  "systemMessage": "string" // Optional warning message shown to the user
 }
 ```
 
@@ -357,10 +384,9 @@ to Claude.
 `PreToolUse` hooks can control whether a tool call proceeds.
 
 * `"allow"` bypasses the permission system. `permissionDecisionReason` is shown
-  to the user but not to Claude. (*Deprecated `"approve"` value + `reason` has
-  the same behavior.*)
+  to the user but not to Claude.
 * `"deny"` prevents the tool call from executing. `permissionDecisionReason` is
-  shown to Claude. (*`"block"` value + `reason` has the same behavior.*)
+  shown to Claude.
 * `"ask"` asks the user to confirm the tool call in the UI.
   `permissionDecisionReason` is shown to the user but not to Claude.
 
@@ -369,24 +395,34 @@ to Claude.
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
     "permissionDecision": "allow" | "deny" | "ask",
-    "permissionDecisionReason": "My reason here (shown to user)"
-  },
-  "decision": "approve" | "block" | undefined, // Deprecated for PreToolUse but still supported
-  "reason": "Explanation for decision" // Deprecated for PreToolUse but still supported
+    "permissionDecisionReason": "My reason here"
+  }
 }
 ```
 
+<Note>
+  The `decision` and `reason` fields are deprecated for PreToolUse hooks.
+  Use `hookSpecificOutput.permissionDecision` and
+  `hookSpecificOutput.permissionDecisionReason` instead. The deprecated fields
+  `"approve"` and `"block"` map to `"allow"` and `"deny"` respectively.
+</Note>
+
 #### `PostToolUse` Decision Control
 
-`PostToolUse` hooks can control whether a tool call proceeds.
+`PostToolUse` hooks can provide feedback to Claude after tool execution.
 
 * `"block"` automatically prompts Claude with `reason`.
 * `undefined` does nothing. `reason` is ignored.
+* `"hookSpecificOutput.additionalContext"` adds context for Claude to consider.
 
 ```json
 {
   "decision": "block" | undefined,
-  "reason": "Explanation for decision"
+  "reason": "Explanation for decision",
+  "hookSpecificOutput": {
+    "hookEventName": "PostToolUse",
+    "additionalContext": "Additional information for Claude"
+  }
 }
 ```
 
@@ -431,6 +467,7 @@ to Claude.
 `SessionStart` hooks allow you to load in context at the start of a session.
 
 * `"hookSpecificOutput.additionalContext"` adds the string to the context.
+* Multiple hooks' `additionalContext` values are concatenated.
 
 ```json
 {
@@ -440,6 +477,11 @@ to Claude.
   }
 }
 ```
+
+#### `SessionEnd` Decision Control
+
+`SessionEnd` hooks run when a session ends. They cannot block session termination
+but can perform cleanup tasks.
 
 #### Exit Code Example: Bash Command Validation
 
@@ -682,13 +724,15 @@ This prevents malicious hook modifications from affecting your current session.
 * **Timeout**: 60-second execution limit by default, configurable per command.
   * A timeout for an individual command does not affect the other commands.
 * **Parallelization**: All matching hooks run in parallel
+* **Deduplication**: Multiple identical hook commands are deduplicated automatically
 * **Environment**: Runs in current directory with Claude Code's environment
   * The `CLAUDE_PROJECT_DIR` environment variable is available and contains the
-    absolute path to the project root directory
+    absolute path to the project root directory (where Claude Code was started)
 * **Input**: JSON via stdin
 * **Output**:
-  * PreToolUse/PostToolUse/Stop: Progress shown in transcript (Ctrl-R)
-  * Notification: Logged to debug only (`--debug`)
+  * PreToolUse/PostToolUse/Stop/SubagentStop: Progress shown in transcript (Ctrl-R)
+  * Notification/SessionEnd: Logged to debug only (`--debug`)
+  * UserPromptSubmit/SessionStart: stdout added as context for Claude
 
 ## Debugging
 

@@ -116,6 +116,22 @@ export const MCPServersTable = ({platform = "all"}) => {
     },
     notes: "Multiple services available. See documentation for specific server URLs. Claude Code can use the Cloudflare CLI if installed."
   }, {
+    name: "Cloudinary",
+    category: "Design & Media",
+    description: "Upload, manage, transform, and analyze your media assets",
+    documentation: "https://cloudinary.com/documentation/mcp_server",
+    urls: {
+      http: "https://mcp.cloudinary.com/mcp"
+    },
+    authentication: {
+      type: "oauth"
+    },
+    availability: {
+      claudeCode: true,
+      mcpConnector: true,
+      claudeDesktop: false
+    }
+  }, {
     name: "Intercom",
     category: "Project Management & Documentation",
     description: "Access real-time customer conversations, tickets, and user data",
