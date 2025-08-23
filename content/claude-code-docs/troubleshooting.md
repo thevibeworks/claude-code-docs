@@ -15,6 +15,44 @@ You might encounter the following issues in WSL:
 
 **Node not found errors**: If you see `exec: node: not found` when running `claude`, your WSL environment may be using a Windows installation of Node.js. You can confirm this with `which npm` and `which node`, which should point to Linux paths starting with `/usr/` rather than `/mnt/c/`. To fix this, try installing Node via your Linux distribution's package manager or via [`nvm`](https://github.com/nvm-sh/nvm).
 
+**nvm version conflicts**: If you have nvm installed in both WSL and Windows, you may experience version conflicts when switching Node versions in WSL. This happens because WSL imports the Windows PATH by default, causing Windows nvm/npm to take priority over the WSL installation.
+
+You can identify this issue by:
+
+* Running `which npm` and `which node` - if they point to Windows paths (starting with `/mnt/c/`), Windows versions are being used
+* Experiencing broken functionality after switching Node versions with nvm in WSL
+
+To resolve this issue, fix your Linux PATH to ensure the Linux node/npm versions take priority:
+
+**Primary solution: Ensure nvm is properly loaded in your shell**
+
+The most common cause is that nvm isn't loaded in non-interactive shells. Add the following to your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.):
+
+```bash
+# Load nvm if it exists
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+```
+
+Or run directly in your current session:
+
+```bash
+source ~/.nvm/nvm.sh
+```
+
+**Alternative: Adjust PATH order**
+
+If nvm is properly loaded but Windows paths still take priority, you can explicitly prepend your Linux paths to PATH in your shell configuration:
+
+```bash
+export PATH="$HOME/.nvm/versions/node/$(node -v)/bin:$PATH"
+```
+
+<Warning>
+  Avoid disabling Windows PATH importing (`appendWindowsPath = false`) as this breaks the ability to easily call Windows executables from WSL. Similarly, avoid uninstalling Node.js from Windows if you use it for Windows development.
+</Warning>
+
 ### Linux and Mac installation issues: permission or command not found errors
 
 When installing Claude Code with npm, `PATH` problems may prevent access to `claude`.
@@ -168,6 +206,22 @@ pacman -S ripgrep
 ```
 
 Then set `USE_BUILTIN_RIPGREP=0` in your [environment](/en/docs/claude-code/settings#environment-variables).
+
+### Slow or incomplete search results on WSL
+
+Disk read performance penalties when [working across file systems on WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems) may result in fewer-than-expected matches (but not a complete lack of search functionality) when using Claude Code on WSL.
+
+<Note>
+  `/doctor` will show Search as OK in this case.
+</Note>
+
+**Solutions:**
+
+1. **Submit more specific searches**: Reduce the number of files searched by specifying directories or file types: "Search for JWT validation logic in the auth-service package" or "Find use of md5 hash in JS files".
+
+2. **Move project to Linux filesystem**: If possible, ensure your project is located on the Linux filesystem (`/home/`) rather than the Windows filesystem (`/mnt/c/`).
+
+3. **Use native Windows instead**: Consider running Claude Code natively on Windows instead of through WSL, for better file system performance.
 
 ## Markdown formatting issues
 
