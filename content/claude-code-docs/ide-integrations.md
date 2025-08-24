@@ -44,6 +44,10 @@ In addition, Claude Code provides dedicated integrations for popular IDEs, which
     <Warning>
       **Remote Development Limitations**: When using JetBrains Remote Development, you must install the plugin in the remote host via `Settings > Plugin (Host)`.
     </Warning>
+
+    <Warning>
+      **WSL Users**: If you're using Claude Code on WSL with JetBrains IDEs, you may need additional configuration for IDE detection to work properly. See our [WSL troubleshooting guide](/en/docs/claude-code/troubleshooting#jetbrains-ide-not-detected-on-wsl2) for detailed setup instructions including terminal configuration, networking modes, and firewall settings.
+    </Warning>
   </Tab>
 </Tabs>
 
@@ -67,6 +71,33 @@ IDE integrations work with Claude Code's configuration system:
 2. Enter the `/config` command
 3. Adjust your preferences. Setting the diff tool to `auto` will enable automatic IDE detection
 
+### JetBrains plugin settings
+
+You can configure Claude Code plugin settings by going to **Settings → Tools → Claude Code \[Beta]**. Here are the available settings:
+
+#### General Settings
+
+* **Claude command**: Specify a custom command to run Claude (e.g., `claude`, `/usr/local/bin/claude`, or `npx @anthropic/claude`) when clicking on the Claude icon
+* **Suppress notification for Claude command not found**: Skip notifications about not finding the Claude command
+* **Enable using Option+Enter for multi-line prompts** (macOS only): When enabled, Option+Enter inserts new lines in Claude Code prompts. Disable this if you're experiencing issues with the Option key being captured unexpectedly (requires terminal restart)
+* **Enable automatic updates**: Automatically check for and install plugin updates (applied on restart)
+
+<Tip>
+  For WSL users: You may find it useful to set `wsl -d Ubuntu -- bash -lic "claude"` as your Claude command (replace `Ubuntu` with your WSL distribution name)
+</Tip>
+
+#### ESC key configuration
+
+If the ESC key doesn't interrupt Claude Code operations in JetBrains terminals:
+
+1. Go to Settings → Tools → Terminal
+2. Either:
+   * Uncheck "Move focus to the editor with Escape", or
+   * Click "Configure terminal keybindings" and delete the "Switch focus to Editor" shortcut
+3. Apply the changes
+
+This allows the ESC key to properly interrupt Claude Code operations.
+
 ## Troubleshooting
 
 ### VS Code extension not installing
@@ -89,6 +120,10 @@ IDE integrations work with Claude Code's configuration system:
 * Completely restart the IDE. You may need to do this multiple times
 * For JetBrains Remote Development, ensure that the Claude Code plugin is
   installed in the remote host and not locally on the client
+
+<Tip>
+  If you're using WSL or WSL2 and the IDE is not detected, see our [WSL2 troubleshooting guide](/en/docs/claude-code/troubleshooting#jetbrains-ide-not-detected-on-wsl2) for networking configuration and firewall settings.
+</Tip>
 
 For additional help, refer to our
 [troubleshooting guide](/en/docs/claude-code/troubleshooting).

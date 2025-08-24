@@ -172,18 +172,6 @@ If Claude Code seems unresponsive:
 1. Press Ctrl+C to attempt to cancel the current operation
 2. If unresponsive, you may need to close the terminal and restart
 
-### ESC key not working in JetBrains (IntelliJ, PyCharm, etc.) terminals
-
-If you're using Claude Code in JetBrains terminals and the ESC key doesn't interrupt the agent as expected, this is likely due to a keybinding clash with JetBrains' default shortcuts.
-
-To fix this issue:
-
-1. Go to Settings → Tools → Terminal
-2. Click the "Configure terminal keybindings" hyperlink next to "Override IDE Shortcuts"
-3. Within the terminal keybindings, scroll down to "Switch focus to Editor" and delete that shortcut
-
-This will allow the ESC key to properly function for canceling Claude Code operations instead of being captured by PyCharm's "Switch focus to Editor" action.
-
 ### Search and discovery issues
 
 If Search tool, `@file` mentions, custom agents, and custom slash commands aren't working, install system `ripgrep`:
@@ -222,6 +210,67 @@ Disk read performance penalties when [working across file systems on WSL](https:
 2. **Move project to Linux filesystem**: If possible, ensure your project is located on the Linux filesystem (`/home/`) rather than the Windows filesystem (`/mnt/c/`).
 
 3. **Use native Windows instead**: Consider running Claude Code natively on Windows instead of through WSL, for better file system performance.
+
+## IDE integration issues
+
+### JetBrains IDE not detected on WSL2
+
+If you're using Claude Code on WSL2 with JetBrains IDEs and getting "No available IDEs detected" errors, this is likely due to WSL2's networking configuration or Windows Firewall blocking the connection.
+
+#### WSL2 networking modes
+
+WSL2 uses NAT networking by default, which can prevent IDE detection. You have two options:
+
+**Option 1: Configure Windows Firewall** (recommended)
+
+1. Find your WSL2 IP address:
+   ```bash
+   wsl hostname -I
+   # Example output: 172.21.123.456
+   ```
+
+2. Open PowerShell as Administrator and create a firewall rule:
+   ```powershell
+   New-NetFirewallRule -DisplayName "Allow WSL2 Internal Traffic" -Direction Inbound -Protocol TCP -Action Allow -RemoteAddress 172.21.0.0/16 -LocalAddress 172.21.0.0/16
+   ```
+   (Adjust the IP range based on your WSL2 subnet from step 1)
+
+3. Restart both your IDE and Claude Code
+
+**Option 2: Switch to mirrored networking**
+
+Add to `.wslconfig` in your Windows user directory:
+
+```ini
+[wsl2]
+networkingMode=mirrored
+```
+
+Then restart WSL with `wsl --shutdown` from PowerShell.
+
+<Note>
+  These networking issues only affect WSL2. WSL1 uses the host's network directly and doesn't require these configurations.
+</Note>
+
+For additional JetBrains configuration tips, see our [IDE integration guide](/en/docs/claude-code/ide-integrations#jetbrains-plugin-settings).
+
+### Reporting Windows IDE integration issues (both native and WSL)
+
+If you're experiencing IDE integration problems on Windows, please [create an issue](https://github.com/anthropics/claude-code/issues) with the following information: whether you are native (git bash), or WSL1/WSL2, WSL networking mode (NAT or mirrored), IDE name/version, Claude Code extension/plugin version, and shell type (bash/zsh/etc)
+
+### ESC key not working in JetBrains (IntelliJ, PyCharm, etc.) terminals
+
+If you're using Claude Code in JetBrains terminals and the ESC key doesn't interrupt the agent as expected, this is likely due to a keybinding clash with JetBrains' default shortcuts.
+
+To fix this issue:
+
+1. Go to Settings → Tools → Terminal
+2. Either:
+   * Uncheck "Move focus to the editor with Escape", or
+   * Click "Configure terminal keybindings" and delete the "Switch focus to Editor" shortcut
+3. Apply the changes
+
+This allows the ESC key to properly interrupt Claude Code operations.
 
 ## Markdown formatting issues
 
