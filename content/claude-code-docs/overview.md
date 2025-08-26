@@ -4,7 +4,10 @@
 
 ## Get started in 30 seconds
 
-Prerequisites: [Node.js 18 or newer](https://nodejs.org/en/download/)
+Prerequisites:
+
+* [Node.js 18 or newer](https://nodejs.org/en/download/)
+* A [Claude.ai](https://claude.ai) (recommended) or [Anthropic Console](https://console.anthropic.com/) account
 
 ```bash
 # Install Claude Code
@@ -15,6 +18,7 @@ cd your-awesome-project
 
 # Start coding with Claude
 claude
+# You'll be prompted to log in on first use
 ```
 
 That's it! You're ready to start coding with Claude. [Continue with Quickstart (5 mins) →](/en/docs/claude-code/quickstart)
