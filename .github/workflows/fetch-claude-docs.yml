@@ -50,16 +50,16 @@ jobs:
           git config --global user.email "claude-yolo@lroole.com"
 
       - name: Claude handles everything
-        uses: anthropics/claude-code-action@main
+        uses: anthropics/claude-code-action@v1
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
-          model: "claude-sonnet-4-20250514"
-          mode: "agent"
           allowed_bots: "claude-yolo[bot]"
-          allowed_tools: "Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify"
+          claude_args: |
+            --model claude-sonnet-4-20250514
+            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify
           mcp_config: |
             {
               "mcpServers": {
@@ -78,7 +78,7 @@ jobs:
                 }
               }
             }
-          direct_prompt: |
+          prompt: |
             You're an AI agent responsible for fetching and evaluating Claude Code documentation updates. Think like a news editor - you decide what's worth publishing.
 
             ## YOUR ROLE
