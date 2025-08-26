@@ -43,6 +43,7 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
           permission-issues: write
+          permission-metadata: read
 
       - name: Checkout repository
         uses: actions/checkout@v4
