@@ -58,6 +58,69 @@ If the `/install-github-app` command fails or you prefer manual setup, please fo
   tagging `@claude` in an issue or PR comment!
 </Tip>
 
+## Upgrading from Beta
+
+<Warning>
+  Claude Code GitHub Actions v1.0 introduces breaking changes that require updating your workflow files in order to upgrade to v1.0 from the beta version.
+</Warning>
+
+If you're currently using the beta version of Claude Code GitHub Actions, we recommend that you update your workflows to use the GA version. The new version simplifies configuration while adding powerful new features like automatic mode detection.
+
+### Essential changes
+
+All beta users must make these changes to their workflow files in order to upgrade:
+
+1. **Update the action version**: Change `@beta` to `@v1`
+2. **Remove mode configuration**: Delete `mode: "tag"` or `mode: "agent"` (now auto-detected)
+3. **Update prompt inputs**: Replace `direct_prompt` with `prompt`
+4. **Move CLI options**: Convert `max_turns`, `model`, `custom_instructions`, etc. to `claude_args`
+
+### Breaking Changes Reference
+
+| Old Beta Input        | New v1.0 Input                   |
+| --------------------- | -------------------------------- |
+| `mode`                | *(Removed - auto-detected)*      |
+| `direct_prompt`       | `prompt`                         |
+| `override_prompt`     | `prompt` with GitHub variables   |
+| `custom_instructions` | `claude_args: --system-prompt`   |
+| `max_turns`           | `claude_args: --max-turns`       |
+| `model`               | `claude_args: --model`           |
+| `allowed_tools`       | `claude_args: --allowedTools`    |
+| `disallowed_tools`    | `claude_args: --disallowedTools` |
+| `claude_env`          | `settings` JSON format           |
+
+### Before and After Example
+
+**Beta version:**
+
+```yaml
+- uses: anthropics/claude-code-action@beta
+  with:
+    mode: "tag"
+    direct_prompt: "Review this PR for security issues"
+    anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    custom_instructions: "Follow our coding standards"
+    max_turns: "10"
+    model: "claude-3-5-sonnet-20241022"
+```
+
+**GA version (v1.0):**
+
+```yaml
+- uses: anthropics/claude-code-action@v1
+  with:
+    prompt: "Review this PR for security issues"
+    anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+    claude_args: |
+      --system-prompt "Follow our coding standards"
+      --max-turns 10
+      --model claude-4-0-sonnet-20250805
+```
+
+<Tip>
+  The action now automatically detects whether to run in interactive mode (responds to `@claude` mentions) or automation mode (runs immediately with a prompt) based on your configuration.
+</Tip>
+
 ## Example use cases
 
 Claude Code GitHub Actions can help you with a variety of tasks. The [examples directory](https://github.com/anthropics/claude-code-action/tree/main/examples) contains ready-to-use workflows for different scenarios.

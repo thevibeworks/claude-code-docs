@@ -71,7 +71,7 @@ Claude Code supports several permission modes that can be set as the `defaultMod
 | :------------------ | :--------------------------------------------------------------------------- |
 | `default`           | Standard behavior - prompts for permission on first use of each tool         |
 | `acceptEdits`       | Automatically accepts file edit permissions for the session                  |
-| `plan`              | Plan mode - Claude can analyze but not modify files or execute commands      |
+| `plan`              | Plan Mode - Claude can analyze but not modify files or execute commands      |
 | `bypassPermissions` | Skips all permission prompts (requires safe environment - see warning below) |
 
 #### Working directories

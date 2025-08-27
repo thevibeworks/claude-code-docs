@@ -6,13 +6,14 @@
 
 ### General controls
 
-| Shortcut         | Description                        | Context                    |
-| :--------------- | :--------------------------------- | :------------------------- |
-| `Ctrl+C`         | Cancel current input or generation | Standard interrupt         |
-| `Ctrl+D`         | Exit Claude Code session           | EOF signal                 |
-| `Ctrl+L`         | Clear terminal screen              | Keeps conversation history |
-| `Up/Down arrows` | Navigate command history           | Recall previous inputs     |
-| `Esc` + `Esc`    | Edit previous message              | Double-escape to modify    |
+| Shortcut         | Description                        | Context                                                     |
+| :--------------- | :--------------------------------- | :---------------------------------------------------------- |
+| `Ctrl+C`         | Cancel current input or generation | Standard interrupt                                          |
+| `Ctrl+D`         | Exit Claude Code session           | EOF signal                                                  |
+| `Ctrl+L`         | Clear terminal screen              | Keeps conversation history                                  |
+| `Up/Down arrows` | Navigate command history           | Recall previous inputs                                      |
+| `Esc` + `Esc`    | Edit previous message              | Double-escape to modify                                     |
+| `Shift+Tab`      | Toggle permission modes            | Switch between Auto-Accept Mode, Plan Mode, and normal mode |
 
 ### Multiline input
 

@@ -18,7 +18,7 @@ npm install -g @anthropic-ai/claude-code
   To view the TypeScript SDK source code, visit the [`@anthropic-ai/claude-code` page on NPM](https://www.npmjs.com/package/@anthropic-ai/claude-code?activeTab=code).
 </Note>
 
-## Basic Usage
+## Basic usage
 
 The primary interface via the TypeScript SDK is the `query` function, which returns an async iterator that streams messages as they arrive:
 
@@ -40,7 +40,7 @@ for await (const message of query({
 }
 ```
 
-## Configuration Options
+## Configuration options
 
 | Argument                     | Type                              | Description                                      | Default                                                                              |
 | :--------------------------- | :-------------------------------- | :----------------------------------------------- | :----------------------------------------------------------------------------------- |
@@ -68,13 +68,13 @@ for await (const message of query({
 | `stderr`                     | `(data: string) => void`          | Callback for stderr output                       | `undefined`                                                                          |
 | `strictMcpConfig`            | `boolean`                         | Enforce strict MCP configuration validation      | `undefined`                                                                          |
 
-## Multi-turn Conversations
+## Multi-turn conversations
 
 For multi-turn conversations, you have two options.
 
 You can generate responses and resume them, or you can use streaming input mode which accepts an async/generator for an array of messages. For now, streaming input mode is the only way to attach images via messages.
 
-### Resume with Session Management
+### Resume with session management
 
 ```ts
 import { query } from "@anthropic-ai/claude-code";
@@ -99,7 +99,7 @@ for await (const message of query({
 }
 ```
 
-## Streaming Input Mode
+## Streaming input mode
 
 Streaming input mode allows you to provide messages as an async iterable instead of a single string. This enables multi-turn conversations, image attachments, and dynamic message generation:
 
@@ -142,7 +142,7 @@ for await (const message of query({
 }
 ```
 
-### Streaming Input with Images
+### Streaming input with images
 
 Streaming input mode is the only way to attach images via messages:
 
@@ -181,26 +181,7 @@ for await (const message of query({
 }
 ```
 
-## Using Plan Mode
-
-Plan Mode allows Claude to analyze code without making modifications:
-
-```ts
-import { query } from "@anthropic-ai/claude-code";
-
-for await (const message of query({
-  prompt: "Your prompt here",
-  options: {
-    permissionMode: 'plan'
-  }
-})) {
-  if (message.type === "result") {
-    console.log(message.result);
-  }
-}
-```
-
-## Custom System Prompts
+## Custom system prompts
 
 System prompts define your agent's role, expertise, and behavior:
 
@@ -230,7 +211,7 @@ for await (const message of query({
 }
 ```
 
-## Custom Tools via MCP
+## Custom tools via MCP
 
 The Model Context Protocol (MCP) lets you give your agents custom tools and capabilities:
 
@@ -251,7 +232,7 @@ for await (const message of query({
 }
 ```
 
-## Custom Tools using MCPs
+## Custom tools using MCPs
 
 You can implement custom tools using MCPs, for example here is how you can create a custom permission handling tool.
 
@@ -306,9 +287,9 @@ for await (const message of query({
 }
 ```
 
-## Output Formats
+## Output formats
 
-### Text Output (Default)
+### Text output (default)
 
 ```ts
 // Default text output
@@ -322,7 +303,7 @@ for await (const message of query({
 }
 ```
 
-### JSON Output
+### JSON output
 
 ```ts
 // Collect all messages for JSON-like access
@@ -342,7 +323,7 @@ console.log({
 });
 ```
 
-## Input Formats
+## Input formats
 
 ```ts
 // Direct prompt
@@ -359,9 +340,9 @@ for await (const message of query({ prompt: userInput })) {
 }
 ```
 
-## Agent Integration Examples
+## Agent integration examples
 
-### SRE Incident Response Agent
+### SRE incident response agent
 
 ```ts
 import { query } from "@anthropic-ai/claude-code";
@@ -393,7 +374,7 @@ const result = await investigateIncident("Payment API returning 500 errors", "hi
 console.log(result.result);
 ```
 
-### Automated Security Review
+### Automated security review
 
 ```ts
 import { query } from "@anthropic-ai/claude-code";
@@ -423,7 +404,7 @@ const report = await auditPR(123);
 console.log(JSON.stringify(report, null, 2));
 ```
 
-### Multi-turn Legal Assistant
+### Multi-turn legal assistant
 
 ```ts
 import { query } from "@anthropic-ai/claude-code";
@@ -462,7 +443,7 @@ async function legalReview() {
 }
 ```
 
-## Message Schema
+## Message schema
 
 Messages returned from the JSON API are strictly typed according to the following schema:
 
@@ -557,7 +538,7 @@ Additional supporting types:
 
 `Message`, `MessageParam`, and `Usage` types are available in the Anthropic [TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript).
 
-## Related Resources
+## Related resources
 
 * [CLI usage and controls](/en/docs/claude-code/cli-reference) - Complete CLI documentation
 * [GitHub Actions integration](/en/docs/claude-code/github-actions) - Automate your GitHub workflow with Claude

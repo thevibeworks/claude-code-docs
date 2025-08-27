@@ -32,7 +32,7 @@ npm install -g @anthropic-ai/claude-code  # Required dependency
 pip install ipython
 ```
 
-## Quick Start
+## Quick start
 
 Create your first agent:
 
@@ -81,11 +81,11 @@ await main()
   The Python examples on this page use `asyncio`, but you can also use `anyio`.
 </Note>
 
-## Basic Usage
+## Basic usage
 
 The Python SDK provides two primary interfaces:
 
-### 1. The `ClaudeSDKClient` Class (Recommended)
+### 1. The `ClaudeSDKClient` class (recommended)
 
 Best for streaming responses, multi-turn conversations, and interactive applications:
 
@@ -116,7 +116,7 @@ asyncio.run(main())
 # Or in IPython/Jupyter: await main()
 ```
 
-### 2. The `query` Function
+### 2. The `query` function
 
 For simple, one-shot queries:
 
@@ -131,11 +131,11 @@ async for message in query(
         print(message.result)
 ```
 
-## Configuration Options
+## Configuration options
 
 The Python SDK accepts all arguments supported by the [command line](/en/docs/claude-code/cli-reference) through the `ClaudeCodeOptions` class.
 
-### ClaudeCodeOptions Parameters
+### ClaudeCodeOptions parameters
 
 ```python
 from claude_code_sdk import ClaudeCodeOptions
@@ -162,7 +162,7 @@ options = ClaudeCodeOptions(
     settings="/path/to/settings.json",
     
     # Permissions
-    permission_mode="plan",  # "default", "acceptEdits", "plan", "bypassPermissions"
+    permission_mode="acceptEdits",  # "default", "acceptEdits", "plan", "bypassPermissions"
     permission_prompt_tool_name="mcp__approval_tool",
     
     # MCP integration
@@ -179,7 +179,7 @@ options = ClaudeCodeOptions(
 )
 ```
 
-#### Parameter Details
+#### Parameter details
 
 * **`system_prompt`**: `str | None` - Custom system prompt defining the agent's role
 * **`append_system_prompt`**: `str | None` - Additional text appended to system prompt
@@ -198,14 +198,14 @@ options = ClaudeCodeOptions(
 * **`mcp_servers`**: `dict | str | Path` - MCP server configurations
 * **`extra_args`**: `dict[str, str | None]` - Pass arbitrary CLI flags to underlying Claude Code CLI
 
-#### Permission Modes
+#### Permission modes
 
 * **`"default"`**: CLI prompts for dangerous tools (default behavior)
 * **`"acceptEdits"`**: Automatically accept file edits without prompting
-* **`"plan"`**: Plan mode - analyze without making changes
+* **`"plan"`**: Plan Mode - analyze without making changes
 * **`"bypassPermissions"`**: Allow all tools without prompting (use with caution)
 
-### Advanced Configuration Example
+### Advanced configuration example
 
 ```python
 import asyncio
@@ -247,7 +247,7 @@ async def advanced_agent():
 asyncio.run(advanced_agent())
 ```
 
-## Structured Messages and Image Inputs
+## Structured messages and image inputs
 
 The SDK supports passing structured messages and image inputs:
 
@@ -278,9 +278,9 @@ async with ClaudeSDKClient() as client:
 # Supported formats: PNG, JPG, PDF, and other common formats
 ```
 
-## Multi-turn Conversations
+## Multi-turn conversations
 
-### Method 1: Using ClaudeSDKClient for Persistent Conversations
+### Method 1: Using ClaudeSDKClient for persistent conversations
 
 ```python
 import asyncio
@@ -328,24 +328,7 @@ async def resume_session():
 asyncio.run(multi_turn_conversation())
 ```
 
-## Using Plan Mode
-
-Plan Mode allows Claude to analyze code without making modifications:
-
-```python
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async with ClaudeSDKClient(
-    options=ClaudeCodeOptions(permission_mode='plan')
-) as client:
-    await client.query("Your prompt here")
-```
-
-<Note>
-  Plan Mode restricts editing, file creation, and command execution. See [permission modes](/en/docs/claude-code/iam#permission-modes) for details.
-</Note>
-
-## Custom System Prompts
+## Custom system prompts
 
 System prompts define your agent's role, expertise, and behavior:
 
@@ -388,7 +371,7 @@ async def specialized_agents():
 asyncio.run(specialized_agents())
 ```
 
-## Custom Tools via MCP
+## Custom tools via MCP
 
 The Model Context Protocol (MCP) lets you give your agents custom tools and capabilities:
 
@@ -436,7 +419,7 @@ async def mcp_enabled_agent():
 asyncio.run(mcp_enabled_agent())
 ```
 
-## Custom Permission Prompt Tool
+## Custom permission prompt tool
 
 Implement custom permission handling for tool calls:
 
@@ -502,9 +485,9 @@ async def approval_prompt(tool_name: str, input: dict, tool_use_id: str = None):
 asyncio.run(use_permission_prompt())
 ```
 
-## Output Formats
+## Output formats
 
-### Text Output with Streaming
+### Text output with streaming
 
 ```python
 # Default text output with streaming
@@ -520,7 +503,7 @@ async with ClaudeSDKClient() as client:
                     # Output streams in real-time: This is a React component showing...
 ```
 
-### JSON Output with Metadata
+### JSON output with metadata
 
 ```python
 # Collect all messages with metadata
@@ -547,7 +530,7 @@ async with ClaudeSDKClient() as client:
     print(result_data)
 ```
 
-## Input Formats
+## Input formats
 
 ```python
 import asyncio
@@ -583,9 +566,9 @@ async def process_inputs():
 asyncio.run(process_inputs())
 ```
 
-## Agent Integration Examples
+## Agent integration examples
 
-### SRE Incident Response Agent
+### SRE incident response agent
 
 ```python
 import asyncio
@@ -643,7 +626,7 @@ result = await investigate_incident("Payment API returning 500 errors", "high")
 print(f"\n\nInvestigation complete. Cost: ${result['cost']:.4f}")
 ```
 
-### Automated Security Review
+### Automated security review
 
 ```python
 import subprocess
@@ -695,7 +678,7 @@ print(f"\n\nAudit complete. Severity: {report['metadata']['severity']}")
 print(json.dumps(report, indent=2))
 ```
 
-### Multi-turn Legal Assistant
+### Multi-turn legal assistant
 
 ```python
 import asyncio
@@ -748,9 +731,9 @@ async def legal_review():
 results = await legal_review()
 ```
 
-## Python-Specific Best Practices
+## Python-specific best practices
 
-### Key Patterns
+### Key patterns
 
 ```python
 import asyncio
@@ -795,7 +778,7 @@ async def get_response(client, prompt):
             return {'text': ''.join(text), 'cost': msg.total_cost_usd}
 ```
 
-### IPython/Jupyter Tips
+### IPython/Jupyter tips
 
 ```python
 # In Jupyter, use await directly in cells
@@ -816,7 +799,7 @@ async def stream_print(client, prompt):
                     print(block.text, end='', flush=True)
 ```
 
-## Related Resources
+## Related resources
 
 * [CLI usage and controls](/en/docs/claude-code/cli-reference) - Complete CLI documentation
 * [GitHub Actions integration](/en/docs/claude-code/github-actions) - Automate your GitHub workflow with Claude
