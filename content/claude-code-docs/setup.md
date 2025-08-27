@@ -42,7 +42,7 @@ claude
 
 Claude Code offers the following authentication options:
 
-1. **Anthropic Console**: The default option. Connect through the Anthropic Console and complete the OAuth process. Requires active billing at [console.anthropic.com](https://console.anthropic.com).
+1. **Anthropic Console**: The default option. Connect through the Anthropic Console and complete the OAuth process. Requires active billing at [console.anthropic.com](https://console.anthropic.com). A "Claude Code" workspace will be automatically created for usage tracking and cost management.
 2. **Claude App (with Pro or Max plan)**: Subscribe to Claude's [Pro or Max plan](https://www.anthropic.com/pricing) for a unified subscription that includes both Claude Code and the web interface. Get more value at the same price point while managing your account in one place. Log in with your Claude.ai account. During launch, choose the option that matches your subscription type.
 3. **Enterprise platforms**: Configure Claude Code to use [Amazon Bedrock or Google Vertex AI](/en/docs/claude-code/third-party-integrations) for enterprise deployments with your existing cloud infrastructure.
 
@@ -98,7 +98,7 @@ curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
 ```
 
 <Note>
-  **Alpine Linux and other musl/uClibc-based distributions**: The native build requires you to install `ripgrep`. Install (Alpine: `apk add ripgrep`) and set `USE_BUILTIN_RIPGREP=0`.
+  **Alpine Linux and other musl/uClibc-based distributions**: The native build requires you to install `libgcc`, `libstdc++`, and `ripgrep`. Install (Alpine: `apk add libgcc libstdc++ ripgrep`) and set `USE_BUILTIN_RIPGREP=0`.
 </Note>
 
 **Windows PowerShell:**
