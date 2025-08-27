@@ -219,6 +219,72 @@ Suppose you want to use specialized AI subagents to handle specific tasks more e
 
 ***
 
+## Use Plan Mode for safe code analysis
+
+Plan Mode instructs Claude to create a plan by analyzing the codebase with read-only operations, perfect for exploring codebases, planning complex changes, or reviewing code safely.
+
+### When to use Plan Mode
+
+* **Multi-step implementation**: When your feature requires making edits to many files
+* **Code exploration**: When you want to research the codebase thoroughly before changing anything
+* **Interactive development**: When you want to iterate on the direction with Claude
+
+### How to use Plan Mode
+
+**Turn on Plan Mode during a session**
+
+You can switch into Plan Mode during a session using **Shift+Tab** to cycle through permission modes.
+
+If you are in Normal Mode, **Shift+Tab** will first switch into Auto-Accept Mode, indicated by `⏵⏵ accept edits on` at the bottom of the terminal. A subsequent **Shift+Tab** will switch into Plan Mode, indicated by `⏸ plan mode on`.
+
+**Start a new session in Plan Mode**
+
+To start a new session in Plan Mode, use the `--permission-mode plan` flag:
+
+```bash
+claude --permission-mode plan
+```
+
+**Run "headless" queries in Plan Mode**
+
+You can also run a query in Plan Mode directly with `-p` (i.e., in ["headless mode"](/en/docs/claude-code/sdk/sdk-headless)):
+
+```bash
+claude --permission-mode plan -p "Analyze the authentication system and suggest improvements"
+```
+
+### Example: Planning a complex refactor
+
+```bash
+claude --permission-mode plan
+```
+
+```
+> I need to refactor our authentication system to use OAuth2. Create a detailed migration plan.
+```
+
+Claude will analyze the current implementation and create a comprehensive plan. Refine with follow-ups:
+
+```
+> What about backward compatibility?
+> How should we handle database migration?
+```
+
+### Configure Plan Mode as default
+
+```json
+// .claude/settings.json
+{
+  "permissions": {
+    "defaultMode": "plan"
+  }
+}
+```
+
+See [settings documentation](/en/docs/claude-code/settings#available-settings) for more configuration options.
+
+***
+
 ## Work with tests
 
 Suppose you need to add tests for uncovered code.

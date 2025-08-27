@@ -62,6 +62,10 @@ You can log in using either account type:
 Once logged in, your credentials are stored and you won't need to log in again.
 
 <Note>
+  When you first authenticate Claude Code with your Anthropic Console account, a workspace called "Claude Code" is automatically created for you. This workspace provides centralized cost tracking and management for all Claude Code usage in your organization.
+</Note>
+
+<Note>
   You can have both account types under the same email address. If you need to log in again or switch accounts, use the `/login` command within Claude Code.
 </Note>
 
