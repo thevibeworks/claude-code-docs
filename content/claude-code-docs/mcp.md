@@ -714,6 +714,7 @@ claude mcp remove github
     * `user`: Available to you across all projects (was called `global` in older versions)
   * Set environment variables with `--env` flags (e.g., `--env KEY=value`)
   * Configure MCP server startup timeout using the MCP\_TIMEOUT environment variable (e.g., `MCP_TIMEOUT=10000 claude` sets a 10-second timeout)
+  * Claude Code will display a warning when MCP tool output exceeds 10,000 tokens. To increase this limit, set the `MAX_MCP_OUTPUT_TOKENS` environment variable (e.g., `MAX_MCP_OUTPUT_TOKENS=50000`)
   * Use `/mcp` to authenticate with remote servers that require OAuth 2.0 authentication
 </Tip>
 
@@ -1018,6 +1019,32 @@ You can use this in Claude Desktop by adding this configuration to claude\_deskt
   * In Claude Desktop, try asking Claude to read files in a directory, make edits, and more.
   * Note that this MCP server is simply exposing Claude Code's tools to your MCP client, so your own client is responsible for implementing user confirmation for individual tool calls.
 </Tip>
+
+## MCP output limits and warnings
+
+When MCP tools produce large outputs, Claude Code helps manage the token usage to prevent overwhelming your conversation context:
+
+* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens
+* **Configurable limit**: You can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable
+* **Default limit**: The default maximum is 25,000 tokens
+
+To increase the limit for tools that produce large outputs:
+
+```bash
+# Set a higher limit for MCP tool outputs
+export MAX_MCP_OUTPUT_TOKENS=50000
+claude
+```
+
+This is particularly useful when working with MCP servers that:
+
+* Query large datasets or databases
+* Generate detailed reports or documentation
+* Process extensive log files or debugging information
+
+<Warning>
+  If you frequently encounter output warnings with specific MCP servers, consider increasing the limit or configuring the server to paginate or filter its responses.
+</Warning>
 
 ## Use MCP resources
 
