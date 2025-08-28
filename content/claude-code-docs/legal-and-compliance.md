@@ -6,7 +6,10 @@
 
 ### License
 
-Claude Code is provided under Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms).
+Your use of Claude Code is subject to:
+
+* [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) - for Team, Enterprise, and Anthropic API users
+* [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) - for Free, Pro, and Max users
 
 ### Commercial agreements
 
@@ -30,4 +33,4 @@ Anthropic manages our security program through HackerOne. [Use this form to repo
 
 ***
 
-© Anthropic PBC. All rights reserved. Use is subject to Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms).
+© Anthropic PBC. All rights reserved. Use is subject to applicable Anthropic Terms of Service.
