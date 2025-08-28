@@ -43,11 +43,11 @@ Prompt injection is a technique where an attacker attempts to override or manipu
 
 We have implemented several safeguards to protect your data, including:
 
-* Limited retention periods for sensitive information
+* Limited retention periods for sensitive information (see the [Privacy Center](https://privacy.anthropic.com/en/articles/10023548-how-long-do-you-store-my-data) to learn more)
 * Restricted access to user session data
-* Clear policies against using feedback for model training
+* User control over data training preferences. Consumer users can change their [privacy settings](https://claude.ai/settings/privacy) at any time.
 
-For full details, please review our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) and [Privacy Policy](https://www.anthropic.com/legal/privacy).
+For full details, please review our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) (for Team, Enterprise, and API users) or [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) (for Free, Pro, and Max users) and [Privacy Policy](https://www.anthropic.com/legal/privacy).
 
 ### Additional safeguards
 

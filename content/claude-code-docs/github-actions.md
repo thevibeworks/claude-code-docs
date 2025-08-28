@@ -114,7 +114,7 @@ All beta users must make these changes to their workflow files in order to upgra
     claude_args: |
       --system-prompt "Follow our coding standards"
       --max-turns 10
-      --model claude-4-0-sonnet-20250805
+      --model claude-sonnet-4-20250514
 ```
 
 <Tip>
