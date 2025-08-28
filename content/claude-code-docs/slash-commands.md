@@ -88,17 +88,39 @@ Meanwhile, a file at `~/.claude/commands/component.md` creates the command `/com
 
 #### Arguments
 
-Pass dynamic values to commands using the `$ARGUMENTS` placeholder.
+Pass dynamic values to commands using argument placeholders:
 
-For example:
+##### All arguments with `$ARGUMENTS`
+
+The `$ARGUMENTS` placeholder captures all arguments passed to the command:
 
 ```bash
 # Command definition
 echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/fix-issue.md
 
 # Usage
-> /fix-issue 123
+> /fix-issue 123 high-priority
+# $ARGUMENTS becomes: "123 high-priority"
 ```
+
+##### Individual arguments with `$1`, `$2`, etc.
+
+Access specific arguments individually using positional parameters (similar to shell scripts):
+
+```bash
+# Command definition  
+echo 'Review PR #$1 with priority $2 and assign to $3' > .claude/commands/review-pr.md
+
+# Usage
+> /review-pr 456 high alice
+# $1 becomes "456", $2 becomes "high", $3 becomes "alice"
+```
+
+Use positional arguments when you need to:
+
+* Access arguments individually in different parts of your command
+* Provide defaults for missing arguments
+* Build more structured commands with specific parameter roles
 
 #### Bash command execution
 
@@ -165,7 +187,19 @@ description: Create a git commit
 model: claude-3-5-haiku-20241022
 ---
 
-An example command
+Create a git commit with message: $ARGUMENTS
+```
+
+Example using positional arguments:
+
+```markdown
+---
+argument-hint: [pr-number] [priority] [assignee]
+description: Review pull request
+---
+
+Review PR #$1 with priority $2 and assign to $3.
+Focus on security, performance, and code style.
 ```
 
 ## MCP slash commands
@@ -219,8 +253,19 @@ Use the `/mcp` command to:
 * Clear authentication tokens
 * View available tools and prompts from each server
 
+### MCP permissions and wildcards
+
+When configuring [permissions for MCP tools](/en/docs/claude-code/iam#tool-specific-permission-rules), note that **wildcards are not supported**:
+
+* ✅ **Correct**: `mcp__github` (approves ALL tools from the github server)
+* ✅ **Correct**: `mcp__github__get_issue` (approves specific tool)
+* ❌ **Incorrect**: `mcp__github__*` (wildcards not supported)
+
+To approve all tools from an MCP server, use just the server name: `mcp__servername`. To approve specific tools only, list each tool individually.
+
 ## See also
 
+* [Identity and Access Management](/en/docs/claude-code/iam) - Complete guide to permissions, including MCP tool permissions
 * [Interactive mode](/en/docs/claude-code/interactive-mode) - Shortcuts, input modes, and interactive features
 * [CLI reference](/en/docs/claude-code/cli-reference) - Command-line flags and options
 * [Settings](/en/docs/claude-code/settings) - Configuration options
