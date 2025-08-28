@@ -232,9 +232,158 @@ for await (const message of query({
 }
 ```
 
-## Custom tools using MCPs
+## Custom tools with in-process MCP servers
 
-You can implement custom tools using MCPs, for example here is how you can create a custom permission handling tool.
+SDK MCP servers allow you to create custom tools that run directly in your application process, providing type-safe tool execution without the overhead of separate processes or network communication.
+
+### Creating custom tools
+
+Use the `createSdkMcpServer` and `tool` helper functions to define type-safe custom tools:
+
+```ts
+import { query, tool, createSdkMcpServer } from "@anthropic-ai/claude-code";
+import { z } from "zod";
+
+// Create an SDK MCP server with custom tools
+const customServer = createSdkMcpServer({
+  name: "my-custom-tools",
+  version: "1.0.0",
+  tools: [
+    tool(
+      "calculate_compound_interest",
+      "Calculate compound interest for an investment",
+      {
+        principal: z.number().describe("Initial investment amount"),
+        rate: z.number().describe("Annual interest rate (as decimal, e.g., 0.05 for 5%)"),
+        time: z.number().describe("Investment period in years"),
+        n: z.number().default(12).describe("Compounding frequency per year")
+      },
+      async (args) => {
+        const amount = args.principal * Math.pow(1 + args.rate / args.n, args.n * args.time);
+        const interest = amount - args.principal;
+        
+        return {
+          content: [{
+            type: "text",
+            text: `Final amount: $${amount.toFixed(2)}\nInterest earned: $${interest.toFixed(2)}`
+          }]
+        };
+      }
+    ),
+    tool(
+      "fetch_user_data",
+      "Fetch user data from your application database",
+      {
+        userId: z.string().describe("The user ID to fetch"),
+        fields: z.array(z.string()).optional().describe("Specific fields to return")
+      },
+      async (args) => {
+        // Direct access to your application's data layer
+        const userData = await myDatabase.getUser(args.userId, args.fields);
+        
+        return {
+          content: [{
+            type: "text",
+            text: JSON.stringify(userData, null, 2)
+          }]
+        };
+      }
+    )
+  ]
+});
+
+// Use the custom tools in your query
+for await (const message of query({
+  prompt: "Calculate compound interest for $10,000 at 5% for 10 years",
+  options: {
+    mcpServers: {
+      "my-custom-tools": customServer
+    },
+    maxTurns: 3
+  }
+})) {
+  if (message.type === "result") {
+    console.log(message.result);
+  }
+}
+```
+
+### Type safety with Zod
+
+The `tool` helper provides full TypeScript type inference from your Zod schemas:
+
+```ts
+tool(
+  "process_data",
+  "Process structured data with type safety",
+  {
+    // Zod schema defines both runtime validation and TypeScript types
+    data: z.object({
+      name: z.string(),
+      age: z.number().min(0).max(150),
+      email: z.string().email(),
+      preferences: z.array(z.string()).optional()
+    }),
+    format: z.enum(["json", "csv", "xml"]).default("json")
+  },
+  async (args) => {
+    // args is fully typed based on the schema
+    // TypeScript knows: args.data.name is string, args.data.age is number, etc.
+    console.log(`Processing ${args.data.name}'s data as ${args.format}`);
+    
+    // Your processing logic here
+    return {
+      content: [{
+        type: "text",
+        text: `Processed data for ${args.data.name}`
+      }]
+    };
+  }
+)
+```
+
+### Permission control
+
+Combine SDK MCP servers with the `canUseTool` callback for fine-grained permission control:
+
+```ts
+for await (const message of query({
+  prompt: "Analyze user behavior and calculate metrics",
+  options: {
+    mcpServers: {
+      "analytics": analyticsServer
+    },
+    canUseTool: async (toolName, input) => {
+      // Control which tools can be used
+      if (toolName.startsWith("mcp__analytics__")) {
+        // Check permissions for analytics tools
+        const hasPermission = await checkUserPermissions(toolName);
+        
+        return hasPermission
+          ? { behavior: "allow", updatedInput: input }
+          : { behavior: "deny", message: "Insufficient permissions" };
+      }
+      
+      // Allow other tools by default
+      return { behavior: "allow", updatedInput: input };
+    }
+  }
+})) {
+  if (message.type === "result") console.log(message.result);
+}
+```
+
+### Benefits of SDK MCP servers
+
+* **Type Safety**: Full TypeScript type inference from Zod schemas
+* **Performance**: No IPC or network overhead - tools run in the same process
+* **Direct Access**: Tools can directly access your application's state, database, and services
+* **Easy Testing**: Simple to unit test since tools are just async functions
+* **No Configuration**: No need for separate server processes or configuration files
+
+## Custom tools using external MCP servers
+
+You can also implement custom tools using external MCP servers, for example here is how you can create a custom permission handling tool.
 
 ```ts
 const server = new McpServer({
