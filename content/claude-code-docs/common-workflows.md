@@ -523,7 +523,7 @@ Suppose you're working on complex architectural decisions, challenging bugs, or 
     ```
 
     ```
-    > think harder about edge cases we should handle 
+    > keep thinking about edge cases we should handle 
     ```
   </Step>
 </Steps>
@@ -542,7 +542,7 @@ Suppose you're working on complex architectural decisions, challenging bugs, or 
   The way you prompt for thinking results in varying levels of thinking depth:
 
   * "think" triggers basic extended thinking
-  * intensifying phrases such as "think more", "think a lot", "think harder", or "think longer" triggers deeper thinking
+  * intensifying phrases such as "keep thinking", "think more", "think a lot", or "think longer" triggers deeper thinking
 
   For more extended thinking prompting tips, see [Extended thinking tips](/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips).
 </Tip>
