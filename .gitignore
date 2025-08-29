@@ -181,3 +181,11 @@ Temporary Items
 
 # Claude Code traces
 .claude-trace/
+
+# Local development folders
+.claude/
+worktree/
+WIP/
+references/
+mcp/
+.claude-trace/
