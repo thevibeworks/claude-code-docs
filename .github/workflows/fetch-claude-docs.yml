@@ -25,9 +25,6 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: write
-          permission-issues: write
 
       # Make the writable token the default for all later steps in this job
       - name: Export token for subsequent steps
@@ -60,8 +57,7 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-20250514
             --allowedTools Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify
-          mcp_config: |
-            {
+            --mcp-config '{
               "mcpServers": {
                 "barkme": {
                   "command": "npx",
@@ -77,7 +73,7 @@ jobs:
                   }
                 }
               }
-            }
+            }'
           prompt: |
             You're an AI agent responsible for fetching and evaluating Claude Code documentation updates. Think like a news editor - you decide what's worth publishing.
 

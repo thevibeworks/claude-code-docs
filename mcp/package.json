@@ -1,0 +1,57 @@
+{
+  "name": "claude-code-docs-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Claude Code documentation - provides structured access to Claude Code docs and tutorials",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thevibeworks/claude-code-docs.git"
+  },
+  "module": "main.ts",
+  "type": "module",
+  "bin": {
+    "claude-code-docs-mcp-server": "dist/main.js"
+  },
+  "files": [
+    "dist",
+    "../content"
+  ],
+  "scripts": {
+    "prebuild": "bun scripts/prebuild.ts",
+    "build": "bun build ./src/main.ts --outdir dist --target node && chmod +x dist/main.js",
+    "build:http": "bun build ./src/server-http.ts --outdir dist --target node && chmod +x dist/server-http.js",
+    "start": "bun run dist/main.js",
+    "start:http": "bun run dist/server-http.js",
+    "test": "bun test",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "lint": "bunx biome lint --write src",
+    "format": "bunx biome format --write src",
+    "check": "bunx biome check --write src",
+    "release": "standard-version && bun run update-version",
+    "release:minor": "standard-version --release-as minor && bun run update-version",
+    "release:major": "standard-version --release-as major && bun run update-version",
+    "release:patch": "standard-version --release-as patch && bun run update-version",
+    "update-version": "sed -i '' -e 's/export const VERSION = .*/export const VERSION = '\"'$(node -p 'require(\"./package.json\").version')'\"';/' src/main.ts",
+    "create-tool": "bun scripts/create-tool.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/bun": "latest",
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "standard-version": "^9.5.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.1.1",
+    "@types/json-schema": "^7.0.15",
+    "pretty-js-log": "^1.1.1",
+    "zod": "^3.25.67",
+    "zod-to-json-schema": "^3.24.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}
