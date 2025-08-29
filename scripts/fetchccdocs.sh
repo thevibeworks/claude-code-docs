@@ -43,6 +43,112 @@ mkdir -p "$OUTPUT_DIR/release-notes"
 METADATA_FILE="$OUTPUT_DIR/.metadata.json"
 MANIFEST_FILE="$OUTPUT_DIR/claude-code-manifest.json"
 FETCH_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+# temp log for this run only (no repo clutter)
+RUN_LOG=$(mktemp -t fetchccdocs.XXXXXX.jsonl 2>/dev/null || echo "$OUTPUT_DIR/.urls.tmp.jsonl")
+cleanup_tmp() { [ -f "$RUN_LOG" ] && rm -f "$RUN_LOG" || true; }
+trap cleanup_tmp EXIT
+
+# --- helpers for metadata + logging ---
+sha256_file() {
+  local f=$1
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$f" | awk '{print $1}'
+  elif command -v shasum >/dev/null 2>&1; then
+    shasum -a 256 "$f" | awk '{print $1}'
+  elif command -v openssl >/dev/null 2>&1; then
+    openssl dgst -sha256 -r "$f" | awk '{print $1}'
+  else
+    echo ""  # best-effort
+  fi
+}
+
+file_size() {
+  local f=$1
+  if stat -f%z "$f" >/dev/null 2>&1; then
+    stat -f%z "$f"
+  else
+    stat -c%s "$f" 2>/dev/null || echo 0
+  fi
+}
+
+mime_type() {
+  local f=$1
+  if command -v file >/dev/null 2>&1; then
+    file -b --mime-type "$f" 2>/dev/null || echo "application/octet-stream"
+  else
+    case "$f" in
+      *.md) echo "text/markdown" ;;
+      *.json) echo "application/json" ;;
+      *) echo "application/octet-stream" ;;
+    esac
+  fi
+}
+
+append_url_record() {
+  # args: source url output_file status
+  local source=$1
+  local url=$2
+  local output_file=$3
+  local status=${4:-200}
+  local rel_path=${output_file#"$OUTPUT_DIR/"}
+  local sum size mime
+  sum=$(sha256_file "$output_file")
+  size=$(file_size "$output_file")
+  mime=$(mime_type "$output_file")
+
+  mkdir -p "$(dirname "$RUN_LOG")"
+  # Prefer jq for safe JSON encoding
+  if command -v jq >/dev/null 2>&1; then
+    jq -c -n \
+      --arg run "$FETCH_DATE" \
+      --arg source "$source" \
+      --arg url "$url" \
+      --arg path "$rel_path" \
+      --arg sha256 "$sum" \
+      --arg mime "$mime" \
+      --argjson size ${size:-0} \
+      --argjson status ${status:-200} \
+      '{run:$run, source:$source, url:$url, kind:"raw", path:$path, sha256:$sha256, size:$size, mime:$mime, fetched_at:$run, status:$status}' \
+      >> "$RUN_LOG"
+  else
+    # Naive escape (URLs and paths expected to not contain quotes)
+    printf '{"run":"%s","source":"%s","url":"%s","kind":"raw","path":"%s","sha256":"%s","size":%s,"mime":"%s","fetched_at":"%s","status":%s}\n' \
+      "$FETCH_DATE" "$source" "$url" "$rel_path" "$sum" "${size:-0}" "$mime" "$FETCH_DATE" "${status:-200}" >> "$RUN_LOG"
+  fi
+}
+
+build_items_json_for_run() {
+  # echo JSON array of items for this run
+  if [ -f "$RUN_LOG" ]; then
+    if command -v jq >/dev/null 2>&1; then
+      jq -s 'map(del(.run,.status))' "$RUN_LOG"
+    else
+      local lines
+      lines=$(cat "$RUN_LOG" 2>/dev/null || true)
+      if [ -z "$lines" ]; then
+        printf '[]'
+      else
+        printf '[\n'
+        printf '%s\n' "$lines" | sed '$!s/$/,/'
+        printf ']'
+      fi
+    fi
+  else
+    printf '[]'
+  fi
+}
+
+build_by_url_json_for_run() {
+  # echo JSON object of url -> artifact refs
+  if [ -f "$RUN_LOG" ] && command -v jq >/dev/null 2>&1; then
+    jq -s 'map({url, source, kind, path, sha256})
+           | group_by(.url)
+           | map({ (.[0].url): map({source, kind, path, sha256}) })
+           | add // {}' "$RUN_LOG"
+  else
+    printf '{}'
+  fi
+}
 
 # Get latest version from npm registry
 LATEST_NPM_VERSION="unknown"
@@ -153,6 +259,8 @@ process_sitemap() {
 
     if download_doc "$url" "$output_file" "$fetch_method"; then
       ((success++))
+      # Record successful fetch per-item
+      append_url_record "$sitemap_name" "$url" "$output_file" 200 2>/dev/null || true
       echo "[PROGRESS] $sitemap_name: $success/$url_count completed" >&2
     else
       ((fail++))
@@ -174,6 +282,7 @@ fetch_github_content() {
   echo "[DEBUG] Fetching CHANGELOG.md..." >&2
   if curl -sS -f -L "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md" -o "$changelog_file"; then
     echo "[OK] CHANGELOG.md" >&2
+    append_url_record "github" "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md" "$changelog_file" 200 2>/dev/null || true
     ((github_success++))
   else
     echo "[FAIL] CHANGELOG.md" >&2
@@ -192,6 +301,7 @@ fetch_npm_manifest() {
     if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" 2>/dev/null |
       jq '.' >"$manifest_file" 2>/dev/null; then
       echo "[OK] NPM manifest saved to $manifest_file (formatted)" >&2
+      append_url_record "npm" "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" "$manifest_file" 200 2>/dev/null || true
     else
       echo "[FAIL] Could not fetch npm manifest" >&2
       return 1
@@ -199,6 +309,7 @@ fetch_npm_manifest() {
   else
     if curl -sSL "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" -o "$manifest_file" 2>/dev/null; then
       echo "[OK] NPM manifest saved to $manifest_file (raw - jq not available)" >&2
+      append_url_record "npm" "https://registry.npmjs.org/@anthropic-ai/claude-code/latest" "$manifest_file" 200 2>/dev/null || true
     else
       echo "[FAIL] Could not fetch npm manifest" >&2
       return 1
@@ -240,6 +351,8 @@ echo "[INFO] Found $TOTAL total pages processed"
 
 if [[ $TOTAL -eq 0 ]]; then
   echo "[WARN] No URLs found to fetch, exiting gracefully"
+  ITEMS_JSON=$(build_items_json_for_run)
+  BY_URL_JSON=$(build_by_url_json_for_run)
   cat >"$METADATA_FILE" <<EOF
 {
   "metadata": {
@@ -274,6 +387,8 @@ if [[ $TOTAL -eq 0 ]]; then
       "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     }
   },
+  "items": $ITEMS_JSON,
+  "by_url": $BY_URL_JSON,
   "summary": {
     "total_sources": 3,
     "total_files": 0,
@@ -294,6 +409,8 @@ if [[ $TOTAL -gt 0 ]]; then
   SUCCESS_RATE=$(echo "scale=1; $SUCCESS * 100 / $TOTAL" | bc 2>/dev/null || echo "$((SUCCESS * 100 / TOTAL))")
 fi
 
+ITEMS_JSON=$(build_items_json_for_run)
+BY_URL_JSON=$(build_by_url_json_for_run)
 cat >"$METADATA_FILE" <<EOF
 {
   "metadata": {
@@ -328,6 +445,8 @@ cat >"$METADATA_FILE" <<EOF
       "stats": { "downloaded": $GITHUB_SUCCESS, "failed": $GITHUB_FAIL, "total": $((GITHUB_SUCCESS + GITHUB_FAIL)) }
     }
   },
+  "items": $ITEMS_JSON,
+  "by_url": $BY_URL_JSON,
   "summary": {
     "total_sources": 3,
     "total_files": $TOTAL,
