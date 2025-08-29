@@ -60,7 +60,7 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        uses: anthropics/claude-code-action@v1
+        uses: thevibeworks/claude-code-action@main
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
