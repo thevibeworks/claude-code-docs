@@ -178,3 +178,6 @@ Temporary Items
 *.icloud
 
 # End of https://www.toptal.com/developers/gitignore/api/macOS
+
+# Claude Code traces
+.claude-trace/
