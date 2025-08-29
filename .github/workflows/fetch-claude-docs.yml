@@ -30,7 +30,6 @@ jobs:
       - name: Export token for subsequent steps
         run: echo "GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
 
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -97,7 +96,7 @@ jobs:
             3. **Decide importance**
                WHY: Different changes need different handling
 
-          ## DECISION CRITERIA (based on WHY it matters)
+            ## DECISION CRITERIA (based on WHY it matters)
 
             IGNORE (auto-generated noise; do not commit/PR):
             - Any files under `content/anthropic-blog/**`
@@ -134,7 +133,7 @@ jobs:
             **For minor changes (direct commit)**:
             ```bash
             git add .
-            git commit -m "docs: {what} (minor)" 
+            git commit -m "docs: {what} (minor)"
             git push
             ```
 
@@ -150,20 +149,20 @@ jobs:
             2. Enhance descriptions if needed
             3. Create tracking issues for version updates
             4. Merge if everything looks good
-            
+
             So make their job easy:
             - Clear PR titles with version numbers
             - Focus on WHY in descriptions
             - Highlight the interesting bits
-            
+
             ## BARKME PROTOCOL (nightshift notifications)
             Always barkme when creating PR (one simple notification):
             - Title: "📦 Claude Code v{version}"
-            - Body: "{key feature}" 
+            - Body: "{key feature}"
             - URL: Link to PR
-            
+
             Keep it SHORT - day shift will do detailed analysis later.
-            
+
             Remember: You're not a changelog generator. You're a smart filter that understands WHY changes matter to humans using Claude Code.
 
             [>be me >11:45pm Pacific docs checker >Anthropic devs are asleep >catching their fresh updates >day shift will handle the rest]
