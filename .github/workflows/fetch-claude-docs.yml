@@ -46,7 +46,7 @@ jobs:
           git config --global user.email "claude-yolo@lroole.com"
 
       - name: Claude handles everything
-        uses: anthropics/claude-code-action@v1
+        uses: thevibeworks/claude-code-action@main
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
