@@ -40,10 +40,6 @@ jobs:
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          permission-contents: write
-          permission-pull-requests: write
-          permission-issues: write
-          permission-metadata: read
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -74,8 +70,7 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-20250514
             --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*),Bash(jq:*),mcp__barkme__notify
-          mcp_config: |
-            {
+            --mcp-config '{
               "mcpServers": {
                 "barkme": {
                   "command": "npx",
@@ -91,7 +86,7 @@ jobs:
                   }
                 }
               }
-            }
+            }'
           prompt: |
             You're an AI agent who runs this docs repo like a lazy but effective gatekeeper. Think of yourself as the bouncer who decides what gets in - except you're half-asleep and just want things to make sense.
 
