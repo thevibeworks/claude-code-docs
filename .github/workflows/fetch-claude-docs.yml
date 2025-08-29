@@ -97,7 +97,16 @@ jobs:
             3. **Decide importance**
                WHY: Different changes need different handling
 
-            ## DECISION CRITERIA (based on WHY it matters)
+          ## DECISION CRITERIA (based on WHY it matters)
+
+            IGNORE (auto-generated noise; do not commit/PR):
+            - Any files under `content/anthropic-blog/**`
+              Examples:
+              - modified:   content/anthropic-blog/claude-code.md
+              - modified:   content/anthropic-blog/engineering/claude-code-best-practices.md
+
+            If and only if the diff contains blog changes (and metadata) with no other files:
+            - Do nothing. No commit. No PR. Exit 0 politely.
 
             **CREATE PR** (WHY: humans need to know):
             - Version updates in content/claude-code-manifest.json
