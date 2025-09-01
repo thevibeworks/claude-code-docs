@@ -141,18 +141,6 @@ the stoppage occurred due to a user interrupt.
 
 Runs when a Claude Code subagent (Task tool call) has finished responding.
 
-### SessionEnd
-
-Runs when a Claude Code session ends. Useful for cleanup tasks, logging session
-statistics, or saving session state.
-
-The `reason` field in the hook input will be one of:
-
-* `clear` - Session cleared with /clear command
-* `logout` - User logged out
-* `prompt_input_exit` - User exited while prompt input was visible
-* `other` - Other exit reasons
-
 ### PreCompact
 
 Runs before Claude Code is about to run a compact operation.
@@ -173,6 +161,19 @@ development context like existing issues or recent changes to your codebase.
 * `startup` - Invoked from startup
 * `resume` - Invoked from `--resume`, `--continue`, or `/resume`
 * `clear` - Invoked from `/clear`
+* `compact` - Invoked from auto or manual compact.
+
+### SessionEnd
+
+Runs when a Claude Code session ends. Useful for cleanup tasks, logging session
+statistics, or saving session state.
+
+The `reason` field in the hook input will be one of:
+
+* `clear` - Session cleared with /clear command
+* `logout` - User logged out
+* `prompt_input_exit` - User exited while prompt input was visible
+* `other` - Other exit reasons
 
 ## Hook Input
 

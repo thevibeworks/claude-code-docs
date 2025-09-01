@@ -25,14 +25,19 @@
 | Control sequence | `Ctrl+J`       | Line feed character for multiline |
 | Paste mode       | Paste directly | For code blocks, logs             |
 
+<Tip>
+  Configure your preferred line break behavior in terminal settings. Run `/terminal-setup` to install Shift+Enter binding for iTerm2 and VS Code terminals.
+</Tip>
+
 ### Quick commands
 
-| Shortcut     | Description                        | Notes                                                     |
-| :----------- | :--------------------------------- | :-------------------------------------------------------- |
-| `#` at start | Memory shortcut - add to CLAUDE.md | Prompts for file selection                                |
-| `/` at start | Slash command                      | See [slash commands](/en/docs/claude-code/slash-commands) |
+| Shortcut     | Description                        | Notes                                                         |
+| :----------- | :--------------------------------- | :------------------------------------------------------------ |
+| `#` at start | Memory shortcut - add to CLAUDE.md | Prompts for file selection                                    |
+| `/` at start | Slash command                      | See [slash commands](/en/docs/claude-code/slash-commands)     |
+| `!` at start | Bash mode                          | Run commands directly and add execution output to the session |
 
-## Vim mode
+## Vim editor mode
 
 Enable vim-style editing with `/vim` command or configure permanently via `/config`.
 
@@ -74,10 +79,6 @@ Enable vim-style editing with `/vim` command or configure permanently via `/conf
 | `C`            | Change to end of line   |
 | `cw`/`ce`/`cb` | Change word/to end/back |
 | `.`            | Repeat last change      |
-
-<Tip>
-  Configure your preferred line break behavior in terminal settings. Run `/terminal-setup` to install Shift+Enter binding for iTerm2 and VS Code terminals.
-</Tip>
 
 ## Command history
 
