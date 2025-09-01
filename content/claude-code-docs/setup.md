@@ -147,11 +147,9 @@ Claude Code automatically keeps itself up to date to ensure you have the latest 
 
 **Disable auto-updates:**
 
-```bash
-# Via configuration
-claude config set autoUpdates false --global
+Set the `DISABLE_AUTOUPDATER` environment variable in your shell or [settings.json file](/en/docs/claude-code/settings):
 
-# Or via environment variable
+```bash
 export DISABLE_AUTOUPDATER=1
 ```
 

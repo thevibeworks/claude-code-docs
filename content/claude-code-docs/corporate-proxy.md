@@ -16,11 +16,14 @@ export HTTPS_PROXY=https://proxy.example.com:8080
 
 # HTTP proxy (if HTTPS not available)
 export HTTP_PROXY=http://proxy.example.com:8080
-```
 
-<Note>
-  Claude Code currently does not support the `NO_PROXY` environment variable. All traffic will be routed through the configured proxy.
-</Note>
+# Bypass proxy for specific requests - space-separated format
+export NO_PROXY="localhost 192.168.1.1 example.com .example.com"
+# Bypass proxy for specific requests - comma-separated format
+export NO_PROXY="localhost,192.168.1.1,example.com,.example.com"
+# Bypass proxy for all requests
+export NO_PROXY="*"
+```
 
 <Note>
   Claude Code does not support SOCKS proxies.
