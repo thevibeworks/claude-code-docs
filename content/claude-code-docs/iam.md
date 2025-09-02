@@ -101,11 +101,23 @@ Some tools support more fine-grained permission controls:
 
 `Edit` rules apply to all built-in tools that edit files. Claude will make a best-effort attempt to apply `Read` rules to all built-in tools that read files like Grep, Glob, and LS.
 
-Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore) specification. Patterns are resolved relative to the directory containing `.claude/settings.json`. To reference an absolute path, use `//`. For a path relative to your home directory, use `~/`.
+Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore) specification with four distinct pattern types:
 
-* `Edit(docs/**)` Matches edits to files in the `docs` directory of your project
-* `Read(~/.zshrc)` Matches reads to your `~/.zshrc` file
-* `Edit(//tmp/scratch.txt)` Matches edits to `/tmp/scratch.txt`
+| Pattern            | Meaning                                | Example                          | Matches                            |
+| ------------------ | -------------------------------------- | -------------------------------- | ---------------------------------- |
+| `//path`           | **Absolute** path from filesystem root | `Read(//Users/alice/secrets/**)` | `/Users/alice/secrets/**`          |
+| `~/path`           | Path from **home** directory           | `Read(~/Documents/*.pdf)`        | `/Users/alice/Documents/*.pdf`     |
+| `/path`            | Path **relative to settings file**     | `Edit(/src/**/*.ts)`             | `<settings file path>/src/**/*.ts` |
+| `path` or `./path` | Path **relative to current directory** | `Read(*.env)`                    | `<cwd>/*.env`                      |
+
+<Warning>
+  A pattern like `/Users/alice/file` is NOT an absolute path - it's relative to your settings file! Use `//Users/alice/file` for absolute paths.
+</Warning>
+
+* `Edit(/docs/**)` - Edits in `<project>/docs/` (NOT `/docs/`!)
+* `Read(~/.zshrc)` - Reads your home directory's `.zshrc`
+* `Edit(//tmp/scratch.txt)` - Edits the absolute path `/tmp/scratch.txt`
+* `Read(src/**)` - Reads from `<current-directory>/src/`
 
 **WebFetch**
 
