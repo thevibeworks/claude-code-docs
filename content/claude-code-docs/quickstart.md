@@ -31,13 +31,19 @@ npm install -g @anthropic-ai/claude-code
 **macOS, Linux, WSL:**
 
 ```bash
-curl -fsSL claude.ai/install.sh | bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 **Windows PowerShell:**
 
 ```powershell
 irm https://claude.ai/install.ps1 | iex
+```
+
+**Windows CMD:**
+
+```batch
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 ```
 
 ## Step 2: Log in to your account
