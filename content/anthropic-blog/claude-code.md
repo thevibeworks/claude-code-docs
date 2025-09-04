@@ -25,8 +25,8 @@ Plans
     *   [Enterprise plan](https://www.anthropic.com/enterprise)
     *   [Explore pricing](https://www.anthropic.com/pricing)
 
-    *   [Download apps](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/download)
-    *   [Claude log in](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c)
+    *   [Download apps](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/download)
+    *   [Claude log in](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53)
 
 [![Image 27](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
 
@@ -103,7 +103,7 @@ Company
 *   [News](https://www.anthropic.com/news)
 
 *   EN     [This is some text inside of a div block.](https://www.anthropic.com/claude-code#)     
-*   [Try Claude](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/download)Download App  Download App   
+*   [Try Claude](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/download)Download App  Download App   
 
 [](https://www.anthropic.com/)
 
@@ -121,8 +121,8 @@ Plans
     *   [Enterprise plan](https://www.anthropic.com/enterprise)
     *   [Explore pricing](https://www.anthropic.com/pricing)
 
-    *   [Download apps](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/download)
-    *   [Claude log in](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c)
+    *   [Download apps](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/download)
+    *   [Claude log in](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53)
 
 [![Image 33](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
 
@@ -199,7 +199,7 @@ Company
 *   [News](https://www.anthropic.com/news)
 
 *   EN     [This is some text inside of a div block.](https://www.anthropic.com/claude-code#)     
-*   [Try Claude](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/download)Download App  Download App   
+*   [Try Claude](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/download)Download App  Download App   
 
 Your code’s new collaborator
 ============================
@@ -217,19 +217,19 @@ Install [Node.js 18+](https://nodejs.org/en/download), then run:
 
 [npm install-g @anthropic-ai/claude-code](https://www.anthropic.com/claude-code#)
 
-[Try Claude Code on Max](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
+[Try Claude Code on Max](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
 
 Try Claude Code on Max
 
-[Try Claude Code on Max](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
+[Try Claude Code on Max](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
 
 Try Claude Code on Max
 
 [See our pricing options](https://www.anthropic.com/claude-code#get-started)
 
-✢
+·
 
-Moseying…
+Cerebrating…
 
 Trusted by engineers at
 -----------------------
@@ -258,15 +258,15 @@ Claude Code embeds Claude Opus 4.1—the same model our researchers and engineer
 
 [Terminal](https://www.anthropic.com/claude-code#)[Result](https://www.anthropic.com/claude-code#)
 
-✢
+·
 
-Noodling…
+Transmuting…
 
 [Terminal](https://www.anthropic.com/claude-code#)[Result](https://www.anthropic.com/claude-code#)
 
-✢
+·
 
-Effecting…
+Synthesizing…
 
 ### Powerful intelligence
 
@@ -335,13 +335,13 @@ What could you do with Claude Code?
 
 [Code onboarding](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-0)[Triage issues](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-1)[Refactor code](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-2)
 
-✢
+·
 
-Deliberating…
+Puttering…
 
-✢
+·
 
-Reticulating…
+Coalescing…
 
 Install [Node.js 18+](https://nodejs.org/en/download), then run:
 
@@ -425,14 +425,14 @@ Get started with Claude Code
 
 [Individual](https://www.anthropic.com/claude-code#w-tabs-2-data-w-pane-0)[Team &Enterprise](https://www.anthropic.com/claude-code#w-tabs-2-data-w-pane-1)
 
-*   ### Pro $17 Per month with annual subscription discount; $200 billed up front. $20 if billed monthly.   Claude Code is included in your Pro plan. Perfect for short coding sprints in smaller codebases with Claude Sonnet 4. [Sign up](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/upgrade/pro?returnTo=/claude-code-install)Sign up  Sign up       
-*   ### Max 5x $100 Per person billed monthly   Claude Code is included in your Max plan. Great value for everyday use in larger codebases with access to both Claude Sonnet 4 & Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/upgrade/max?plan=max_5x&returnTo=/claude-code-install)Sign up  Sign up       
-*   ### Max 20x $200 Per person billed monthly   Even more Claude Code included in your Max plan. Great value for power users with the most access to Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/upgrade/max?plan=max_20x&returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Pro $17 Per month with annual subscription discount; $200 billed up front. $20 if billed monthly.   Claude Code is included in your Pro plan. Perfect for short coding sprints in smaller codebases with Claude Sonnet 4. [Sign up](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/upgrade/pro?returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Max 5x $100 Per person billed monthly   Claude Code is included in your Max plan. Great value for everyday use in larger codebases with access to both Claude Sonnet 4 & Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/upgrade/max?plan=max_5x&returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Max 20x $200 Per person billed monthly   Even more Claude Code included in your Max plan. Great value for power users with the most access to Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/upgrade/max?plan=max_20x&returnTo=/claude-code-install)Sign up  Sign up       
 
 *Additional [usage limits](https://support.anthropic.com/en/articles/9797557-usage-limit-best-practices) apply. Prices shown do not include applicable tax.
 
 *   ### Anthropic API  Pay as you go with standard Anthropic API pricing. Deploy to unlimited developers with no per-seat fee or platform charges. [Start building](https://console.anthropic.com/login?returnTo=%2F%3F)Start building  Start building       
-*   ### Team $150 Per person / month. Minimum 5 members.   Claude Code is included with Team plan premium seats. Includes self-serve seat management and additional usage at standard API rates, plus access to both Claude Sonnet 4 and Claude Opus 4.1. [Get the Team plan](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/login)Get the Team plan  Get the Team plan       
+*   ### Team $150 Per person / month. Minimum 5 members.   Claude Code is included with Team plan premium seats. Includes self-serve seat management and additional usage at standard API rates, plus access to both Claude Sonnet 4 and Claude Opus 4.1. [Get the Team plan](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/login)Get the Team plan  Get the Team plan       
 *   ### Enterprise  Enterprise plan premium seats include everything in the Team plan, plus advanced security, data, and user management. [Contact sales](https://anthropic.com/contact-sales)Contact sales  Contact sales       
 
 Prices shown do not include applicable tax. [Usage limits](https://support.anthropic.com/en/articles/9797557-usage-limit-best-practices) may apply.
@@ -548,9 +548,9 @@ Footer
 *   [Max plan](https://www.anthropic.com/max)
 *   [Team plan](https://www.anthropic.com/team)
 *   [Enterprise plan](https://www.anthropic.com/enterprise)
-*   [Download Claude apps](https://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/download)
+*   [Download Claude apps](https://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/download)
 *   [Claude.ai pricing plans](https://www.anthropic.com/pricing)
-*   [Claude.ai login](http://claude.ai/redirect/website.v1.3365ae7d-7635-4535-ad96-87a233e2030c/login)
+*   [Claude.ai login](http://claude.ai/redirect/website.v1.a8325fb0-6ad1-426e-8402-0c8e85387a53/login)
 
 ### API Platform
 
