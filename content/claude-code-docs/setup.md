@@ -115,6 +115,19 @@ irm https://claude.ai/install.ps1 | iex
 
 ```
 
+**Windows CMD:**
+
+```batch
+REM Install stable version (default)
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+
+REM Install latest version
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd latest && del install.cmd
+
+REM Install specific version number
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd 1.0.58 && del install.cmd
+```
+
 The native Claude Code installer is supported on macOS, Linux, and Windows.
 
 <Tip>

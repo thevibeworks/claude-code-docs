@@ -1,11 +1,11 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-09-04T01:12:37Z",
+    "fetch_date": "2025-09-05T01:14:16Z",
     "format": "md"
   },
   "versions": {
-    "latest_npm": "1.0.103",
+    "latest_npm": "1.0.106",
     "npm_package": "@anthropic-ai/claude-code"
   },
   "sources": {
@@ -40,7 +40,7 @@
     "sha256": "25183f0f38898a54326ab0cbedf8dc36116309df228676b3f3d9401353796c49",
     "size": 7669,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -50,7 +50,7 @@
     "sha256": "21d5d85a64d11712f4b8010211696ecd3ccda4a6a327a94000a95f73b054804e",
     "size": 2459,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -60,7 +60,7 @@
     "sha256": "f7f1bdc8351ee6f6511ce35cabcde69cd50baacbe43bd3ac2c4bd91c4adab0e4",
     "size": 7145,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -70,7 +70,7 @@
     "sha256": "4004b1fe2440bbebb2d8c041f944d4a79a7bb8c61bd3bd355596340a1cf3f723",
     "size": 25142,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -80,7 +80,7 @@
     "sha256": "7d2bce10e29f366e42763b269aead3f45ed1a5fd42d705c5fdb297f8aebc579f",
     "size": 2535,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -90,17 +90,17 @@
     "sha256": "1225bb4cbc94d0cd8ce469f67cde3b7fdb66d291072930f26a236d7aa8d7b044",
     "size": 6510,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
     "url": "https://docs.anthropic.com/en/docs/claude-code/data-usage",
     "kind": "raw",
     "path": "claude-code-docs/data-usage.md",
-    "sha256": "9139b9154f824f29435e6dad39254735d8940dcc472842ba2859ef7f150b350a",
-    "size": 8043,
+    "sha256": "dd1c5e4f5b6bad954fe63f8a7979cac59b31adb959072f4aa4cf11e53c6c0924",
+    "size": 8029,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -110,7 +110,7 @@
     "sha256": "9f0b062248ffc15d89f1653f16958144e4a8a30531f00585818b221a6aa843ae",
     "size": 4414,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -120,7 +120,7 @@
     "sha256": "de4f4b56f46236c29eb47e0f6c2b2ef2f31c52b2f436cf9dc3e353e605f80c45",
     "size": 26649,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -130,7 +130,7 @@
     "sha256": "a9ed91f61818cb0c96bbb725da50d736df7ee2c7504efc7523c406a80a68f387",
     "size": 6048,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -140,7 +140,7 @@
     "sha256": "218596daf32354ca64f49e8ab30dd480254cf99e7749946207baacea819c84fe",
     "size": 23040,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -150,7 +150,7 @@
     "sha256": "a8347a1951dfe7a55e644c95b5dced0ab1bdb5ef387f4e3443dac610a8cac836",
     "size": 9549,
     "mime": "text/x-script.python",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -160,7 +160,7 @@
     "sha256": "43d29a41e580ef96176752e019d1371a189602b91212e83e7551930219a6acff",
     "size": 10342,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -170,7 +170,7 @@
     "sha256": "8eeb41ded01f5411202a7bf0d28856cecbad5d17039ee09930b8961b9b86d47d",
     "size": 6007,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -180,7 +180,7 @@
     "sha256": "64615ef94295923ce71d9979d3e3aa93c388cf2875040e287808b1d04e836513",
     "size": 4793,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -190,7 +190,7 @@
     "sha256": "0204d2f835282a350861c31c5c3bf2f2d9905861132b528ddf475c2bd95f3386",
     "size": 1545,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -200,17 +200,17 @@
     "sha256": "635632a8fd0aba81cd6159772e55d81b9a52881f029826716bee2e68c8f82eee",
     "size": 4189,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
     "url": "https://docs.anthropic.com/en/docs/claude-code/mcp",
     "kind": "raw",
     "path": "claude-code-docs/mcp.md",
-    "sha256": "aedc4db3406451dc397d4b92c5903d343cfe4582d2f8d0782477a482cbd84344",
-    "size": 37106,
+    "sha256": "84a885fe250ec6a0254051bbff7564d9d9ac2a578bb4e34db1de161f5df210f4",
+    "size": 37163,
     "mime": "application/javascript",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -220,7 +220,7 @@
     "sha256": "fb91c5ca36a50ad644648bb0a4af00dab4fa5489a1317d5ca8a33c593fd18b1c",
     "size": 6355,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -230,7 +230,7 @@
     "sha256": "c00bb65754f4dcd9596ff92f916a61a041a8b9e462c150bd77d6260332520048",
     "size": 4879,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -240,7 +240,7 @@
     "sha256": "c7677ad78b92746de1ff6e6d1f087973853dcc4157ca26e3bb587451f63ad5dc",
     "size": 21932,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -250,7 +250,7 @@
     "sha256": "12d774955a3e3596fbe7d72d52ac27182573396b93ff08d5a25c5f038d9f9867",
     "size": 3648,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -260,17 +260,17 @@
     "sha256": "292193171a314151e088a6a296e6c3bd306f8354088d59f080de437c6d4fb10a",
     "size": 4332,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
     "url": "https://docs.anthropic.com/en/docs/claude-code/quickstart",
     "kind": "raw",
     "path": "claude-code-docs/quickstart.md",
-    "sha256": "1ee649b487f11735e612f8de06d26a42f3c58402509da865e641b69d4228ab96",
-    "size": 8093,
+    "sha256": "bd2798770a64b026d80a25088f0fb8c034955c991204110e355ad080784e2358",
+    "size": 8223,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -280,7 +280,7 @@
     "sha256": "075878969c9bc428ba1e5217b0b0cea3c740421c4814dcdc0c9c8cecc44de4e1",
     "size": 8827,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -290,7 +290,7 @@
     "sha256": "b0ed967b280d3b05362a9c50f206c925db6d75c8ef73449dba71c02b41d49f6e",
     "size": 4316,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -300,7 +300,7 @@
     "sha256": "c7a81ed658275171bd157211bd29efef96103cac51934ff4c1ce56b0855706bf",
     "size": 26100,
     "mime": "text/x-script.python",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -310,7 +310,7 @@
     "sha256": "39b55637cf499d67df484cee1fc1ef1ef22e559902d6961c46d7e17b0319100d",
     "size": 22617,
     "mime": "application/javascript",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -320,7 +320,7 @@
     "sha256": "58b552f95840f16b7506d56f6d9df54cd5e8d52d9c957a751c602e35d3b9302d",
     "size": 6727,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -330,17 +330,17 @@
     "sha256": "a311e00d197c76fb0dfd2c360f2c00cd53e7e688195fdb411cffd2c99dc8f70c",
     "size": 26146,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
     "url": "https://docs.anthropic.com/en/docs/claude-code/setup",
     "kind": "raw",
     "path": "claude-code-docs/setup.md",
-    "sha256": "81b3fa50b8b5586e37a5c20b100ca0446dee18135537e49652629facb4341a2e",
-    "size": 5834,
+    "sha256": "98c6b8570665d0d413c0942bc7f8f7baac99f970f68a3bc712d7b738e3814b7d",
+    "size": 6252,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -350,7 +350,7 @@
     "sha256": "a92657563011b0d9cf1b59de5c493e3d3cb5f4f1f5aa31ae3a3acf3bd97d7750",
     "size": 12889,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -360,7 +360,7 @@
     "sha256": "7e9ba7d4046c8f50477b4b86fdfb40909738492094f7adabff9e7db814597baa",
     "size": 5698,
     "mime": "application/javascript",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -370,7 +370,7 @@
     "sha256": "4897316c00d2bbb93701c5569580d521d11b430a0a7b37b96c7fea6946b58f5b",
     "size": 11804,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -380,7 +380,7 @@
     "sha256": "f43b3d3ff68b017ff8c039aa896bc6dd5df213141f6341f4ed012ff05de08efb",
     "size": 2943,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -390,7 +390,7 @@
     "sha256": "e56232ebb48800dcbdcc296bed2babc195ffa20a9ba43f78dbb55cd85587e29b",
     "size": 7876,
     "mime": "text/html",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -400,7 +400,7 @@
     "sha256": "81f3ba7936c8e03bb30beb5efdf880098572bd59564ecba669136983548bd473",
     "size": 12072,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "docs",
@@ -410,27 +410,27 @@
     "sha256": "6fdd703940478612a68b5ab56fe52f8cca56dd73a5028a334b57a642631a0d45",
     "size": 344,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
     "url": "https://www.anthropic.com/claude-code",
     "kind": "raw",
     "path": "anthropic-blog/claude-code.md",
-    "sha256": "e35d83cfe075737bb674ad7d02f0f37f02a0fa502cd54ef6f428efe864ce0723",
-    "size": 35090,
+    "sha256": "a28bc7a22d122ed899f6febb2dde49aacc7ea71e48ad5f460e025d51cda1c74a",
+    "size": 33760,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
     "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
     "kind": "raw",
     "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-    "sha256": "bc0109d99cf90b6e8956ad253b566033e7f26f40f0c3c428b71f9834be12fc90",
+    "sha256": "7ae4e6f9cc0c6640f2c8176fe0cd433a82a43dc7ad73757c05030baf4d538e65",
     "size": 30483,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
@@ -440,7 +440,7 @@
     "sha256": "d1300dee01c3a034d4d02a71a9b6723bf09b99cbdf1f1f7e20b2d9e0993ccdeb",
     "size": 4647,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
@@ -450,7 +450,7 @@
     "sha256": "b26c237e1b0b627059386ed626e793cfeff6265b4b0e4a30ec6d11e013ace89f",
     "size": 4964,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
@@ -460,7 +460,7 @@
     "sha256": "322f9ab2140d07c71f26b7977583bd59c3090ee39c1466647fc644cc0c3d44cb",
     "size": 2476,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "anthropic",
@@ -470,27 +470,27 @@
     "sha256": "eef0e20fd1e53d8dfcfc676892989b89252cac85af15e53870c3f0788b8fca87",
     "size": 8227,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "github",
     "url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
     "kind": "raw",
     "path": "release-notes/CHANGELOG.md",
-    "sha256": "ac0f6c1d01af3d69c67719c63d910898df5aa7b7a8b82f1d8582e93077a6d517",
-    "size": 22075,
+    "sha256": "74700c0e9be0a5924121b30d73b8a08d3678f58f457db3f054d79417a3ebd623",
+    "size": 22193,
     "mime": "text/plain",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   },
   {
     "source": "npm",
     "url": "https://registry.npmjs.org/@anthropic-ai/claude-code/latest",
     "kind": "raw",
     "path": "claude-code-manifest.json",
-    "sha256": "3250f8e69d2324239f151f6a1af806c9e8346253215bc0baf9d7019823df26e5",
+    "sha256": "ac7a4ecef667505f7ed88dc1fd674adee04567e7fa4a0bdaba797cca4cb9759f",
     "size": 2990,
     "mime": "application/json",
-    "fetched_at": "2025-09-04T01:12:37Z"
+    "fetched_at": "2025-09-05T01:14:16Z"
   }
 ],
   "by_url": {
@@ -547,7 +547,7 @@
       "source": "docs",
       "kind": "raw",
       "path": "claude-code-docs/data-usage.md",
-      "sha256": "9139b9154f824f29435e6dad39254735d8940dcc472842ba2859ef7f150b350a"
+      "sha256": "dd1c5e4f5b6bad954fe63f8a7979cac59b31adb959072f4aa4cf11e53c6c0924"
     }
   ],
   "https://docs.anthropic.com/en/docs/claude-code/devcontainer": [
@@ -635,7 +635,7 @@
       "source": "docs",
       "kind": "raw",
       "path": "claude-code-docs/mcp.md",
-      "sha256": "aedc4db3406451dc397d4b92c5903d343cfe4582d2f8d0782477a482cbd84344"
+      "sha256": "84a885fe250ec6a0254051bbff7564d9d9ac2a578bb4e34db1de161f5df210f4"
     }
   ],
   "https://docs.anthropic.com/en/docs/claude-code/memory": [
@@ -683,7 +683,7 @@
       "source": "docs",
       "kind": "raw",
       "path": "claude-code-docs/quickstart.md",
-      "sha256": "1ee649b487f11735e612f8de06d26a42f3c58402509da865e641b69d4228ab96"
+      "sha256": "bd2798770a64b026d80a25088f0fb8c034955c991204110e355ad080784e2358"
     }
   ],
   "https://docs.anthropic.com/en/docs/claude-code/sdk/sdk-headless": [
@@ -739,7 +739,7 @@
       "source": "docs",
       "kind": "raw",
       "path": "claude-code-docs/setup.md",
-      "sha256": "81b3fa50b8b5586e37a5c20b100ca0446dee18135537e49652629facb4341a2e"
+      "sha256": "98c6b8570665d0d413c0942bc7f8f7baac99f970f68a3bc712d7b738e3814b7d"
     }
   ],
   "https://docs.anthropic.com/en/docs/claude-code/slash-commands": [
@@ -803,7 +803,7 @@
       "source": "github",
       "kind": "raw",
       "path": "release-notes/CHANGELOG.md",
-      "sha256": "ac0f6c1d01af3d69c67719c63d910898df5aa7b7a8b82f1d8582e93077a6d517"
+      "sha256": "74700c0e9be0a5924121b30d73b8a08d3678f58f457db3f054d79417a3ebd623"
     }
   ],
   "https://registry.npmjs.org/@anthropic-ai/claude-code/latest": [
@@ -811,7 +811,7 @@
       "source": "npm",
       "kind": "raw",
       "path": "claude-code-manifest.json",
-      "sha256": "3250f8e69d2324239f151f6a1af806c9e8346253215bc0baf9d7019823df26e5"
+      "sha256": "ac7a4ecef667505f7ed88dc1fd674adee04567e7fa4a0bdaba797cca4cb9759f"
     }
   ],
   "https://www.anthropic.com/claude-code": [
@@ -819,7 +819,7 @@
       "source": "anthropic",
       "kind": "raw",
       "path": "anthropic-blog/claude-code.md",
-      "sha256": "e35d83cfe075737bb674ad7d02f0f37f02a0fa502cd54ef6f428efe864ce0723"
+      "sha256": "a28bc7a22d122ed899f6febb2dde49aacc7ea71e48ad5f460e025d51cda1c74a"
     }
   ],
   "https://www.anthropic.com/engineering/claude-code-best-practices": [
@@ -827,7 +827,7 @@
       "source": "anthropic",
       "kind": "raw",
       "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-      "sha256": "bc0109d99cf90b6e8956ad253b566033e7f26f40f0c3c428b71f9834be12fc90"
+      "sha256": "7ae4e6f9cc0c6640f2c8176fe0cd433a82a43dc7ad73757c05030baf4d538e65"
     }
   ],
   "https://www.anthropic.com/news/automate-security-reviews-with-claude-code": [
