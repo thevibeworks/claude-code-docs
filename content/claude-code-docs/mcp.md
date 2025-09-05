@@ -119,10 +119,8 @@ export const MCPServersTable = ({platform = "all"}) => {
     name: "Cloudinary",
     category: "Design & Media",
     description: "Upload, manage, transform, and analyze your media assets",
-    documentation: "https://cloudinary.com/documentation/mcp_server",
-    urls: {
-      http: "https://mcp.cloudinary.com/mcp"
-    },
+    documentation: "https://cloudinary.com/documentation/cloudinary_llm_mcp#mcp_servers",
+    urls: {},
     authentication: {
       type: "oauth"
     },
@@ -130,7 +128,8 @@ export const MCPServersTable = ({platform = "all"}) => {
       claudeCode: true,
       mcpConnector: true,
       claudeDesktop: false
-    }
+    },
+    notes: "Multiple services available. See documentation for specific server URLs."
   }, {
     name: "Intercom",
     category: "Project Management & Documentation",
