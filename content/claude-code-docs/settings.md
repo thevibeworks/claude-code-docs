@@ -232,7 +232,6 @@ Claude Code has access to a set of powerful tools that help it understand and mo
 | **Edit**         | Makes targeted edits to specific files               | Yes                 |
 | **Glob**         | Finds files based on pattern matching                | No                  |
 | **Grep**         | Searches for patterns in file contents               | No                  |
-| **LS**           | Lists files and directories                          | No                  |
 | **MultiEdit**    | Performs multiple edits on a single file atomically  | Yes                 |
 | **NotebookEdit** | Modifies Jupyter notebook cells                      | Yes                 |
 | **NotebookRead** | Reads and displays Jupyter notebook contents         | No                  |
