@@ -27,14 +27,14 @@ import { query } from "@anthropic-ai/claude-code";
 
 for await (const message of query({
   prompt: "Analyze system performance",
-  abortController: new AbortController(),
   options: {
     maxTurns: 5,
-    systemPrompt: "You are a performance engineer",
-    allowedTools: ["Bash", "Read", "WebSearch"]
+    appendSystemPrompt: "You are a performance engineer",
+    allowedTools: ["Bash", "Read", "WebSearch"],
+    abortController: new AbortController(),
   }
 })) {
-  if (message.type === "result") {
+  if (message.type === "result" && message.subtype === "success") {
     console.log(message.result);
   }
 }
@@ -42,31 +42,31 @@ for await (const message of query({
 
 ## Configuration options
 
-| Argument                     | Type                              | Description                                      | Default                                                                              |
-| :--------------------------- | :-------------------------------- | :----------------------------------------------- | :----------------------------------------------------------------------------------- |
-| `abortController`            | `AbortController`                 | Abort controller for cancelling operations       | `new AbortController()`                                                              |
-| `additionalDirectories`      | `string[]`                        | Additional directories to include in the session | `undefined`                                                                          |
-| `allowedTools`               | `string[]`                        | List of tools that Claude is allowed to use      | All tools enabled by default                                                         |
-| `appendSystemPrompt`         | `string`                          | Text to append to the default system prompt      | `undefined`                                                                          |
-| `canUseTool`                 | `CanUseTool`                      | Custom permission function for tool usage        | `undefined`                                                                          |
-| `continue`                   | `boolean`                         | Continue the most recent session                 | `false`                                                                              |
-| `customSystemPrompt`         | `string`                          | Replace the default system prompt entirely       | `undefined`                                                                          |
-| `cwd`                        | `string`                          | Current working directory                        | `process.cwd()`                                                                      |
-| `disallowedTools`            | `string[]`                        | List of tools that Claude is not allowed to use  | `undefined`                                                                          |
-| `env`                        | `Dict<string>`                    | Environment variables to set                     | `undefined`                                                                          |
-| `executable`                 | `'bun' \| 'deno' \| 'node'`       | Which JavaScript runtime to use                  | `node` when running with Node.js, `bun` when running with Bun                        |
-| `executableArgs`             | `string[]`                        | Arguments to pass to the executable              | `[]`                                                                                 |
-| `fallbackModel`              | `string`                          | Model to use if primary model fails              | `undefined`                                                                          |
-| `maxThinkingTokens`          | `number`                          | Maximum tokens for Claude's thinking process     | `undefined`                                                                          |
-| `maxTurns`                   | `number`                          | Maximum number of conversation turns             | `undefined`                                                                          |
-| `mcpServers`                 | `Record<string, McpServerConfig>` | MCP server configurations                        | `undefined`                                                                          |
-| `model`                      | `string`                          | Claude model to use                              | Uses default from CLI configuration                                                  |
-| `pathToClaudeCodeExecutable` | `string`                          | Path to the Claude Code executable               | Executable that ships with `@anthropic-ai/claude-code`                               |
-| `permissionMode`             | `PermissionMode`                  | Permission mode for the session                  | `"default"` (options: `"default"`, `"acceptEdits"`, `"bypassPermissions"`, `"plan"`) |
-| `permissionPromptToolName`   | `string`                          | Name of MCP tool for permission prompts          | `undefined`                                                                          |
-| `resume`                     | `string`                          | Session ID to resume                             | `undefined`                                                                          |
-| `stderr`                     | `(data: string) => void`          | Callback for stderr output                       | `undefined`                                                                          |
-| `strictMcpConfig`            | `boolean`                         | Enforce strict MCP configuration validation      | `undefined`                                                                          |
+| Argument                     | Type                                                              | Description                                      | Default                                                                              |
+| :--------------------------- | :---------------------------------------------------------------- | :----------------------------------------------- | :----------------------------------------------------------------------------------- |
+| `abortController`            | `AbortController`                                                 | Abort controller for cancelling operations       | `new AbortController()`                                                              |
+| `additionalDirectories`      | `string[]`                                                        | Additional directories to include in the session | `undefined`                                                                          |
+| `allowedTools`               | `string[]`                                                        | List of tools that Claude is allowed to use      | All tools enabled by default                                                         |
+| `appendSystemPrompt`         | `string`                                                          | Text to append to the default system prompt      | `undefined`                                                                          |
+| `canUseTool`                 | `(toolName: string, input: any) => Promise<ToolPermissionResult>` | Custom permission function for tool usage        | `undefined`                                                                          |
+| `continue`                   | `boolean`                                                         | Continue the most recent session                 | `false`                                                                              |
+| `customSystemPrompt`         | `string`                                                          | Replace the default system prompt entirely       | `undefined`                                                                          |
+| `cwd`                        | `string`                                                          | Current working directory                        | `process.cwd()`                                                                      |
+| `disallowedTools`            | `string[]`                                                        | List of tools that Claude is not allowed to use  | `undefined`                                                                          |
+| `env`                        | `Dict<string>`                                                    | Environment variables to set                     | `undefined`                                                                          |
+| `executable`                 | `'bun' \| 'deno' \| 'node'`                                       | Which JavaScript runtime to use                  | `node` when running with Node.js, `bun` when running with Bun                        |
+| `executableArgs`             | `string[]`                                                        | Arguments to pass to the executable              | `[]`                                                                                 |
+| `fallbackModel`              | `string`                                                          | Model to use if primary model fails              | `undefined`                                                                          |
+| `hooks`                      | `Partial<Record<HookEvent, HookCallbackMatcher[]>>`               | Lifecycle hooks for customization                | `undefined`                                                                          |
+| `maxThinkingTokens`          | `number`                                                          | Maximum tokens for Claude's thinking process     | `undefined`                                                                          |
+| `maxTurns`                   | `number`                                                          | Maximum number of conversation turns             | `undefined`                                                                          |
+| `mcpServers`                 | `Record<string, McpServerConfig>`                                 | MCP server configurations                        | `undefined`                                                                          |
+| `model`                      | `string`                                                          | Claude model to use                              | Uses default from CLI configuration                                                  |
+| `pathToClaudeCodeExecutable` | `string`                                                          | Path to the Claude Code executable               | Executable that ships with `@anthropic-ai/claude-code`                               |
+| `permissionMode`             | `PermissionMode`                                                  | Permission mode for the session                  | `"default"` (options: `"default"`, `"acceptEdits"`, `"bypassPermissions"`, `"plan"`) |
+| `resume`                     | `string`                                                          | Session ID to resume                             | `undefined`                                                                          |
+| `stderr`                     | `(data: string) => void`                                          | Callback for stderr output                       | `undefined`                                                                          |
+| `strictMcpConfig`            | `boolean`                                                         | Enforce strict MCP configuration validation      | `undefined`                                                                          |
 
 ## Multi-turn conversations
 
@@ -83,8 +83,8 @@ import { query } from "@anthropic-ai/claude-code";
 for await (const message of query({
   prompt: "Now refactor this for better performance",
   options: { continue: true }
-})) {
-  if (message.type === "result") console.log(message.result);
+})) { 
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 
 // Resume specific session
@@ -95,7 +95,7 @@ for await (const message of query({
     maxTurns: 3
   }
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 ```
 
@@ -136,7 +136,7 @@ for await (const message of query({
     allowedTools: ["Read", "Grep", "Bash"]
   }
 })) {
-  if (message.type === "result") {
+  if (message.type === "result" && message.subtype === "success") {
     console.log(message.result);
   }
 }
@@ -177,7 +177,7 @@ async function* messagesWithImage() {
 for await (const message of query({
   prompt: messagesWithImage()
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 ```
 
@@ -192,11 +192,11 @@ import { query } from "@anthropic-ai/claude-code";
 for await (const message of query({
   prompt: "API is down, investigate",
   options: {
-    systemPrompt: "You are an SRE expert. Diagnose issues systematically and provide actionable solutions.",
+    customSystemPrompt: "You are an SRE expert. Diagnose issues systematically and provide actionable solutions.",
     maxTurns: 3
   }
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 
 // Append to default system prompt
@@ -207,11 +207,11 @@ for await (const message of query({
     maxTurns: 2
   }
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 ```
 
-## Custom tools via MCP
+## MCP Server Integration
 
 The Model Context Protocol (MCP) lets you give your agents custom tools and capabilities:
 
@@ -224,11 +224,11 @@ for await (const message of query({
   options: {
     mcpConfig: "sre-tools.json",
     allowedTools: ["mcp__datadog", "mcp__pagerduty", "mcp__kubernetes"],
-    systemPrompt: "You are an SRE. Use monitoring data to diagnose issues.",
+    appendSystemPrompt: "You are an SRE. Use monitoring data to diagnose issues.",
     maxTurns: 4
   }
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 ```
 
@@ -342,18 +342,325 @@ tool(
 )
 ```
 
-### Permission control
+## Hooks
 
-Combine SDK MCP servers with the `canUseTool` callback for fine-grained permission control:
+Hooks allow you to customize and extend Claude Code's behavior by running custom callbacks at various points in the agent's lifecycle. Unlike CLI hooks that execute bash commands, SDK hooks are JavaScript/TypeScript functions that run in-process.
+
+### Defining hooks
+
+Hooks are organized by event type, with optional matchers to filter when they run:
 
 ```ts
+import { query } from "@anthropic-ai/claude-code";
+
+for await (const message of query({
+  prompt: "Analyze the codebase",
+  options: {
+    hooks: {
+      PreToolUse: [
+        {
+          matcher: "Write",
+          hooks: [
+            async (input, toolUseId, { signal }) => {
+              console.log(`About to write file: ${input.tool_input.file_path}`);
+              
+              // Validate the operation
+              if (input.tool_input.file_path.includes('.env')) {
+                return {
+                  decision: 'block',
+                  stopReason: 'Cannot write to environment files'
+                };
+              }
+              
+              // Allow the operation
+              return { continue: true };
+            }
+          ]
+        }
+      ],
+      PostToolUse: [
+        {
+          matcher: "Write|Edit",
+          hooks: [
+            async (input, toolUseId, { signal }) => {
+              console.log(`File modified: ${input.tool_response.filePath}`);
+              // Run your custom formatting or validation
+              return { continue: true };
+            }
+          ]
+        }
+      ]
+    }
+  }
+})) {
+  if (message.type === "result") console.log(message.result);
+}
+```
+
+### Available hook events
+
+* **PreToolUse**: Runs before tool execution. Can block tools or provide feedback.
+* **PostToolUse**: Runs after successful tool execution.
+* **UserPromptSubmit**: Runs when user submits a prompt.
+* **SessionStart**: Runs when a session starts.
+* **SessionEnd**: Runs when a session ends.
+* **Stop**: Runs when Claude is about to stop responding.
+* **SubagentStop**: Runs when a subagent is about to stop.
+* **PreCompact**: Runs before conversation compaction.
+* **Notification**: Runs when notifications are sent.
+
+### Hook input types
+
+Each hook receives typed input based on the event:
+
+```ts
+// PreToolUse input
+type PreToolUseHookInput = {
+  hook_event_name: 'PreToolUse';
+  session_id: string;
+  transcript_path: string;
+  cwd: string;
+  permission_mode?: string;
+  tool_name: string;
+  tool_input: unknown;
+}
+
+// PostToolUse input
+type PostToolUseHookInput = {
+  hook_event_name: 'PostToolUse';
+  session_id: string;
+  transcript_path: string;
+  cwd: string;
+  permission_mode?: string;
+  tool_name: string;
+  tool_input: unknown;
+  tool_response: unknown;
+}
+```
+
+### Hook output
+
+Hooks return output that controls execution flow:
+
+```ts
+interface HookJSONOutput {
+  // Continue execution (default: true)
+  continue?: boolean;
+  
+  // Suppress output to user
+  suppressOutput?: boolean;
+  
+  // Stop reason (shown to model)
+  stopReason?: string;
+  
+  // Decision for PreToolUse hooks
+  decision?: 'approve' | 'block';
+  
+  // System message to show
+  systemMessage?: string;
+  
+  // Hook-specific output
+  hookSpecificOutput?: {
+    // For PreToolUse
+    permissionDecision?: 'allow' | 'deny' | 'ask';
+    permissionDecisionReason?: string;
+    
+    // For UserPromptSubmit or PostToolUse
+    additionalContext?: string;
+  };
+}
+```
+
+### Practical examples
+
+#### Logging and monitoring
+
+```ts
+const hooks = {
+  PreToolUse: [
+    {
+      hooks: [
+        async (input) => {
+          // Log all tool usage
+          await logToMonitoring({
+            event: 'tool_use',
+            tool: input.tool_name,
+            input: input.tool_input,
+            session: input.session_id
+          });
+          
+          return { continue: true };
+        }
+      ]
+    }
+  ]
+};
+```
+
+#### File operation validation
+
+```ts
+const hooks = {
+  PreToolUse: [
+    {
+      matcher: "Write|Edit",
+      hooks: [
+        async (input) => {
+          const filePath = input.tool_input.file_path;
+          
+          // Block sensitive files
+          const sensitivePatterns = ['.env', '.git/', 'secrets/', '*.key'];
+          
+          for (const pattern of sensitivePatterns) {
+            if (filePath.includes(pattern)) {
+              return {
+                decision: 'block',
+                stopReason: `Cannot modify sensitive file matching ${pattern}`
+              };
+            }
+          }
+          
+          return { continue: true };
+        }
+      ]
+    }
+  ]
+};
+```
+
+#### Auto-formatting code
+
+```ts
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
+
+const hooks = {
+  PostToolUse: [
+    {
+      matcher: "Write|Edit|MultiEdit",
+      hooks: [
+        async (input) => {
+          const filePath = input.tool_response.filePath;
+          
+          // Auto-format based on file type
+          if (filePath.endsWith('.ts') || filePath.endsWith('.tsx')) {
+            await execAsync(`prettier --write "${filePath}"`);
+          } else if (filePath.endsWith('.py')) {
+            await execAsync(`black "${filePath}"`);
+          }
+          
+          return { continue: true };
+        }
+      ]
+    }
+  ]
+};
+```
+
+#### Prompt enhancement
+
+```ts
+const hooks = {
+  UserPromptSubmit: [
+    {
+      hooks: [
+        async (input) => {
+          // Add context to prompts
+          const projectContext = await loadProjectContext();
+          
+          return {
+            continue: true,
+            hookSpecificOutput: {
+              hookEventName: 'UserPromptSubmit',
+              additionalContext: `Project context: ${projectContext}`
+            }
+          };
+        }
+      ]
+    }
+  ]
+};
+```
+
+#### Custom compaction instructions
+
+```ts
+const hooks = {
+  PreCompact: [
+    {
+      hooks: [
+        async (input) => {
+          const trigger = input.trigger; // 'manual' or 'auto'
+          
+          return {
+            continue: true,
+            systemMessage: 'Focus on preserving implementation details and error resolutions'
+          };
+        }
+      ]
+    }
+  ]
+};
+```
+
+### Hook execution behavior
+
+* **Parallelization**: All matching hooks run in parallel
+* **Timeout**: Hooks respect the abort signal from options
+* **Error handling**: Hook errors are logged but don't stop execution
+* **Matchers**: Support regex patterns (e.g., `"Write|Edit"`)
+
+### Combining hooks with canUseTool
+
+While `canUseTool` provides permission control, hooks offer broader lifecycle integration:
+
+```ts
+for await (const message of query({
+  prompt: "Build the feature",
+  options: {
+    // Fine-grained permission control
+    canUseTool: async (toolName, input) => {
+      // Modify inputs or deny based on runtime conditions
+      return { behavior: "allow", updatedInput: input };
+    },
+    
+    // Lifecycle hooks for monitoring and automation
+    hooks: {
+      PreToolUse: [
+        {
+          hooks: [
+            async (input) => {
+              // Log, validate, or prepare
+              return { continue: true };
+            }
+          ]
+        }
+      ]
+    }
+  }
+})) {
+  // Process messages
+}
+```
+
+## Permission control with canUseTool
+
+The `canUseTool` callback provides fine-grained control over tool execution. It's called before each tool use and can allow, deny, or modify tool inputs:
+
+```ts
+type ToolPermissionResult = 
+  | { behavior: "allow"; updatedInput?: any }
+  | { behavior: "deny"; message?: string };
+
 for await (const message of query({
   prompt: "Analyze user behavior and calculate metrics",
   options: {
     mcpServers: {
       "analytics": analyticsServer
     },
-    canUseTool: async (toolName, input) => {
+    canUseTool: async (toolName: string, input: any) => {
       // Control which tools can be used
       if (toolName.startsWith("mcp__analytics__")) {
         // Check permissions for analytics tools
@@ -362,6 +669,13 @@ for await (const message of query({
         return hasPermission
           ? { behavior: "allow", updatedInput: input }
           : { behavior: "deny", message: "Insufficient permissions" };
+      }
+      
+      // Modify inputs for certain tools
+      if (toolName === "Bash") {
+        // Add safety checks or modify commands
+        const safeInput = sanitizeBashCommand(input);
+        return { behavior: "allow", updatedInput: safeInput };
       }
       
       // Allow other tools by default
@@ -373,67 +687,55 @@ for await (const message of query({
 }
 ```
 
-### Benefits of SDK MCP servers
+### Use cases for canUseTool
 
-* **Type Safety**: Full TypeScript type inference from Zod schemas
-* **Performance**: No IPC or network overhead - tools run in the same process
-* **Direct Access**: Tools can directly access your application's state, database, and services
-* **Easy Testing**: Simple to unit test since tools are just async functions
-* **No Configuration**: No need for separate server processes or configuration files
-
-## Custom tools using external MCP servers
-
-You can also implement custom tools using external MCP servers, for example here is how you can create a custom permission handling tool.
+* **Permission management**: Check user permissions before allowing tool execution
+* **Input validation**: Validate or sanitize tool inputs before execution
+* **Rate limiting**: Implement rate limits for expensive operations
+* **Audit logging**: Log tool usage for compliance or debugging
+* **Dynamic permissions**: Enable/disable tools based on runtime conditions
 
 ```ts
-const server = new McpServer({
-  name: "Test permission prompt MCP Server",
-  version: "0.0.1",
-});
+// Example: Web scraping rate limiter
+const rateLimits = new Map<string, { count: number; resetTime: number }>();
 
-server.tool(
-  "approval_prompt",
-  'Simulate a permission check - approve if the input contains "allow", otherwise deny',
-  {
-    tool_name: z.string().describe("The name of the tool requesting permission"),
-    input: z.object({}).passthrough().describe("The input for the tool"),
-    tool_use_id: z.string().optional().describe("The unique tool use request ID"),
-  },
-  async ({ tool_name, input }) => {
-    return {
-      content: [
-        {
-          type: "text",
-          text: JSON.stringify(
-            JSON.stringify(input).includes("allow")
-              ? {
-                  behavior: "allow",
-                  updatedInput: input,
-                }
-              : {
-                  behavior: "deny",
-                  message: "Permission denied by test approval_prompt tool",
-                }
-          ),
-        },
-      ],
+const canUseTool = async (toolName: string, input: any) => {
+  // Rate limit web scraping to prevent IP bans and API quota issues
+  if (toolName === "WebFetch" || toolName === "WebSearch") {
+    const now = Date.now();
+    const limit = rateLimits.get(toolName) || { count: 0, resetTime: now + 60000 };
+    
+    // Reset counter every minute
+    if (now > limit.resetTime) {
+      limit.count = 0;
+      limit.resetTime = now + 60000;
+    }
+    
+    // Allow max 10 requests per minute
+    if (limit.count >= 10) {
+      return { 
+        behavior: "deny", 
+        message: `Rate limit exceeded: max 10 ${toolName} requests per minute. Resets in ${Math.ceil((limit.resetTime - now) / 1000)}s` 
+      };
+    }
+    
+    limit.count++;
+    rateLimits.set(toolName, limit);
+    
+    // Log scraping activity for monitoring
+    console.log(`${toolName} request ${limit.count}/10 to: ${input.url || input.query}`);
+  }
+  
+  // Prevent accidental infinite loops in bash scripts
+  if (toolName === "Bash" && input.command?.includes("while true")) {
+    return { 
+      behavior: "deny", 
+      message: "Infinite loops are not allowed" 
     };
   }
-);
-
-// Use in SDK
-import { query } from "@anthropic-ai/claude-code";
-
-for await (const message of query({
-  prompt: "Analyze the codebase",
-  options: {
-    permissionPromptTool: "mcp__test-server__approval_prompt",
-    mcpConfig: "my-config.json",
-    allowedTools: ["Read", "Grep"]
-  }
-})) {
-  if (message.type === "result") console.log(message.result);
-}
+  
+  return { behavior: "allow", updatedInput: input };
+};
 ```
 
 ## Output formats
@@ -445,7 +747,7 @@ for await (const message of query({
 for await (const message of query({
   prompt: "Explain file src/components/Header.tsx"
 })) {
-  if (message.type === "result") {
+  if (message.type === "result" && message.subtype === "success") {
     console.log(message.result);
     // Output: This is a React component showing...
   }
@@ -464,7 +766,7 @@ for await (const message of query({
 }
 
 // Access result message with metadata
-const result = messages.find(m => m.type === "result");
+const result = messages.find(m => m.type === "result" && message.subtype === "success");
 console.log({
   result: result.result,
   cost: result.total_cost_usd,
@@ -479,13 +781,13 @@ console.log({
 for await (const message of query({
   prompt: "Explain this code"
 })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 
 // From variable
 const userInput = "Explain this code";
 for await (const message of query({ prompt: userInput })) {
-  if (message.type === "result") console.log(message.result);
+  if (message.type === "result" && message.subtype === "success") console.log(message.result);
 }
 ```
 
@@ -506,7 +808,7 @@ async function investigateIncident(
   for await (const message of query({
     prompt: `Incident: ${incidentDescription} (Severity: ${severity})`,
     options: {
-      systemPrompt: "You are an SRE expert. Diagnose the issue, assess impact, and provide immediate action items.",
+      appendSystemPrompt: "You are an SRE expert. Diagnose the issue, assess impact, and provide immediate action items.",
       maxTurns: 6,
       allowedTools: ["Bash", "Read", "WebSearch", "mcp__datadog"],
       mcpConfig: "monitoring-tools.json"
@@ -515,7 +817,7 @@ async function investigateIncident(
     messages.push(message);
   }
 
-  return messages.find(m => m.type === "result");
+  return messages.find(m => m.type === "result" && message.subtype === "success");
 }
 
 // Usage
@@ -537,7 +839,7 @@ async function auditPR(prNumber: number) {
   for await (const message of query({
     prompt: prDiff,
     options: {
-      systemPrompt: "You are a security engineer. Review this PR for vulnerabilities, insecure patterns, and compliance issues.",
+      appendSystemPrompt: "You are a security engineer. Review this PR for vulnerabilities, insecure patterns, and compliance issues.",
       maxTurns: 3,
       allowedTools: ["Read", "Grep", "WebSearch"]
     }
@@ -545,7 +847,7 @@ async function auditPR(prNumber: number) {
     messages.push(message);
   }
 
-  return messages.find(m => m.type === "result");
+  return messages.find(m => m.type === "result" && message.subtype === "success");
 }
 
 // Usage
@@ -583,7 +885,7 @@ async function legalReview() {
       prompt: step,
       options: { resume: sessionId, maxTurns: 2 }
     })) {
-      if (message.type === "result") {
+      if (message.type === "result" && message.subtype === "success") {
         console.log(`Step: ${step}`);
         console.log(message.result);
       }
