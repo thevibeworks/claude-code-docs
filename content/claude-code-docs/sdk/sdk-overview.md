@@ -2,6 +2,14 @@
 
 > Build custom AI agents with the Claude Code SDK
 
+## SDK Options
+
+The Claude Code SDK is available in multiple forms to suit different use cases:
+
+* **[Headless Mode](/en/docs/claude-code/sdk/sdk-headless)** - For CLI scripts and automation
+* **[TypeScript SDK](/en/docs/claude-code/sdk/sdk-typescript)** - For Node.js and web applications
+* **[Python SDK](/en/docs/claude-code/sdk/sdk-python)** - For Python applications and data science
+
 ## Why use the Claude Code SDK?
 
 Built on top of the agent harness that powers Claude Code, the Claude Code SDK provides all the building blocks you need to build production-ready agents:
@@ -29,14 +37,6 @@ Here are some example agent types you can create:
 * Customer support agents that resolve technical issues
 * Content creation assistants for marketing teams
 
-## SDK Options
-
-The Claude Code SDK is available in multiple forms to suit different use cases:
-
-* **[Headless Mode](/en/docs/claude-code/sdk/sdk-headless)** - For CLI scripts and automation
-* **[TypeScript SDK](/en/docs/claude-code/sdk/sdk-typescript)** - For Node.js and web applications
-* **[Python SDK](/en/docs/claude-code/sdk/sdk-python)** - For Python applications and data science
-
 ## Core Concepts
 
 ### Authentication
@@ -49,6 +49,17 @@ The SDK also supports authentication via third-party API providers:
 * **Google Vertex AI**: Set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
 
 For detailed configuration instructions for third-party providers, see the [Amazon Bedrock](/en/docs/claude-code/amazon-bedrock) and [Google Vertex AI](/en/docs/claude-code/google-vertex-ai) documentation.
+
+### Full Claude Code Feature Support
+
+The SDK provides access to all the default features available in Claude Code, leveraging the same file system-based configuration:
+
+* **Subagents**: Launch specialized agents stored as Markdown files in `./.claude/agents/`
+* **Hooks**: Execute custom commands configured in `./.claude/settings.json` that respond to tool events
+* **Slash Commands**: Use custom commands defined as Markdown files in `./.claude/commands/`
+* **Memory (CLAUDE.md)**: Maintain project context through `CLAUDE.md` files that provide persistent instructions and context
+
+These features work identically to their Claude Code counterparts by reading from the same file system locations.
 
 ### System Prompts
 
@@ -65,37 +76,6 @@ Control which tools your agent can use with fine-grained permissions:
 ### Model Context Protocol (MCP)
 
 Extend your agents with custom tools and integrations through MCP servers. This allows you to connect to databases, APIs, and other external services.
-
-## Common Use Cases
-
-### Automated Testing and CI/CD
-
-Create agents that run tests, analyze results, and fix issues automatically in your CI/CD pipeline.
-
-### Code Review and Security Audits
-
-Build agents that review pull requests for security vulnerabilities, code quality, and compliance.
-
-### Incident Response
-
-Deploy SRE agents that diagnose production issues, analyze logs, and suggest fixes.
-
-### Documentation Generation
-
-Create agents that generate and maintain documentation based on your codebase.
-
-### Data Analysis
-
-Build agents that analyze data, generate reports, and create visualizations.
-
-## Best Practices
-
-* **Use JSON output format** for programmatic parsing of responses
-* **Handle errors gracefully** - check exit codes and implement retry logic
-* **Use session management** for maintaining context in multi-turn conversations
-* **Implement timeouts** for long-running operations
-* **Respect rate limits** when making multiple requests
-* **Test thoroughly** before deploying to production
 
 ## Related Resources
 
