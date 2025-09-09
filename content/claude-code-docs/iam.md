@@ -91,11 +91,31 @@ Some tools support more fine-grained permission controls:
 **Bash**
 
 * `Bash(npm run build)` Matches the exact Bash command `npm run build`
-* `Bash(npm run test:*)` Matches Bash commands starting with `npm run test`.
+* `Bash(npm run test:*)` Matches Bash commands starting with `npm run test`
+* `Bash(curl http://site.com/:*)` Matches curl commands that start with exactly `curl http://site.com/`
 
 <Tip>
   Claude Code is aware of shell operators (like `&&`) so a prefix match rule like `Bash(safe-cmd:*)` won't give it permission to run the command `safe-cmd && other-cmd`
 </Tip>
+
+<Warning>
+  Important limitations of Bash permission patterns:
+
+  1. This tool uses **prefix matches**, not regex or glob patterns
+  2. The wildcard `:*` only works at the end of a pattern to match any continuation
+  3. Patterns like `Bash(curl http://github.com/:*)` can be bypassed in many ways:
+     * Options before URL: `curl -X GET http://github.com/...` won't match
+     * Different protocol: `curl https://github.com/...` won't match
+     * Redirects: `curl -L http://bit.ly/xyz` (redirects to github)
+     * Variables: `URL=http://github.com && curl $URL` won't match
+     * Extra spaces: `curl  http://github.com` won't match
+
+  For more reliable URL filtering, consider:
+
+  * Using the WebFetch tool with `WebFetch(domain:github.com)` permission
+  * Instructing Claude Code about your allowed curl patterns via CLAUDE.md
+  * Using hooks for custom permission validation
+</Warning>
 
 **Read & Edit**
 

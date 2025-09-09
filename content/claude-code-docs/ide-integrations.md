@@ -127,3 +127,7 @@ This allows the ESC key to properly interrupt Claude Code operations.
 
 For additional help, refer to our
 [troubleshooting guide](/en/docs/claude-code/troubleshooting).
+
+## Security
+
+When Claude Code runs in an IDE with auto-edit permissions enabled, it may be able to modify IDE configuration files that can be automatically executed by your IDE. This may increase the risk of running Claude Code in auto-edit mode and allow bypassing Claude Code's permission prompts for bash execution. When running in an IDE, consider enabling IDE security features (such as [VS Code Restricted Mode](https://code.visualstudio.com/docs/editing/workspaces/workspace-trust#_restricted-mode)), using manual approval mode for edits, or taking extra care to ensure Claude is only used with trusted prompts.
