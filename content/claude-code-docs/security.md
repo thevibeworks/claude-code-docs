@@ -37,7 +37,7 @@ Prompt injection is a technique where an attacker attempts to override or manipu
 * **Permission system**: Sensitive operations require explicit approval
 * **Context-aware analysis**: Detects potentially harmful instructions by analyzing the full request
 * **Input sanitization**: Prevents command injection by processing user inputs
-* **Command blocklist**: Blocks risky commands that fetch arbitrary content from the web like `curl` and `wget`
+* **Command blocklist**: Blocks risky commands that fetch arbitrary content from the web like `curl` and `wget` by default. When explicitly allowed, be aware of [permission pattern limitations](/en/docs/claude-code/iam#tool-specific-permission-rules)
 
 ### Privacy safeguards
 
@@ -79,6 +79,10 @@ For full details, please review our [Commercial Terms of Service](https://www.an
 Claude Code allows users to configure Model Context Protocol (MCP) servers. The list of allowed MCP servers is configured in your source code, as part of Claude Code settings engineers check into source control.
 
 We encourage either writing your own MCP servers or using MCP servers from providers that you trust. You are able to configure Claude Code permissions for MCP servers. Anthropic does not manage or audit any MCP servers.
+
+## IDE security
+
+See [here](https://docs.anthropic.com/en/docs/claude-code/ide-integrations#security) for more information on the security of running Claude Code in an IDE.
 
 ## Security best practices
 
