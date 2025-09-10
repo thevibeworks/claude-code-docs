@@ -13,8 +13,7 @@ The primary command-line interface to Claude Code is the `claude` command. Use t
 ```bash
 claude -p "Stage my changes and write a set of commits for them" \
   --allowedTools "Bash,Read" \
-  --permission-mode acceptEdits \
-  --cwd /path/to/project
+  --permission-mode acceptEdits
 ```
 
 ## Configuration Options
