@@ -42,31 +42,79 @@ for await (const message of query({
 
 ## Configuration options
 
-| Argument                     | Type                                                              | Description                                      | Default                                                                              |
-| :--------------------------- | :---------------------------------------------------------------- | :----------------------------------------------- | :----------------------------------------------------------------------------------- |
-| `abortController`            | `AbortController`                                                 | Abort controller for cancelling operations       | `new AbortController()`                                                              |
-| `additionalDirectories`      | `string[]`                                                        | Additional directories to include in the session | `undefined`                                                                          |
-| `allowedTools`               | `string[]`                                                        | List of tools that Claude is allowed to use      | All tools enabled by default                                                         |
-| `appendSystemPrompt`         | `string`                                                          | Text to append to the default system prompt      | `undefined`                                                                          |
-| `canUseTool`                 | `(toolName: string, input: any) => Promise<ToolPermissionResult>` | Custom permission function for tool usage        | `undefined`                                                                          |
-| `continue`                   | `boolean`                                                         | Continue the most recent session                 | `false`                                                                              |
-| `customSystemPrompt`         | `string`                                                          | Replace the default system prompt entirely       | `undefined`                                                                          |
-| `cwd`                        | `string`                                                          | Current working directory                        | `process.cwd()`                                                                      |
-| `disallowedTools`            | `string[]`                                                        | List of tools that Claude is not allowed to use  | `undefined`                                                                          |
-| `env`                        | `Dict<string>`                                                    | Environment variables to set                     | `undefined`                                                                          |
-| `executable`                 | `'bun' \| 'deno' \| 'node'`                                       | Which JavaScript runtime to use                  | `node` when running with Node.js, `bun` when running with Bun                        |
-| `executableArgs`             | `string[]`                                                        | Arguments to pass to the executable              | `[]`                                                                                 |
-| `fallbackModel`              | `string`                                                          | Model to use if primary model fails              | `undefined`                                                                          |
-| `hooks`                      | `Partial<Record<HookEvent, HookCallbackMatcher[]>>`               | Lifecycle hooks for customization                | `undefined`                                                                          |
-| `maxThinkingTokens`          | `number`                                                          | Maximum tokens for Claude's thinking process     | `undefined`                                                                          |
-| `maxTurns`                   | `number`                                                          | Maximum number of conversation turns             | `undefined`                                                                          |
-| `mcpServers`                 | `Record<string, McpServerConfig>`                                 | MCP server configurations                        | `undefined`                                                                          |
-| `model`                      | `string`                                                          | Claude model to use                              | Uses default from CLI configuration                                                  |
-| `pathToClaudeCodeExecutable` | `string`                                                          | Path to the Claude Code executable               | Executable that ships with `@anthropic-ai/claude-code`                               |
-| `permissionMode`             | `PermissionMode`                                                  | Permission mode for the session                  | `"default"` (options: `"default"`, `"acceptEdits"`, `"bypassPermissions"`, `"plan"`) |
-| `resume`                     | `string`                                                          | Session ID to resume                             | `undefined`                                                                          |
-| `stderr`                     | `(data: string) => void`                                          | Callback for stderr output                       | `undefined`                                                                          |
-| `strictMcpConfig`            | `boolean`                                                         | Enforce strict MCP configuration validation      | `undefined`                                                                          |
+| Argument                     | Type                                                              | Description                                            | Default                                                                              |
+| :--------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------- | :----------------------------------------------------------------------------------- |
+| `abortController`            | `AbortController`                                                 | Abort controller for cancelling operations             | `new AbortController()`                                                              |
+| `additionalDirectories`      | `string[]`                                                        | Additional directories to include in the session       | `undefined`                                                                          |
+| `allowedTools`               | `string[]`                                                        | List of tools that Claude is allowed to use            | All tools enabled by default                                                         |
+| `appendSystemPrompt`         | `string`                                                          | Text to append to the default system prompt            | `undefined`                                                                          |
+| `canUseTool`                 | `(toolName: string, input: any) => Promise<ToolPermissionResult>` | Custom permission function for tool usage              | `undefined`                                                                          |
+| `continue`                   | `boolean`                                                         | Continue the most recent session                       | `false`                                                                              |
+| `customSystemPrompt`         | `string`                                                          | Replace the default system prompt entirely             | `undefined`                                                                          |
+| `cwd`                        | `string`                                                          | Current working directory                              | `process.cwd()`                                                                      |
+| `disallowedTools`            | `string[]`                                                        | List of tools that Claude is not allowed to use        | `undefined`                                                                          |
+| `env`                        | `Dict<string>`                                                    | Environment variables to set                           | `undefined`                                                                          |
+| `executable`                 | `'bun' \| 'deno' \| 'node'`                                       | Which JavaScript runtime to use                        | `node` when running with Node.js, `bun` when running with Bun                        |
+| `executableArgs`             | `string[]`                                                        | Arguments to pass to the executable                    | `[]`                                                                                 |
+| `fallbackModel`              | `string`                                                          | Model to use if primary model fails                    | `undefined`                                                                          |
+| `hooks`                      | `Partial<Record<HookEvent, HookCallbackMatcher[]>>`               | Lifecycle hooks for customization                      | `undefined`                                                                          |
+| `includePartialMessages`     | `boolean`                                                         | Include partial streaming events in the message stream | `false`                                                                              |
+| `maxThinkingTokens`          | `number`                                                          | Maximum tokens for Claude's thinking process           | `undefined`                                                                          |
+| `maxTurns`                   | `number`                                                          | Maximum number of conversation turns                   | `undefined`                                                                          |
+| `mcpServers`                 | `Record<string, McpServerConfig>`                                 | MCP server configurations                              | `undefined`                                                                          |
+| `model`                      | `string`                                                          | Claude model to use                                    | Uses default from CLI configuration                                                  |
+| `pathToClaudeCodeExecutable` | `string`                                                          | Path to the Claude Code executable                     | Executable that ships with `@anthropic-ai/claude-code`                               |
+| `permissionMode`             | `PermissionMode`                                                  | Permission mode for the session                        | `"default"` (options: `"default"`, `"acceptEdits"`, `"bypassPermissions"`, `"plan"`) |
+| `resume`                     | `string`                                                          | Session ID to resume                                   | `undefined`                                                                          |
+| `stderr`                     | `(data: string) => void`                                          | Callback for stderr output                             | `undefined`                                                                          |
+| `strictMcpConfig`            | `boolean`                                                         | Enforce strict MCP configuration validation            | `undefined`                                                                          |
+
+## Partial message streaming
+
+When `includePartialMessages` is enabled, the SDK will emit `stream_event` messages that contain raw streaming events from the Claude API. This allows you to access partial content as it's being generated, useful for implementing real-time UI updates or progress indicators.
+
+```ts
+import { query } from "@anthropic-ai/claude-code";
+
+for await (const message of query({
+  prompt: "Write a long essay about artificial intelligence",
+  options: {
+    includePartialMessages: true,
+    maxTurns: 1
+  }
+})) {
+  // Handle partial streaming events
+  if (message.type === "stream_event") {
+    const event = message.event;
+    
+    // Access partial text as it streams
+    if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+      process.stdout.write(event.delta.text);
+    }
+    
+    // Track thinking progress
+    if (event.type === "content_block_start" && event.content_block.type === "thinking") {
+      console.log("\n[Claude is thinking...]");
+    }
+  }
+  
+  // Still get the final result
+  if (message.type === "result" && message.subtype === "success") {
+    console.log("\nFinal result:", message.result);
+  }
+}
+```
+
+Each `stream_event` message includes:
+
+* `event`: The raw streaming event from the API
+* `session_id`: The current session identifier
+* `parent_tool_use_id`: The ID of the tool being executed (if applicable)
+* `uuid`: A unique identifier for this event
+
+<Note>
+  Partial message streaming is primarily useful for advanced use cases where you need granular control over the streaming response. For most applications, the default behavior (waiting for complete messages) is sufficient.
+</Note>
 
 ## Multi-turn conversations
 
