@@ -25,10 +25,10 @@ Plans
     *   [Enterprise plan](https://www.anthropic.com/enterprise)
     *   [Explore pricing](https://www.anthropic.com/pricing)
 
-    *   [Download apps](https://claude.ai/download)
-    *   [Claude log in](https://claude.ai/)
+    *   [Download apps](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/download)
+    *   [Claude log in](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8)
 
-[![Image 29](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
+[![Image 27](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
 
 *   
 API  
@@ -40,7 +40,7 @@ Build with Claude
 
     *   [Console log in](https://console.anthropic.com/)
 
-[![Image 30](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d3852e295a440e882d8_api.svg) News Learn how to build with Claude](https://docs.anthropic.com/en/docs/welcome)
+[![Image 28](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d3852e295a440e882d8_api.svg) News Learn how to build with Claude](https://docs.anthropic.com/en/docs/welcome)
 
 *   
 Solutions  
@@ -54,7 +54,7 @@ Collaborate with Claude
     *   [Financial services](https://www.anthropic.com/solutions/financial-services)
     *   [Government](https://www.anthropic.com/solutions/government)
 
-[![Image 31](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d1df9b6c1e8ef0058d9_solutions.svg) Case studies Hear from our customers](https://www.anthropic.com/customers)
+[![Image 29](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d1df9b6c1e8ef0058d9_solutions.svg) Case studies Hear from our customers](https://www.anthropic.com/customers)
 
 *   
 Research  
@@ -69,7 +69,7 @@ Claude model family
     *   [Claude Sonnet 4](https://www.anthropic.com/claude/sonnet)
     *   [Claude Haiku 3.5](https://www.anthropic.com/claude/haiku)
 
-[![Image 32](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d14ff4db668287c739b_research.svg) Research Claude’s extended thinking](https://www.anthropic.com/news/visible-extended-thinking)
+[![Image 30](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d14ff4db668287c739b_research.svg) Research Claude’s extended thinking](https://www.anthropic.com/news/visible-extended-thinking)
 
 *   
 Commitments  
@@ -82,7 +82,7 @@ Trust center
 
     *   [Security and compliance](http://trust.anthropic.com/)
 
-[![Image 33](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d210c6dfebadac6be54_commitments.svg) Announcement ISO 42001 certification](https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai)
+[![Image 31](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d210c6dfebadac6be54_commitments.svg) Announcement ISO 42001 certification](https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai)
 
 *   
 Learn  
@@ -98,12 +98,12 @@ Company
     *   [Careers](https://www.anthropic.com/careers)
     *   [Events](https://www.anthropic.com/events)
 
-[![Image 34](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d185c76e0eb33f1c42e_learn.svg) Engineering Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+[![Image 32](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d185c76e0eb33f1c42e_learn.svg) Engineering Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 
 *   [News](https://www.anthropic.com/news)
 
 *   EN     [This is some text inside of a div block.](https://www.anthropic.com/claude-code#)     
-*   [Try Claude](https://claude.ai/login)Try Claude  Try Claude   [Download App](https://claude.ai/download)Download App  Download App   
+*   [Try Claude](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/download)Download App  Download App   
 
 [](https://www.anthropic.com/)
 
@@ -121,10 +121,10 @@ Plans
     *   [Enterprise plan](https://www.anthropic.com/enterprise)
     *   [Explore pricing](https://www.anthropic.com/pricing)
 
-    *   [Download apps](https://claude.ai/download)
-    *   [Claude log in](https://claude.ai/)
+    *   [Download apps](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/download)
+    *   [Claude log in](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8)
 
-[![Image 35](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
+[![Image 33](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d15af22ddab26ed8a3c_claude.svg) News Claude’s Character](https://www.anthropic.com/news/claude-character)
 
 *   
 API  
@@ -136,7 +136,7 @@ Build with Claude
 
     *   [Console log in](https://console.anthropic.com/)
 
-[![Image 36](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d3852e295a440e882d8_api.svg) News Learn how to build with Claude](https://docs.anthropic.com/en/docs/welcome)
+[![Image 34](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d3852e295a440e882d8_api.svg) News Learn how to build with Claude](https://docs.anthropic.com/en/docs/welcome)
 
 *   
 Solutions  
@@ -150,7 +150,7 @@ Collaborate with Claude
     *   [Financial services](https://www.anthropic.com/solutions/financial-services)
     *   [Government](https://www.anthropic.com/solutions/government)
 
-[![Image 37](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d1df9b6c1e8ef0058d9_solutions.svg) Case studies Hear from our customers](https://www.anthropic.com/customers)
+[![Image 35](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d1df9b6c1e8ef0058d9_solutions.svg) Case studies Hear from our customers](https://www.anthropic.com/customers)
 
 *   
 Research  
@@ -165,7 +165,7 @@ Claude model family
     *   [Claude Sonnet 4](https://www.anthropic.com/claude/sonnet)
     *   [Claude Haiku 3.5](https://www.anthropic.com/claude/haiku)
 
-[![Image 38](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d14ff4db668287c739b_research.svg) Research Claude’s extended thinking](https://www.anthropic.com/news/visible-extended-thinking)
+[![Image 36](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d14ff4db668287c739b_research.svg) Research Claude’s extended thinking](https://www.anthropic.com/news/visible-extended-thinking)
 
 *   
 Commitments  
@@ -178,7 +178,7 @@ Trust center
 
     *   [Security and compliance](http://trust.anthropic.com/)
 
-[![Image 39](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d210c6dfebadac6be54_commitments.svg) Announcement ISO 42001 certification](https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai)
+[![Image 37](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d210c6dfebadac6be54_commitments.svg) Announcement ISO 42001 certification](https://www.anthropic.com/news/anthropic-achieves-iso-42001-certification-for-responsible-ai)
 
 *   
 Learn  
@@ -194,12 +194,15 @@ Company
     *   [Careers](https://www.anthropic.com/careers)
     *   [Events](https://www.anthropic.com/events)
 
-[![Image 40](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d185c76e0eb33f1c42e_learn.svg) Engineering Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+[![Image 38](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/688a1d185c76e0eb33f1c42e_learn.svg) Engineering Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 
 *   [News](https://www.anthropic.com/news)
 
 *   EN     [This is some text inside of a div block.](https://www.anthropic.com/claude-code#)     
-*   [Try Claude](https://claude.ai/login)Try Claude  Try Claude   [Download App](https://claude.ai/download)Download App  Download App   
+*   [Try Claude](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/login)Try Claude  Try Claude   [Download App](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/download)Download App  Download App   
+
+Your code’s new collaborator
+============================
 
 Your code’s new collaborator
 ============================
@@ -214,31 +217,35 @@ Install [Node.js 18+](https://nodejs.org/en/download), then run:
 
 [npm install-g @anthropic-ai/claude-code](https://www.anthropic.com/claude-code#)
 
-[Try Claude Code on Max](https://claude.ai/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
+[Try Claude Code on Max](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
 
 Try Claude Code on Max
 
-[Try Claude Code on Max](https://claude.ai/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
+[Try Claude Code on Max](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/upgrade/max?returnTo=/claude-code-install)Try Claude Code on Max
 
 Try Claude Code on Max
 
 [See our pricing options](https://www.anthropic.com/claude-code#get-started)
 
+✳
+
+Effecting…
+
 Trusted by engineers at
 -----------------------
 
-![Image 41: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 42: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 43: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 44: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 45: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 46: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 47: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 48: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 49: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 50](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 51: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 52: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 53: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 54: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 55: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 56: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 57: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
+![Image 39: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 40: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 41: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 42: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 43: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 44: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 45: Uber](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68c1851adaf3f370e42a18b7_uber.svg)![Image 46: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 47: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 48: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 49](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 50: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 51: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 52: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 53: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 54: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 55: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 56: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
 
-![Image 58: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 59: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 60: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 61: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 62: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 63: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 64: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 65: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 66: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 67](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 68: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 69: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 70: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 71: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 72: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 73: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 74: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
+![Image 57: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 58: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 59: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 60: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 61: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 62: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 63: Uber](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68c1851adaf3f370e42a18b7_uber.svg)![Image 64: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 65: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 66: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 67](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 68: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 69: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 70: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 71: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 72: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 73: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 74: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
 
-![Image 75: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 76: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 77: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 78: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 79: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 80: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 81: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 82: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 83: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 84](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 85: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 86: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 87: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 88: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 89: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 90: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 91: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
+![Image 75: Ramp](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53942514e927c6a88975_ramp.svg)![Image 76: Intercom](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5394cc87c9d0d031dfb2_intercom.svg)![Image 77: Stubhub](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd53946c2bcfd12f3843b6_stubhub.svg)![Image 78: Figma](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67fd5395a1d3ff0e4f634e24_figma.svg)![Image 79: Brex](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/689228daecd2afd4b7c5966b_brex.svg)![Image 80: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)![Image 81: Uber](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68c1851adaf3f370e42a18b7_uber.svg)![Image 82: Asana](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466eba54e8a0fa2980ac9_79ef5e13982c7d92be6aff1aa2e8de9e_Asana%20logo.svg)![Image 83: Notion](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ecc4774ab76624b5ad_notion.svg)![Image 84: Rakuten](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/682e676d58e904da88e9deee_rakuten.svg)![Image 85](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6872c6f193dde2a217004f33_databricks_logo.svg.svg)![Image 86: Pager Duty](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4f180f2e30ab75fc4b531_pagerduty.svg)![Image 87: Workato](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a48f687cbabe1cf2845203_workato.svg)![Image 88: Plaid](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68a4eff401a7014f51e70847_plaid.svg)![Image 89: Zapier](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b73382717df1d9ad8823b1_zapier-logo_black.svg)![Image 90: Quora](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/680a4690fb6208a83050599d_quora.svg)![Image 91: Bun](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68b7345d94d96251f4aefc41_bun.svg)![Image 92: Anthropic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ffe8028fa26e55690ebb2a_anthropic.svg)
 
 Command-line AI, from concept to commit
 ---------------------------------------
 
 Watch as Claude Code tackles an unfamiliar Next.js project, builds new functionality, creates tests, and fixes what’s broken—all from the command line. Join Boris and Cat as they show you what coding feels like when you’re not doing it alone.
 
-![Image 92: Video thumbnail: Introducing Claude Code](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67f86fb392281ccbac9ead79_maxresdefault.jpg)
+![Image 93: Video thumbnail: Introducing Claude Code](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67f86fb392281ccbac9ead79_maxresdefault.jpg)
 
 Deep coding at terminal velocity
 --------------------------------
@@ -247,11 +254,19 @@ Claude Code embeds Claude Opus 4.1—the same model our researchers and engineer
 
 ### Interact with Claude Code
 
-[Example 1](https://www.anthropic.com/claude-code)[Example 2](https://www.anthropic.com/claude-code)
+[Example 1](https://www.anthropic.com/claude-code#w-tabs-0-data-w-pane-0)[Example 2](https://www.anthropic.com/claude-code#w-tabs-0-data-w-pane-1)
 
 [Terminal](https://www.anthropic.com/claude-code#)[Result](https://www.anthropic.com/claude-code#)
 
+✳
+
+Percolating…
+
 [Terminal](https://www.anthropic.com/claude-code#)[Result](https://www.anthropic.com/claude-code#)
+
+✳
+
+Mulling…
 
 ### Powerful intelligence
 
@@ -271,54 +286,62 @@ Claude Code embeds Claude Opus 4.1—the same model our researchers and engineer
 *   Adapts to your coding standards and patterns
 *   Configurable; build on the SDK or run on GitHub Actions
 
-![Image 93](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/687404b9a4ecd9797b33a52a_Works%20with%20your%20IDEs.avif)
+![Image 94](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/687404b9a4ecd9797b33a52a_Works%20with%20your%20IDEs.avif)
 
 ### Works with your IDEs
 
 Claude works directly in VS Code and JetBrains, seeing your entire codebase instead of just isolated snippets. It understands your project structure and existing patterns, making suggestions that actually fit and presenting them directly in your code files. No copying and pasting—just building.
 
-![Image 94: VS Code](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/686424f60220626a6c2b56ab_vs-code.svg)![Image 95: jetBrains](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/686424f6f671b5e18fd03f0f_jetbrains.svg)
+![Image 95: VS Code](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/686424f60220626a6c2b56ab_vs-code.svg)![Image 96: jetBrains](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/686424f6f671b5e18fd03f0f_jetbrains.svg)
 
 ### ... and your favorite command line tools
 
 Your terminal is where real work happens. Claude Code connects with the tools that power development—deployment, databases, monitoring, version control. Rather than adding another interface to juggle, it enhances your existing stack. Less context-switching.
 
-![Image 96: Sentry](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c70d5d447db98279a404_sentry.svg)
+![Image 97: Sentry](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c70d5d447db98279a404_sentry.svg)
 
-![Image 97: Datadog](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6806ba3d0a522c20cee99d80_datadog.svg)
+![Image 98: Datadog](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6806ba3d0a522c20cee99d80_datadog.svg)
 
-![Image 98: AWS](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466edc77645f4d19f051f_aws.svg)
+![Image 99: AWS](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466edc77645f4d19f051f_aws.svg)
 
-![Image 99: Github](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068b75a6e0e851d2777dac_c2015d2dfa5c2c58d52308460cb2e395_github.svg)
+![Image 100: Github](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068b75a6e0e851d2777dac_c2015d2dfa5c2c58d52308460cb2e395_github.svg)
 
-![Image 100: Terraform](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68079342136c3363721f7e0c_terraform.svg)
+![Image 101: Terraform](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68079342136c3363721f7e0c_terraform.svg)
 
-![Image 101: Circle CI](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7178e86bb681268f83f_circleci.svg)
+![Image 102: Circle CI](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7178e86bb681268f83f_circleci.svg)
 
-![Image 102: Heroku](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068c3dde31fea35d4fb6a2_heroku.svg)
+![Image 103: Heroku](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068c3dde31fea35d4fb6a2_heroku.svg)
 
-![Image 103: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)
+![Image 104: Stripe](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7c49d9f83e31f32a5a3_stripe.svg)
 
-![Image 104: New Relic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7828d47b543c12af704_new-relic.svg)
+![Image 105: New Relic](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7828d47b543c12af704_new-relic.svg)
 
-![Image 105: Kubernetes](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6807cad844dfad4bc382dde6_kubernetes.svg)
+![Image 106: Kubernetes](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6807cad844dfad4bc382dde6_kubernetes.svg)
 
-![Image 106: Vercel](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c706ccc4c67a9c9084ed_vercel.svg)
+![Image 107: Vercel](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c706ccc4c67a9c9084ed_vercel.svg)
 
-![Image 107: Elasticsearch](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68079341f3a5b247cbfdf145_elasticsearch.svg)
+![Image 108: Elasticsearch](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68079341f3a5b247cbfdf145_elasticsearch.svg)
 
-![Image 108: MongoDB](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7bf58514b6a497c0d04_mongodb.svg)
+![Image 109: MongoDB](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6803c7bf58514b6a497c0d04_mongodb.svg)
 
-![Image 109: Gitlab](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67efeb6ff18d6b00eeb70e5c_gitlab.svg)
+![Image 110: Gitlab](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67efeb6ff18d6b00eeb70e5c_gitlab.svg)
 
-![Image 110: Atlassian](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068bb9966a8e711e939c40_atlassian.svg)
+![Image 111: Atlassian](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68068bb9966a8e711e939c40_atlassian.svg)
 
 What could you do with Claude Code?
 -----------------------------------
 
 ### See examples
 
-[Code onboarding](https://www.anthropic.com/claude-code)[Triage issues](https://www.anthropic.com/claude-code)[Refactor code](https://www.anthropic.com/claude-code)
+[Code onboarding](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-0)[Triage issues](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-1)[Refactor code](https://www.anthropic.com/claude-code#w-tabs-1-data-w-pane-2)
+
+✳
+
+Mustering…
+
+✳
+
+Vibing…
 
 Install [Node.js 18+](https://nodejs.org/en/download), then run:
 
@@ -346,7 +369,7 @@ Ethan
 
 @ethancatzel
 
-![Image 111: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
+![Image 112: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
 
 “
 
@@ -356,7 +379,7 @@ Anton Biryukov
 
 Staff Software Engineer at Ramp
 
-![Image 112: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
+![Image 113: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
 
 “
 
@@ -366,7 +389,7 @@ Fergal Reid
 
 VP of AI at Intercom
 
-![Image 113: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
+![Image 114: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
 
 “
 
@@ -376,7 +399,7 @@ Bradley Silicani
 
 COO, Anrok
 
-![Image 114: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
+![Image 115: Slack](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d466ebe07e57c6905a70af_slack.svg)
 
 What developers say about Claude Code
 -------------------------------------
@@ -400,21 +423,21 @@ VP of AI at Intercom
 Get started with Claude Code
 ----------------------------
 
-[Individual](https://www.anthropic.com/claude-code)[Team &Enterprise](https://www.anthropic.com/claude-code)
+[Individual](https://www.anthropic.com/claude-code#w-tabs-2-data-w-pane-0)[Team &Enterprise](https://www.anthropic.com/claude-code#w-tabs-2-data-w-pane-1)
 
-*   ### Pro $17 Per month with annual subscription discount; $200 billed up front. $20 if billed monthly.   Claude Code is included in your Pro plan. Perfect for short coding sprints in smaller codebases with Claude Sonnet 4. [Sign up](https://claude.ai/upgrade/pro?returnTo=/claude-code-install)Sign up  Sign up       
-*   ### Max 5x $100 Per person billed monthly   Claude Code is included in your Max plan. Great value for everyday use in larger codebases with access to both Claude Sonnet 4 & Claude Opus 4.1. [Sign up](https://claude.ai/upgrade/max?plan=max_5x&returnTo=/claude-code-install)Sign up  Sign up       
-*   ### Max 20x $200 Per person billed monthly   Even more Claude Code included in your Max plan. Great value for power users with the most access to Claude Opus 4.1. [Sign up](https://claude.ai/upgrade/max?plan=max_20x&returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Pro $17 Per month with annual subscription discount; $200 billed up front. $20 if billed monthly.   Claude Code is included in your Pro plan. Perfect for short coding sprints in smaller codebases with Claude Sonnet 4. [Sign up](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/upgrade/pro?returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Max 5x $100 Per person billed monthly   Claude Code is included in your Max plan. Great value for everyday use in larger codebases with access to both Claude Sonnet 4 & Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/upgrade/max?plan=max_5x&returnTo=/claude-code-install)Sign up  Sign up       
+*   ### Max 20x $200 Per person billed monthly   Even more Claude Code included in your Max plan. Great value for power users with the most access to Claude Opus 4.1. [Sign up](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/upgrade/max?plan=max_20x&returnTo=/claude-code-install)Sign up  Sign up       
 
 *Additional [usage limits](https://support.anthropic.com/en/articles/9797557-usage-limit-best-practices) apply. Prices shown do not include applicable tax.
 
 *   ### Anthropic API  Pay as you go with standard Anthropic API pricing. Deploy to unlimited developers with no per-seat fee or platform charges. [Start building](https://console.anthropic.com/login?returnTo=%2F%3F)Start building  Start building       
-*   ### Team $150 Per person / month. Minimum 5 members.   Claude Code is included with Team plan premium seats. Includes self-serve seat management and additional usage at standard API rates, plus access to both Claude Sonnet 4 and Claude Opus 4.1. [Get the Team plan](https://claude.ai/login)Get the Team plan  Get the Team plan       
+*   ### Team $150 Per person / month. Minimum 5 members.   Claude Code is included with Team plan premium seats. Includes self-serve seat management and additional usage at standard API rates, plus access to both Claude Sonnet 4 and Claude Opus 4.1. [Get the Team plan](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/login)Get the Team plan  Get the Team plan       
 *   ### Enterprise  Enterprise plan premium seats include everything in the Team plan, plus advanced security, data, and user management. [Contact sales](https://anthropic.com/contact-sales)Contact sales  Contact sales       
 
 Prices shown do not include applicable tax. [Usage limits](https://support.anthropic.com/en/articles/9797557-usage-limit-best-practices) may apply.
 
-![Image 115](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed67fc18fe086b196a7cab_Hands-Build.svg)
+![Image 116](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed67fc18fe086b196a7cab_Hands-Build.svg)
 
 Education plan
 --------------
@@ -432,7 +455,7 @@ Learn more
 Get the technical rundown
 -------------------------
 
-![Image 116](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026809a6058737d33fa527_f81f07f771658cd88aa48f8832e27510_Code-Document.svg)
+![Image 117](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/68026809a6058737d33fa527_f81f07f771658cd88aa48f8832e27510_Code-Document.svg)
 
 Developer docs
 
@@ -441,7 +464,7 @@ Claude Code documentation
 
 [Learn more](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview)Learn more
 
-![Image 117](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b7964de6dd5ae87c762_Nodes-BookOpen.svg)
+![Image 118](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b7964de6dd5ae87c762_Nodes-BookOpen.svg)
 
 Developer docs
 
@@ -450,7 +473,7 @@ Claude Code tutorials
 
 [Learn more](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/tutorials)Learn more
 
-![Image 118](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b792381adee206836ac_Nodes-Presentation.svg)
+![Image 119](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67ed7b792381adee206836ac_Nodes-Presentation.svg)
 
 Case study
 
@@ -487,7 +510,7 @@ When used with an Anthropic Console account, Claude Code consumes API tokens at 
 
 Organizations can use Claude Code by issuing users ‘Developer’ roles under their Anthropic Console account. [Contact our sales team](https://www.anthropic.com/contact-sales) for more information.    
 
-![Image 119](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6892041a22121dadb0e34d89_Object-Envelope.svg)
+![Image 120](https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/6892041a22121dadb0e34d89_Object-Envelope.svg)
 
 Get the developer newsletter
 ----------------------------
@@ -502,8 +525,8 @@ Hmm, we couldn’t process that. Please try again.
 
 Please provide your email address if you’d like to receive our monthly developer newsletter. You can unsubscribe at any time.
 
-Create what’s exciting. Maintain what’s essential.
---------------------------------------------------
+Create what’s exciting. Maintain what’s essential.Create what’s exciting.Maintain what’s essential.
+---------------------------------------------------------------------------------------------------
 
 Install [Node.js 18+](https://nodejs.org/en/download), then run:
 
@@ -525,9 +548,9 @@ Footer
 *   [Max plan](https://www.anthropic.com/max)
 *   [Team plan](https://www.anthropic.com/team)
 *   [Enterprise plan](https://www.anthropic.com/enterprise)
-*   [Download Claude apps](https://claude.ai/download)
+*   [Download Claude apps](https://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/download)
 *   [Claude.ai pricing plans](https://www.anthropic.com/pricing)
-*   [Claude.ai login](http://claude.ai/login)
+*   [Claude.ai login](http://claude.ai/redirect/website.v1.53079997-288b-4b75-a128-cb96b5a64bb8/login)
 
 ### API Platform
 
@@ -606,7 +629,7 @@ Enables ads personalization and tracking. Off- [x]     Save preferences
 *   [Terms of service - commercial](https://www.anthropic.com/legal/commercial-terms)
 *   [Usage policy](https://www.anthropic.com/legal/aup)
 
-© 2024 Anthropic PBC
+© 2025 Anthropic PBC
 
 *   [](https://www.youtube.com/@anthropic-ai)
 *   [](https://www.linkedin.com/company/anthropicresearch)
