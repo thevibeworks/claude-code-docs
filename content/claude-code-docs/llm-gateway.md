@@ -141,5 +141,5 @@ For more detailed information, refer to the [LiteLLM documentation](https://docs
 
 * [LiteLLM documentation](https://docs.litellm.ai/)
 * [Claude Code settings](/en/docs/claude-code/settings)
-* [Corporate proxy setup](/en/docs/claude-code/corporate-proxy)
+* [Enterprise network configuration](/en/docs/claude-code/network-config)
 * [Third-party integrations overview](/en/docs/claude-code/third-party-integrations)

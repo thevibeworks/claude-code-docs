@@ -195,6 +195,8 @@ If you receive an error "on-demand throughput isn’t supported":
 
 * Specify the model as an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html) ID
 
+Claude Code uses the Bedrock [Invoke API](https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_InvokeModelWithResponseStream.html) and does not support the Converse API.
+
 ## Additional resources
 
 * [Bedrock documentation](https://docs.aws.amazon.com/bedrock/)
