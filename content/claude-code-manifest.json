@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "1.0.110",
+  "version": "1.0.111",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@1.0.110",
+  "_id": "@anthropic-ai/claude-code@1.0.111",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -53,17 +53,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "26975721209575fb16eb1be8b5208af6563720d7",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.110.tgz",
+    "shasum": "50132c9f2076ab8e53ca7bd1ebd85f1339c3552d",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.111.tgz",
     "fileCount": 52,
-    "integrity": "sha512-iNoKuPkdSNk8NizvHCA5yiCKPHMxscxfacsok9JPwLwefumJ80slfBw3kh3abzB2DoFIJslP+0VlewtsG1pnMA==",
+    "integrity": "sha512-1aALYgO8JyGtRdsFskB3uZiAUKbx8u2YcGoa55ZGwsczTBBVIy/+jsuOi3bAubqlBzi5/8gfFBwYK5QuA621MA==",
     "signatures": [
       {
-        "sig": "MEUCIBKSA3dBP2dQZyFCiHGffIRI6f6M6wD96hkyqryJ0mpgAiEA4rsAB822HF0DGjzOT/ytYM3mI2ychODGp0cMkkmc2Ew=",
+        "sig": "MEYCIQD0Rs7LsGy2+2HhIc8FPc4HxsvM1nyePKXNNCFZ9OzfcQIhANz3FdftiynCYLYIJ5U2jthiB0ytm55mzzkXcX6BHnbp",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 78068132
+    "unpackedSize": 78075404
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -71,7 +71,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "4a8be036d0df06175ed1e8d95b2ec2f32ae50fb6",
+  "gitHead": "9d1bc28f9898908b2ff4df659b73551b3ab4dee6",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
@@ -95,7 +95,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_1.0.110_1757455603727_0.3493979765318711",
+    "tmp": "tmp/claude-code_1.0.111_1757542582932_0.4733438164634418",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
