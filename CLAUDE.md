@@ -21,6 +21,7 @@ Always reference specific documentation files in this repository when providing 
 
 Use these paths to reference documentation when helping users:
 
+#### Claude Code Documentation
 - `@./content/claude-code-docs/overview.md` - Claude Code overview and capabilities
 - `@./content/claude-code-docs/quickstart.md` - Getting started guide
 - `@./content/claude-code-docs/setup.md` - Installation and setup
@@ -50,6 +51,38 @@ Use these paths to reference documentation when helping users:
 - `@./content/claude-code-docs/llm-gateway.md` - LLM gateway configuration
 - `@./content/release-notes/CHANGELOG.md` - Claude Code GitHub CHANGELOG
 - `@./content/claude-code-docs/release-notes/claude-code.md` - Release notes from docs.anthropic.com
+
+#### Build with Claude - Prompt Engineering
+- `@./content/build-with-claude/overview.md` - Building with Claude overview
+- `@./content/build-with-claude/prompt-engineering/overview.md` - Prompt engineering introduction
+- `@./content/build-with-claude/prompt-engineering/be-clear-and-direct.md` - Clear and direct prompting
+- `@./content/build-with-claude/prompt-engineering/chain-of-thought.md` - Chain of thought prompting
+- `@./content/build-with-claude/prompt-engineering/chain-prompts.md` - Chaining prompts together
+- `@./content/build-with-claude/prompt-engineering/claude-4-best-practices.md` - Claude 4 best practices
+- `@./content/build-with-claude/prompt-engineering/multishot-prompting.md` - Multishot prompting examples
+- `@./content/build-with-claude/prompt-engineering/prefill-claudes-response.md` - Prefilling Claude's response
+- `@./content/build-with-claude/prompt-engineering/system-prompts.md` - Using system prompts
+- `@./content/build-with-claude/prompt-engineering/use-xml-tags.md` - Using XML tags in prompts
+- `@./content/build-with-claude/prompt-engineering/long-context-tips.md` - Long context tips
+- `@./content/build-with-claude/prompt-engineering/extended-thinking-tips.md` - Extended thinking tips
+- `@./content/build-with-claude/prompt-engineering/prompt-generator.md` - Prompt generator tool
+- `@./content/build-with-claude/prompt-engineering/prompt-improver.md` - Prompt improver tool
+- `@./content/build-with-claude/prompt-engineering/prompt-templates-and-variables.md` - Templates and variables
+
+#### Build with Claude - Features
+- `@./content/build-with-claude/batch-processing.md` - Batch processing
+- `@./content/build-with-claude/citations.md` - Working with citations
+- `@./content/build-with-claude/context-windows.md` - Understanding context windows
+- `@./content/build-with-claude/embeddings.md` - Using embeddings
+- `@./content/build-with-claude/extended-thinking.md` - Extended thinking capability
+- `@./content/build-with-claude/files.md` - File handling
+- `@./content/build-with-claude/multilingual-support.md` - Multilingual capabilities
+- `@./content/build-with-claude/pdf-support.md` - PDF support
+- `@./content/build-with-claude/prompt-caching.md` - Prompt caching
+- `@./content/build-with-claude/search-results.md` - Search results handling
+- `@./content/build-with-claude/streaming.md` - Streaming responses
+- `@./content/build-with-claude/token-counting.md` - Token counting
+- `@./content/build-with-claude/vision.md` - Vision capabilities
 
 ## Repository Structure
 
