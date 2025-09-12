@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "1.0.111",
+  "version": "1.0.112",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@1.0.111",
+  "_id": "@anthropic-ai/claude-code@1.0.112",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -43,6 +43,10 @@
     {
       "name": "felixrieseberg-anthropic",
       "email": "f@anthropic.com"
+    },
+    {
+      "name": "joan-anthropic",
+      "email": "joan@anthropic.com"
     }
   ],
   "homepage": "https://github.com/anthropics/claude-code",
@@ -53,17 +57,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "50132c9f2076ab8e53ca7bd1ebd85f1339c3552d",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.111.tgz",
+    "shasum": "251af4ba165d5e749104dc1690091b7f8411d25a",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-1.0.112.tgz",
     "fileCount": 52,
-    "integrity": "sha512-1aALYgO8JyGtRdsFskB3uZiAUKbx8u2YcGoa55ZGwsczTBBVIy/+jsuOi3bAubqlBzi5/8gfFBwYK5QuA621MA==",
+    "integrity": "sha512-UMGxS1iLA8RlrDGpSzMfnJpVHXxcL7AdD8kQfqFy/hAFqwyKpoJPHGBwXt5KjuVDwcWwkpXc3tXDVt//4z6icg==",
     "signatures": [
       {
-        "sig": "MEYCIQD0Rs7LsGy2+2HhIc8FPc4HxsvM1nyePKXNNCFZ9OzfcQIhANz3FdftiynCYLYIJ5U2jthiB0ytm55mzzkXcX6BHnbp",
+        "sig": "MEUCIAMYZqVCaDTIFdrxoGTjjGgQq9/PjqfD3SveRQ3cVmLKAiEA1p3+76vbfEg3W2DLnlNyMmnDYo5UACLjpDe9u4/mnHQ=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 78075404
+    "unpackedSize": 78086178
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -71,7 +75,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "9d1bc28f9898908b2ff4df659b73551b3ab4dee6",
+  "gitHead": "f0f5ed9aaa7d6d3ea2ee8a1ad9185dadba2a118d",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
@@ -95,7 +99,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_1.0.111_1757542582932_0.4733438164634418",
+    "tmp": "tmp/claude-code_1.0.112_1757635663338_0.6321682302487104",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
