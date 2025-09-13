@@ -115,6 +115,7 @@ paths:
                       - page_MjAyNS0wNS0xNFQwMDowMDowMFo=
                       - null
             title: GetClaudeCodeUsageReportResponse
+            refIdentifier: '#/components/schemas/GetClaudeCodeUsageReportResponse'
             requiredProperties:
               - data
               - has_more
@@ -218,6 +219,7 @@ paths:
                     title: Type
                     default: error
             title: ErrorResponse
+            refIdentifier: '#/components/schemas/ErrorResponse'
             requiredProperties:
               - error
               - request_id

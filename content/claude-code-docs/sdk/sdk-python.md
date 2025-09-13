@@ -1,806 +1,1301 @@
-# Python
+# Python SDK reference
 
-> Build custom AI agents with the Claude Code Python SDK
+> Complete API reference for the Claude Code Python SDK, including all functions, types, and classes.
 
-## Prerequisites
+## Functions
 
-* Python 3.10+
-* `claude-code-sdk` from PyPI
-* Node.js 18+
-* `@anthropic-ai/claude-code` from NPM
+### `query()`
 
-<Note>
-  To view the Python SDK source code, see the [`claude-code-sdk`](https://github.com/anthropics/claude-code-sdk-python) repo.
-</Note>
-
-<Tip>
-  For interactive development, use [IPython](https://ipython.org/): `pip install ipython`
-</Tip>
-
-## Installation
-
-Install `claude-code-sdk` from PyPI and `@anthropic-ai/claude-code` from NPM:
-
-```bash
-pip install claude-code-sdk
-npm install -g @anthropic-ai/claude-code  # Required dependency
-```
-
-(Optional) Install IPython for interactive development:
-
-```bash
-pip install ipython
-```
-
-## Quick start
-
-Create your first agent:
+The primary async function for interacting with Claude Code. Returns an async iterator that yields messages as they arrive.
 
 ```python
-# legal-agent.py
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def main():
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are a legal assistant. Identify risks and suggest improvements.",
-            max_turns=2
-        )
-    ) as client:
-        # Send the query
-        await client.query(
-            "Review this contract clause for potential issues: 'The party agrees to unlimited liability...'"
-        )
-
-        # Stream the response
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                # Print streaming content as it arrives
-                for block in message.content:
-                    if hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+async def query(
+    *,
+    prompt: str | AsyncIterable[dict[str, Any]],
+    options: ClaudeCodeOptions | None = None
+) -> AsyncIterator[Message]
 ```
 
-Save the code above as `legal-agent.py`, then run:
+#### Parameters
 
-```bash
-python legal-agent.py
-```
+| Parameter | Type                         | Description                                                               |
+| :-------- | :--------------------------- | :------------------------------------------------------------------------ |
+| `prompt`  | `str \| AsyncIterable[dict]` | The input prompt as a string or async iterable for streaming mode         |
+| `options` | `ClaudeCodeOptions \| None`  | Optional configuration object (defaults to `ClaudeCodeOptions()` if None) |
 
-For [IPython](https://ipython.org/)/Jupyter notebooks, you can run the code directly in a cell:
+#### Returns
 
-```python
-await main()
-```
+Returns an `AsyncIterator[Message]` that yields messages from the conversation.
 
-<Note>
-  The Python examples on this page use `asyncio`, but you can also use `anyio`.
-</Note>
-
-## Basic usage
-
-The Python SDK provides two primary interfaces:
-
-### 1. The `ClaudeSDKClient` class (recommended)
-
-Best for streaming responses, multi-turn conversations, and interactive applications:
+#### Example - Simple query
 
 ```python
 import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+from claude_code_sdk import query
 
 async def main():
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are a performance engineer",
-            allowed_tools=["Bash", "Read", "WebSearch"],
-            max_turns=5
-        )
-    ) as client:
-        await client.query("Analyze system performance")
+    async for message in query(prompt="What is 2+2?"):
+        print(message)
 
-        # Stream responses
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-# Run as script
 asyncio.run(main())
-
-# Or in IPython/Jupyter: await main()
 ```
 
-### 2. The `query` function
-
-For simple, one-shot queries:
+#### Example - With options
 
 ```python
+
+import asyncio
 from claude_code_sdk import query, ClaudeCodeOptions
 
-async for message in query(
-    prompt="Analyze system performance",
-    options=ClaudeCodeOptions(system_prompt="You are a performance engineer")
-):
-    if type(message).__name__ == "ResultMessage":
-        print(message.result)
+async def main():
+    options = ClaudeCodeOptions(
+        system_prompt="You are an expert Python developer",
+        permission_mode='acceptEdits',
+        cwd="/home/user/project"
+    )
+
+    async for message in query(
+        prompt="Create a Python web server",
+        options=options
+    ):
+        print(message)
+
+
+asyncio.run(main())
 ```
 
-## Configuration options
+### `tool()`
 
-The Python SDK accepts all arguments supported by the [command line](/en/docs/claude-code/cli-reference) through the `ClaudeCodeOptions` class.
-
-### ClaudeCodeOptions parameters
+Decorator for defining MCP tools with type safety.
 
 ```python
-from claude_code_sdk import ClaudeCodeOptions
+def tool(
+    name: str,
+    description: str,
+    input_schema: type | dict[str, Any]
+) -> Callable[[Callable[[Any], Awaitable[dict[str, Any]]]], SdkMcpTool[Any]]
+```
 
+#### Parameters
+
+| Parameter      | Type                     | Description                                             |
+| :------------- | :----------------------- | :------------------------------------------------------ |
+| `name`         | `str`                    | Unique identifier for the tool                          |
+| `description`  | `str`                    | Human-readable description of what the tool does        |
+| `input_schema` | `type \| dict[str, Any]` | Schema defining the tool's input parameters (see below) |
+
+#### Input Schema Options
+
+1. **Simple type mapping** (recommended):
+   ```python
+   {"text": str, "count": int, "enabled": bool}
+   ```
+
+2. **JSON Schema format** (for complex validation):
+   ```python
+   {
+       "type": "object",
+       "properties": {
+           "text": {"type": "string"},
+           "count": {"type": "integer", "minimum": 0}
+       },
+       "required": ["text"]
+   }
+   ```
+
+#### Returns
+
+A decorator function that wraps the tool implementation and returns an `SdkMcpTool` instance.
+
+#### Example
+
+```python
+from claude_code_sdk import tool
+from typing import Any
+
+@tool("greet", "Greet a user", {"name": str})
+async def greet(args: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [{
+            "type": "text",
+            "text": f"Hello, {args['name']}!"
+        }]
+    }
+```
+
+### `create_sdk_mcp_server()`
+
+Create an in-process MCP server that runs within your Python application.
+
+```python
+def create_sdk_mcp_server(
+    name: str,
+    version: str = "1.0.0",
+    tools: list[SdkMcpTool[Any]] | None = None
+) -> McpSdkServerConfig
+```
+
+#### Parameters
+
+| Parameter | Type                            | Default   | Description                                           |
+| :-------- | :------------------------------ | :-------- | :---------------------------------------------------- |
+| `name`    | `str`                           | -         | Unique identifier for the server                      |
+| `version` | `str`                           | `"1.0.0"` | Server version string                                 |
+| `tools`   | `list[SdkMcpTool[Any]] \| None` | `None`    | List of tool functions created with `@tool` decorator |
+
+#### Returns
+
+Returns an `McpSdkServerConfig` object that can be passed to `ClaudeCodeOptions.mcp_servers`.
+
+#### Example
+
+```python
+from claude_code_sdk import tool, create_sdk_mcp_server
+
+@tool("add", "Add two numbers", {"a": float, "b": float})
+async def add(args):
+    return {
+        "content": [{
+            "type": "text",
+            "text": f"Sum: {args['a'] + args['b']}"
+        }]
+    }
+
+@tool("multiply", "Multiply two numbers", {"a": float, "b": float})
+async def multiply(args):
+    return {
+        "content": [{
+            "type": "text",
+            "text": f"Product: {args['a'] * args['b']}"
+        }]
+    }
+
+calculator = create_sdk_mcp_server(
+    name="calculator",
+    version="2.0.0",
+    tools=[add, multiply]  # Pass decorated functions
+)
+
+# Use with Claude
 options = ClaudeCodeOptions(
-    # Core configuration
-    system_prompt="You are a helpful assistant",
-    append_system_prompt="Additional system instructions",
-    max_turns=5,
-    model="claude-3-5-sonnet-20241022",
-    max_thinking_tokens=8000,
-    
-    # Tool management
-    allowed_tools=["Bash", "Read", "Write"],
-    disallowed_tools=["WebSearch"],
-    
-    # Session management
-    continue_conversation=False,
-    resume="session-uuid",
-    
-    # Environment
-    cwd="/path/to/working/directory",
-    add_dirs=["/additional/context/dir"],
-    settings="/path/to/settings.json",
-    
-    # Permissions
-    permission_mode="acceptEdits",  # "default", "acceptEdits", "plan", "bypassPermissions"
-    permission_prompt_tool_name="mcp__approval_tool",
-    
-    # MCP integration
-    mcp_servers={
-        "my_server": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-example"],
-            "env": {"API_KEY": "your-key"}
-        }
-    },
-    
-    # Advanced
-    extra_args={"--verbose": None, "--custom-flag": "value"}
+    mcp_servers={"calc": calculator},
+    allowed_tools=["mcp__calc__add", "mcp__calc__multiply"]
 )
 ```
 
-#### Parameter details
+## Classes
 
-* **`system_prompt`**: `str | None` - Custom system prompt defining the agent's role
-* **`append_system_prompt`**: `str | None` - Additional text appended to system prompt
-* **`max_turns`**: `int | None` - Maximum conversation turns (unlimited if None)
-* **`model`**: `str | None` - Specific Claude model to use
-* **`max_thinking_tokens`**: `int` - Maximum tokens for Claude's thinking process (default: 8000)
-* **`allowed_tools`**: `list[str]` - Tools specifically allowed for use
-* **`disallowed_tools`**: `list[str]` - Tools that should not be used
-* **`continue_conversation`**: `bool` - Continue most recent conversation (default: False)
-* **`resume`**: `str | None` - Session UUID to resume specific conversation
-* **`cwd`**: `str | Path | None` - Working directory for the session
-* **`add_dirs`**: `list[str | Path]` - Additional directories to include in context
-* **`settings`**: `str | None` - Path to settings file or settings JSON string
-* **`permission_mode`**: `str | None` - Permission handling mode
-* **`permission_prompt_tool_name`**: `str | None` - Custom permission prompt tool name
-* **`mcp_servers`**: `dict | str | Path` - MCP server configurations
-* **`extra_args`**: `dict[str, str | None]` - Pass arbitrary CLI flags to underlying Claude Code CLI
+### `ClaudeSDKClient`
 
-#### Permission modes
-
-* **`"default"`**: CLI prompts for dangerous tools (default behavior)
-* **`"acceptEdits"`**: Automatically accept file edits without prompting
-* **`"plan"`**: Plan Mode - analyze without making changes
-* **`"bypassPermissions"`**: Allow all tools without prompting (use with caution)
-
-### Advanced configuration example
+Client for bidirectional, interactive conversations with Claude Code. Provides full control over conversation flow with support for streaming, interrupts, and dynamic message sending.
 
 ```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def advanced_agent():
-    """Example showcasing advanced configuration options"""
-    
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            # Custom working directory and additional context
-            cwd="/project/root",
-            add_dirs=["/shared/libs", "/common/utils"],
-            
-            # Model and thinking configuration
-            model="claude-3-5-sonnet-20241022",
-            max_thinking_tokens=12000,
-            
-            # Advanced tool control
-            allowed_tools=["Read", "Write", "Bash", "Grep"],
-            disallowed_tools=["WebSearch", "Bash(rm*)"],
-            
-            # Custom settings and CLI args
-            settings='{"editor": "vim", "theme": "dark"}',
-            extra_args={
-                "--verbose": None,
-                "--timeout": "300"
-            }
-        )
-    ) as client:
-        await client.query("Analyze the codebase structure")
-        
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-asyncio.run(advanced_agent())
+class ClaudeSDKClient:
+    def __init__(self, options: ClaudeCodeOptions | None = None)
+    async def connect(self, prompt: str | AsyncIterable[dict] | None = None) -> None
+    async def query(self, prompt: str | AsyncIterable[dict], session_id: str = "default") -> None
+    async def receive_messages(self) -> AsyncIterator[Message]
+    async def receive_response(self) -> AsyncIterator[Message]
+    async def interrupt(self) -> None
+    async def disconnect(self) -> None
 ```
 
-## Structured messages and image inputs
+#### Methods
 
-The SDK supports passing structured messages and image inputs:
+| Method                      | Description                                                         |
+| :-------------------------- | :------------------------------------------------------------------ |
+| `__init__(options)`         | Initialize the client with optional configuration                   |
+| `connect(prompt)`           | Connect to Claude with an optional initial prompt or message stream |
+| `query(prompt, session_id)` | Send a new request in streaming mode                                |
+| `receive_messages()`        | Receive all messages from Claude as an async iterator               |
+| `receive_response()`        | Receive messages until and including a ResultMessage                |
+| `interrupt()`               | Send interrupt signal (only works in streaming mode)                |
+| `disconnect()`              | Disconnect from Claude                                              |
+
+#### Context Manager Support
+
+The client can be used as an async context manager for automatic connection management:
 
 ```python
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
 async with ClaudeSDKClient() as client:
-    # Text message
-    await client.query("Analyze this code for security issues")
-
-    # Message with image reference (image will be read by Claude's Read tool)
-    await client.query("Explain what's shown in screenshot.png")
-
-    # Multiple messages in sequence
-    messages = [
-        "First, analyze the architecture diagram in diagram.png",
-        "Now suggest improvements based on the diagram",
-        "Finally, generate implementation code"
-    ]
-
-    for msg in messages:
-        await client.query(msg)
-        async for response in client.receive_response():
-            # Process each response
-            pass
-
-# The SDK handles image files through Claude's built-in Read tool
-# Supported formats: PNG, JPG, PDF, and other common formats
-```
-
-## Multi-turn conversations
-
-### Method 1: Using ClaudeSDKClient for persistent conversations
-
-```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions, query
-
-# Method 1: Using ClaudeSDKClient for persistent conversations
-async def multi_turn_conversation():
-    async with ClaudeSDKClient() as client:
-        # First query
-        await client.query("Let's refactor the payment module")
-        async for msg in client.receive_response():
-            # Process first response
-            pass
-
-        # Continue in same session
-        await client.query("Now add comprehensive error handling")
-        async for msg in client.receive_response():
-            # Process continuation
-            pass
-
-        # The conversation context is maintained throughout
-
-# Method 2: Using query function with session management
-async def resume_session():
-    # Continue most recent conversation
-    async for message in query(
-        prompt="Now refactor this for better performance",
-        options=ClaudeCodeOptions(continue_conversation=True)
-    ):
-        if type(message).__name__ == "ResultMessage":
-            print(message.result)
-
-    # Resume specific session
-    async for message in query(
-        prompt="Update the tests",
-        options=ClaudeCodeOptions(
-            resume="550e8400-e29b-41d4-a716-446655440000",
-            max_turns=3
-        )
-    ):
-        if type(message).__name__ == "ResultMessage":
-            print(message.result)
-
-# Run the examples
-asyncio.run(multi_turn_conversation())
-```
-
-## Custom system prompts
-
-System prompts define your agent's role, expertise, and behavior:
-
-```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def specialized_agents():
-    # SRE incident response agent with streaming
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are an SRE expert. Diagnose issues systematically and provide actionable solutions.",
-            max_turns=3
-        )
-    ) as sre_agent:
-        await sre_agent.query("API is down, investigate")
-
-        # Stream the diagnostic process
-        async for message in sre_agent.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-    # Legal review agent with custom prompt
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            append_system_prompt="Always include comprehensive error handling and unit tests.",
-            max_turns=2
-        )
-    ) as dev_agent:
-        await dev_agent.query("Refactor this function")
-
-        # Collect full response
-        full_response = []
-        async for message in dev_agent.receive_response():
-            if type(message).__name__ == "ResultMessage":
-                print(message.result)
-
-asyncio.run(specialized_agents())
-```
-
-## Custom tools via MCP
-
-The Model Context Protocol (MCP) lets you give your agents custom tools and capabilities:
-
-```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def mcp_enabled_agent():
-    # Legal agent with document access and streaming
-    # Note: Configure your MCP servers as needed
-    mcp_servers = {
-        # Example configuration - uncomment and configure as needed:
-        # "docusign": {
-        #     "command": "npx",
-        #     "args": ["-y", "@modelcontextprotocol/server-docusign"],
-        #     "env": {"API_KEY": "your-key"}
-        # }
-    }
-
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            mcp_servers=mcp_servers,
-            allowed_tools=["mcp__docusign", "mcp__compliance_db"],
-            system_prompt="You are a corporate lawyer specializing in contract review.",
-            max_turns=4
-        )
-    ) as client:
-        await client.query("Review this contract for compliance risks")
-
-        # Monitor tool usage and responses
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'type'):
-                        if block.type == 'tool_use':
-                            print(f"\n[Using tool: {block.name}]\n")
-                        elif hasattr(block, 'text'):
-                            print(block.text, end='', flush=True)
-                    elif hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-            if type(message).__name__ == "ResultMessage":
-                print(f"\n\nReview complete. Total cost: ${message.total_cost_usd:.4f}")
-
-asyncio.run(mcp_enabled_agent())
-```
-
-## Custom permission prompt tool
-
-Implement custom permission handling for tool calls:
-
-```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def use_permission_prompt():
-    """Example using custom permission prompt tool"""
-
-    # MCP server configuration
-    mcp_servers = {
-        # Example configuration - uncomment and configure as needed:
-        # "security": {
-        #     "command": "npx",
-        #     "args": ["-y", "@modelcontextprotocol/server-security"],
-        #     "env": {"API_KEY": "your-key"}
-        # }
-    }
-
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            permission_prompt_tool_name="mcp__security__approval_prompt",  # Changed from permission_prompt_tool
-            mcp_servers=mcp_servers,
-            allowed_tools=["Read", "Grep"],
-            disallowed_tools=["Bash(rm*)", "Write"],
-            system_prompt="You are a security auditor"
-        )
-    ) as client:
-        await client.query("Analyze and fix the security issues")
-
-        # Monitor tool usage and permissions
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'type'):  # Added check for 'type' attribute
-                        if block.type == 'tool_use':
-                            print(f"[Tool: {block.name}] ", end='')
-                    if hasattr(block, 'text'):
-                        print(block.text, end='', flush=True)
-
-            # Check for permission denials in error messages
-            if type(message).__name__ == "ErrorMessage":
-                if hasattr(message, 'error') and "Permission denied" in str(message.error):
-                    print(f"\n⚠️ Permission denied: {message.error}")
-
-# Example MCP server implementation (Python)
-# This would be in your MCP server code
-async def approval_prompt(tool_name: str, input: dict, tool_use_id: str = None):
-    """Custom permission prompt handler"""
-    # Your custom logic here
-    if "allow" in str(input):
-        return json.dumps({
-            "behavior": "allow",
-            "updatedInput": input
-        })
-    else:
-        return json.dumps({
-            "behavior": "deny",
-            "message": f"Permission denied for {tool_name}"
-        })
-
-asyncio.run(use_permission_prompt())
-```
-
-## Output formats
-
-### Text output with streaming
-
-```python
-# Default text output with streaming
-async with ClaudeSDKClient() as client:
-    await client.query("Explain file src/components/Header.tsx")
-
-    # Stream text as it arrives
+    await client.query("Hello Claude")
     async for message in client.receive_response():
-        if hasattr(message, 'content'):
-            for block in message.content:
-                if hasattr(block, 'text'):
-                    print(block.text, end='', flush=True)
-                    # Output streams in real-time: This is a React component showing...
+        print(message)
 ```
 
-### JSON output with metadata
+> **Important:** When iterating over messages, avoid using `break` to exit early as this can cause asyncio cleanup issues. Instead, let the iteration complete naturally or use flags to track when you've found what you need.
 
-```python
-# Collect all messages with metadata
-async with ClaudeSDKClient() as client:
-    await client.query("How does the data layer work?")
-
-    messages = []
-    result_data = None
-
-    async for message in client.receive_messages():
-        messages.append(message)
-
-        # Capture result message with metadata
-        if type(message).__name__ == "ResultMessage":
-            result_data = {
-                "result": message.result,
-                "cost": message.total_cost_usd,
-                "duration": message.duration_ms,
-                "num_turns": message.num_turns,
-                "session_id": message.session_id
-            }
-            break
-
-    print(result_data)
-```
-
-## Input formats
+#### Example - Interactive conversation
 
 ```python
 import asyncio
-from claude_code_sdk import ClaudeSDKClient
+from claude_code_sdk import ClaudeSDKClient, AssistantMessage, TextBlock, ResultMessage
 
-async def process_inputs():
+async def main():
     async with ClaudeSDKClient() as client:
-        # Text input
-        await client.query("Explain this code")
+        # Send initial message
+        await client.query("Let's solve a math problem step by step")
+        
+        # Receive and process response
         async for message in client.receive_response():
-            # Process streaming response
-            pass
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(f"Assistant: {block.text[:100]}...")
+            elif isinstance(message, ResultMessage):
+                print("Response complete")
+        
+        # Send follow-up based on response
+        await client.query("What's 15% of 80?")
 
-        # Image input (Claude will use Read tool automatically)
-        await client.query("What's in this diagram? screenshot.png")
-        async for message in client.receive_response():
-            # Process image analysis
-            pass
-
-        # Multiple inputs with mixed content
-        inputs = [
-            "Analyze the architecture in diagram.png",
-            "Compare it with best practices",
-            "Generate improved version"
-        ]
-
-        for prompt in inputs:
-            await client.query(prompt)
-            async for message in client.receive_response():
-                # Process each response
-                pass
-
-asyncio.run(process_inputs())
+asyncio.run(main())
 ```
 
-## Agent integration examples
+## Types
 
-### SRE incident response agent
+### `SdkMcpTool`
+
+Definition for an SDK MCP tool created with the `@tool` decorator.
 
 ```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+@dataclass
+class SdkMcpTool(Generic[T]):
+    name: str
+    description: str
+    input_schema: type[T] | dict[str, Any]
+    handler: Callable[[T], Awaitable[dict[str, Any]]]
+```
 
-async def investigate_incident(incident_description: str, severity: str = "medium"):
-    """Automated incident response agent with real-time streaming"""
+| Property       | Type                                       | Description                                |
+| :------------- | :----------------------------------------- | :----------------------------------------- |
+| `name`         | `str`                                      | Unique identifier for the tool             |
+| `description`  | `str`                                      | Human-readable description                 |
+| `input_schema` | `type[T] \| dict[str, Any]`                | Schema for input validation                |
+| `handler`      | `Callable[[T], Awaitable[dict[str, Any]]]` | Async function that handles tool execution |
 
-    # MCP server configuration for monitoring tools
-    mcp_servers = {
-        # Example configuration - uncomment and configure as needed:
-        # "datadog": {
-        #     "command": "npx",
-        #     "args": ["-y", "@modelcontextprotocol/server-datadog"],
-        #     "env": {"API_KEY": "your-datadog-key", "APP_KEY": "your-app-key"}
-        # }
+### `ClaudeCodeOptions`
+
+Configuration dataclass for Claude Code queries.
+
+```python
+@dataclass
+class ClaudeCodeOptions:
+    allowed_tools: list[str] = field(default_factory=list)
+    max_thinking_tokens: int = 8000
+    system_prompt: str | None = None
+    append_system_prompt: str | None = None
+    mcp_servers: dict[str, McpServerConfig] | str | Path = field(default_factory=dict)
+    permission_mode: PermissionMode | None = None
+    continue_conversation: bool = False
+    resume: str | None = None
+    max_turns: int | None = None
+    disallowed_tools: list[str] = field(default_factory=list)
+    model: str | None = None
+    permission_prompt_tool_name: str | None = None
+    cwd: str | Path | None = None
+    settings: str | None = None
+    add_dirs: list[str | Path] = field(default_factory=list)
+    env: dict[str, str] = field(default_factory=dict)
+    extra_args: dict[str, str | None] = field(default_factory=dict)
+```
+
+| Property                      | Type                                         | Default | Description                                          |
+| :---------------------------- | :------------------------------------------- | :------ | :--------------------------------------------------- |
+| `allowed_tools`               | `list[str]`                                  | `[]`    | List of allowed tool names                           |
+| `max_thinking_tokens`         | `int`                                        | `8000`  | Maximum tokens for thinking process                  |
+| `system_prompt`               | `str \| None`                                | `None`  | Replace the default system prompt entirely           |
+| `append_system_prompt`        | `str \| None`                                | `None`  | Text to append to the default system prompt          |
+| `mcp_servers`                 | `dict[str, McpServerConfig] \| str \| Path`  | `{}`    | MCP server configurations or path to config file     |
+| `permission_mode`             | `PermissionMode \| None`                     | `None`  | Permission mode for tool usage                       |
+| `continue_conversation`       | `bool`                                       | `False` | Continue the most recent conversation                |
+| `resume`                      | `str \| None`                                | `None`  | Session ID to resume                                 |
+| `max_turns`                   | `int \| None`                                | `None`  | Maximum conversation turns                           |
+| `disallowed_tools`            | `list[str]`                                  | `[]`    | List of disallowed tool names                        |
+| `model`                       | `str \| None`                                | `None`  | Claude model to use                                  |
+| `permission_prompt_tool_name` | `str \| None`                                | `None`  | MCP tool name for permission prompts                 |
+| `cwd`                         | `str \| Path \| None`                        | `None`  | Current working directory                            |
+| `settings`                    | `str \| None`                                | `None`  | Path to settings file                                |
+| `add_dirs`                    | `list[str \| Path]`                          | `[]`    | Additional directories Claude can access             |
+| `extra_args`                  | `dict[str, str \| None]`                     | `{}`    | Additional CLI arguments to pass directly to the CLI |
+| `can_use_tool`                | `CanUseTool \| None`                         | `None`  | Tool permission callback function                    |
+| `hooks`                       | `dict[HookEvent, list[HookMatcher]] \| None` | `None`  | Hook configurations for intercepting events          |
+
+### `PermissionMode`
+
+Permission modes for controlling tool execution.
+
+```python
+PermissionMode = Literal[
+    "default",           # Standard permission behavior
+    "acceptEdits",       # Auto-accept file edits
+    "plan",              # Planning mode - no execution
+    "bypassPermissions"  # Bypass all permission checks (use with caution)
+]
+```
+
+### `McpSdkServerConfig`
+
+Configuration for SDK MCP servers created with `create_sdk_mcp_server()`.
+
+```python
+class McpSdkServerConfig(TypedDict):
+    type: Literal["sdk"]
+    name: str
+    instance: Any  # MCP Server instance
+```
+
+### `McpServerConfig`
+
+Union type for MCP server configurations.
+
+```python
+McpServerConfig = McpStdioServerConfig | McpSSEServerConfig | McpHttpServerConfig | McpSdkServerConfig
+```
+
+#### `McpStdioServerConfig`
+
+```python
+class McpStdioServerConfig(TypedDict):
+    type: NotRequired[Literal["stdio"]]  # Optional for backwards compatibility
+    command: str
+    args: NotRequired[list[str]]
+    env: NotRequired[dict[str, str]]
+```
+
+#### `McpSSEServerConfig`
+
+```python
+class McpSSEServerConfig(TypedDict):
+    type: Literal["sse"]
+    url: str
+    headers: NotRequired[dict[str, str]]
+```
+
+#### `McpHttpServerConfig`
+
+```python
+class McpHttpServerConfig(TypedDict):
+    type: Literal["http"]
+    url: str
+    headers: NotRequired[dict[str, str]]
+```
+
+## Message Types
+
+### `Message`
+
+Union type of all possible messages.
+
+```python
+Message = UserMessage | AssistantMessage | SystemMessage | ResultMessage
+```
+
+### `UserMessage`
+
+User input message.
+
+```python
+@dataclass
+class UserMessage:
+    content: str | list[ContentBlock]
+```
+
+### `AssistantMessage`
+
+Assistant response message with content blocks.
+
+```python
+@dataclass
+class AssistantMessage:
+    content: list[ContentBlock]
+    model: str
+```
+
+### `SystemMessage`
+
+System message with metadata.
+
+```python
+@dataclass
+class SystemMessage:
+    subtype: str
+    data: dict[str, Any]
+```
+
+### `ResultMessage`
+
+Final result message with cost and usage information.
+
+```python
+@dataclass
+class ResultMessage:
+    subtype: str
+    duration_ms: int
+    duration_api_ms: int
+    is_error: bool
+    num_turns: int
+    session_id: str
+    total_cost_usd: float | None = None
+    usage: dict[str, Any] | None = None
+    result: str | None = None
+```
+
+## Content Block Types
+
+### `ContentBlock`
+
+Union type of all content blocks.
+
+```python
+ContentBlock = TextBlock | ThinkingBlock | ToolUseBlock | ToolResultBlock
+```
+
+### `TextBlock`
+
+Text content block.
+
+```python
+@dataclass
+class TextBlock:
+    text: str
+```
+
+### `ThinkingBlock`
+
+Thinking content block (for models with thinking capability).
+
+```python
+@dataclass
+class ThinkingBlock:
+    thinking: str
+    signature: str
+```
+
+### `ToolUseBlock`
+
+Tool use request block.
+
+```python
+@dataclass
+class ToolUseBlock:
+    id: str
+    name: str
+    input: dict[str, Any]
+```
+
+### `ToolResultBlock`
+
+Tool execution result block.
+
+```python
+@dataclass
+class ToolResultBlock:
+    tool_use_id: str
+    content: str | list[dict[str, Any]] | None = None
+    is_error: bool | None = None
+```
+
+## Error Types
+
+### `ClaudeSDKError`
+
+Base exception class for all SDK errors.
+
+```python
+class ClaudeSDKError(Exception):
+    """Base error for Claude SDK."""
+```
+
+### `CLINotFoundError`
+
+Raised when Claude Code CLI is not installed or not found.
+
+```python
+class CLINotFoundError(CLIConnectionError):
+    def __init__(self, message: str = "Claude Code not found", cli_path: str | None = None):
+        """
+        Args:
+            message: Error message (default: "Claude Code not found")
+            cli_path: Optional path to the CLI that was not found
+        """
+```
+
+### `CLIConnectionError`
+
+Raised when connection to Claude Code fails.
+
+```python
+class CLIConnectionError(ClaudeSDKError):
+    """Failed to connect to Claude Code."""
+```
+
+### `ProcessError`
+
+Raised when the Claude Code process fails.
+
+```python
+class ProcessError(ClaudeSDKError):
+    def __init__(self, message: str, exit_code: int | None = None, stderr: str | None = None):
+        self.exit_code = exit_code
+        self.stderr = stderr
+```
+
+### `CLIJSONDecodeError`
+
+Raised when JSON parsing fails.
+
+```python
+class CLIJSONDecodeError(ClaudeSDKError):
+    def __init__(self, line: str, original_error: Exception):
+        """
+        Args:
+            line: The line that failed to parse
+            original_error: The original JSON decode exception
+        """
+        self.line = line
+        self.original_error = original_error
+```
+
+## Hook Types
+
+### `HookEvent`
+
+Supported hook event types. Note that due to setup limitations, the Python SDK does not support SessionStart, SessionEnd, and Notification hooks.
+
+```python
+HookEvent = Literal[
+    "PreToolUse",      # Called before tool execution
+    "PostToolUse",     # Called after tool execution
+    "UserPromptSubmit", # Called when user submits a prompt
+    "Stop",            # Called when stopping execution
+    "SubagentStop",    # Called when a subagent stops
+    "PreCompact"       # Called before message compaction
+]
+```
+
+### `HookCallback`
+
+Type definition for hook callback functions.
+
+```python
+HookCallback = Callable[
+    [dict[str, Any], str | None, HookContext],
+    Awaitable[dict[str, Any]]
+]
+```
+
+Parameters:
+
+* `input_data`: Hook-specific input data (see [hook documentation](https://docs.anthropic.com/en/docs/claude-code/hooks#hook-input))
+* `tool_use_id`: Optional tool use identifier (for tool-related hooks)
+* `context`: Hook context with additional information
+
+Returns a dictionary that may contain:
+
+* `decision`: `"block"` to block the action
+* `systemMessage`: System message to add to the transcript
+* `hookSpecificOutput`: Hook-specific output data
+
+### `HookContext`
+
+Context information passed to hook callbacks.
+
+```python
+@dataclass
+class HookContext:
+    signal: Any | None = None  # Future: abort signal support
+```
+
+### `HookMatcher`
+
+Configuration for matching hooks to specific events or tools.
+
+```python
+@dataclass
+class HookMatcher:
+    matcher: str | None = None        # Tool name or pattern to match (e.g., "Bash", "Write|Edit")
+    hooks: list[HookCallback] = field(default_factory=list)  # List of callbacks to execute
+```
+
+### Hook Usage Example
+
+```python
+from claude_code_sdk import query, ClaudeCodeOptions, HookMatcher, HookContext
+from typing import Any
+
+async def validate_bash_command(
+    input_data: dict[str, Any],
+    tool_use_id: str | None,
+    context: HookContext
+) -> dict[str, Any]:
+    """Validate and potentially block dangerous bash commands."""
+    if input_data['tool_name'] == 'Bash':
+        command = input_data['tool_input'].get('command', '')
+        if 'rm -rf /' in command:
+            return {
+                'hookSpecificOutput': {
+                    'hookEventName': 'PreToolUse',
+                    'permissionDecision': 'deny',
+                    'permissionDecisionReason': 'Dangerous command blocked'
+                }
+            }
+    return {}
+
+async def log_tool_use(
+    input_data: dict[str, Any],
+    tool_use_id: str | None,
+    context: HookContext
+) -> dict[str, Any]:
+    """Log all tool usage for auditing."""
+    print(f"Tool used: {input_data.get('tool_name')}")
+    return {}
+
+options = ClaudeCodeOptions(
+    hooks={
+        'PreToolUse': [
+            HookMatcher(matcher='Bash', hooks=[validate_bash_command]),
+            HookMatcher(hooks=[log_tool_use])  # Applies to all tools
+        ],
+        'PostToolUse': [
+            HookMatcher(hooks=[log_tool_use])
+        ]
     }
+)
 
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are an SRE expert. Diagnose issues systematically and provide actionable solutions.",
-            max_turns=6,
-            allowed_tools=["Bash", "Read", "WebSearch", "mcp__datadog"],
-            mcp_servers=mcp_servers
-        )
-    ) as client:
-        # Send the incident details
-        prompt = f"Incident: {incident_description} (Severity: {severity})"
-        print(f"🚨 Investigating: {prompt}\n")
-        await client.query(prompt)
-
-        # Stream the investigation process
-        investigation_log = []
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'type'):
-                        if block.type == 'tool_use':
-                            print(f"[{block.name}] ", end='')
-                    if hasattr(block, 'text'):
-                        text = block.text
-                        print(text, end='', flush=True)
-                        investigation_log.append(text)
-
-            # Capture final result
-            if type(message).__name__ == "ResultMessage":
-                return {
-                    'analysis': ''.join(investigation_log),
-                    'cost': message.total_cost_usd,
-                    'duration_ms': message.duration_ms
-                }
-
-# Usage
-result = await investigate_incident("Payment API returning 500 errors", "high")
-print(f"\n\nInvestigation complete. Cost: ${result['cost']:.4f}")
+async for message in query(
+    prompt="Analyze this codebase",
+    options=options
+):
+    print(message)
 ```
 
-### Automated security review
+## Tool Input/Output Types
+
+Documentation of input/output schemas for all built-in Claude Code tools. While the Python SDK doesn't export these as types, they represent the structure of tool inputs and outputs in messages.
+
+### Task
+
+**Tool name:** `Task`
+
+**Input:**
 
 ```python
-import subprocess
-import asyncio
-import json
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+{
+    "description": str,      # A short (3-5 word) description of the task
+    "prompt": str,           # The task for the agent to perform
+    "subagent_type": str     # The type of specialized agent to use
+}
+```
 
-async def audit_pr(pr_number: int):
-    """Security audit agent for pull requests with streaming feedback"""
-    # Get PR diff
-    pr_diff = subprocess.check_output(
-        ["gh", "pr", "diff", str(pr_number)],
-        text=True
+**Output:**
+
+```python
+{
+    "result": str,                    # Final result from the subagent
+    "usage": dict | None,             # Token usage statistics
+    "total_cost_usd": float | None,  # Total cost in USD
+    "duration_ms": int | None         # Execution duration in milliseconds
+}
+```
+
+### Bash
+
+**Tool name:** `Bash`
+
+**Input:**
+
+```python
+{
+    "command": str,                  # The command to execute
+    "timeout": int | None,           # Optional timeout in milliseconds (max 600000)
+    "description": str | None,       # Clear, concise description (5-10 words)
+    "run_in_background": bool | None # Set to true to run in background
+}
+```
+
+**Output:**
+
+```python
+{
+    "output": str,              # Combined stdout and stderr output
+    "exitCode": int,            # Exit code of the command
+    "killed": bool | None,      # Whether command was killed due to timeout
+    "shellId": str | None       # Shell ID for background processes
+}
+```
+
+### Edit
+
+**Tool name:** `Edit`
+
+**Input:**
+
+```python
+{
+    "file_path": str,           # The absolute path to the file to modify
+    "old_string": str,          # The text to replace
+    "new_string": str,          # The text to replace it with
+    "replace_all": bool | None  # Replace all occurrences (default False)
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,      # Confirmation message
+    "replacements": int, # Number of replacements made
+    "file_path": str     # File path that was edited
+}
+```
+
+### MultiEdit
+
+**Tool name:** `MultiEdit`
+
+**Input:**
+
+```python
+{
+    "file_path": str,     # The absolute path to the file to modify
+    "edits": [            # Array of edit operations
+        {
+            "old_string": str,          # The text to replace
+            "new_string": str,          # The text to replace it with
+            "replace_all": bool | None  # Replace all occurrences
+        }
+    ]
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,       # Success message
+    "edits_applied": int, # Total number of edits applied
+    "file_path": str      # File path that was edited
+}
+```
+
+### Read
+
+**Tool name:** `Read`
+
+**Input:**
+
+```python
+{
+    "file_path": str,       # The absolute path to the file to read
+    "offset": int | None,   # The line number to start reading from
+    "limit": int | None     # The number of lines to read
+}
+```
+
+**Output (Text files):**
+
+```python
+{
+    "content": str,         # File contents with line numbers
+    "total_lines": int,     # Total number of lines in file
+    "lines_returned": int   # Lines actually returned
+}
+```
+
+**Output (Images):**
+
+```python
+{
+    "image": str,       # Base64 encoded image data
+    "mime_type": str,   # Image MIME type
+    "file_size": int    # File size in bytes
+}
+```
+
+### Write
+
+**Tool name:** `Write`
+
+**Input:**
+
+```python
+{
+    "file_path": str,  # The absolute path to the file to write
+    "content": str     # The content to write to the file
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,        # Success message
+    "bytes_written": int,  # Number of bytes written
+    "file_path": str       # File path that was written
+}
+```
+
+### Glob
+
+**Tool name:** `Glob`
+
+**Input:**
+
+```python
+{
+    "pattern": str,       # The glob pattern to match files against
+    "path": str | None    # The directory to search in (defaults to cwd)
+}
+```
+
+**Output:**
+
+```python
+{
+    "matches": list[str],  # Array of matching file paths
+    "count": int,          # Number of matches found
+    "search_path": str     # Search directory used
+}
+```
+
+### Grep
+
+**Tool name:** `Grep`
+
+**Input:**
+
+```python
+{
+    "pattern": str,                    # The regular expression pattern
+    "path": str | None,                # File or directory to search in
+    "glob": str | None,                # Glob pattern to filter files
+    "type": str | None,                # File type to search
+    "output_mode": str | None,         # "content", "files_with_matches", or "count"
+    "-i": bool | None,                 # Case insensitive search
+    "-n": bool | None,                 # Show line numbers
+    "-B": int | None,                  # Lines to show before each match
+    "-A": int | None,                  # Lines to show after each match
+    "-C": int | None,                  # Lines to show before and after
+    "head_limit": int | None,          # Limit output to first N lines/entries
+    "multiline": bool | None           # Enable multiline mode
+}
+```
+
+**Output (content mode):**
+
+```python
+{
+    "matches": [
+        {
+            "file": str,
+            "line_number": int | None,
+            "line": str,
+            "before_context": list[str] | None,
+            "after_context": list[str] | None
+        }
+    ],
+    "total_matches": int
+}
+```
+
+**Output (files\_with\_matches mode):**
+
+```python
+{
+    "files": list[str],  # Files containing matches
+    "count": int         # Number of files with matches
+}
+```
+
+### NotebookEdit
+
+**Tool name:** `NotebookEdit`
+
+**Input:**
+
+```python
+{
+    "notebook_path": str,                     # Absolute path to the Jupyter notebook
+    "cell_id": str | None,                    # The ID of the cell to edit
+    "new_source": str,                        # The new source for the cell
+    "cell_type": "code" | "markdown" | None,  # The type of the cell
+    "edit_mode": "replace" | "insert" | "delete" | None  # Edit operation type
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,                              # Success message
+    "edit_type": "replaced" | "inserted" | "deleted",  # Type of edit performed
+    "cell_id": str | None,                       # Cell ID that was affected
+    "total_cells": int                           # Total cells in notebook after edit
+}
+```
+
+### WebFetch
+
+**Tool name:** `WebFetch`
+
+**Input:**
+
+```python
+{
+    "url": str,     # The URL to fetch content from
+    "prompt": str   # The prompt to run on the fetched content
+}
+```
+
+**Output:**
+
+```python
+{
+    "response": str,           # AI model's response to the prompt
+    "url": str,                # URL that was fetched
+    "final_url": str | None,   # Final URL after redirects
+    "status_code": int | None  # HTTP status code
+}
+```
+
+### WebSearch
+
+**Tool name:** `WebSearch`
+
+**Input:**
+
+```python
+{
+    "query": str,                        # The search query to use
+    "allowed_domains": list[str] | None, # Only include results from these domains
+    "blocked_domains": list[str] | None  # Never include results from these domains
+}
+```
+
+**Output:**
+
+```python
+{
+    "results": [
+        {
+            "title": str,
+            "url": str,
+            "snippet": str,
+            "metadata": dict | None
+        }
+    ],
+    "total_results": int,
+    "query": str
+}
+```
+
+### TodoWrite
+
+**Tool name:** `TodoWrite`
+
+**Input:**
+
+```python
+{
+    "todos": [
+        {
+            "content": str,                              # The task description
+            "status": "pending" | "in_progress" | "completed",  # Task status
+            "activeForm": str                            # Active form of the description
+        }
+    ]
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,  # Success message
+    "stats": {
+        "total": int,
+        "pending": int,
+        "in_progress": int,
+        "completed": int
+    }
+}
+```
+
+### BashOutput
+
+**Tool name:** `BashOutput`
+
+**Input:**
+
+```python
+{
+    "bash_id": str,       # The ID of the background shell
+    "filter": str | None  # Optional regex to filter output lines
+}
+```
+
+**Output:**
+
+```python
+{
+    "output": str,                                      # New output since last check
+    "status": "running" | "completed" | "failed",       # Current shell status
+    "exitCode": int | None                              # Exit code when completed
+}
+```
+
+### KillBash
+
+**Tool name:** `KillBash`
+
+**Input:**
+
+```python
+{
+    "shell_id": str  # The ID of the background shell to kill
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,  # Success message
+    "shell_id": str  # ID of the killed shell
+}
+```
+
+### ExitPlanMode
+
+**Tool name:** `ExitPlanMode`
+
+**Input:**
+
+```python
+{
+    "plan": str  # The plan to run by the user for approval
+}
+```
+
+**Output:**
+
+```python
+{
+    "message": str,          # Confirmation message
+    "approved": bool | None  # Whether user approved the plan
+}
+```
+
+### ListMcpResources
+
+**Tool name:** `ListMcpResources`
+
+**Input:**
+
+```python
+{
+    "server": str | None  # Optional server name to filter resources by
+}
+```
+
+**Output:**
+
+```python
+{
+    "resources": [
+        {
+            "uri": str,
+            "name": str,
+            "description": str | None,
+            "mimeType": str | None,
+            "server": str
+        }
+    ],
+    "total": int
+}
+```
+
+### ReadMcpResource
+
+**Tool name:** `ReadMcpResource`
+
+**Input:**
+
+```python
+{
+    "server": str,  # The MCP server name
+    "uri": str      # The resource URI to read
+}
+```
+
+**Output:**
+
+```python
+{
+    "contents": [
+        {
+            "uri": str,
+            "mimeType": str | None,
+            "text": str | None,
+            "blob": str | None
+        }
+    ],
+    "server": str
+}
+```
+
+## Example Usage
+
+### Basic file operations
+
+```python
+from claude_code_sdk import query, ClaudeCodeOptions, AssistantMessage, ToolUseBlock
+import asyncio
+
+async def create_project():
+    options = ClaudeCodeOptions(
+        allowed_tools=["Read", "Write", "Bash"],
+        permission_mode='acceptEdits',
+        cwd="/home/user/project"
     )
+    
+    async for message in query(
+        prompt="Create a Python project structure with setup.py",
+        options=options
+    ):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, ToolUseBlock):
+                    print(f"Using tool: {block.name}")
 
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are a security engineer. Review this PR for vulnerabilities, insecure patterns, and compliance issues.",
-            max_turns=3,
-            allowed_tools=["Read", "Grep", "WebSearch"]
-        )
-    ) as client:
-        print(f"🔍 Auditing PR #{pr_number}\n")
-        await client.query(pr_diff)
-
-        findings = []
-        async for message in client.receive_response():
-            if hasattr(message, 'content'):
-                for block in message.content:
-                    if hasattr(block, 'text'):
-                        # Stream findings as they're discovered
-                        print(block.text, end='', flush=True)
-                        findings.append(block.text)
-
-            if type(message).__name__ == "ResultMessage":
-                return {
-                    'pr_number': pr_number,
-                    'findings': ''.join(findings),
-                    'metadata': {
-                        'cost': message.total_cost_usd,
-                        'duration': message.duration_ms,
-                        'severity': 'high' if 'vulnerability' in ''.join(findings).lower() else 'medium'
-                    }
-                }
-
-# Usage
-report = await audit_pr(123)
-print(f"\n\nAudit complete. Severity: {report['metadata']['severity']}")
-print(json.dumps(report, indent=2))
+asyncio.run(create_project())
 ```
 
-### Multi-turn legal assistant
+### Error handling
 
 ```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-async def legal_review():
-    """Legal document review with persistent session and streaming"""
-
-    async with ClaudeSDKClient(
-        options=ClaudeCodeOptions(
-            system_prompt="You are a corporate lawyer. Provide detailed legal analysis.",
-            max_turns=2
-        )
-    ) as client:
-        # Multi-step review in same session
-        steps = [
-            "Review contract.pdf for liability clauses",
-            "Check compliance with GDPR requirements",
-            "Generate executive summary of risks"
-        ]
-
-        review_results = []
-
-        for step in steps:
-            print(f"\n📋 {step}\n")
-            await client.query(step)
-
-            step_result = []
-            async for message in client.receive_response():
-                if hasattr(message, 'content'):
-                    for block in message.content:
-                        if hasattr(block, 'text'):
-                            text = block.text
-                            print(text, end='', flush=True)
-                            step_result.append(text)
-
-                if type(message).__name__ == "ResultMessage":
-                    review_results.append({
-                        'step': step,
-                        'analysis': ''.join(step_result),
-                        'cost': message.total_cost_usd
-                    })
-
-        # Summary
-        total_cost = sum(r['cost'] for r in review_results)
-        print(f"\n\n✅ Legal review complete. Total cost: ${total_cost:.4f}")
-        return review_results
-
-# Usage
-results = await legal_review()
-```
-
-## Python-specific best practices
-
-### Key patterns
-
-```python
-import asyncio
-from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
-
-# Always use context managers
-async with ClaudeSDKClient() as client:
-    await client.query("Analyze this code")
-    async for msg in client.receive_response():
-        # Process streaming messages
-        pass
-
-# Run multiple agents concurrently
-async with ClaudeSDKClient() as reviewer, ClaudeSDKClient() as tester:
-    await asyncio.gather(
-        reviewer.query("Review main.py"),
-        tester.query("Write tests for main.py")
-    )
-
-# Error handling
-from claude_code_sdk import CLINotFoundError, ProcessError
+from claude_code_sdk import (
+    query,
+    CLINotFoundError,
+    ProcessError,
+    CLIJSONDecodeError
+)
 
 try:
-    async with ClaudeSDKClient() as client:
-        # Your code here
-        pass
+    async for message in query(prompt="Hello"):
+        print(message)
 except CLINotFoundError:
-    print("Install CLI: npm install -g @anthropic-ai/claude-code")
+    print("Please install Claude Code: npm install -g @anthropic-ai/claude-code")
 except ProcessError as e:
-    print(f"Process error: {e}")
-
-# Collect full response with metadata
-async def get_response(client, prompt):
-    await client.query(prompt)
-    text = []
-    async for msg in client.receive_response():
-        if hasattr(msg, 'content'):
-            for block in msg.content:
-                if hasattr(block, 'text'):
-                    text.append(block.text)
-        if type(msg).__name__ == "ResultMessage":
-            return {'text': ''.join(text), 'cost': msg.total_cost_usd}
+    print(f"Process failed with exit code: {e.exit_code}")
+except CLIJSONDecodeError as e:
+    print(f"Failed to parse response: {e}")
 ```
 
-### IPython/Jupyter tips
+### Streaming mode with client
 
 ```python
-# In Jupyter, use await directly in cells
-client = ClaudeSDKClient()
-await client.connect()
-await client.query("Analyze data.csv")
-async for msg in client.receive_response():
-    print(msg)
-await client.disconnect()
+from claude_code_sdk import ClaudeSDKClient
+import asyncio
 
-# Create reusable helper functions
-async def stream_print(client, prompt):
-    await client.query(prompt)
-    async for msg in client.receive_response():
-        if hasattr(msg, 'content'):
-            for block in msg.content:
-                if hasattr(block, 'text'):
-                    print(block.text, end='', flush=True)
+async def interactive_session():
+    async with ClaudeSDKClient() as client:
+        # Send initial message
+        await client.query("What's the weather like?")
+        
+        # Process responses
+        async for msg in client.receive_response():
+            print(msg)
+        
+        # Send follow-up
+        await client.query("Tell me more about that")
+        
+        # Process follow-up response
+        async for msg in client.receive_response():
+            print(msg)
+
+asyncio.run(interactive_session())
 ```
 
-## Related resources
+### Using custom tools
 
-* [CLI usage and controls](/en/docs/claude-code/cli-reference) - Complete CLI documentation
-* [GitHub Actions integration](/en/docs/claude-code/github-actions) - Automate your GitHub workflow with Claude
-* [Common workflows](/en/docs/claude-code/common-workflows) - Step-by-step guides for common use cases
+```python
+from claude_code_sdk import (
+    query,
+    ClaudeCodeOptions,
+    tool,
+    create_sdk_mcp_server,
+    AssistantMessage,
+    TextBlock
+)
+import asyncio
+from typing import Any
+
+# Define custom tools with @tool decorator
+@tool("calculate", "Perform mathematical calculations", {"expression": str})
+async def calculate(args: dict[str, Any]) -> dict[str, Any]:
+    try:
+        result = eval(args["expression"], {"__builtins__": {}})
+        return {
+            "content": [{
+                "type": "text",
+                "text": f"Result: {result}"
+            }]
+        }
+    except Exception as e:
+        return {
+            "content": [{
+                "type": "text",
+                "text": f"Error: {str(e)}"
+            }],
+            "is_error": True
+        }
+
+@tool("get_time", "Get current time", {})
+async def get_time(args: dict[str, Any]) -> dict[str, Any]:
+    from datetime import datetime
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return {
+        "content": [{
+            "type": "text",
+            "text": f"Current time: {current_time}"
+        }]
+    }
+
+async def main():
+    # Create SDK MCP server with custom tools
+    my_server = create_sdk_mcp_server(
+        name="utilities",
+        version="1.0.0",
+        tools=[calculate, get_time]
+    )
+    
+    # Configure options with the server
+    options = ClaudeCodeOptions(
+        mcp_servers={"utils": my_server},
+        allowed_tools=[
+            "mcp__utils__calculate",
+            "mcp__utils__get_time"
+        ]
+    )
+    
+    # Query Claude with custom tools available
+    async for message in query(
+        prompt="What's 123 * 456 and what time is it?",
+        options=options
+    ):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock):
+                    print(block.text)
+
+asyncio.run(main())
+```
+
+## See also
+
+* [Python SDK guide](/en/docs/claude-code/sdk/sdk-python) - Tutorial and examples
+* [SDK overview](/en/docs/claude-code/sdk/sdk-overview) - General SDK concepts
+* [TypeScript SDK reference](/en/docs/claude-code/typescript-sdk-reference) - TypeScript SDK documentation
+* [CLI reference](/en/docs/claude-code/cli-reference) - Command-line interface
+* [Common workflows](/en/docs/claude-code/common-workflows) - Step-by-step guides
