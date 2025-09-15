@@ -10,7 +10,7 @@ Claude Code provides an analytics dashboard that helps organizations understand 
 
 ## Access analytics
 
-Navigate to the analytics dashboard at [console.anthropic.com/claude\_code](https://console.anthropic.com/claude_code).
+Navigate to the analytics dashboard at [console.anthropic.com/claude-code](https://console.anthropic.com/claude-code).
 
 ### Required roles
 

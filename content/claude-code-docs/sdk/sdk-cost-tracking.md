@@ -43,7 +43,7 @@ When Claude executes tools, the usage reporting differs based on whether tools a
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   # Example: Tracking usage in a conversation
   async def track_usage(message):
@@ -187,7 +187,7 @@ Here's a complete example of implementing a cost tracking system:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
   from datetime import datetime
 
   class CostTracker:

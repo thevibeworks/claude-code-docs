@@ -49,7 +49,7 @@ The SDK automatically creates todos for:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async for message in query(
       prompt="Optimize my React app performance and track progress with todos",
@@ -113,7 +113,7 @@ The SDK automatically creates todos for:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
   from typing import List, Dict
 
   class TodoTracker:

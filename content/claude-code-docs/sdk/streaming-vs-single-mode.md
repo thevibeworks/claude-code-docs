@@ -20,22 +20,30 @@ It allows the agent to operate as a long lived process that takes in user input,
 ### How It Works
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"edgeLabelBackground": "#F0F0EB", "lineColor": "#91918D", "primaryColor": "#F0F0EB", "primaryTextColor": "#191919", "primaryBorderColor": "#D9D8D5", "secondaryColor": "#F5E6D8", "tertiaryColor": "#CC785C", "noteBkgColor": "#FAF0E6", "noteBorderColor": "#91918D"}, "sequence": {"actorMargin": 50, "width": 150, "height": 65, "boxMargin": 10, "boxTextMargin": 5, "noteMargin": 10, "messageMargin": 35}}}%%
 sequenceDiagram
     participant App as Your Application
     participant Agent as Claude Agent
     participant Tools as Tools/Hooks
+    participant FS as Environment/<br/>File System
     
     App->>Agent: Initialize with AsyncGenerator
     activate Agent
     
     App->>Agent: Yield Message 1
     Agent->>Tools: Execute tools
+    Tools->>FS: Read files
+    FS-->>Tools: File contents
+    Tools->>FS: Write/Edit files
+    FS-->>Tools: Success/Error
     Agent-->>App: Stream partial response
     Agent-->>App: Stream more content...
     Agent->>App: Complete Message 1
     
     App->>Agent: Yield Message 2 + Image
     Agent->>Tools: Process image & execute
+    Tools->>FS: Access filesystem
+    FS-->>Tools: Operation results
     Agent-->>App: Stream response 2
     
     App->>Agent: Queue Message 3
@@ -43,6 +51,7 @@ sequenceDiagram
     Agent->>App: Handle interruption
     
     Note over App,Agent: Session stays alive
+    Note over Tools,FS: Persistent file system<br/>state maintained
     
     deactivate Agent
 ```
@@ -133,8 +142,9 @@ sequenceDiagram
   ```
 
   ```python Python
-  from anthropic_claude_code import query, ClaudeCodeOptions
+  from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions, AssistantMessage, TextBlock
   import asyncio
+  import base64
 
   async def streaming_analysis():
       async def message_generator():
@@ -150,25 +160,49 @@ sequenceDiagram
           # Wait for conditions
           await asyncio.sleep(2)
           
-          # Follow-up message
+          # Follow-up with image
+          with open("diagram.png", "rb") as f:
+              image_data = base64.b64encode(f.read()).decode()
+          
           yield {
-              "type": "user", 
+              "type": "user",
               "message": {
                   "role": "user",
-                  "content": "Check for authentication vulnerabilities"
+                  "content": [
+                      {
+                          "type": "text",
+                          "text": "Review this architecture diagram"
+                      },
+                      {
+                          "type": "image",
+                          "source": {
+                              "type": "base64",
+                              "media_type": "image/png",
+                              "data": image_data
+                          }
+                      }
+                  ]
               }
           }
       
-      # Process streaming responses
-      async for message in query(
-          prompt=message_generator(),
-          options=ClaudeCodeOptions(
-              max_turns=10,
-              allowed_tools=["Read", "Grep"]
-          )
-      ):
-          if hasattr(message, 'result'):
-              print(message.result)
+      # Use ClaudeSDKClient for streaming input
+      options = ClaudeCodeOptions(
+          max_turns=10,
+          allowed_tools=["Read", "Grep"]
+      )
+      
+      async with ClaudeSDKClient(options) as client:
+          # Send streaming input
+          await client.query(message_generator())
+          
+          # Process responses
+          async for message in client.receive_response():
+              if isinstance(message, AssistantMessage):
+                  for block in message.content:
+                      if isinstance(block, TextBlock):
+                          print(block.text)
+
+  asyncio.run(streaming_analysis())
   ```
 </CodeGroup>
 
@@ -230,28 +264,32 @@ Use single message input when:
   ```
 
   ```python Python
-  from anthropic_claude_code import query, ClaudeCodeOptions
+  from claude_code_sdk import query, ClaudeCodeOptions, ResultMessage
+  import asyncio
 
-  # Simple one-shot query
-  async for message in query(
-      prompt="Explain the authentication flow",
-      options=ClaudeCodeOptions(
-          max_turns=1,
-          allowed_tools=["Read", "Grep"]
-      )
-  ):
-      if hasattr(message, 'result'):
-          print(message.result)
+  async def single_message_example():
+      # Simple one-shot query using query() function
+      async for message in query(
+          prompt="Explain the authentication flow",
+          options=ClaudeCodeOptions(
+              max_turns=1,
+              allowed_tools=["Read", "Grep"]
+          )
+      ):
+          if isinstance(message, ResultMessage):
+              print(message.result)
+      
+      # Continue conversation with session management
+      async for message in query(
+          prompt="Now explain the authorization process",
+          options=ClaudeCodeOptions(
+              continue_conversation=True,
+              max_turns=1
+          )
+      ):
+          if isinstance(message, ResultMessage):
+              print(message.result)
 
-  # Continue with session management
-  async for message in query(
-      prompt="Now explain the authorization process",
-      options=ClaudeCodeOptions(
-          continue_conversation=True,
-          max_turns=1
-      )
-  ):
-      if hasattr(message, 'result'):
-          print(message.result)
+  asyncio.run(single_message_example())
   ```
 </CodeGroup>

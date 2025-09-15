@@ -25,7 +25,7 @@ The Claude Code SDK provides information about available slash commands in the s
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       async for message in query(
@@ -61,7 +61,7 @@ Send slash commands by including them in your prompt string, just like regular t
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       # Send a slash command
@@ -100,7 +100,7 @@ The `/compact` command reduces the size of your conversation history by summariz
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       async for message in query(
@@ -140,7 +140,7 @@ The `/clear` command starts a fresh conversation by clearing all previous histor
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       # Clear conversation and start fresh
@@ -237,7 +237,7 @@ Once defined in the filesystem, custom commands are automatically available thro
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       # Use a custom command
@@ -300,7 +300,7 @@ Use in SDK:
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       # Pass arguments to custom command
@@ -448,7 +448,7 @@ Use these commands through the SDK:
 
   ```python Python
   import asyncio
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def main():
       # Run code review

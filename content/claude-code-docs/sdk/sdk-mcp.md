@@ -62,7 +62,7 @@ Configure MCP servers in `.mcp.json` at your project root:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async for message in query(
       prompt="List files in my project",
@@ -201,7 +201,7 @@ MCP servers can expose resources that Claude can list and read:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   # List available resources
   async for message in query(
@@ -301,7 +301,7 @@ Handle MCP connection failures gracefully:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async for message in query(
       prompt="Process data",
