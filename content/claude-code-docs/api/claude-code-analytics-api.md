@@ -6,7 +6,7 @@
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization in **Console → Settings → Organization**.
 </Tip>
 
-The Claude Code Analytics Admin API provides programmatic access to daily aggregated usage metrics for Claude Code users, enabling organizations to analyze developer productivity and build custom dashboards. This API bridges the gap between our basic [Analytics dashboard](https://console.anthropic.com/claude_code) and the complex OpenTelemetry integration.
+The Claude Code Analytics Admin API provides programmatic access to daily aggregated usage metrics for Claude Code users, enabling organizations to analyze developer productivity and build custom dashboards. This API bridges the gap between our basic [Analytics dashboard](https://console.anthropic.com/claude-code) and the complex OpenTelemetry integration.
 
 This API enables you to better monitor, analyze, and optimize your Claude Code adoption:
 
@@ -264,7 +264,7 @@ The Claude Code Analytics API helps you understand and optimize your team's deve
 
 * [Admin API overview](/en/api/administration-api)
 * [Admin API reference](https://docs.anthropic.com/en/api/admin-api)
-* [Claude Code Analytics dashboard](https://console.anthropic.com/claude_code)
+* [Claude Code Analytics dashboard](https://console.anthropic.com/claude-code)
 * [Usage and Cost API](/en/api/usage-cost-api) - Track API usage across all Anthropic services
 * [Identity and access management](/en/docs/claude-code/iam)
 * [Monitoring usage with OpenTelemetry](/en/docs/claude-code/monitoring-usage) for custom metrics and alerting

@@ -132,31 +132,26 @@ You can control which tools Claude can use via the `allowedTools` option:
 
   ```python Python
   from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+  import asyncio
 
-  # Use the custom tools in your query with streaming input
-  async def message_generator():
-      yield {
-          "type": "user",
-          "message": {
-              "role": "user",
-              "content": "What's the weather in San Francisco?"
-          }
-      }
+  # Use the custom tools with Claude
+  options = ClaudeCodeOptions(
+      mcp_servers={"my-custom-tools": custom_server},
+      allowed_tools=[
+          "mcp__my-custom-tools__get_weather",  # Allow the weather tool
+          # Add other tools as needed
+      ]
+  )
 
-  async for message in query(
-      prompt=message_generator(),  # Use async generator for streaming input
-      options=ClaudeCodeOptions(
-          mcp_servers={"my-custom-tools": custom_server},  # Pass as dict, not list
-          # Optionally specify which tools Claude can use
-          allowed_tools=[
-              "mcp__my-custom-tools__get_weather",  # Allow the weather tool
-              # Add other tools as needed
-          ],
-          max_turns=3
-      )
-  ):
-      if hasattr(message, 'result'):
-          print(message.result)
+  async def main():
+      async with ClaudeSDKClient(options=options) as client:
+          await client.query("What's the weather in San Francisco?")
+          
+          # Extract and print response
+          async for msg in client.receive_response():
+              print(msg)
+
+  asyncio.run(main())
   ```
 </CodeGroup>
 
@@ -205,7 +200,9 @@ When your MCP server has multiple tools, you can selectively allow them:
   ```
 
   ```python Python
-  from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+  from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions, tool, create_sdk_mcp_server
+  from typing import Any
+  import asyncio
 
   # Define multiple tools using the @tool decorator
   @tool("calculate", "Perform calculations", {"expression": str})
@@ -239,6 +236,7 @@ When your MCP server has multiple tools, you can selectively allow them:
           }
       }
 
+  <<<<<<< Updated upstream
   async for message in query(
       prompt=message_generator(),  # Use async generator for streaming input
       options=ClaudeCodeOptions(
@@ -252,6 +250,17 @@ When your MCP server has multiple tools, you can selectively allow them:
   ):
       if hasattr(message, 'result'):
           print(message.result)
+  =======
+  async def main():
+      async with ClaudeSDKClient(options=options) as client:
+          await client.query("Calculate 5 + 3 and translate 'hello' to Spanish")
+          
+          # Process messages
+          async for msg in client.receive_response():
+              print(msg)
+
+  asyncio.run(main())
+  >>>>>>> Stashed changes
   ```
 </CodeGroup>
 

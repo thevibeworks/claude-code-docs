@@ -2,11 +2,48 @@
 
 > Complete API reference for the Claude Code Python SDK, including all functions, types, and classes.
 
+## Choosing Between `query()` and `ClaudeSDKClient`
+
+The Python SDK provides two ways to interact with Claude Code:
+
+### Quick Comparison
+
+| Feature             | `query()`                     | `ClaudeSDKClient`                  |
+| :------------------ | :---------------------------- | :--------------------------------- |
+| **Session**         | Creates new session each time | Reuses same session                |
+| **Conversation**    | Single exchange               | Multiple exchanges in same context |
+| **Connection**      | Managed automatically         | Manual control                     |
+| **Streaming Input** | ✅ Supported                   | ✅ Supported                        |
+| **Interrupts**      | ❌ Not supported               | ✅ Supported                        |
+| **Hooks**           | ❌ Not supported               | ✅ Supported                        |
+| **Custom Tools**    | ❌ Not supported               | ✅ Supported                        |
+| **Continue Chat**   | ❌ New session each time       | ✅ Maintains conversation           |
+| **Use Case**        | One-off tasks                 | Continuous conversations           |
+
+### When to Use `query()` (New Session Each Time)
+
+**Best for:**
+
+* One-off questions where you don't need conversation history
+* Independent tasks that don't require context from previous exchanges
+* Simple automation scripts
+* When you want a fresh start each time
+
+### When to Use `ClaudeSDKClient` (Continuous Conversation)
+
+**Best for:**
+
+* **Continuing conversations** - When you need Claude to remember context
+* **Follow-up questions** - Building on previous responses
+* **Interactive applications** - Chat interfaces, REPLs
+* **Response-driven logic** - When next action depends on Claude's response
+* **Session control** - Managing conversation lifecycle explicitly
+
 ## Functions
 
 ### `query()`
 
-The primary async function for interacting with Claude Code. Returns an async iterator that yields messages as they arrive.
+Creates a new session for each interaction with Claude Code. Returns an async iterator that yields messages as they arrive. Each call to `query()` starts fresh with no memory of previous interactions.
 
 ```python
 async def query(
@@ -26,19 +63,6 @@ async def query(
 #### Returns
 
 Returns an `AsyncIterator[Message]` that yields messages from the conversation.
-
-#### Example - Simple query
-
-```python
-import asyncio
-from claude_code_sdk import query
-
-async def main():
-    async for message in query(prompt="What is 2+2?"):
-        print(message)
-
-asyncio.run(main())
-```
 
 #### Example - With options
 
@@ -187,7 +211,16 @@ options = ClaudeCodeOptions(
 
 ### `ClaudeSDKClient`
 
-Client for bidirectional, interactive conversations with Claude Code. Provides full control over conversation flow with support for streaming, interrupts, and dynamic message sending.
+**Maintains a conversation session across multiple exchanges.** This is the Python equivalent of how the TypeScript SDK's `query()` function works internally - it creates a client object that can continue conversations.
+
+#### Key Features
+
+* **Session Continuity**: Maintains conversation context across multiple `query()` calls
+* **Same Conversation**: Claude remembers previous messages in the session
+* **Interrupt Support**: Can stop Claude mid-execution
+* **Explicit Lifecycle**: You control when the session starts and ends
+* **Response-driven Flow**: Can react to responses and send follow-ups
+* **Custom Tools & Hooks**: Supports custom tools (created with `@tool` decorator) and hooks
 
 ```python
 class ClaudeSDKClient:
@@ -225,7 +258,7 @@ async with ClaudeSDKClient() as client:
 
 > **Important:** When iterating over messages, avoid using `break` to exit early as this can cause asyncio cleanup issues. Instead, let the iteration complete naturally or use flags to track when you've found what you need.
 
-#### Example - Interactive conversation
+#### Example - Continuing a conversation
 
 ```python
 import asyncio
@@ -233,20 +266,151 @@ from claude_code_sdk import ClaudeSDKClient, AssistantMessage, TextBlock, Result
 
 async def main():
     async with ClaudeSDKClient() as client:
-        # Send initial message
-        await client.query("Let's solve a math problem step by step")
+        # First question
+        await client.query("What's the capital of France?")
         
-        # Receive and process response
+        # Process response
         async for message in client.receive_response():
             if isinstance(message, AssistantMessage):
                 for block in message.content:
                     if isinstance(block, TextBlock):
-                        print(f"Assistant: {block.text[:100]}...")
-            elif isinstance(message, ResultMessage):
-                print("Response complete")
+                        print(f"Claude: {block.text}")
         
-        # Send follow-up based on response
-        await client.query("What's 15% of 80?")
+        # Follow-up question - Claude remembers the previous context
+        await client.query("What's the population of that city?")
+        
+        async for message in client.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(f"Claude: {block.text}")
+        
+        # Another follow-up - still in the same conversation
+        await client.query("What are some famous landmarks there?")
+        
+        async for message in client.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(f"Claude: {block.text}")
+
+asyncio.run(main())
+```
+
+#### Example - Streaming input with ClaudeSDKClient
+
+```python
+import asyncio
+from claude_code_sdk import ClaudeSDKClient
+
+async def message_stream():
+    """Generate messages dynamically."""
+    yield {"type": "text", "text": "Analyze the following data:"}
+    await asyncio.sleep(0.5)
+    yield {"type": "text", "text": "Temperature: 25°C"}
+    await asyncio.sleep(0.5)
+    yield {"type": "text", "text": "Humidity: 60%"}
+    await asyncio.sleep(0.5)
+    yield {"type": "text", "text": "What patterns do you see?"}
+
+async def main():
+    async with ClaudeSDKClient() as client:
+        # Stream input to Claude
+        await client.query(message_stream())
+        
+        # Process response
+        async for message in client.receive_response():
+            print(message)
+        
+        # Follow-up in same session
+        await client.query("Should we be concerned about these readings?")
+        
+        async for message in client.receive_response():
+            print(message)
+
+asyncio.run(main())
+```
+
+#### Example - Using interrupts
+
+```python
+import asyncio
+from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions
+
+async def interruptible_task():
+    options = ClaudeCodeOptions(
+        allowed_tools=["Bash"],
+        permission_mode="acceptEdits"
+    )
+    
+    async with ClaudeSDKClient(options=options) as client:
+        # Start a long-running task
+        await client.query("Count from 1 to 100 slowly")
+        
+        # Let it run for a bit
+        await asyncio.sleep(2)
+        
+        # Interrupt the task
+        await client.interrupt()
+        print("Task interrupted!")
+        
+        # Send a new command
+        await client.query("Just say hello instead")
+        
+        async for message in client.receive_response():
+            # Process the new response
+            pass
+
+asyncio.run(interruptible_task())
+```
+
+#### Example - Advanced permission control
+
+```python
+from claude_code_sdk import (
+    ClaudeSDKClient,
+    ClaudeCodeOptions,
+    PermissionResultAllow,
+    PermissionResultDeny,
+    ToolPermissionContext
+)
+
+async def custom_permission_handler(
+    tool_name: str,
+    input_data: dict,
+    context: ToolPermissionContext
+):
+    """Custom logic for tool permissions."""
+    
+    # Block writes to system directories
+    if tool_name == "Write" and input_data.get("file_path", "").startswith("/system/"):
+        return PermissionResultDeny(
+            message="System directory write not allowed",
+            interrupt=True
+        )
+    
+    # Redirect sensitive file operations
+    if tool_name in ["Write", "Edit"] and "config" in input_data.get("file_path", ""):
+        safe_path = f"./sandbox/{input_data['file_path']}"
+        return PermissionResultAllow(
+            updated_input={**input_data, "file_path": safe_path}
+        )
+    
+    # Allow everything else
+    return PermissionResultAllow()
+
+async def main():
+    options = ClaudeCodeOptions(
+        can_use_tool=custom_permission_handler,
+        allowed_tools=["Read", "Write", "Edit"]
+    )
+    
+    async with ClaudeSDKClient(options=options) as client:
+        await client.query("Update the system config file")
+        
+        async for message in client.receive_response():
+            # Will use sandbox path instead
+            print(message)
 
 asyncio.run(main())
 ```
@@ -1144,9 +1308,215 @@ Documentation of input/output schemas for all built-in Claude Code tools. While 
 }
 ```
 
+## Advanced Features with ClaudeSDKClient
+
+### Building a Continuous Conversation Interface
+
+```python
+from claude_code_sdk import ClaudeSDKClient, ClaudeCodeOptions, AssistantMessage, TextBlock
+import asyncio
+
+class ConversationSession:
+    """Maintains a single conversation session with Claude."""
+    
+    def __init__(self, options: ClaudeCodeOptions = None):
+        self.client = ClaudeSDKClient(options)
+        self.turn_count = 0
+    
+    async def start(self):
+        await self.client.connect()
+        print("Starting conversation session. Claude will remember context.")
+        print("Commands: 'exit' to quit, 'interrupt' to stop current task, 'new' for new session")
+        
+        while True:
+            user_input = input(f"\n[Turn {self.turn_count + 1}] You: ")
+            
+            if user_input.lower() == 'exit':
+                break
+            elif user_input.lower() == 'interrupt':
+                await self.client.interrupt()
+                print("Task interrupted!")
+                continue
+            elif user_input.lower() == 'new':
+                # Disconnect and reconnect for a fresh session
+                await self.client.disconnect()
+                await self.client.connect()
+                self.turn_count = 0
+                print("Started new conversation session (previous context cleared)")
+                continue
+            
+            # Send message - Claude remembers all previous messages in this session
+            await self.client.query(user_input)
+            self.turn_count += 1
+            
+            # Process response
+            print(f"[Turn {self.turn_count}] Claude: ", end="")
+            async for message in self.client.receive_response():
+                if isinstance(message, AssistantMessage):
+                    for block in message.content:
+                        if isinstance(block, TextBlock):
+                            print(block.text, end="")
+            print()  # New line after response
+        
+        await self.client.disconnect()
+        print(f"Conversation ended after {self.turn_count} turns.")
+
+async def main():
+    options = ClaudeCodeOptions(
+        allowed_tools=["Read", "Write", "Bash"],
+        permission_mode="acceptEdits"
+    )
+    session = ConversationSession(options)
+    await session.start()
+
+# Example conversation:
+# Turn 1 - You: "Create a file called hello.py"
+# Turn 1 - Claude: "I'll create a hello.py file for you..."
+# Turn 2 - You: "What's in that file?"  
+# Turn 2 - Claude: "The hello.py file I just created contains..." (remembers!)
+# Turn 3 - You: "Add a main function to it"
+# Turn 3 - Claude: "I'll add a main function to hello.py..." (knows which file!)
+
+asyncio.run(main())
+```
+
+### Using Hooks for Behavior Modification
+
+```python
+from claude_code_sdk import (
+    ClaudeSDKClient,
+    ClaudeCodeOptions,
+    HookMatcher,
+    HookContext
+)
+import asyncio
+from typing import Any
+
+async def pre_tool_logger(
+    input_data: dict[str, Any],
+    tool_use_id: str | None,
+    context: HookContext
+) -> dict[str, Any]:
+    """Log all tool usage before execution."""
+    tool_name = input_data.get('tool_name', 'unknown')
+    print(f"[PRE-TOOL] About to use: {tool_name}")
+    
+    # You can modify or block the tool execution here
+    if tool_name == "Bash" and "rm -rf" in str(input_data.get('tool_input', {})):
+        return {
+            'hookSpecificOutput': {
+                'hookEventName': 'PreToolUse',
+                'permissionDecision': 'deny',
+                'permissionDecisionReason': 'Dangerous command blocked'
+            }
+        }
+    return {}
+
+async def post_tool_logger(
+    input_data: dict[str, Any],
+    tool_use_id: str | None,
+    context: HookContext
+) -> dict[str, Any]:
+    """Log results after tool execution."""
+    tool_name = input_data.get('tool_name', 'unknown')
+    print(f"[POST-TOOL] Completed: {tool_name}")
+    return {}
+
+async def user_prompt_modifier(
+    input_data: dict[str, Any],
+    tool_use_id: str | None,
+    context: HookContext
+) -> dict[str, Any]:
+    """Add context to user prompts."""
+    original_prompt = input_data.get('prompt', '')
+    
+    # Add timestamp to all prompts
+    from datetime import datetime
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    return {
+        'hookSpecificOutput': {
+            'hookEventName': 'UserPromptSubmit',
+            'updatedPrompt': f"[{timestamp}] {original_prompt}"
+        }
+    }
+
+async def main():
+    options = ClaudeCodeOptions(
+        hooks={
+            'PreToolUse': [
+                HookMatcher(hooks=[pre_tool_logger]),
+                HookMatcher(matcher='Bash', hooks=[pre_tool_logger])
+            ],
+            'PostToolUse': [
+                HookMatcher(hooks=[post_tool_logger])
+            ],
+            'UserPromptSubmit': [
+                HookMatcher(hooks=[user_prompt_modifier])
+            ]
+        },
+        allowed_tools=["Read", "Write", "Bash"]
+    )
+    
+    async with ClaudeSDKClient(options=options) as client:
+        await client.query("List files in current directory")
+        
+        async for message in client.receive_response():
+            # Hooks will automatically log tool usage
+            pass
+
+asyncio.run(main())
+```
+
+### Real-time Progress Monitoring
+
+```python
+from claude_code_sdk import (
+    ClaudeSDKClient,
+    ClaudeCodeOptions,
+    AssistantMessage,
+    ToolUseBlock,
+    ToolResultBlock,
+    TextBlock
+)
+import asyncio
+
+async def monitor_progress():
+    options = ClaudeCodeOptions(
+        allowed_tools=["Write", "Bash"],
+        permission_mode="acceptEdits"
+    )
+    
+    async with ClaudeSDKClient(options=options) as client:
+        await client.query(
+            "Create 5 Python files with different sorting algorithms"
+        )
+        
+        # Monitor progress in real-time
+        files_created = []
+        async for message in client.receive_messages():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, ToolUseBlock):
+                        if block.name == "Write":
+                            file_path = block.input.get("file_path", "")
+                            print(f"🔨 Creating: {file_path}")
+                    elif isinstance(block, ToolResultBlock):
+                        print(f"✅ Completed tool execution")
+                    elif isinstance(block, TextBlock):
+                        print(f"💭 Claude says: {block.text[:100]}...")
+            
+            # Check if we've received the final result
+            if hasattr(message, 'subtype') and message.subtype in ['success', 'error']:
+                print(f"\n🎯 Task completed!")
+                break
+
+asyncio.run(monitor_progress())
+```
+
 ## Example Usage
 
-### Basic file operations
+### Basic file operations (using query)
 
 ```python
 from claude_code_sdk import query, ClaudeCodeOptions, AssistantMessage, ToolUseBlock
@@ -1217,11 +1587,11 @@ async def interactive_session():
 asyncio.run(interactive_session())
 ```
 
-### Using custom tools
+### Using custom tools with ClaudeSDKClient
 
 ```python
 from claude_code_sdk import (
-    query,
+    ClaudeSDKClient,
     ClaudeCodeOptions,
     tool,
     create_sdk_mcp_server,
@@ -1279,15 +1649,25 @@ async def main():
         ]
     )
     
-    # Query Claude with custom tools available
-    async for message in query(
-        prompt="What's 123 * 456 and what time is it?",
-        options=options
-    ):
-        if isinstance(message, AssistantMessage):
-            for block in message.content:
-                if isinstance(block, TextBlock):
-                    print(block.text)
+    # Use ClaudeSDKClient for interactive tool usage
+    async with ClaudeSDKClient(options=options) as client:
+        await client.query("What's 123 * 456?")
+        
+        # Process calculation response
+        async for message in client.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(f"Calculation: {block.text}")
+        
+        # Follow up with time query
+        await client.query("What time is it now?")
+        
+        async for message in client.receive_response():
+            if isinstance(message, AssistantMessage):
+                for block in message.content:
+                    if isinstance(block, TextBlock):
+                        print(f"Time: {block.text}")
 
 asyncio.run(main())
 ```

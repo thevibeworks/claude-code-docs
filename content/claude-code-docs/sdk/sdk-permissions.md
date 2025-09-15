@@ -131,7 +131,7 @@ Set the mode when creating a query:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   result = await query(
       prompt="Help me refactor this code",
@@ -187,7 +187,7 @@ Change the mode during a streaming session:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def stream_input():
       """Async generator for streaming input"""
@@ -347,7 +347,7 @@ Here's a complete example showing how to implement interactive tool approval:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   async def prompt_for_tool_approval(tool_name: str, input_params: dict):
       print(f"\n🔧 Tool Request:")

@@ -128,7 +128,7 @@ The `appendSystemPrompt` option adds your custom instructions to the default sys
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   messages = []
 
@@ -176,7 +176,7 @@ The `customSystemPrompt` option replaces the entire default system prompt with y
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   custom_prompt = """You are a Python coding specialist. 
   Follow these guidelines:
@@ -279,7 +279,7 @@ You can combine these methods for maximum flexibility:
   ```
 
   ```python Python
-  from anthropic_claude_code import query
+  from claude_code_sdk import query
 
   # Assuming "Code Reviewer" output style is active (via /output-style)  
   # Add session-specific focus areas
