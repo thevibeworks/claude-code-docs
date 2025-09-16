@@ -236,7 +236,6 @@ When your MCP server has multiple tools, you can selectively allow them:
           }
       }
 
-  <<<<<<< Updated upstream
   async for message in query(
       prompt=message_generator(),  # Use async generator for streaming input
       options=ClaudeCodeOptions(
@@ -250,17 +249,6 @@ When your MCP server has multiple tools, you can selectively allow them:
   ):
       if hasattr(message, 'result'):
           print(message.result)
-  =======
-  async def main():
-      async with ClaudeSDKClient(options=options) as client:
-          await client.query("Calculate 5 + 3 and translate 'hello' to Spanish")
-          
-          # Process messages
-          async for msg in client.receive_response():
-              print(msg)
-
-  asyncio.run(main())
-  >>>>>>> Stashed changes
   ```
 </CodeGroup>
 
