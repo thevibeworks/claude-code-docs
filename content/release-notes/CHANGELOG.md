@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.120
+
+- Fix input lag during typing, especially noticeable with large prompts
+
 ## 1.0.119
 
 - Fix Windows issue where process visually freezes on entering interactive mode
@@ -117,7 +121,7 @@
 
 ## 1.0.81
 
-- Released output styles, including new built-in educational output styles "Explanatory" and "Learning". Docs: https://docs.anthropic.com/en/docs/claude-code/output-styles
+- Released output styles, including new built-in educational output styles "Explanatory" and "Learning". Docs: https://docs.claude.com/en/docs/claude-code/output-styles
 - Agents: Fix custom agent loading when agent files are unparsable
 
 ## 1.0.80
@@ -322,7 +326,7 @@
 
 ## 1.0.38
 
-- Released hooks. Special thanks to community input in https://github.com/anthropics/claude-code/issues/712. Docs: https://docs.anthropic.com/en/docs/claude-code/hooks
+- Released hooks. Special thanks to community input in https://github.com/anthropics/claude-code/issues/712. Docs: https://docs.claude.com/en/docs/claude-code/hooks
 
 ## 1.0.37
 
