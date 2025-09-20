@@ -2,6 +2,7 @@
   "metadata": {
     "version": "1.0",
     "fetch_date": "2025-09-20T01:11:48Z",
+    "fetch_date": "2025-09-20T18:20:15Z",
     "format": "md"
   },
   "versions": {
@@ -48,6 +49,7 @@
     "size": 30483,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "anthropic",
@@ -58,6 +60,7 @@
     "size": 4647,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "anthropic",
@@ -68,6 +71,7 @@
     "size": 4964,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "anthropic",
@@ -78,6 +82,7 @@
     "size": 2476,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "anthropic",
@@ -88,6 +93,7 @@
     "size": 8227,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "github",
@@ -98,6 +104,7 @@
     "size": 24132,
     "mime": "text/plain",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   },
   {
     "source": "npm",
@@ -108,6 +115,7 @@
     "size": 3071,
     "mime": "application/json",
     "fetched_at": "2025-09-20T01:11:48Z"
+    "fetched_at": "2025-09-20T18:20:15Z"
   }
 ],
   "by_url": {
