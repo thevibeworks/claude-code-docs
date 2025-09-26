@@ -1,11 +1,11 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-09-25T12:35:21Z",
+    "fetch_date": "2025-09-26T01:14:52Z",
     "format": "md"
   },
   "versions": {
-    "latest_npm": "1.0.124",
+    "latest_npm": "1.0.126",
     "npm_package": "@anthropic-ai/claude-code"
   },
   "sources": {
@@ -44,20 +44,20 @@
     "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
     "kind": "raw",
     "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-    "sha256": "e7a4603e6d3d43222794ba24747f2224d78f5b0fbba1458e4bd4f357931cf2b0",
+    "sha256": "4878bb1f2361b570f88abbb33488cc019779650105804cb34d325e7907fbfe3a",
     "size": 30483,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "anthropic",
     "url": "https://www.anthropic.com/events/claude-code-2025",
     "kind": "raw",
     "path": "anthropic-blog/events/claude-code-2025.md",
-    "sha256": "45441f07967677b4e26993fb19442b26f3f6f02e4b632a2684806283929e3bf1",
-    "size": 889,
+    "sha256": "67caf4ad423eb81c8743a2003d7a398c282924979fed1c934594beb6bf3a344f",
+    "size": 706,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "anthropic",
@@ -67,7 +67,7 @@
     "sha256": "d1300dee01c3a034d4d02a71a9b6723bf09b99cbdf1f1f7e20b2d9e0993ccdeb",
     "size": 4647,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "anthropic",
@@ -77,7 +77,7 @@
     "sha256": "b26c237e1b0b627059386ed626e793cfeff6265b4b0e4a30ec6d11e013ace89f",
     "size": 4964,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "anthropic",
@@ -87,7 +87,7 @@
     "sha256": "322f9ab2140d07c71f26b7977583bd59c3090ee39c1466647fc644cc0c3d44cb",
     "size": 2476,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "anthropic",
@@ -97,7 +97,7 @@
     "sha256": "eef0e20fd1e53d8dfcfc676892989b89252cac85af15e53870c3f0788b8fca87",
     "size": 8227,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "github",
@@ -107,17 +107,17 @@
     "sha256": "49ee7f39f09ac2d5ec822309066062b7b0fdc6060f4c83a160a6f79d56909fa2",
     "size": 25508,
     "mime": "text/plain",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   },
   {
     "source": "npm",
     "url": "https://registry.npmjs.org/@anthropic-ai/claude-code/latest",
     "kind": "raw",
     "path": "claude-code-manifest.json",
-    "sha256": "ad56b1120da36fa245606104aa8d5de32fa3aeb3befd44f16ab459e22ec10c34",
-    "size": 3072,
+    "sha256": "5187ed3bc9039a51d75d1e04c5edd96ddcf565ee80510ee1ad288b2ff13c498b",
+    "size": 3071,
     "mime": "application/json",
-    "fetched_at": "2025-09-25T12:35:21Z"
+    "fetched_at": "2025-09-26T01:14:52Z"
   }
 ],
   "by_url": {
@@ -134,7 +134,7 @@
       "source": "npm",
       "kind": "raw",
       "path": "claude-code-manifest.json",
-      "sha256": "ad56b1120da36fa245606104aa8d5de32fa3aeb3befd44f16ab459e22ec10c34"
+      "sha256": "5187ed3bc9039a51d75d1e04c5edd96ddcf565ee80510ee1ad288b2ff13c498b"
     }
   ],
   "https://www.anthropic.com/engineering/claude-code-best-practices": [
@@ -142,7 +142,7 @@
       "source": "anthropic",
       "kind": "raw",
       "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-      "sha256": "e7a4603e6d3d43222794ba24747f2224d78f5b0fbba1458e4bd4f357931cf2b0"
+      "sha256": "4878bb1f2361b570f88abbb33488cc019779650105804cb34d325e7907fbfe3a"
     }
   ],
   "https://www.anthropic.com/events/claude-code-2025": [
@@ -150,7 +150,7 @@
       "source": "anthropic",
       "kind": "raw",
       "path": "anthropic-blog/events/claude-code-2025.md",
-      "sha256": "45441f07967677b4e26993fb19442b26f3f6f02e4b632a2684806283929e3bf1"
+      "sha256": "67caf4ad423eb81c8743a2003d7a398c282924979fed1c934594beb6bf3a344f"
     }
   ],
   "https://www.anthropic.com/news/automate-security-reviews-with-claude-code": [
