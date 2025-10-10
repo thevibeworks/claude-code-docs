@@ -1,11 +1,11 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-10-09T01:14:44Z",
+    "fetch_date": "2025-10-10T01:14:54Z",
     "format": "md"
   },
   "versions": {
-    "latest_npm": "2.0.11",
+    "latest_npm": "2.0.13",
     "npm_package": "@anthropic-ai/claude-code"
   },
   "sources": {
@@ -28,7 +28,7 @@
       "url": "https://www.anthropic.com/sitemap.xml",
       "pattern": "claude-code",
       "output_dir": "anthropic-blog",
-      "stats": { "downloaded": 7, "failed": 0, "total": 7 }
+      "stats": { "downloaded": 8, "failed": 0, "total": 8 }
     },
     "github": {
       "name": "GitHub Repository",
@@ -44,10 +44,10 @@
     "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
     "kind": "raw",
     "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-    "sha256": "7e59a85ca647e07c393c85d64d758be62ff9ab1203b968fddcbb163ae59c0a98",
+    "sha256": "4a1fb0c2c9dcb136d287af2cc2c86000eb7c93d80fbc5b736a09fffee8f4c762",
     "size": 30483,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -57,7 +57,7 @@
     "sha256": "45441f07967677b4e26993fb19442b26f3f6f02e4b632a2684806283929e3bf1",
     "size": 889,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -67,7 +67,7 @@
     "sha256": "d1300dee01c3a034d4d02a71a9b6723bf09b99cbdf1f1f7e20b2d9e0993ccdeb",
     "size": 4647,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -77,7 +77,17 @@
     "sha256": "b26c237e1b0b627059386ed626e793cfeff6265b4b0e4a30ec6d11e013ace89f",
     "size": 4964,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
+  },
+  {
+    "source": "anthropic",
+    "url": "https://www.anthropic.com/news/claude-code-plugins",
+    "kind": "raw",
+    "path": "anthropic-blog/news/claude-code-plugins.md",
+    "sha256": "6ee1170701b1ff516dfee3a49c8434b917acae1fc5dff3c6acab497d62d89ab9",
+    "size": 4921,
+    "mime": "text/plain",
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -87,7 +97,7 @@
     "sha256": "322f9ab2140d07c71f26b7977583bd59c3090ee39c1466647fc644cc0c3d44cb",
     "size": 2476,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -97,7 +107,7 @@
     "sha256": "3b61c0f2716395bffaf7e168b06f21645e18e42f86b7e741c2ebae2f6a72358b",
     "size": 4433,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "anthropic",
@@ -107,27 +117,27 @@
     "sha256": "eef0e20fd1e53d8dfcfc676892989b89252cac85af15e53870c3f0788b8fca87",
     "size": 8227,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "github",
     "url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
     "kind": "raw",
     "path": "release-notes/CHANGELOG.md",
-    "sha256": "ef139fe90af5601d4ccbf5289a2de2f9c0b5a859ac61fc9f0bbde2a2106d38cf",
-    "size": 27608,
+    "sha256": "30ba6e344ea045f311286e16d9f7119f73bec6892d3a1a99fa54ec806965e3e7",
+    "size": 28502,
     "mime": "text/plain",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   },
   {
     "source": "npm",
     "url": "https://registry.npmjs.org/@anthropic-ai/claude-code/latest",
     "kind": "raw",
     "path": "claude-code-manifest.json",
-    "sha256": "e161ffc50adb159a8b936837ed168af129f727c0c26399373dc69791ecb892a5",
+    "sha256": "2e34be284911db82039b09d1b4e970fa665f0e322fe2817430af4fc1ab5f9d2e",
     "size": 3067,
     "mime": "application/json",
-    "fetched_at": "2025-10-09T01:14:44Z"
+    "fetched_at": "2025-10-10T01:14:54Z"
   }
 ],
   "by_url": {
@@ -136,7 +146,7 @@
       "source": "github",
       "kind": "raw",
       "path": "release-notes/CHANGELOG.md",
-      "sha256": "ef139fe90af5601d4ccbf5289a2de2f9c0b5a859ac61fc9f0bbde2a2106d38cf"
+      "sha256": "30ba6e344ea045f311286e16d9f7119f73bec6892d3a1a99fa54ec806965e3e7"
     }
   ],
   "https://registry.npmjs.org/@anthropic-ai/claude-code/latest": [
@@ -144,7 +154,7 @@
       "source": "npm",
       "kind": "raw",
       "path": "claude-code-manifest.json",
-      "sha256": "e161ffc50adb159a8b936837ed168af129f727c0c26399373dc69791ecb892a5"
+      "sha256": "2e34be284911db82039b09d1b4e970fa665f0e322fe2817430af4fc1ab5f9d2e"
     }
   ],
   "https://www.anthropic.com/engineering/claude-code-best-practices": [
@@ -152,7 +162,7 @@
       "source": "anthropic",
       "kind": "raw",
       "path": "anthropic-blog/engineering/claude-code-best-practices.md",
-      "sha256": "7e59a85ca647e07c393c85d64d758be62ff9ab1203b968fddcbb163ae59c0a98"
+      "sha256": "4a1fb0c2c9dcb136d287af2cc2c86000eb7c93d80fbc5b736a09fffee8f4c762"
     }
   ],
   "https://www.anthropic.com/events/claude-code-2025": [
@@ -177,6 +187,14 @@
       "kind": "raw",
       "path": "anthropic-blog/news/claude-code-on-team-and-enterprise.md",
       "sha256": "b26c237e1b0b627059386ed626e793cfeff6265b4b0e4a30ec6d11e013ace89f"
+    }
+  ],
+  "https://www.anthropic.com/news/claude-code-plugins": [
+    {
+      "source": "anthropic",
+      "kind": "raw",
+      "path": "anthropic-blog/news/claude-code-plugins.md",
+      "sha256": "6ee1170701b1ff516dfee3a49c8434b917acae1fc5dff3c6acab497d62d89ab9"
     }
   ],
   "https://www.anthropic.com/news/claude-code-remote-mcp": [
@@ -206,8 +224,8 @@
 },
   "summary": {
     "total_sources": 4,
-    "total_files": 8,
-    "total_downloaded": 8,
+    "total_files": 9,
+    "total_downloaded": 9,
     "total_failed": 0,
     "success_rate": 100.0
   }
