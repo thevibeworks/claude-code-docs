@@ -40,6 +40,7 @@ mkdir -p "$OUTPUT_DIR/claude-code-docs"
 mkdir -p "$OUTPUT_DIR/anthropic-blog"
 mkdir -p "$OUTPUT_DIR/release-notes"
 mkdir -p "$OUTPUT_DIR/build-with-claude"
+mkdir -p "$OUTPUT_DIR/agents-and-tools"
 
 METADATA_FILE="$OUTPUT_DIR/.metadata.json"
 MANIFEST_FILE="$OUTPUT_DIR/claude-code-manifest.json"
@@ -257,6 +258,13 @@ process_sitemap() {
       else
         file_path="build-with-claude/$relative_path"
       fi
+    elif [[ "$sitemap_name" == "agents-and-tools" ]]; then
+      relative_path=${url#https://docs.claude.com/en/}
+      if [[ "$relative_path" == docs/agents-and-tools/* ]]; then
+        file_path="agents-and-tools/${relative_path#docs/agents-and-tools/}"
+      else
+        file_path="agents-and-tools/$relative_path"
+      fi
     else
       relative_path=${url#https://www.anthropic.com/}
       file_path="anthropic-blog/$relative_path"
@@ -329,6 +337,7 @@ fetch_npm_manifest() {
 echo "[INFO] Processing sitemaps..."
 DOCS_RESULT=$(process_sitemap "$SITEMAP_URL" "docs" "https://docs\\.anthropic\\.com/en/[^<]*claude-code[^<]*" "direct" "")
 BUILD_RESULT=$(process_sitemap "$SITEMAP_URL" "build" "https://docs\\.anthropic\\.com/en/docs/build-with-claude[^<]*" "direct" "")
+AGENTS_RESULT=$(process_sitemap "$SITEMAP_URL" "agents-and-tools" "https://docs\\.claude\\.com/en/docs/agents-and-tools[^<]*" "direct" "")
 ANTHROPIC_RESULT=$(process_sitemap "$ANTHROPIC_SITEMAP_URL" "anthropic" "https://www\\.anthropic\\.com/[^<]*claude-code[^<]*" "jina" "anthropic-blog")
 
 # Fetch GitHub content
@@ -341,6 +350,7 @@ fetch_npm_manifest "$MANIFEST_FILE"
 # Parse results with defaults
 read DOCS_SUCCESS DOCS_FAIL <<<"${DOCS_RESULT:-0 0}"
 read BUILD_SUCCESS BUILD_FAIL <<<"${BUILD_RESULT:-0 0}"
+read AGENTS_SUCCESS AGENTS_FAIL <<<"${AGENTS_RESULT:-0 0}"
 read ANTHROPIC_SUCCESS ANTHROPIC_FAIL <<<"${ANTHROPIC_RESULT:-0 0}"
 read GITHUB_SUCCESS GITHUB_FAIL <<<"${GITHUB_RESULT:-0 0}"
 
@@ -349,14 +359,16 @@ DOCS_SUCCESS=${DOCS_SUCCESS:-0}
 DOCS_FAIL=${DOCS_FAIL:-0}
 BUILD_SUCCESS=${BUILD_SUCCESS:-0}
 BUILD_FAIL=${BUILD_FAIL:-0}
+AGENTS_SUCCESS=${AGENTS_SUCCESS:-0}
+AGENTS_FAIL=${AGENTS_FAIL:-0}
 ANTHROPIC_SUCCESS=${ANTHROPIC_SUCCESS:-0}
 ANTHROPIC_FAIL=${ANTHROPIC_FAIL:-0}
 GITHUB_SUCCESS=${GITHUB_SUCCESS:-0}
 GITHUB_FAIL=${GITHUB_FAIL:-0}
 
 # Calculate totals
-SUCCESS=$((DOCS_SUCCESS + BUILD_SUCCESS + ANTHROPIC_SUCCESS + GITHUB_SUCCESS))
-FAIL=$((DOCS_FAIL + BUILD_FAIL + ANTHROPIC_FAIL + GITHUB_FAIL))
+SUCCESS=$((DOCS_SUCCESS + BUILD_SUCCESS + AGENTS_SUCCESS + ANTHROPIC_SUCCESS + GITHUB_SUCCESS))
+FAIL=$((DOCS_FAIL + BUILD_FAIL + AGENTS_FAIL + ANTHROPIC_FAIL + GITHUB_FAIL))
 TOTAL=$((SUCCESS + FAIL))
 
 echo "[INFO] Found $TOTAL total pages processed"
@@ -391,6 +403,13 @@ if [[ $TOTAL -eq 0 ]]; then
       "output_dir": "build-with-claude",
       "stats": { "downloaded": 0, "failed": 0, "total": 0 }
     },
+    "agents": {
+      "name": "Agents and Tools Documentation",
+      "url": "$SITEMAP_URL",
+      "pattern": "agents-and-tools",
+      "output_dir": "agents-and-tools",
+      "stats": { "downloaded": 0, "failed": 0, "total": 0 }
+    },
     "blog": {
       "name": "Anthropic Blog",
       "url": "$ANTHROPIC_SITEMAP_URL",
@@ -409,7 +428,7 @@ if [[ $TOTAL -eq 0 ]]; then
   "items": $ITEMS_JSON,
   "by_url": $BY_URL_JSON,
   "summary": {
-    "total_sources": 4,
+    "total_sources": 5,
     "total_files": 0,
     "total_downloaded": 0,
     "total_failed": 0,
@@ -456,6 +475,13 @@ cat >"$METADATA_FILE" <<EOF
       "output_dir": "build-with-claude",
       "stats": { "downloaded": $BUILD_SUCCESS, "failed": $BUILD_FAIL, "total": $((BUILD_SUCCESS + BUILD_FAIL)) }
     },
+    "agents": {
+      "name": "Agents and Tools Documentation",
+      "url": "$SITEMAP_URL",
+      "pattern": "agents-and-tools",
+      "output_dir": "agents-and-tools",
+      "stats": { "downloaded": $AGENTS_SUCCESS, "failed": $AGENTS_FAIL, "total": $((AGENTS_SUCCESS + AGENTS_FAIL)) }
+    },
     "blog": {
       "name": "Anthropic Blog",
       "url": "$ANTHROPIC_SITEMAP_URL",
@@ -474,7 +500,7 @@ cat >"$METADATA_FILE" <<EOF
   "items": $ITEMS_JSON,
   "by_url": $BY_URL_JSON,
   "summary": {
-    "total_sources": 4,
+    "total_sources": 5,
     "total_files": $TOTAL,
     "total_downloaded": $SUCCESS,
     "total_failed": $FAIL,

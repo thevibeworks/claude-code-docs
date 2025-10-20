@@ -2,6 +2,27 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Maintenance: Adding New Doc Sections
+
+When Anthropic adds new doc sections (like agents-and-tools), update these files:
+
+**1. `scripts/fetchccdocs.sh`** - 7 locations:
+- **Directory creation**: `mkdir -p "$OUTPUT_DIR/new-section"`
+- **process_sitemap() function**: Add elif block for path processing (check if docs.claude.com vs docs.anthropic.com)
+- **Process sitemaps section**: `NEW_RESULT=$(process_sitemap "$SITEMAP_URL" "name" "URL_PATTERN" "direct" "")`
+- **Parse results section**: `read NEW_SUCCESS NEW_FAIL <<<"${NEW_RESULT:-0 0}"`
+- **Ensure numeric values section**: `NEW_SUCCESS=${NEW_SUCCESS:-0}` and `NEW_FAIL=${NEW_FAIL:-0}`
+- **Calculate totals section**: Update SUCCESS/FAIL to include NEW_SUCCESS/NEW_FAIL
+- **Metadata generation** (both if/else blocks): Add section to sources{}, increment total_sources
+
+**2. `CLAUDE.md`** (this file):
+- Add doc references in "Documentation Resources" section
+- Update "Repository Structure" to list new directory
+
+**3. Find URLs**: `curl -sSL "https://docs.anthropic.com/sitemap.xml" | grep -i "pattern" | grep "/en/" | sort -u`
+
+**Note**: agents-and-tools uses docs.claude.com (not docs.anthropic.com). Check domain carefully.
+
 ## Repository Purpose
 
 Acting as the Claude Code tutor, teach "vibe coders" / "vibe learners" to learn how to get started with claude-code according to the claude-docs and related resources.
@@ -84,11 +105,36 @@ Use these paths to reference documentation when helping users:
 - `@./content/build-with-claude/token-counting.md` - Token counting
 - `@./content/build-with-claude/vision.md` - Vision capabilities
 
+#### Agents and Tools - Agent Skills
+- `@./content/agents-and-tools/agent-skills/overview.md` - Agent skills overview and concepts
+- `@./content/agents-and-tools/agent-skills/quickstart.md` - Getting started with agent skills
+- `@./content/agents-and-tools/agent-skills/best-practices.md` - Agent skills authoring best practices
+
+#### Agents and Tools - Tool Use
+- `@./content/agents-and-tools/tool-use/overview.md` - Tool use overview
+- `@./content/agents-and-tools/tool-use/implement-tool-use.md` - Implementing tool use
+- `@./content/agents-and-tools/tool-use/bash-tool.md` - Bash tool
+- `@./content/agents-and-tools/tool-use/code-execution-tool.md` - Code execution tool
+- `@./content/agents-and-tools/tool-use/computer-use-tool.md` - Computer use tool
+- `@./content/agents-and-tools/tool-use/text-editor-tool.md` - Text editor tool
+- `@./content/agents-and-tools/tool-use/memory-tool.md` - Memory tool
+- `@./content/agents-and-tools/tool-use/web-fetch-tool.md` - Web fetch tool
+- `@./content/agents-and-tools/tool-use/web-search-tool.md` - Web search tool
+- `@./content/agents-and-tools/tool-use/fine-grained-tool-streaming.md` - Fine-grained tool streaming
+- `@./content/agents-and-tools/tool-use/token-efficient-tool-use.md` - Token-efficient tool use
+
+#### Agents and Tools - Other
+- `@./content/agents-and-tools/claude-for-sheets.md` - Claude for Google Sheets
+- `@./content/agents-and-tools/mcp-connector.md` - MCP connector
+- `@./content/agents-and-tools/remote-mcp-servers.md` - Remote MCP servers
+
 ## Repository Structure
 
 - `content/` - All fetched Claude Code documentation and content
   - `claude-code-docs/` - Official documentation from docs.anthropic.com
   - `anthropic-blog/` - Blog posts about Claude Code from anthropic.com
+  - `build-with-claude/` - Build with Claude documentation
+  - `agents-and-tools/` - Agents and tools documentation
   - `release-notes/` - Claude Code release notes (GitHub CHANGELOG.md)
   - `env-vars/` - Environment variable documentation
   - `claude-code-manifest.json` - NPM package manifest
