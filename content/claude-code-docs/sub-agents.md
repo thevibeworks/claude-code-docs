@@ -82,11 +82,52 @@ Subagents are stored as Markdown files with YAML frontmatter in two possible loc
 
 When subagent names conflict, project-level subagents take precedence over user-level subagents.
 
+### Plugin agents
+
+[Plugins](/en/docs/claude-code/plugins) can provide custom subagents that integrate seamlessly with Claude Code. Plugin agents work identically to user-defined agents and appear in the `/agents` interface.
+
+**Plugin agent locations**: Plugins include agents in their `agents/` directory (or custom paths specified in the plugin manifest).
+
+**Using plugin agents**:
+
+* Plugin agents appear in `/agents` alongside your custom agents
+* Can be invoked explicitly: "Use the code-reviewer agent from the security-plugin"
+* Can be invoked automatically by Claude when appropriate
+* Can be managed (viewed, inspected) through `/agents` interface
+
+See the [plugin components reference](/en/docs/claude-code/plugins-reference#agents) for details on creating plugin agents.
+
+### CLI-based configuration
+
+You can also define subagents dynamically using the `--agents` CLI flag, which accepts a JSON object:
+
+```bash  theme={null}
+claude --agents '{
+  "code-reviewer": {
+    "description": "Expert code reviewer. Use proactively after code changes.",
+    "prompt": "You are a senior code reviewer. Focus on code quality, security, and best practices.",
+    "tools": ["Read", "Grep", "Glob", "Bash"],
+    "model": "sonnet"
+  }
+}'
+```
+
+**Priority**: CLI-defined subagents have lower priority than project-level subagents but higher priority than user-level subagents.
+
+**Use case**: This approach is useful for:
+
+* Quick testing of subagent configurations
+* Session-specific subagents that don't need to be saved
+* Automation scripts that need custom subagents
+* Sharing subagent definitions in documentation or scripts
+
+For detailed information about the JSON format and all available options, see the [CLI reference documentation](/en/docs/claude-code/cli-reference#agents-flag-format).
+
 ### File format
 
 Each subagent is defined in a Markdown file with this structure:
 
-```markdown
+```markdown  theme={null}
 ---
 name: your-sub-agent-name
 description: Description of when this subagent should be invoked
@@ -161,7 +202,7 @@ This opens an interactive menu where you can:
 
 You can also manage subagents by working directly with their files:
 
-```bash
+```bash  theme={null}
 # Create a project subagent
 mkdir -p .claude/agents
 echo '---
@@ -204,7 +245,7 @@ Request a specific subagent by mentioning it in your command:
 
 ### Code reviewer
 
-```markdown
+```markdown  theme={null}
 ---
 name: code-reviewer
 description: Expert code review specialist. Proactively reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.
@@ -239,7 +280,7 @@ Include specific examples of how to fix issues.
 
 ### Debugger
 
-```markdown
+```markdown  theme={null}
 ---
 name: debugger
 description: Debugging specialist for errors, test failures, and unexpected behavior. Use proactively when encountering any issues.
@@ -274,7 +315,7 @@ Focus on fixing the underlying issue, not just symptoms.
 
 ### Data scientist
 
-```markdown
+```markdown  theme={null}
 ---
 name: data-scientist
 description: Data analysis expert for SQL queries, BigQuery operations, and data insights. Use proactively for data analysis tasks and queries.
@@ -340,6 +381,7 @@ Claude Code intelligently selects subagents based on context. Make your `descrip
 
 ## Related documentation
 
+* [Plugins](/en/docs/claude-code/plugins) - Extend Claude Code with custom agents through plugins
 * [Slash commands](/en/docs/claude-code/slash-commands) - Learn about other built-in commands
 * [Settings](/en/docs/claude-code/settings) - Configure Claude Code behavior
 * [Hooks](/en/docs/claude-code/hooks) - Automate workflows with event handlers

@@ -19,7 +19,7 @@ Claude Code hooks are configured in your [settings files](/en/docs/claude-code/s
 
 Hooks are organized by matchers, where each matcher can have multiple hooks:
 
-```json
+```json  theme={null}
 {
   "hooks": {
     "EventName": [
@@ -53,7 +53,7 @@ Hooks are organized by matchers, where each matcher can have multiple hooks:
 For events like `UserPromptSubmit`, `Notification`, `Stop`, and `SubagentStop`
 that don't use matchers, you can omit the matcher field:
 
-```json
+```json  theme={null}
 {
   "hooks": {
     "UserPromptSubmit": [
@@ -76,7 +76,7 @@ You can use the environment variable `CLAUDE_PROJECT_DIR` (only available when
 Claude Code spawns the hook command) to reference scripts stored in your project,
 ensuring they work regardless of Claude's current directory:
 
-```json
+```json  theme={null}
 {
   "hooks": {
     "PostToolUse": [
@@ -85,7 +85,7 @@ ensuring they work regardless of Claude's current directory:
         "hooks": [
           {
             "type": "command",
-            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/check-style.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-style.sh"
           }
         ]
       }
@@ -93,6 +93,55 @@ ensuring they work regardless of Claude's current directory:
   }
 }
 ```
+
+### Plugin hooks
+
+[Plugins](/en/docs/claude-code/plugins) can provide hooks that integrate seamlessly with your user and project hooks. Plugin hooks are automatically merged with your configuration when plugins are enabled.
+
+**How plugin hooks work**:
+
+* Plugin hooks are defined in the plugin's `hooks/hooks.json` file or in a file given by a custom path to the `hooks` field.
+* When a plugin is enabled, its hooks are merged with user and project hooks
+* Multiple hooks from different sources can respond to the same event
+* Plugin hooks use the `${CLAUDE_PLUGIN_ROOT}` environment variable to reference plugin files
+
+**Example plugin hook configuration**:
+
+```json  theme={null}
+{
+  "description": "Automatic code formatting",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/format.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+<Note>
+  Plugin hooks use the same format as regular hooks with an optional `description` field to explain the hook's purpose.
+</Note>
+
+<Note>
+  Plugin hooks run alongside your custom hooks. If multiple hooks match an event, they all execute in parallel.
+</Note>
+
+**Environment variables for plugins**:
+
+* `${CLAUDE_PLUGIN_ROOT}`: Absolute path to the plugin directory
+* `${CLAUDE_PROJECT_DIR}`: Project root directory (same as for project hooks)
+* All standard environment variables are available
+
+See the [plugin components reference](/en/docs/claude-code/plugins-reference#hooks) for details on creating plugin hooks.
 
 ## Hook Events
 
@@ -107,7 +156,7 @@ Runs after Claude creates tool parameters and before processing the tool call.
 * `Glob` - File pattern matching
 * `Grep` - Content search
 * `Read` - File reading
-* `Edit`, `MultiEdit` - File editing
+* `Edit` - File editing
 * `Write` - File writing
 * `WebFetch`, `WebSearch` - Web operations
 
@@ -154,7 +203,7 @@ Runs before Claude Code is about to run a compact operation.
 
 Runs when Claude Code starts a new session or resumes an existing session (which
 currently does start a new session under the hood). Useful for loading in
-development context like existing issues or recent changes to your codebase.
+development context like existing issues or recent changes to your codebase, installing dependencies, or setting up environment variables.
 
 **Matchers:**
 
@@ -162,6 +211,51 @@ development context like existing issues or recent changes to your codebase.
 * `resume` - Invoked from `--resume`, `--continue`, or `/resume`
 * `clear` - Invoked from `/clear`
 * `compact` - Invoked from auto or manual compact.
+
+#### Persisting environment variables
+
+SessionStart hooks have access to the `CLAUDE_ENV_FILE` environment variable, which provides a file path where you can persist environment variables for subsequent bash commands.
+
+**Example: Setting individual environment variables**
+
+```bash  theme={null}
+#!/bin/bash
+
+if [ -n "$CLAUDE_ENV_FILE" ]; then
+  echo 'export NODE_ENV=production' >> "$CLAUDE_ENV_FILE"
+  echo 'export API_KEY=your-api-key' >> "$CLAUDE_ENV_FILE"
+  echo 'export PATH="$PATH:./node_modules/.bin"' >> "$CLAUDE_ENV_FILE"
+fi
+
+exit 0
+```
+
+**Example: Persisting all environment changes from the hook**
+
+When your setup modifies the environment (e.g., `nvm use`), capture and persist all changes by diffing the environment:
+
+```bash  theme={null}
+#!/bin/bash
+
+ENV_BEFORE=$(export -p | sort)
+
+# Run your setup commands that modify the environment
+source ~/.nvm/nvm.sh
+nvm use 20
+
+if [ -n "$CLAUDE_ENV_FILE" ]; then
+  ENV_AFTER=$(export -p | sort)
+  comm -13 <(echo "$ENV_BEFORE") <(echo "$ENV_AFTER") >> "$CLAUDE_ENV_FILE"
+fi
+
+exit 0
+```
+
+Any variables written to this file will be available in all subsequent bash commands that Claude Code executes during the session.
+
+<Note>
+  `CLAUDE_ENV_FILE` is only available for SessionStart hooks. Other hook types do not have access to this variable.
+</Note>
 
 ### SessionEnd
 
@@ -180,7 +274,7 @@ The `reason` field in the hook input will be one of:
 Hooks receive JSON data via stdin containing session information and
 event-specific data:
 
-```typescript
+```typescript  theme={null}
 {
   // Common fields
   session_id: string
@@ -197,7 +291,7 @@ event-specific data:
 
 The exact schema for `tool_input` depends on the tool.
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -215,7 +309,7 @@ The exact schema for `tool_input` depends on the tool.
 
 The exact schema for `tool_input` and `tool_response` depends on the tool.
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -235,7 +329,7 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 
 ### Notification Input
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -247,7 +341,7 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 
 ### UserPromptSubmit Input
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "/Users/.../.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -263,7 +357,7 @@ The exact schema for `tool_input` and `tool_response` depends on the tool.
 a stop hook. Check this value or process the transcript to prevent Claude Code
 from running indefinitely.
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -277,7 +371,7 @@ from running indefinitely.
 For `manual`, `custom_instructions` comes from what the user passes into
 `/compact`. For `auto`, `custom_instructions` is empty.
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -289,7 +383,7 @@ For `manual`, `custom_instructions` comes from what the user passes into
 
 ### SessionStart Input
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -300,7 +394,7 @@ For `manual`, `custom_instructions` comes from what the user passes into
 
 ### SessionEnd Input
 
-```json
+```json  theme={null}
 {
   "session_id": "abc123",
   "transcript_path": "~/.claude/projects/.../00893aaf-19fa-41d2-8238-13269b9b3ca0.jsonl",
@@ -355,7 +449,7 @@ Hooks can return structured JSON in `stdout` for more sophisticated control:
 
 All hook types can include these optional fields:
 
-```json
+```json  theme={null}
 {
   "continue": true, // Whether Claude should continue after hook execution (default: true)
   "stopReason": "string", // Message shown when continue is false
@@ -391,7 +485,7 @@ to Claude.
 * `"ask"` asks the user to confirm the tool call in the UI.
   `permissionDecisionReason` is shown to the user but not to Claude.
 
-```json
+```json  theme={null}
 {
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
@@ -416,7 +510,7 @@ to Claude.
 * `undefined` does nothing. `reason` is ignored.
 * `"hookSpecificOutput.additionalContext"` adds context for Claude to consider.
 
-```json
+```json  theme={null}
 {
   "decision": "block" | undefined,
   "reason": "Explanation for decision",
@@ -437,7 +531,7 @@ to Claude.
 * `"hookSpecificOutput.additionalContext"` adds the string to the context if not
   blocked.
 
-```json
+```json  theme={null}
 {
   "decision": "block" | undefined,
   "reason": "Explanation for decision",
@@ -456,7 +550,7 @@ to Claude.
   to know how to proceed.
 * `undefined` allows Claude to stop. `reason` is ignored.
 
-```json
+```json  theme={null}
 {
   "decision": "block" | undefined,
   "reason": "Must be provided when Claude is blocked from stopping"
@@ -470,7 +564,7 @@ to Claude.
 * `"hookSpecificOutput.additionalContext"` adds the string to the context.
 * Multiple hooks' `additionalContext` values are concatenated.
 
-```json
+```json  theme={null}
 {
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
@@ -486,7 +580,7 @@ but can perform cleanup tasks.
 
 #### Exit Code Example: Bash Command Validation
 
-```python
+```python  theme={null}
 #!/usr/bin/env python3
 import json
 import re
@@ -545,7 +639,7 @@ if issues:
   * JSON output: Provides more control over the behavior
 </Note>
 
-```python
+```python  theme={null}
 #!/usr/bin/env python3
 import json
 import sys
@@ -596,7 +690,7 @@ sys.exit(0)
 
 #### JSON Output Example: PreToolUse with Approval
 
-```python
+```python  theme={null}
 #!/usr/bin/env python3
 import json
 import sys
@@ -647,7 +741,7 @@ MCP tools follow the pattern `mcp__<server>__<tool>`, for example:
 
 You can target specific MCP tools or entire MCP servers:
 
-```json
+```json  theme={null}
 {
   "hooks": {
     "PreToolUse": [
@@ -705,7 +799,7 @@ Here are some key practices for writing more secure hooks:
 2. **Always quote shell variables** - Use `"$VAR"` not `$VAR`
 3. **Block path traversal** - Check for `..` in file paths
 4. **Use absolute paths** - Specify full paths for scripts (use
-   `$CLAUDE_PROJECT_DIR` for the project path)
+   "\$CLAUDE\_PROJECT\_DIR" for the project path)
 5. **Skip sensitive files** - Avoid `.env`, `.git/`, keys, etc.
 
 ### Configuration Safety
@@ -729,6 +823,7 @@ This prevents malicious hook modifications from affecting your current session.
 * **Environment**: Runs in current directory with Claude Code's environment
   * The `CLAUDE_PROJECT_DIR` environment variable is available and contains the
     absolute path to the project root directory (where Claude Code was started)
+  * The `CLAUDE_CODE_REMOTE` environment variable indicates whether the hook is running in a remote (web) environment (`"true"`) or local CLI environment (not set or empty). Use this to run different logic based on execution context.
 * **Input**: JSON via stdin
 * **Output**:
   * PreToolUse/PostToolUse/Stop/SubagentStop: Progress shown in transcript (Ctrl-R)
