@@ -39,6 +39,8 @@ jobs:
         uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.14t"
+          enable-cache: "true"
+          cache-python: "true"
 
       - name: Fetch Claude Code docs
         run: uv run scripts/fetchccdocs.py --format md
