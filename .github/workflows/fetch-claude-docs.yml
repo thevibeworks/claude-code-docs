@@ -35,8 +35,15 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
+      - name: Install uv and Python 3.14t
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.14t"
+          cache-dependency-glob: "scripts/fetchccdocs.py"
+
       - name: Fetch Claude Code docs
-        run: ./scripts/fetchccdocs.sh --format md
+        run: uv run scripts/fetchccdocs.py --format md
 
       - name: Setup GitHub CLI and Git
         run: |

@@ -48,6 +48,13 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.event.pull_request.merge_commit_sha }}
 
+      - name: Install uv and Python 3.14t
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.14t"
+          cache-dependency-glob: "scripts/fetchccdocs.py"
+
       - name: Setup GitHub CLI and Git
         run: |
           gh --version
@@ -69,7 +76,7 @@ jobs:
           allowed_bots: "claude-yolo[bot],github-actions[bot]"
           claude_args: |
             --model claude-sonnet-4-20250514
-            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(./scripts/fetchccdocs.sh:*),Bash(jq:*),mcp__barkme__notify
+            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(uv run scripts/fetchccdocs.py:*),Bash(jq:*),mcp__barkme__notify
             --mcp-config '{
               "mcpServers": {
                 "barkme": {
