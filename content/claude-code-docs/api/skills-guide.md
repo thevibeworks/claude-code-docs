@@ -836,7 +836,9 @@ Upload your custom Skill to make it available in your workspace. You can upload 
 * Must include a SKILL.md file at the top level
 * All files must specify a common root directory in their paths
 * Total upload size must be under 8MB
-* YAML frontmatter: `name` (64 characters max), `description` (1024 characters max)
+* YAML frontmatter requirements:
+  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
+  * `description`: Maximum 1024 characters, non-empty, no XML tags
 
 For complete request/response schemas, see the [Create Skill API reference](/en/api/skills/create-skill).
 
@@ -1327,7 +1329,9 @@ Combine Excel and custom DCF analysis Skills:
 
 * **Maximum Skills per request**: 8
 * **Maximum Skill upload size**: 8MB (all files combined)
-* **YAML frontmatter limits**: `name` 64 characters, `description` 1024 characters
+* **YAML frontmatter requirements**:
+  * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words
+  * `description`: Maximum 1024 characters, non-empty, no XML tags
 
 ### Environment Constraints
 

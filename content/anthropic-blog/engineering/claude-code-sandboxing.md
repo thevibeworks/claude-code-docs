@@ -50,7 +50,7 @@ Sandboxing ensures that even a successful prompt injection is fully isolated, an
 
 To get started with this feature, run /sandbox in Claude Code and check out [more technical details](https://docs.claude.com/en/docs/claude-code/sandboxing) about our security model.
 
-To make it easier for other teams to build safer agents, we have [open sourced](https://www.anthropic.com/engineering/claude-code-sandboxing) this feature. We believe that others should consider adopting this technology for their own agents in order to enhance the security posture of their agents.
+To make it easier for other teams to build safer agents, we have [open sourced](https://github.com/anthropic-experimental/sandbox-runtime) this feature. We believe that others should consider adopting this technology for their own agents in order to enhance the security posture of their agents.
 
 #### **Claude Code on the web: running Claude Code securely in the cloud**
 
