@@ -47,7 +47,7 @@ Skills can contain three types of content, each loaded at different times:
 
 ```yaml  theme={null}
 ---
-name: PDF Processing
+name: pdf-processing
 description: Extract text and tables from PDF files, fill forms, merge documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.
 ---
 ```
@@ -196,7 +196,7 @@ Every Skill requires a `SKILL.md` file with YAML frontmatter:
 
 ```yaml  theme={null}
 ---
-name: Your Skill Name
+name: your-skill-name
 description: Brief description of what this Skill does and when to use it
 ---
 
@@ -211,12 +211,20 @@ description: Brief description of what this Skill does and when to use it
 
 **Required fields**: `name` and `description`
 
-These are the only two fields supported in YAML frontmatter.
+**Field requirements**:
 
-**Frontmatter limits**:
+`name`:
 
-* `name`: 64 characters maximum
-* `description`: 1024 characters maximum
+* Maximum 64 characters
+* Must contain only lowercase letters, numbers, and hyphens
+* Cannot contain XML tags
+* Cannot contain reserved words: "anthropic", "claude"
+
+`description`:
+
+* Must be non-empty
+* Maximum 1024 characters
+* Cannot contain XML tags
 
 The `description` should include both what the Skill does and when Claude should use it. For complete authoring guidance, see the [best practices guide](/en/docs/agents-and-tools/agent-skills/best-practices).
 
