@@ -50,7 +50,7 @@ Sandboxing ensures that even a successful prompt injection is fully isolated, an
 
 To get started with this feature, run /sandbox in Claude Code and check out [more technical details](https://docs.claude.com/en/docs/claude-code/sandboxing) about our security model.
 
-To make it easier for other teams to build safer agents, we have [open sourced](https://www.anthropic.com/engineering/claude-code-sandboxing) this feature. We believe that others should consider adopting this technology for their own agents in order to enhance the security posture of their agents.
+To make it easier for other teams to build safer agents, we have [open sourced](https://github.com/anthropic-experimental/sandbox-runtime) this feature. We believe that others should consider adopting this technology for their own agents in order to enhance the security posture of their agents.
 
 #### **Claude Code on the web: running Claude Code securely in the cloud**
 
@@ -70,7 +70,7 @@ Our new sandboxed bash tool and Claude Code on the web offer substantial improve
 To get started with these tools:
 
 1.   Run `/sandbox` in Claude and check out [our docs](https://docs.claude.com/en/docs/claude-code/sandboxing) on how to configure this sandbox.
-2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.253709d6-3c61-41b2-9779-4826d567f27e/code) to try out Claude Code on the web.
+2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.889f1803-0be3-468d-9b21-80f01fe2f7c9/code) to try out Claude Code on the web.
 
 Or, if you're building your own agents, check out our [open-sourced sandboxing code](https://github.com/anthropic-experimental/sandbox-runtime), and consider integrating it into your work. We look forward to seeing what you build.
 
