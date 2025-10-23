@@ -144,10 +144,21 @@ What works perfectly for Opus might need more detail for Haiku. If you plan to u
 ## Skill structure
 
 <Note>
-  **YAML Frontmatter**: The SKILL.md frontmatter supports two fields:
+  **YAML Frontmatter**: The SKILL.md frontmatter requires two fields:
 
-  * `name` - Human-readable name of the Skill (64 characters maximum)
-  * `description` - One-line description of what the Skill does and when to use it (1024 characters maximum)
+  `name`:
+
+  * Maximum 64 characters
+  * Must contain only lowercase letters, numbers, and hyphens
+  * Cannot contain XML tags
+  * Cannot contain reserved words: "anthropic", "claude"
+
+  `description`:
+
+  * Must be non-empty
+  * Maximum 1024 characters
+  * Cannot contain XML tags
+  * Should describe what the Skill does and when to use it
 
   For complete Skill structure details, see the [Skills overview](/en/docs/agents-and-tools/agent-skills/overview#skill-structure).
 </Note>
@@ -156,23 +167,26 @@ What works perfectly for Opus might need more detail for Haiku. If you plan to u
 
 Use consistent naming patterns to make Skills easier to reference and discuss. We recommend using **gerund form** (verb + -ing) for Skill names, as this clearly describes the activity or capability the Skill provides.
 
+Remember that the `name` field must use lowercase letters, numbers, and hyphens only.
+
 **Good naming examples (gerund form)**:
 
-* "Processing PDFs"
-* "Analyzing spreadsheets"
-* "Managing databases"
-* "Testing code"
-* "Writing documentation"
+* `processing-pdfs`
+* `analyzing-spreadsheets`
+* `managing-databases`
+* `testing-code`
+* `writing-documentation`
 
 **Acceptable alternatives**:
 
-* Noun phrases: "PDF Processing", "Spreadsheet Analysis"
-* Action-oriented: "Process PDFs", "Analyze Spreadsheets"
+* Noun phrases: `pdf-processing`, `spreadsheet-analysis`
+* Action-oriented: `process-pdfs`, `analyze-spreadsheets`
 
 **Avoid**:
 
-* Vague names: "Helper", "Utils", "Tools"
-* Overly generic: "Documents", "Data", "Files"
+* Vague names: `helper`, `utils`, `tools`
+* Overly generic: `documents`, `data`, `files`
+* Reserved words: `anthropic-helper`, `claude-tools`
 * Inconsistent patterns within your skill collection
 
 Consistent naming makes it easier to:
@@ -270,7 +284,7 @@ pdf/
 
 ````markdown  theme={null}
 ---
-name: PDF Processing
+name: pdf-processing
 description: Extracts text and tables from PDF files, fills forms, and merges documents. Use when working with PDF files or when the user mentions PDFs, forms, or document extraction.
 ---
 
@@ -1092,7 +1106,12 @@ reader = PdfReader("file.pdf")
 
 ### YAML frontmatter requirements
 
-The SKILL.md frontmatter includes only `name` (64 characters max) and `description` (1024 characters max) fields. See the [Skills overview](/en/docs/agents-and-tools/agent-skills/overview#skill-structure) for complete structure details.
+The SKILL.md frontmatter requires `name` and `description` fields with specific validation rules:
+
+* `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words
+* `description`: Maximum 1024 characters, non-empty, no XML tags
+
+See the [Skills overview](/en/docs/agents-and-tools/agent-skills/overview#skill-structure) for complete structure details.
 
 ### Token budgets
 
