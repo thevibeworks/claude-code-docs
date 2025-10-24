@@ -168,8 +168,8 @@ If you're ready to start exploring what Claude can do for you, let's dive in! Wh
 <Note>Looking to chat with Claude? Visit [claude.ai](http://www.claude.ai)!</Note>
 
 <CardGroup cols={3}>
-  <Card title="Intro to Claude" icon="check" href="/en/docs/intro-to-claude">
-    Explore Claude’s capabilities and development flow.
+  <Card title="Intro to Claude" icon="check" href="/en/docs/intro">
+    Explore Claude's capabilities and development flow.
   </Card>
 
   <Card title="Quickstart" icon="bolt-lightning" href="/en/docs/get-started">

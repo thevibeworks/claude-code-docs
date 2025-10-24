@@ -1163,6 +1163,10 @@ Before sharing a Skill, verify:
     Create and manage Skills in Claude Code
   </Card>
 
+  <Card title="Use Skills in the Agent SDK" icon="cube" href="/en/api/agent-sdk/skills">
+    Use Skills programmatically in TypeScript and Python
+  </Card>
+
   <Card title="Use Skills with the API" icon="code" href="/en/api/skills-guide">
     Upload and use Skills programmatically
   </Card>

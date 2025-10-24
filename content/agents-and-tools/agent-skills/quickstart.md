@@ -533,6 +533,10 @@ Now that you've used pre-built Agent Skills, you can:
     Learn about Skills in Claude Code
   </Card>
 
+  <Card title="Use Skills in the Agent SDK" icon="cube" href="/en/api/agent-sdk/skills">
+    Use Skills programmatically in TypeScript and Python
+  </Card>
+
   <Card title="Agent Skills Cookbook" icon="book-open" href="https://github.com/anthropics/anthropic-cookbook/blob/main/skills/README.md">
     Explore example Skills and implementation patterns
   </Card>
