@@ -198,7 +198,7 @@ To learn more about using Skills in Claude.ai, see the following resources in th
 * [What are Skills?](https://support.claude.com/en/articles/12512176-what-are-skills)
 * [Using Skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
 * [How to create custom Skills](https://support.claude.com/en/articles/12512198-creating-custom-skills)
-* [Tech Claude your way of working using Skills](https://support.claude.com/en/articles/12580051-teach-claude-your-way-of-working-using-skills)
+* [Teach Claude your way of working using Skills](https://support.claude.com/en/articles/12580051-teach-claude-your-way-of-working-using-skills)
 
 ## Skill structure
 

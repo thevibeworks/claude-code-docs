@@ -2,12 +2,12 @@
 
 ## Choosing a model
 
-Generally, use Claude Opus 4.1, Claude Opus 4, Claude Sonnet 4.5, Claude Sonnet 4, Claude Sonnet 3.7, Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) or Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations)) for complex tools and ambiguous queries; they handle multiple tools better and seek clarification when needed.
+We recommend using the latest Claude Sonnet (4.5) or Claude Opus (4.1) model for complex tools and ambiguous queries; they handle multiple tools better and seek clarification when needed.
 
-Use Claude Haiku 3.5 or Claude Haiku 3 for straightforward tools, but note they may infer missing parameters.
+Use Claude Haiku models for straightforward tools, but note they may infer missing parameters.
 
 <Tip>
-  If using Claude Sonnet 3.7 with tool use and extended thinking, refer to our guide [here](/en/docs/build-with-claude/extended-thinking) for more information.
+  If using Claude with tool use and extended thinking, refer to our guide [here](/en/docs/build-with-claude/extended-thinking) for more information.
 </Tip>
 
 ## Specifying client tools
@@ -112,6 +112,297 @@ To get the best performance out of Claude when using tools, follow these guideli
 
 The good description clearly explains what the tool does, when to use it, what data it returns, and what the `ticker` parameter means. The poor description is too brief and leaves Claude with many open questions about the tool's behavior and usage.
 
+## Tool runner (beta)
+
+The tool runner provides an out-of-the-box solution for executing tools with Claude. Instead of manually handling tool calls, tool results, and conversation management, the tool runner automatically:
+
+* Executes tools when Claude calls them
+* Handles the request/response cycle
+* Manages conversation state
+* Provides type safety and validation
+
+We recommend that you use the tool runner for most tool use implementations.
+
+<Note>
+  The tool runner is currently in beta and only available in the [Python](https://github.com/anthropics/anthropic-sdk-python/blob/main/tools.md) and [TypeScript](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/helpers.md#tool-helpers) SDKs.
+</Note>
+
+### Basic usage
+
+<Tabs>
+  <Tab title="Python">
+    Use the `@beta_tool` decorator to define tools and `client.beta.messages.tool_runner()` to execute them.
+
+    <Note>
+      If you're using the async client, replace `@beta_tool` with `@beta_async_tool` and define the function with `async def`.
+    </Note>
+
+    ```python  theme={null}
+    import anthropic
+    import json
+    from anthropic import beta_tool
+
+    # Initialize client
+    client = anthropic.Anthropic()
+
+    # Define tools using the decorator
+    @beta_tool
+    def get_weather(location: str, unit: str = "fahrenheit") -> str:
+        """Get the current weather in a given location.
+
+        Args:
+            location: The city and state, e.g. San Francisco, CA
+            unit: Temperature unit, either 'celsius' or 'fahrenheit'
+        """
+        # In a full implementation, you'd call a weather API here
+        return json.dumps({"temperature": "20°C", "condition": "Sunny"})
+
+    @beta_tool
+    def calculate_sum(a: int, b: int) -> str:
+        """Add two numbers together.
+
+        Args:
+            a: First number
+            b: Second number
+        """
+        return str(a + b)
+
+    # Use the tool runner
+    with client.beta.messages.tool_runner(
+        model="claude-sonnet-4-5",
+        max_tokens=1024,
+        tools=[get_weather, calculate_sum],
+        messages=[
+            {"role": "user", "content": "What's the weather like in Paris? Also, what's 15 + 27?"}
+        ]
+    ) as runner:
+        for message in runner:
+            print(message.content[0].text)
+    ```
+
+    The decorated function must return a content block or content block array, including text, images, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
+    If you want to return a structured JSON object to Claude, encode it to a JSON string before returning it. Numbers, booleans or other non-string primitives also must be converted to strings.
+
+    The `@beta_tool` decorator will inspect the function arguments and the docstring to extract a json schema representation of the given function, in the example above `calculate_sum` will be turned into:
+
+    ```json  theme={null}
+    {
+      "name": "calculate_sum",
+      "description": "Adds two integers together.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "left": {
+            "description": "The first integer to add.",
+            "title": "Left",
+            "type": "integer"
+          },
+          "right": {
+            "description": "The second integer to add.",
+            "title": "Right",
+            "type": "integer"
+          }
+        },
+        "required": ["left", "right"],
+        "type": "object"
+      }
+    }
+    ```
+  </Tab>
+
+  <Tab title="TypeScript (Zod)">
+    Use `betaZodTool()` for type-safe tool definitions with Zod validation (requires Zod 3.25.0 or higher).
+
+    ```typescript  theme={null}
+    import { Anthropic } from '@anthropic-ai/sdk';
+    import { betaZodTool, betaTool } from '@anthropic-ai/sdk/helpers/beta/zod';
+    import { z } from 'zod';
+
+    const anthropic = new Anthropic();
+
+    // Using betaZodTool (requires Zod 3.25.0+)
+    const getWeatherTool = betaZodTool({
+      name: 'get_weather',
+      description: 'Get the current weather in a given location',
+      inputSchema: z.object({
+        location: z.string().describe('The city and state, e.g. San Francisco, CA'),
+        unit: z.enum(['celsius', 'fahrenheit']).default('fahrenheit')
+          .describe('Temperature unit')
+      }),
+      run: async (input) => {
+        // In a full implementation, you'd call a weather API here
+        return JSON.stringify({temperature: '20°C', condition: 'Sunny'});
+      }
+    });
+
+    // Use the tool runner
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 1024,
+      tools: [getWeatherTool],
+      messages: [
+        {
+          role: 'user',
+          content: "What's the weather like in Paris?"
+        }
+      ]
+    });
+
+    // Process messages as they come in
+    for await (const message of runner) {
+      console.log(message.content[0].text);
+    }
+    ```
+
+    The `run` function must return a content block or content block array, including text, images, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
+    If you want to return a structured JSON object to Claude, stringify it to a JSON string before returning it. Numbers, booleans or other non-string primitives also must be converted to strings.
+
+    #### Iterating over the tool runner
+
+    The tool runner returned by `toolRunner()` is an async iterable, which you can iterate over with a `for await ... of` loop. This is often referred to as a "tool call loop".
+    Each loop iteration yields a messages that was returned by Claude.
+
+    After your code had a chance to process the current message inside the loop, the tool runner will check the message to see if Claude requested a tool use. If so, it will call the tool and send the tool result back to Claude automatically, then yield the next message from Claude to start the next iteration of your loop.
+
+    You may end the loop at any iteration with a simple `break` statement. The tool runner will loop until Claude returns a message without a tool use.
+
+    If you don't care about intermediate messages, instead of using a loop, you may simply `await` the tool runner, which will return the final message from Claude.
+
+    #### Advanced usage
+
+    Within the loop, you have the ability to fully customize the tool runner's next request to the Messages API.
+    The method `runner.generateToolResponse()` will call the tool (if Claude triggered a tool use) and give you access to the tool result that will be sent back to the Messages API.
+    The methods `runner.setMessagesParams()` and `runner.pushMessages()` allow you to modify the parameters for the next Messages API request. The current parameters are available under `runner.params`.
+
+    #### Streaming
+
+    When enabling streaming with `stream: true`, each value emitted by the tool runner is a `MessageStream` as returned from `anthropic.messages.stream()`. The `MessageStream` is itself an async iterable that yields streaming events from the Messages API.
+
+    You can use `messageStream.finalMessage()` to let the SDK do the accumulation of streaming events into the final message for you.
+
+    ```typescript  theme={null}
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: 'What is the weather in San Francisco?' }],
+      tools: [calculatorTool],
+      stream: true,
+    });
+
+    // When streaming, the runner returns BetaMessageStream
+    for await (const messageStream of runner) {
+      for await (const event of messageStream) {
+        console.log('event:', event);
+      }
+      console.log('message:', await messageStream.finalMessage());
+    }
+
+    console.log(await runner);
+    ```
+  </Tab>
+
+  <Tab title="TypeScript (JSON Schema)">
+    Use `betaTool()` for type-safe tool definitions based on JSON schemas. TypeScript and your editor will be aware of the type of the `input` parameter for autocompletion.
+
+    <Note>
+      The input generated by Claude will not be validated at runtime. Perform validation inside the `run` function if needed.
+    </Note>
+
+    ```typescript  theme={null}
+    import { Anthropic } from '@anthropic-ai/sdk';
+    import { betaZodTool, betaTool } from '@anthropic-ai/sdk/helpers/beta/json-schema';
+    import { z } from 'zod';
+
+    const anthropic = new Anthropic();
+
+    // Using betaTool with JSON schema (no Zod required)
+    const calculateSumTool = betaTool({
+      name: 'calculate_sum',
+      description: 'Add two numbers together',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          a: { type: 'number', description: 'First number' },
+          b: { type: 'number', description: 'Second number' }
+        },
+        required: ['a', 'b']
+      },
+      run: async (input) => {
+        return String(input.a + input.b);
+      }
+    });
+
+    // Use the tool runner
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 1024,
+      tools: [getWeatherTool, calculateSumTool],
+      messages: [
+        {
+          role: 'user',
+          content: "What's 15 + 27?"
+        }
+      ]
+    });
+
+    // Process messages as they come in
+    for await (const message of runner) {
+      console.log(message.content[0].text);
+    }
+    ```
+
+    The `run` function must return any content block or content block array, including text, image, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
+    If you want to return a structured JSON object to Claude, encode it to a JSON string before returning it. Numbers, booleans or other non-string primitives also must be converted to strings.
+
+    #### Iterating over the tool runner
+
+    The tool runner returned by `toolRunner()` is an async iterable, which you can iterate over with a `for await ... of` loop. This is often referred to as a "tool call loop".
+    Each loop iteration yields a messages that was returned by Claude.
+
+    After your code had a chance to process the current message inside the loop, the tool runner will check the message to see if Claude requested a tool use. If so, it will call the tool and send the tool result back to Claude automatically, then yield the next message from Claude to start the next iteration of your loop.
+
+    You may end the loop at any iteration with a simple `break` statement. The tool runner will loop until Claude returns a message without a tool use.
+
+    If you don't care about intermediate messages, instead of using a loop, you may simply `await` the tool runner, which will return the final message from Claude.
+
+    #### Advanced usage
+
+    Within the loop, you have the ability to fully customize the tool runner's next request to the Messages API.
+    The method `runner.generateToolResponse()` will call the tool (if Claude triggered a tool use) and give you access to the tool result that will be sent back to the Messages API.
+    The methods `runner.setMessagesParams()` and `runner.pushMessages()` allow you to modify the parameters for the next Messages API request. The current parameters are available under `runner.params`.
+
+    #### Streaming
+
+    When enabling streaming with `stream: true`, each value emitted by the tool runner is a `MessageStream` as returned from `anthropic.messages.stream()`. The `MessageStream` is itself an async iterable that yields streaming events from the Messages API.
+
+    You can use `messageStream.finalMessage()` to let the SDK do the accumulation of streaming events into the final message for you.
+
+    ```typescript  theme={null}
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: 'What is the weather in San Francisco?' }],
+      tools: [calculatorTool],
+      stream: true,
+    });
+
+    // When streaming, the runner returns BetaMessageStream
+    for await (const messageStream of runner) {
+      for await (const event of messageStream) {
+        console.log('event:', event);
+      }
+      console.log('message:', await messageStream.finalMessage());
+    }
+
+    console.log(await runner);
+    ```
+  </Tab>
+</Tabs>
+
+<Note>
+  The SDK tool runner is in beta. The rest of this document covers manual tool implementation.
+</Note>
+
 ## Controlling Claude's output
 
 ### Forcing tool use
@@ -188,6 +479,10 @@ By default, Claude may use multiple tools to answer a user query. You can disabl
 
 <AccordionGroup>
   <Accordion title="Complete parallel tool use example">
+    <Note>
+      **Simpler with Tool runner**: The example below shows manual parallel tool handling. For most use cases, [tool runner](#tool-runner-beta) automatically handle parallel tool execution with much less code.
+    </Note>
+
     Here's a complete example showing how to properly format parallel tool calls in the message history:
 
     <CodeGroup>
@@ -518,7 +813,7 @@ By default, Claude may use multiple tools to answer a user query. You can disabl
                   result = "2:30 PM PST"
               else:
                   result = "5:30 PM EST"
-          
+
           tool_results.append({
               "type": "tool_result",
               "tool_use_id": tool_use.id,
@@ -621,7 +916,7 @@ By default, Claude may use multiple tools to answer a user query. You can disabl
         const toolResults = toolUses.map(toolUse => {
           let result;
           if (toolUse.name === "get_weather") {
-            result = toolUse.input.location.includes("San Francisco") 
+            result = toolUse.input.location.includes("San Francisco")
               ? "San Francisco: 68°F, partly cloudy"
               : "New York: 45°F, clear skies";
           } else {
@@ -629,7 +924,7 @@ By default, Claude may use multiple tools to answer a user query. You can disabl
               ? "2:30 PM PST"
               : "5:30 PM EST";
           }
-          
+
           return {
             type: "tool_result",
             tool_use_id: toolUse.id,
@@ -722,6 +1017,10 @@ While Claude 4 models have excellent parallel tool use capabilities by default, 
 </Warning>
 
 ## Handling tool use and tool result content blocks
+
+<Note>
+  **Simpler with Tool runner**: The manual tool handling described in this section is automatically managed by [tool runner](#tool-runner-beta). Use this section when you need custom control over tool execution.
+</Note>
 
 Claude's response differs based on whether it uses a client or server tool.
 
@@ -961,7 +1260,7 @@ Here's how to handle the `pause_turn` stop reason:
           {"role": "user", "content": "Search for comprehensive information about quantum computing breakthroughs in 2025"},
           {"role": "assistant", "content": response.content}
       ]
-      
+
       # Send the continuation request
       continuation = client.messages.create(
           model="claude-3-7-sonnet-latest",
@@ -973,7 +1272,7 @@ Here's how to handle the `pause_turn` stop reason:
               "max_uses": 10
           }]
       )
-      
+
       print(continuation)
   else:
       print(response)
@@ -1008,7 +1307,7 @@ Here's how to handle the `pause_turn` stop reason:
       { role: "user", content: "Search for comprehensive information about quantum computing breakthroughs in 2025" },
       { role: "assistant", content: response.content }
     ];
-    
+
     // Send the continuation request
     const continuation = await anthropic.messages.create({
       model: "claude-3-7-sonnet-latest",
@@ -1020,7 +1319,7 @@ Here's how to handle the `pause_turn` stop reason:
         max_uses: 10
       }]
     });
-    
+
     console.log(continuation);
   } else {
     console.log(response);
@@ -1035,6 +1334,10 @@ When handling `pause_turn`:
 * **Preserve tool state**: Include the same tools in the continuation request to maintain functionality
 
 ## Troubleshooting errors
+
+<Note>
+  **Built-in Error Handling**: [Tool runner](#tool-runner-beta) provide automatic error handling for most common scenarios. This section covers manual error handling for advanced use cases.
+</Note>
 
 There are a few different types of errors that can occur when using tools with Claude:
 
@@ -1132,8 +1435,8 @@ There are a few different types of errors that can occur when using tools with C
 
     ```text  theme={null}
     <use_parallel_tool_calls>
-    For maximum efficiency, whenever you perform multiple independent operations, 
-    invoke all relevant tools simultaneously rather than sequentially. 
+    For maximum efficiency, whenever you perform multiple independent operations,
+    invoke all relevant tools simultaneously rather than sequentially.
     Prioritize calling tools in parallel whenever possible.
     </use_parallel_tool_calls>
     ```
@@ -1148,7 +1451,7 @@ There are a few different types of errors that can occur when using tools with C
         block.type == "tool_use" for block in msg.content
     )]
     total_tool_calls = sum(
-        len([b for b in msg.content if b.type == "tool_use"]) 
+        len([b for b in msg.content if b.type == "tool_use"])
         for msg in tool_call_messages
     )
     avg_tools_per_message = total_tool_calls / len(tool_call_messages)
