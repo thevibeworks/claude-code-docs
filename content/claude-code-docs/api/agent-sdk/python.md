@@ -506,6 +506,7 @@ class ClaudeAgentOptions:
 | `include_partial_messages`    | `bool`                                       | `False`              | Include partial message streaming events                                                                                                                                                |
 | `fork_session`                | `bool`                                       | `False`              | When resuming with `resume`, fork to a new session ID instead of continuing the original session                                                                                        |
 | `agents`                      | `dict[str, AgentDefinition] \| None`         | `None`               | Programmatically defined subagents                                                                                                                                                      |
+| `plugins`                     | `list[SdkPluginConfig]`                      | `[]`                 | Load custom plugins from local paths. See [Plugins](/en/api/agent-sdk/plugins) for details                                                                                              |
 | `setting_sources`             | `list[SettingSource] \| None`                | `None` (no settings) | Control which filesystem settings to load. When omitted, no settings are loaded. **Note:** Must include `"project"` to load CLAUDE.md files                                             |
 
 ### `SystemPromptPreset`
@@ -711,6 +712,32 @@ class McpHttpServerConfig(TypedDict):
     url: str
     headers: NotRequired[dict[str, str]]
 ```
+
+### `SdkPluginConfig`
+
+Configuration for loading plugins in the SDK.
+
+```python  theme={null}
+class SdkPluginConfig(TypedDict):
+    type: Literal["local"]
+    path: str
+```
+
+| Field  | Type               | Description                                                |
+| :----- | :----------------- | :--------------------------------------------------------- |
+| `type` | `Literal["local"]` | Must be `"local"` (only local plugins currently supported) |
+| `path` | `str`              | Absolute or relative path to the plugin directory          |
+
+**Example:**
+
+```python  theme={null}
+plugins=[
+    {"type": "local", "path": "./my-plugin"},
+    {"type": "local", "path": "/absolute/path/to/plugin"}
+]
+```
+
+For complete information on creating and using plugins, see [Plugins](/en/api/agent-sdk/plugins).
 
 ## Message Types
 

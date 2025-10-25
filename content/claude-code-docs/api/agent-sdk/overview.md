@@ -81,6 +81,7 @@ The SDK provides access to all the default features available in Claude Code, le
 * **Agent Skills**: Extend Claude with specialized capabilities stored as `SKILL.md` files in `./.claude/skills/`
 * **Hooks**: Execute custom commands configured in `./.claude/settings.json` that respond to tool events
 * **Slash Commands**: Use custom commands defined as Markdown files in `./.claude/commands/`
+* **Plugins**: Load custom plugins programmatically using the `plugins` option to extend Claude Code with custom commands, agents, skills, hooks, and MCP servers. See [Plugins](/en/api/agent-sdk/plugins) for details.
 * **Memory (CLAUDE.md)**: Maintain project context through `CLAUDE.md` or `.claude/CLAUDE.md` files in your project directory, or `~/.claude/CLAUDE.md` for user-level instructions. To load these files, you must explicitly set `settingSources: ['project']` (TypeScript) or `setting_sources=["project"]` (Python) in your options. See [Modifying system prompts](/en/api/agent-sdk/modifying-system-prompts#method-1-claudemd-files-project-level-instructions) for details.
 
 These features work identically to their Claude Code counterparts by reading from the same file system locations.
