@@ -110,6 +110,7 @@ Configuration object for the `query()` function.
 | `pathToClaudeCodeExecutable` | `string`                                                                                          | Auto-detected              | Path to Claude Code executable                                                                                                                                                                                                                            |
 | `permissionMode`             | [`PermissionMode`](#permissionmode)                                                               | `'default'`                | Permission mode for the session                                                                                                                                                                                                                           |
 | `permissionPromptToolName`   | `string`                                                                                          | `undefined`                | MCP tool name for permission prompts                                                                                                                                                                                                                      |
+| `plugins`                    | [`SdkPluginConfig`](#sdkpluginconfig)`[]`                                                         | `[]`                       | Load custom plugins from local paths. See [Plugins](/en/api/agent-sdk/plugins) for details                                                                                                                                                                |
 | `resume`                     | `string`                                                                                          | `undefined`                | Session ID to resume                                                                                                                                                                                                                                      |
 | `settingSources`             | [`SettingSource`](#settingsource)`[]`                                                             | `[]` (no settings)         | Control which filesystem settings to load. When omitted, no settings are loaded. **Note:** Must include `'project'` to load CLAUDE.md files                                                                                                               |
 | `stderr`                     | `(data: string) => void`                                                                          | `undefined`                | Callback for stderr output                                                                                                                                                                                                                                |
@@ -349,6 +350,33 @@ type McpSdkServerConfigWithInstance = {
   instance: McpServer;
 }
 ```
+
+### `SdkPluginConfig`
+
+Configuration for loading plugins in the SDK.
+
+```ts  theme={null}
+type SdkPluginConfig = {
+  type: 'local';
+  path: string;
+}
+```
+
+| Field  | Type      | Description                                                |
+| :----- | :-------- | :--------------------------------------------------------- |
+| `type` | `'local'` | Must be `'local'` (only local plugins currently supported) |
+| `path` | `string`  | Absolute or relative path to the plugin directory          |
+
+**Example:**
+
+```ts  theme={null}
+plugins: [
+  { type: 'local', path: './my-plugin' },
+  { type: 'local', path: '/absolute/path/to/plugin' }
+]
+```
+
+For complete information on creating and using plugins, see [Plugins](/en/api/agent-sdk/plugins).
 
 ## Message Types
 
