@@ -5,8 +5,7 @@ Claude can interact with computer environments through the computer use tool, wh
 <Note>
   Computer use is currently in beta and requires a [beta header](/en/api/beta-headers):
 
-  * `"computer-use-2025-01-24"` (Claude 4 models and Claude Sonnet 3.7)
-  * `"computer-use-2024-10-22"` (Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)))
+  * `"computer-use-2025-01-24"` (Claude 4 models and Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)))
 </Note>
 
 ## Overview
@@ -24,14 +23,13 @@ While computer use can be augmented with other tools like bash and text editor f
 
 Computer use is available for the following Claude models:
 
-| Model                                                                         | Tool Version        | Beta Flag                 |
-| ----------------------------------------------------------------------------- | ------------------- | ------------------------- |
-| Claude 4 models                                                               | `computer_20250124` | `computer-use-2025-01-24` |
-| Claude Sonnet 3.7                                                             | `computer_20250124` | `computer-use-2025-01-24` |
-| Claude Sonnet 3.5 v2 ([deprecated](/en/docs/about-claude/model-deprecations)) | `computer_20241022` | `computer-use-2024-10-22` |
+| Model                                                                      | Tool Version        | Beta Flag                 |
+| -------------------------------------------------------------------------- | ------------------- | ------------------------- |
+| Claude 4 models                                                            | `computer_20250124` | `computer-use-2025-01-24` |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | `computer_20250124` | `computer-use-2025-01-24` |
 
 <Note>
-  Claude 4 models use updated tool versions optimized for the new architecture. Claude Sonnet 3.7 introduces additional capabilities including the thinking feature for more insight into the model's reasoning process.
+  Claude 4 models use updated tool versions optimized for the new architecture. Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) introduces additional capabilities including the thinking feature for more insight into the model's reasoning process.
 </Note>
 
 <Warning>
@@ -142,12 +140,9 @@ Here's how to get started with computer use:
 </CodeGroup>
 
 <Note>
-  **Beta header requirements:**
+  A beta header is only required for the computer use tool.
 
-  * **Claude 4 models and Claude Sonnet 3.7**: Beta header only required for the computer use tool
-  * **Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations))**: Beta header required for computer, bash, and text editor tools
-
-  The example above shows all three tools being used together, which requires the beta header for any Claude model since it includes the computer use tool.
+  The example above shows all three tools being used together, which requires the beta header because it includes the computer use tool.
 </Note>
 
 ***
@@ -319,17 +314,7 @@ The loop continues until either Claude responds without requesting any tools (ta
       "betas": ["computer-use-2025-01-24"]
       ```
     </Accordion>
-
-    <Accordion title="Claude Sonnet 3.5 v2 (deprecated)">
-      When using `computer_20241022`, include this beta flag:
-
-      ```
-      "betas": ["computer-use-2024-10-22"]
-      ```
-    </Accordion>
   </AccordionGroup>
-
-  Note: For Claude 4 models and Claude Sonnet 3.7, the beta flag is only required for the computer use tool. For Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)), the beta flag is required for computer, bash, and text editor tools.
 </Warning>
 
 We recommend trying the reference implementation out before reading the rest of this documentation.
@@ -897,7 +882,7 @@ The computer use functionality is in beta. While Claude's capabilities are cutti
 1. **Latency**: the current computer use latency for human-AI interactions may be too slow compared to regular human-directed computer actions. We recommend focusing on use cases where speed isn't critical (e.g., background information gathering, automated software testing) in trusted environments.
 2. **Computer vision accuracy and reliability**: Claude may make mistakes or hallucinate when outputting specific coordinates while generating actions. Claude Sonnet 3.7 introduces the thinking capability that can help you understand the model's reasoning and identify potential issues.
 3. **Tool selection accuracy and reliability**: Claude may make mistakes or hallucinate when selecting tools while generating actions or take unexpected actions to solve problems. Additionally, reliability may be lower when interacting with niche applications or multiple applications at once. We recommend that users prompt the model carefully when requesting complex tasks.
-4. **Scrolling reliability**: While Claude Sonnet 3.5 v2 ([deprecated](/en/docs/about-claude/model-deprecations)) had limitations with scrolling, Claude Sonnet 3.7 introduces dedicated scroll actions with direction control that improves reliability. The model can now explicitly scroll in any direction (up/down/left/right) by a specified amount.
+4. **Scrolling reliability**: Claude Sonnet 3.7 introduced dedicated scroll actions with direction control that improves reliability. The model can now explicitly scroll in any direction (up/down/left/right) by a specified amount.
 5. **Spreadsheet interaction**: Mouse clicks for spreadsheet interaction have improved in Claude Sonnet 3.7 with the addition of more precise mouse control actions like `left_mouse_down`, `left_mouse_up`, and new modifier key support. Cell selection can be more reliable by using these fine-grained controls and combining modifier keys with clicks.
 6. **Account creation and content generation on social and communications platforms**: While Claude will visit websites, we are limiting its ability to create accounts or generate and share content or otherwise engage in human impersonation across social media websites and platforms. We may update this capability in the future.
 7. **Vulnerabilities**: Vulnerabilities like jailbreaking or prompt injection may persist across frontier AI systems, including the beta computer use API. In some circumstances, Claude will follow commands found in content, sometimes even in conflict with the user's instructions. For example, Claude instructions on webpages or contained in images may override instructions or cause Claude to make mistakes. We recommend:
@@ -918,10 +903,10 @@ Computer use follows the standard [tool use pricing](/en/docs/agents-and-tools/t
 
 **Computer use tool token usage**:
 
-| Model             | Input tokens per tool definition |
-| ----------------- | -------------------------------- |
-| Claude 4.x models | 735 tokens                       |
-| Claude Sonnet 3.7 | 735 tokens                       |
+| Model                                                                      | Input tokens per tool definition |
+| -------------------------------------------------------------------------- | -------------------------------- |
+| Claude 4.x models                                                          | 735 tokens                       |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 735 tokens                       |
 
 **Additional token consumption**:
 

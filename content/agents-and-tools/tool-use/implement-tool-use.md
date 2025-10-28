@@ -127,10 +127,10 @@ We recommend that you use the tool runner for most tool use implementations.
   The tool runner is currently in beta and only available in the [Python](https://github.com/anthropics/anthropic-sdk-python/blob/main/tools.md) and [TypeScript](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/helpers.md#tool-helpers) SDKs.
 </Note>
 
-### Basic usage
-
 <Tabs>
   <Tab title="Python">
+    ### Basic usage
+
     Use the `@beta_tool` decorator to define tools and `client.beta.messages.tool_runner()` to execute them.
 
     <Note>
@@ -168,16 +168,16 @@ We recommend that you use the tool runner for most tool use implementations.
         return str(a + b)
 
     # Use the tool runner
-    with client.beta.messages.tool_runner(
+    runner = client.beta.messages.tool_runner(
         model="claude-sonnet-4-5",
         max_tokens=1024,
         tools=[get_weather, calculate_sum],
         messages=[
             {"role": "user", "content": "What's the weather like in Paris? Also, what's 15 + 27?"}
         ]
-    ) as runner:
-        for message in runner:
-            print(message.content[0].text)
+    )
+    for message in runner:
+        print(message.content[0].text)
     ```
 
     The decorated function must return a content block or content block array, including text, images, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
@@ -208,9 +208,88 @@ We recommend that you use the tool runner for most tool use implementations.
       }
     }
     ```
+
+    ### Iterating over the tool runner
+
+    The tool runner returned by `tool_runner()` is an iterable, which you can iterate over with a `for` loop. This is often referred to as a "tool call loop".
+    Each loop iteration yields a message that was returned by Claude.
+
+    After your code has a chance to process the current message inside the loop, the tool runner will check the message to see if Claude requested a tool use. If so, it will call the tool and send the tool result back to Claude automatically, then yield the next message from Claude to start the next iteration of your loop.
+
+    You may end the loop at any iteration with a simple `break` statement. The tool runner will loop until Claude returns a message without a tool use.
+
+    If you don't care about intermediate messages, instead of using a loop, you can call the `until_done()` method, which will return the final message from Claude:
+
+    ```python  theme={null}
+    runner = client.beta.messages.tool_runner(
+        model="claude-sonnet-4-5",
+        max_tokens=1024,
+        tools=[get_weather, calculate_sum],
+        messages=[
+            {"role": "user", "content": "What's the weather like in Paris? Also, what's 15 + 27?"}
+        ]
+    )
+    final_message = runner.until_done()
+    print(final_message.content[0].text)
+    ```
+
+    ### Advanced usage
+
+    Within the loop, you have the ability to fully customize the tool runner's next request to the Messages API.
+    The method `runner.generate_tool_call_response()` will call the tool (if Claude triggered a tool use) and give you access to the tool result that will be sent back to the Messages API.
+    The methods `runner.set_messages_params()` and `runner.append_messages()` allow you to modify the parameters for the next Messages API request.
+
+    ```python  theme={null}
+    runner = client.beta.messages.tool_runner(
+        model="claude-sonnet-4-5",
+        max_tokens=1024,
+        tools=[get_weather],
+        messages=[{"role": "user", "content": "What's the weather in San Francisco?"}]
+    )
+    for message in runner:
+        # Get the tool response that will be sent
+        tool_response = runner.generate_tool_call_response()
+
+        # Customize the next request
+        runner.set_messages_params(lambda params: {
+            **params,
+            "max_tokens": 2048  # Increase tokens for next request
+        })
+
+        # Or add additional messages
+        runner.append_messages(
+            {"role": "user", "content": "Please be concise in your response."}
+        )
+    ```
+
+    ### Streaming
+
+    When enabling streaming with `stream=True`, each value emitted by the tool runner is a `BetaMessageStream` as returned from `anthropic.messages.stream()`. The `BetaMessageStream` is itself an iterable that yields streaming events from the Messages API.
+
+    You can use `message_stream.get_final_message()` to let the SDK do the accumulation of streaming events into the final message for you.
+
+    ```python  theme={null}
+    runner = client.beta.messages.tool_runner(
+        model="claude-sonnet-4-5",
+        max_tokens=1024,
+        tools=[calculate_sum],
+        messages=[{"role": "user", "content": "What is 15 + 27?"}],
+        stream=True
+    )
+
+    # When streaming, the runner returns BetaMessageStream
+    for message_stream in runner:
+        for event in message_stream:
+            print('event:', event)
+        print('message:', message_stream.get_final_message())
+
+    print(runner.until_done())
+    ```
   </Tab>
 
   <Tab title="TypeScript (Zod)">
+    ### Basic usage
+
     Use `betaZodTool()` for type-safe tool definitions with Zod validation (requires Zod 3.25.0 or higher).
 
     ```typescript  theme={null}
@@ -257,7 +336,7 @@ We recommend that you use the tool runner for most tool use implementations.
     The `run` function must return a content block or content block array, including text, images, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
     If you want to return a structured JSON object to Claude, stringify it to a JSON string before returning it. Numbers, booleans or other non-string primitives also must be converted to strings.
 
-    #### Iterating over the tool runner
+    ### Iterating over the tool runner
 
     The tool runner returned by `toolRunner()` is an async iterable, which you can iterate over with a `for await ... of` loop. This is often referred to as a "tool call loop".
     Each loop iteration yields a messages that was returned by Claude.
@@ -268,13 +347,40 @@ We recommend that you use the tool runner for most tool use implementations.
 
     If you don't care about intermediate messages, instead of using a loop, you may simply `await` the tool runner, which will return the final message from Claude.
 
-    #### Advanced usage
+    ### Advanced usage
 
     Within the loop, you have the ability to fully customize the tool runner's next request to the Messages API.
     The method `runner.generateToolResponse()` will call the tool (if Claude triggered a tool use) and give you access to the tool result that will be sent back to the Messages API.
     The methods `runner.setMessagesParams()` and `runner.pushMessages()` allow you to modify the parameters for the next Messages API request. The current parameters are available under `runner.params`.
 
-    #### Streaming
+    ```typescript  theme={null}
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 1024,
+      tools: [getWeatherTool],
+      messages: [
+        { role: 'user', content: "What's the weather in San Francisco?" }
+      ]
+    });
+
+    for await (const message of runner) {
+      // Get the tool response that will be sent
+      const toolResponse = await runner.generateToolResponse();
+
+      // Customize the next request
+      runner.setMessagesParams(params => ({
+        ...params,
+        max_tokens: 2048  // Increase tokens for next request
+      }));
+
+      // Or add additional messages
+      runner.pushMessages(
+        { role: 'user', content: 'Please be concise in your response.' }
+      );
+    }
+    ```
+
+    ### Streaming
 
     When enabling streaming with `stream: true`, each value emitted by the tool runner is a `MessageStream` as returned from `anthropic.messages.stream()`. The `MessageStream` is itself an async iterable that yields streaming events from the Messages API.
 
@@ -302,6 +408,8 @@ We recommend that you use the tool runner for most tool use implementations.
   </Tab>
 
   <Tab title="TypeScript (JSON Schema)">
+    ### Basic usage
+
     Use `betaTool()` for type-safe tool definitions based on JSON schemas. TypeScript and your editor will be aware of the type of the `input` parameter for autocompletion.
 
     <Note>
@@ -354,7 +462,7 @@ We recommend that you use the tool runner for most tool use implementations.
     The `run` function must return any content block or content block array, including text, image, or document blocks. This allows tools to return rich, multimodal responses. Returned strings will be converted to a text content block.
     If you want to return a structured JSON object to Claude, encode it to a JSON string before returning it. Numbers, booleans or other non-string primitives also must be converted to strings.
 
-    #### Iterating over the tool runner
+    ### Iterating over the tool runner
 
     The tool runner returned by `toolRunner()` is an async iterable, which you can iterate over with a `for await ... of` loop. This is often referred to as a "tool call loop".
     Each loop iteration yields a messages that was returned by Claude.
@@ -365,13 +473,40 @@ We recommend that you use the tool runner for most tool use implementations.
 
     If you don't care about intermediate messages, instead of using a loop, you may simply `await` the tool runner, which will return the final message from Claude.
 
-    #### Advanced usage
+    ### Advanced usage
 
     Within the loop, you have the ability to fully customize the tool runner's next request to the Messages API.
     The method `runner.generateToolResponse()` will call the tool (if Claude triggered a tool use) and give you access to the tool result that will be sent back to the Messages API.
     The methods `runner.setMessagesParams()` and `runner.pushMessages()` allow you to modify the parameters for the next Messages API request. The current parameters are available under `runner.params`.
 
-    #### Streaming
+    ```typescript  theme={null}
+    const runner = anthropic.beta.messages.toolRunner({
+      model: 'claude-sonnet-4-5',
+      max_tokens: 1024,
+      tools: [getWeatherTool],
+      messages: [
+        { role: 'user', content: "What's the weather in San Francisco?" }
+      ]
+    });
+
+    for await (const message of runner) {
+      // Get the tool response that will be sent
+      const toolResponse = await runner.generateToolResponse();
+
+      // Customize the next request
+      runner.setMessagesParams(params => ({
+        ...params,
+        max_tokens: 2048  // Increase tokens for next request
+      }));
+
+      // Or add additional messages
+      runner.pushMessages(
+        { role: 'user', content: 'Please be concise in your response.' }
+      );
+    }
+    ```
+
+    ### Streaming
 
     When enabling streaming with `stream: true`, each value emitted by the tool runner is a `MessageStream` as returned from `anthropic.messages.stream()`. The `MessageStream` is itself an async iterable that yields streaming events from the Messages API.
 

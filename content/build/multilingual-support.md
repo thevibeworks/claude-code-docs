@@ -12,23 +12,23 @@ Note that Claude is capable in many languages beyond those benchmarked below. We
 
 Below are the zero-shot chain-of-thought evaluation scores for Claude 4, Claude 3.7 Sonnet and Claude 3.5 models across different languages, shown as a percent relative to English performance (100%):
 
-| Language                          | Claude Opus 4<sup>1</sup> | Claude Sonnet 4<sup>1</sup> | Claude Sonnet 3.7<sup>1</sup> | Claude Sonnet 3.5 v2 ([deprecated](/en/docs/about-claude/model-deprecations)) | Claude Haiku 3.5 |
-| --------------------------------- | ------------------------- | --------------------------- | ----------------------------- | ----------------------------------------------------------------------------- | ---------------- |
-| English (baseline, fixed to 100%) | 100%                      | 100%                        | 100%                          | 100%                                                                          | 100%             |
-| Spanish                           | 98.0%                     | 97.5%                       | 97.6%                         | 96.9%                                                                         | 94.6%            |
-| Portuguese (Brazil)               | 97.3%                     | 97.2%                       | 97.3%                         | 96.0%                                                                         | 94.6%            |
-| Italian                           | 97.5%                     | 97.3%                       | 97.2%                         | 95.6%                                                                         | 95.0%            |
-| French                            | 97.7%                     | 97.1%                       | 96.9%                         | 96.2%                                                                         | 95.3%            |
-| Indonesian                        | 97.2%                     | 96.2%                       | 96.3%                         | 94.0%                                                                         | 91.2%            |
-| German                            | 97.1%                     | 94.7%                       | 96.2%                         | 94.0%                                                                         | 92.5%            |
-| Arabic                            | 96.9%                     | 96.1%                       | 95.4%                         | 92.5%                                                                         | 84.7%            |
-| Chinese (Simplified)              | 96.7%                     | 95.9%                       | 95.3%                         | 92.8%                                                                         | 90.9%            |
-| Korean                            | 96.4%                     | 95.9%                       | 95.2%                         | 92.8%                                                                         | 89.1%            |
-| Japanese                          | 96.2%                     | 95.6%                       | 95.0%                         | 92.7%                                                                         | 90.8%            |
-| Hindi                             | 96.7%                     | 95.8%                       | 94.2%                         | 89.3%                                                                         | 80.1%            |
-| Bengali                           | 95.2%                     | 94.4%                       | 92.4%                         | 85.9%                                                                         | 72.9%            |
-| Swahili                           | 89.5%                     | 87.1%                       | 89.2%                         | 83.9%                                                                         | 64.7%            |
-| Yoruba                            | 78.9%                     | 76.4%                       | 76.7%                         | 64.9%                                                                         | 46.1%            |
+| Language                          | Claude Opus 4<sup>1</sup> | Claude Sonnet 4<sup>1</sup> | Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations))<sup>1</sup> | Claude Haiku 3.5 |
+| --------------------------------- | ------------------------- | --------------------------- | -------------------------------------------------------------------------------------- | ---------------- |
+| English (baseline, fixed to 100%) | 100%                      | 100%                        | 100%                                                                                   | 100%             |
+| Spanish                           | 98.0%                     | 97.5%                       | 97.6%                                                                                  | 94.6%            |
+| Portuguese (Brazil)               | 97.3%                     | 97.2%                       | 97.3%                                                                                  | 94.6%            |
+| Italian                           | 97.5%                     | 97.3%                       | 97.2%                                                                                  | 95.0%            |
+| French                            | 97.7%                     | 97.1%                       | 96.9%                                                                                  | 95.3%            |
+| Indonesian                        | 97.2%                     | 96.2%                       | 96.3%                                                                                  | 91.2%            |
+| German                            | 97.1%                     | 94.7%                       | 96.2%                                                                                  | 92.5%            |
+| Arabic                            | 96.9%                     | 96.1%                       | 95.4%                                                                                  | 84.7%            |
+| Chinese (Simplified)              | 96.7%                     | 95.9%                       | 95.3%                                                                                  | 90.9%            |
+| Korean                            | 96.4%                     | 95.9%                       | 95.2%                                                                                  | 89.1%            |
+| Japanese                          | 96.2%                     | 95.6%                       | 95.0%                                                                                  | 90.8%            |
+| Hindi                             | 96.7%                     | 95.8%                       | 94.2%                                                                                  | 80.1%            |
+| Bengali                           | 95.2%                     | 94.4%                       | 92.4%                                                                                  | 72.9%            |
+| Swahili                           | 89.5%                     | 87.1%                       | 89.2%                                                                                  | 64.7%            |
+| Yoruba                            | 78.9%                     | 76.4%                       | 76.7%                                                                                  | 46.1%            |
 
 <sup>1</sup> With [extended thinking](/en/docs/build-with-claude/extended-thinking).
 

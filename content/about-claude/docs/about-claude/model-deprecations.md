@@ -50,32 +50,42 @@ This audit will help you locate any instances where your application is still us
 
 All publicly released models are listed below with their status:
 
-| API Model Name               | Current State | Deprecated      | Tentative Retirement Date          |
-| :--------------------------- | :------------ | :-------------- | :--------------------------------- |
-| `claude-3-opus-20240229`     | Deprecated    | June 30, 2025   | January 5, 2026                    |
-| `claude-3-haiku-20240307`    | Active        | N/A             | Not sooner than March 7, 2025      |
-| `claude-3-5-haiku-20241022`  | Active        | N/A             | Not sooner than October 22, 2025   |
-| `claude-3-5-sonnet-20240620` | Deprecated    | August 13, 2025 | October 29, 2025                   |
-| `claude-3-5-sonnet-20241022` | Deprecated    | August 13, 2025 | October 29, 2025                   |
-| `claude-3-7-sonnet-20250219` | Active        | N/A             | Not sooner than February 19, 2026  |
-| `claude-sonnet-4-20250514`   | Active        | N/A             | Not sooner than May 14, 2026       |
-| `claude-opus-4-20250514`     | Active        | N/A             | Not sooner than May 14, 2026       |
-| `claude-opus-4-1-20250805`   | Active        | N/A             | Not sooner than August 5, 2026     |
-| `claude-sonnet-4-5-20250929` | Active        | N/A             | Not sooner than September 29, 2026 |
-| `claude-haiku-4-5-20251001`  | Active        | N/A             | Not sooner than October 15, 2026   |
+| API Model Name               | Current State | Deprecated       | Tentative Retirement Date          |
+| :--------------------------- | :------------ | :--------------- | :--------------------------------- |
+| `claude-3-opus-20240229`     | Deprecated    | June 30, 2025    | January 5, 2026                    |
+| `claude-3-haiku-20240307`    | Active        | N/A              | Not sooner than March 7, 2025      |
+| `claude-3-5-haiku-20241022`  | Active        | N/A              | Not sooner than October 22, 2025   |
+| `claude-3-7-sonnet-20250219` | Deprecated    | October 28, 2025 | February 19, 2026                  |
+| `claude-sonnet-4-20250514`   | Active        | N/A              | Not sooner than May 14, 2026       |
+| `claude-opus-4-20250514`     | Active        | N/A              | Not sooner than May 14, 2026       |
+| `claude-opus-4-1-20250805`   | Active        | N/A              | Not sooner than August 5, 2026     |
+| `claude-sonnet-4-5-20250929` | Active        | N/A              | Not sooner than September 29, 2026 |
+| `claude-haiku-4-5-20251001`  | Active        | N/A              | Not sooner than October 15, 2026   |
 
 ## Deprecation history
 
 All deprecations are listed below, with the most recent announcements at the top.
 
+### 2025-10-28: Claude Sonnet 3.7 model
+
+On October 28, 2025, we notified developers using Claude Sonnet 3.7 model of its upcoming retirement on the Claude API.
+
+| Retirement Date   | Deprecated Model             | Recommended Replacement      |
+| :---------------- | :--------------------------- | :--------------------------- |
+| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-sonnet-4-5-20250929` |
+
 ### 2025-08-13: Claude Sonnet 3.5 models
+
+<Note>
+  These models were retired October 28, 2025.
+</Note>
 
 On August 13, 2025, we notified developers using Claude Sonnet 3.5 models of their upcoming retirement.
 
 | Retirement Date  | Deprecated Model             | Recommended Replacement      |
 | :--------------- | :--------------------------- | :--------------------------- |
-| October 22, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-4-5-20250929` |
-| October 22, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-4-5-20250929` |
+| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-4-5-20250929` |
+| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-4-5-20250929` |
 
 ### 2025-06-30: Claude Opus 3 model
 
@@ -87,7 +97,11 @@ On June 30, 2025, we notified developers using Claude Opus 3 model of its upcomi
 
 ### 2025-01-21: Claude 2, Claude 2.1, and Claude Sonnet 3 models
 
-On January 21, 2025, we notified developers using Claude 2, Claude 2.1, and Claude Sonnet 3 models of their upcoming retirements. **These models were retired on July 21, 2025 at 9AM PT.**
+<Note>
+  These models were retired July 21, 2025.
+</Note>
+
+On January 21, 2025, we notified developers using Claude 2, Claude 2.1, and Claude Sonnet 3 models of their upcoming retirements.
 
 | Retirement Date | Deprecated Model           | Recommended Replacement      |
 | :-------------- | :------------------------- | :--------------------------- |
@@ -96,6 +110,10 @@ On January 21, 2025, we notified developers using Claude 2, Claude 2.1, and Clau
 | July 21, 2025   | `claude-3-sonnet-20240229` | `claude-sonnet-4-5-20250929` |
 
 ### 2024-09-04: Claude 1 and Instant models
+
+<Note>
+  These models were retired November 6, 2024.
+</Note>
 
 On September 4, 2024, we notified developers using Claude 1 and Instant models of their upcoming retirements.
 

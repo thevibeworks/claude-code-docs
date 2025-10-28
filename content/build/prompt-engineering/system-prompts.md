@@ -28,7 +28,7 @@ import anthropic
 client = anthropic.Anthropic()
 
 response = client.messages.create(
-    model="claude-3-7-sonnet-20250219",
+    model="claude-sonnet-4-5-20250929",
     max_tokens=2048,
     system="You are a seasoned data scientist at a Fortune 500 company.", # <-- role prompt
     messages=[

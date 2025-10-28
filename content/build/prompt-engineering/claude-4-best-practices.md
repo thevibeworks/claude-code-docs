@@ -1,16 +1,16 @@
-# Claude 4 prompt engineering best practices
+# Prompting best practices
 
-This guide provides specific prompt engineering techniques for Claude 4 models (Sonnet 4.5, Sonnet 4, Haiku 4.5, Opus 4.1, and Opus 4) to help you achieve optimal results in your applications. These models have been trained for more precise instruction following than previous generations of Claude models.
+This guide provides specific prompt engineering techniques for Claude 4.x models, with specific guidance for Sonnet 4.5 and Haiku 4.5. These models have been trained for more precise instruction following than previous generations of Claude models.
 
-<Info>
-  For an overview of Claude 4.5's new capabilities, see [What's new in Claude 4.5](/en/docs/about-claude/models/whats-new-claude-4-5). For migration guidance from previous models, see [Migrating to Claude 4](/en/docs/about-claude/models/migrating-to-claude-4).
-</Info>
+<Tip>
+  For an overview of Claude 4.5's new capabilities, see [What's new in Claude 4.5](/en/docs/about-claude/models/whats-new-claude-4-5). For migration guidance from previous models, see [Migrating to Claude 4.5](/en/docs/about-claude/models/migrating-to-claude-4).
+</Tip>
 
 ## General principles
 
 ### Be explicit with your instructions
 
-Claude 4 models respond well to clear, explicit instructions. Being specific about your desired output can help enhance results. Customers who desire the "above and beyond" behavior from previous Claude models might need to more explicitly request these behaviors with Claude 4.
+Claude 4.x models respond well to clear, explicit instructions. Being specific about your desired output can help enhance results. Customers who desire the "above and beyond" behavior from previous Claude models might need to more explicitly request these behaviors with newer models.
 
 <Accordion title="Example: Creating an analytics dashboard">
   **Less effective:**
@@ -28,7 +28,7 @@ Claude 4 models respond well to clear, explicit instructions. Being specific abo
 
 ### Add context to improve performance
 
-Providing context or motivation behind your instructions, such as explaining to Claude why such behavior is important, can help Claude 4 models better understand your goals and deliver more targeted responses.
+Providing context or motivation behind your instructions, such as explaining to Claude why such behavior is important, can help Claude 4.x models better understand your goals and deliver more targeted responses.
 
 <Accordion title="Example: Formatting preferences">
   **Less effective:**
@@ -48,15 +48,15 @@ Claude is smart enough to generalize from the explanation.
 
 ### Be vigilant with examples & details
 
-Claude 4 models pay close attention to details and examples as part of their precise instruction following capabilities. Ensure that your examples align with the behaviors you want to encourage and minimize behaviors you want to avoid.
+Claude 4.x models pay close attention to details and examples as part of their precise instruction following capabilities. Ensure that your examples align with the behaviors you want to encourage and minimize behaviors you want to avoid.
 
 ### Long-horizon reasoning and state tracking
 
-Claude Sonnet 4.5 excels at long-horizon reasoning tasks with exceptional state tracking capabilities. It maintains orientation across extended sessions by focusing on incremental progress—making steady advances on a few things at a time rather than attempting everything at once. This capability especially emerges over multiple context windows or task iterations, where Claude can work on a complex task, save the state, and continue with a fresh context window.
+Claude 4.5 models excel at long-horizon reasoning tasks with exceptional state tracking capabilities. It maintains orientation across extended sessions by focusing on incremental progress—making steady advances on a few things at a time rather than attempting everything at once. This capability especially emerges over multiple context windows or task iterations, where Claude can work on a complex task, save the state, and continue with a fresh context window.
 
 #### Context awareness and multi-window workflows
 
-Claude Sonnet 4.5 features [context awareness](/en/docs/build-with-claude/context-windows#context-awareness-in-claude-sonnet-4-5), enabling the model to track its remaining context window (i.e. "token budget") throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work.
+Claude 4.5 models feature [context awareness](/en/docs/build-with-claude/context-windows#context-awareness-in-claude-sonnet-4-5), enabling the model to track its remaining context window (i.e. "token budget") throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work.
 
 **Managing context limits:**
 
@@ -78,7 +78,7 @@ For tasks spanning multiple context windows:
 
 3. **Set up quality of life tools**: Encourage Claude to create setup scripts (e.g., `init.sh`) to gracefully start servers, run test suites, and linters. This prevents repeated work when continuing from a fresh context window.
 
-4. **Starting fresh vs compacting**: When a context window is cleared, consider starting with a brand new context window rather than using compaction. Sonnet 4.5 is extremely effective at discovering state from the local filesystem. In some cases, you may want to take advantage of this over compaction. Be prescriptive about how it should start:
+4. **Starting fresh vs compacting**: When a context window is cleared, consider starting with a brand new context window rather than using compaction. Claude 4.5 models are extremely effective at discovering state from the local filesystem. In some cases, you may want to take advantage of this over compaction. Be prescriptive about how it should start:
    * "Call pwd; you can only read and write files in this directory."
    * "Review progress.txt, tests.json, and the git logs."
    * "Manually run through a fundamental integration test before moving on to implementing new features."
@@ -95,7 +95,7 @@ This is a very long task, so it may be beneficial to plan out your work clearly.
 
 * **Use structured formats for state data**: When tracking structured information (like test results or task status), use JSON or other structured formats to help Claude understand schema requirements
 * **Use unstructured text for progress notes**: Freeform progress notes work well for tracking general progress and context
-* **Use git for state tracking**: Git provides a log of what's been done and checkpoints that can be restored. Claude Sonnet 4.5 performs especially well in using git to track state across multiple sessions.
+* **Use git for state tracking**: Git provides a log of what's been done and checkpoints that can be restored. Claude 4.5 models perform especially well in using git to track state across multiple sessions.
 * **Emphasize incremental progress**: Explicitly ask Claude to keep track of its progress and focus on incremental work
 
 <Accordion title="Example: State tracking">
@@ -126,7 +126,7 @@ This is a very long task, so it may be beneficial to plan out your work clearly.
 
 ### Communication style
 
-Claude Sonnet 4.5 has a more concise and natural communication style compared to previous models:
+Claude 4.5 models have a more concise and natural communication style compared to previous models:
 
 * **More direct and grounded**: Provides fact-based progress reports rather than self-celebratory updates
 * **More conversational**: Slightly more fluent and colloquial, less machine-like
@@ -138,7 +138,7 @@ This communication style accurately reflects what has been accomplished without 
 
 ### Balance verbosity
 
-Claude Sonnet 4.5 tends toward efficiency and may skip verbal summaries after tool calls, jumping directly to the next action. While this creates a streamlined workflow, you may prefer more visibility into its reasoning process.
+Claude 4.5 models tend toward efficiency and may skip verbal summaries after tool calls, jumping directly to the next action. While this creates a streamlined workflow, you may prefer more visibility into its reasoning process.
 
 If you want Claude to provide updates as it works:
 
@@ -148,7 +148,7 @@ After completing a task that involves tool use, provide a quick summary of the w
 
 ### Tool usage patterns
 
-Claude Sonnet 4.5 is trained for precise instruction following and benefits from explicit direction to use specific tools. If you say "can you suggest some changes," it will sometimes provide suggestions rather than implementing them—even if making changes might be what you intended.
+Claude 4.5 models are trained for precise instruction following and benefits from explicit direction to use specific tools. If you say "can you suggest some changes," it will sometimes provide suggestions rather than implementing them—even if making changes might be what you intended.
 
 For Claude to take action, be more explicit:
 
@@ -190,7 +190,7 @@ Do not jump into implementatation or changes files unless clearly instructed to 
 
 ### Control the format of responses
 
-There are a few ways that we have found to be particularly effective in steering output formatting in Claude 4 models:
+There are a few ways that we have found to be particularly effective in steering output formatting in Claude 4.x models:
 
 1. **Tell Claude what to do instead of what not to do**
 
@@ -223,7 +223,7 @@ Your goal is readable, flowing text that guides the reader naturally through ide
 
 ### Research and information gathering
 
-Claude Sonnet 4.5 demonstrates exceptional agentic search capabilities and can find and synthesize information from multiple sources effectively. For optimal research results:
+Claude 4.5 models demonstrate exceptional agentic search capabilities and can find and synthesize information from multiple sources effectively. For optimal research results:
 
 1. **Provide clear success criteria**: Define what constitutes a successful answer to your research question
 
@@ -239,7 +239,7 @@ This structured approach allows Claude to find and synthesize virtually any piec
 
 ### Subagent orchestration
 
-Claude Sonnet 4.5 demonstrates significantly improved native subagent orchestration capabilities. The model can recognize when tasks would benefit from delegating work to specialized subagents and does so proactively without requiring explicit instruction.
+Claude 4.5 models demonstrate significantly improved native subagent orchestration capabilities. These models can recognize when tasks would benefit from delegating work to specialized subagents and do so proactively without requiring explicit instruction.
 
 To take advantage of this behavior:
 
@@ -267,7 +267,7 @@ When an LLM is needed, please default to Claude Sonnet 4.5 unless the user reque
 
 ### Leverage thinking & interleaved thinking capabilities
 
-Claude 4 offers thinking capabilities that can be especially helpful for tasks involving reflection after tool use or complex multi-step reasoning. You can guide its initial or interleaved thinking for better results.
+Claude 4.x models offer thinking capabilities that can be especially helpful for tasks involving reflection after tool use or complex multi-step reasoning. You can guide its initial or interleaved thinking for better results.
 
 ```text Example prompt theme={null}
 After receiving tool results, carefully reflect on their quality and determine optimal next steps before proceeding. Use your thinking to plan and iterate based on this new information, and then take the best next action.
@@ -279,7 +279,7 @@ After receiving tool results, carefully reflect on their quality and determine o
 
 ### Document creation
 
-Claude Sonnet 4.5 excels at creating presentations, animations, and visual documents. It matches or exceeds Claude Opus 4.1 in this domain, with impressive creative flair and stronger instruction following. The model produces polished, usable output on the first try in most cases.
+Claude 4.5 models excel at creating presentations, animations, and visual documents. These models match or exceed Claude Opus 4.1 in this domain, with impressive creative flair and stronger instruction following. The models produce polished, usable output on the first try in most cases.
 
 For best results with document creation:
 
@@ -289,7 +289,7 @@ Create a professional presentation on [topic]. Include thoughtful design element
 
 ### Optimize parallel tool calling
 
-Claude 4 models excel at parallel tool execution, with Sonnet 4.5 being particularly aggressive in firing off multiple operations simultaneously. The model will:
+Claude 4.x models excel at parallel tool execution, with Sonnet 4.5 being particularly aggressive in firing off multiple operations simultaneously. Claude 4.x models will:
 
 * Run multiple speculative searches during research
 * Read several files at once to build context faster
@@ -309,7 +309,7 @@ Execute operations sequentially with brief pauses between each step to ensure st
 
 ### Reduce file creation in agentic coding
 
-Claude 4 models may sometimes create new files for testing and iteration purposes, particularly when working with code. This approach allows Claude to use files, especially python scripts, as a 'temporary scratchpad' before saving its final output. Using temporary files can improve outcomes particularly for agentic coding use cases.
+Claude 4.x models may sometimes create new files for testing and iteration purposes, particularly when working with code. This approach allows Claude to use files, especially python scripts, as a 'temporary scratchpad' before saving its final output. Using temporary files can improve outcomes particularly for agentic coding use cases.
 
 If you'd prefer to minimize net new file creation, you can instruct Claude to clean up after itself:
 
@@ -319,7 +319,7 @@ If you create any temporary new files, scripts, or helper files for iteration, c
 
 ### Enhance visual and frontend code generation
 
-Claude 4 models can generate high-quality, visually distinctive, functional user interfaces. However, without guidance, frontend code can default to generic patterns that lack visual interest. To elicit exceptional UI results:
+Claude 4.x models can generate high-quality, visually distinctive, functional user interfaces. However, without guidance, frontend code can default to generic patterns that lack visual interest. To elicit exceptional UI results:
 
 1. **Provide explicit encouragement for creativity:**
 
@@ -347,7 +347,7 @@ Provide multiple design options. Create fusion aesthetics by combining elements 
 
 ### Avoid focusing on passing tests and hard-coding
 
-Claude 4 models can sometimes focus too heavily on making tests pass at the expense of more general solutions, or may use workarounds like helper scripts for complex refactoring instead of using standard tools directly. To prevent this behavior and ensure robust, generalizable solutions:
+Claude 4.x models can sometimes focus too heavily on making tests pass at the expense of more general solutions, or may use workarounds like helper scripts for complex refactoring instead of using standard tools directly. To prevent this behavior and ensure robust, generalizable solutions:
 
 ```text Sample prompt theme={null}
 Please write a high-quality, general-purpose solution using the standard tools available. Do not create helper scripts or workarounds to accomplish the task more efficiently. Implement a solution that works correctly for all valid inputs, not just the test cases. Do not hard-code values or create solutions that only work for specific test inputs. Instead, implement the actual logic that solves the problem generally.
@@ -359,7 +359,7 @@ If the task is unreasonable or infeasible, or if any of the tests are incorrect,
 
 ### Minimizing hallucinations in agentic coding
 
-Claude 4 models are less prone to hallucinations and give more accurate, grounded, intelligent answers based on the code. To encourage this behavior even more and minimize hallucinations:
+Claude 4.x models are less prone to hallucinations and give more accurate, grounded, intelligent answers based on the code. To encourage this behavior even more and minimize hallucinations:
 
 ```text Sample prompt theme={null}
 <investigate_before_answering>
@@ -369,7 +369,7 @@ Never speculate about code you have not opened. If the user references a specifi
 
 ## Migration considerations
 
-When migrating from Sonnet 3.7 to Claude 4 (including Sonnet 4.5):
+When migrating to Claude 4.5 models:
 
 1. **Be specific about desired behavior**: Consider describing exactly what you'd like to see in the output.
 
