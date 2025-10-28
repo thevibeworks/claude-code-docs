@@ -16,8 +16,7 @@ The following table shows pricing for all Claude models across different usage t
 | Claude Opus 4                                                              | \$15 / MTok       | \$18.75 / MTok  | \$30 / MTok     | \$1.50 / MTok          | \$75 / MTok   |
 | Claude Sonnet 4.5                                                          | \$3 / MTok        | \$3.75 / MTok   | \$6 / MTok      | \$0.30 / MTok          | \$15 / MTok   |
 | Claude Sonnet 4                                                            | \$3 / MTok        | \$3.75 / MTok   | \$6 / MTok      | \$0.30 / MTok          | \$15 / MTok   |
-| Claude Sonnet 3.7                                                          | \$3 / MTok        | \$3.75 / MTok   | \$6 / MTok      | \$0.30 / MTok          | \$15 / MTok   |
-| Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) | \$3 / MTok        | \$3.75 / MTok   | \$6 / MTok      | \$0.30 / MTok          | \$15 / MTok   |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | \$3 / MTok        | \$3.75 / MTok   | \$6 / MTok      | \$0.30 / MTok          | \$15 / MTok   |
 | Claude Haiku 4.5                                                           | \$1 / MTok        | \$1.25 / MTok   | \$2 / MTok      | \$0.10 / MTok          | \$5 / MTok    |
 | Claude Haiku 3.5                                                           | \$0.80 / MTok     | \$1 / MTok      | \$1.6 / MTok    | \$0.08 / MTok          | \$4 / MTok    |
 | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | \$15 / MTok       | \$18.75 / MTok  | \$30 / MTok     | \$1.50 / MTok          | \$75 / MTok   |
@@ -70,8 +69,7 @@ The Batch API allows asynchronous processing of large volumes of requests with a
 | Claude Opus 4                                                              | \$7.50 / MTok  | \$37.50 / MTok |
 | Claude Sonnet 4.5                                                          | \$1.50 / MTok  | \$7.50 / MTok  |
 | Claude Sonnet 4                                                            | \$1.50 / MTok  | \$7.50 / MTok  |
-| Claude Sonnet 3.7                                                          | \$1.50 / MTok  | \$7.50 / MTok  |
-| Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) | \$1.50 / MTok  | \$7.50 / MTok  |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | \$1.50 / MTok  | \$7.50 / MTok  |
 | Claude Haiku 4.5                                                           | \$0.50 / MTok  | \$2.50 / MTok  |
 | Claude Haiku 3.5                                                           | \$0.40 / MTok  | \$2 / MTok     |
 | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | \$7.50 / MTok  | \$37.50 / MTok |
@@ -144,20 +142,18 @@ The additional tokens from tool use come from:
 
 When you use `tools`, we also automatically include a special system prompt for the model which enables tool use. The number of tool use tokens required for each model are listed below (excluding the additional tokens listed above). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
 
-| Model                                                                             | Tool choice                                        | Tool use system prompt token count          |
-| --------------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------- |
-| Claude Opus 4.1                                                                   | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Opus 4                                                                     | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Sonnet 4.5                                                                 | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Sonnet 4                                                                   | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Sonnet 3.7                                                                 | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Sonnet 3.5 (Oct) ([deprecated](/en/docs/about-claude/model-deprecations))  | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Sonnet 3.5 (June) ([deprecated](/en/docs/about-claude/model-deprecations)) | `auto`, `none`<hr className="my-2" />`any`, `tool` | 294 tokens<hr className="my-2" />261 tokens |
-| Claude Haiku 4.5                                                                  | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
-| Claude Haiku 3.5                                                                  | `auto`, `none`<hr className="my-2" />`any`, `tool` | 264 tokens<hr className="my-2" />340 tokens |
-| Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))            | `auto`, `none`<hr className="my-2" />`any`, `tool` | 530 tokens<hr className="my-2" />281 tokens |
-| Claude Sonnet 3                                                                   | `auto`, `none`<hr className="my-2" />`any`, `tool` | 159 tokens<hr className="my-2" />235 tokens |
-| Claude Haiku 3                                                                    | `auto`, `none`<hr className="my-2" />`any`, `tool` | 264 tokens<hr className="my-2" />340 tokens |
+| Model                                                                      | Tool choice                                        | Tool use system prompt token count          |
+| -------------------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------- |
+| Claude Opus 4.1                                                            | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Opus 4                                                              | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Sonnet 4.5                                                          | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Sonnet 4                                                            | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Haiku 4.5                                                           | `auto`, `none`<hr className="my-2" />`any`, `tool` | 346 tokens<hr className="my-2" />313 tokens |
+| Claude Haiku 3.5                                                           | `auto`, `none`<hr className="my-2" />`any`, `tool` | 264 tokens<hr className="my-2" />340 tokens |
+| Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | `auto`, `none`<hr className="my-2" />`any`, `tool` | 530 tokens<hr className="my-2" />281 tokens |
+| Claude Sonnet 3                                                            | `auto`, `none`<hr className="my-2" />`any`, `tool` | 159 tokens<hr className="my-2" />235 tokens |
+| Claude Haiku 3                                                             | `auto`, `none`<hr className="my-2" />`any`, `tool` | 264 tokens<hr className="my-2" />340 tokens |
 
 These token counts are added to your normal input and output tokens to calculate the total cost of a request.
 
@@ -181,10 +177,10 @@ See [tool use pricing](#tool-use-pricing) for complete pricing details.
 
 #### Code execution tool
 
-The code execution tool usage is tracked separately from token usage. Execution time is a minimum of 5 minutes.
+Code execution tool usage is tracked separately from token usage. Execution time has a minimum of 5 minutes.
 If files are included in the request, execution time is billed even if the tool is not used due to files being preloaded onto the container.
 
-**Pricing**: \$0.05 per session-hour.
+Each organization receives 50 free hours of usage with the code execution tool per day. Additional usage beyond the first 50 hours is billed at \$0.05 per hour, per container.
 
 #### Text editor tool
 
@@ -194,9 +190,8 @@ In addition to the base tokens, the following additional input tokens are needed
 
 | Tool                                                                                                | Additional input tokens |
 | --------------------------------------------------------------------------------------------------- | ----------------------- |
-| `text_editor_20250429` (Claude 4)                                                                   | 700 tokens              |
-| `text_editor_20250124` (Claude Sonnet 3.7)                                                          | 700 tokens              |
-| `text_editor_20241022` (Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations))) | 700 tokens              |
+| `text_editor_20250429` (Claude 4.x)                                                                 | 700 tokens              |
+| `text_editor_20250124` (Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations))) | 700 tokens              |
 
 See [tool use pricing](#tool-use-pricing) for complete pricing details.
 
@@ -254,10 +249,10 @@ Computer use follows the standard [tool use pricing](/en/docs/agents-and-tools/t
 
 **Computer use tool token usage**:
 
-| Model             | Input tokens per tool definition |
-| ----------------- | -------------------------------- |
-| Claude 4.x models | 735 tokens                       |
-| Claude Sonnet 3.7 | 735 tokens                       |
+| Model                                                                      | Input tokens per tool definition |
+| -------------------------------------------------------------------------- | -------------------------------- |
+| Claude 4.x models                                                          | 735 tokens                       |
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 735 tokens                       |
 
 **Additional token consumption**:
 

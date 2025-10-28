@@ -13,16 +13,9 @@ The bash tool provides Claude with:
 
 ## Model compatibility
 
-| Model                                                                      | Tool Version    |
-| -------------------------------------------------------------------------- | --------------- |
-| Claude 4 models and Sonnet 3.7                                             | `bash_20250124` |
-| Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) | `bash_20241022` |
-
-<Note>
-  Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) requires the `computer-use-2024-10-22` beta header when using the bash tool.
-
-  The bash tool is generally available in Claude 4 models and Sonnet 3.7.
-</Note>
+| Model                                                                                   | Tool Version    |
+| --------------------------------------------------------------------------------------- | --------------- |
+| Claude 4 models and Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | `bash_20250124` |
 
 <Warning>
   Older tool versions are not guaranteed to be backwards-compatible with newer models. Always use the tool version that corresponds to your model version.

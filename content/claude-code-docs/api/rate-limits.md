@@ -132,59 +132,51 @@ You can check your current rate limits and behavior in the [Claude Console](http
 
 <Tabs>
   <Tab title="Tier 1">
-    | Model                                                                                        | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
-    | -------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
-    | Claude Sonnet 4.x<sup>\*\*</sup>                                                             | 50                                | 30,000                                 | 8,000                                   |
-    | Claude Sonnet 3.7                                                                            | 50                                | 20,000                                 | 8,000                                   |
-    | Claude Sonnet 3.5 <br /> 2024-10-22 ([deprecated](/en/docs/about-claude/model-deprecations)) | 50                                | 40,000<sup>†</sup>                     | 8,000                                   |
-    | Claude Sonnet 3.5 <br /> 2024-06-20 ([deprecated](/en/docs/about-claude/model-deprecations)) | 50                                | 40,000<sup>†</sup>                     | 8,000                                   |
-    | Claude Haiku 4.5                                                                             | 50                                | 50,000                                 | 10,000                                  |
-    | Claude Haiku 3.5                                                                             | 50                                | 50,000<sup>†</sup>                     | 10,000                                  |
-    | Claude Haiku 3                                                                               | 50                                | 50,000<sup>†</sup>                     | 10,000                                  |
-    | Claude Opus 4.x<sup>\*</sup>                                                                 | 50                                | 30,000                                 | 8,000                                   |
-    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))                       | 50                                | 20,000<sup>†</sup>                     | 4,000                                   |
+    | Model                                                                      | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
+    | -------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
+    | Claude Sonnet 4.x<sup>\*\*</sup>                                           | 50                                | 30,000                                 | 8,000                                   |
+    | Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 50                                | 20,000                                 | 8,000                                   |
+    | Claude Haiku 4.5                                                           | 50                                | 50,000                                 | 10,000                                  |
+    | Claude Haiku 3.5                                                           | 50                                | 50,000<sup>†</sup>                     | 10,000                                  |
+    | Claude Haiku 3                                                             | 50                                | 50,000<sup>†</sup>                     | 10,000                                  |
+    | Claude Opus 4.x<sup>\*</sup>                                               | 50                                | 30,000                                 | 8,000                                   |
+    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | 50                                | 20,000<sup>†</sup>                     | 4,000                                   |
   </Tab>
 
   <Tab title="Tier 2">
-    | Model                                                                                        | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
-    | -------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
-    | Claude Sonnet 4.x<sup>\*\*</sup>                                                             | 1,000                             | 450,000                                | 90,000                                  |
-    | Claude Sonnet 3.7                                                                            | 1,000                             | 40,000                                 | 16,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-10-22 ([deprecated](/en/docs/about-claude/model-deprecations)) | 1,000                             | 80,000<sup>†</sup>                     | 16,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-06-20 ([deprecated](/en/docs/about-claude/model-deprecations)) | 1,000                             | 80,000<sup>†</sup>                     | 16,000                                  |
-    | Claude Haiku 4.5                                                                             | 1,000                             | 450,000                                | 90,000                                  |
-    | Claude Haiku 3.5                                                                             | 1,000                             | 100,000<sup>†</sup>                    | 20,000                                  |
-    | Claude Haiku 3                                                                               | 1,000                             | 100,000<sup>†</sup>                    | 20,000                                  |
-    | Claude Opus 4.x<sup>\*</sup>                                                                 | 1,000                             | 450,000                                | 90,000                                  |
-    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))                       | 1,000                             | 40,000<sup>†</sup>                     | 8,000                                   |
+    | Model                                                                      | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
+    | -------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
+    | Claude Sonnet 4.x<sup>\*\*</sup>                                           | 1,000                             | 450,000                                | 90,000                                  |
+    | Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 1,000                             | 40,000                                 | 16,000                                  |
+    | Claude Haiku 4.5                                                           | 1,000                             | 450,000                                | 90,000                                  |
+    | Claude Haiku 3.5                                                           | 1,000                             | 100,000<sup>†</sup>                    | 20,000                                  |
+    | Claude Haiku 3                                                             | 1,000                             | 100,000<sup>†</sup>                    | 20,000                                  |
+    | Claude Opus 4.x<sup>\*</sup>                                               | 1,000                             | 450,000                                | 90,000                                  |
+    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | 1,000                             | 40,000<sup>†</sup>                     | 8,000                                   |
   </Tab>
 
   <Tab title="Tier 3">
-    | Model                                                                                        | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
-    | -------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
-    | Claude Sonnet 4.x<sup>\*\*</sup>                                                             | 2,000                             | 800,000                                | 160,000                                 |
-    | Claude Sonnet 3.7                                                                            | 2,000                             | 80,000                                 | 32,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-10-22 ([deprecated](/en/docs/about-claude/model-deprecations)) | 2,000                             | 160,000<sup>†</sup>                    | 32,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-06-20 ([deprecated](/en/docs/about-claude/model-deprecations)) | 2,000                             | 160,000<sup>†</sup>                    | 32,000                                  |
-    | Claude Haiku 4.5                                                                             | 2,000                             | 1,000,000                              | 200,000                                 |
-    | Claude Haiku 3.5                                                                             | 2,000                             | 200,000<sup>†</sup>                    | 40,000                                  |
-    | Claude Haiku 3                                                                               | 2,000                             | 200,000<sup>†</sup>                    | 40,000                                  |
-    | Claude Opus 4.x<sup>\*</sup>                                                                 | 2,000                             | 800,000                                | 160,000                                 |
-    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))                       | 2,000                             | 80,000<sup>†</sup>                     | 16,000                                  |
+    | Model                                                                      | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
+    | -------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
+    | Claude Sonnet 4.x<sup>\*\*</sup>                                           | 2,000                             | 800,000                                | 160,000                                 |
+    | Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 2,000                             | 80,000                                 | 32,000                                  |
+    | Claude Haiku 4.5                                                           | 2,000                             | 1,000,000                              | 200,000                                 |
+    | Claude Haiku 3.5                                                           | 2,000                             | 200,000<sup>†</sup>                    | 40,000                                  |
+    | Claude Haiku 3                                                             | 2,000                             | 200,000<sup>†</sup>                    | 40,000                                  |
+    | Claude Opus 4.x<sup>\*</sup>                                               | 2,000                             | 800,000                                | 160,000                                 |
+    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | 2,000                             | 80,000<sup>†</sup>                     | 16,000                                  |
   </Tab>
 
   <Tab title="Tier 4">
-    | Model                                                                                        | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
-    | -------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
-    | Claude Sonnet 4.x<sup>\*\*</sup>                                                             | 4,000                             | 2,000,000                              | 400,000                                 |
-    | Claude Sonnet 3.7                                                                            | 4,000                             | 200,000                                | 80,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-10-22 ([deprecated](/en/docs/about-claude/model-deprecations)) | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
-    | Claude Sonnet 3.5 <br /> 2024-06-20 ([deprecated](/en/docs/about-claude/model-deprecations)) | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
-    | Claude Haiku 4.5                                                                             | 4,000                             | 4,000,000                              | 800,000                                 |
-    | Claude Haiku 3.5                                                                             | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
-    | Claude Haiku 3                                                                               | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
-    | Claude Opus 4.x<sup>\*</sup>                                                                 | 4,000                             | 2,000,000                              | 400,000                                 |
-    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))                       | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
+    | Model                                                                      | Maximum requests per minute (RPM) | Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
+    | -------------------------------------------------------------------------- | --------------------------------- | -------------------------------------- | --------------------------------------- |
+    | Claude Sonnet 4.x<sup>\*\*</sup>                                           | 4,000                             | 2,000,000                              | 400,000                                 |
+    | Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | 4,000                             | 200,000                                | 80,000                                  |
+    | Claude Haiku 4.5                                                           | 4,000                             | 4,000,000                              | 800,000                                 |
+    | Claude Haiku 3.5                                                           | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
+    | Claude Haiku 3                                                             | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
+    | Claude Opus 4.x<sup>\*</sup>                                               | 4,000                             | 2,000,000                              | 400,000                                 |
+    | Claude Opus 3 ([deprecated](/en/docs/about-claude/model-deprecations))     | 4,000                             | 400,000<sup>†</sup>                    | 80,000                                  |
   </Tab>
 
   <Tab title="Custom">

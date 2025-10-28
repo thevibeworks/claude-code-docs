@@ -7,17 +7,10 @@ Claude can use an Anthropic-defined text editor tool to view and modify text fil
 | Model                                                                      | Tool Version           |
 | -------------------------------------------------------------------------- | ---------------------- |
 | Claude 4.x models                                                          | `text_editor_20250728` |
-| Claude Sonnet 3.7                                                          | `text_editor_20250124` |
-| Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) | `text_editor_20241022` |
-
-<Note>
-  Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)) requires the `computer-use-2024-10-22` beta header when using the text editor tool.
-
-  The text editor tool is generally available in Claude 4 models and Claude Sonnet 3.7.
-</Note>
+| Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)) | `text_editor_20250124` |
 
 <Warning>
-  The `text_editor_20250728` tool for Claude 4 models does not include the `undo_edit` command. If you require this functionality, you'll need to use Claude Sonnet 3.7 or Sonnet 3.5 with their respective tool versions.
+  The `text_editor_20250728` tool for Claude 4 models does not include the `undo_edit` command. If you require this functionality, you'll need to use Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)).
 </Warning>
 
 <Warning>
@@ -250,113 +243,6 @@ Some examples of when to use the text editor tool are:
       ```
     </CodeGroup>
   </Tab>
-
-  <Tab title="Claude Sonnet 3.5 (deprecated)">
-    Provide the text editor tool (named `str_replace_editor`) to Claude using the Messages API:
-
-    <CodeGroup>
-      ```bash Shell theme={null}
-      curl https://api.anthropic.com/v1/messages \
-        -H "content-type: application/json" \
-        -H "x-api-key: $ANTHROPIC_API_KEY" \
-        -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: computer-use-2024-10-22" \
-        -d '{
-          "model": "claude-3-5-sonnet-20241022",
-          "max_tokens": 1024,
-          "tools": [
-            {
-              "type": "text_editor_20241022",
-              "name": "str_replace_editor"
-            }
-          ],
-          "messages": [
-            {
-              "role": "user",
-              "content": "There'\''s a syntax error in my primes.py file. Can you help me fix it?"
-            }
-          ]
-        }'
-      ```
-
-      ```python Python theme={null}
-      import anthropic
-
-      client = anthropic.Anthropic()
-
-      response = client.beta.messages.create(
-          model="claude-3-5-sonnet-20241022",
-          max_tokens=1024,
-          tools=[
-              {
-                  "type": "text_editor_20241022",
-                  "name": "str_replace_editor"
-              }
-          ],
-          messages=[
-              {
-                  "role": "user", 
-                  "content": "There's a syntax error in my primes.py file. Can you help me fix it?"
-              }
-          ],
-          betas=["computer-use-2024-10-22"]  # Required for Claude 3.5
-      )
-      ```
-
-      ```typescript TypeScript theme={null}
-      import Anthropic from '@anthropic-ai/sdk';
-
-      const anthropic = new Anthropic();
-
-      const response = await anthropic.beta.messages.create({
-        model: "claude-3-5-sonnet-20241022",
-        max_tokens: 1024,
-        tools: [
-          {
-            type: "text_editor_20241022",
-            name: "str_replace_editor"
-          }
-        ],
-        messages: [
-          {
-            role: "user",
-            content: "There's a syntax error in my primes.py file. Can you help me fix it?"
-          }
-        ],
-        betas: ["computer-use-2024-10-22"]  // Required for Claude 3.5
-      });
-      ```
-
-      ```java Java theme={null}
-      import com.anthropic.client.AnthropicClient;
-      import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-      import com.anthropic.models.messages.Message;
-      import com.anthropic.models.messages.MessageCreateParams;
-      import com.anthropic.models.messages.Model;
-      import com.anthropic.models.messages.ToolTextEditor20241022;
-
-      public class TextEditorToolExample {
-
-          public static void main(String[] args) {
-              AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-              ToolTextEditor20241022 editorTool = ToolTextEditor20241022.builder()
-                      .build();
-
-              MessageCreateParams params = MessageCreateParams.builder()
-                      .model(Model.CLAUDE_3_5_SONNET_LATEST)
-                      .maxTokens(1024)
-                      .addTool(editorTool)
-                      .addUserMessage("There's a syntax error in my primes.py file. Can you help me fix it?")
-                      .addBeta("computer-use-2024-10-22")  // Required for Claude 3.5
-                      .build();
-
-              Message message = client.beta().messages().create(params);
-          }
-      }
-      ```
-    </CodeGroup>
-  </Tab>
 </Tabs>
 
 The text editor tool can be used in the following way:
@@ -519,7 +405,7 @@ Parameters:
 The `undo_edit` command allows Claude to revert the last edit made to a file.
 
 <Note>
-  This command is only available in Claude Sonnet 3.7 and Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)). It is not supported in Claude 4 models using the `text_editor_20250728`.
+  This command is only available in Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations)). It is not supported in Claude 4 models using the `text_editor_20250728`.
 </Note>
 
 Parameters:
@@ -1111,7 +997,6 @@ The tool type depends on the model version:
 
 * **Claude 4**: `type: "text_editor_20250728"`
 * **Claude Sonnet 3.7**: `type: "text_editor_20250124"`
-* **Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations))**: `type: "text_editor_20241022"`
 
 <Steps>
   <Step title="Initialize your editor implementation">
@@ -1143,7 +1028,7 @@ The tool type depends on the model version:
             # Check if it's a Claude 4 model
             if 'str_replace_based_edit_tool' in model_version:
                 return {"error": "undo_edit command is not supported in Claude 4"}
-            # Restore from backup for Claude 3.7/3.5
+            # Restore from backup for Claude 3.7
             pass
     ```
   </Step>
@@ -1347,9 +1232,8 @@ In addition to the base tokens, the following additional input tokens are needed
 
 | Tool                                                                                                | Additional input tokens |
 | --------------------------------------------------------------------------------------------------- | ----------------------- |
-| `text_editor_20250429` (Claude 4)                                                                   | 700 tokens              |
-| `text_editor_20250124` (Claude Sonnet 3.7)                                                          | 700 tokens              |
-| `text_editor_20241022` (Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations))) | 700 tokens              |
+| `text_editor_20250429` (Claude 4.x)                                                                 | 700 tokens              |
+| `text_editor_20250124` (Claude Sonnet 3.7 ([deprecated](/en/docs/about-claude/model-deprecations))) | 700 tokens              |
 
 For more detailed information about tool pricing, see [Tool use pricing](/en/docs/agents-and-tools/tool-use/overview#pricing).
 
@@ -1362,12 +1246,12 @@ The text editor tool can be used alongside other Claude tools. When combining to
 
 ## Change log
 
-| Date             | Version                | Changes                                                                                                                                                                                                                                                                  |
-| ---------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| July 28, 2025    | `text_editor_20250728` | Release of an updated text editor Tool that fixes some issues and adds an optional `max_characters` parameter. It is otherwise identical to `text_editor_20250429`.                                                                                                      |
-| April 29, 2025   | `text_editor_20250429` | Release of the text editor Tool for Claude 4. This version removes the `undo_edit` command but maintains all other capabilities. The tool name has been updated to reflect its str\_replace-based architecture.                                                          |
-| March 13, 2025   | `text_editor_20250124` | Introduction of standalone text editor Tool documentation. This version is optimized for Claude Sonnet 3.7 but has identical capabilities to the previous version.                                                                                                       |
-| October 22, 2024 | `text_editor_20241022` | Initial release of the text editor Tool with Claude Sonnet 3.5 ([deprecated](/en/docs/about-claude/model-deprecations)). Provides capabilities for viewing, creating, and editing files through the `view`, `create`, `str_replace`, `insert`, and `undo_edit` commands. |
+| Date             | Version                | Changes                                                                                                                                                                                                                                                               |
+| ---------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| July 28, 2025    | `text_editor_20250728` | Release of an updated text editor Tool that fixes some issues and adds an optional `max_characters` parameter. It is otherwise identical to `text_editor_20250429`.                                                                                                   |
+| April 29, 2025   | `text_editor_20250429` | Release of the text editor Tool for Claude 4. This version removes the `undo_edit` command but maintains all other capabilities. The tool name has been updated to reflect its str\_replace-based architecture.                                                       |
+| March 13, 2025   | `text_editor_20250124` | Introduction of standalone text editor Tool documentation. This version is optimized for Claude Sonnet 3.7 but has identical capabilities to the previous version.                                                                                                    |
+| October 22, 2024 | `text_editor_20241022` | Initial release of the text editor Tool with Claude Sonnet 3.5 ([retired](/en/docs/about-claude/model-deprecations)). Provides capabilities for viewing, creating, and editing files through the `view`, `create`, `str_replace`, `insert`, and `undo_edit` commands. |
 
 ## Next steps
 
