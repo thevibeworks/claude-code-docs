@@ -3,14 +3,39 @@
 > Automatically manage conversation context as it grows with context editing.
 
 <Note>
-  Context editing is currently in beta with support for tool result clearing. To enable it, use the beta header `context-management-2025-06-27` in your API requests. Additional context editing strategies will be added in future releases.
+  Context editing is currently in beta with support for tool result clearing and thinking block clearing. To enable it, use the beta header `context-management-2025-06-27` in your API requests.
 
   Please reach out through our [feedback form](https://forms.gle/YXC2EKGMhjN1c4L88) to share your feedback on this feature.
 </Note>
 
-## How it works
+## Overview
+
+Context editing allows you to automatically manage conversation context as it grows, helping you optimize costs and stay within context window limits. The API provides different strategies for managing context:
+
+* **Tool result clearing** (`clear_tool_uses_20250919`): Automatically clears tool use/result pairs when conversation context exceeds your configured threshold
+* **Thinking block clearing** (`clear_thinking_20251015`): Manages [thinking blocks](/en/docs/build-with-claude/extended-thinking) by clearing older thinking blocks from previous turns
+
+Each strategy can be configured independently and applied together to optimize your specific use case.
+
+## Context editing strategies
+
+### Tool result clearing
 
 The `clear_tool_uses_20250919` strategy clears tool results when conversation context grows beyond your configured threshold. When activated, the API automatically clears the oldest tool results in chronological order, replacing them with placeholder text to let Claude know the tool result was removed. By default, only tool results are cleared. You can optionally clear both tool results and tool calls (the tool use parameters) by setting `clear_tool_inputs` to true.
+
+### Thinking block clearing
+
+The `clear_thinking_20251015` strategy manages `thinking` blocks in conversations when extended thinking is enabled. This strategy automatically clears older thinking blocks from previous turns.
+
+<Tip>
+  **Default behavior**: When extended thinking is enabled without configuring the `clear_thinking_20251015` strategy, the API automatically keeps only the thinking blocks from the last assistant turn (equivalent to `keep: {type: "thinking_turns", value: 1}`).
+
+  To maximize cache hits, preserve all thinking blocks by setting `keep: "all"`.
+</Tip>
+
+<Note>
+  An assistant conversation turn may include multiple content blocks (e.g. when using tools) and multiple thinking blocks (e.g. with [interleaved thinking](/en/docs/build-with-claude/extended-thinking#interleaved-thinking)).
+</Note>
 
 <Tip>
   **Context editing happens server-side**
@@ -21,7 +46,11 @@ The `clear_tool_uses_20250919` strategy clears tool results when conversation co
 <Tip>
   **Context editing and prompt caching**
 
-  Context editing invalidates cached prompt prefixes because clearing content modifies the prompt structure, breaking the match requirement for cache hits. To account for this, we recommend clearing enough tokens to make the cache invalidation worthwhile. Use the `clear_at_least` parameter to ensure a minimum number of tokens is cleared each time. When using [prompt caching](/en/docs/build-with-claude/prompt-caching) with context editing, you'll incur cache write costs each time content is cleared, but subsequent requests can reuse the newly cached prefix.
+  Context editing's interaction with [prompt caching](/en/docs/build-with-claude/prompt-caching) varies by strategy:
+
+  * **Tool result clearing**: Invalidates cached prompt prefixes when content is cleared. To account for this, we recommend clearing enough tokens to make the cache invalidation worthwhile. Use the `clear_at_least` parameter to ensure a minimum number of tokens is cleared each time. You'll incur cache write costs each time content is cleared, but subsequent requests can reuse the newly cached prefix.
+
+  * **Thinking block clearing**: When thinking blocks are **kept** in context (not cleared), the prompt cache is preserved, enabling cache hits and reducing input token costs. When thinking blocks are **cleared**, the cache is invalidated at the point where clearing occurs. Configure the `keep` parameter based on whether you want to prioritize cache performance or context window availability.
 </Tip>
 
 ## Supported models
@@ -34,9 +63,9 @@ Context editing is available on:
 * Claude Sonnet 4 (`claude-sonnet-4-20250514`)
 * Claude Haiku 4.5 (`claude-haiku-4-5-20251001`)
 
-## Basic usage
+## Tool result clearing usage
 
-The simplest way to enable context editing is to specify only the strategy type, as all other [configuration options](#configuration-options) will use their default values:
+The simplest way to enable tool result clearing is to specify only the strategy type, as all other [configuration options](#configuration-options-for-tool-result-clearing) will use their default values:
 
 <CodeGroup>
   ```bash cURL theme={null}
@@ -125,9 +154,9 @@ The simplest way to enable context editing is to specify only the strategy type,
   ```
 </CodeGroup>
 
-## Advanced configuration
+### Advanced configuration
 
-You can customize the context editing behavior with additional parameters:
+You can customize the tool result clearing behavior with additional parameters:
 
 <CodeGroup>
   ```bash cURL theme={null}
@@ -287,7 +316,204 @@ You can customize the context editing behavior with additional parameters:
   ```
 </CodeGroup>
 
-## Configuration options
+## Thinking block clearing usage
+
+Enable thinking block clearing to manage context and prompt caching effectively when extended thinking is enabled:
+
+<CodeGroup>
+  ```bash cURL theme={null}
+  curl https://api.anthropic.com/v1/messages \
+      --header "x-api-key: $ANTHROPIC_API_KEY" \
+      --header "anthropic-version: 2023-06-01" \
+      --header "content-type: application/json" \
+      --header "anthropic-beta: context-management-2025-06-27" \
+      --data '{
+          "model": "claude-sonnet-4-5-20250929",
+          "max_tokens": 1024,
+          "messages": [...],
+          "thinking": {
+              "type": "enabled",
+              "budget_tokens": 10000
+          },
+          "context_management": {
+              "edits": [
+                  {
+                      "type": "clear_thinking_20251015",
+                      "keep": {
+                          "type": "thinking_turns",
+                          "value": 2
+                      }
+                  }
+              ]
+          }
+      }'
+  ```
+
+  ```python Python theme={null}
+  response = client.beta.messages.create(
+      model="claude-sonnet-4-5-20250929",
+      max_tokens=1024,
+      messages=[...],
+      thinking={
+          "type": "enabled",
+          "budget_tokens": 10000
+      },
+      betas=["context-management-2025-06-27"],
+      context_management={
+          "edits": [
+              {
+                  "type": "clear_thinking_20251015",
+                  "keep": {
+                      "type": "thinking_turns",
+                      "value": 2
+                  }
+              }
+          ]
+      }
+  )
+  ```
+
+  ```typescript TypeScript theme={null}
+  import Anthropic from '@anthropic-ai/sdk';
+
+  const anthropic = new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY,
+  });
+
+  const response = await anthropic.beta.messages.create({
+    model: "claude-sonnet-4-5-20250929",
+    max_tokens: 1024,
+    messages: [...],
+    thinking: {
+      type: "enabled",
+      budget_tokens: 10000
+    },
+    betas: ["context-management-2025-06-27"],
+    context_management: {
+      edits: [
+        {
+          type: "clear_thinking_20251015",
+          keep: {
+            type: "thinking_turns",
+            value: 2
+          }
+        }
+      ]
+    }
+  });
+  ```
+</CodeGroup>
+
+### Configuration options for thinking block clearing
+
+The `clear_thinking_20251015` strategy supports the following configuration:
+
+| Configuration option | Default                              | Description                                                                                                                                                                                              |
+| -------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `keep`               | `{type: "thinking_turns", value: 1}` | Defines how many recent assistant turns with thinking blocks to preserve. Use `{type: "thinking_turns", value: N}` where N must be > 0 to keep the last N turns, or `"all"` to keep all thinking blocks. |
+
+**Example configurations:**
+
+```json  theme={null}
+// Keep thinking blocks from the last 3 assistant turns
+{
+  "type": "clear_thinking_20251015",
+  "keep": {
+    "type": "thinking_turns",
+    "value": 3
+  }
+}
+
+// Keep all thinking blocks (maximizes cache hits)
+{
+  "type": "clear_thinking_20251015",
+  "keep": "all"
+}
+```
+
+### Combining strategies
+
+You can use both thinking block clearing and tool result clearing together:
+
+<Note>
+  When using multiple strategies, the `clear_thinking_20251015` strategy must be listed first in the `edits` array.
+</Note>
+
+<CodeGroup>
+  ```python Python theme={null}
+  response = client.beta.messages.create(
+      model="claude-sonnet-4-5-20250929",
+      max_tokens=1024,
+      messages=[...],
+      thinking={
+          "type": "enabled",
+          "budget_tokens": 10000
+      },
+      tools=[...],
+      betas=["context-management-2025-06-27"],
+      context_management={
+          "edits": [
+              {
+                  "type": "clear_thinking_20251015",
+                  "keep": {
+                      "type": "thinking_turns",
+                      "value": 2
+                  }
+              },
+              {
+                  "type": "clear_tool_uses_20250919",
+                  "trigger": {
+                      "type": "input_tokens",
+                      "value": 50000
+                  },
+                  "keep": {
+                      "type": "tool_uses",
+                      "value": 5
+                  }
+              }
+          ]
+      }
+  )
+  ```
+
+  ```typescript TypeScript theme={null}
+  const response = await anthropic.beta.messages.create({
+    model: "claude-sonnet-4-5-20250929",
+    max_tokens: 1024,
+    messages: [...],
+    thinking: {
+      type: "enabled",
+      budget_tokens: 10000
+    },
+    tools: [...],
+    betas: ["context-management-2025-06-27"],
+    context_management: {
+      edits: [
+        {
+          type: "clear_thinking_20251015",
+          keep: {
+            type: "thinking_turns",
+            value: 2
+          }
+        },
+        {
+          type: "clear_tool_uses_20250919",
+          trigger: {
+            type: "input_tokens",
+            value: 50000
+          },
+          keep: {
+            type: "tool_uses",
+            value: 5
+          }
+        }
+      ]
+    }
+  });
+  ```
+</CodeGroup>
+
+## Configuration options for tool result clearing
 
 | Configuration option | Default              | Description                                                                                                                                                                                                                                           |
 | -------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -297,7 +523,7 @@ You can customize the context editing behavior with additional parameters:
 | `exclude_tools`      | None                 | List of tool names whose tool uses and results should never be cleared. Useful for preserving important context.                                                                                                                                      |
 | `clear_tool_inputs`  | `false`              | Controls whether the tool call parameters are cleared along with the tool results. By default, only the tool results are cleared while keeping Claude's original tool calls visible.                                                                  |
 
-## Response format
+## Context editing response
 
 You can see which context edits were applied to your request using the `context_management` response field, along with helpful statistics about the content and input tokens cleared.
 
@@ -310,6 +536,13 @@ You can see which context edits were applied to your request using the `context_
     "usage": {...},
     "context_management": {
         "applied_edits": [
+            // When using `clear_thinking_20251015`
+            {
+                "type": "clear_thinking_20251015",
+                "cleared_thinking_turns": 3,
+                "cleared_input_tokens": 15000
+            },
+            // When using `clear_tool_uses_20250919`
             {
                 "type": "clear_tool_uses_20250919",
                 "cleared_tool_uses": 8,

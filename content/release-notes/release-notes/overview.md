@@ -12,6 +12,7 @@
 
 * We announced the deprecation of the Claude Sonnet 3.7 model. Read more in [our documentation](/en/docs/about-claude/model-deprecations).
 * We've retired the Claude Sonnet 3.5 models. All requests to these models will now return an error.
+* We've expanded context editing with thinking block clearing (`clear_thinking_20251015`), enabling automatic management of thinking blocks. Learn more in our [context editing documentation](/en/docs/build-with-claude/context-editing).
 
 #### October 16, 2025
 
