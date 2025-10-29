@@ -314,8 +314,6 @@ paths:
               type:
                 allOf:
                   - type: string
-                    enum:
-                      - message_batch
                     const: message_batch
                     title: Type
                     description: |-
@@ -397,8 +395,6 @@ paths:
                 allOf:
                   - const: error
                     default: error
-                    enum:
-                      - error
                     title: Type
                     type: string
             title: ErrorResponse
@@ -434,14 +430,23 @@ components:
         type:
           const: api_error
           default: api_error
-          enum:
-            - api_error
           title: Type
           type: string
       required:
         - message
         - type
       title: APIError
+      type: object
+    AllThinkingTurns:
+      additionalProperties: false
+      properties:
+        type:
+          const: all
+          title: Type
+          type: string
+      required:
+        - type
+      title: AllThinkingTurns
       type: object
     AuthenticationError:
       properties:
@@ -452,8 +457,6 @@ components:
         type:
           const: authentication_error
           default: authentication_error
-          enum:
-            - authentication_error
           title: Type
           type: string
       required:
@@ -478,8 +481,6 @@ components:
           type: string
         type:
           const: base64
-          enum:
-            - base64
           title: Type
           type: string
       required:
@@ -497,14 +498,10 @@ components:
           type: string
         media_type:
           const: application/pdf
-          enum:
-            - application/pdf
           title: Media Type
           type: string
         type:
           const: base64
-          enum:
-            - base64
           title: Type
           type: string
       required:
@@ -544,14 +541,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - bash
           title: Name
           type: string
         type:
           const: bash_20241022
-          enum:
-            - bash_20241022
           title: Type
           type: string
       required:
@@ -581,14 +574,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - bash
           title: Name
           type: string
         type:
           const: bash_20250124
-          enum:
-            - bash_20250124
           title: Type
           type: string
       required:
@@ -605,8 +594,6 @@ components:
         type:
           const: billing_error
           default: billing_error
-          enum:
-            - billing_error
           title: Type
           type: string
       required:
@@ -633,13 +620,38 @@ components:
           type: string
         type:
           const: ephemeral
-          enum:
-            - ephemeral
           title: Type
           type: string
       required:
         - type
       title: CacheControlEphemeral
+      type: object
+    ClearThinking20251015:
+      additionalProperties: false
+      properties:
+        keep:
+          anyOf:
+            - discriminator:
+                mapping:
+                  all: '#/components/schemas/AllThinkingTurns'
+                  thinking_turns: '#/components/schemas/ThinkingTurns'
+                propertyName: type
+              oneOf:
+                - $ref: '#/components/schemas/ThinkingTurns'
+                - $ref: '#/components/schemas/AllThinkingTurns'
+            - const: all
+              type: string
+          description: >-
+            Number of most recent assistant turns to keep thinking blocks for.
+            Older turns will have their thinking blocks removed.
+          title: Keep
+        type:
+          const: clear_thinking_20251015
+          title: Type
+          type: string
+      required:
+        - type
+      title: ClearThinking20251015
       type: object
     ClearToolUses20250919:
       additionalProperties: false
@@ -693,8 +705,6 @@ components:
           title: Trigger
         type:
           const: clear_tool_uses_20250919
-          enum:
-            - clear_tool_uses_20250919
           title: Type
           type: string
       required:
@@ -731,14 +741,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - code_execution
           title: Name
           type: string
         type:
           const: code_execution_20250522
-          enum:
-            - code_execution_20250522
           title: Type
           type: string
       required:
@@ -768,14 +774,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - code_execution
           title: Name
           type: string
         type:
           const: code_execution_20250825
-          enum:
-            - code_execution_20250825
           title: Type
           type: string
       required:
@@ -822,14 +824,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - computer
           title: Name
           type: string
         type:
           const: computer_20241022
-          enum:
-            - computer_20241022
           title: Type
           type: string
       required:
@@ -878,14 +876,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - computer
           title: Name
           type: string
         type:
           const: computer_20250124
-          enum:
-            - computer_20250124
           title: Type
           type: string
       required:
@@ -935,8 +929,6 @@ components:
           title: Content
         type:
           const: content
-          enum:
-            - content
           title: Type
           type: string
       required:
@@ -952,10 +944,12 @@ components:
           items:
             discriminator:
               mapping:
+                clear_thinking_20251015: '#/components/schemas/ClearThinking20251015'
                 clear_tool_uses_20250919: '#/components/schemas/ClearToolUses20250919'
               propertyName: type
             oneOf:
               - $ref: '#/components/schemas/ClearToolUses20250919'
+              - $ref: '#/components/schemas/ClearThinking20251015'
           minItems: 0
           title: Edits
           type: array
@@ -1428,8 +1422,6 @@ components:
           type: string
         type:
           const: file
-          enum:
-            - file
           title: Type
           type: string
       required:
@@ -1445,8 +1437,6 @@ components:
           type: string
         type:
           const: file
-          enum:
-            - file
           title: Type
           type: string
       required:
@@ -1463,8 +1453,6 @@ components:
         type:
           const: timeout_error
           default: timeout_error
-          enum:
-            - timeout_error
           title: Type
           type: string
       required:
@@ -1555,7 +1543,8 @@ components:
       properties:
         properties:
           anyOf:
-            - type: object
+            - additionalProperties: true
+              type: object
             - type: 'null'
           title: Properties
         required:
@@ -1567,8 +1556,6 @@ components:
           title: Required
         type:
           const: object
-          enum:
-            - object
           title: Type
           type: string
       required:
@@ -1580,8 +1567,6 @@ components:
       properties:
         type:
           const: input_tokens
-          enum:
-            - input_tokens
           title: Type
           type: string
         value:
@@ -1598,8 +1583,6 @@ components:
       properties:
         type:
           const: input_tokens
-          enum:
-            - input_tokens
           title: Type
           type: string
         value:
@@ -1620,8 +1603,6 @@ components:
         type:
           const: invalid_request_error
           default: invalid_request_error
-          enum:
-            - invalid_request_error
           title: Type
           type: string
       required:
@@ -1651,14 +1632,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - memory
           title: Name
           type: string
         type:
           const: memory_20250818
-          enum:
-            - memory_20250818
           title: Type
           type: string
       required:
@@ -1728,8 +1705,6 @@ components:
         type:
           const: not_found_error
           default: not_found_error
-          enum:
-            - not_found_error
           title: Type
           type: string
       required:
@@ -1746,8 +1721,6 @@ components:
         type:
           const: overloaded_error
           default: overloaded_error
-          enum:
-            - overloaded_error
           title: Type
           type: string
       required:
@@ -1764,8 +1737,6 @@ components:
         type:
           const: permission_error
           default: permission_error
-          enum:
-            - permission_error
           title: Type
           type: string
       required:
@@ -1781,14 +1752,10 @@ components:
           type: string
         media_type:
           const: text/plain
-          enum:
-            - text/plain
           title: Media Type
           type: string
         type:
           const: text
-          enum:
-            - text
           title: Type
           type: string
       required:
@@ -1806,8 +1773,6 @@ components:
         type:
           const: rate_limit_error
           default: rate_limit_error
-          enum:
-            - rate_limit_error
           title: Type
           type: string
       required:
@@ -1823,8 +1788,6 @@ components:
           type: string
         type:
           const: bash_code_execution_output
-          enum:
-            - bash_code_execution_output
           title: Type
           type: string
       required:
@@ -1851,8 +1814,6 @@ components:
           type: string
         type:
           const: bash_code_execution_result
-          enum:
-            - bash_code_execution_result
           title: Type
           type: string
       required:
@@ -1888,8 +1849,6 @@ components:
           type: string
         type:
           const: bash_code_execution_tool_result
-          enum:
-            - bash_code_execution_tool_result
           title: Type
           type: string
       required:
@@ -1905,8 +1864,6 @@ components:
           $ref: '#/components/schemas/BashCodeExecutionToolResultErrorCode'
         type:
           const: bash_code_execution_tool_result_error
-          enum:
-            - bash_code_execution_tool_result_error
           title: Type
           type: string
       required:
@@ -1940,8 +1897,6 @@ components:
           type: integer
         type:
           const: char_location
-          enum:
-            - char_location
           title: Type
           type: string
       required:
@@ -1969,8 +1924,6 @@ components:
           type: string
         type:
           const: code_execution_output
-          enum:
-            - code_execution_output
           title: Type
           type: string
       required:
@@ -1997,8 +1950,6 @@ components:
           type: string
         type:
           const: code_execution_result
-          enum:
-            - code_execution_result
           title: Type
           type: string
       required:
@@ -2034,8 +1985,6 @@ components:
           type: string
         type:
           const: code_execution_tool_result
-          enum:
-            - code_execution_tool_result
           title: Type
           type: string
       required:
@@ -2051,8 +2000,6 @@ components:
           $ref: '#/components/schemas/CodeExecutionToolResultErrorCode'
         type:
           const: code_execution_tool_result_error
-          enum:
-            - code_execution_tool_result_error
           title: Type
           type: string
       required:
@@ -2084,8 +2031,6 @@ components:
           type: string
         type:
           const: container_upload
-          enum:
-            - container_upload
           title: Type
           type: string
       required:
@@ -2119,8 +2064,6 @@ components:
           type: integer
         type:
           const: content_block_location
-          enum:
-            - content_block_location
           title: Type
           type: string
       required:
@@ -2239,8 +2182,6 @@ components:
           title: Title
         type:
           const: document
-          enum:
-            - document
           title: Type
           type: string
       required:
@@ -2276,8 +2217,6 @@ components:
           title: Source
         type:
           const: image
-          enum:
-            - image
           title: Type
           type: string
       required:
@@ -2319,8 +2258,6 @@ components:
             - type: 'null'
         type:
           const: url
-          enum:
-            - url
           title: Type
           type: string
         url:
@@ -2362,8 +2299,6 @@ components:
           type: string
         type:
           const: mcp_tool_result
-          enum:
-            - mcp_tool_result
           title: Type
           type: string
       required:
@@ -2390,6 +2325,7 @@ components:
           title: Id
           type: string
         input:
+          additionalProperties: true
           title: Input
           type: object
         name:
@@ -2401,8 +2337,6 @@ components:
           type: string
         type:
           const: mcp_tool_use
-          enum:
-            - mcp_tool_use
           title: Type
           type: string
       required:
@@ -2439,8 +2373,6 @@ components:
           type: integer
         type:
           const: page_location
-          enum:
-            - page_location
           title: Type
           type: string
       required:
@@ -2460,8 +2392,6 @@ components:
           type: string
         type:
           const: redacted_thinking
-          enum:
-            - redacted_thinking
           title: Type
           type: string
       required:
@@ -2498,8 +2428,6 @@ components:
           type: string
         type:
           const: search_result
-          enum:
-            - search_result
           title: Type
           type: string
       required:
@@ -2536,8 +2464,6 @@ components:
           title: Title
         type:
           const: search_result_location
-          enum:
-            - search_result_location
           title: Type
           type: string
       required:
@@ -2569,6 +2495,7 @@ components:
           title: Id
           type: string
         input:
+          additionalProperties: true
           title: Input
           type: object
         name:
@@ -2582,8 +2509,6 @@ components:
           type: string
         type:
           const: server_tool_use
-          enum:
-            - server_tool_use
           title: Type
           type: string
       required:
@@ -2635,8 +2560,6 @@ components:
           type: string
         type:
           const: text
-          enum:
-            - text
           title: Type
           type: string
       required:
@@ -2652,8 +2575,6 @@ components:
           type: boolean
         type:
           const: text_editor_code_execution_create_result
-          enum:
-            - text_editor_code_execution_create_result
           title: Type
           type: string
       required:
@@ -2693,8 +2614,6 @@ components:
           title: Old Start
         type:
           const: text_editor_code_execution_str_replace_result
-          enum:
-            - text_editor_code_execution_str_replace_result
           title: Type
           type: string
       required:
@@ -2732,8 +2651,6 @@ components:
           type: string
         type:
           const: text_editor_code_execution_tool_result
-          enum:
-            - text_editor_code_execution_tool_result
           title: Type
           type: string
       required:
@@ -2754,8 +2671,6 @@ components:
           title: Error Message
         type:
           const: text_editor_code_execution_tool_result_error
-          enum:
-            - text_editor_code_execution_tool_result_error
           title: Type
           type: string
       required:
@@ -2793,8 +2708,6 @@ components:
           title: Total Lines
         type:
           const: text_editor_code_execution_view_result
-          enum:
-            - text_editor_code_execution_view_result
           title: Type
           type: string
       required:
@@ -2814,8 +2727,6 @@ components:
           type: string
         type:
           const: thinking
-          enum:
-            - thinking
           title: Type
           type: string
       required:
@@ -2865,8 +2776,6 @@ components:
           type: string
         type:
           const: tool_result
-          enum:
-            - tool_result
           title: Type
           type: string
       required:
@@ -2893,6 +2802,7 @@ components:
           title: Id
           type: string
         input:
+          additionalProperties: true
           title: Input
           type: object
         name:
@@ -2902,8 +2812,6 @@ components:
           type: string
         type:
           const: tool_use
-          enum:
-            - tool_use
           title: Type
           type: string
       required:
@@ -2926,8 +2834,6 @@ components:
           title: Retrieved At
         type:
           const: web_fetch_result
-          enum:
-            - web_fetch_result
           title: Type
           type: string
         url:
@@ -2965,8 +2871,6 @@ components:
           type: string
         type:
           const: web_fetch_tool_result
-          enum:
-            - web_fetch_tool_result
           title: Type
           type: string
       required:
@@ -2982,8 +2886,6 @@ components:
           $ref: '#/components/schemas/WebFetchToolResultErrorCode'
         type:
           const: web_fetch_tool_result_error
-          enum:
-            - web_fetch_tool_result_error
           title: Type
           type: string
       required:
@@ -3007,8 +2909,6 @@ components:
           type: string
         type:
           const: web_search_result
-          enum:
-            - web_search_result
           title: Type
           type: string
         url:
@@ -3039,8 +2939,6 @@ components:
           title: Title
         type:
           const: web_search_result_location
-          enum:
-            - web_search_result_location
           title: Type
           type: string
         url:
@@ -3083,8 +2981,6 @@ components:
           type: string
         type:
           const: web_search_tool_result
-          enum:
-            - web_search_tool_result
           title: Type
           type: string
       required:
@@ -3100,8 +2996,6 @@ components:
           $ref: '#/components/schemas/WebSearchToolResultErrorCode'
         type:
           const: web_search_tool_result_error
-          enum:
-            - web_search_tool_result_error
           title: Type
           type: string
       required:
@@ -3170,14 +3064,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - str_replace_editor
           title: Name
           type: string
         type:
           const: text_editor_20241022
-          enum:
-            - text_editor_20241022
           title: Type
           type: string
       required:
@@ -3207,14 +3097,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - str_replace_editor
           title: Name
           type: string
         type:
           const: text_editor_20250124
-          enum:
-            - text_editor_20250124
           title: Type
           type: string
       required:
@@ -3244,14 +3130,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - str_replace_based_edit_tool
           title: Name
           type: string
         type:
           const: text_editor_20250429
-          enum:
-            - text_editor_20250429
           title: Type
           type: string
       required:
@@ -3290,14 +3172,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - str_replace_based_edit_tool
           title: Name
           type: string
         type:
           const: text_editor_20250728
-          enum:
-            - text_editor_20250728
           title: Type
           type: string
       required:
@@ -3310,8 +3188,6 @@ components:
       properties:
         type:
           const: disabled
-          enum:
-            - disabled
           title: Type
           type: string
       required:
@@ -3339,14 +3215,28 @@ components:
           type: integer
         type:
           const: enabled
-          enum:
-            - enabled
           title: Type
           type: string
       required:
         - budget_tokens
         - type
       title: Enabled
+      type: object
+    ThinkingTurns:
+      additionalProperties: false
+      properties:
+        type:
+          const: thinking_turns
+          title: Type
+          type: string
+        value:
+          minimum: 1
+          title: Value
+          type: integer
+      required:
+        - type
+        - value
+      title: ThinkingTurns
       type: object
     Tool:
       additionalProperties: false
@@ -3355,8 +3245,6 @@ components:
           anyOf:
             - type: 'null'
             - const: custom
-              enum:
-                - custom
               type: string
           title: Type
         description:
@@ -3436,8 +3324,6 @@ components:
           type: boolean
         type:
           const: any
-          enum:
-            - any
           title: Type
           type: string
       required:
@@ -3459,8 +3345,6 @@ components:
           type: boolean
         type:
           const: auto
-          enum:
-            - auto
           title: Type
           type: string
       required:
@@ -3473,8 +3357,6 @@ components:
       properties:
         type:
           const: none
-          enum:
-            - none
           title: Type
           type: string
       required:
@@ -3500,8 +3382,6 @@ components:
           type: string
         type:
           const: tool
-          enum:
-            - tool
           title: Type
           type: string
       required:
@@ -3514,8 +3394,6 @@ components:
       properties:
         type:
           const: tool_uses
-          enum:
-            - tool_uses
           title: Type
           type: string
         value:
@@ -3532,8 +3410,6 @@ components:
       properties:
         type:
           const: tool_uses
-          enum:
-            - tool_uses
           title: Type
           type: string
         value:
@@ -3550,8 +3426,6 @@ components:
       properties:
         type:
           const: url
-          enum:
-            - url
           title: Type
           type: string
         url:
@@ -3567,8 +3441,6 @@ components:
       properties:
         type:
           const: url
-          enum:
-            - url
           title: Type
           type: string
         url:
@@ -3634,8 +3506,6 @@ components:
           title: Timezone
         type:
           const: approximate
-          enum:
-            - approximate
           title: Type
           type: string
       required:
@@ -3716,14 +3586,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - web_fetch
           title: Name
           type: string
         type:
           const: web_fetch_20250910
-          enum:
-            - web_fetch_20250910
           title: Type
           type: string
       required:
@@ -3789,14 +3655,10 @@ components:
 
             This is how the tool will be called by the model and in `tool_use`
             blocks.
-          enum:
-            - web_search
           title: Name
           type: string
         type:
           const: web_search_20250305
-          enum:
-            - web_search_20250305
           title: Type
           type: string
         user_location:
