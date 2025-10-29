@@ -237,8 +237,6 @@ paths:
                 allOf:
                   - const: error
                     default: error
-                    enum:
-                      - error
                     title: Type
                     type: string
             title: ErrorResponse
@@ -274,8 +272,6 @@ components:
         type:
           const: api_error
           default: api_error
-          enum:
-            - api_error
           title: Type
           type: string
       required:
@@ -292,8 +288,6 @@ components:
         type:
           const: authentication_error
           default: authentication_error
-          enum:
-            - authentication_error
           title: Type
           type: string
       required:
@@ -310,8 +304,6 @@ components:
         type:
           const: billing_error
           default: billing_error
-          enum:
-            - billing_error
           title: Type
           type: string
       required:
@@ -328,8 +320,6 @@ components:
         type:
           const: timeout_error
           default: timeout_error
-          enum:
-            - timeout_error
           title: Type
           type: string
       required:
@@ -346,8 +336,6 @@ components:
         type:
           const: invalid_request_error
           default: invalid_request_error
-          enum:
-            - invalid_request_error
           title: Type
           type: string
       required:
@@ -364,8 +352,6 @@ components:
         type:
           const: not_found_error
           default: not_found_error
-          enum:
-            - not_found_error
           title: Type
           type: string
       required:
@@ -382,8 +368,6 @@ components:
         type:
           const: overloaded_error
           default: overloaded_error
-          enum:
-            - overloaded_error
           title: Type
           type: string
       required:
@@ -400,8 +384,6 @@ components:
         type:
           const: permission_error
           default: permission_error
-          enum:
-            - permission_error
           title: Type
           type: string
       required:
@@ -418,8 +400,6 @@ components:
         type:
           const: rate_limit_error
           default: rate_limit_error
-          enum:
-            - rate_limit_error
           title: Type
           type: string
       required:
