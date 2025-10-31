@@ -81,6 +81,10 @@ response = client.messages.create(
 ***
 
 <CardGroup cols={3}>
+  <Card title="Working with Messages" icon="messages" href="/en/docs/build-with-claude/working-with-messages">
+    See more examples of prefill and other Messages API patterns.
+  </Card>
+
   <Card title="Prompt library" icon="link" href="/en/resources/prompt-library/library">
     Get inspired by a curated selection of prompts for various tasks and use cases.
   </Card>
