@@ -17,7 +17,7 @@ The Files API is currently not supported on Amazon Bedrock or Google Vertex AI.
 The Files API provides a simple create-once, use-many-times approach for working with files:
 
 * **Upload files** to our secure storage and receive a unique `file_id`
-* **Download files** that are created from the code execution tool
+* **Download files** that are created from skills or the code execution tool
 * **Reference files** in [Messages](/en/api/messages) requests using the `file_id` instead of re-uploading content
 * **Manage your files** with list, retrieve, and delete operations
 
@@ -412,7 +412,7 @@ Remove a file from your workspace:
 
 ### Downloading a file
 
-Download files that have been created by the code execution tool:
+Download files that have been created by skills or the code execution tool:
 
 <CodeGroup>
   ```bash Shell theme={null}
@@ -451,7 +451,7 @@ Download files that have been created by the code execution tool:
 </CodeGroup>
 
 <Note>
-  You can only download files that were created by the [code execution tool](/en/docs/agents-and-tools/tool-use/code-execution-tool). Files that you uploaded cannot be downloaded.
+  You can only download files that were created by [skills](/en/api/skills-guide) or the [code execution tool](/en/docs/agents-and-tools/tool-use/code-execution-tool). Files that you uploaded cannot be downloaded.
 </Note>
 
 ***
@@ -504,7 +504,7 @@ File API operations are **free**:
 * Getting file metadata
 * Deleting files
 
-File content used in `Messages` requests are priced as input tokens. You can only download files created by the code execution tool.
+File content used in `Messages` requests are priced as input tokens. You can only download files created by [skills](/en/api/skills-guide) or the [code execution tool](/en/docs/agents-and-tools/tool-use/code-execution-tool).
 
 ### Rate limits
 
