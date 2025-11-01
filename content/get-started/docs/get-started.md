@@ -305,6 +305,10 @@
 Now that you have made your first Claude API request, it's time to explore what else is possible:
 
 <CardGroup cols={3}>
+  <Card title="Working with Messages" icon="messages" href="/en/docs/build-with-claude/working-with-messages">
+    Learn common patterns for the Messages API.
+  </Card>
+
   <Card title="Features Overview" icon="brain-circuit" href="/en/docs/build-with-claude/overview">
     Explore Claude's advanced features and capabilities.
   </Card>
