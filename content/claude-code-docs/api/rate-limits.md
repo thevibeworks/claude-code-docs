@@ -95,9 +95,21 @@ ITPM rate limits are estimated at the beginning of each request, and the estimat
 
 Here's what counts towards ITPM:
 
-* `input_tokens` (new input tokens that aren't cached) ✓ **Count towards ITPM**
+* `input_tokens` (tokens after the last cache breakpoint) ✓ **Count towards ITPM**
 * `cache_creation_input_tokens` (tokens being written to cache) ✓ **Count towards ITPM**
 * `cache_read_input_tokens` (tokens read from cache) ✗ **Do NOT count towards ITPM** for most models
+
+<Note>
+  The `input_tokens` field only represents tokens that appear **after your last cache breakpoint**, not all input tokens in your request. To calculate total input tokens:
+
+  ```
+  total_input_tokens = cache_read_input_tokens + cache_creation_input_tokens + input_tokens
+  ```
+
+  This means when you have cached content, `input_tokens` will typically be much smaller than your total input. For example, with a 200K token cached document and a 50 token user question, you'd see `input_tokens: 50` even though the total input is 200,050 tokens.
+
+  For rate limit purposes on most models, only `input_tokens` + `cache_creation_input_tokens` count toward your ITPM limit, making [prompt caching](/en/docs/build-with-claude/prompt-caching) an effective way to increase your effective throughput.
+</Note>
 
 **Example**: With a 2,000,000 ITPM limit and an 80% cache hit rate, you could effectively process 10,000,000 total input tokens per minute (2M uncached + 8M cached), since cached tokens don't count towards your rate limit.
 
