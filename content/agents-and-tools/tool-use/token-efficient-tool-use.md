@@ -3,9 +3,9 @@
 Starting with Claude Sonnet 3.7, Claude is capable of calling tools in a token-efficient manner. Requests save an average of 14% in output tokens, up to 70%, which also reduces latency. Exact token reduction and latency improvements depend on the overall response shape and size.
 
 <Info>
-  Token-efficient tool use is a beta feature in Claude 3.7. To use this beta feature, simply add the beta header `token-efficient-tools-2025-02-19` to a tool use request.
+  Token-efficient tool use is a beta feature that **only works with Claude 3.7 Sonnet**. To use this beta feature, add the beta header `token-efficient-tools-2025-02-19` to a tool use request. This header has no effect on other Claude models.
 
-  All [Claude 4 models](/en/docs/about-claude/models/overview) support token-efficient tool use by default. No beta header is needed, but the `token-efficient-tools-2025-02-19` header will not break an API request.
+  All [Claude 4 models](/en/docs/about-claude/models/overview) support token-efficient tool use by default. No beta header is needed.
 </Info>
 
 <Warning>
