@@ -330,7 +330,34 @@ Monitor cache performance using these API response fields, within `usage` in the
 
 * `cache_creation_input_tokens`: Number of tokens written to the cache when creating a new entry.
 * `cache_read_input_tokens`: Number of tokens retrieved from the cache for this request.
-* `input_tokens`: Number of input tokens which were not read from or used to create a cache.
+* `input_tokens`: Number of input tokens which were not read from or used to create a cache (i.e., tokens after the last cache breakpoint).
+
+<Note>
+  **Understanding the token breakdown**
+
+  The `input_tokens` field represents only the tokens that come **after the last cache breakpoint** in your request - not all the input tokens you sent.
+
+  To calculate total input tokens:
+
+  ```
+  total_input_tokens = cache_read_input_tokens + cache_creation_input_tokens + input_tokens
+  ```
+
+  **Spatial explanation:**
+
+  * `cache_read_input_tokens` = tokens before breakpoint already cached (reads)
+  * `cache_creation_input_tokens` = tokens before breakpoint being cached now (writes)
+  * `input_tokens` = tokens after your last breakpoint (not eligible for cache)
+
+  **Example:** If you have a request with 100,000 tokens of cached content (read from cache), 0 tokens of new content being cached, and 50 tokens in your user message (after the cache breakpoint):
+
+  * `cache_read_input_tokens`: 100,000
+  * `cache_creation_input_tokens`: 0
+  * `input_tokens`: 50
+  * **Total input tokens processed**: 100,050 tokens
+
+  This is important for understanding both costs and rate limits, as `input_tokens` will typically be much smaller than your total input when using caching effectively.
+</Note>
 
 ### Best practices for effective caching
 
@@ -1587,6 +1614,29 @@ Below, we've included several code snippets that showcase various prompt caching
     * Regular input tokens for uncached content
 
     The number of breakpoints doesn't affect pricing - only the amount of content cached and read matters.
+  </Accordion>
+
+  <Accordion title="How do I calculate total input tokens from the usage fields?">
+    The usage response includes three separate input token fields that together represent your total input:
+
+    ```
+    total_input_tokens = cache_read_input_tokens + cache_creation_input_tokens + input_tokens
+    ```
+
+    * `cache_read_input_tokens`: Tokens retrieved from cache (everything before cache breakpoints that was cached)
+    * `cache_creation_input_tokens`: New tokens being written to cache (at cache breakpoints)
+    * `input_tokens`: Tokens **after the last cache breakpoint** that aren't cached
+
+    **Important:** `input_tokens` does NOT represent all input tokens - only the portion after your last cache breakpoint. If you have cached content, `input_tokens` will typically be much smaller than your total input.
+
+    **Example:** With a 200K token document cached and a 50 token user question:
+
+    * `cache_read_input_tokens`: 200,000
+    * `cache_creation_input_tokens`: 0
+    * `input_tokens`: 50
+    * **Total**: 200,050 tokens
+
+    This breakdown is critical for understanding both your costs and rate limit usage. See [Tracking cache performance](#tracking-cache-performance) for more details.
   </Accordion>
 
   <Accordion title="What is the cache lifetime?">
