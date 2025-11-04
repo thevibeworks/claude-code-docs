@@ -70,7 +70,7 @@ Our new sandboxed bash tool and Claude Code on the web offer substantial improve
 To get started with these tools:
 
 1.   Run `/sandbox` in Claude and check out [our docs](https://docs.claude.com/en/docs/claude-code/sandboxing) on how to configure this sandbox.
-2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.2b849d51-fcef-4ac3-a7d5-2b86c7c3ffab/code) to try out Claude Code on the web.
+2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.4951898e-ef49-4de9-b847-ed86ce84c391/code) to try out Claude Code on the web.
 
 Or, if you're building your own agents, check out our [open-sourced sandboxing code](https://github.com/anthropic-experimental/sandbox-runtime), and consider integrating it into your work. We look forward to seeing what you build.
 
@@ -79,4 +79,4 @@ To learn more about Claude Code on the web, check out our [launch blog post](htt
 Acknowledgements
 ----------------
 
-Article written by David Dworken and Oliver Weller-Davies, with contributions from Catherine Wu, Molly Vorwerck, Alex Isken, Kier Bradwell, and Kevin Garcia
+Article written by David Dworken and Oliver Weller-Davies, with contributions from Meaghan Choi, Catherine Wu, Molly Vorwerck, Alex Isken, Kier Bradwell, and Kevin Garcia
