@@ -43,7 +43,7 @@ jobs:
           cache-python: "true"
 
       - name: Fetch Claude Code docs
-        run: uv run scripts/fetchccdocs.py --format md
+        run: uv run scripts/fetcher.py
 
       - name: Setup GitHub CLI and Git
         run: |

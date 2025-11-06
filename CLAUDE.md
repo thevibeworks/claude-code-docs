@@ -40,190 +40,190 @@ Always reference specific documentation files in this repository when providing 
 Use these paths to reference documentation when helping users:
 
 #### Claude Code Documentation
-- `@./content/claude-code-docs/overview.md` - Claude Code overview and capabilities
-- `@./content/claude-code-docs/quickstart.md` - Getting started guide
-- `@./content/claude-code-docs/setup.md` - Installation and setup
-- `@./content/claude-code-docs/settings.md` - Configuration and permissions setup
-- `@./content/claude-code-docs/common-workflows.md` - Common usage patterns
-- `@./content/claude-code-docs/memory.md` - Memory management and CLAUDE.md
-- `@./content/claude-code-docs/interactive-mode.md` - Keyboard shortcuts and interactive features
-- `@./content/claude-code-docs/slash-commands.md` - Available slash commands
-- `@./content/claude-code-docs/hooks.md` - Hooks configuration and examples
-- `@./content/claude-code-docs/hooks-guide.md` - Hooks guide
-- `@./content/claude-code-docs/troubleshooting.md` - Problem solving
-- `@./content/claude-code-docs/cli-reference.md` - Command line interface reference
-- `@./content/claude-code-docs/ide-integrations.md` - IDE integrations
-- `@./content/claude-code-docs/jetbrains.md` - JetBrains IDE integration
-- `@./content/claude-code-docs/vs-code.md` - VS Code integration
-- `@./content/claude-code-docs/mcp.md` - Model Context Protocol
-- `@./content/claude-code-docs/github-actions.md` - GitHub Actions integration
-- `@./content/claude-code-docs/gitlab-ci-cd.md` - GitLab CI/CD integration
-- `@./content/claude-code-docs/sdk.md` - SDK usage
-- `@./content/claude-code-docs/third-party-integrations.md` - Third-party integrations
-- `@./content/claude-code-docs/devcontainer.md` - Development containers
-- `@./content/claude-code-docs/security.md` - Security considerations
-- `@./content/claude-code-docs/iam.md` - Authentication and permissions
-- `@./content/claude-code-docs/monitoring-usage.md` - OpenTelemetry monitoring
-- `@./content/claude-code-docs/analytics.md` - Analytics and usage tracking
-- `@./content/claude-code-docs/costs.md` - Cost management
-- `@./content/claude-code-docs/data-usage.md` - Data usage policies
-- `@./content/claude-code-docs/legal-and-compliance.md` - Legal and compliance
-- `@./content/claude-code-docs/amazon-bedrock.md` - Amazon Bedrock integration
-- `@./content/claude-code-docs/google-vertex-ai.md` - Google Vertex AI integration
-- `@./content/claude-code-docs/corporate-proxy.md` - Corporate proxy setup
-- `@./content/claude-code-docs/llm-gateway.md` - LLM gateway configuration
-- `@./content/claude-code-docs/model-config.md` - Model configuration
-- `@./content/claude-code-docs/network-config.md` - Network configuration
-- `@./content/claude-code-docs/terminal-config.md` - Terminal configuration
-- `@./content/claude-code-docs/output-styles.md` - Output styling and formatting
-- `@./content/claude-code-docs/statusline.md` - Status line configuration
-- `@./content/claude-code-docs/checkpointing.md` - Session checkpointing
-- `@./content/claude-code-docs/headless.md` - Headless mode
-- `@./content/claude-code-docs/plugins.md` - Plugin system
-- `@./content/claude-code-docs/plugins-reference.md` - Plugin reference
-- `@./content/claude-code-docs/plugin-marketplaces.md` - Plugin marketplaces
-- `@./content/claude-code-docs/skills.md` - Claude Skills
-- `@./content/claude-code-docs/sub-agents.md` - Sub-agents
-- `@./content/release-notes/CHANGELOG.md` - Claude Code GitHub CHANGELOG
-- `@./content/claude-code-docs/release-notes/claude-code.md` - Release notes from docs.anthropic.com
+- `@./content/en/docs/claude-code/overview.md` - Claude Code overview and capabilities
+- `@./content/en/docs/claude-code/quickstart.md` - Getting started guide
+- `@./content/en/docs/claude-code/setup.md` - Installation and setup
+- `@./content/en/docs/claude-code/settings.md` - Configuration and permissions setup
+- `@./content/en/docs/claude-code/common-workflows.md` - Common usage patterns
+- `@./content/en/docs/claude-code/memory.md` - Memory management and CLAUDE.md
+- `@./content/en/docs/claude-code/interactive-mode.md` - Keyboard shortcuts and interactive features
+- `@./content/en/docs/claude-code/slash-commands.md` - Available slash commands
+- `@./content/en/docs/claude-code/hooks.md` - Hooks configuration and examples
+- `@./content/en/docs/claude-code/hooks-guide.md` - Hooks guide
+- `@./content/en/docs/claude-code/troubleshooting.md` - Problem solving
+- `@./content/en/docs/claude-code/cli-reference.md` - Command line interface reference
+- `@./content/en/docs/claude-code/ide-integrations.md` - IDE integrations
+- `@./content/en/docs/claude-code/jetbrains.md` - JetBrains IDE integration
+- `@./content/en/docs/claude-code/vs-code.md` - VS Code integration
+- `@./content/en/docs/claude-code/mcp.md` - Model Context Protocol
+- `@./content/en/docs/claude-code/github-actions.md` - GitHub Actions integration
+- `@./content/en/docs/claude-code/gitlab-ci-cd.md` - GitLab CI/CD integration
+- `@./content/en/docs/claude-code/sdk.md` - SDK usage
+- `@./content/en/docs/claude-code/third-party-integrations.md` - Third-party integrations
+- `@./content/en/docs/claude-code/devcontainer.md` - Development containers
+- `@./content/en/docs/claude-code/security.md` - Security considerations
+- `@./content/en/docs/claude-code/iam.md` - Authentication and permissions
+- `@./content/en/docs/claude-code/monitoring-usage.md` - OpenTelemetry monitoring
+- `@./content/en/docs/claude-code/analytics.md` - Analytics and usage tracking
+- `@./content/en/docs/claude-code/costs.md` - Cost management
+- `@./content/en/docs/claude-code/data-usage.md` - Data usage policies
+- `@./content/en/docs/claude-code/legal-and-compliance.md` - Legal and compliance
+- `@./content/en/docs/claude-code/amazon-bedrock.md` - Amazon Bedrock integration
+- `@./content/en/docs/claude-code/google-vertex-ai.md` - Google Vertex AI integration
+- `@./content/en/docs/claude-code/corporate-proxy.md` - Corporate proxy setup
+- `@./content/en/docs/claude-code/llm-gateway.md` - LLM gateway configuration
+- `@./content/en/docs/claude-code/model-config.md` - Model configuration
+- `@./content/en/docs/claude-code/network-config.md` - Network configuration
+- `@./content/en/docs/claude-code/terminal-config.md` - Terminal configuration
+- `@./content/en/docs/claude-code/output-styles.md` - Output styling and formatting
+- `@./content/en/docs/claude-code/statusline.md` - Status line configuration
+- `@./content/en/docs/claude-code/checkpointing.md` - Session checkpointing
+- `@./content/en/docs/claude-code/headless.md` - Headless mode
+- `@./content/en/docs/claude-code/plugins.md` - Plugin system
+- `@./content/en/docs/claude-code/plugins-reference.md` - Plugin reference
+- `@./content/en/docs/claude-code/plugin-marketplaces.md` - Plugin marketplaces
+- `@./content/en/docs/claude-code/skills.md` - Claude Skills
+- `@./content/en/docs/claude-code/sub-agents.md` - Sub-agents
+- `@./content/CHANGELOG.md` - Claude Code GitHub CHANGELOG
+- `@./content/en/release-notes/claude-code.md` - Release notes from docs.anthropic.com
 
 #### Build with Claude - Prompt Engineering
-- `@./content/build-with-claude/overview.md` - Building with Claude overview
-- `@./content/build-with-claude/prompt-engineering/overview.md` - Prompt engineering introduction
-- `@./content/build-with-claude/prompt-engineering/be-clear-and-direct.md` - Clear and direct prompting
-- `@./content/build-with-claude/prompt-engineering/chain-of-thought.md` - Chain of thought prompting
-- `@./content/build-with-claude/prompt-engineering/chain-prompts.md` - Chaining prompts together
-- `@./content/build-with-claude/prompt-engineering/claude-4-best-practices.md` - Claude 4 best practices
-- `@./content/build-with-claude/prompt-engineering/multishot-prompting.md` - Multishot prompting examples
-- `@./content/build-with-claude/prompt-engineering/prefill-claudes-response.md` - Prefilling Claude's response
-- `@./content/build-with-claude/prompt-engineering/system-prompts.md` - Using system prompts
-- `@./content/build-with-claude/prompt-engineering/use-xml-tags.md` - Using XML tags in prompts
-- `@./content/build-with-claude/prompt-engineering/long-context-tips.md` - Long context tips
-- `@./content/build-with-claude/prompt-engineering/extended-thinking-tips.md` - Extended thinking tips
-- `@./content/build-with-claude/prompt-engineering/prompt-generator.md` - Prompt generator tool
-- `@./content/build-with-claude/prompt-engineering/prompt-improver.md` - Prompt improver tool
-- `@./content/build-with-claude/prompt-engineering/prompt-templates-and-variables.md` - Templates and variables
+- `@./content/en/docs/build-with-claude/overview.md` - Building with Claude overview
+- `@./content/en/docs/build-with-claude/prompt-engineering/overview.md` - Prompt engineering introduction
+- `@./content/en/docs/build-with-claude/prompt-engineering/be-clear-and-direct.md` - Clear and direct prompting
+- `@./content/en/docs/build-with-claude/prompt-engineering/chain-of-thought.md` - Chain of thought prompting
+- `@./content/en/docs/build-with-claude/prompt-engineering/chain-prompts.md` - Chaining prompts together
+- `@./content/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices.md` - Claude 4 best practices
+- `@./content/en/docs/build-with-claude/prompt-engineering/multishot-prompting.md` - Multishot prompting examples
+- `@./content/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response.md` - Prefilling Claude's response
+- `@./content/en/docs/build-with-claude/prompt-engineering/system-prompts.md` - Using system prompts
+- `@./content/en/docs/build-with-claude/prompt-engineering/use-xml-tags.md` - Using XML tags in prompts
+- `@./content/en/docs/build-with-claude/prompt-engineering/long-context-tips.md` - Long context tips
+- `@./content/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips.md` - Extended thinking tips
+- `@./content/en/docs/build-with-claude/prompt-engineering/prompt-generator.md` - Prompt generator tool
+- `@./content/en/docs/build-with-claude/prompt-engineering/prompt-improver.md` - Prompt improver tool
+- `@./content/en/docs/build-with-claude/prompt-engineering/prompt-templates-and-variables.md` - Templates and variables
 
 #### Build with Claude - Features
-- `@./content/build-with-claude/batch-processing.md` - Batch processing
-- `@./content/build-with-claude/citations.md` - Working with citations
-- `@./content/build-with-claude/context-windows.md` - Understanding context windows
-- `@./content/build-with-claude/embeddings.md` - Using embeddings
-- `@./content/build-with-claude/extended-thinking.md` - Extended thinking capability
-- `@./content/build-with-claude/files.md` - File handling
-- `@./content/build-with-claude/multilingual-support.md` - Multilingual capabilities
-- `@./content/build-with-claude/pdf-support.md` - PDF support
-- `@./content/build-with-claude/prompt-caching.md` - Prompt caching
-- `@./content/build-with-claude/search-results.md` - Search results handling
-- `@./content/build-with-claude/streaming.md` - Streaming responses
-- `@./content/build-with-claude/token-counting.md` - Token counting
-- `@./content/build-with-claude/vision.md` - Vision capabilities
+- `@./content/en/docs/build-with-claude/batch-processing.md` - Batch processing
+- `@./content/en/docs/build-with-claude/citations.md` - Working with citations
+- `@./content/en/docs/build-with-claude/context-windows.md` - Understanding context windows
+- `@./content/en/docs/build-with-claude/embeddings.md` - Using embeddings
+- `@./content/en/docs/build-with-claude/extended-thinking.md` - Extended thinking capability
+- `@./content/en/docs/build-with-claude/files.md` - File handling
+- `@./content/en/docs/build-with-claude/multilingual-support.md` - Multilingual capabilities
+- `@./content/en/docs/build-with-claude/pdf-support.md` - PDF support
+- `@./content/en/docs/build-with-claude/prompt-caching.md` - Prompt caching
+- `@./content/en/docs/build-with-claude/search-results.md` - Search results handling
+- `@./content/en/docs/build-with-claude/streaming.md` - Streaming responses
+- `@./content/en/docs/build-with-claude/token-counting.md` - Token counting
+- `@./content/en/docs/build-with-claude/vision.md` - Vision capabilities
 
 #### Agents and Tools - Agent Skills
-- `@./content/agents-and-tools/agent-skills/overview.md` - Agent skills overview and concepts
-- `@./content/agents-and-tools/agent-skills/quickstart.md` - Getting started with agent skills
-- `@./content/agents-and-tools/agent-skills/best-practices.md` - Agent skills authoring best practices
+- `@./content/en/docs/agents-and-tools/agent-skills/overview.md` - Agent skills overview and concepts
+- `@./content/en/docs/agents-and-tools/agent-skills/quickstart.md` - Getting started with agent skills
+- `@./content/en/docs/agents-and-tools/agent-skills/best-practices.md` - Agent skills authoring best practices
 
 #### Agents and Tools - Tool Use
-- `@./content/agents-and-tools/tool-use/overview.md` - Tool use overview
-- `@./content/agents-and-tools/tool-use/implement-tool-use.md` - Implementing tool use
-- `@./content/agents-and-tools/tool-use/bash-tool.md` - Bash tool
-- `@./content/agents-and-tools/tool-use/code-execution-tool.md` - Code execution tool
-- `@./content/agents-and-tools/tool-use/computer-use-tool.md` - Computer use tool
-- `@./content/agents-and-tools/tool-use/text-editor-tool.md` - Text editor tool
-- `@./content/agents-and-tools/tool-use/memory-tool.md` - Memory tool
-- `@./content/agents-and-tools/tool-use/web-fetch-tool.md` - Web fetch tool
-- `@./content/agents-and-tools/tool-use/web-search-tool.md` - Web search tool
-- `@./content/agents-and-tools/tool-use/fine-grained-tool-streaming.md` - Fine-grained tool streaming
-- `@./content/agents-and-tools/tool-use/token-efficient-tool-use.md` - Token-efficient tool use
+- `@./content/en/docs/agents-and-tools/tool-use/overview.md` - Tool use overview
+- `@./content/en/docs/agents-and-tools/tool-use/implement-tool-use.md` - Implementing tool use
+- `@./content/en/docs/agents-and-tools/tool-use/bash-tool.md` - Bash tool
+- `@./content/en/docs/agents-and-tools/tool-use/code-execution-tool.md` - Code execution tool
+- `@./content/en/docs/agents-and-tools/tool-use/computer-use-tool.md` - Computer use tool
+- `@./content/en/docs/agents-and-tools/tool-use/text-editor-tool.md` - Text editor tool
+- `@./content/en/docs/agents-and-tools/tool-use/memory-tool.md` - Memory tool
+- `@./content/en/docs/agents-and-tools/tool-use/web-fetch-tool.md` - Web fetch tool
+- `@./content/en/docs/agents-and-tools/tool-use/web-search-tool.md` - Web search tool
+- `@./content/en/docs/agents-and-tools/tool-use/fine-grained-tool-streaming.md` - Fine-grained tool streaming
+- `@./content/en/docs/agents-and-tools/tool-use/token-efficient-tool-use.md` - Token-efficient tool use
 
 #### Agents and Tools - Other
-- `@./content/agents-and-tools/claude-for-sheets.md` - Claude for Google Sheets
-- `@./content/agents-and-tools/mcp-connector.md` - MCP connector
-- `@./content/agents-and-tools/remote-mcp-servers.md` - Remote MCP servers
+- `@./content/en/docs/agents-and-tools/claude-for-sheets.md` - Claude for Google Sheets
+- `@./content/en/docs/agents-and-tools/mcp-connector.md` - MCP connector
+- `@./content/en/docs/agents-and-tools/remote-mcp-servers.md` - Remote MCP servers
 
 #### Agent SDK
-- `@./content/claude-code-docs/sdk/sdk-overview.md` - Agent SDK overview
-- `@./content/claude-code-docs/sdk/sdk-python.md` - Python SDK
-- `@./content/claude-code-docs/sdk/sdk-typescript.md` - TypeScript SDK
-- `@./content/claude-code-docs/sdk/custom-tools.md` - Custom tools
-- `@./content/claude-code-docs/sdk/sdk-mcp.md` - MCP integration
-- `@./content/claude-code-docs/sdk/sdk-permissions.md` - Permissions
-- `@./content/claude-code-docs/sdk/sdk-sessions.md` - Sessions
-- `@./content/claude-code-docs/sdk/sdk-slash-commands.md` - Slash commands
-- `@./content/claude-code-docs/sdk/streaming-vs-single-mode.md` - Streaming vs single mode
-- `@./content/claude-code-docs/sdk/subagents.md` - Subagents
-- `@./content/claude-code-docs/sdk/todo-tracking.md` - Todo tracking
-- `@./content/claude-code-docs/sdk/sdk-cost-tracking.md` - Cost tracking
-- `@./content/claude-code-docs/sdk/sdk-headless.md` - Headless mode
-- `@./content/claude-code-docs/sdk/modifying-system-prompts.md` - Modifying system prompts
+- `@./content/en/api/agent-sdk/sdk-overview.md` - Agent SDK overview
+- `@./content/en/api/agent-sdk/sdk-python.md` - Python SDK
+- `@./content/en/api/agent-sdk/sdk-typescript.md` - TypeScript SDK
+- `@./content/en/api/agent-sdk/custom-tools.md` - Custom tools
+- `@./content/en/api/agent-sdk/sdk-mcp.md` - MCP integration
+- `@./content/en/api/agent-sdk/sdk-permissions.md` - Permissions
+- `@./content/en/api/agent-sdk/sdk-sessions.md` - Sessions
+- `@./content/en/api/agent-sdk/sdk-slash-commands.md` - Slash commands
+- `@./content/en/api/agent-sdk/streaming-vs-single-mode.md` - Streaming vs single mode
+- `@./content/en/api/agent-sdk/subagents.md` - Subagents
+- `@./content/en/api/agent-sdk/todo-tracking.md` - Todo tracking
+- `@./content/en/api/agent-sdk/sdk-cost-tracking.md` - Cost tracking
+- `@./content/en/api/agent-sdk/sdk-headless.md` - Headless mode
+- `@./content/en/api/agent-sdk/modifying-system-prompts.md` - Modifying system prompts
 
 #### API Documentation - Client SDKs & Integrations
-- `@./content/claude-code-docs/api/client-sdks.md` - Client SDKs
-- `@./content/claude-code-docs/api/openai-sdk.md` - OpenAI SDK compatibility
-- `@./content/claude-code-docs/api/claude-code-analytics-api.md` - Analytics API
+- `@./content/en/api/client-sdks.md` - Client SDKs
+- `@./content/en/api/openai-sdk.md` - OpenAI SDK compatibility
+- `@./content/en/api/claude-code-analytics-api.md` - Analytics API
 
 #### API Documentation - Skills API
-- `@./content/claude-code-docs/api/api/skills/overview.md` - Skills API overview
-- `@./content/claude-code-docs/api/api/skills/create-skill.md` - Create skill
-- `@./content/claude-code-docs/api/api/skills/list-skills.md` - List skills
-- `@./content/claude-code-docs/api/api/skills/get-skill.md` - Get skill
-- `@./content/claude-code-docs/api/api/skills/delete-skill.md` - Delete skill
-- `@./content/claude-code-docs/api/api/skills/create-skill-version.md` - Create skill version
-- `@./content/claude-code-docs/api/api/skills/list-skill-versions.md` - List skill versions
-- `@./content/claude-code-docs/api/api/skills/get-skill-version.md` - Get skill version
-- `@./content/claude-code-docs/api/api/skills/delete-skill-version.md` - Delete skill version
+- `@./content/en/api/api/skills/overview.md` - Skills API overview
+- `@./content/en/api/api/skills/create-skill.md` - Create skill
+- `@./content/en/api/api/skills/list-skills.md` - List skills
+- `@./content/en/api/api/skills/get-skill.md` - Get skill
+- `@./content/en/api/api/skills/delete-skill.md` - Delete skill
+- `@./content/en/api/api/skills/create-skill-version.md` - Create skill version
+- `@./content/en/api/api/skills/list-skill-versions.md` - List skill versions
+- `@./content/en/api/api/skills/get-skill-version.md` - Get skill version
+- `@./content/en/api/api/skills/delete-skill-version.md` - Delete skill version
 
 #### API Documentation - Admin API
-- `@./content/claude-code-docs/api/admin-api/claude-code/get-claude-code-usage-report.md` - Claude Code usage report
-- `@./content/claude-code-docs/api/api/admin-api/organization/get-me.md` - Get organization
-- `@./content/claude-code-docs/api/api/admin-api/apikeys/*` - API key management
-- `@./content/claude-code-docs/api/api/admin-api/users/*` - User management
-- `@./content/claude-code-docs/api/api/admin-api/workspaces/*` - Workspace management
-- `@./content/claude-code-docs/api/api/admin-api/workspace_members/*` - Workspace member management
-- `@./content/claude-code-docs/api/api/admin-api/invites/*` - Invite management
-- `@./content/claude-code-docs/api/api/admin-api/usage-cost/*` - Usage and cost reports
+- `@./content/en/api/admin-api/claude-code/get-claude-code-usage-report.md` - Claude Code usage report
+- `@./content/en/api/api/admin-api/organization/get-me.md` - Get organization
+- `@./content/en/api/api/admin-api/apikeys/*` - API key management
+- `@./content/en/api/api/admin-api/users/*` - User management
+- `@./content/en/api/api/admin-api/workspaces/*` - Workspace management
+- `@./content/en/api/api/admin-api/workspace_members/*` - Workspace member management
+- `@./content/en/api/api/admin-api/invites/*` - Invite management
+- `@./content/en/api/api/admin-api/usage-cost/*` - Usage and cost reports
 
 #### API Reference - Core API
-- `@./content/claude-code-docs/api/api/messages.md` - Messages API
-- `@./content/claude-code-docs/api/api/messages-examples.md` - Messages examples
-- `@./content/claude-code-docs/api/api/messages-count-tokens.md` - Token counting
-- `@./content/claude-code-docs/api/api/models.md` - Models overview
-- `@./content/claude-code-docs/api/api/models-list.md` - List models
-- `@./content/claude-code-docs/api/api/files-*.md` - Files API
-- `@./content/claude-code-docs/api/api/*-message-batch*.md` - Message batches API
-- `@./content/claude-code-docs/api/api/errors.md` - Error handling
-- `@./content/claude-code-docs/api/api/rate-limits.md` - Rate limits
-- `@./content/claude-code-docs/api/api/versioning.md` - API versioning
-- `@./content/claude-code-docs/api/api/supported-regions.md` - Supported regions
-- `@./content/claude-code-docs/api/api/service-tiers.md` - Service tiers
+- `@./content/en/api/api/messages.md` - Messages API
+- `@./content/en/api/api/messages-examples.md` - Messages examples
+- `@./content/en/api/api/messages-count-tokens.md` - Token counting
+- `@./content/en/api/api/models.md` - Models overview
+- `@./content/en/api/api/models-list.md` - List models
+- `@./content/en/api/api/files-*.md` - Files API
+- `@./content/en/api/api/*-message-batch*.md` - Message batches API
+- `@./content/en/api/api/errors.md` - Error handling
+- `@./content/en/api/api/rate-limits.md` - Rate limits
+- `@./content/en/api/api/versioning.md` - API versioning
+- `@./content/en/api/api/supported-regions.md` - Supported regions
+- `@./content/en/api/api/service-tiers.md` - Service tiers
 
 #### About Claude
-- `@./content/about-claude/glossary.md` - Claude glossary
-- `@./content/about-claude/model-deprecations.md` - Model deprecation policy
-- `@./content/about-claude/pricing.md` - Pricing information
+- `@./content/en/docs/about-claude/glossary.md` - Claude glossary
+- `@./content/en/docs/about-claude/model-deprecations.md` - Model deprecation policy
+- `@./content/en/docs/about-claude/pricing.md` - Pricing information
 
 #### Test and Evaluate
-- `@./content/test-and-evaluate/define-success.md` - Defining success criteria
-- `@./content/test-and-evaluate/develop-tests.md` - Developing test cases
-- `@./content/test-and-evaluate/eval-tool.md` - Evaluation tools
+- `@./content/en/docs/test-and-evaluate/define-success.md` - Defining success criteria
+- `@./content/en/docs/test-and-evaluate/develop-tests.md` - Developing test cases
+- `@./content/en/docs/test-and-evaluate/eval-tool.md` - Evaluation tools
 
 #### Get Started
-- `@./content/get-started/intro.md` - Introduction to Claude
-- `@./content/get-started/overview.md` - Claude overview
-- `@./content/get-started/mcp.md` - Model Context Protocol overview
+- `@./content/en/docs/get-started/intro.md` - Introduction to Claude
+- `@./content/en/docs/get-started/overview.md` - Claude overview
+- `@./content/en/docs/get-started/mcp.md` - Model Context Protocol overview
 
 #### Release Notes
-- `@./content/release-notes/claude-code.md` - Claude Code release notes
-- `@./content/release-notes/api.md` - API release notes
-- `@./content/release-notes/claude-apps.md` - Claude Apps release notes
-- `@./content/release-notes/system-prompts.md` - System prompts release notes
-- `@./content/release-notes/overview.md` - Release notes overview
-- `@./content/release-notes/CHANGELOG.md` - GitHub CHANGELOG
+- `@./content/en/release-notes/claude-code.md` - Claude Code release notes
+- `@./content/en/release-notes/api.md` - API release notes
+- `@./content/en/release-notes/claude-apps.md` - Claude Apps release notes
+- `@./content/en/release-notes/system-prompts.md` - System prompts release notes
+- `@./content/en/release-notes/overview.md` - Release notes overview
+- `@./content/en/release-notes/CHANGELOG.md` - GitHub CHANGELOG
 
 #### Resources and Prompt Library
-- `@./content/resources/overview.md` - Resources overview
-- `@./content/resources/prompt-library/*` - 65+ curated prompts for various use cases
+- `@./content/en/resources/overview.md` - Resources overview
+- `@./content/en/resources/prompt-library/*` - 65+ curated prompts for various use cases
 
 ## Repository Structure
 
