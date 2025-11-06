@@ -84,6 +84,44 @@ claude "Help me configure environment variables for my team using the settings d
 claude "Using the settings documentation, create a settings.json that allows npm scripts, git commands, but blocks network requests"
 ```
 
+## Repository Structure
+
+Documentation is organized as a 1:1 mirror of the official sitemap:
+
+```
+content/
+├── en/                           All English documentation
+│   ├── docs/                     116 docs (Claude Code, Build with Claude, etc.)
+│   ├── api/                      84 docs (Agent SDK, Admin API, etc.)
+│   ├── resources/                66 docs (Prompt library)
+│   └── release-notes/            Release notes
+├── blog/                         Anthropic blog posts
+├── claude-code-manifest.json     NPM package info
+└── CHANGELOG.md                  GitHub repository changelog
+```
+
+## Fetching Latest Documentation
+
+This repo auto-updates via GitHub Actions every 6 hours. To manually fetch:
+
+```bash
+# Install uv (if not already installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Fetch all docs
+uv run scripts/fetcher.py
+
+# Browse structure
+uv run scripts/fetcher.py --tree
+
+# Fetch specific section
+uv run scripts/fetcher.py --section en/docs/claude-code
+uv run scripts/fetcher.py --section en/api/agent-sdk
+
+# Skip existing files (incremental update)
+uv run scripts/fetcher.py --incremental
+```
+
 ## Disclaimer
 
 This is an unofficial mirror for **educational purposes**. For official documentation, visit https://docs.anthropic.com/claude-code. For commercial use, please consult Anthropic's [commercial terms](https://www.anthropic.com/legal/commercial-terms).
