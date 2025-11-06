@@ -102,6 +102,8 @@ export AWS_REGION=us-east-1  # or your preferred region
 export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
 ```
 
+**For VS Code Extension users**: Configure environment variables in the VS Code extension settings instead of exporting them in your shell. See [Using Third-Party Providers in VS Code](/en/vs-code#using-third-party-providers-vertex-and-bedrock) for detailed instructions. All environment variables shown in this guide should work when configured through the VS Code extension settings.
+
 When enabling Bedrock for Claude Code, keep the following in mind:
 
 * `AWS_REGION` is a required environment variable. Claude Code does not read from the `.aws` config file for this setting.
@@ -136,7 +138,7 @@ export DISABLE_PROMPT_CACHING=1
 ```
 
 <Note>
-  [Prompt caching](/en/docs/build-with-claude/prompt-caching) may not be available in all regions
+  [Prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) may not be available in all regions
 </Note>
 
 ### 5. Output token configuration
