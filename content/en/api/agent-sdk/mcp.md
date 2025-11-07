@@ -357,5 +357,5 @@ Handle MCP connection failures gracefully:
 * [Custom Tools Guide](/en/api/agent-sdk/custom-tools) - Detailed guide on creating SDK MCP servers
 * [TypeScript SDK Reference](/en/api/agent-sdk/typescript)
 * [Python SDK Reference](/en/api/agent-sdk/python)
-* [SDK Permissions](/en/api/agent-sdk/sdk-permissions)
-* [Common Workflows](/en/docs/claude-code/common-workflows)
+* [SDK Permissions](/en/api/agent-sdk/permissions)
+* [Common Workflows](https://code.claude.com/docs/common-workflows)
