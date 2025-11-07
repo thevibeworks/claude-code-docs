@@ -97,7 +97,7 @@ You can control which tools Claude can use via the `allowedTools` option:
 
 <CodeGroup>
   ```typescript TypeScript theme={null}
-  import { query } from "@anthropic-ai/claude-code";
+  import { query } from "@anthropic-ai/claude-agent-sdk";
 
   // Use the custom tools in your query with streaming input
   async function* generateMessages() {
