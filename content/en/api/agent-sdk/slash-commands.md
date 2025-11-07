@@ -473,8 +473,8 @@ Use these commands through the SDK:
 
 ## See Also
 
-* [Slash Commands](/en/docs/claude-code/slash-commands) - Complete slash command documentation
+* [Slash Commands](https://code.claude.com/docs/slash-commands) - Complete slash command documentation
 * [Subagents in the SDK](/en/api/agent-sdk/subagents) - Similar filesystem-based configuration for subagents
-* [TypeScript SDK reference](/en/docs/claude-code/typescript-sdk-reference) - Complete API documentation
+* [TypeScript SDK reference](https://code.claude.com/docs/typescript) - Complete API documentation
 * [SDK overview](/en/api/agent-sdk/overview) - General SDK concepts
-* [CLI reference](/en/docs/claude-code/cli-reference) - Command-line interface
+* [CLI reference](https://code.claude.com/docs/cli-reference) - Command-line interface

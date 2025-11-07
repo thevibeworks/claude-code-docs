@@ -6,7 +6,7 @@
 
 The Claude Agent SDK provides detailed token usage information for each interaction with Claude. This guide explains how to properly track costs and understand usage reporting, especially when dealing with parallel tool uses and multi-step conversations.
 
-For complete API documentation, see the [TypeScript SDK reference](/en/docs/claude-code/typescript-sdk-reference).
+For complete API documentation, see the [TypeScript SDK reference](https://code.claude.com/docs/typescript).
 
 ## Understanding Token Usage
 
@@ -344,6 +344,6 @@ class BillingAggregator {
 
 ## Related Documentation
 
-* [TypeScript SDK Reference](/en/docs/claude-code/typescript-sdk-reference) - Complete API documentation
+* [TypeScript SDK Reference](https://code.claude.com/docs/typescript) - Complete API documentation
 * [SDK Overview](/en/api/agent-sdk/overview) - Getting started with the SDK
-* [SDK Permissions](/en/api/agent-sdk/sdk-permissions) - Managing tool permissions
+* [SDK Permissions](/en/api/agent-sdk/permissions) - Managing tool permissions

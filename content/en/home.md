@@ -14,7 +14,7 @@ export function openSearch() {
         <span className="build-with">Build with Claude</span>
       </div>
 
-      <p
+      <div
         className="description-text"
         style={{
         fontWeight: '400',
@@ -25,7 +25,7 @@ export function openSearch() {
       }}
       >
         Learn how to get started with the Claude Developer Platform and Claude Code.
-      </p>
+      </div>
 
       <div className="flex items-center justify-center">
         <button
@@ -62,7 +62,7 @@ export function openSearch() {
       Discover the latest advancements in Claude 4.5 models, including Sonnet 4.5 and Haiku 4.5.
     </Card>
 
-    <Card title="API reference" icon="code-simple" href="/en/api/getting-started">
+    <Card title="API reference" icon="code-simple" href="/en/api/overview">
       Integrate and scale using our API and SDKs.
     </Card>
 
@@ -82,11 +82,11 @@ export function openSearch() {
   </h2>
 
   <div className="home-cards-custom">
-    <Card title="Claude Code quickstart" icon="square-terminal" href="/en/docs/claude-code/quickstart">
+    <Card title="Claude Code quickstart" icon="square-terminal" href="https://code.claude.com/docs/quickstart">
       Get started with Claude Code.
     </Card>
 
-    <Card title="Claude Code reference" icon="square-terminal" href="/en/docs/claude-code/overview">
+    <Card title="Claude Code reference" icon="square-terminal" href="https://code.claude.com/docs/overview">
       Consult the Claude Code reference documentation for details on feature implementation and configuration.
     </Card>
 

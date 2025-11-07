@@ -529,7 +529,7 @@ Now that you've used pre-built Agent Skills, you can:
     Learn best practices for writing effective Skills
   </Card>
 
-  <Card title="Use Skills in Claude Code" icon="terminal" href="/en/docs/claude-code/skills">
+  <Card title="Use Skills in Claude Code" icon="terminal" href="https://code.claude.com/docs/skills">
     Learn about Skills in Claude Code
   </Card>
 

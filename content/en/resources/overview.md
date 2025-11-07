@@ -78,16 +78,12 @@
       Concise overview of Claude API documentation, optimized for LLM ingestion.
     </Card>
 
-    <Card title="Claude Code Docs Site Map" icon="sitemap" href="/en/docs/claude-code/claude_code_docs_map.md">
-      Complete site map of Claude Code documentation.
-    </Card>
-
     <Card title="llms.txt" icon="file-lines" href="/llms.txt">
-      LLM-optimized documentation index. See [Mintlify llms.txt](https://www.mintlify.com/docs/ai/llmstxt).
+      LLM-optimized documentation index.
     </Card>
 
     <Card title="llms-full.txt" icon="file-lines" href="/llms-full.txt">
-      Complete LLM-optimized documentation. See [Mintlify llms.txt](https://www.mintlify.com/docs/ai/llmstxt).
+      Complete LLM-optimized documentation.
     </Card>
   </div>
 </div>

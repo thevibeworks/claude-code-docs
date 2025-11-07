@@ -473,7 +473,6 @@ You can combine these methods for maximum flexibility:
 
 ## See also
 
-* [Output styles](/en/docs/claude-code/output-styles) - Complete output styles documentation
+* [Output styles](https://code.claude.com/docs/output-styles) - Complete output styles documentation
 * [TypeScript SDK guide](/en/api/agent-sdk/typescript) - Complete SDK usage guide
-* [TypeScript SDK reference](/en/docs/claude-code/typescript-sdk-reference) - Full API documentation
-* [Configuration guide](/en/docs/claude-code/configuration) - General configuration options
+* [Configuration guide](https://code.claude.com/docs/settings) - General configuration options
