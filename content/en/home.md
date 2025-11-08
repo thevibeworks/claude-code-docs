@@ -54,7 +54,7 @@ export function openSearch() {
       Make your first API call in minutes.
     </Card>
 
-    <Card title="Features overview" icon="brain-circuit" href="/en/docs/build-with-claude/overview">
+    <Card title="Features overview" icon="brain-circuit" href="/en/api/overview">
       Explore the advanced features and capabilities now available in Claude.
     </Card>
 
