@@ -1323,7 +1323,7 @@ Claude executes the tool internally and incorporates the results directly into i
 
 ### Handling the `max_tokens` stop reason
 
-If Claude's [response is cut off due to hitting the `max_tokens` limit](/en/api/handling-stop-reasons#max-tokens), and the truncated response contains an incomplete tool use block, you'll need to retry the request with a higher `max_tokens` value to get the full tool use.
+If Claude's [response is cut off due to hitting the `max_tokens` limit](/en/docs/build-with-claude/handling-stop-reasons#max-tokens), and the truncated response contains an incomplete tool use block, you'll need to retry the request with a higher `max_tokens` value to get the full tool use.
 
 <CodeGroup>
   ```python Python theme={null}
