@@ -16,7 +16,7 @@
 
 #### October 16, 2025
 
-* We've launched [Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills) (`skills-2025-10-02` beta), a new way to extend Claude's capabilities. Skills are organized folders of instructions, scripts, and resources that Claude loads dynamically to perform specialized tasks. The initial release includes:
+* We've launched [Agent Skills](https://https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills-skills) (`skills-2025-10-02` beta), a new way to extend Claude's capabilities. Skills are organized folders of instructions, scripts, and resources that Claude loads dynamically to perform specialized tasks. The initial release includes:
   * **Anthropic-managed Skills**: Pre-built Skills for working with PowerPoint (.pptx), Excel (.xlsx), Word (.docx), and PDF files
   * **Custom Skills**: Upload your own Skills via the Skills API (`/v1/skills` endpoints) to package domain expertise and organizational workflows
   * Skills require the [code execution tool](/en/docs/agents-and-tools/tool-use/code-execution-tool) to be enabled
@@ -30,7 +30,7 @@
 
 * We've launched [Claude Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5), our best model for complex agents and coding, with the highest intelligence across most tasks. Learn more in [What's new in Claude 4.5](/en/docs/about-claude/models/whats-new-claude-4-5).
 * We've introduced [global endpoint pricing](/en/docs/about-claude/pricing#third-party-platform-pricing) for AWS Bedrock and Google Vertex AI. The Claude API (1P) pricing is unaffected.
-* We've introduced a new stop reason `model_context_window_exceeded` that allows you to request the maximum possible tokens without calculating input size. Learn more in our [handling stop reasons documentation](/en/api/handling-stop-reasons).
+* We've introduced a new stop reason `model_context_window_exceeded` that allows you to request the maximum possible tokens without calculating input size. Learn more in our [handling stop reasons documentation](/en/docs/build-with-claude/handling-stop-reasons).
 * We've launched the memory tool in beta, enabling Claude to store and consult information across conversations. Learn more in our [memory tool documentation](/en/docs/agents-and-tools/tool-use/memory-tool).
 * We've launched context editing in beta, providing strategies to automatically manage conversation context. The initial release supports clearing older tool results and calls when approaching token limits. Learn more in our [context editing documentation](/en/docs/build-with-claude/context-editing).
 
@@ -49,7 +49,7 @@
 #### September 10, 2025
 
 * We've launched the web fetch tool in beta, allowing Claude to retrieve full content from specified web pages and PDF documents. Learn more in our [web fetch tool documentation](/en/docs/agents-and-tools/tool-use/web-fetch-tool).
-* We've launched the [Claude Code Analytics API](/en/api/claude-code-analytics-api), enabling organizations to programmatically access daily aggregated usage metrics for Claude Code, including productivity metrics, tool usage statistics, and cost data.
+* We've launched the [Claude Code Analytics API](/en/docs/build-with-claude/claude-code-analytics-api), enabling organizations to programmatically access daily aggregated usage metrics for Claude Code, including productivity metrics, tool usage statistics, and cost data.
 
 #### September 8, 2025
 
@@ -74,7 +74,7 @@
 #### August 26, 2025
 
 * We've increased rate limits on the [1M token context window](/en/docs/build-with-claude/context-windows#1m-token-context-window) for Claude Sonnet 4 on the Claude API. For more information, see [Long context rate limits](/en/api/rate-limits#long-context-rate-limits).
-* The 1m token context window is now available on Google Cloud's Vertex AI. For more information, see [Claude on Vertex AI](/en/api/claude-on-vertex-ai).
+* The 1m token context window is now available on Google Cloud's Vertex AI. For more information, see [Claude on Vertex AI](/en/docs/build-with-claude/claude-on-vertex-ai).
 
 #### August 19, 2025
 
@@ -82,7 +82,7 @@
 
 #### August 18, 2025
 
-* We've released the [Usage & Cost API](/en/api/usage-cost-api), allowing administrators to programmatically monitor their organization's usage and cost data.
+* We've released the [Usage & Cost API](/en/docs/build-with-claude/usage-cost-api), allowing administrators to programmatically monitor their organization's usage and cost data.
 * We've added a new endpoint to the Admin API for retrieving organization information. For details, see the [Organization Info Admin API reference](/en/api/admin-api/organization/get-me).
 
 #### August 13, 2025
@@ -244,7 +244,7 @@ We also released new official SDKs:
 
 #### November 21st, 2024
 
-* We've released the [Admin API](/en/api/administration-api), allowing users to programmatically manage their organization's resources.
+* We've released the [Admin API](/en/docs/build-with-claude/administration-api), allowing users to programmatically manage their organization's resources.
 
 ### November 20th, 2024
 
