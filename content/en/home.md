@@ -82,11 +82,11 @@ export function openSearch() {
   </h2>
 
   <div className="home-cards-custom">
-    <Card title="Claude Code quickstart" icon="square-terminal" href="https://code.claude.com/docs/quickstart">
+    <Card title="Claude Code quickstart" icon="square-terminal" href="https://code.claude.com/docs/en/quickstart">
       Get started with Claude Code.
     </Card>
 
-    <Card title="Claude Code reference" icon="square-terminal" href="https://code.claude.com/docs/overview">
+    <Card title="Claude Code reference" icon="square-terminal" href="https://code.claude.com/docs/en/overview">
       Consult the Claude Code reference documentation for details on feature implementation and configuration.
     </Card>
 

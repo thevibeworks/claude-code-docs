@@ -358,4 +358,4 @@ Handle MCP connection failures gracefully:
 * [TypeScript SDK Reference](/en/docs/agent-sdk/typescript)
 * [Python SDK Reference](/en/docs/agent-sdk/python)
 * [SDK Permissions](/en/docs/agent-sdk/permissions)
-* [Common Workflows](https://code.claude.com/docs/common-workflows)
+* [Common Workflows](https://code.claude.com/docs/en/common-workflows)

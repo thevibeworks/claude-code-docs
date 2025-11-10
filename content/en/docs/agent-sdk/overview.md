@@ -3,7 +3,7 @@
 > Build custom AI agents with the Claude Agent SDK
 
 <Note>
-  The Claude Code SDK has been renamed to the **Claude Agent SDK**. If you're migrating from the old SDK, see the [Migration Guide](https://code.claude.com/docs/sdk/migration-guide).
+  The Claude Code SDK has been renamed to the **Claude Agent SDK**. If you're migrating from the old SDK, see the [Migration Guide](https://code.claude.com/docs/en/sdk/migration-guide).
 </Note>
 
 ## Installation
@@ -67,7 +67,7 @@ The SDK also supports authentication via third-party API providers:
 * **Amazon Bedrock**: Set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
 * **Google Vertex AI**: Set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
 
-For detailed configuration instructions for third-party providers, see the [Amazon Bedrock](https://code.claude.com/docs/amazon-bedrock) and [Google Vertex AI](https://code.claude.com/docs/google-vertex-ai) documentation.
+For detailed configuration instructions for third-party providers, see the [Amazon Bedrock](https://code.claude.com/docs/en/amazon-bedrock) and [Google Vertex AI](https://code.claude.com/docs/en/google-vertex-ai) documentation.
 
 <Note>
   Unless previously approved, we do not allow third party developers to apply Claude.ai rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
@@ -145,8 +145,8 @@ View the full changelog for SDK updates, bug fixes, and new features:
 
 ## Related Resources
 
-* [CLI Reference](https://code.claude.com/docs/cli-reference) - Complete CLI documentation
-* [GitHub Actions Integration](https://code.claude.com/docs/github-actions) - Automate your GitHub workflow
-* [MCP Documentation](https://code.claude.com/docs/mcp) - Extend Claude with custom tools
-* [Common Workflows](https://code.claude.com/docs/common-workflows) - Step-by-step guides
-* [Troubleshooting](https://code.claude.com/docs/troubleshooting) - Common issues and solutions
+* [CLI Reference](https://code.claude.com/docs/en/cli-reference) - Complete CLI documentation
+* [GitHub Actions Integration](https://code.claude.com/docs/en/github-actions) - Automate your GitHub workflow
+* [MCP Documentation](https://code.claude.com/docs/en/mcp) - Extend Claude with custom tools
+* [Common Workflows](https://code.claude.com/docs/en/common-workflows) - Step-by-step guides
+* [Troubleshooting](https://code.claude.com/docs/en/troubleshooting) - Common issues and solutions

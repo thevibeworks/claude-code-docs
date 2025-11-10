@@ -91,7 +91,7 @@ Skills are defined as directories containing a `SKILL.md` file with YAML frontma
 
 For complete guidance on creating Skills, including SKILL.md structure, multi-file Skills, and examples, see:
 
-* [Agent Skills in Claude Code](https://code.claude.com/docs/skills): Complete guide with examples
+* [Agent Skills in Claude Code](https://code.claude.com/docs/en/skills): Complete guide with examples
 * [Agent Skills Best Practices](/en/docs/agents-and-tools/agent-skills/best-practices): Authoring guidelines and naming conventions
 
 ## Tool Restrictions
@@ -282,13 +282,13 @@ ls ~/.claude/skills/*/SKILL.md
 
 ### Additional Troubleshooting
 
-For general Skills troubleshooting (YAML syntax, debugging, etc.), see the [Claude Code Skills troubleshooting section](https://code.claude.com/docs/skills#troubleshooting).
+For general Skills troubleshooting (YAML syntax, debugging, etc.), see the [Claude Code Skills troubleshooting section](https://code.claude.com/docs/en/skills#troubleshooting).
 
 ## Related Documentation
 
 ### Skills Guides
 
-* [Agent Skills in Claude Code](https://code.claude.com/docs/skills): Complete Skills guide with creation, examples, and troubleshooting
+* [Agent Skills in Claude Code](https://code.claude.com/docs/en/skills): Complete Skills guide with creation, examples, and troubleshooting
 * [Agent Skills Overview](/en/docs/agents-and-tools/agent-skills/overview): Conceptual overview, benefits, and architecture
 * [Agent Skills Best Practices](/en/docs/agents-and-tools/agent-skills/best-practices): Authoring guidelines for effective Skills
 * [Agent Skills Cookbook](https://github.com/anthropics/claude-cookbooks/tree/main/skills): Example Skills and templates

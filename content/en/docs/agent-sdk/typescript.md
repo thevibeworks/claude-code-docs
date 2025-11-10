@@ -1793,5 +1793,5 @@ class AbortError extends Error {}
 
 * [SDK overview](/en/docs/agent-sdk/overview) - General SDK concepts
 * [Python SDK reference](/en/docs/agent-sdk/python) - Python SDK documentation
-* [CLI reference](https://code.claude.com/docs/cli-reference) - Command-line interface
-* [Common workflows](https://code.claude.com/docs/common-workflows) - Step-by-step guides
+* [CLI reference](https://code.claude.com/docs/en/cli-reference) - Command-line interface
+* [Common workflows](https://code.claude.com/docs/en/common-workflows) - Step-by-step guides

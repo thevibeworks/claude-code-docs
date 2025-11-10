@@ -945,7 +945,7 @@ HookCallback = Callable[
 
 Parameters:
 
-* `input_data`: Hook-specific input data (see [hook documentation](https://docs.claude.comhttps://code.claude.com/docs/hooks#hook-input))
+* `input_data`: Hook-specific input data (see [hook documentation](https://docs.claude.comhttps://code.claude.com/docs/en/hooks#hook-input))
 * `tool_use_id`: Optional tool use identifier (for tool-related hooks)
 * `context`: Hook context with additional information
 
@@ -1842,6 +1842,6 @@ asyncio.run(main())
 
 * [Python SDK guide](/en/docs/agent-sdk/python) - Tutorial and examples
 * [SDK overview](/en/docs/agent-sdk/overview) - General SDK concepts
-* [TypeScript SDK reference](https://code.claude.com/docs/typescript) - TypeScript SDK documentation
-* [CLI reference](https://code.claude.com/docs/cli-reference) - Command-line interface
-* [Common workflows](https://code.claude.com/docs/common-workflows) - Step-by-step guides
+* [TypeScript SDK reference](/en/docs/agent-sdk/typescript) - TypeScript SDK documentation
+* [CLI reference](https://code.claude.com/docs/en/cli-reference) - Command-line interface
+* [Common workflows](https://code.claude.com/docs/en/common-workflows) - Step-by-step guides

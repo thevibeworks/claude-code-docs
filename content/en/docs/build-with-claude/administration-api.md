@@ -33,13 +33,13 @@ This is useful for:
 
 There are five organization-level roles. See more details [here](https://support.claude.com/en/articles/10186004-api-console-roles-and-permissions).
 
-| Role               | Permissions                                                                |
-| ------------------ | -------------------------------------------------------------------------- |
-| user               | Can use Workbench                                                          |
-| claude\_code\_user | Can use Workbench and [Claude Code](https://code.claude.com/docs/overview) |
-| developer          | Can use Workbench and manage API keys                                      |
-| billing            | Can use Workbench and manage billing details                               |
-| admin              | Can do all of the above, plus manage users                                 |
+| Role               | Permissions                                                                   |
+| ------------------ | ----------------------------------------------------------------------------- |
+| user               | Can use Workbench                                                             |
+| claude\_code\_user | Can use Workbench and [Claude Code](https://code.claude.com/docs/en/overview) |
+| developer          | Can use Workbench and manage API keys                                         |
+| billing            | Can use Workbench and manage billing details                                  |
+| admin              | Can do all of the above, plus manage users                                    |
 
 ## Key concepts
 
