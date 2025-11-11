@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-11-10T18:26:12.967348Z"
+    "fetch_date": "2025-11-11T18:25:37.207845Z"
   },
   "items": [
     {
@@ -645,8 +645,8 @@
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview",
       "status": "success",
       "path": "en/docs/agents-and-tools/agent-skills/overview.md",
-      "sha256": "ff5595e318961d819d2bfce7fc222cf9afa4cda679c644a778af8f2af58687be",
-      "size": 21058
+      "sha256": "a2686a453bb22f0681e9da6c1ffbeda175949025c835342d58f68f15ee20d473",
+      "size": 21043
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/quickstart",
@@ -967,8 +967,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/skills-guide",
       "status": "success",
       "path": "en/docs/build-with-claude/skills-guide.md",
-      "sha256": "e47e658752411ed893d3777da2450b752f7ea0b0c4c1c08cfdc3c1232d974f24",
-      "size": 49364
+      "sha256": "91e433b8393843cf2d164aa545d5b8f577f23328446e9d11730490296330d4aa",
+      "size": 49349
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/streaming",
@@ -1107,8 +1107,8 @@
       "url": "https://docs.claude.com/en/release-notes/overview",
       "status": "success",
       "path": "en/release-notes/overview.md",
-      "sha256": "42120497264257cf45459e6b99ab2bdb7a6cbdcdaac20d768585368dce6fbf2d",
-      "size": 26324
+      "sha256": "15e1b3633bac9716bc3c064c77f2ee6dac3dd9fed428362246fc7c8943f5e9ba",
+      "size": 26309
     },
     {
       "url": "https://docs.claude.com/en/release-notes/system-prompts",
@@ -1583,14 +1583,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "c833ace855a67046e0ed82d2cbf2f15bfac72a5bcb597097311e4040cda790a7",
+      "sha256": "69994074ee84d0db2732c0454645032f66774b7bde5754580281c7bbc84786e2",
       "size": 30483
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "3bdb2d66ae22c1100adf121f33134a0a3e68e5b4d82e536ad994f8b124fd36f0",
+      "sha256": "480f6487e25b7b6aefb895560dbb9a26741fe37875f5fdf2df745a89ce21f8fe",
       "size": 8764
     },
     {
