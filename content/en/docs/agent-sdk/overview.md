@@ -118,7 +118,7 @@ When referencing Claude in your agent selector or product:
 
 * **Claude Agent** (preferred for dropdown menus)
 * **Claude** (when within a menu already labeled "Agents")
-* **{YourAgentName} Powered by Claude** (if you have an existing agent name)
+* **\{YourAgentName} Powered by Claude** (if you have an existing agent name)
 
 **Not permitted:**
 
