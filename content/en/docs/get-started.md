@@ -13,7 +13,7 @@
   <Tab title="cURL">
     <Steps>
       <Step title="Set your API key">
-        Get your API key from the [Claude Console](https://console.anthropic.com/settings/keys) and set it as an environment variable:
+        Get your API key at the [Claude Console](https://console.anthropic.com/settings/keys) and set it as an environment variable:
 
         ```bash  theme={null}
         export ANTHROPIC_API_KEY='your-api-key-here'
