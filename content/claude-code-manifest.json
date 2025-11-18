@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.0.42",
+  "version": "2.0.44",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.0.42",
+  "_id": "@anthropic-ai/claude-code@2.0.44",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -27,6 +27,10 @@
     {
       "name": "jv-anthropic",
       "email": "jv@anthropic.com"
+    },
+    {
+      "name": "ollie-ant-2025",
+      "email": "ollie@anthropic.com"
     },
     {
       "name": "sbidasaria",
@@ -57,17 +61,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "4cc52de8094eb19b6fb43325e47af2b02a5cc492",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.42.tgz",
+    "shasum": "a06d81369e2d9a6181b4d278694dc312440e1bab",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.44.tgz",
     "fileCount": 49,
-    "integrity": "sha512-poK4Z+mviehjjCIQe+KTU40kSTgnUitxROg79rAwN3L3A7FyvQE8v6jdakvtxYb452/8qBSf+FbvImHvuXn0rw==",
+    "integrity": "sha512-718uXiZCd0TZQwR6CAM4IacEyVIQuzKZcuF6LB1Jl4yKWU6xO54t84163isGztKhxfPf0MCtW8t+rf1QH/tkzg==",
     "signatures": [
       {
-        "sig": "MEUCIFU87WyXklZXaDEw241b7FReH2CWe8bU/DYCV9JZSv2AAiEA7hCh6RrjE3TCJANQe8N4WOtigXAJP4z7wAeoHqQv6Q4=",
+        "sig": "MEUCIDcWuKETUAx2GBt1iASpEgkBsJVkSmmAjAOJ+FM1VlRRAiEAwfZJJDr4YiWEpJClIoy9fjAAzAa65DKinpGXXZMw3c8=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 78492920
+    "unpackedSize": 78539685
   },
   "main": "sdk.mjs",
   "type": "module",
@@ -75,7 +79,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "97bb8fba7393eaf97cd7bcdc71faa7a1e0d3c9a4",
+  "gitHead": "dff431f3d615c8879eda127d368b42a850e3ed8c",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
@@ -99,7 +103,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.0.42_1763161222621_0.2911310652683823",
+    "tmp": "tmp/claude-code_2.0.44_1763440272495_0.43908394736614254",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
