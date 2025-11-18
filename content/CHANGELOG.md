@@ -1,5 +1,22 @@
 # Changelog
 
+## 2.0.45
+
+- Add support for Azure AI Foundry! See https://code.claude.com/docs/en/azure-ai-foundry
+- Added `PermissionRequest` hook to automatically approve or deny tool permission requests with custom logic
+- Send background tasks to Claude Code on the web by starting a message with `&`
+
+## 2.0.43
+
+- Added `permissionMode` field for custom agents
+- Added `tool_use_id` field to `PreToolUseHookInput` and `PostToolUseHookInput` types
+- Added skills frontmatter field to declare skills to auto-load for subagents
+- Added the `SubagentStart` hook event
+- Fixed nested `CLAUDE.md` files not loading when @-mentioning files
+- Fixed duplicate rendering of some messages in the UI
+- Fixed some visual flickers
+- Fixed NotebookEdit tool inserting cells at incorrect positions when cell IDs matched the pattern `cell-N`
+
 ## 2.0.42
 
 - Added `agent_id` and `agent_transcript_path` fields to `SubagentStop` hooks.
