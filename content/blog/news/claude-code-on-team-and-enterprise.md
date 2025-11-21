@@ -48,3 +48,20 @@ Getting started
 Team and Enterprise plan admins can now upgrade to premium seats with Claude Code—and take advantage of flexible pricing with extra usage options. Both Team and Enterprise plans include granular spend caps, self-serve seat management, and Claude Code usage analytics.
 
 To explore how Claude for Enterprise can transform your organization's productivity and learn more about the Compliance API, [contact](https://www.anthropic.com/contact-sales) our sales team.
+
+Related content
+---------------
+
+### Claude now available in Microsoft Foundry and Microsoft 365 Copilot
+
+[Read more](https://www.anthropic.com/news/claude-in-microsoft-foundry)
+
+### Microsoft, NVIDIA, and Anthropic announce strategic partnerships
+
+Microsoft, NVIDIA and Anthropic announced new strategic partnerships. Anthropic is scaling its rapidly-growing Claude AI model on Microsoft Azure, powered by NVIDIA, which will broaden access to Claude and provide Azure enterprise customers with expanded model choice and new capabilities. Anthropic has committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt.
+
+[Read more](https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships)
+
+### Anthropic partners with Rwandan Government and ALX to bring AI education to hundreds of thousands of learners across Africa
+
+[Read more](https://www.anthropic.com/news/rwandan-government-partnership-ai-education)
