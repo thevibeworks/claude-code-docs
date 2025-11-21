@@ -54,3 +54,20 @@ These updates are available now for Claude Code users.
 *   **VS Code extension**(beta)**:** Download from the [VS Code Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) to get started
 *   **Terminal updates**, including the visual refresh and checkpoints, are available to all Claude Code users—just update your local installation
 *   **Claude Agent SDK:**[See the docs](https://docs.claude.com/en/api/agent-sdk/overview) to get started
+
+Related content
+---------------
+
+### Claude now available in Microsoft Foundry and Microsoft 365 Copilot
+
+[Read more](https://www.anthropic.com/news/claude-in-microsoft-foundry)
+
+### Microsoft, NVIDIA, and Anthropic announce strategic partnerships
+
+Microsoft, NVIDIA and Anthropic announced new strategic partnerships. Anthropic is scaling its rapidly-growing Claude AI model on Microsoft Azure, powered by NVIDIA, which will broaden access to Claude and provide Azure enterprise customers with expanded model choice and new capabilities. Anthropic has committed to purchase $30 billion of Azure compute capacity and to contract additional compute capacity up to one gigawatt.
+
+[Read more](https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships)
+
+### Anthropic partners with Rwandan Government and ALX to bring AI education to hundreds of thousands of learners across Africa
+
+[Read more](https://www.anthropic.com/news/rwandan-government-partnership-ai-education)
