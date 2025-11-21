@@ -1,1 +1,2076 @@
-<!DOCTYPE html><html class="h-screen antialiased bg-bg-100 __variable_f3a9a4 __variable_02000a __variable_e4195f" lang="en" data-theme="claude" data-mode="auto"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/><link rel="stylesheet" href="/_next/static/css/2b71dfdc9267bd91.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/67137dafa09577bf.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/72024b5864fce399.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/fa7cd70b50c99bc6.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/595304cd2c73d99a.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/bf71b0902a17bea2.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/68b23a340465d313.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/ca4074d0ed1f8290.css" data-precedence="next"/><link rel="stylesheet" href="/_next/static/css/350808815f195e29.css" data-precedence="next"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-a39dc2a7f2918330.js"/><script src="/_next/static/chunks/87c73c54-5024f8c060d4159c.js" async=""></script><script src="/_next/static/chunks/52291-1eb206e1b9508660.js" async=""></script><script src="/_next/static/chunks/main-app-e352140fe7d9abdf.js" async=""></script><script src="/_next/static/chunks/620c25d9-64f721c013568688.js" async=""></script><script src="/_next/static/chunks/1f006d11-8c29cf44e565da68.js" async=""></script><script src="/_next/static/chunks/82652-525cbfff62462016.js" async=""></script><script src="/_next/static/chunks/25482-bdcf1c861a72a6c6.js" async=""></script><script src="/_next/static/chunks/60996-507de7f34e0f6ba6.js" async=""></script><script src="/_next/static/chunks/46811-77a132ced2e1814d.js" async=""></script><script src="/_next/static/chunks/8813-4e7e48460bb50597.js" async=""></script><script src="/_next/static/chunks/app/docs/layout-447952982604e1ab.js" async=""></script><script src="/_next/static/chunks/1113-9f5a107710c51c1a.js" async=""></script><script src="/_next/static/chunks/app/loading-1523ddd3d35edc84.js" async=""></script><script src="/_next/static/chunks/app/global-error-4e3b86d3f367bb3e.js" async=""></script><script src="/_next/static/chunks/7bf36345-adabaeeecd1ba47b.js" async=""></script><script src="/_next/static/chunks/84ec9a9a-77c16c9394bd5ef9.js" async=""></script><script src="/_next/static/chunks/2574-56681db340fe3d5f.js" async=""></script><script src="/_next/static/chunks/16108-86b0513cea53af91.js" async=""></script><script src="/_next/static/chunks/66365-b36e0f43fb8f0b7c.js" async=""></script><script src="/_next/static/chunks/92491-7401d1147bbda37a.js" async=""></script><script src="/_next/static/chunks/25608-34fd900894ea2dfb.js" async=""></script><script src="/_next/static/chunks/51018-aad16b9866042847.js" async=""></script><script src="/_next/static/chunks/50422-c9b910043a5f1daf.js" async=""></script><script src="/_next/static/chunks/46596-afc046fd6763c3a6.js" async=""></script><script src="/_next/static/chunks/76090-4d0ac7881157a247.js" async=""></script><script src="/_next/static/chunks/15993-806e7f51d2211a59.js" async=""></script><script src="/_next/static/chunks/74084-0e483a47d6faeca4.js" async=""></script><script src="/_next/static/chunks/13429-4da8cb4a53439c63.js" async=""></script><script src="/_next/static/chunks/53338-b0ce6dc160e0960a.js" async=""></script><script src="/_next/static/chunks/94366-3cd063df5d89a931.js" async=""></script><script src="/_next/static/chunks/84847-5869bf9f719a71cf.js" async=""></script><script src="/_next/static/chunks/95233-e4632364f63b5abb.js" async=""></script><script src="/_next/static/chunks/74813-dac1f27f5f30381a.js" async=""></script><script src="/_next/static/chunks/25485-76becc64ca34abe5.js" async=""></script><script src="/_next/static/chunks/94571-0ec0cedef7000183.js" async=""></script><script src="/_next/static/chunks/63578-b2c5985a2b414520.js" async=""></script><script src="/_next/static/chunks/67747-9b255ca9571b71ad.js" async=""></script><script src="/_next/static/chunks/app/layout-55dc9924dec954f9.js" async=""></script><script src="/_next/static/chunks/23812-6ae479a9ee9be673.js" async=""></script><script src="/_next/static/chunks/34281-e1d66fef8a67e279.js" async=""></script><script src="/_next/static/chunks/app/not-found-6a11f615c1bf15ac.js" async=""></script><meta name="next-size-adjust" content=""/><title>Not Found - Claude Docs</title><meta name="description" content="Page not found"/><link rel="canonical" href="https://platform.claude.com"/><meta name="mobile-web-app-capable" content="yes"/><link href="/apple-touch-icon.png" rel="apple-touch-startup-image"/><meta name="apple-mobile-web-app-status-bar-style" content="default"/><meta property="og:title" content="Not Found - Claude Docs"/><meta property="og:description" content="Page not found"/><meta property="og:image" content="https://platform.claude.com/docs/images/og-claude-docs.png"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Not Found - Claude Docs"/><meta name="twitter:description" content="Page not found"/><meta name="twitter:image" content="https://platform.claude.com/docs/images/og-claude-docs.png"/><link rel="icon" href="/favicon.ico"/><link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png"/><link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><meta name="robots" content="noindex"/><script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script></head><body class="bg-bg-100 text-text-100 min-h-screen font-ui"><div hidden=""><!--$--><!--/$--></div><div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events:none"><ol tabindex="-1" class="fixed right-0 top-0 z-toast flex flex-col gap-3 p-4" role="status"></ol></div><!--$--><!--/$--><!--$!--><template data-dgst="NEXT_HTTP_ERROR_FALLBACK;404"></template><div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"><div class="h-20 w-20 border-8 border-border-200 text-secondary inline-block animate-spin rounded-full border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] hidden" role="status"><span class="sr-only">Loading...</span></div></div><!--/$--><iframe src="https://a.claude.ai/isolated-segment.html?v=dev" style="display:none" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" title=""></iframe><script src="/_next/static/chunks/webpack-a39dc2a7f2918330.js" id="_R_" async=""></script><script>(self.__next_f=self.__next_f||[]).push([0])</script><script>self.__next_f.push([1,"1:\"$Sreact.fragment\"\n3:I[12463,[\"59166\",\"static/chunks/620c25d9-64f721c013568688.js\",\"75246\",\"static/chunks/1f006d11-8c29cf44e565da68.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"60996\",\"static/chunks/60996-507de7f34e0f6ba6.js\",\"46811\",\"static/chunks/46811-77a132ced2e1814d.js\",\"8813\",\"static/chunks/8813-4e7e48460bb50597.js\",\"4499\",\"static/chunks/app/docs/layout-447952982604e1ab.js\"],\"InkeepProvider\"]\n4:I[85341,[],\"\"]\n5:I[90025,[],\"\"]\n8:I[15104,[],\"OutletBoundary\"]\na:I[94777,[],\"AsyncMetadataOutlet\"]\nc:I[42058,[\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"94209\",\"static/chunks/app/loading-1523ddd3d35edc84.js\"],\"LoadingConsole\"]\nd:I[15104,[],\"ViewportBoundary\"]\nf:I[15104,[],\"MetadataBoundary\"]\n10:\"$Sreact.suspense\"\n12:I[23662,[\"34219\",\"static/chunks/app/global-error-4e3b86d3f367bb3e.js\"],\"default\"]\n13:I[36505,[],\"IconMark\"]\n:HL[\"/_next/static/media/18f7e26d8fc3ca09-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/202112071e5d7466-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/54e05bce7a25fe9c-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/73af0ef16113246e-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/media/b8c97ebabd0473a4-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/2b71dfdc9267bd91.css\",\"style\"]\n:HL[\"/_next/static/css/67137dafa09577bf.css\",\"style\"]\n:HL[\"/_next/static/css/72024b5864fce399.css\",\"style\"]\n:HL[\"/_next/static/css/fa7cd70b50c99bc6.css\",\"style\"]\n:HL[\"/_next/static/css/595304cd2c73d99a.css\",\"style\"]\n:HL[\"/_next/static/css/bf71b0902a17bea2.css\",\"style\"]\n:HL[\"/_next/static/css/68b23a340465d313.css\",\"style\"]\n:HL[\"/_next/static/media/66b9b5243cec14c0-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n:HL[\"/_next/static/css/ca4074d0ed1f8290.css\",\"style\"]\n:HL[\"/_next/static/css/350808815f195e29.css\",\"style\"]\n"])</script><script>self.__next_f.push([1,"0:{\"P\":null,\"b\":\"z38yBm5Z094bonvbiMjPu\",\"p\":\"\",\"c\":[\"\",\"docs\",\"en\",\"api\",\"messages\",\"count_tokens.md\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"docs\",{\"children\":[[\"locale\",\".generated-markdown\",\"d\"],{\"children\":[[\"segments\",\"en/api/messages/count_tokens.md\",\"c\"],{\"children\":[\"__PAGE__\",{}]}]}]}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/2b71dfdc9267bd91.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"1\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/67137dafa09577bf.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"2\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/72024b5864fce399.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"3\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/fa7cd70b50c99bc6.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"4\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/595304cd2c73d99a.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"5\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/bf71b0902a17bea2.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}],[\"$\",\"link\",\"6\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/68b23a340465d313.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],\"$L2\"]}],{\"children\":[\"docs\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/ca4074d0ed1f8290.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"$L3\",null,{\"children\":[\"$\",\"div\",null,{\"className\":\"__variable_f3a9a4 __variable_02000a __variable_946f86\",\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]]}],{\"children\":[[\"locale\",\".generated-markdown\",\"d\"],[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/350808815f195e29.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],\"$L6\"]}],{\"children\":[[\"segments\",\"en/api/messages/count_tokens.md\",\"c\"],[\"$\",\"$1\",\"c\",{\"children\":[null,[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":\"$undefined\",\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[\"$L7\",null,[\"$\",\"$L8\",null,{\"children\":[\"$L9\",[\"$\",\"$La\",null,{\"promise\":\"$@b\"}]]}]]}],{},null,false]},null,false]},null,false]},null,false]},[[\"$\",\"$Lc\",\"l\",{}],[],[]],false],[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$Ld\",null,{\"children\":\"$Le\"}],[\"$\",\"meta\",null,{\"name\":\"next-size-adjust\",\"content\":\"\"}]],[\"$\",\"$Lf\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$10\",null,{\"fallback\":null,\"children\":\"$L11\"}]}]}]]}],false]],\"m\":\"$undefined\",\"G\":[\"$12\",[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/67137dafa09577bf.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]]],\"s\":false,\"S\":false}\n"])</script><script>self.__next_f.push([1,"e:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover\"}]]\n9:null\n"])</script><script>self.__next_f.push([1,"b:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Not Found - Claude Docs\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Page not found\"}],[\"$\",\"link\",\"2\",{\"rel\":\"canonical\",\"href\":\"https://platform.claude.com\"}],[\"$\",\"meta\",\"3\",{\"name\":\"mobile-web-app-capable\",\"content\":\"yes\"}],[\"$\",\"link\",\"4\",{\"href\":\"/apple-touch-icon.png\",\"media\":\"$undefined\",\"rel\":\"apple-touch-startup-image\"}],[\"$\",\"meta\",\"5\",{\"name\":\"apple-mobile-web-app-status-bar-style\",\"content\":\"default\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:title\",\"content\":\"Not Found - Claude Docs\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:description\",\"content\":\"Page not found\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:image\",\"content\":\"https://platform.claude.com/docs/images/og-claude-docs.png\"}],[\"$\",\"meta\",\"9\",{\"name\":\"twitter:card\",\"content\":\"summary_large_image\"}],[\"$\",\"meta\",\"10\",{\"name\":\"twitter:title\",\"content\":\"Not Found - Claude Docs\"}],[\"$\",\"meta\",\"11\",{\"name\":\"twitter:description\",\"content\":\"Page not found\"}],[\"$\",\"meta\",\"12\",{\"name\":\"twitter:image\",\"content\":\"https://platform.claude.com/docs/images/og-claude-docs.png\"}],[\"$\",\"link\",\"13\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\"}],[\"$\",\"link\",\"14\",{\"rel\":\"icon\",\"href\":\"/favicon-16x16.png\",\"sizes\":\"16x16\",\"type\":\"image/png\"}],[\"$\",\"link\",\"15\",{\"rel\":\"icon\",\"href\":\"/favicon-32x32.png\",\"sizes\":\"32x32\",\"type\":\"image/png\"}],[\"$\",\"link\",\"16\",{\"rel\":\"apple-touch-icon\",\"href\":\"/apple-touch-icon.png\"}],[\"$\",\"$L13\",\"17\",{}]],\"error\":null,\"digest\":\"$undefined\"}\n"])</script><script>self.__next_f.push([1,"11:\"$b:metadata\"\n6:E{\"digest\":\"NEXT_HTTP_ERROR_FALLBACK;404\"}\n7:E{\"digest\":\"NEXT_HTTP_ERROR_FALLBACK;404\"}\n"])</script><script>self.__next_f.push([1,"15:I[45165,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"\"]\n"])</script><script>self.__next_f.push([1,"2:[\"$\",\"html\",null,{\"className\":\"h-screen antialiased bg-bg-100 __variable_f3a9a4 __variable_02000a __variable_e4195f\",\"lang\":\"en\",\"data-theme\":\"claude\",\"data-mode\":\"auto\",\"suppressHydrationWarning\":true,\"children\":[\"$\",\"body\",null,{\"className\":\"bg-bg-100 text-text-100 min-h-screen font-ui\",\"children\":[\"$L14\",[\"$\",\"$L15\",null,{\"src\":\"https://www.google.com/recaptcha/enterprise.js?render=6LcdsFgmAAAAAMfrnC1hEdmeRQRXCjpy8qT_kvfy\",\"strategy\":\"lazyOnload\"}],\"$L16\"]}]}]\n"])</script><script>self.__next_f.push([1,"17:I[66046,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"SSRCookiesProvider\"]\n"])</script><script>self.__next_f.push([1,"19:I[708,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"SiftEvents\"]\n"])</script><script>self.__next_f.push([1,"14:[\"$\",\"$L17\",null,{\"value\":[],\"children\":\"$L18\"}]\n16:[[\"$\",\"$L15\",null,{\"id\":\"sift-snippet\",\"children\":\"\\n          var _sift = (window._sift = window._sift || []);\\n          _sift.push([\\\"_setAccount\\\", \\\"99dfa2e716\\\"]);\\n          _sift.push([\\\"_setTrackerUrl\\\", \\\"s-cdn.anthropic.com\\\"]);\\n          _sift.push([\\\"_setUserId\\\", \\\"\\\"]);\\n          _sift.push([\\\"_setSessionId\\\", \\\"null\\\"]);\\n          _sift.push([\\\"_trackPageview\\\"]);\\n      \"}],[\"$\",\"$L15\",null,{\"src\":\"https://s-cdn.anthropic.com/s.js\",\"strategy\":\"lazyOnload\"}],[\"$\",\"$L19\",null,{}]]\n"])</script><script>self.__next_f.push([1,"1a:I[21266,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ClientIntlProvider\"]\n"])</script><script>self.__next_f.push([1,"1b:I[10033,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ServerUserAgentProvider\"]\n"])</script><script>self.__next_f.push([1,"1c:I[29670,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"LegalDocsProvider\"]\n"])</script><script>self.__next_f.push([1,"1d:I[44995,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ConfigurationProvider\"]\n"])</script><script>self.__next_f.push([1,"1e:I[35984,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ErrorsProvider\"]\n"])</script><script>self.__next_f.push([1,"1f:I[47343,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"QueryClientProvider\"]\n"])</script><script>self.__next_f.push([1,"18:[\"$\",\"$L1a\",null,{\"locale\":\"en-US\",\"messages\":{},\"hideErrors\":true,\"children\":[\"$\",\"$L1b\",null,{\"userAgent\":\"$undefined\",\"children\":[\"$\",\"$L1c\",null,{\"value\":{\"commercial-terms\":\"7e37c9e3-af36-4555-93f0-2c677d027003\",\"service-specific-terms\":\"1d6dcbe8-a9cd-4238-943c-ee793f3e520b\",\"data-processing-addendum\":\"4712659c-d2da-4f6f-98e8-e979438a4970\",\"inbound-services-agreement\":\"78cbea28-4333-4042-a6ce-ea391e890a8a\",\"non-user-privacy-policy\":\"a2eb2e3e-fd03-4dbf-8db5-2cc0e9fb31f9\",\"cookies\":\"5c7ecf37-e2e1-4788-b718-a0d914fead48\",\"aup\":\"22742366-2ef0-4c7a-a833-6523f10d3944\",\"consumer-terms\":\"79dbc8c6-7f64-43d6-8101-207cede59a4d\",\"referral-partner-program-terms\":\"b81d2822-0089-4e37-9c91-15eb23ccb612\",\"credit-terms\":\"8a492ef8-a09b-4de4-b364-2e155b674b27\",\"privacy\":\"4281c092-0eff-40b0-aa5c-53a870c09eaf\",\"trademark-guidelines\":\"9c115f22-c012-4a0d-b88c-7452edd6a15d\"},\"children\":[\"$\",\"$L1d\",null,{\"config\":{\"backendPrivateApiUrl\":\"https://api.anthropic.com\",\"consoleAbsoluteUrl\":\"https://platform.claude.com\",\"claudeAiAbsoluteUrl\":\"https://claude.ai\",\"websiteBaseUrl\":\"https://www.anthropic.com\",\"userContentRendererUrl\":\"https://www.claudeusercontent.com\",\"mcpLocalConnectorUrl\":\"https://www.claudemcpclient.com\",\"googleOauthClientId\":\"1062961139910-l2m55cb9h51u5cuc9c56eb3fevouidh9.apps.googleusercontent.com\",\"stripePublishableKey\":\"pk_live_51MExQ9BjIQrRQnuxA9s9ahUkfIUHPoc3NFNidarWIUhEpwuc1bdjSJU9medEpVjoP4kTUrV2G8QWdxi9GjRJMUri005KO5xdyD\",\"stripePublishableKeyIreland\":\"pk_live_51REyrSBNUnCSzfs9yUvED4MEXaLQQ6pVzoRIf2DGv2SxJnmquGmGmPZaVRnvgZRX8h9gw9Mm1fq2LlRjlCTAV6hZ00cWXQZQEW\",\"stripePublishableKeySandbox\":\"\",\"statsigClientKey\":\"client-U9UUxwLKFe7SJXyDnolyBR2xZtEP8m1pN2uptqkJ5qP\",\"recaptchaKeyId\":\"6LcdsFgmAAAAAMfrnC1hEdmeRQRXCjpy8qT_kvfy\",\"segmentKey\":\"LKJN8LsLERHEOXkw487o7qCTFOrGPimI\",\"segmentCdnHost\":\"a-cdn.anthropic.com\",\"segmentApiHost\":\"a-api.anthropic.com\",\"siftBeaconKey\":\"99dfa2e716\",\"siftCdnHost\":\"s-cdn.anthropic.com\",\"arkoseKey\":\"EEA5F558-D6AC-4C03-B678-AABF639EE69A\",\"arkoseCdnHost\":\"a-cdn.claude.ai\",\"googleTagManagerId\":\"GTM-WFZF7B4C\",\"googleTagManagerAuth\":\"vTe5iDF7Dkb1BUCCeKYt0Q\",\"googleTagManagerEnvironment\":\"env-1\",\"publishedArtifactsBaseUrl\":\"https://claude.ai\",\"publishedArtifactsEmbedBaseUrl\":\"https://claude.site\",\"defaultSecureCookies\":true,\"claudeBrowserExtensionClientId\":\"dae2cad8-15c5-43d2-9046-fcaecc135fa4\",\"claudeBrowserExtensionId\":\"fcoeoabgfenejglbffodgkkbkcdhcgfn\",\"antOnlyClaudeBrowserExtensionId\":\"dngcpimnedloihjnnfngkgjoidhnaolf\",\"excelAddInClientId\":\"966eba67-8b8c-4eae-bbb3-08361d1b9292\",\"applicationType\":\"console\",\"ipCountry\":\"US\",\"serverGateNames\":\"$undefined\"},\"children\":[\"$\",\"$L1e\",null,{\"children\":[\"$\",\"$L1f\",null,{\"state\":{\"mutations\":[],\"queries\":[{\"state\":{\"data\":{\"account\":null,\"statsig\":{\"user\":{\"country\":\"US\",\"custom\":{\"clientPlatform\":null,\"serviceName\":\"private-api\",\"servicePlatform\":\"ant\"},\"customIDs\":{\"activitySessionID\":\"\",\"stableID\":\"None\",\"anonymousID\":\"None\",\"randomValue\":\"0.8685\"},\"privateAttributes\":{\"userAgent\":\"Python/3.14 aiohttp/3.13.2\",\"ip\":\"34.96.46.243\"}},\"values\":{\"feature_gates\":{\"129880755\":{\"name\":\"129880755\",\"rule_id\":\"2YMKAbqK8Jaztq4rf3jYRk:100.00:5\",\"secondary_exposures\":[],\"value\":true},\"140394361\":{\"name\":\"140394361\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"167784518\":{\"name\":\"167784518\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"529560408\":{\"name\":\"529560408\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"546414678\":{\"name\":\"546414678\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"690832210\":{\"name\":\"690832210\",\"rule_id\":\"2xKM5nSqcxThzVt4SUAI1S\",\"secondary_exposures\":[],\"value\":true},\"863794506\":{\"name\":\"863794506\",\"rule_id\":\"6OCo11e6q2gGg9R8kZQNcI:100.00:2\",\"secondary_exposures\":[],\"value\":true},\"900536136\":{\"name\":\"900536136\",\"rule_id\":\"5eLgRy5elYnuQj16EmIQN3\",\"secondary_exposures\":[],\"value\":true},\"1214734888\":{\"name\":\"1214734888\",\"rule_id\":\"UzH7kUL0um9GD9KrjZ0dL:0.00:1\",\"secondary_exposures\":[],\"value\":false},\"1240012697\":{\"name\":\"1240012697\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"1319782748\":{\"name\":\"1319782748\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"1374241653\":{\"name\":\"1374241653\",\"rule_id\":\"17N2iphBsCwlz8k11Qf8F3:100.00:1\",\"secondary_exposures\":[],\"value\":true},\"1851432169\":{\"name\":\"1851432169\",\"rule_id\":\"6nxeGk0341Ttn25QjQaP35\",\"secondary_exposures\":[],\"value\":false},\"1943498851\":{\"name\":\"1943498851\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"2119474141\":{\"name\":\"2119474141\",\"rule_id\":\"4VyB4KbnP54mTKitetfx55\",\"secondary_exposures\":[],\"value\":true},\"2190197109\":{\"name\":\"2190197109\",\"rule_id\":\"24Ey6W4aDw9stK8WNPIjIj:100.00:1\",\"secondary_exposures\":[],\"value\":true},\"2288098333\":{\"name\":\"2288098333\",\"rule_id\":\"SImu46mbhmXNK0ySjI4My\",\"secondary_exposures\":[],\"value\":true},\"2354948608\":{\"name\":\"2354948608\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"2705189879\":{\"name\":\"2705189879\",\"rule_id\":\"3SgUvhqO1Ijy2ER8r0ki4c\",\"secondary_exposures\":[],\"value\":true},\"2804326784\":{\"name\":\"2804326784\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"2838472889\":{\"name\":\"2838472889\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"3004162293\":{\"name\":\"3004162293\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"3037557804\":{\"name\":\"3037557804\",\"rule_id\":\"3XsnmyQ2Bo64fjHOC7X3at:100.00:6\",\"secondary_exposures\":[],\"value\":true},\"3065341443\":{\"name\":\"3065341443\",\"rule_id\":\"default\",\"secondary_exposures\":[],\"value\":false},\"3070110303\":{\"name\":\"3070110303\",\"rule_id\":\"5g2213XtgA3r8zBcNcr2UM:100.00:1\",\"secondary_exposures\":[],\"value\":true},\"3638884360\":{\"name\":\"3638884360\",\"rule_id\":\"42oCXYaVEvOMnTFt33edFO\",\"secondary_exposures\":[],\"value\":true},\"3906670371\":{\"name\":\"3906670371\",\"rule_id\":\"7dfWzSSGDvPuGntlZFEvG1\",\"secondary_exposures\":[],\"value\":true}},\"dynamic_configs\":{\"2039368958\":{\"name\":\"2039368958\",\"rule_id\":\"6gfHxVB19dMzTH8cXKJpZ3:0.00:3-6gfHxTVYGVD5AhAhmCNMG1\",\"secondary_exposures\":[],\"value\":{},\"group\":\"6gfHxVB19dMzTH8cXKJpZ3:0.00:3-6gfHxTVYGVD5AhAhmCNMG1\",\"is_device_based\":false},\"2991652422\":{\"name\":\"2991652422\",\"rule_id\":\"22z0VZ0Wtq12Yu4ppDtDkt:100.00:1\",\"secondary_exposures\":[],\"value\":{\"marble_sunrise_whisper\":\"Claude API\",\"golden_river_cascade\":\"Claude Developer Platform\",\"ocean_shimmer_dawn\":\"Same features, new name.\",\"forest_whisper_moonlight\":\"The Anthropic Console is now the Claude Console and can be accessed at [platform.claude.com](https://platform.claude.com).\",\"velvet_mountain_stream\":\"Claude Console\",\"crystal_valley_dawn\":\"If your organization uses single-sign-on (SSO), please refer your administrator to [this guide](https://support.claude.com/en/articles/10280258-setting-up-single-sign-on-on-the-api-console#h_f74055b90d) to update your SSO configuration to support the new Claude Console domain by December 16, 2025.\",\"silver_lotus_horizon\":\"platform.claude.com\",\"aurora_meadow_twilight\":\"The Anthropic Console is now the Claude Console.\"},\"group\":\"22z0VZ0Wtq12Yu4ppDtDkt:100.00:1\",\"is_device_based\":false}},\"layer_configs\":{},\"sdkParams\":{},\"has_updates\":true,\"generator\":\"statsig-python-sdk\",\"evaluated_keys\":{\"customIDs\":{\"activitySessionID\":\"\",\"stableID\":\"None\",\"anonymousID\":\"None\",\"randomValue\":\"0.8685\"}},\"time\":1763662047286,\"user\":{\"country\":\"US\",\"custom\":{\"clientPlatform\":null,\"serviceName\":\"private-api\",\"servicePlatform\":\"ant\"},\"statsigEnvironment\":{\"tier\":\"production\"},\"customIDs\":{\"activitySessionID\":\"\",\"stableID\":\"None\",\"anonymousID\":\"None\",\"randomValue\":\"0.8685\"}},\"hash_used\":\"djb2\",\"sdkInfo\":{\"sdkType\":\"py-server\",\"sdkVersion\":\"0.32.0\"}},\"values_hash\":\"85d617dd5c25d7d641f2bd4f90d0450b\"},\"intercom_account_hash\":null},\"dataUpdateCount\":1,\"dataUpdatedAt\":1763663161729,\"error\":null,\"errorUpdateCount\":0,\"errorUpdatedAt\":0,\"fetchFailureCount\":0,\"fetchFailureReason\":null,\"fetchMeta\":null,\"isInvalidated\":false,\"status\":\"success\",\"fetchStatus\":\"idle\"},\"queryKey\":[\"current_account\"],\"queryHash\":\"[\\\"current_account\\\"]\"}]},\"children\":\"$L20\"}]}]}]}]}]}]\n"])</script><script>self.__next_f.push([1,"21:I[95233,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"CurrentAccountProvider\"]\n"])</script><script>self.__next_f.push([1,"22:I[77213,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ConsentProvider\"]\n"])</script><script>self.__next_f.push([1,"23:I[78390,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"IntercomProvider\"]\n"])</script><script>self.__next_f.push([1,"24:I[80791,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"BootstrapedStatsigProvider\"]\n"])</script><script>self.__next_f.push([1,"25:I[41897,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"IsolatedMarketingPixelSegmentProvider\"]\n"])</script><script>self.__next_f.push([1,"26:I[60687,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"TierSelectorProvider\"]\n"])</script><script>self.__next_f.push([1,"27:I[28715,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"MotionConfig\"]\n"])</script><script>self.__next_f.push([1,"28:I[19069,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ThemeProvider\"]\n"])</script><script>self.__next_f.push([1,"29:I[28395,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"NuqsAdapter\"]\n"])</script><script>self.__next_f.push([1,"2a:I[50213,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"Toasts\"]\n"])</script><script>self.__next_f.push([1,"2b:I[41311,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ConsentBanner\"]\n"])</script><script>self.__next_f.push([1,"2c:I[37640,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"AnalyticsIdentifier\"]\n"])</script><script>self.__next_f.push([1,"2d:I[25832,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"IntercomTracker\"]\n"])</script><script>self.__next_f.push([1,"2e:I[44717,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"CountryOverrideHandler\"]\n"])</script><script>self.__next_f.push([1,"2f:I[33560,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"FeedbackContextProvider\"]\n"])</script><script>self.__next_f.push([1,"30:I[67747,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"FirstCreditPurchaseModalProvider\"]\n"])</script><script>self.__next_f.push([1,"31:I[5416,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"WorkspaceProvider\"]\n"])</script><script>self.__next_f.push([1,"32:I[39719,[\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"23812\",\"static/chunks/23812-6ae479a9ee9be673.js\",\"34281\",\"static/chunks/34281-e1d66fef8a67e279.js\",\"24345\",\"static/chunks/app/not-found-6a11f615c1bf15ac.js\"],\"default\"]\n"])</script><script>self.__next_f.push([1,"33:I[55195,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"LogHiring\"]\n"])</script><script>self.__next_f.push([1,"34:I[27957,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"WorkerUpdater\"]\n"])</script><script>self.__next_f.push([1,"35:I[35984,[\"54129\",\"static/chunks/7bf36345-adabaeeecd1ba47b.js\",\"88939\",\"static/chunks/84ec9a9a-77c16c9394bd5ef9.js\",\"1113\",\"static/chunks/1113-9f5a107710c51c1a.js\",\"2574\",\"static/chunks/2574-56681db340fe3d5f.js\",\"82652\",\"static/chunks/82652-525cbfff62462016.js\",\"16108\",\"static/chunks/16108-86b0513cea53af91.js\",\"66365\",\"static/chunks/66365-b36e0f43fb8f0b7c.js\",\"92491\",\"static/chunks/92491-7401d1147bbda37a.js\",\"25608\",\"static/chunks/25608-34fd900894ea2dfb.js\",\"25482\",\"static/chunks/25482-bdcf1c861a72a6c6.js\",\"51018\",\"static/chunks/51018-aad16b9866042847.js\",\"50422\",\"static/chunks/50422-c9b910043a5f1daf.js\",\"46596\",\"static/chunks/46596-afc046fd6763c3a6.js\",\"76090\",\"static/chunks/76090-4d0ac7881157a247.js\",\"15993\",\"static/chunks/15993-806e7f51d2211a59.js\",\"74084\",\"static/chunks/74084-0e483a47d6faeca4.js\",\"13429\",\"static/chunks/13429-4da8cb4a53439c63.js\",\"53338\",\"static/chunks/53338-b0ce6dc160e0960a.js\",\"94366\",\"static/chunks/94366-3cd063df5d89a931.js\",\"84847\",\"static/chunks/84847-5869bf9f719a71cf.js\",\"95233\",\"static/chunks/95233-e4632364f63b5abb.js\",\"74813\",\"static/chunks/74813-dac1f27f5f30381a.js\",\"25485\",\"static/chunks/25485-76becc64ca34abe5.js\",\"94571\",\"static/chunks/94571-0ec0cedef7000183.js\",\"63578\",\"static/chunks/63578-b2c5985a2b414520.js\",\"67747\",\"static/chunks/67747-9b255ca9571b71ad.js\",\"7177\",\"static/chunks/app/layout-55dc9924dec954f9.js\"],\"ErrorSegmentConnector\"]\n"])</script><script>self.__next_f.push([1,"20:[\"$\",\"$L21\",null,{\"children\":[\"$\",\"$L22\",null,{\"requiresExplicitConsent\":false,\"children\":[\"$\",\"$L23\",null,{\"appId\":\"lupk8zyo\",\"initializeDelay\":1000,\"children\":[\"$\",\"$L24\",null,{\"children\":[\"$\",\"$L25\",null,{\"children\":[[\"$\",\"$L26\",null,{\"children\":[[\"$\",\"$L27\",null,{\"children\":[\"$\",\"$L28\",null,{\"initialTheme\":\"claude\",\"children\":[null,[\"$\",\"$L29\",null,{\"children\":[[\"$\",\"$L2a\",null,{}],[\"$\",\"$L2b\",null,{}],[\"$\",\"$L2c\",null,{}],[\"$\",\"$L2d\",null,{}],[\"$\",\"$L2e\",null,{}],[\"$\",\"$L2f\",null,{\"children\":[\"$\",\"$L30\",null,{\"children\":[\"$\",\"$L31\",null,{\"children\":[\"$\",\"$L4\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L5\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[\"$\",\"$L32\",null,{}],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]}]]}]]}]}],[\"$\",\"$L33\",null,{}],[\"$\",\"$L34\",null,{\"updateType\":null}]]}],[\"$\",\"$L35\",null,{}]]}]}]}]}]}]\n"])</script></body></html>
+## Count Tokens
+
+**post** `/v1/messages/count_tokens`
+
+Count the number of tokens in a Message.
+
+The Token Count API can be used to count the number of tokens in a Message, including tools, images, and documents, without creating it.
+
+Learn more about token counting in our [user guide](/en/docs/build-with-claude/token-counting)
+
+### Body Parameters
+
+- `messages: array of MessageParam`
+
+  Input messages.
+
+  Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
+
+  Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
+
+  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+
+  Example with a single `user` message:
+
+  ```json
+  [{"role": "user", "content": "Hello, Claude"}]
+  ```
+
+  Example with multiple conversational turns:
+
+  ```json
+  [
+    {"role": "user", "content": "Hello there."},
+    {"role": "assistant", "content": "Hi, I'm Claude. How can I help you?"},
+    {"role": "user", "content": "Can you explain LLMs in plain English?"},
+  ]
+  ```
+
+  Example with a partially-filled response from Claude:
+
+  ```json
+  [
+    {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
+    {"role": "assistant", "content": "The best answer is ("},
+  ]
+  ```
+
+  Each input message `content` may be either a single `string` or an array of content blocks, where each block has a specific `type`. Using a `string` for `content` is shorthand for an array of one content block of type `"text"`. The following input messages are equivalent:
+
+  ```json
+  {"role": "user", "content": "Hello, Claude"}
+  ```
+
+  ```json
+  {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
+  ```
+
+  See [input examples](https://docs.claude.com/en/api/messages-examples).
+
+  Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+
+  There is a limit of 100,000 messages in a single request.
+
+  - `content: string or array of ContentBlockParam`
+
+    - `UnionMember0 = string`
+
+    - `UnionMember1 = array of ContentBlockParam`
+
+      - `TextBlockParam = object { text, type, cache_control, citations }`
+
+        - `text: string`
+
+        - `type: "text"`
+
+          - `"text"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+        - `citations: optional array of TextCitationParam`
+
+          - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+            - `cited_text: string`
+
+            - `document_index: number`
+
+            - `document_title: string`
+
+            - `end_char_index: number`
+
+            - `start_char_index: number`
+
+            - `type: "char_location"`
+
+              - `"char_location"`
+
+          - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+            - `cited_text: string`
+
+            - `document_index: number`
+
+            - `document_title: string`
+
+            - `end_page_number: number`
+
+            - `start_page_number: number`
+
+            - `type: "page_location"`
+
+              - `"page_location"`
+
+          - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+            - `cited_text: string`
+
+            - `document_index: number`
+
+            - `document_title: string`
+
+            - `end_block_index: number`
+
+            - `start_block_index: number`
+
+            - `type: "content_block_location"`
+
+              - `"content_block_location"`
+
+          - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+            - `cited_text: string`
+
+            - `encrypted_index: string`
+
+            - `title: string`
+
+            - `type: "web_search_result_location"`
+
+              - `"web_search_result_location"`
+
+            - `url: string`
+
+          - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+            - `cited_text: string`
+
+            - `end_block_index: number`
+
+            - `search_result_index: number`
+
+            - `source: string`
+
+            - `start_block_index: number`
+
+            - `title: string`
+
+            - `type: "search_result_location"`
+
+              - `"search_result_location"`
+
+      - `ImageBlockParam = object { source, type, cache_control }`
+
+        - `source: Base64ImageSource or URLImageSource`
+
+          - `Base64ImageSource = object { data, media_type, type }`
+
+            - `data: string`
+
+            - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+              - `"image/jpeg"`
+
+              - `"image/png"`
+
+              - `"image/gif"`
+
+              - `"image/webp"`
+
+            - `type: "base64"`
+
+              - `"base64"`
+
+          - `URLImageSource = object { type, url }`
+
+            - `type: "url"`
+
+              - `"url"`
+
+            - `url: string`
+
+        - `type: "image"`
+
+          - `"image"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+      - `DocumentBlockParam = object { source, type, cache_control, 3 more }`
+
+        - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or URLPDFSource`
+
+          - `Base64PDFSource = object { data, media_type, type }`
+
+            - `data: string`
+
+            - `media_type: "application/pdf"`
+
+              - `"application/pdf"`
+
+            - `type: "base64"`
+
+              - `"base64"`
+
+          - `PlainTextSource = object { data, media_type, type }`
+
+            - `data: string`
+
+            - `media_type: "text/plain"`
+
+              - `"text/plain"`
+
+            - `type: "text"`
+
+              - `"text"`
+
+          - `ContentBlockSource = object { content, type }`
+
+            - `content: string or array of ContentBlockSourceContent`
+
+              - `UnionMember0 = string`
+
+              - `ContentBlockSourceContent = array of ContentBlockSourceContent`
+
+                - `TextBlockParam = object { text, type, cache_control, citations }`
+
+                  - `text: string`
+
+                  - `type: "text"`
+
+                    - `"text"`
+
+                  - `cache_control: optional CacheControlEphemeral`
+
+                    Create a cache control breakpoint at this content block.
+
+                    - `type: "ephemeral"`
+
+                      - `"ephemeral"`
+
+                    - `ttl: optional "5m" or "1h"`
+
+                      The time-to-live for the cache control breakpoint.
+
+                      This may be one the following values:
+
+                      - `5m`: 5 minutes
+                      - `1h`: 1 hour
+
+                      Defaults to `5m`.
+
+                      - `"5m"`
+
+                      - `"1h"`
+
+                  - `citations: optional array of TextCitationParam`
+
+                    - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                      - `cited_text: string`
+
+                      - `document_index: number`
+
+                      - `document_title: string`
+
+                      - `end_char_index: number`
+
+                      - `start_char_index: number`
+
+                      - `type: "char_location"`
+
+                        - `"char_location"`
+
+                    - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                      - `cited_text: string`
+
+                      - `document_index: number`
+
+                      - `document_title: string`
+
+                      - `end_page_number: number`
+
+                      - `start_page_number: number`
+
+                      - `type: "page_location"`
+
+                        - `"page_location"`
+
+                    - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                      - `cited_text: string`
+
+                      - `document_index: number`
+
+                      - `document_title: string`
+
+                      - `end_block_index: number`
+
+                      - `start_block_index: number`
+
+                      - `type: "content_block_location"`
+
+                        - `"content_block_location"`
+
+                    - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+                      - `cited_text: string`
+
+                      - `encrypted_index: string`
+
+                      - `title: string`
+
+                      - `type: "web_search_result_location"`
+
+                        - `"web_search_result_location"`
+
+                      - `url: string`
+
+                    - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+                      - `cited_text: string`
+
+                      - `end_block_index: number`
+
+                      - `search_result_index: number`
+
+                      - `source: string`
+
+                      - `start_block_index: number`
+
+                      - `title: string`
+
+                      - `type: "search_result_location"`
+
+                        - `"search_result_location"`
+
+                - `ImageBlockParam = object { source, type, cache_control }`
+
+                  - `source: Base64ImageSource or URLImageSource`
+
+                    - `Base64ImageSource = object { data, media_type, type }`
+
+                      - `data: string`
+
+                      - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+                        - `"image/jpeg"`
+
+                        - `"image/png"`
+
+                        - `"image/gif"`
+
+                        - `"image/webp"`
+
+                      - `type: "base64"`
+
+                        - `"base64"`
+
+                    - `URLImageSource = object { type, url }`
+
+                      - `type: "url"`
+
+                        - `"url"`
+
+                      - `url: string`
+
+                  - `type: "image"`
+
+                    - `"image"`
+
+                  - `cache_control: optional CacheControlEphemeral`
+
+                    Create a cache control breakpoint at this content block.
+
+                    - `type: "ephemeral"`
+
+                      - `"ephemeral"`
+
+                    - `ttl: optional "5m" or "1h"`
+
+                      The time-to-live for the cache control breakpoint.
+
+                      This may be one the following values:
+
+                      - `5m`: 5 minutes
+                      - `1h`: 1 hour
+
+                      Defaults to `5m`.
+
+                      - `"5m"`
+
+                      - `"1h"`
+
+            - `type: "content"`
+
+              - `"content"`
+
+          - `URLPDFSource = object { type, url }`
+
+            - `type: "url"`
+
+              - `"url"`
+
+            - `url: string`
+
+        - `type: "document"`
+
+          - `"document"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+        - `citations: optional CitationsConfigParam`
+
+          - `enabled: optional boolean`
+
+        - `context: optional string`
+
+        - `title: optional string`
+
+      - `SearchResultBlockParam = object { content, source, title, 3 more }`
+
+        - `content: array of TextBlockParam`
+
+          - `text: string`
+
+          - `type: "text"`
+
+            - `"text"`
+
+          - `cache_control: optional CacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+            - `type: "ephemeral"`
+
+              - `"ephemeral"`
+
+            - `ttl: optional "5m" or "1h"`
+
+              The time-to-live for the cache control breakpoint.
+
+              This may be one the following values:
+
+              - `5m`: 5 minutes
+              - `1h`: 1 hour
+
+              Defaults to `5m`.
+
+              - `"5m"`
+
+              - `"1h"`
+
+          - `citations: optional array of TextCitationParam`
+
+            - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+              - `cited_text: string`
+
+              - `document_index: number`
+
+              - `document_title: string`
+
+              - `end_char_index: number`
+
+              - `start_char_index: number`
+
+              - `type: "char_location"`
+
+                - `"char_location"`
+
+            - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+              - `cited_text: string`
+
+              - `document_index: number`
+
+              - `document_title: string`
+
+              - `end_page_number: number`
+
+              - `start_page_number: number`
+
+              - `type: "page_location"`
+
+                - `"page_location"`
+
+            - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+              - `cited_text: string`
+
+              - `document_index: number`
+
+              - `document_title: string`
+
+              - `end_block_index: number`
+
+              - `start_block_index: number`
+
+              - `type: "content_block_location"`
+
+                - `"content_block_location"`
+
+            - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+              - `cited_text: string`
+
+              - `encrypted_index: string`
+
+              - `title: string`
+
+              - `type: "web_search_result_location"`
+
+                - `"web_search_result_location"`
+
+              - `url: string`
+
+            - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+              - `cited_text: string`
+
+              - `end_block_index: number`
+
+              - `search_result_index: number`
+
+              - `source: string`
+
+              - `start_block_index: number`
+
+              - `title: string`
+
+              - `type: "search_result_location"`
+
+                - `"search_result_location"`
+
+        - `source: string`
+
+        - `title: string`
+
+        - `type: "search_result"`
+
+          - `"search_result"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+        - `citations: optional CitationsConfigParam`
+
+          - `enabled: optional boolean`
+
+      - `ThinkingBlockParam = object { signature, thinking, type }`
+
+        - `signature: string`
+
+        - `thinking: string`
+
+        - `type: "thinking"`
+
+          - `"thinking"`
+
+      - `RedactedThinkingBlockParam = object { data, type }`
+
+        - `data: string`
+
+        - `type: "redacted_thinking"`
+
+          - `"redacted_thinking"`
+
+      - `ToolUseBlockParam = object { id, input, name, 2 more }`
+
+        - `id: string`
+
+        - `input: map[unknown]`
+
+        - `name: string`
+
+        - `type: "tool_use"`
+
+          - `"tool_use"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+      - `ToolResultBlockParam = object { tool_use_id, type, cache_control, 2 more }`
+
+        - `tool_use_id: string`
+
+        - `type: "tool_result"`
+
+          - `"tool_result"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+        - `content: optional string or array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or DocumentBlockParam`
+
+          - `UnionMember0 = string`
+
+          - `UnionMember1 = array of TextBlockParam or ImageBlockParam or SearchResultBlockParam or DocumentBlockParam`
+
+            - `TextBlockParam = object { text, type, cache_control, citations }`
+
+              - `text: string`
+
+              - `type: "text"`
+
+                - `"text"`
+
+              - `cache_control: optional CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+                - `type: "ephemeral"`
+
+                  - `"ephemeral"`
+
+                - `ttl: optional "5m" or "1h"`
+
+                  The time-to-live for the cache control breakpoint.
+
+                  This may be one the following values:
+
+                  - `5m`: 5 minutes
+                  - `1h`: 1 hour
+
+                  Defaults to `5m`.
+
+                  - `"5m"`
+
+                  - `"1h"`
+
+              - `citations: optional array of TextCitationParam`
+
+                - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                  - `cited_text: string`
+
+                  - `document_index: number`
+
+                  - `document_title: string`
+
+                  - `end_char_index: number`
+
+                  - `start_char_index: number`
+
+                  - `type: "char_location"`
+
+                    - `"char_location"`
+
+                - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                  - `cited_text: string`
+
+                  - `document_index: number`
+
+                  - `document_title: string`
+
+                  - `end_page_number: number`
+
+                  - `start_page_number: number`
+
+                  - `type: "page_location"`
+
+                    - `"page_location"`
+
+                - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                  - `cited_text: string`
+
+                  - `document_index: number`
+
+                  - `document_title: string`
+
+                  - `end_block_index: number`
+
+                  - `start_block_index: number`
+
+                  - `type: "content_block_location"`
+
+                    - `"content_block_location"`
+
+                - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+                  - `cited_text: string`
+
+                  - `encrypted_index: string`
+
+                  - `title: string`
+
+                  - `type: "web_search_result_location"`
+
+                    - `"web_search_result_location"`
+
+                  - `url: string`
+
+                - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+                  - `cited_text: string`
+
+                  - `end_block_index: number`
+
+                  - `search_result_index: number`
+
+                  - `source: string`
+
+                  - `start_block_index: number`
+
+                  - `title: string`
+
+                  - `type: "search_result_location"`
+
+                    - `"search_result_location"`
+
+            - `ImageBlockParam = object { source, type, cache_control }`
+
+              - `source: Base64ImageSource or URLImageSource`
+
+                - `Base64ImageSource = object { data, media_type, type }`
+
+                  - `data: string`
+
+                  - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+                    - `"image/jpeg"`
+
+                    - `"image/png"`
+
+                    - `"image/gif"`
+
+                    - `"image/webp"`
+
+                  - `type: "base64"`
+
+                    - `"base64"`
+
+                - `URLImageSource = object { type, url }`
+
+                  - `type: "url"`
+
+                    - `"url"`
+
+                  - `url: string`
+
+              - `type: "image"`
+
+                - `"image"`
+
+              - `cache_control: optional CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+                - `type: "ephemeral"`
+
+                  - `"ephemeral"`
+
+                - `ttl: optional "5m" or "1h"`
+
+                  The time-to-live for the cache control breakpoint.
+
+                  This may be one the following values:
+
+                  - `5m`: 5 minutes
+                  - `1h`: 1 hour
+
+                  Defaults to `5m`.
+
+                  - `"5m"`
+
+                  - `"1h"`
+
+            - `SearchResultBlockParam = object { content, source, title, 3 more }`
+
+              - `content: array of TextBlockParam`
+
+                - `text: string`
+
+                - `type: "text"`
+
+                  - `"text"`
+
+                - `cache_control: optional CacheControlEphemeral`
+
+                  Create a cache control breakpoint at this content block.
+
+                  - `type: "ephemeral"`
+
+                    - `"ephemeral"`
+
+                  - `ttl: optional "5m" or "1h"`
+
+                    The time-to-live for the cache control breakpoint.
+
+                    This may be one the following values:
+
+                    - `5m`: 5 minutes
+                    - `1h`: 1 hour
+
+                    Defaults to `5m`.
+
+                    - `"5m"`
+
+                    - `"1h"`
+
+                - `citations: optional array of TextCitationParam`
+
+                  - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                    - `cited_text: string`
+
+                    - `document_index: number`
+
+                    - `document_title: string`
+
+                    - `end_char_index: number`
+
+                    - `start_char_index: number`
+
+                    - `type: "char_location"`
+
+                      - `"char_location"`
+
+                  - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                    - `cited_text: string`
+
+                    - `document_index: number`
+
+                    - `document_title: string`
+
+                    - `end_page_number: number`
+
+                    - `start_page_number: number`
+
+                    - `type: "page_location"`
+
+                      - `"page_location"`
+
+                  - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                    - `cited_text: string`
+
+                    - `document_index: number`
+
+                    - `document_title: string`
+
+                    - `end_block_index: number`
+
+                    - `start_block_index: number`
+
+                    - `type: "content_block_location"`
+
+                      - `"content_block_location"`
+
+                  - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+                    - `cited_text: string`
+
+                    - `encrypted_index: string`
+
+                    - `title: string`
+
+                    - `type: "web_search_result_location"`
+
+                      - `"web_search_result_location"`
+
+                    - `url: string`
+
+                  - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+                    - `cited_text: string`
+
+                    - `end_block_index: number`
+
+                    - `search_result_index: number`
+
+                    - `source: string`
+
+                    - `start_block_index: number`
+
+                    - `title: string`
+
+                    - `type: "search_result_location"`
+
+                      - `"search_result_location"`
+
+              - `source: string`
+
+              - `title: string`
+
+              - `type: "search_result"`
+
+                - `"search_result"`
+
+              - `cache_control: optional CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+                - `type: "ephemeral"`
+
+                  - `"ephemeral"`
+
+                - `ttl: optional "5m" or "1h"`
+
+                  The time-to-live for the cache control breakpoint.
+
+                  This may be one the following values:
+
+                  - `5m`: 5 minutes
+                  - `1h`: 1 hour
+
+                  Defaults to `5m`.
+
+                  - `"5m"`
+
+                  - `"1h"`
+
+              - `citations: optional CitationsConfigParam`
+
+                - `enabled: optional boolean`
+
+            - `DocumentBlockParam = object { source, type, cache_control, 3 more }`
+
+              - `source: Base64PDFSource or PlainTextSource or ContentBlockSource or URLPDFSource`
+
+                - `Base64PDFSource = object { data, media_type, type }`
+
+                  - `data: string`
+
+                  - `media_type: "application/pdf"`
+
+                    - `"application/pdf"`
+
+                  - `type: "base64"`
+
+                    - `"base64"`
+
+                - `PlainTextSource = object { data, media_type, type }`
+
+                  - `data: string`
+
+                  - `media_type: "text/plain"`
+
+                    - `"text/plain"`
+
+                  - `type: "text"`
+
+                    - `"text"`
+
+                - `ContentBlockSource = object { content, type }`
+
+                  - `content: string or array of ContentBlockSourceContent`
+
+                    - `UnionMember0 = string`
+
+                    - `ContentBlockSourceContent = array of ContentBlockSourceContent`
+
+                      - `TextBlockParam = object { text, type, cache_control, citations }`
+
+                        - `text: string`
+
+                        - `type: "text"`
+
+                          - `"text"`
+
+                        - `cache_control: optional CacheControlEphemeral`
+
+                          Create a cache control breakpoint at this content block.
+
+                          - `type: "ephemeral"`
+
+                            - `"ephemeral"`
+
+                          - `ttl: optional "5m" or "1h"`
+
+                            The time-to-live for the cache control breakpoint.
+
+                            This may be one the following values:
+
+                            - `5m`: 5 minutes
+                            - `1h`: 1 hour
+
+                            Defaults to `5m`.
+
+                            - `"5m"`
+
+                            - `"1h"`
+
+                        - `citations: optional array of TextCitationParam`
+
+                          - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                            - `cited_text: string`
+
+                            - `document_index: number`
+
+                            - `document_title: string`
+
+                            - `end_char_index: number`
+
+                            - `start_char_index: number`
+
+                            - `type: "char_location"`
+
+                              - `"char_location"`
+
+                          - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                            - `cited_text: string`
+
+                            - `document_index: number`
+
+                            - `document_title: string`
+
+                            - `end_page_number: number`
+
+                            - `start_page_number: number`
+
+                            - `type: "page_location"`
+
+                              - `"page_location"`
+
+                          - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+                            - `cited_text: string`
+
+                            - `document_index: number`
+
+                            - `document_title: string`
+
+                            - `end_block_index: number`
+
+                            - `start_block_index: number`
+
+                            - `type: "content_block_location"`
+
+                              - `"content_block_location"`
+
+                          - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+                            - `cited_text: string`
+
+                            - `encrypted_index: string`
+
+                            - `title: string`
+
+                            - `type: "web_search_result_location"`
+
+                              - `"web_search_result_location"`
+
+                            - `url: string`
+
+                          - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+                            - `cited_text: string`
+
+                            - `end_block_index: number`
+
+                            - `search_result_index: number`
+
+                            - `source: string`
+
+                            - `start_block_index: number`
+
+                            - `title: string`
+
+                            - `type: "search_result_location"`
+
+                              - `"search_result_location"`
+
+                      - `ImageBlockParam = object { source, type, cache_control }`
+
+                        - `source: Base64ImageSource or URLImageSource`
+
+                          - `Base64ImageSource = object { data, media_type, type }`
+
+                            - `data: string`
+
+                            - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
+
+                              - `"image/jpeg"`
+
+                              - `"image/png"`
+
+                              - `"image/gif"`
+
+                              - `"image/webp"`
+
+                            - `type: "base64"`
+
+                              - `"base64"`
+
+                          - `URLImageSource = object { type, url }`
+
+                            - `type: "url"`
+
+                              - `"url"`
+
+                            - `url: string`
+
+                        - `type: "image"`
+
+                          - `"image"`
+
+                        - `cache_control: optional CacheControlEphemeral`
+
+                          Create a cache control breakpoint at this content block.
+
+                          - `type: "ephemeral"`
+
+                            - `"ephemeral"`
+
+                          - `ttl: optional "5m" or "1h"`
+
+                            The time-to-live for the cache control breakpoint.
+
+                            This may be one the following values:
+
+                            - `5m`: 5 minutes
+                            - `1h`: 1 hour
+
+                            Defaults to `5m`.
+
+                            - `"5m"`
+
+                            - `"1h"`
+
+                  - `type: "content"`
+
+                    - `"content"`
+
+                - `URLPDFSource = object { type, url }`
+
+                  - `type: "url"`
+
+                    - `"url"`
+
+                  - `url: string`
+
+              - `type: "document"`
+
+                - `"document"`
+
+              - `cache_control: optional CacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+                - `type: "ephemeral"`
+
+                  - `"ephemeral"`
+
+                - `ttl: optional "5m" or "1h"`
+
+                  The time-to-live for the cache control breakpoint.
+
+                  This may be one the following values:
+
+                  - `5m`: 5 minutes
+                  - `1h`: 1 hour
+
+                  Defaults to `5m`.
+
+                  - `"5m"`
+
+                  - `"1h"`
+
+              - `citations: optional CitationsConfigParam`
+
+                - `enabled: optional boolean`
+
+              - `context: optional string`
+
+              - `title: optional string`
+
+        - `is_error: optional boolean`
+
+      - `ServerToolUseBlockParam = object { id, input, name, 2 more }`
+
+        - `id: string`
+
+        - `input: map[unknown]`
+
+        - `name: "web_search"`
+
+          - `"web_search"`
+
+        - `type: "server_tool_use"`
+
+          - `"server_tool_use"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+      - `WebSearchToolResultBlockParam = object { content, tool_use_id, type, cache_control }`
+
+        - `content: WebSearchToolResultBlockParamContent`
+
+          - `WebSearchToolResultBlockItem = array of WebSearchResultBlockParam`
+
+            - `encrypted_content: string`
+
+            - `title: string`
+
+            - `type: "web_search_result"`
+
+              - `"web_search_result"`
+
+            - `url: string`
+
+            - `page_age: optional string`
+
+          - `WebSearchToolRequestError = object { error_code, type }`
+
+            - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 2 more`
+
+              - `"invalid_tool_input"`
+
+              - `"unavailable"`
+
+              - `"max_uses_exceeded"`
+
+              - `"too_many_requests"`
+
+              - `"query_too_long"`
+
+            - `type: "web_search_tool_result_error"`
+
+              - `"web_search_tool_result_error"`
+
+        - `tool_use_id: string`
+
+        - `type: "web_search_tool_result"`
+
+          - `"web_search_tool_result"`
+
+        - `cache_control: optional CacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+          - `type: "ephemeral"`
+
+            - `"ephemeral"`
+
+          - `ttl: optional "5m" or "1h"`
+
+            The time-to-live for the cache control breakpoint.
+
+            This may be one the following values:
+
+            - `5m`: 5 minutes
+            - `1h`: 1 hour
+
+            Defaults to `5m`.
+
+            - `"5m"`
+
+            - `"1h"`
+
+  - `role: "user" or "assistant"`
+
+    - `"user"`
+
+    - `"assistant"`
+
+- `model: Model`
+
+  The model that will complete your prompt.
+
+  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `UnionMember0 = "claude-3-7-sonnet-latest" or "claude-3-7-sonnet-20250219" or "claude-3-5-haiku-latest" or 15 more`
+
+    The model that will complete your prompt.
+
+    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-3-7-sonnet-latest"`
+
+      High-performance model with early extended thinking
+
+    - `"claude-3-7-sonnet-20250219"`
+
+      High-performance model with early extended thinking
+
+    - `"claude-3-5-haiku-latest"`
+
+      Fastest and most compact model for near-instant responsiveness
+
+    - `"claude-3-5-haiku-20241022"`
+
+      Our fastest model
+
+    - `"claude-haiku-4-5"`
+
+      Hybrid model, capable of near-instant responses and extended thinking
+
+    - `"claude-haiku-4-5-20251001"`
+
+      Hybrid model, capable of near-instant responses and extended thinking
+
+    - `"claude-sonnet-4-20250514"`
+
+      High-performance model with extended thinking
+
+    - `"claude-sonnet-4-0"`
+
+      High-performance model with extended thinking
+
+    - `"claude-4-sonnet-20250514"`
+
+      High-performance model with extended thinking
+
+    - `"claude-sonnet-4-5"`
+
+      Our best model for real-world agents and coding
+
+    - `"claude-sonnet-4-5-20250929"`
+
+      Our best model for real-world agents and coding
+
+    - `"claude-opus-4-0"`
+
+      Our most capable model
+
+    - `"claude-opus-4-20250514"`
+
+      Our most capable model
+
+    - `"claude-4-opus-20250514"`
+
+      Our most capable model
+
+    - `"claude-opus-4-1-20250805"`
+
+      Our most capable model
+
+    - `"claude-3-opus-latest"`
+
+      Excels at writing and complex tasks
+
+    - `"claude-3-opus-20240229"`
+
+      Excels at writing and complex tasks
+
+    - `"claude-3-haiku-20240307"`
+
+      Our previous most fast and cost-effective
+
+  - `UnionMember1 = string`
+
+- `system: optional string or array of TextBlockParam`
+
+  System prompt.
+
+  A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+
+  - `UnionMember0 = string`
+
+  - `UnionMember1 = array of TextBlockParam`
+
+    - `text: string`
+
+    - `type: "text"`
+
+      - `"text"`
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+    - `citations: optional array of TextCitationParam`
+
+      - `CitationCharLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+        - `cited_text: string`
+
+        - `document_index: number`
+
+        - `document_title: string`
+
+        - `end_char_index: number`
+
+        - `start_char_index: number`
+
+        - `type: "char_location"`
+
+          - `"char_location"`
+
+      - `CitationPageLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+        - `cited_text: string`
+
+        - `document_index: number`
+
+        - `document_title: string`
+
+        - `end_page_number: number`
+
+        - `start_page_number: number`
+
+        - `type: "page_location"`
+
+          - `"page_location"`
+
+      - `CitationContentBlockLocationParam = object { cited_text, document_index, document_title, 3 more }`
+
+        - `cited_text: string`
+
+        - `document_index: number`
+
+        - `document_title: string`
+
+        - `end_block_index: number`
+
+        - `start_block_index: number`
+
+        - `type: "content_block_location"`
+
+          - `"content_block_location"`
+
+      - `CitationWebSearchResultLocationParam = object { cited_text, encrypted_index, title, 2 more }`
+
+        - `cited_text: string`
+
+        - `encrypted_index: string`
+
+        - `title: string`
+
+        - `type: "web_search_result_location"`
+
+          - `"web_search_result_location"`
+
+        - `url: string`
+
+      - `CitationSearchResultLocationParam = object { cited_text, end_block_index, search_result_index, 4 more }`
+
+        - `cited_text: string`
+
+        - `end_block_index: number`
+
+        - `search_result_index: number`
+
+        - `source: string`
+
+        - `start_block_index: number`
+
+        - `title: string`
+
+        - `type: "search_result_location"`
+
+          - `"search_result_location"`
+
+- `thinking: optional ThinkingConfigParam`
+
+  Configuration for enabling Claude's extended thinking.
+
+  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+
+  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+
+  - `ThinkingConfigEnabled = object { budget_tokens, type }`
+
+    - `budget_tokens: number`
+
+      Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
+
+      Must be ≥1024 and less than `max_tokens`.
+
+      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+
+    - `type: "enabled"`
+
+      - `"enabled"`
+
+  - `ThinkingConfigDisabled = object { type }`
+
+    - `type: "disabled"`
+
+      - `"disabled"`
+
+- `tool_choice: optional ToolChoice`
+
+  How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+
+  - `ToolChoiceAuto = object { type, disable_parallel_tool_use }`
+
+    The model will automatically decide whether to use tools.
+
+    - `type: "auto"`
+
+      - `"auto"`
+
+    - `disable_parallel_tool_use: optional boolean`
+
+      Whether to disable parallel tool use.
+
+      Defaults to `false`. If set to `true`, the model will output at most one tool use.
+
+  - `ToolChoiceAny = object { type, disable_parallel_tool_use }`
+
+    The model will use any available tools.
+
+    - `type: "any"`
+
+      - `"any"`
+
+    - `disable_parallel_tool_use: optional boolean`
+
+      Whether to disable parallel tool use.
+
+      Defaults to `false`. If set to `true`, the model will output exactly one tool use.
+
+  - `ToolChoiceTool = object { name, type, disable_parallel_tool_use }`
+
+    The model will use the specified tool with `tool_choice.name`.
+
+    - `name: string`
+
+      The name of the tool to use.
+
+    - `type: "tool"`
+
+      - `"tool"`
+
+    - `disable_parallel_tool_use: optional boolean`
+
+      Whether to disable parallel tool use.
+
+      Defaults to `false`. If set to `true`, the model will output exactly one tool use.
+
+  - `ToolChoiceNone = object { type }`
+
+    The model will not be allowed to use tools.
+
+    - `type: "none"`
+
+      - `"none"`
+
+- `tools: optional array of MessageCountTokensTool`
+
+  Definitions of tools that the model may use.
+
+  If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
+
+  There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+
+  Each tool definition includes:
+
+  * `name`: Name of the tool.
+  * `description`: Optional, but strongly-recommended description of the tool.
+  * `input_schema`: [JSON schema](https://json-schema.org/draft/2020-12) for the tool `input` shape that the model will produce in `tool_use` output content blocks.
+
+  For example, if you defined `tools` as:
+
+  ```json
+  [
+    {
+      "name": "get_stock_price",
+      "description": "Get the current stock price for a given ticker symbol.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "description": "The stock ticker symbol, e.g. AAPL for Apple Inc."
+          }
+        },
+        "required": ["ticker"]
+      }
+    }
+  ]
+  ```
+
+  And then asked the model "What's the S&P 500 at today?", the model might produce `tool_use` content blocks in the response like this:
+
+  ```json
+  [
+    {
+      "type": "tool_use",
+      "id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+      "name": "get_stock_price",
+      "input": { "ticker": "^GSPC" }
+    }
+  ]
+  ```
+
+  You might then run your `get_stock_price` tool with `{"ticker": "^GSPC"}` as an input, and return the following back to the model in a subsequent `user` message:
+
+  ```json
+  [
+    {
+      "type": "tool_result",
+      "tool_use_id": "toolu_01D7FLrfh4GYq7yT1ULFeyMV",
+      "content": "259.75 USD"
+    }
+  ]
+  ```
+
+  Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
+
+  See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+
+  - `Tool = object { input_schema, name, cache_control, 2 more }`
+
+    - `input_schema: object { type, properties, required }`
+
+      [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
+
+      This defines the shape of the `input` that your tool accepts and that the model will produce.
+
+      - `type: "object"`
+
+        - `"object"`
+
+      - `properties: optional map[unknown]`
+
+      - `required: optional array of string`
+
+    - `name: string`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+    - `description: optional string`
+
+      Description of what this tool does.
+
+      Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
+
+    - `type: optional "custom"`
+
+      - `"custom"`
+
+  - `ToolBash20250124 = object { name, type, cache_control }`
+
+    - `name: "bash"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"bash"`
+
+    - `type: "bash_20250124"`
+
+      - `"bash_20250124"`
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+  - `ToolTextEditor20250124 = object { name, type, cache_control }`
+
+    - `name: "str_replace_editor"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"str_replace_editor"`
+
+    - `type: "text_editor_20250124"`
+
+      - `"text_editor_20250124"`
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+  - `ToolTextEditor20250429 = object { name, type, cache_control }`
+
+    - `name: "str_replace_based_edit_tool"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"str_replace_based_edit_tool"`
+
+    - `type: "text_editor_20250429"`
+
+      - `"text_editor_20250429"`
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+  - `ToolTextEditor20250728 = object { name, type, cache_control, max_characters }`
+
+    - `name: "str_replace_based_edit_tool"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"str_replace_based_edit_tool"`
+
+    - `type: "text_editor_20250728"`
+
+      - `"text_editor_20250728"`
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+    - `max_characters: optional number`
+
+      Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+
+  - `WebSearchTool20250305 = object { name, type, allowed_domains, 4 more }`
+
+    - `name: "web_search"`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_search"`
+
+    - `type: "web_search_20250305"`
+
+      - `"web_search_20250305"`
+
+    - `allowed_domains: optional array of string`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `blocked_domains: optional array of string`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `cache_control: optional CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+      - `type: "ephemeral"`
+
+        - `"ephemeral"`
+
+      - `ttl: optional "5m" or "1h"`
+
+        The time-to-live for the cache control breakpoint.
+
+        This may be one the following values:
+
+        - `5m`: 5 minutes
+        - `1h`: 1 hour
+
+        Defaults to `5m`.
+
+        - `"5m"`
+
+        - `"1h"`
+
+    - `max_uses: optional number`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `user_location: optional object { type, city, country, 2 more }`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+      - `type: "approximate"`
+
+        - `"approximate"`
+
+      - `city: optional string`
+
+        The city of the user.
+
+      - `country: optional string`
+
+        The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+      - `region: optional string`
+
+        The region of the user.
+
+      - `timezone: optional string`
+
+        The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+### Returns
+
+- `MessageTokensCount = object { input_tokens }`
+
+  - `input_tokens: number`
+
+    The total number of tokens across the provided list of messages, system prompt, and tools.
+
+### Example
+
+```http
+curl https://api.anthropic.com/v1/messages/count_tokens \
+    -H 'Content-Type: application/json' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -d '{
+          "messages": [
+            {
+              "content": "string",
+              "role": "user"
+            }
+          ],
+          "model": "claude-3-7-sonnet-latest"
+        }'
+```

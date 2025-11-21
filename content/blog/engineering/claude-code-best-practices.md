@@ -9,7 +9,7 @@ Claude Code is intentionally low-level and unopinionated, providing close to raw
 
 This post outlines general patterns that have proven effective, both for Anthropic's internal teams and for external engineers using Claude Code across various codebases, languages, and environments. Nothing in this list is set in stone nor universally applicable; consider these suggestions as starting points. We encourage you to experiment and find what works best for you!
 
-_Looking for more detailed information? Our comprehensive documentation at [claude.ai/code](https://claude.ai/redirect/website.v1.e51ee1ec-fb32-4250-a8b0-69eee7aa4ff5/code)_ _covers all the features mentioned in this post and provides additional examples, implementation details, and advanced techniques._
+_Looking for more detailed information? Our comprehensive documentation at [claude.ai/code](https://claude.ai/redirect/website.v1.a7a14174-a68f-4c21-b5dc-e58bc2af5f0f/code)_ _covers all the features mentioned in this post and provides additional examples, implementation details, and advanced techniques._
 
 1. Customize your setup
 -----------------------
@@ -386,11 +386,3 @@ Acknowledgements
 ----------------
 
 Written by Boris Cherny. This work draws upon best practices from across the broader Claude Code user community, whose creative approaches and workflows continue to inspire us. Special thanks also to Daisy Hollman, Ashwin Bhat, Cat Wu, Sid Bidasaria, Cal Rueb, Nodir Turakulov, Barry Zhang, Drew Hodun and many other Anthropic engineers whose valuable insights and practical experience with Claude Code helped shape these recommendations.
-
-![Image 7: Interlocking puzzle piece with complex geometric shape and detailed surface texture](https://www-cdn.anthropic.com/images/4zrzovbb/website/43abe7e54b56a891e74a8542944dfbd33f07f49c-1000x1000.svg)
-
-### Looking to learn more?
-
-Master API development, Model Context Protocol, and Claude Code with courses on Anthropic Academy. Earn certificates upon completion.
-
-[Explore courses](https://anthropic.skilljar.com/)
