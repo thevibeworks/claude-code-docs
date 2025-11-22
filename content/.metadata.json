@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-11-22T01:16:51.136381Z"
+    "fetch_date": "2025-11-22T12:31:49.254783Z"
   },
   "items": [
     {
@@ -309,8 +309,8 @@
       "url": "https://docs.claude.com/en/api/openai-sdk",
       "status": "success",
       "path": "en/api/openai-sdk.md",
-      "sha256": "47e999616487e8206fcfb0c1b368bccb990701667d0c231cb8ad869393793ff5",
-      "size": 11444
+      "sha256": "501791395f04e657f0dc086ff677e232a3c4825adcd674c603ad127c815cd9fb",
+      "size": 11386
     },
     {
       "url": "https://docs.claude.com/en/api/overview",
@@ -323,29 +323,29 @@
       "url": "https://docs.claude.com/en/api/prompt-tools-generate",
       "status": "success",
       "path": "en/api/prompt-tools-generate.md",
-      "sha256": "cb3f53c341726e7f6442d4dbceeb618909b9a36197a838b578f81ca53e176889",
-      "size": 2486
+      "sha256": "faeda89af62334d1e1bbac4a1062b11971c76418255c9b0ec9bdff9f7aaa8022",
+      "size": 2458
     },
     {
       "url": "https://docs.claude.com/en/api/prompt-tools-improve",
       "status": "success",
       "path": "en/api/prompt-tools-improve.md",
-      "sha256": "cb3f53c341726e7f6442d4dbceeb618909b9a36197a838b578f81ca53e176889",
-      "size": 2486
+      "sha256": "faeda89af62334d1e1bbac4a1062b11971c76418255c9b0ec9bdff9f7aaa8022",
+      "size": 2458
     },
     {
       "url": "https://docs.claude.com/en/api/prompt-tools-templatize",
       "status": "success",
       "path": "en/api/prompt-tools-templatize.md",
-      "sha256": "cb3f53c341726e7f6442d4dbceeb618909b9a36197a838b578f81ca53e176889",
-      "size": 2486
+      "sha256": "faeda89af62334d1e1bbac4a1062b11971c76418255c9b0ec9bdff9f7aaa8022",
+      "size": 2458
     },
     {
       "url": "https://docs.claude.com/en/api/rate-limits",
       "status": "success",
       "path": "en/api/rate-limits.md",
-      "sha256": "4b4038ea9485595d95e111919a8036f6b52f73ed68bcc8eda0f19a4bc3fffda4",
-      "size": 26424
+      "sha256": "9616262e5780cea6dff0dfa98012577e8e3f917226ffacd39630e7a7e91bbcab",
+      "size": 26134
     },
     {
       "url": "https://docs.claude.com/en/api/retrieving-message-batch-results",
@@ -449,7 +449,7 @@
       "url": "https://docs.claude.com/en/docs/about-claude/model-deprecations",
       "status": "success",
       "path": "en/docs/about-claude/model-deprecations.md",
-      "sha256": "dd2f297a4253622f088f293268f0df7dcf9d381fdd59c5fa17a2489420d45173",
+      "sha256": "6449f5825ecf2bdd3a2824fc9163a9c417c33c81dce83cac603f646396d8b4b3",
       "size": 7940
     },
     {
@@ -470,8 +470,8 @@
       "url": "https://docs.claude.com/en/docs/about-claude/models/overview",
       "status": "success",
       "path": "en/docs/about-claude/models/overview.md",
-      "sha256": "ad88d3870689ff9b315d0517ba77623eba4f39c5d465d393d17a8b51a098c918",
-      "size": 10230
+      "sha256": "d8f28370612cf6b51000860fc218c54ebc9c642dd4bf546532b77bce554de126",
+      "size": 10202
     },
     {
       "url": "https://docs.claude.com/en/docs/about-claude/models/whats-new-claude-4-5",
@@ -484,8 +484,8 @@
       "url": "https://docs.claude.com/en/docs/about-claude/pricing",
       "status": "success",
       "path": "en/docs/about-claude/pricing.md",
-      "sha256": "e670022858dc49432592edef83387b846743397d6ec47db7cfe741f0e6d41aa8",
-      "size": 18091
+      "sha256": "a4604a29aa6ec51d49d380262e20ef6da2ba6b52e3e9c0c7ebdfd41ad04e04ac",
+      "size": 18034
     },
     {
       "url": "https://docs.claude.com/en/docs/about-claude/use-case-guides/content-moderation",
@@ -498,8 +498,8 @@
       "url": "https://docs.claude.com/en/docs/about-claude/use-case-guides/customer-support-chat",
       "status": "success",
       "path": "en/docs/about-claude/use-case-guides/customer-support-chat.md",
-      "sha256": "4892283405e2adcc10447537ef1b8bf3ec9434eb03a2953a4424b58f158c1ff1",
-      "size": 33438
+      "sha256": "c6e3115f6e805d01a77771afc564446329e06f3a35b72fd298a0f9f8c11d1eb6",
+      "size": 33409
     },
     {
       "url": "https://docs.claude.com/en/docs/about-claude/use-case-guides/legal-summarization",
@@ -519,8 +519,8 @@
       "url": "https://docs.claude.com/en/docs/about-claude/use-case-guides/ticket-routing",
       "status": "success",
       "path": "en/docs/about-claude/use-case-guides/ticket-routing.md",
-      "sha256": "0a71f07ba237443ddd4441e25eef4056b3dfe2ba5181440941875e172b39bced",
-      "size": 29812
+      "sha256": "e1d8347f2ecaf9094fc0dbc823024b0c1e6cc01ce50c8ee2de93ec59fd541230",
+      "size": 29754
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/cost-tracking",
@@ -561,8 +561,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/overview",
       "status": "success",
       "path": "en/docs/agent-sdk/overview.md",
-      "sha256": "074ba283c96952e09b639b867024ce8383c6a191653579e3ace7d39befad959f",
-      "size": 7269
+      "sha256": "0265c4c839047c5b3e990566d93296b739e3350243d5978505e1a0915bd3ec31",
+      "size": 7240
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/permissions",
@@ -659,15 +659,15 @@
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/quickstart",
       "status": "success",
       "path": "en/docs/agents-and-tools/agent-skills/quickstart.md",
-      "sha256": "85da8ee3f0316c08a603747099278b0b37884f95321c7c974f7a37ffb1f1ab0b",
-      "size": 14850
+      "sha256": "7de0ed8d46d33ff6f14320de1c4d2ca9a6973efc24087af9daeb692852396e41",
+      "size": 14821
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/claude-for-sheets",
       "status": "success",
       "path": "en/docs/agents-and-tools/claude-for-sheets.md",
-      "sha256": "92215e0cca542bfa1db50136630ea5d656b74a04e64ee748839f4f09bae51321",
-      "size": 8813
+      "sha256": "892726a1f94e99a50e45f6544640ef846a8a2fe401154c822dc7d3644002e2f1",
+      "size": 8784
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/mcp-connector",
@@ -757,22 +757,22 @@
       "url": "https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool",
       "status": "success",
       "path": "en/docs/agents-and-tools/tool-use/web-search-tool.md",
-      "sha256": "9e05619ee4d0c726d6d7b06c5caac6709c1d5b850160b93a87800436d5a2fc7f",
-      "size": 13422
+      "sha256": "8524326b9c229fc9e458acf4f23ceba4b40c0e22c55cdcb17dae694032af0902",
+      "size": 13393
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/administration-api",
       "status": "success",
       "path": "en/docs/build-with-claude/administration-api.md",
-      "sha256": "ef75ee18d958e11ad7c071cec52e644c35f5b71b8e38dbc08a94b95e8f119c6d",
-      "size": 11356
+      "sha256": "a435cf47c78e3d35e6d0ce77a465ab5e53707e282afe67772206d419fe359be6",
+      "size": 11299
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/batch-processing",
       "status": "success",
       "path": "en/docs/build-with-claude/batch-processing.md",
-      "sha256": "277ab7f4a2046443c6f9da884147852fcac5251fed3514101f2399d141399a4c",
-      "size": 39068
+      "sha256": "944bc5b15c1e751e0620327d4813c008c16742e515f48f6796bb3734be84c8e9",
+      "size": 38981
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/citations",
@@ -785,8 +785,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/claude-code-analytics-api",
       "status": "success",
       "path": "en/docs/build-with-claude/claude-code-analytics-api.md",
-      "sha256": "8949a24678c7c84a0329b98e7eae963afdd96ef7f8f6b0cf87ce1e3fd38b21c6",
-      "size": 11359
+      "sha256": "65b65e2d21fe9b0a176869ba1af9ec48ed96dcef69127ffe790eb77846288134",
+      "size": 11272
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/claude-in-microsoft-foundry",
@@ -925,8 +925,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview",
       "status": "success",
       "path": "en/docs/build-with-claude/prompt-engineering/overview.md",
-      "sha256": "66455691e01e5bca41416e35724a20de5518ffb3731a2be1505a2a28e5273088",
-      "size": 5006
+      "sha256": "03977ae9685890ff93bd6161f3188a2a3cdd77d984f22fcf0c2f0368e056d298",
+      "size": 4977
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response",
@@ -939,8 +939,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/prompt-generator",
       "status": "success",
       "path": "en/docs/build-with-claude/prompt-engineering/prompt-generator.md",
-      "sha256": "8cb9e2293da348929e622a2f42d48fc702c87a2f00177c525dca3a7a7a067b4c",
-      "size": 2220
+      "sha256": "f39de9730602482ece841291e089c2c2603bf4cfafb38c57882cbafc7d56047c",
+      "size": 2162
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/prompt-improver",
@@ -953,8 +953,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/prompt-templates-and-variables",
       "status": "success",
       "path": "en/docs/build-with-claude/prompt-engineering/prompt-templates-and-variables.md",
-      "sha256": "80029e9f19c347e495187e7f8e66c217b71592062b9d9c6f844ea23a22d01085",
-      "size": 3717
+      "sha256": "5d0c29e305d38e5aff251b4a380f4e23328d18ba237b4dac4fdfa1a484db7776",
+      "size": 3601
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/system-prompts",
@@ -981,8 +981,8 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/skills-guide",
       "status": "success",
       "path": "en/docs/build-with-claude/skills-guide.md",
-      "sha256": "c07fdfab87d664719fa377990138009814a9650220e7da43e84dc3467494966f",
-      "size": 46285
+      "sha256": "4d2947772f3669989ab33d46a7194041c4a55f130dbedfaf566c94be72ad3581",
+      "size": 46256
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/streaming",
@@ -1002,22 +1002,22 @@
       "url": "https://docs.claude.com/en/docs/build-with-claude/token-counting",
       "status": "success",
       "path": "en/docs/build-with-claude/token-counting.md",
-      "sha256": "0a4a676e0f8e515b5a33c4d35b00ce585c7cdc64d71910988b2869f3850c769f",
-      "size": 23065
+      "sha256": "b4d7ca0b84c1ef373333a9b9112154c29d7f663296f3331fff27e5f47265eb64",
+      "size": 23036
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/usage-cost-api",
       "status": "success",
       "path": "en/docs/build-with-claude/usage-cost-api.md",
-      "sha256": "f4dd4ada2829bdbe69481dbedf0a6d01992c09fc53e8873f0198c17bc93f6cef",
-      "size": 10491
+      "sha256": "8872f6bd448c74db066e867d0d6ab55d2075b9d1f97f00c202805adf6763c426",
+      "size": 10404
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/vision",
       "status": "success",
       "path": "en/docs/build-with-claude/vision.md",
-      "sha256": "fe48cb5fdd3efccc059a43562810c3811d24b0a277d42ab8bc3d06784c56d6bf",
-      "size": 35843
+      "sha256": "05134678cfde9638df21a586099984ed21f634409be759a41b2eb7d76b725268",
+      "size": 35814
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/working-with-messages",
@@ -1030,22 +1030,22 @@
       "url": "https://docs.claude.com/en/docs/get-started",
       "status": "success",
       "path": "en/docs/get-started.md",
-      "sha256": "b65ca8e9769d1491e010192d5422de6b43a37c40040d3751b6833a527cf33576",
-      "size": 11075
+      "sha256": "6ebe4f3b0e8efec761ade8eb655378537095f3c85ff52031bd0451ee4a13a01c",
+      "size": 10901
     },
     {
       "url": "https://docs.claude.com/en/docs/intro",
       "status": "success",
       "path": "en/docs/intro.md",
-      "sha256": "a28d316b8a892f939f40334309d459fd03cd928b8e4edd6bb37ba93e5d75d723",
-      "size": 2990
+      "sha256": "21dc97e12e81a09ed393ba3fea2692130b6978d309e8f794d4880f97ecafce60",
+      "size": 2962
     },
     {
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "25564765f297347f4d753d54582cd4d2abb956bc59e9054d6e835bcaa905470b",
-      "size": 242149
+      "sha256": "7e9f9ef0f08dedf5dd15fd371f8c059c54d30c06f017604db7d5bf2341cbf5cb",
+      "size": 244863
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",
@@ -1065,8 +1065,8 @@
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/eval-tool",
       "status": "success",
       "path": "en/docs/test-and-evaluate/eval-tool.md",
-      "sha256": "5fc0dbef79b6e34704fc652f401a2652db719956e2d9f8def72d6d309fb1ffc9",
-      "size": 5448
+      "sha256": "991c735f889158503321480f0e42c637be9a0974c060c04555dfcf92930fca27",
+      "size": 5419
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals",
@@ -1121,8 +1121,8 @@
       "url": "https://docs.claude.com/en/home",
       "status": "success",
       "path": "en/home.md",
-      "sha256": "cb3f53c341726e7f6442d4dbceeb618909b9a36197a838b578f81ca53e176889",
-      "size": 2486
+      "sha256": "faeda89af62334d1e1bbac4a1062b11971c76418255c9b0ec9bdff9f7aaa8022",
+      "size": 2458
     },
     {
       "url": "https://docs.claude.com/en/release-notes/overview",
@@ -1149,232 +1149,232 @@
       "url": "https://docs.claude.com/en/resources/prompt-library/adaptive-editor",
       "status": "success",
       "path": "en/resources/prompt-library/adaptive-editor.md",
-      "sha256": "f2d0e1c96b6d48e2ceab6f68ded44a064713c24e9da8a3ccf371fdf5d2472349",
-      "size": 8083
+      "sha256": "afb18a9f0209223c2b3c5acf3569da668313038a231ea4a79305c5348812b912",
+      "size": 8054
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/airport-code-analyst",
       "status": "success",
       "path": "en/resources/prompt-library/airport-code-analyst.md",
-      "sha256": "81476c7322d6acb5953a78875ef2874fee13ed41200c05bcaac9f6f787d34d37",
-      "size": 7490
+      "sha256": "d24f738a1d5ffdad0149eeb09a09e55b9ba7f2d888ca231fa4cd1d74d72b9140",
+      "size": 7461
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/alien-anthropologist",
       "status": "success",
       "path": "en/resources/prompt-library/alien-anthropologist.md",
-      "sha256": "5bea089abf6c60192cf850795c428163a0480718f30d78cb65605ed2a68a40e9",
-      "size": 8189
+      "sha256": "5b7ccd58ca317103ea57ac11ae212a741bf022011a89a13acc2f078675d2ff7c",
+      "size": 8160
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/alliteration-alchemist",
       "status": "success",
       "path": "en/resources/prompt-library/alliteration-alchemist.md",
-      "sha256": "d2e50c1ff4c4a0e1a5bee4575e5507e80080b6866cf519452379a0404c2cfded",
-      "size": 7542
+      "sha256": "6b6db2549efc754d43adacedf6d952f78095bdc7321541998bfdacda3c873c6c",
+      "size": 7513
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/babels-broadcasts",
       "status": "success",
       "path": "en/resources/prompt-library/babels-broadcasts.md",
-      "sha256": "2142d40744819afbb1088ac3f78a7e3c8a07339602feb36bbcfa30d38acef335",
-      "size": 11626
+      "sha256": "5e6eb5b84c36ec25b59a30e6d2f4c37f203ceb669e18226417e0096b7306ceac",
+      "size": 11597
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/brand-builder",
       "status": "success",
       "path": "en/resources/prompt-library/brand-builder.md",
-      "sha256": "96f5960849b67c620bc479fa702ce953bf891fc6da3cfa0e3b1d2e9ba8be8020",
-      "size": 18308
+      "sha256": "2a7d51e58c0673e29e8c4ed884f16dfde6f615ae3f91246f5e3db9ab2bd69ee1",
+      "size": 18279
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/career-coach",
       "status": "success",
       "path": "en/resources/prompt-library/career-coach.md",
-      "sha256": "903cac989e1e1a7614624a83aba30f38059510d95a22c2dbf14d95ade3057c7d",
-      "size": 15545
+      "sha256": "7ef94e2351a0248651cb4c73b4df9fafd55d8a91cbd5bd4d4fbe37518f7a8466",
+      "size": 15516
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/cite-your-sources",
       "status": "success",
       "path": "en/resources/prompt-library/cite-your-sources.md",
-      "sha256": "420a6690e2bcb24be6636468fbddd85c67713718bba28e942ecc6de41b902877",
-      "size": 18976
+      "sha256": "ca53b8c83d1f727f65c18c1a4e587e738de3f761eeb469c028b580e5cec9dd63",
+      "size": 18947
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/code-clarifier",
       "status": "success",
       "path": "en/resources/prompt-library/code-clarifier.md",
-      "sha256": "9d413e44e3ca05de8f6d47eea8bfd38ecbb374d2332469a39b84e356bd0a2f19",
-      "size": 14058
+      "sha256": "7ecb24c6e055e99b07e59a871366f8f32c1467d254af8bdbceadaef08cf8143c",
+      "size": 14029
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/code-consultant",
       "status": "success",
       "path": "en/resources/prompt-library/code-consultant.md",
-      "sha256": "d6c11628febc59fd2d748fd9b7f7c667a0bfc56ac634211cc47a458881c2860e",
-      "size": 9860
+      "sha256": "97bd9e2b1a2aa5a8b63ec08b79cbda6fb7f8a4c03deb25ffa8e0c8b050b63c81",
+      "size": 9831
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/corporate-clairvoyant",
       "status": "success",
       "path": "en/resources/prompt-library/corporate-clairvoyant.md",
-      "sha256": "5b786d013d266ab2abc27b051e932391c8aa4396f63852256f22b775d39a8978",
-      "size": 11843
+      "sha256": "4f8efe1bcfbf8031c9832968e0e9fe26e44091224592f12d14c7c08a518c2b86",
+      "size": 11814
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/cosmic-keystrokes",
       "status": "success",
       "path": "en/resources/prompt-library/cosmic-keystrokes.md",
-      "sha256": "4dddf20fea8c1dc1d348c211ce7dc4037ded0a26f7f0eb89af31f7cc06c9e641",
-      "size": 13055
+      "sha256": "d4c1c03f2c46964693d077cced10b57f3675127c49425882571c6a7c1cd2dc32",
+      "size": 13026
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/csv-converter",
       "status": "success",
       "path": "en/resources/prompt-library/csv-converter.md",
-      "sha256": "4b8de5ebd2570f41ad87c3fcfa42053ec732f3c115bee6bc7591b3e3984331de",
-      "size": 16365
+      "sha256": "1043e849270829fd6b33c3c88b588374c6248aac6df114dec7d8276bd046290a",
+      "size": 16336
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/culinary-creator",
       "status": "success",
       "path": "en/resources/prompt-library/culinary-creator.md",
-      "sha256": "81a81af60182e1cec469bdc55f945e906c809a3a91068e11ea3c523de850a34e",
-      "size": 12000
+      "sha256": "a265d7fcfda3bbf85b4cb294b99102db920e47453d0aa997228948f97259a20c",
+      "size": 11971
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/data-organizer",
       "status": "success",
       "path": "en/resources/prompt-library/data-organizer.md",
-      "sha256": "37f1924c2bd84509ca3a8606429a29d4fca216f22844dceb02d776a1f7481724",
-      "size": 16869
+      "sha256": "dc5571c48595687d0b8eed5f1104152a56b95b42bcabab0d23f758c0a64a826b",
+      "size": 16840
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/direction-decoder",
       "status": "success",
       "path": "en/resources/prompt-library/direction-decoder.md",
-      "sha256": "2049a8b0a7c8f09514a7d27ead2e5ccd33f8f4b9300ca24d1416d5c1af2ac6a0",
-      "size": 12249
+      "sha256": "70a475fc44a02bc4c0aab4704fcbfaf0e102a142804ffc3ee44da28b17e8069d",
+      "size": 12220
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/dream-interpreter",
       "status": "success",
       "path": "en/resources/prompt-library/dream-interpreter.md",
-      "sha256": "a1f4b4252cf13cf0aa4ae2f9732b3f929a6fb252bfba0fb3b7263129a064a517",
-      "size": 11426
+      "sha256": "82fe472381a309c99b34a44f90bd5371726134dd43ad63c06134005f1ca2611d",
+      "size": 11397
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/efficiency-estimator",
       "status": "success",
       "path": "en/resources/prompt-library/efficiency-estimator.md",
-      "sha256": "ac2eb08526a0893d80d0be45b092f6d18735e98d60b4f41f460e246c09a15d8d",
-      "size": 12608
+      "sha256": "f54eeff7f17832e801f3e96e9be7b749658f30ace1acba361947e7d385dd69e3",
+      "size": 12579
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/email-extractor",
       "status": "success",
       "path": "en/resources/prompt-library/email-extractor.md",
-      "sha256": "03e669cb6095f44221c0bd867ef3260d840a82d2d99d12863895632f021641ad",
-      "size": 8273
+      "sha256": "725c75887012ed414ec9fd4efd54b4f15f30657f0ded5fccfb5b4d45583aab39",
+      "size": 8244
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/emoji-encoder",
       "status": "success",
       "path": "en/resources/prompt-library/emoji-encoder.md",
-      "sha256": "29ea600b8a480328bd3cd3af70b2b933e34081669bbe4f39cc28cbe3cb2d7d35",
-      "size": 8644
+      "sha256": "0934f0c4b18e3de4108ec711410037e1d7707dfc56248dec03445c042ce7565a",
+      "size": 8615
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/ethical-dilemma-navigator",
       "status": "success",
       "path": "en/resources/prompt-library/ethical-dilemma-navigator.md",
-      "sha256": "dc1b16b6b9e9b319914303c236a9438f37cca94e5f8037eeff7c2ac1c1ad38d0",
-      "size": 11854
+      "sha256": "4c9bff71d698577130b14166c95c0d844768518a100986c148509d1978cb6b15",
+      "size": 11825
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/excel-formula-expert",
       "status": "success",
       "path": "en/resources/prompt-library/excel-formula-expert.md",
-      "sha256": "94faa0d3ad4b0da0bceb0b3136d94ffcbc8a19a729906a32b54e3835966eae3f",
-      "size": 15997
+      "sha256": "c8fee6b1b4bed00639e5b42009b6a02ad2ff76c5df332ba4628daea6aa122529",
+      "size": 15968
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/function-fabricator",
       "status": "success",
       "path": "en/resources/prompt-library/function-fabricator.md",
-      "sha256": "901a6338958e6cea515737586986c488147efd221b8ee9dd0a5052e551aeb730",
-      "size": 12560
+      "sha256": "1df206c12424f8f7cd33de9816d110755e5a30c11d9236a361fc1cb497ea4fc8",
+      "size": 12531
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/futuristic-fashion-advisor",
       "status": "success",
       "path": "en/resources/prompt-library/futuristic-fashion-advisor.md",
-      "sha256": "506cc8fc20cf187af4769fe7d013949600044ad14c3041ef6b1b4c6c31c6ca4b",
-      "size": 16470
+      "sha256": "5933d78a781f7a3a6c66c95fc4394907d7d7ea2385a7cb0c4c3d54d13e9ab6fc",
+      "size": 16441
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/git-gud",
       "status": "success",
       "path": "en/resources/prompt-library/git-gud.md",
-      "sha256": "b782d993d87dd841fd798c4c07d13374811371c43676f42a5ed3a3078b9bb4d4",
-      "size": 5865
+      "sha256": "1dc688d83e6c0738f8bca84c5724e89c89b432cd3ad33a9d47f9be756fca1537",
+      "size": 5836
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/google-apps-scripter",
       "status": "success",
       "path": "en/resources/prompt-library/google-apps-scripter.md",
-      "sha256": "5a3e80963382872b6d1d000d89f53cad91b3104b4fa0eee422e0487841550f9d",
-      "size": 7456
+      "sha256": "4d949abdade2bcbc3f2931874384ec619177fb048a9c1a826ccbe58af976c47f",
+      "size": 7427
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/grading-guru",
       "status": "success",
       "path": "en/resources/prompt-library/grading-guru.md",
-      "sha256": "f9f976cb6bb5e5df5f70a666b779d4b8a74f3c9143cb32aa075bc4cbce2f9605",
-      "size": 11508
+      "sha256": "66c9f32161451f686c2bbbddd1900aa8f81df7bf2e35d44d67f01afbfa3f176e",
+      "size": 11479
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/grammar-genie",
       "status": "success",
       "path": "en/resources/prompt-library/grammar-genie.md",
-      "sha256": "7c64dfe390cd9ea41812a8f982242659b2e8894014c0ebc44ef935fcc8111f2c",
-      "size": 6481
+      "sha256": "8a5b80ebc8cf69a98cc6ba0b747ab5afefac9e321cd7ec9b66a822feddb0a6d0",
+      "size": 6452
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/hal-the-humorous-helper",
       "status": "success",
       "path": "en/resources/prompt-library/hal-the-humorous-helper.md",
-      "sha256": "f503a20e597a3e2fefbbbc99c6b580e143190c6059fcc570c2cbedbb421237aa",
-      "size": 21190
+      "sha256": "2b0725fdaa2276803e21779a0d07074984a7175f9a16e214b210b1d8ad129d87",
+      "size": 21161
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/idiom-illuminator",
       "status": "success",
       "path": "en/resources/prompt-library/idiom-illuminator.md",
-      "sha256": "eb48125edc86f6aa142f9821e96b72a5e9a4768a4b6fc7ec22fd5aa24fd8ce14",
-      "size": 10609
+      "sha256": "994f3e2f01b98cbaa06d34731a652163ad8dba1514c603f4822e1d9c419fb1d5",
+      "size": 10580
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/interview-question-crafter",
       "status": "success",
       "path": "en/resources/prompt-library/interview-question-crafter.md",
-      "sha256": "f714390a589a7f65f86fd55921d2fbfb55f03661bbcf73d7a6006ddb18e64b4f",
-      "size": 12163
+      "sha256": "105178f9a334e24f35fafd0c78883babea84cb0f15a35bbecb9390a9304077c1",
+      "size": 12134
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/latex-legend",
       "status": "success",
       "path": "en/resources/prompt-library/latex-legend.md",
-      "sha256": "25972cfc0b1bc601aed1cb522c98e524f6b56184cd5e0d7eca5ade9773e5b599",
-      "size": 10050
+      "sha256": "c5557c90ac24ec89d5f32208d5e26439c605239224b53b03d1f560fce67b0d2f",
+      "size": 10021
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/lesson-planner",
       "status": "success",
       "path": "en/resources/prompt-library/lesson-planner.md",
-      "sha256": "e0820e5f7156b92b3e72f9c94b977bc6818a047e14c84892dcdf2263841fe715",
-      "size": 16387
+      "sha256": "3c354cb32fa4c65eb261e3ff28e4662eb44fe712688d489035d3944bae25eea0",
+      "size": 16358
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/library",
@@ -1387,113 +1387,113 @@
       "url": "https://docs.claude.com/en/resources/prompt-library/master-moderator",
       "status": "success",
       "path": "en/resources/prompt-library/master-moderator.md",
-      "sha256": "00965a144762c94f9036d48d1f30ad44bc4e9715739ffcc666a80243cbb80984",
-      "size": 7847
+      "sha256": "d3acf4e2a609a7e950b088248353230cf55d2efceec971d628c169b0ade20761",
+      "size": 7818
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/meeting-scribe",
       "status": "success",
       "path": "en/resources/prompt-library/meeting-scribe.md",
-      "sha256": "f650d60241b06a3f2f87b2394fab89ec25d6d2181b52cc2a839deaa350a1f4ab",
-      "size": 41133
+      "sha256": "e85f4ab696c031f826ff4d33454f7bf9be44b46644b030b390c673422628f793",
+      "size": 41104
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/memo-maestro",
       "status": "success",
       "path": "en/resources/prompt-library/memo-maestro.md",
-      "sha256": "a8f5973da01a164b5e11b0b3fcc0ff6f3df810a888d6008798a784d9250083e0",
-      "size": 15132
+      "sha256": "a125f23852a1eee9b266b3b29bcddf3ab208f74c1ca251df1d2b68cab0faa6b9",
+      "size": 15103
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/mindfulness-mentor",
       "status": "success",
       "path": "en/resources/prompt-library/mindfulness-mentor.md",
-      "sha256": "21021846fc8389be962db13101d7fcbcb538dace9f2f9074dab2f41fb5d6483f",
-      "size": 10071
+      "sha256": "12afa7e4e4a7921c7a3a358f76346cae722be20b167ddae3cd7e88b58e066a6d",
+      "size": 10042
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/mood-colorizer",
       "status": "success",
       "path": "en/resources/prompt-library/mood-colorizer.md",
-      "sha256": "6ecb95322ea15439276e8a83e760d55231eeb136907a25ba0cd10f2725e8a509",
-      "size": 8785
+      "sha256": "0d25fa39d685c1e5bb23ad3f441508d50f9375be05a1b4ace5d4e155ce481309",
+      "size": 8756
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/motivational-muse",
       "status": "success",
       "path": "en/resources/prompt-library/motivational-muse.md",
-      "sha256": "74aa12eb2ce6d1b3715525681048b05de6bdcdb366c5c35a4ade0490cbf5f941",
-      "size": 11350
+      "sha256": "57f44075b1f043025d4468867482776b61c363979a0634c6cd3f5572656e85b9",
+      "size": 11321
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/neologism-creator",
       "status": "success",
       "path": "en/resources/prompt-library/neologism-creator.md",
-      "sha256": "714674c88d6c564889cac11894b8516e12af20c8472132cff174532b69f217b5",
-      "size": 5326
+      "sha256": "5e11f424b118022acba486bde861736f4c8f49b38aadc88c60fbf19b31dd61f4",
+      "size": 5297
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/perspectives-ponderer",
       "status": "success",
       "path": "en/resources/prompt-library/perspectives-ponderer.md",
-      "sha256": "f2204e4957c44514f6ce8bd9af240184d15e91f661b3ada539a08f70176d35d2",
-      "size": 6915
+      "sha256": "803139effa12e20fda20ac3ab91cb3f1ac26f38d4fe7f1584d01a1c62816182b",
+      "size": 6886
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/philosophical-musings",
       "status": "success",
       "path": "en/resources/prompt-library/philosophical-musings.md",
-      "sha256": "1afa0d8e635a7190f719379514026d36407142c061c6594a964c06581fa935b8",
-      "size": 9178
+      "sha256": "f3a69942bddbacf58c54c38622d70a701fa534a096864dab73817a76329a268e",
+      "size": 9149
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/pii-purifier",
       "status": "success",
       "path": "en/resources/prompt-library/pii-purifier.md",
-      "sha256": "26b8779d65a6bb631a4eca01251d1bbb87db8dad4ebff855d57f43c89f80714b",
-      "size": 9927
+      "sha256": "ceaa43de11244bfc0e9b65c7fba7f94192be340e1060b7e39ce739ef5db8572e",
+      "size": 9898
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/polyglot-superpowers",
       "status": "success",
       "path": "en/resources/prompt-library/polyglot-superpowers.md",
-      "sha256": "738c8034e68ca597dd1e18092f7011f486c0d5cdc8ffc7ad46cfeb630b2d915b",
-      "size": 8187
+      "sha256": "c12166daa61ba1fcc099fe22544d6919658275cfe5238c8c0624dc3f820ed128",
+      "size": 8158
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/portmanteau-poet",
       "status": "success",
       "path": "en/resources/prompt-library/portmanteau-poet.md",
-      "sha256": "bacfd7b730bf3d4a76040390ecc82a44ed5e5b29f716429f6d837e08641ccf20",
-      "size": 7900
+      "sha256": "5436a8343c31c7262de52580d742e31060adc787289ef24aca53d3c8742ba75c",
+      "size": 7871
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/product-naming-pro",
       "status": "success",
       "path": "en/resources/prompt-library/product-naming-pro.md",
-      "sha256": "565f223d47d679547f0f0b7162fc978f27c031bea0753281c52385e4400db62d",
-      "size": 9702
+      "sha256": "27549b1ad30ea12d9f302debd8766c08d0bb5dd77d3f236f6e0e60f840955e45",
+      "size": 9673
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/prose-polisher",
       "status": "success",
       "path": "en/resources/prompt-library/prose-polisher.md",
-      "sha256": "a4a07e583ff8aa4e3f9cceae450910fe81e95f81495b8cd30b34f77557643353",
-      "size": 21232
+      "sha256": "c22d2e4174ecb2a82f4ff1336a8f55b6eda52443d379b64f5a0c52122256cee1",
+      "size": 21203
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/pun-dit",
       "status": "success",
       "path": "en/resources/prompt-library/pun-dit.md",
-      "sha256": "0deb0947ab11765301fa8d28a7a0181b5c56f29e14a8d8382dff47b140a77b1a",
-      "size": 7538
+      "sha256": "2c7218a1852b962e075996af0fca536a260dbe20555054bc6731745d309bbb7c",
+      "size": 7509
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/python-bug-buster",
       "status": "success",
       "path": "en/resources/prompt-library/python-bug-buster.md",
-      "sha256": "ed522fc95529a63ef66d17c0ac122499a6529e1061204dba51d88c97ce7ddd9c",
-      "size": 8704
+      "sha256": "2251cb7bf894065b8e333d041b1a06afd34561f92a64c1be26792462a8f98d43",
+      "size": 8675
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/review-classifier",
@@ -1506,105 +1506,105 @@
       "url": "https://docs.claude.com/en/resources/prompt-library/riddle-me-this",
       "status": "success",
       "path": "en/resources/prompt-library/riddle-me-this.md",
-      "sha256": "8d99f05f6e901d108f433f1bd71a6f45725bb6fb503b6bbc9dbaa1a4fe2b13ae",
-      "size": 9060
+      "sha256": "4a27d327cc9266d595131e4e9ef50e34289802bc7d4820db735d72ff5b931956",
+      "size": 9031
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/sci-fi-scenario-simulator",
       "status": "success",
       "path": "en/resources/prompt-library/sci-fi-scenario-simulator.md",
-      "sha256": "a76b41e816c18fd71e327b46adfa85d5de377185cb2f3594988cc814f3b37bc7",
-      "size": 9820
+      "sha256": "ef4e45109b8acf4c671145140fc7d21663b661a0036c8a0f47c1451b0fde2f33",
+      "size": 9791
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/second-grade-simplifier",
       "status": "success",
       "path": "en/resources/prompt-library/second-grade-simplifier.md",
-      "sha256": "1cf7a22e6d98f3563cb1fab9c5035d04f5ececfc2beddd3b1b501a6c07605556",
-      "size": 9747
+      "sha256": "2435e35c345a5a7d4ccc295281c34facba5f15ca3bec10878635d150d6459fda",
+      "size": 9718
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/simile-savant",
       "status": "success",
       "path": "en/resources/prompt-library/simile-savant.md",
-      "sha256": "71ae8ede60724dfb22c3a4fd1ea5aacd818d0570449e0db6b99f6d7a414f88c6",
-      "size": 4486
+      "sha256": "611b26f59aef88c5210b96c44c173049ac9c3db932132bc9b1ee33236d72f539",
+      "size": 4457
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/socratic-sage",
       "status": "success",
       "path": "en/resources/prompt-library/socratic-sage.md",
-      "sha256": "39d165b74e353d81c710897e5583410c901d38de9d8d701f1c28b05bfa3a9494",
-      "size": 8151
+      "sha256": "cc087343bc073b87bdebb1a89b6cd53b9e39d18f9b8c1dff6b50a341f38ac1ae",
+      "size": 8122
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/spreadsheet-sorcerer",
       "status": "success",
       "path": "en/resources/prompt-library/spreadsheet-sorcerer.md",
-      "sha256": "48e57505f514062345ddeb8cee947b96df184a3c3fb96ae7e7a84203b1ddfa1b",
-      "size": 10437
+      "sha256": "ba7bd8e338a281672b3b61f17283688e5f315fb0221447739dc04fd55f25397d",
+      "size": 10408
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/sql-sorcerer",
       "status": "success",
       "path": "en/resources/prompt-library/sql-sorcerer.md",
-      "sha256": "019ac38731cb9b11c91a857923e221422ae1651350c41e3796c61548f1a0d611",
-      "size": 20025
+      "sha256": "e8d6950cc14862fe142b6f8eafb13b6a4a2b74fcaf7b10a7e7a64a62a2974a9d",
+      "size": 19996
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/storytelling-sidekick",
       "status": "success",
       "path": "en/resources/prompt-library/storytelling-sidekick.md",
-      "sha256": "387a1cc3c75dd1a93aa7b2985d3746050fe4cb7d1099ed1b2486a0d6cad7a6d8",
-      "size": 9123
+      "sha256": "2f4c95512b075b080d3ab5572932d4416446438b95caf5ee63ff42ae4a73baac",
+      "size": 9094
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/time-travel-consultant",
       "status": "success",
       "path": "en/resources/prompt-library/time-travel-consultant.md",
-      "sha256": "a3aa90a78ba5ed569bfae9703f7c9ad7b11d511071b26762176143331d2fb78a",
-      "size": 10180
+      "sha256": "37ab985312ed12f36317839b74209dd6f4c26f85c34ca7fbb42bb7c21ab9e44a",
+      "size": 10151
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/tongue-twister",
       "status": "success",
       "path": "en/resources/prompt-library/tongue-twister.md",
-      "sha256": "03ac417491daee5cfcc784b77cd2a86da2c20586085f07d597e393b2c642833c",
-      "size": 6448
+      "sha256": "e4e260c9ea4d4bc425453a30841f35d655fc234ddf3fddca7e17cd4b3a038395",
+      "size": 6419
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/trivia-generator",
       "status": "success",
       "path": "en/resources/prompt-library/trivia-generator.md",
-      "sha256": "393dd0063f9518e90e31fc62aa7d84aa0aa255ef50e79be5c5e27a4252a09d20",
-      "size": 8912
+      "sha256": "c5620d8d1f034ac435ec4b065222558ad11522db30c3dd6732916983d2d6e203",
+      "size": 8883
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/tweet-tone-detector",
       "status": "success",
       "path": "en/resources/prompt-library/tweet-tone-detector.md",
-      "sha256": "9666be2d7d7feda9faf94c85020f4df8f5f6a492130b1e52422c6e87f502ed01",
-      "size": 9738
+      "sha256": "7b8213da2ba7d96fe33e971507f7609292cc4bb03b7ccc5f22cec4255a444d9f",
+      "size": 9709
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/vr-fitness-innovator",
       "status": "success",
       "path": "en/resources/prompt-library/vr-fitness-innovator.md",
-      "sha256": "92d92443b4aa0913a2bb880a2d798daf5cd711f0f262f61d354b5e44ff418578",
-      "size": 9636
+      "sha256": "550b5521292d3b25baa0cc15280cb31eea23ff97e9a91f19be381ac50ff12c1d",
+      "size": 9607
     },
     {
       "url": "https://docs.claude.com/en/resources/prompt-library/website-wizard",
       "status": "success",
       "path": "en/resources/prompt-library/website-wizard.md",
-      "sha256": "4c1ab6b6dbebba01cb4293f2d89a699ce00ba7a04dbcd653ea79da9b91384a5d",
-      "size": 28051
+      "sha256": "05c237680a811543dfc672ec4fa0cdd802b8c25a915b8632fa22579223c17f34",
+      "size": 28022
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "baca763a343fe12803a3dc45553e1901ccf2d123a10485272cba91fbbc292e13",
+      "sha256": "d457e3288b9a76521f9a8143f7f059234fc095bddffa2bc49cb57aa0278dfe8b",
       "size": 30033
     },
     {

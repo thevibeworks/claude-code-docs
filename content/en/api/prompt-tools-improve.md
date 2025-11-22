@@ -40,7 +40,7 @@ Build with Claude
       Integrate and scale using our API and SDKs.
     </Card>
 
-    <Card title="Claude Console" icon="computer" href="https://console.anthropic.com">
+    <Card title="Claude Console" icon="computer" href="/">
       Craft and test powerful prompts directly in your browser.
     </Card>
 
