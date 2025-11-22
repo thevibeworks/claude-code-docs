@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.0.49",
+  "version": "2.0.50",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.0.49",
+  "_id": "@anthropic-ai/claude-code@2.0.50",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -65,23 +65,23 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "8ccb365e995da4e6c800bcefe51cf4d072677f16",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.49.tgz",
+    "shasum": "b936cadbe28daafb10dbf25260e2fda2b4adb6f8",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.0.50.tgz",
     "fileCount": 49,
-    "integrity": "sha512-/b017LXSxY+6Epo6p6FRz6vCpuZseFbSLs6V7cObtsciPzR382JqBTsyOM8s9Fom6Se/P3JZGlvxbrE54/bwrQ==",
+    "integrity": "sha512-zT4vSFr3wSY1XuQHTBbtMyxcv87Al25Icrv7ASnpJTgmXR2MoIcs3dyfoQGUzAHnnAymEVSSQxeX+DgnTvOUDg==",
     "signatures": [
       {
-        "sig": "MEYCIQDzPFGqV4KRh/h8sjiAylFOkOCJiJHDMaAmU9zh5M0FOwIhAL5a18iNj+clO9HuM7ozxuLgwE2A+gWNAxDywiFub6RL",
+        "sig": "MEUCIQDGnllH5cHPZYvJZ2H7Bl1OGgZlwSFFgJyCsKKG6nrVdgIgF3I81OXMeTGen6OkpwRWs0isdMAznk3EnAbCJ3BiWaU=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 78945732
+    "unpackedSize": 78972507
   },
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "3f602981b5c0e854a2f6ce19ae17de77969a8ba2",
+  "gitHead": "a3650b67e6dc13bbc24eddfdf009ca8ea98c1fd8",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease use the publish-external.sh script to publish this package.'); process.exit(1); }\""
   },
@@ -95,6 +95,7 @@
   "_nodeVersion": "20.19.5",
   "dependencies": {},
   "_hasShrinkwrap": false,
+  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@img/sharp-linux-arm": "^0.33.5",
     "@img/sharp-linux-x64": "^0.33.5",
@@ -104,7 +105,7 @@
     "@img/sharp-darwin-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.0.49_1763683218513_0.4641798351930013",
+    "tmp": "tmp/claude-code_2.0.50_1763745210129_0.6347435999369919",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
