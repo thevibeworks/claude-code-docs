@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-11-22T12:31:49.254783Z"
+    "fetch_date": "2025-11-24T18:27:43.765860Z"
   },
   "items": [
     {
@@ -1044,8 +1044,8 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "7e9f9ef0f08dedf5dd15fd371f8c059c54d30c06f017604db7d5bf2341cbf5cb",
-      "size": 244863
+      "sha256": "89bbfb1a0ef64b7ffb779110afce373cd6e9e7be382950ca4d1f689be3c4824d",
+      "size": 244906
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",
@@ -1604,7 +1604,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "d457e3288b9a76521f9a8143f7f059234fc095bddffa2bc49cb57aa0278dfe8b",
+      "sha256": "f8aec5a41757cbd99c69c41253f3dcbd138fa047c146393ac84391e421725392",
       "size": 30033
     },
     {
