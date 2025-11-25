@@ -33,7 +33,7 @@ Build with Claude
     </Card>
 
     <Card title="What's new in Claude 4.5" icon="settings" href="/docs/en/about-claude/models/whats-new-claude-4-5">
-      Discover the latest advancements in Claude 4.5 models, including Sonnet 4.5 and Haiku 4.5.
+      Discover the latest advancements in Claude 4.5 models.
     </Card>
 
     <Card title="API reference" icon="code-brackets" href="/docs/en/api/overview">
