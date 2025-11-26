@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-11-26T01:20:50.203698Z"
+    "fetch_date": "2025-11-26T12:38:43.499864Z"
   },
   "items": [
     {
@@ -1044,8 +1044,8 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "b17e122016055d5bbed187e9270876d6ebf456b0a120466afb39192afbe57710",
-      "size": 246964
+      "sha256": "1103a19a2122bea379b3c80d0001644be8b09297805dc4c970adb2340f8ddecf",
+      "size": 248177
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",
@@ -1611,7 +1611,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "262c30787008b9af4740c463d2317493ae06b9093e55b6259788da445956ee57",
+      "sha256": "20b6ac3ea6ed566f457085896410cf5701e064f8ba2169e36b177cdce43fa374",
       "size": 8764
     },
     {
