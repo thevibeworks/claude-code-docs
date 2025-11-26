@@ -3,28 +3,32 @@
   </h2>
   
 
-    <Card title="Claude 3 Model Card" icon="file" href="https://assets.anthropic.com/m/61e7d27f8c8f5919/original/Claude-3-Model-Card.pdf">
-      Detailed documentation of Claude 3 models including latest 3.5 addendum.
+    <Card title="Claude Opus 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-opus-4-5-system-card">
+      Detailed documentation of Claude Opus 4.5.
     </Card>
 
-    <Card title="Claude Sonnet 3.7 System Card" icon="file" href="https://anthropic.com/claude-3-7-sonnet-system-card">
-      System card for Claude Sonnet 3.7 with performance and safety details.
-    </Card>
-
-    <Card title="Claude 4 System Card" icon="file" href="https://www-cdn.anthropic.com/6be99a52cb68eb70eb9572b4cafad13df32ed995.pdf">
-      Detailed documentation of Claude 4 models.
-    </Card>
-
-    <Card title="Claude Opus 4.1 System Card" icon="file" href="http://www.anthropic.com/claude-opus-4-1-system-card">
-      Detailed documentation of Claude Opus 4.1.
+    <Card title="Claude Haiku 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-haiku-4-5-system-card">
+      Detailed documentation of Claude Haiku 4.5.
     </Card>
 
     <Card title="Claude Sonnet 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-sonnet-4-5-system-card">
       Detailed documentation of Claude Sonnet 4.5.
     </Card>
 
-    <Card title="Claude Haiku 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-haiku-4-5-system-card">
-      Detailed documentation of Claude Haiku 4.5.
+    <Card title="Claude Opus 4.1 System Card" icon="file" href="http://www.anthropic.com/claude-opus-4-1-system-card">
+      Detailed documentation of Claude Opus 4.1.
+    </Card>
+
+    <Card title="Claude 4 System Card" icon="file" href="https://www-cdn.anthropic.com/6be99a52cb68eb70eb9572b4cafad13df32ed995.pdf">
+      Detailed documentation of Claude 4 models.
+    </Card>
+
+    <Card title="Claude Sonnet 3.7 System Card" icon="file" href="https://anthropic.com/claude-3-7-sonnet-system-card">
+      System card for Claude Sonnet 3.7 with performance and safety details.
+    </Card>
+
+    <Card title="Claude 3 Model Card" icon="file" href="https://assets.anthropic.com/m/61e7d27f8c8f5919/original/Claude-3-Model-Card.pdf">
+      Detailed documentation of Claude 3 models including latest 3.5 addendum.
     </Card>
 
   

@@ -11,7 +11,8 @@ Extended thinking is supported in the following models:
 - Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
 - Claude Sonnet 4 (`claude-sonnet-4-20250514`)
 - Claude Sonnet 3.7 (`claude-3-7-sonnet-20250219`) ([deprecated](/docs/en/about-claude/model-deprecations))
-- Claude Haiku 4.5 (`claude-haiku-4-5-20251001`) 
+- Claude Haiku 4.5 (`claude-haiku-4-5-20251001`)
+- Claude Opus 4.5 (`claude-opus-4-5-20251101`)
 - Claude Opus 4.1 (`claude-opus-4-1-20250805`)
 - Claude Opus 4 (`claude-opus-4-20250514`)
 
@@ -832,771 +833,53 @@ Here are some important considerations for interleaved thinking:
 - Interleaved thinking is only supported for [tools used via the Messages API](/docs/en/agents-and-tools/tool-use/overview).
 - Interleaved thinking is supported for Claude 4 models only, with the beta header `interleaved-thinking-2025-05-14`.
 - Direct calls to the Claude API allow you to pass `interleaved-thinking-2025-05-14` in requests to any model, with no effect.
-- On 3rd-party platforms (e.g., [Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock) and [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)), if you pass `interleaved-thinking-2025-05-14` to any model aside from Claude Opus 4.1, Opus 4, or Sonnet 4, your request will fail.
+- On 3rd-party platforms (e.g., [Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock) and [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)), if you pass `interleaved-thinking-2025-05-14` to any model aside from Claude Opus 4.5, Claude Opus 4.1, Opus 4, or Sonnet 4, your request will fail.
 
 <section title="Tool use without interleaved thinking">
 
-<CodeGroup>
-```python Python
-import anthropic
+Without interleaved thinking, Claude thinks once at the start of the assistant turn. Subsequent responses after tool results continue without new thinking blocks.
 
-client = anthropic.Anthropic()
-
-# Define tools
-calculator_tool = {
-    "name": "calculator",
-    "description": "Perform mathematical calculations",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "expression": {
-                "type": "string",
-                "description": "Mathematical expression to evaluate"
-            }
-        },
-        "required": ["expression"]
-    }
-}
-
-database_tool = {
-    "name": "database_query",
-    "description": "Query product database",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "query": {
-                "type": "string",
-                "description": "SQL query to execute"
-            }
-        },
-        "required": ["query"]
-    }
-}
-
-# First request - Claude thinks once before all tool calls
-response = client.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=16000,
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 10000
-    },
-    tools=[calculator_tool, database_tool],
-    messages=[{
-        "role": "user",
-        "content": "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-    }]
-)
-
-# Response includes thinking followed by tool uses
-# Note: Claude thinks once at the beginning, then makes all tool decisions
-print("First response:")
-for block in response.content:
-    if block.type == "thinking":
-        print(f"Thinking (summarized): {block.thinking}")
-    elif block.type == "tool_use":
-        print(f"Tool use: {block.name} with input {block.input}")
-    elif block.type == "text":
-        print(f"Text: {block.text}")
-
-# You would execute the tools and return results...
-# After getting both tool results back, Claude directly responds without additional thinking
 ```
+User: "What's the total revenue if we sold 150 units at $50 each,
+       and how does this compare to our average monthly revenue?"
 
-```typescript TypeScript
-import Anthropic from '@anthropic-ai/sdk';
+Turn 1: [thinking] "I need to calculate 150 * $50, then check the database..."
+        [tool_use: calculator] { "expression": "150 * 50" }
+  ↓ tool result: "7500"
 
-const client = new Anthropic();
+Turn 2: [tool_use: database_query] { "query": "SELECT AVG(revenue)..." }
+        ↑ no thinking block
+  ↓ tool result: "5200"
 
-// Define tools
-const calculatorTool = {
-  name: "calculator",
-  description: "Perform mathematical calculations",
-  input_schema: {
-    type: "object",
-    properties: {
-      expression: {
-        type: "string",
-        description: "Mathematical expression to evaluate"
-      }
-    },
-    required: ["expression"]
-  }
-};
-
-const databaseTool = {
-  name: "database_query",
-  description: "Query product database",
-  input_schema: {
-    type: "object",
-    properties: {
-      query: {
-        type: "string",
-        description: "SQL query to execute"
-      }
-    },
-    required: ["query"]
-  }
-};
-
-// First request - Claude thinks once before all tool calls
-const response = await client.messages.create({
-  model: "claude-sonnet-4-5",
-  max_tokens: 16000,
-  thinking: {
-    type: "enabled",
-    budget_tokens: 10000
-  },
-  tools: [calculatorTool, databaseTool],
-  messages: [{
-    role: "user",
-    content: "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-  }]
-});
-
-// Response includes thinking followed by tool uses
-// Note: Claude thinks once at the beginning, then makes all tool decisions
-console.log("First response:");
-for (const block of response.content) {
-  if (block.type === "thinking") {
-    console.log(`Thinking (summarized): ${block.thinking}`);
-  } else if (block.type === "tool_use") {
-    console.log(`Tool use: ${block.name} with input ${JSON.stringify(block.input)}`);
-  } else if (block.type === "text") {
-    console.log(`Text: ${block.text}`);
-  }
-}
-
-// You would execute the tools and return results...
-// After getting both tool results back, Claude directly responds without additional thinking
+Turn 3: [text] "The total revenue is $7,500, which is 44% above your
+        average monthly revenue of $5,200."
+        ↑ no thinking block
 ```
-
-```java Java
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.core.JsonValue;
-import com.anthropic.models.beta.messages.*;
-import com.anthropic.models.messages.Model;
-import java.util.List;
-import java.util.Map;
-
-public class NonInterleavedThinkingExample {
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        // Define calculator tool
-        BetaTool.InputSchema calculatorSchema = BetaTool.InputSchema.builder()
-                .properties(JsonValue.from(Map.of(
-                        "expression", Map.of(
-                                "type", "string",
-                                "description", "Mathematical expression to evaluate"
-                        )
-                )))
-                .putAdditionalProperty("required", JsonValue.from(List.of("expression")))
-                .build();
-
-        BetaTool calculatorTool = BetaTool.builder()
-                .name("calculator")
-                .description("Perform mathematical calculations")
-                .inputSchema(calculatorSchema)
-                .build();
-
-        // Define database tool
-        BetaTool.InputSchema databaseSchema = BetaTool.InputSchema.builder()
-                .properties(JsonValue.from(Map.of(
-                        "query", Map.of(
-                                "type", "string",
-                                "description", "SQL query to execute"
-                        )
-                )))
-                .putAdditionalProperty("required", JsonValue.from(List.of("query")))
-                .build();
-
-        BetaTool databaseTool = BetaTool.builder()
-                .name("database_query")
-                .description("Query product database")
-                .inputSchema(databaseSchema)
-                .build();
-
-        // First request - Claude thinks once before all tool calls
-        BetaMessage response = client.beta().messages().create(
-                MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_4_0)
-                        .maxTokens(16000)
-                        .thinking(BetaThinkingConfigEnabled.builder()
-                                .budgetTokens(10000)
-                                .build())
-                        .addTool(calculatorTool)
-                        .addTool(databaseTool)
-                        .addUserMessage("What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?")
-                        .build()
-        );
-
-        // Response includes thinking followed by tool uses
-        // Note: Claude thinks once at the beginning, then makes all tool decisions
-        System.out.println("First response:");
-        for (BetaContentBlock block : response.content()) {
-            if (block.isThinking()) {
-                System.out.println("Thinking (summarized): " + block.asThinking().thinking());
-            } else if (block.isToolUse()) {
-                BetaToolUseBlock toolUse = block.asToolUse();
-                System.out.println("Tool use: " + toolUse.name() + " with input " + toolUse.input());
-            } else if (block.isText()) {
-                System.out.println("Text: " + block.asText().text());
-            }
-        }
-
-        // You would execute the tools and return results...
-        // After getting both tool results back, Claude directly responds without additional thinking
-    }
-}
-```
-</CodeGroup>
-
-In this example without interleaved thinking:
-1. Claude thinks once at the beginning to understand the task
-2. Makes all tool use decisions upfront
-3. When tool results are returned, Claude immediately provides a response without additional thinking
 
 </section>
 
 <section title="Tool use with interleaved thinking">
 
-<CodeGroup>
-```python Python
-import anthropic
+With interleaved thinking enabled, Claude can think after receiving each tool result, allowing it to reason about intermediate results before continuing.
 
-client = anthropic.Anthropic()
-
-# Same tool definitions as before
-calculator_tool = {
-    "name": "calculator",
-    "description": "Perform mathematical calculations",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "expression": {
-                "type": "string",
-                "description": "Mathematical expression to evaluate"
-            }
-        },
-        "required": ["expression"]
-    }
-}
-
-database_tool = {
-    "name": "database_query",
-    "description": "Query product database",
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "query": {
-                "type": "string",
-                "description": "SQL query to execute"
-            }
-        },
-        "required": ["query"]
-    }
-}
-
-# First request with interleaved thinking enabled
-response = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=16000,
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 10000
-    },
-    tools=[calculator_tool, database_tool],
-    betas=["interleaved-thinking-2025-05-14"],
-    messages=[{
-        "role": "user",
-        "content": "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-    }]
-)
-
-print("Initial response:")
-thinking_blocks = []
-tool_use_blocks = []
-
-for block in response.content:
-    if block.type == "thinking":
-        thinking_blocks.append(block)
-        print(f"Thinking: {block.thinking}")
-    elif block.type == "tool_use":
-        tool_use_blocks.append(block)
-        print(f"Tool use: {block.name} with input {block.input}")
-    elif block.type == "text":
-        print(f"Text: {block.text}")
-
-# First tool result (calculator)
-calculator_result = "7500"  # 150 * 50
-
-# Continue with first tool result
-response2 = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=16000,
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 10000
-    },
-    tools=[calculator_tool, database_tool],
-    betas=["interleaved-thinking-2025-05-14"],
-    messages=[
-        {
-            "role": "user",
-            "content": "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-        },
-        {
-            "role": "assistant",
-            "content": [thinking_blocks[0], tool_use_blocks[0]]
-        },
-        {
-            "role": "user",
-            "content": [{
-                "type": "tool_result",
-                "tool_use_id": tool_use_blocks[0].id,
-                "content": calculator_result
-            }]
-        }
-    ]
-)
-
-print("\nAfter calculator result:")
-# With interleaved thinking, Claude can think about the calculator result
-# before deciding to query the database
-for block in response2.content:
-    if block.type == "thinking":
-        thinking_blocks.append(block)
-        print(f"Interleaved thinking: {block.thinking}")
-    elif block.type == "tool_use":
-        tool_use_blocks.append(block)
-        print(f"Tool use: {block.name} with input {block.input}")
-
-# Second tool result (database)
-database_result = "5200"  # Example average monthly revenue
-
-# Continue with second tool result
-response3 = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=16000,
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 10000
-    },
-    tools=[calculator_tool, database_tool],
-    betas=["interleaved-thinking-2025-05-14"],
-    messages=[
-        {
-            "role": "user",
-            "content": "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-        },
-        {
-            "role": "assistant",
-            "content": [thinking_blocks[0], tool_use_blocks[0]]
-        },
-        {
-            "role": "user",
-            "content": [{
-                "type": "tool_result",
-                "tool_use_id": tool_use_blocks[0].id,
-                "content": calculator_result
-            }]
-        },
-        {
-            "role": "assistant",
-            "content": thinking_blocks[1:] + tool_use_blocks[1:]
-        },
-        {
-            "role": "user",
-            "content": [{
-                "type": "tool_result",
-                "tool_use_id": tool_use_blocks[1].id,
-                "content": database_result
-            }]
-        }
-    ]
-)
-
-print("\nAfter database result:")
-# With interleaved thinking, Claude can think about both results
-# before formulating the final response
-for block in response3.content:
-    if block.type == "thinking":
-        print(f"Final thinking: {block.thinking}")
-    elif block.type == "text":
-        print(f"Final response: {block.text}")
 ```
+User: "What's the total revenue if we sold 150 units at $50 each,
+       and how does this compare to our average monthly revenue?"
 
-```typescript TypeScript
-import Anthropic from '@anthropic-ai/sdk';
+Turn 1: [thinking] "I need to calculate 150 * $50 first..."
+        [tool_use: calculator] { "expression": "150 * 50" }
+  ↓ tool result: "7500"
 
-const client = new Anthropic();
+Turn 2: [thinking] "Got $7,500. Now I should query the database to compare..."
+        [tool_use: database_query] { "query": "SELECT AVG(revenue)..." }
+        ↑ thinking after receiving calculator result
+  ↓ tool result: "5200"
 
-// Same tool definitions as before
-const calculatorTool = {
-  name: "calculator",
-  description: "Perform mathematical calculations",
-  input_schema: {
-    type: "object",
-    properties: {
-      expression: {
-        type: "string",
-        description: "Mathematical expression to evaluate"
-      }
-    },
-    required: ["expression"]
-  }
-};
-
-const databaseTool = {
-  name: "database_query",
-  description: "Query product database",
-  input_schema: {
-    type: "object",
-    properties: {
-      query: {
-        type: "string",
-        description: "SQL query to execute"
-      }
-    },
-    required: ["query"]
-  }
-};
-
-// First request with interleaved thinking enabled
-const response = await client.beta.messages.create({
-  // Enable interleaved thinking
-  betas: ["interleaved-thinking-2025-05-14"],
-  model: "claude-sonnet-4-5",
-  max_tokens: 16000,
-  thinking: {
-    type: "enabled",
-    budget_tokens: 10000
-  },
-  tools: [calculatorTool, databaseTool],
-  messages: [{
-    role: "user",
-    content: "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-  }]
-});
-
-console.log("Initial response:");
-const thinkingBlocks = [];
-const toolUseBlocks = [];
-
-for (const block of response.content) {
-  if (block.type === "thinking") {
-    thinkingBlocks.push(block);
-    console.log(`Thinking: ${block.thinking}`);
-  } else if (block.type === "tool_use") {
-    toolUseBlocks.push(block);
-    console.log(`Tool use: ${block.name} with input ${JSON.stringify(block.input)}`);
-  } else if (block.type === "text") {
-    console.log(`Text: ${block.text}`);
-  }
-}
-
-// First tool result (calculator)
-const calculatorResult = "7500"; // 150 * 50
-
-// Continue with first tool result
-const response2 = await client.beta.messages.create({
-  betas: ["interleaved-thinking-2025-05-14"],
-  model: "claude-sonnet-4-5",
-  max_tokens: 16000,
-  thinking: {
-    type: "enabled",
-    budget_tokens: 10000
-  },
-  tools: [calculatorTool, databaseTool],
-  messages: [
-    {
-      role: "user",
-      content: "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-    },
-    {
-      role: "assistant",
-      content: [thinkingBlocks[0], toolUseBlocks[0]]
-    },
-    {
-      role: "user",
-      content: [{
-        type: "tool_result",
-        tool_use_id: toolUseBlocks[0].id,
-        content: calculatorResult
-      }]
-    }
-  ]
-});
-
-console.log("\nAfter calculator result:");
-// With interleaved thinking, Claude can think about the calculator result
-// before deciding to query the database
-for (const block of response2.content) {
-  if (block.type === "thinking") {
-    thinkingBlocks.push(block);
-    console.log(`Interleaved thinking: ${block.thinking}`);
-  } else if (block.type === "tool_use") {
-    toolUseBlocks.push(block);
-    console.log(`Tool use: ${block.name} with input ${JSON.stringify(block.input)}`);
-  }
-}
-
-// Second tool result (database)
-const databaseResult = "5200"; // Example average monthly revenue
-
-// Continue with second tool result
-const response3 = await client.beta.messages.create({
-  betas: ["interleaved-thinking-2025-05-14"],
-  model: "claude-sonnet-4-5",
-  max_tokens: 16000,
-  thinking: {
-    type: "enabled",
-    budget_tokens: 10000
-  },
-  tools: [calculatorTool, databaseTool],
-  messages: [
-    {
-      role: "user",
-      content: "What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?"
-    },
-    {
-      role: "assistant",
-      content: [thinkingBlocks[0], toolUseBlocks[0]]
-    },
-    {
-      role: "user",
-      content: [{
-        type: "tool_result",
-        tool_use_id: toolUseBlocks[0].id,
-        content: calculatorResult
-      }]
-    },
-    {
-      role: "assistant",
-      content: thinkingBlocks.slice(1).concat(toolUseBlocks.slice(1))
-    },
-    {
-      role: "user",
-      content: [{
-        type: "tool_result",
-        tool_use_id: toolUseBlocks[1].id,
-        content: databaseResult
-      }]
-    }
-  ]
-});
-
-console.log("\nAfter database result:");
-// With interleaved thinking, Claude can think about both results
-// before formulating the final response
-for (const block of response3.content) {
-  if (block.type === "thinking") {
-    console.log(`Final thinking: ${block.thinking}`);
-  } else if (block.type === "text") {
-    console.log(`Final response: ${block.text}`);
-  }
-}
+Turn 3: [thinking] "$7,500 vs $5,200 average - that's a 44% increase..."
+        [text] "The total revenue is $7,500, which is 44% above your
+        average monthly revenue of $5,200."
+        ↑ thinking before final answer
 ```
-
-```java Java
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.core.JsonValue;
-import com.anthropic.models.beta.messages.*;
-import com.anthropic.models.messages.Model;
-import java.util.*;
-import static java.util.stream.Collectors.toList;
-
-public class InterleavedThinkingExample {
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        // Define calculator tool
-        BetaTool.InputSchema calculatorSchema = BetaTool.InputSchema.builder()
-                .properties(JsonValue.from(Map.of(
-                        "expression", Map.of(
-                                "type", "string",
-                                "description", "Mathematical expression to evaluate"
-                        )
-                )))
-                .putAdditionalProperty("required", JsonValue.from(List.of("expression")))
-                .build();
-
-        BetaTool calculatorTool = BetaTool.builder()
-                .name("calculator")
-                .description("Perform mathematical calculations")
-                .inputSchema(calculatorSchema)
-                .build();
-
-        // Define database tool
-        BetaTool.InputSchema databaseSchema = BetaTool.InputSchema.builder()
-                .properties(JsonValue.from(Map.of(
-                        "query", Map.of(
-                                "type", "string",
-                                "description", "SQL query to execute"
-                        )
-                )))
-                .putAdditionalProperty("required", JsonValue.from(List.of("query")))
-                .build();
-
-        BetaTool databaseTool = BetaTool.builder()
-                .name("database_query")
-                .description("Query product database")
-                .inputSchema(databaseSchema)
-                .build();
-
-        // First request with interleaved thinking enabled
-        BetaMessage response = client.beta().messages().create(
-                MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_4_0)
-                        .maxTokens(16000)
-                        .thinking(BetaThinkingConfigEnabled.builder()
-                                .budgetTokens(10000)
-                                .build())
-                        .addTool(calculatorTool)
-                        .addTool(databaseTool)
-                        // Enable interleaved thinking with beta header
-                        .putAdditionalHeader("anthropic-beta", "interleaved-thinking-2025-05-14")
-                        .addUserMessage("What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?")
-                        .build()
-        );
-
-        System.out.println("Initial response:");
-        List<BetaThinkingBlock> thinkingBlocks = new ArrayList<>();
-        List<BetaToolUseBlock> toolUseBlocks = new ArrayList<>();
-
-        for (BetaContentBlock block : response.content()) {
-            if (block.isThinking()) {
-                BetaThinkingBlock thinking = block.asThinking();
-                thinkingBlocks.add(thinking);
-                System.out.println("Thinking: " + thinking.thinking());
-            } else if (block.isToolUse()) {
-                BetaToolUseBlock toolUse = block.asToolUse();
-                toolUseBlocks.add(toolUse);
-                System.out.println("Tool use: " + toolUse.name() + " with input " + toolUse.input());
-            } else if (block.isText()) {
-                System.out.println("Text: " + block.asText().text());
-            }
-        }
-
-        // First tool result (calculator)
-        String calculatorResult = "7500"; // 150 * 50
-
-        // Continue with first tool result
-        BetaMessage response2 = client.beta().messages().create(
-                MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_4_0)
-                        .maxTokens(16000)
-                        .thinking(BetaThinkingConfigEnabled.builder()
-                                .budgetTokens(10000)
-                                .build())
-                        .addTool(calculatorTool)
-                        .addTool(databaseTool)
-                        .putAdditionalHeader("anthropic-beta", "interleaved-thinking-2025-05-14")
-                        .addUserMessage("What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?")
-                        .addAssistantMessageOfBetaContentBlockParams(List.of(
-                                BetaContentBlockParam.ofThinking(thinkingBlocks.get(0).toParam()),
-                                BetaContentBlockParam.ofToolUse(toolUseBlocks.get(0).toParam())
-                        ))
-                        .addUserMessageOfBetaContentBlockParams(List.of(
-                                BetaContentBlockParam.ofToolResult(
-                                        BetaToolResultBlockParam.builder()
-                                                .toolUseId(toolUseBlocks.get(0).id())
-                                                .content(calculatorResult)
-                                                .build()
-                                )
-                        ))
-                        .build()
-        );
-
-        System.out.println("\nAfter calculator result:");
-        // With interleaved thinking, Claude can think about the calculator result
-        // before deciding to query the database
-        for (BetaContentBlock block : response2.content()) {
-            if (block.isThinking()) {
-                BetaThinkingBlock thinking = block.asThinking();
-                thinkingBlocks.add(thinking);
-                System.out.println("Interleaved thinking: " + thinking.thinking());
-            } else if (block.isToolUse()) {
-                BetaToolUseBlock toolUse = block.asToolUse();
-                toolUseBlocks.add(toolUse);
-                System.out.println("Tool use: " + toolUse.name() + " with input " + toolUse.input());
-            }
-        }
-
-        // Second tool result (database)
-        String databaseResult = "5200"; // Example average monthly revenue
-
-        // Prepare combined content for assistant message
-        List<BetaContentBlockParam> combinedContent = new ArrayList<>();
-        for (int i = 1; i < thinkingBlocks.size(); i++) {
-            combinedContent.add(BetaContentBlockParam.ofThinking(thinkingBlocks.get(i).toParam()));
-        }
-        for (int i = 1; i < toolUseBlocks.size(); i++) {
-            combinedContent.add(BetaContentBlockParam.ofToolUse(toolUseBlocks.get(i).toParam()));
-        }
-
-        // Continue with second tool result
-        BetaMessage response3 = client.beta().messages().create(
-                MessageCreateParams.builder()
-                        .model(Model.CLAUDE_OPUS_4_0)
-                        .maxTokens(16000)
-                        .thinking(BetaThinkingConfigEnabled.builder()
-                                .budgetTokens(10000)
-                                .build())
-                        .addTool(calculatorTool)
-                        .addTool(databaseTool)
-                        .putAdditionalHeader("anthropic-beta", "interleaved-thinking-2025-05-14")
-                        .addUserMessage("What's the total revenue if we sold 150 units of product A at $50 each, and how does this compare to our average monthly revenue from the database?")
-                        .addAssistantMessageOfBetaContentBlockParams(List.of(
-                                BetaContentBlockParam.ofThinking(thinkingBlocks.get(0).toParam()),
-                                BetaContentBlockParam.ofToolUse(toolUseBlocks.get(0).toParam())
-                        ))
-                        .addUserMessageOfBetaContentBlockParams(List.of(
-                                BetaContentBlockParam.ofToolResult(
-                                        BetaToolResultBlockParam.builder()
-                                                .toolUseId(toolUseBlocks.get(0).id())
-                                                .content(calculatorResult)
-                                                .build()
-                                )
-                        ))
-                        .addAssistantMessageOfBetaContentBlockParams(combinedContent)
-                        .addUserMessageOfBetaContentBlockParams(List.of(
-                                BetaContentBlockParam.ofToolResult(
-                                        BetaToolResultBlockParam.builder()
-                                                .toolUseId(toolUseBlocks.get(1).id())
-                                                .content(databaseResult)
-                                                .build()
-                                )
-                        ))
-                        .build()
-        );
-
-        System.out.println("\nAfter database result:");
-        // With interleaved thinking, Claude can think about both results
-        // before formulating the final response
-        for (BetaContentBlock block : response3.content()) {
-            if (block.isThinking()) {
-                System.out.println("Final thinking: " + block.asThinking().thinking());
-            } else if (block.isText()) {
-                System.out.println("Final response: " + block.asText().text());
-            }
-        }
-    }
-}
-```
-</CodeGroup>
-
-In this example with interleaved thinking:
-1. Claude thinks about the task initially
-2. After receiving the calculator result, Claude can think again about what that result means
-3. Claude then decides how to query the database based on the first result
-4. After receiving the database result, Claude thinks once more about both results before formulating a final response
-5. The thinking budget is distributed across all thinking blocks within the turn
-
-This pattern allows for more sophisticated reasoning chains where each tool's output informs the next decision.
 
 </section>
 
@@ -1659,18 +942,18 @@ Request 2 writes a cache of the request content (not the response). The cache in
 
 **Request 3:**
 ```
-User: ["What's the weather in Paris?"], 
-Assistant: [thinking_block_1] + [tool_use block 1], 
-User: [tool_result_1, cache=True], 
-Assistant: [thinking_block_2] + [text block 2], 
+User: ["What's the weather in Paris?"],
+Assistant: [thinking_block_1] + [tool_use block 1],
+User: [tool_result_1, cache=True],
+Assistant: [thinking_block_2] + [text block 2],
 User: [Text response, cache=True]
 ```
-Because a non-tool-result user block was included, all previous thinking blocks are ignored. This request will be processed the same as:
+For Claude Opus 4.5 and later, all previous thinking blocks are kept by default. For older models, because a non-tool-result user block was included, all previous thinking blocks are ignored. This request will be processed the same as:
 ```
-User: ["What's the weather in Paris?"], 
-Assistant: [tool_use block 1], 
-User: [tool_result_1, cache=True], 
-Assistant: [text block 2], 
+User: ["What's the weather in Paris?"],
+Assistant: [tool_use block 1],
+User: [tool_result_1, cache=True],
+Assistant: [text block 2],
 User: [Text response, cache=True]
 ```
 
@@ -2600,22 +1883,34 @@ The Messages API handles thinking differently across Claude Sonnet 3.7 and Claud
 
 See the table below for a condensed comparison:
 
-| Feature | Claude Sonnet 3.7 | Claude 4 Models |
-|---------|------------------|----------------|
-| **Thinking Output** | Returns full thinking output | Returns summarized thinking |
-| **Interleaved Thinking** | Not supported | Supported with `interleaved-thinking-2025-05-14` beta header |
+| Feature | Claude Sonnet 3.7 | Claude 4 Models (pre-Opus 4.5) | Claude Opus 4.5 and later |
+|---------|------------------|-------------------------------|--------------------------|
+| **Thinking Output** | Returns full thinking output | Returns summarized thinking | Returns summarized thinking |
+| **Interleaved Thinking** | Not supported | Supported with `interleaved-thinking-2025-05-14` beta header | Supported with `interleaved-thinking-2025-05-14` beta header |
+| **Thinking Block Preservation** | Not preserved across turns | Not preserved across turns | **Preserved by default** (enables cache optimization, token savings) |
+
+### Thinking block preservation in Claude Opus 4.5
+
+Claude Opus 4.5 introduces a new default behavior: **thinking blocks from previous assistant turns are preserved in model context by default**. This differs from earlier models, which remove thinking blocks from prior turns.
+
+**Benefits of thinking block preservation:**
+
+- **Cache optimization**: When using tool use, preserved thinking blocks enable cache hits as they are passed back with tool results and cached incrementally across the assistant turn, resulting in token savings in multi-step workflows
+- **No intelligence impact**: Preserving thinking blocks has no negative effect on model performance
+
+**Important considerations:**
+
+- **Context usage**: Long conversations will consume more context space since thinking blocks are retained in context
+- **Automatic behavior**: This is the default behavior for Claude Opus 4.5—no code changes or beta headers required
+- **Backward compatibility**: To leverage this feature, continue passing complete, unmodified thinking blocks back to the API as you would for tool use
+
+<Note>
+For earlier models (Claude Sonnet 4.5, Opus 4.1, etc.), thinking blocks from previous turns continue to be removed from context. The existing behavior described in the [Extended thinking with prompt caching](#extended-thinking-with-prompt-caching) section applies to those models.
+</Note>
 
 ## Pricing
 
-Extended thinking uses the standard token pricing scheme:
-
-| Model             | Base Input Tokens | Cache Writes  | Cache Hits    | Output Tokens |
-|-------------------|-------------------|---------------|---------------|---------------|
-| Claude Opus 4.1     | $15 / MTok        | $18.75 / MTok | $1.50 / MTok  | $75 / MTok    |
-| Claude Opus 4     | $15 / MTok        | $18.75 / MTok | $1.50 / MTok  | $75 / MTok    |
-| Claude Sonnet 4.5   | $3 / MTok         | $3.75 / MTok  | $0.30 / MTok  | $15 / MTok    |
-| Claude Sonnet 4   | $3 / MTok         | $3.75 / MTok  | $0.30 / MTok  | $15 / MTok    |
-| Claude Sonnet 3.7 | $3 / MTok         | $3.75 / MTok  | $0.30 / MTok  | $15 / MTok    |
+For complete pricing information including base rates, cache writes, cache hits, and output tokens, see the [pricing page](/docs/en/about-claude/pricing).
 
 The thinking process incurs charges for:
 - Tokens used during thinking (output tokens)
