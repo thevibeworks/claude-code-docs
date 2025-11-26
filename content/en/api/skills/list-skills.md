@@ -1,6 +1,6 @@
 ## List
 
-**get** `/v1/skills?beta=true`
+**get** `/v1/skills`
 
 List Skills
 
@@ -35,7 +35,7 @@ List Skills
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 15 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -56,6 +56,8 @@ List Skills
     - `"files-api-2025-04-14"`
 
     - `"mcp-client-2025-04-04"`
+
+    - `"mcp-client-2025-11-20"`
 
     - `"dev-full-thinking-2025-05-14"`
 
@@ -135,6 +137,6 @@ List Skills
 ### Example
 
 ```http
-curl https://api.anthropic.com/v1/skills?beta=true \
+curl https://api.anthropic.com/v1/skills \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```

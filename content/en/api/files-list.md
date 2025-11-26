@@ -1,6 +1,6 @@
 ## List
 
-**get** `/v1/files?beta=true`
+**get** `/v1/files`
 
 List Files
 
@@ -28,7 +28,7 @@ List Files
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 15 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -49,6 +49,8 @@ List Files
     - `"files-api-2025-04-14"`
 
     - `"mcp-client-2025-04-04"`
+
+    - `"mcp-client-2025-11-20"`
 
     - `"dev-full-thinking-2025-05-14"`
 
@@ -121,6 +123,6 @@ List Files
 ### Example
 
 ```http
-curl https://api.anthropic.com/v1/files?beta=true \
+curl https://api.anthropic.com/v1/files \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
