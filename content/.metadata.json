@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-11-26T01:20:50.203698Z"
+    "fetch_date": "2025-11-26T18:22:56.545748Z"
   },
   "items": [
     {
@@ -708,8 +708,8 @@
       "url": "https://docs.claude.com/en/docs/agents-and-tools/tool-use/fine-grained-tool-streaming",
       "status": "success",
       "path": "en/docs/agents-and-tools/tool-use/fine-grained-tool-streaming.md",
-      "sha256": "c15a52e0543d127093e46a1bab54d5ac80d1fb2347d15f0f02b68b903d6e20b3",
-      "size": 6183
+      "sha256": "59f78994e86fa332869e77e701e2bf34f1dffbe0a562f0424e90bf3ee0c02f6b",
+      "size": 6307
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/tool-use/implement-tool-use",
@@ -757,8 +757,8 @@
       "url": "https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool",
       "status": "success",
       "path": "en/docs/agents-and-tools/tool-use/web-search-tool.md",
-      "sha256": "2f3afe9e3792a89557cdc61b372aeb12fcd899b9c6782811bf062d376e9ea5e4",
-      "size": 13440
+      "sha256": "fbb6903d51fc6421ddd27f7e02fb89c60cde2bbbfc6f3bf73da7e3663c59979b",
+      "size": 13441
     },
     {
       "url": "https://docs.claude.com/en/docs/build-with-claude/administration-api",
@@ -1044,8 +1044,8 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "b17e122016055d5bbed187e9270876d6ebf456b0a120466afb39192afbe57710",
-      "size": 246964
+      "sha256": "5004bfcb477f75d2b70902b83600c8a55e3a27ddcc5660e3090eee781bab9767",
+      "size": 248419
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",

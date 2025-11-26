@@ -3,9 +3,7 @@
 ## 2.0.54
 
 - Hooks: Enable PermissionRequest hooks to process 'always allow' suggestions and apply permission updates
-- VSCode Extension: Added support for VSCode's secondary sidebar (VSCode 1.97+), allowing Claude Code to be displayed on the right sidebar while keeping the file explorer on the left. Requires setting "sidebar" as "Preferred Location" in the config.
-- VSCode Extension: Added "Preferred Location" setting to configure where Claude opens by default (sidebar or panel)
-- VSCode Extension: Added keyboard shortcut (Cmd+N / Ctrl+N) to start new conversations
+- Fix issue with excessive iTerm notifications
 
 ## 2.0.52
 
