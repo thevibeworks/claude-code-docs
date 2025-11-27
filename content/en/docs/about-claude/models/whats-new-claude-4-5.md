@@ -4,9 +4,9 @@
 
 Claude 4.5 introduces three models designed for different use cases:
 
-- **Claude Opus 4.5**: Our most intelligent model combining maximum capability with practical performance. Ideal for complex specialized tasks, professional software engineering, and advanced agents. Features a more accessible price point than previous Opus models
-- **Claude Sonnet 4.5**: Our best model for complex agents and coding, with the highest intelligence across most tasks
-- **Claude Haiku 4.5**: Our fastest and most intelligent Haiku model with near-frontier performance. The first Haiku model with extended thinking
+- **Claude Opus 4.5**: Our most intelligent model combining maximum capability with practical performance. Features a more accessible price point than previous Opus models. Available with a 200k token context window.
+- **Claude Sonnet 4.5**: Our best model for complex agents and coding, with the highest intelligence across most tasks. Available with a 200k and 1M (beta) token context window.
+- **Claude Haiku 4.5**: Our fastest and most intelligent Haiku model with near-frontier performance. Available with a 200k token context window.
 
 ## Key improvements in Opus 4.5 over Opus 4.1
 
