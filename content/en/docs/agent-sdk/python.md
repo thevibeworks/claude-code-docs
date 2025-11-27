@@ -992,6 +992,7 @@ Configuration for matching hooks to specific events or tools.
 class HookMatcher:
     matcher: str | None = None        # Tool name or pattern to match (e.g., "Bash", "Write|Edit")
     hooks: list[HookCallback] = field(default_factory=list)  # List of callbacks to execute
+    timeout: float | None = None        # Timeout in seconds for all hooks in this matcher (default: 60)
 ```
 
 ### Hook Usage Example
@@ -1030,8 +1031,8 @@ async def log_tool_use(
 options = ClaudeAgentOptions(
     hooks={
         'PreToolUse': [
-            HookMatcher(matcher='Bash', hooks=[validate_bash_command]),
-            HookMatcher(hooks=[log_tool_use])  # Applies to all tools
+            HookMatcher(matcher='Bash', hooks=[validate_bash_command], timeout=120),  # 2 min for validation
+            HookMatcher(hooks=[log_tool_use])  # Applies to all tools (default 60s timeout)
         ],
         'PostToolUse': [
             HookMatcher(hooks=[log_tool_use])

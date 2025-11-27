@@ -4,6 +4,8 @@
 
 Tool use now supports fine-grained [streaming](/docs/en/build-with-claude/streaming) for parameter values. This allows developers to stream tool use parameters without buffering / JSON validation, reducing the latency to begin receiving large parameters.
 
+Fine-grained tool streaming is available via the Claude API, AWS Bedrock, Google Cloud's Vertex AI, and Microsoft Foundry.
+
 <Note>
 Fine-grained tool streaming is a beta feature. Please make sure to evaluate your responses before using it in production. 
 

@@ -2,7 +2,7 @@
 
 ---
 
-This guide provides specific prompt engineering techniques for Claude 4.x models, with specific guidance for Sonnet 4.5 and Haiku 4.5. These models have been trained for more precise instruction following than previous generations of Claude models.
+This guide provides specific prompt engineering techniques for Claude 4.x models, with specific guidance for Sonnet 4.5, Haiku 4.5, and Opus 4.5. These models have been trained for more precise instruction following than previous generations of Claude models.
 <Tip>
   For an overview of Claude 4.5's new capabilities, see [What's new in Claude 4.5](/docs/en/about-claude/models/whats-new-claude-4-5). For migration guidance from previous models, see [Migrating to Claude 4.5](/docs/en/about-claude/models/migrating-to-claude-4).
 </Tip>

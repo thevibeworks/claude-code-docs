@@ -49,7 +49,7 @@ curl https://api.anthropic.com/v1/messages \
         "messages": [
             {
                 "role": "user",
-                "content": "What's the weather in NYC?"
+                "content": "What is the weather in NYC?"
             }
         ],
         "tools": [{

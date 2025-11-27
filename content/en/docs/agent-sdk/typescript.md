@@ -574,6 +574,8 @@ Hook configuration with optional matcher.
 interface HookCallbackMatcher {
   matcher?: string;
   hooks: HookCallback[];
+  /** Timeout in seconds for all hooks in this matcher (default: 60) */
+  timeout?: number;
 }
 ```
 
