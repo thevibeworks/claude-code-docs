@@ -115,6 +115,7 @@ Configuration object for the `query()` function.
 | `permissionPromptToolName` | `string` | `undefined` | MCP tool name for permission prompts |
 | `plugins` | [`SdkPluginConfig`](#sdkpluginconfig)`[]` | `[]` | Load custom plugins from local paths. See [Plugins](/docs/en/agent-sdk/plugins) for details |
 | `resume` | `string` | `undefined` | Session ID to resume |
+| `sandbox` | [`SandboxSettings`](#sandboxsettings) | `undefined` | Configure sandbox behavior programmatically. See [Sandbox settings](#sandboxsettings) for details |
 | `settingSources` | [`SettingSource`](#settingsource)`[]` | `[]` (no settings) | Control which filesystem settings to load. When omitted, no settings are loaded. **Note:** Must include `'project'` to load CLAUDE.md files |
 | `stderr` | `(data: string) => void` | `undefined` | Callback for stderr output |
 | `strictMcpConfig` | `boolean` | `false` | Enforce strict MCP validation |
@@ -1786,6 +1787,149 @@ Custom error class for abort operations.
 ```typescript
 class AbortError extends Error {}
 ```
+
+## Sandbox Configuration
+
+### `SandboxSettings`
+
+Configuration for sandbox behavior. Use this to enable command sandboxing and configure network restrictions programmatically.
+
+```typescript
+type SandboxSettings = {
+  enabled?: boolean;
+  autoAllowBashIfSandboxed?: boolean;
+  excludedCommands?: string[];
+  allowUnsandboxedCommands?: boolean;
+  network?: NetworkSandboxSettings;
+  ignoreViolations?: SandboxIgnoreViolations;
+  enableWeakerNestedSandbox?: boolean;
+}
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `enabled` | `boolean` | `false` | Enable sandbox mode for command execution |
+| `autoAllowBashIfSandboxed` | `boolean` | `false` | Auto-approve bash commands when sandbox is enabled |
+| `excludedCommands` | `string[]` | `[]` | Commands that always bypass sandbox restrictions (e.g., `['docker']`). These run unsandboxed automatically without model involvement |
+| `allowUnsandboxedCommands` | `boolean` | `false` | Allow the model to request running commands outside the sandbox. When `true`, the model can set `dangerouslyDisableSandbox` in tool input, which falls back to the [permissions system](#permissions-fallback-for-unsandboxed-commands) |
+| `network` | [`NetworkSandboxSettings`](#networksandboxsettings) | `undefined` | Network-specific sandbox configuration |
+| `ignoreViolations` | [`SandboxIgnoreViolations`](#sandboxignoreviolations) | `undefined` | Configure which sandbox violations to ignore |
+| `enableWeakerNestedSandbox` | `boolean` | `false` | Enable a weaker nested sandbox for compatibility |
+
+<Note>
+**Filesystem and network access restrictions** are NOT configured via sandbox settings. Instead, they are derived from [permission rules](https://code.claude.com/docs/en/settings#permission-settings):
+
+- **Filesystem read restrictions**: Read deny rules
+- **Filesystem write restrictions**: Edit allow/deny rules
+- **Network restrictions**: WebFetch allow/deny rules
+
+Use sandbox settings for command execution sandboxing, and permission rules for filesystem and network access control.
+</Note>
+
+#### Example usage
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+const result = await query({
+  prompt: "Build and test my project",
+  options: {
+    sandbox: {
+      enabled: true,
+      autoAllowBashIfSandboxed: true,
+      excludedCommands: ["docker"],
+      network: {
+        allowLocalBinding: true,
+        allowUnixSockets: ["/var/run/docker.sock"]
+      }
+    }
+  }
+});
+```
+
+### `NetworkSandboxSettings`
+
+Network-specific configuration for sandbox mode.
+
+```typescript
+type NetworkSandboxSettings = {
+  allowLocalBinding?: boolean;
+  allowUnixSockets?: string[];
+  allowAllUnixSockets?: boolean;
+  httpProxyPort?: number;
+  socksProxyPort?: number;
+}
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `allowLocalBinding` | `boolean` | `false` | Allow processes to bind to local ports (e.g., for dev servers) |
+| `allowUnixSockets` | `string[]` | `[]` | Unix socket paths that processes can access (e.g., Docker socket) |
+| `allowAllUnixSockets` | `boolean` | `false` | Allow access to all Unix sockets |
+| `httpProxyPort` | `number` | `undefined` | HTTP proxy port for network requests |
+| `socksProxyPort` | `number` | `undefined` | SOCKS proxy port for network requests |
+
+### `SandboxIgnoreViolations`
+
+Configuration for ignoring specific sandbox violations.
+
+```typescript
+type SandboxIgnoreViolations = {
+  file?: string[];
+  network?: string[];
+}
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `file` | `string[]` | `[]` | File path patterns to ignore violations for |
+| `network` | `string[]` | `[]` | Network patterns to ignore violations for |
+
+### Permissions Fallback for Unsandboxed Commands
+
+When `allowUnsandboxedCommands` is enabled, the model can request to run commands outside the sandbox by setting `dangerouslyDisableSandbox: true` in the tool input. These requests fall back to the existing permissions system, meaning your `canUseTool` handler will be invoked, allowing you to implement custom authorization logic.
+
+<Note>
+**`excludedCommands` vs `allowUnsandboxedCommands`:**
+- `excludedCommands`: A static list of commands that always bypass the sandbox automatically (e.g., `['docker']`). The model has no control over this.
+- `allowUnsandboxedCommands`: Lets the model decide at runtime whether to request unsandboxed execution by setting `dangerouslyDisableSandbox: true` in the tool input.
+</Note>
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+const result = await query({
+  prompt: "Deploy my application",
+  options: {
+    sandbox: {
+      enabled: true,
+      allowUnsandboxedCommands: true  // Model can request unsandboxed execution
+    },
+    permissionMode: "default",
+    canUseTool: async (tool, input) => {
+      // Check if the model is requesting to bypass the sandbox
+      if (tool === "Bash" && input.dangerouslyDisableSandbox) {
+        // The model wants to run this command outside the sandbox
+        console.log(`Unsandboxed command requested: ${input.command}`);
+
+        // Return true to allow, false to deny
+        return isCommandAuthorized(input.command);
+      }
+      return true;
+    }
+  }
+});
+```
+
+This pattern enables you to:
+
+- **Audit model requests**: Log when the model requests unsandboxed execution
+- **Implement allowlists**: Only permit specific commands to run unsandboxed
+- **Add approval workflows**: Require explicit authorization for privileged operations
+
+<Warning>
+Commands running with `dangerouslyDisableSandbox: true` have full system access. Ensure your `canUseTool` handler validates these requests carefully.
+</Warning>
 
 ## See also
 

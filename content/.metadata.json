@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-01T18:29:48.875508Z"
+    "fetch_date": "2025-12-02T01:22:14.220915Z"
   },
   "items": [
     {
@@ -470,7 +470,7 @@
       "url": "https://docs.claude.com/en/docs/about-claude/models/overview",
       "status": "success",
       "path": "en/docs/about-claude/models/overview.md",
-      "sha256": "5414715b27d76e6aa6e7c5e1962c75a0d283ba3f5a986912c82218b2e3ccdac4",
+      "sha256": "ab687a2066e6902cc45e2bdbd4ec73ad9ed4c501902533ef40eeea3319f3d29e",
       "size": 10627
     },
     {
@@ -540,8 +540,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/hosting",
       "status": "success",
       "path": "en/docs/agent-sdk/hosting.md",
-      "sha256": "d1b565d6f13db03abe7ad824c0a5890b43d3a65b1839443e1e58371019c01833",
-      "size": 6099
+      "sha256": "0f3ea3de314a9c6345b14db79179c3bdc96832cf82b20dea30584e0c5312204f",
+      "size": 7237
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/mcp",
@@ -568,8 +568,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/permissions",
       "status": "success",
       "path": "en/docs/agent-sdk/permissions.md",
-      "sha256": "2a3dc4be07ac50339bccd1743d364d788a3e16cefb366e1838d9eaf6e8fcea79",
-      "size": 12402
+      "sha256": "62218d7040353baffdad98d3a89a61801e703a80651b825f52926afbdb754a3d",
+      "size": 11364
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/plugins",
@@ -582,8 +582,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/python",
       "status": "success",
       "path": "en/docs/agent-sdk/python.md",
-      "sha256": "f8b83a49f4418e83b44f8a11eb8943204fe2275cd3e56f8a99dac583e38a0fcc",
-      "size": 58822
+      "sha256": "93fbf63e9237d4992b782cc055b809a5cb5eff0f148ccaec9bbeb52adc3f8848",
+      "size": 65045
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/sessions",
@@ -610,8 +610,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/streaming-vs-single-mode",
       "status": "success",
       "path": "en/docs/agent-sdk/streaming-vs-single-mode.md",
-      "sha256": "7f5b8fb2169bd812ac0d6385558bd76df12982ff0ec23eaf1e45815650064b15",
-      "size": 8275
+      "sha256": "936bba60eba33a99bf858a981dc6c0ce9d8a0769a4269f68ad41b1d540599168",
+      "size": 7825
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/structured-outputs",
@@ -638,8 +638,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/typescript",
       "status": "success",
       "path": "en/docs/agent-sdk/typescript.md",
-      "sha256": "67853a1a8332119169447ba53e5b8b13dc3b607a3bdfc8ce0c3ffdf18e47346d",
-      "size": 36583
+      "sha256": "f31a56d6968077b8818f868e87750583e4fd0ab1ad758f2ae5b76203f10e01e1",
+      "size": 42490
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices",
@@ -1044,7 +1044,7 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "4ee0605ac9cf575b5123dca0c0a2a2757b80219018f0b6bda654b2b75dab78c1",
+      "sha256": "092ede966543dda4778627a95330ba50e8d3383c7a10df3525c924814bf71e74",
       "size": 252403
     },
     {
@@ -1604,14 +1604,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "2bdf6f3412842ef0a0eaeb84f88166d07acb64bdda6b75474085032a4119006e",
+      "sha256": "5cb769fce587e8bf66d291f5787a0b9cbb4a975a8afaa4a0ccb520f5568b75a2",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "ed74fe1e1919474ce8cbf5875ed69738c1367bd2e02b1e8051221a47f71fbce1",
+      "sha256": "f463e8d0d24d818bd5cf5cc581d900089d27991116b60c6406485c72136ec3fa",
       "size": 8764
     },
     {

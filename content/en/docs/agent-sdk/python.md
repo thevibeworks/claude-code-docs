@@ -511,6 +511,7 @@ class ClaudeAgentOptions:
 | `fork_session`                | `bool`                                       | `False`              | When resuming with `resume`, fork to a new session ID instead of continuing the original session                                                                                        |
 | `agents`                      | `dict[str, AgentDefinition] \| None`         | `None`               | Programmatically defined subagents                                                                                                                                                      |
 | `plugins`                     | `list[SdkPluginConfig]`                      | `[]`                 | Load custom plugins from local paths. See [Plugins](/docs/en/agent-sdk/plugins) for details                                                                                             |
+| `sandbox`                     | [`SandboxSettings`](#sandboxsettings) ` \| None` | `None`              | Configure sandbox behavior programmatically. See [Sandbox settings](#sandboxsettings) for details                                        |
 | `setting_sources`             | `list[SettingSource] \| None`                | `None` (no settings) | Control which filesystem settings to load. When omitted, no settings are loaded. **Note:** Must include `"project"` to load CLAUDE.md files                                             |
 
 ### `OutputFormat`
@@ -1856,6 +1857,149 @@ async def main():
 
 asyncio.run(main())
 ```
+
+## Sandbox Configuration
+
+### `SandboxSettings`
+
+Configuration for sandbox behavior. Use this to enable command sandboxing and configure network restrictions programmatically.
+
+```python
+class SandboxSettings(TypedDict, total=False):
+    enabled: bool
+    autoAllowBashIfSandboxed: bool
+    excludedCommands: list[str]
+    allowUnsandboxedCommands: bool
+    network: SandboxNetworkConfig
+    ignoreViolations: SandboxIgnoreViolations
+    enableWeakerNestedSandbox: bool
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `enabled` | `bool` | `False` | Enable sandbox mode for command execution |
+| `autoAllowBashIfSandboxed` | `bool` | `False` | Auto-approve bash commands when sandbox is enabled |
+| `excludedCommands` | `list[str]` | `[]` | Commands that always bypass sandbox restrictions (e.g., `["docker"]`). These run unsandboxed automatically without model involvement |
+| `allowUnsandboxedCommands` | `bool` | `False` | Allow the model to request running commands outside the sandbox. When `True`, the model can set `dangerouslyDisableSandbox` in tool input, which falls back to the [permissions system](#permissions-fallback-for-unsandboxed-commands) |
+| `network` | [`SandboxNetworkConfig`](#sandboxnetworkconfig) | `None` | Network-specific sandbox configuration |
+| `ignoreViolations` | [`SandboxIgnoreViolations`](#sandboxignoreviolations) | `None` | Configure which sandbox violations to ignore |
+| `enableWeakerNestedSandbox` | `bool` | `False` | Enable a weaker nested sandbox for compatibility |
+
+<Note>
+**Filesystem and network access restrictions** are NOT configured via sandbox settings. Instead, they are derived from [permission rules](https://code.claude.com/docs/en/settings#permission-settings):
+
+- **Filesystem read restrictions**: Read deny rules
+- **Filesystem write restrictions**: Edit allow/deny rules
+- **Network restrictions**: WebFetch allow/deny rules
+
+Use sandbox settings for command execution sandboxing, and permission rules for filesystem and network access control.
+</Note>
+
+#### Example usage
+
+```python
+from claude_agent_sdk import query, ClaudeAgentOptions, SandboxSettings
+
+sandbox_settings: SandboxSettings = {
+    "enabled": True,
+    "autoAllowBashIfSandboxed": True,
+    "excludedCommands": ["docker"],
+    "network": {
+        "allowLocalBinding": True,
+        "allowUnixSockets": ["/var/run/docker.sock"]
+    }
+}
+
+async for message in query(
+    prompt="Build and test my project",
+    options=ClaudeAgentOptions(sandbox=sandbox_settings)
+):
+    print(message)
+```
+
+### `SandboxNetworkConfig`
+
+Network-specific configuration for sandbox mode.
+
+```python
+class SandboxNetworkConfig(TypedDict, total=False):
+    allowLocalBinding: bool
+    allowUnixSockets: list[str]
+    allowAllUnixSockets: bool
+    httpProxyPort: int
+    socksProxyPort: int
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `allowLocalBinding` | `bool` | `False` | Allow processes to bind to local ports (e.g., for dev servers) |
+| `allowUnixSockets` | `list[str]` | `[]` | Unix socket paths that processes can access (e.g., Docker socket) |
+| `allowAllUnixSockets` | `bool` | `False` | Allow access to all Unix sockets |
+| `httpProxyPort` | `int` | `None` | HTTP proxy port for network requests |
+| `socksProxyPort` | `int` | `None` | SOCKS proxy port for network requests |
+
+### `SandboxIgnoreViolations`
+
+Configuration for ignoring specific sandbox violations.
+
+```python
+class SandboxIgnoreViolations(TypedDict, total=False):
+    file: list[str]
+    network: list[str]
+```
+
+| Property | Type | Default | Description |
+| :------- | :--- | :------ | :---------- |
+| `file` | `list[str]` | `[]` | File path patterns to ignore violations for |
+| `network` | `list[str]` | `[]` | Network patterns to ignore violations for |
+
+### Permissions Fallback for Unsandboxed Commands
+
+When `allowUnsandboxedCommands` is enabled, the model can request to run commands outside the sandbox by setting `dangerouslyDisableSandbox: True` in the tool input. These requests fall back to the existing permissions system, meaning your `can_use_tool` handler will be invoked, allowing you to implement custom authorization logic.
+
+<Note>
+**`excludedCommands` vs `allowUnsandboxedCommands`:**
+- `excludedCommands`: A static list of commands that always bypass the sandbox automatically (e.g., `["docker"]`). The model has no control over this.
+- `allowUnsandboxedCommands`: Lets the model decide at runtime whether to request unsandboxed execution by setting `dangerouslyDisableSandbox: True` in the tool input.
+</Note>
+
+```python
+from claude_agent_sdk import query, ClaudeAgentOptions
+
+async def can_use_tool(tool: str, input: dict) -> bool:
+    # Check if the model is requesting to bypass the sandbox
+    if tool == "Bash" and input.get("dangerouslyDisableSandbox"):
+        # The model wants to run this command outside the sandbox
+        print(f"Unsandboxed command requested: {input.get('command')}")
+
+        # Return True to allow, False to deny
+        return is_command_authorized(input.get("command"))
+    return True
+
+async def main():
+    async for message in query(
+        prompt="Deploy my application",
+        options=ClaudeAgentOptions(
+            sandbox={
+                "enabled": True,
+                "allowUnsandboxedCommands": True  # Model can request unsandboxed execution
+            },
+            permission_mode="default",
+            can_use_tool=can_use_tool
+        )
+    ):
+        print(message)
+```
+
+This pattern enables you to:
+
+- **Audit model requests**: Log when the model requests unsandboxed execution
+- **Implement allowlists**: Only permit specific commands to run unsandboxed
+- **Add approval workflows**: Require explicit authorization for privileged operations
+
+<Warning>
+Commands running with `dangerouslyDisableSandbox: True` have full system access. Ensure your `can_use_tool` handler validates these requests carefully.
+</Warning>
 
 ## See also
 

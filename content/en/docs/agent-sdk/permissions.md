@@ -4,25 +4,6 @@ Control tool usage and permissions in the Claude Agent SDK
 
 ---
 
-<style>
-{`
-  .edgeLabel {
-    padding: 8px 12px !important;
-  }
-  .edgeLabel rect {
-    rx: 4;
-    ry: 4;
-    stroke: #D9D8D5 !important;
-    stroke-width: 1px !important;
-  }
-  /* Add rounded corners to flowchart nodes */
-  .node rect {
-    rx: 8 !important;
-    ry: 8 !important;
-  }
-`}
-</style>
-
 # SDK Permissions
 
 The Claude Agent SDK provides powerful permission controls that allow you to manage how Claude uses tools in your application. 
@@ -47,7 +28,7 @@ Use cases for each approach:
 ## Permission Flow Diagram
 
 ```mermaid
-%%{init: {"theme": "base", "themeVariables": {"edgeLabelBackground": "#F0F0EB", "lineColor": "#91918D"}, "flowchart": {"edgeLabelMarginX": 12, "edgeLabelMarginY": 8}}}%%
+
 flowchart TD
     Start([Tool request]) --> PreHook(PreToolUse Hook)
 
@@ -76,24 +57,7 @@ flowchart TD
     Execute --> PostHook(PostToolUse Hook)
     PostHook --> Done([Tool Response])
 
-    style Start fill:#F0F0EB,stroke:#D9D8D5,color:#191919
 
-    style Denied fill:#BF4D43,color:#fff
-    style DeniedResponse fill:#BF4D43,color:#fff
-    style Execute fill:#DAAF91,color:#191919
-    style Done fill:#DAAF91,color:#191919
-
-    classDef hookClass fill:#CC785C,color:#fff
-    class PreHook,PostHook hookClass
-
-    classDef ruleClass fill:#EBDBBC,color:#191919
-    class Deny,Allow,Ask ruleClass
-
-    classDef modeClass fill:#A8DAEF,color:#191919
-    class Mode modeClass
-
-    classDef callbackClass fill:#D4A27F,color:#191919
-    class Callback callbackClass
 ```
 
 **Processing Order:** PreToolUse Hook → Deny Rules → Allow Rules → Ask Rules → Permission Mode Check → canUseTool Callback → PostToolUse Hook
