@@ -27,7 +27,7 @@ Once you've picked a model, [learn how to make your first API call](/docs/en/get
 | **Comparative latency** | Fast | Fastest | Moderate | Moderate |
 | **Context window** | <Tooltip tooltipContent="~150K words \ ~680K unicode characters">200K tokens</Tooltip> / <br/> <Tooltip tooltipContent="~750K words \ ~3.4M unicode characters">1M tokens</Tooltip> (beta)<sup>3</sup> | <Tooltip tooltipContent="~150K words \ ~680K unicode characters">200K tokens</Tooltip> | <Tooltip tooltipContent="~150K words \ ~680K unicode characters">200K tokens</Tooltip> | <Tooltip tooltipContent="~150K words \ ~680K unicode characters">200K tokens</Tooltip> |
 | **Max output** | 64K tokens | 64K tokens | 64K tokens | 32K tokens |
-| **Reliable knowledge cutoff** | Jan 2025<sup>4</sup> | Feb 2025 | Mar 2025<sup>4</sup> | Jan 2025<sup>4</sup> |
+| **Reliable knowledge cutoff** | Jan 2025<sup>4</sup> | Feb 2025 | May 2025<sup>4</sup> | Jan 2025<sup>4</sup> |
 | **Training data cutoff** | Jul 2025 | Jul 2025 | Aug 2025 | Mar 2025 |
 
 _<sup>1 - Aliases automatically point to the most recent model snapshot. When we release new model snapshots, we migrate aliases to point to the newest version of a model, typically within a week of the new release. While aliases are useful for experimentation, we recommend using specific model versions (e.g., `claude-sonnet-4-5-20250929`) in production applications to ensure consistent behavior.</sup>_

@@ -17,6 +17,35 @@ For security and isolation, the SDK should run inside a **sandboxed container en
 - **Network control** - Restrict outbound connections
 - **Ephemeral filesystems** - Clean state for each session
 
+### Programmatic Sandbox Configuration
+
+The SDK supports programmatic sandbox configuration via the `sandbox` option. This allows you to enable command sandboxing and configure network restrictions directly in your code:
+
+```typescript
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+const result = await query({
+  prompt: "Build and deploy my application",
+  options: {
+    sandbox: {
+      enabled: true,
+      autoAllowBashIfSandboxed: true,
+      excludedCommands: ["docker"],
+      network: {
+        allowLocalBinding: true,
+        allowUnixSockets: ["/var/run/docker.sock"]
+      }
+    }
+  }
+});
+```
+
+See [SandboxSettings](/docs/en/agent-sdk/typescript#sandboxsettings) in the TypeScript SDK reference for the full configuration options.
+
+<Note>
+**Important distinction:** The `sandbox` option configures command execution sandboxing. Filesystem and network access restrictions are configured separately via [permission rules](https://code.claude.com/docs/en/settings#permission-settings).
+</Note>
+
 ### System Requirements
 
 Each SDK instance requires:
@@ -119,6 +148,7 @@ An agent session will not timeout, but we recommend setting a 'maxTurns' propert
 
 ## Next Steps
 
+- [TypeScript SDK - Sandbox Settings](/docs/en/agent-sdk/typescript#sandboxsettings) - Configure sandbox programmatically
 - [Sessions Guide](/docs/en/agent-sdk/sessions) - Learn about session management
 - [Permissions](/docs/en/agent-sdk/permissions) - Configure tool permissions
 - [Cost Tracking](/docs/en/agent-sdk/cost-tracking) - Monitor API usage
