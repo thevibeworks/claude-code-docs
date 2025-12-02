@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-02T01:22:14.220915Z"
+    "fetch_date": "2025-12-02T18:29:50.801996Z"
   },
   "items": [
     {
@@ -1044,8 +1044,8 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "092ede966543dda4778627a95330ba50e8d3383c7a10df3525c924814bf71e74",
-      "size": 252403
+      "sha256": "4b7c5d8031fd908a84c9d68fe9f1416c73a543813b2da37e8b4babd686767b0f",
+      "size": 252407
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",
@@ -1604,34 +1604,41 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "5cb769fce587e8bf66d291f5787a0b9cbb4a975a8afaa4a0ccb520f5568b75a2",
+      "sha256": "e51945c3e7c48217177d468e8aaffd11cbc7d2dea5234790e984c08a3b8f680e",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "f463e8d0d24d818bd5cf5cc581d900089d27991116b60c6406485c72136ec3fa",
+      "sha256": "adda7f9616aabc30e397dbd2804afa7e34517ad7249479687f9858c233a0e2c6",
       "size": 8764
+    },
+    {
+      "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
+      "status": "success",
+      "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
+      "sha256": "65b7e81d9367b52f920b4f2b51aa461689cffea500dfa567316459e9e96b86c4",
+      "size": 4729
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
-      "sha256": "660edcfa9abf04918e33deecb58ce9903cce3a7515c6fea71c7d359c6df47bd7",
-      "size": 6074
+      "sha256": "0efd2d4f51cc6f0e0057685622730016c1f6b5b0c960033b2af0d3a37195e7e2",
+      "size": 5727
     },
     {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
       "status": "success",
       "path": "blog/news/enabling-claude-code-to-work-more-autonomously.md",
-      "sha256": "e4f2e2c5007bbe9be9e4e25bf56ce9fab4279231d23ec1771f6054e0ba60b20b",
-      "size": 5543
+      "sha256": "680c61a98e303da048e8ffcc943c42b2fe4b1b80518ed4ae15fee318b30e3fac",
+      "size": 5170
     }
   ],
   "summary": {
-    "total": 232,
-    "downloaded": 232,
+    "total": 233,
+    "downloaded": 233,
     "skipped": 0,
     "failed": 0,
     "success_rate": 100.0
