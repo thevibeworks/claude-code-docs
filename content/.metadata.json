@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-03T01:22:25.228302Z"
+    "fetch_date": "2025-12-03T18:29:21.975907Z"
   },
   "items": [
     {
@@ -561,8 +561,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/overview",
       "status": "success",
       "path": "en/docs/agent-sdk/overview.md",
-      "sha256": "0265c4c839047c5b3e990566d93296b739e3350243d5978505e1a0915bd3ec31",
-      "size": 7240
+      "sha256": "feb00bf910cdbfdd33cf762b52bbe8f4b28e7b416f4b2ee36a72349d1d570a3a",
+      "size": 7423
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/permissions",
@@ -638,8 +638,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/typescript",
       "status": "success",
       "path": "en/docs/agent-sdk/typescript.md",
-      "sha256": "f31a56d6968077b8818f868e87750583e4fd0ab1ad758f2ae5b76203f10e01e1",
-      "size": 42490
+      "sha256": "58b6c92a3a30e338a4ce1886b684edd78ba2780ef9a1c1569160e002b918d6bf",
+      "size": 47227
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices",
@@ -1044,7 +1044,7 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "d1a64be454089405003c6714223ddc1721d43b1763d9721b881a4f9770660031",
+      "sha256": "e7b3641235a32504ec8f179f62f285b663c291b91fa672c845aec2782532e0ec",
       "size": 249918
     },
     {
@@ -1604,14 +1604,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "2faa26a4716c9cf583155a958145121ecbea272867bf87f835b2047d154b6f3b",
+      "sha256": "7723317fc8465859bf38e509c5b522446f9d0a18cfd7ca177f3f9caa5fc8d32c",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "45ddc2c5f32b556ad2962f759297cc67ec02d898ed48d6d0134c086a34665782",
+      "sha256": "b9faac6e3bf83040b2a9e8f914ca39fed5bf92f1a4ff029bbbb765a8152e64f9",
       "size": 8764
     },
     {
