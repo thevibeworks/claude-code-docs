@@ -58,6 +58,10 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### Anthropic acquires Bun as Claude Code reaches $1B milestone
+
+[Read more](https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone)
+
 ### Claude for Nonprofits
 
 Anthropic launches Claude for Nonprofits to help organizations maximize their impact, featuring free AI training and discounted rates.
@@ -69,7 +73,3 @@ Anthropic launches Claude for Nonprofits to help organizations maximize their im
 The best model in the world for coding, agents, and computer use, with meaningful improvements to everyday tasks like slides and spreadsheets. Claude Opus 4.5 delivers frontier performance and dramatically improved token efficiency.
 
 [Read more](https://www.anthropic.com/news/claude-opus-4-5)
-
-### Claude now available in Microsoft Foundry and Microsoft 365 Copilot
-
-[Read more](https://www.anthropic.com/news/claude-in-microsoft-foundry)
