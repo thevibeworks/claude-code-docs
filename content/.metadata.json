@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-03T01:22:25.228302Z"
+    "fetch_date": "2025-12-04T01:22:31.462488Z"
   },
   "items": [
     {
@@ -561,8 +561,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/overview",
       "status": "success",
       "path": "en/docs/agent-sdk/overview.md",
-      "sha256": "0265c4c839047c5b3e990566d93296b739e3350243d5978505e1a0915bd3ec31",
-      "size": 7240
+      "sha256": "feb00bf910cdbfdd33cf762b52bbe8f4b28e7b416f4b2ee36a72349d1d570a3a",
+      "size": 7423
     },
     {
       "url": "https://docs.claude.com/en/docs/agent-sdk/permissions",
@@ -638,8 +638,8 @@
       "url": "https://docs.claude.com/en/docs/agent-sdk/typescript",
       "status": "success",
       "path": "en/docs/agent-sdk/typescript.md",
-      "sha256": "f31a56d6968077b8818f868e87750583e4fd0ab1ad758f2ae5b76203f10e01e1",
-      "size": 42490
+      "sha256": "58b6c92a3a30e338a4ce1886b684edd78ba2780ef9a1c1569160e002b918d6bf",
+      "size": 47227
     },
     {
       "url": "https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices",
@@ -1044,8 +1044,8 @@
       "url": "https://docs.claude.com/en/docs/mcp",
       "status": "success",
       "path": "en/docs/mcp.md",
-      "sha256": "d1a64be454089405003c6714223ddc1721d43b1763d9721b881a4f9770660031",
-      "size": 249918
+      "sha256": "45b9e74a6b914e5ce0562d6fe461ae67f1479129a9ee1a50d69625ce35e24e59",
+      "size": 249443
     },
     {
       "url": "https://docs.claude.com/en/docs/test-and-evaluate/define-success",
@@ -1604,36 +1604,36 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "2faa26a4716c9cf583155a958145121ecbea272867bf87f835b2047d154b6f3b",
+      "sha256": "4eec49fb7363752f04b3c1ddc8c6c37d2612775ef44b012b518b51bf228c0f34",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "45ddc2c5f32b556ad2962f759297cc67ec02d898ed48d6d0134c086a34665782",
+      "sha256": "192f194bb876f049dcc711814ee047e99ccd677d3937de2f436ceae1c967fdc5",
       "size": 8764
     },
     {
       "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
       "status": "success",
       "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
-      "sha256": "703c59f5f82c0de40672219866a27da1052702f3b161a706d791d3464f184b86",
-      "size": 4717
+      "sha256": "218f2018e536bee0e956e2d72d86fb773bdc23b7be0154377f5d073ec289b9fe",
+      "size": 4762
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
-      "sha256": "0efd2d4f51cc6f0e0057685622730016c1f6b5b0c960033b2af0d3a37195e7e2",
-      "size": 5727
+      "sha256": "ea4702faf34f19bc94d9e133e7cb577936dcbfe1c9e250294994c2a7e9199a8d",
+      "size": 5590
     },
     {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
       "status": "success",
       "path": "blog/news/enabling-claude-code-to-work-more-autonomously.md",
-      "sha256": "487867bc849cc283956c8ad58fa13bc75254be2c141a7c716aa1c7e7592cb55f",
-      "size": 5196
+      "sha256": "b9642cc332c810258d1219ddfa5aa860554e92d3ac6a275384fe1b0beccea74e",
+      "size": 5059
     }
   ],
   "summary": {
