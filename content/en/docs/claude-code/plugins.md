@@ -341,7 +341,7 @@ When your plugin is ready to share:
 
 1. **Add documentation**: Include a README.md with installation and usage instructions
 2. **Version your plugin**: Use semantic versioning in your `plugin.json`
-3. **Create or use a marketplace**: Distribute through plugin marketplaces for easy installation
+3. **Create or use a marketplace**: Distribute through plugin marketplaces for installation
 4. **Test with others**: Have team members test the plugin before wider distribution
 
 <Note>
@@ -389,3 +389,8 @@ Now that you understand Claude Code's plugin system, here are suggested paths fo
 * [Hooks](/en/hooks) - Automating workflows with event handlers
 * [MCP](/en/mcp) - Connecting to external tools and services
 * [Settings](/en/settings) - Configuration options for plugins
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

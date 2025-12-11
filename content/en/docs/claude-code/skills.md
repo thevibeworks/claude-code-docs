@@ -146,10 +146,10 @@ This Skill provides read-only file access.
 When this Skill is active, Claude can only use the specified tools (Read, Grep, Glob) without needing to ask for permission. This is useful for:
 
 * Read-only Skills that shouldn't modify files
-* Skills with limited scope (e.g., only data analysis, no file writing)
+* Skills with limited scope: for example, only data analysis, no file writing
 * Security-sensitive workflows where you want to restrict capabilities
 
-If `allowed-tools` is not specified, Claude will ask for permission to use tools as normal, following the standard permission model.
+If `allowed-tools` isn't specified, Claude will ask for permission to use tools as normal, following the standard permission model.
 
 <Note>
   `allowed-tools` is only supported for Skills in Claude Code.
@@ -597,7 +597,7 @@ Claude loads additional files only when needed.
     Learn how Skills work across Claude products
   </Card>
 
-  <Card title="Use Skills in the Agent SDK" icon="cube" href="https://docs.claude.com/enhttps://docs.claude.com/en/api/agent-sdk/skills">
+  <Card title="Use Skills in the Agent SDK" icon="cube" href="https://docs.claude.com/en/docs/agent-sdk/skills">
     Use Skills programmatically with TypeScript and Python
   </Card>
 
@@ -605,3 +605,8 @@ Claude loads additional files only when needed.
     Create your first Skill
   </Card>
 </CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

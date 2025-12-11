@@ -7,7 +7,7 @@
 Before configuring Claude Code with Bedrock, ensure you have:
 
 * An AWS account with Bedrock access enabled
-* Access to desired Claude models (e.g., Claude Sonnet 4.5) in Bedrock
+* Access to desired Claude models (for example, Claude Sonnet 4.5) in Bedrock
 * AWS CLI installed and configured (optional - only needed if you don't have another mechanism for getting credentials)
 * Appropriate IAM permissions
 
@@ -75,9 +75,9 @@ When Claude Code detects that your AWS credentials are expired (either locally b
 
 ##### Configuration settings explained
 
-**`awsAuthRefresh`**: Use this for commands that modify the `.aws` directory (e.g., updating credentials, SSO cache, or config files). Output is shown to the user (but user input is not supported), making it suitable for browser-based authentication flows where the CLI displays a code to enter in the browser.
+**`awsAuthRefresh`**: Use this for commands that modify the `.aws` directory, such as updating credentials, SSO cache, or config files. The command's output is displayed to the user, but interactive input isn't supported. This works well for browser-based SSO flows where the CLI displays a URL or code and you complete authentication in the browser.
 
-**`awsCredentialExport`**: Only use this if you cannot modify `.aws` and must directly return credentials. Output is captured silently (not shown to the user). The command must output JSON in this format:
+**`awsCredentialExport`**: Only use this if you can't modify `.aws` and must directly return credentials. Output is captured silently and not shown to the user. The command must output JSON in this format:
 
 ```json  theme={null}
 {
@@ -120,7 +120,7 @@ Claude Code uses these default models for Bedrock:
 | Small/fast model | `us.anthropic.claude-haiku-4-5-20251001-v1:0`      |
 
 <Note>
-  For Bedrock users, Claude Code will not automatically upgrade from Haiku 3.5 to Haiku 4.5. To manually switch to a newer Haiku model, set the `ANTHROPIC_DEFAULT_HAIKU_MODEL` environment variable to the full model name (e.g., `us.anthropic.claude-haiku-4-5-20251001-v1:0`).
+  For Bedrock users, Claude Code won't automatically upgrade from Haiku 3.5 to Haiku 4.5. To manually switch to a newer Haiku model, set the `ANTHROPIC_DEFAULT_HAIKU_MODEL` environment variable to the full model name (for example, `us.anthropic.claude-haiku-4-5-20251001-v1:0`).
 </Note>
 
 To customize models, use one of these methods:
@@ -137,13 +137,11 @@ export ANTHROPIC_MODEL='arn:aws:bedrock:us-east-2:your-account-id:application-in
 export DISABLE_PROMPT_CACHING=1
 ```
 
-<Note>
-  [Prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) may not be available in all regions
-</Note>
+<Note>[Prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) may not be available in all regions.</Note>
 
 ### 5. Output token configuration
 
-When using Claude Code with Amazon Bedrock, we recommend the following token settings:
+These are the recommended token settings for Claude Code with Amazon Bedrock:
 
 ```bash  theme={null}
 # Recommended output token settings for Bedrock
@@ -153,7 +151,7 @@ export MAX_THINKING_TOKENS=1024
 
 **Why these values:**
 
-* **`CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096`**: Bedrock's burndown throttling logic sets a minimum of 4096 tokens as the max\_token penalty. Setting this lower won't reduce costs but may cut off long tool uses, causing the Claude Code agent loop to fail persistently. Claude Code typically uses less than 4096 output tokens without extended thinking, but may need this headroom for tasks involving significant file creation or Write tool usage.
+* **`CLAUDE_CODE_MAX_OUTPUT_TOKENS=4096`**: Bedrock's burndown throttling logic sets a minimum of 4096 tokens as the `max_token` penalty. Setting this lower won't reduce costs but may cut off long tool uses, causing the Claude Code agent loop to fail persistently. Claude Code typically uses less than 4096 output tokens without extended thinking, but may need this headroom for tasks involving significant file creation or Write tool usage.
 
 * **`MAX_THINKING_TOKENS=1024`**: This provides space for extended thinking without cutting off tool use responses, while still maintaining focused reasoning chains. This balance helps prevent trajectory changes that aren't always helpful for coding tasks specifically.
 
@@ -225,3 +223,8 @@ Claude Code uses the Bedrock [Invoke API](https://docs.aws.amazon.com/bedrock/la
 * [Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)
 * [Bedrock inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html)
 * [Claude Code on Amazon Bedrock: Quick Setup Guide](https://community.aws/content/2tXkZKrZzlrlu0KfH8gST5Dkppq/claude-code-on-amazon-bedrock-quick-setup-guide)- [Claude Code Monitoring Implementation (Bedrock)](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/blob/main/assets/docs/MONITORING.md)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

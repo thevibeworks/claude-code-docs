@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """
-Fetch Claude Code documentation from docs.claude.com
+Fetch Claude documentation from platform.claude.com and code.claude.com
+
+Sources:
+  - platform.claude.com/sitemap.xml  → API docs
+  - code.claude.com/docs/llms.txt    → Claude Code docs
 
 Usage:
   uv run scripts/fetcher.py
   uv run scripts/fetcher.py --tree
-  uv run scripts/fetcher.py --section en/docs/claude-code
+  uv run scripts/fetcher.py --section claude-code
+  uv run scripts/fetcher.py --section api
   uv run scripts/fetcher.py --incremental --jobs 100
 """
 # /// script
@@ -20,6 +25,7 @@ Usage:
 import asyncio
 import hashlib
 import json
+import re
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from collections import defaultdict
@@ -44,7 +50,10 @@ class Fetcher:
         self.jobs = jobs
         self.incremental = incremental
         self.section = section
-        self.sitemap_url = "https://docs.claude.com/sitemap.xml"
+
+        # New URL structure (Dec 2025)
+        self.platform_sitemap_url = "https://platform.claude.com/sitemap.xml"
+        self.claude_code_llms_url = "https://code.claude.com/docs/llms.txt"
         self.anthropic_sitemap_url = "https://www.anthropic.com/sitemap.xml"
 
         self.stats = {"total": 0, "downloaded": 0, "skipped": 0, "failed": 0}
@@ -66,18 +75,53 @@ class Fetcher:
             response.raise_for_status()
             return await response.read()
 
-    def extract_urls(self, sitemap_xml: str) -> List[str]:
+    async def fetch_claude_code_urls(self, session: aiohttp.ClientSession) -> List[str]:
+        """Fetch Claude Code doc URLs from llms.txt (markdown link format)"""
+        async with session.get(self.claude_code_llms_url) as response:
+            response.raise_for_status()
+            content = await response.text()
+
+        urls = []
+        # llms.txt uses markdown links: [Title](https://code.claude.com/docs/en/foo.md)
+        pattern = r'\(https://code\.claude\.com/docs/en/[^)]+\.md\)'
+        for match in re.findall(pattern, content):
+            url = match[1:-1]  # Remove parens
+            # Store without .md suffix (we add it back when fetching)
+            urls.append(url[:-3])
+        return urls
+
+    def extract_platform_urls(self, sitemap_xml: str) -> List[str]:
+        """Extract English doc URLs from platform.claude.com sitemap"""
         urls = []
         for line in sitemap_xml.split("\n"):
             if "<loc>" in line and "</loc>" in line:
                 url = line.split("<loc>")[1].split("</loc>")[0]
-                if "/en/" in url and "docs.claude.com" in url:
+                # Only English docs from platform
+                if "/docs/en/" in url and "platform.claude.com" in url:
                     urls.append(url)
         return urls
 
+    def extract_urls(self, sitemap_xml: str) -> List[str]:
+        """Legacy method - kept for compatibility"""
+        return self.extract_platform_urls(sitemap_xml)
+
     def get_output_path(self, url: str) -> Path:
-        path = url.replace("https://docs.claude.com/", "")
-        return self.output_dir / f"{path}.md"
+        """Map URL to local file path"""
+        if "code.claude.com" in url:
+            # code.claude.com/docs/en/foo -> en/docs/claude-code/foo.md
+            path = url.replace("https://code.claude.com/docs/", "")
+            parts = path.split("/", 1)  # ['en', 'foo']
+            if len(parts) == 2:
+                return self.output_dir / parts[0] / "docs" / "claude-code" / f"{parts[1]}.md"
+            return self.output_dir / f"{path}.md"
+        elif "platform.claude.com" in url:
+            # platform.claude.com/docs/en/foo -> en/foo.md
+            path = url.replace("https://platform.claude.com/docs/", "")
+            return self.output_dir / f"{path}.md"
+        else:
+            # Fallback
+            path = url.replace("https://", "").split("/", 1)[-1]
+            return self.output_dir / f"{path}.md"
 
     async def download_doc(
         self,
@@ -194,32 +238,40 @@ class Fetcher:
             except Exception as e:
                 print(f"Failed to fetch CHANGELOG: {e}", file=sys.stderr)
 
-            # Fetch sitemaps
-            print("Fetching sitemaps...")
-            sitemap_xml = await self.fetch_sitemap(session, self.sitemap_url)
-            anthropic_xml = await self.fetch_sitemap(
-                session, self.anthropic_sitemap_url
-            )
+            # Fetch from both sources
+            print("Fetching sources...")
 
-            # Extract docs URLs
-            urls = self.extract_urls(sitemap_xml)
+            # Platform docs (API, build-with-claude, etc.)
+            platform_urls = []
+            if not self.section or self.section in ("api", "platform", "all"):
+                print("  platform.claude.com/sitemap.xml...")
+                sitemap_xml = await self.fetch_sitemap(session, self.platform_sitemap_url)
+                platform_urls = self.extract_platform_urls(sitemap_xml)
+                print(f"    Found {len(platform_urls)} platform docs")
 
-            # Extract blog URLs
+            # Claude Code docs
+            claude_code_urls = []
+            if not self.section or self.section in ("claude-code", "all"):
+                print("  code.claude.com/docs/llms.txt...")
+                claude_code_urls = await self.fetch_claude_code_urls(session)
+                print(f"    Found {len(claude_code_urls)} Claude Code docs")
+
+            # Blog posts
             blog_urls = []
-            for line in anthropic_xml.split("\n"):
-                if "<loc>" in line and "claude-code" in line:
-                    url = line.split("<loc>")[1].split("</loc>")[0]
-                    blog_urls.append(url)
+            if not self.section or self.section in ("blog", "all"):
+                print("  anthropic.com/sitemap.xml...")
+                anthropic_xml = await self.fetch_sitemap(session, self.anthropic_sitemap_url)
+                for line in anthropic_xml.split("\n"):
+                    if "<loc>" in line and "claude-code" in line:
+                        url = line.split("<loc>")[1].split("</loc>")[0]
+                        blog_urls.append(url)
+                print(f"    Found {len(blog_urls)} blog posts")
 
-            # Filter by section if specified
-            if self.section:
-                section_prefix = f"https://docs.claude.com/{self.section}"
-                urls = [u for u in urls if u.startswith(section_prefix)]
-                if not self.section.startswith("blog"):
-                    blog_urls = []
+            # Combine all URLs
+            urls = platform_urls + claude_code_urls
 
             self.stats["total"] = len(urls) + len(blog_urls)
-            print(f"Total: {self.stats['total']} ({len(urls)} docs, {len(blog_urls)} blog)")
+            print(f"\nTotal: {self.stats['total']} ({len(platform_urls)} platform, {len(claude_code_urls)} claude-code, {len(blog_urls)} blog)")
             print()
 
             # Download concurrently
@@ -277,76 +329,77 @@ class Fetcher:
             await f.write(json.dumps(metadata, indent=2))
 
     async def show_tree(self):
-        print("Fetching sitemap...")
+        print("Fetching sources...")
         timeout = aiohttp.ClientTimeout(total=60)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            sitemap_xml = await self.fetch_sitemap(session, self.sitemap_url)
-            urls = self.extract_urls(sitemap_xml)
+            # Platform docs
+            sitemap_xml = await self.fetch_sitemap(session, self.platform_sitemap_url)
+            platform_urls = self.extract_platform_urls(sitemap_xml)
 
-        print(f"\ndocs.claude.com ({len(urls)} URLs)\n")
+            # Claude Code docs
+            claude_code_urls = await self.fetch_claude_code_urls(session)
 
-        # Group by language/top-level
-        lang_groups = defaultdict(list)
-        for url in urls:
-            path = url.replace("https://docs.claude.com/", "")
+        # Show Claude Code docs
+        print(f"\ncode.claude.com ({len(claude_code_urls)} docs)")
+        print("-" * 40)
+        for url in sorted(claude_code_urls):
+            path = url.replace("https://code.claude.com/docs/en/", "")
+            print(f"  {path}")
+
+        # Show Platform docs grouped
+        print(f"\nplatform.claude.com ({len(platform_urls)} docs)")
+        print("-" * 40)
+
+        # Group by path structure
+        groups = defaultdict(list)
+        for url in platform_urls:
+            path = url.replace("https://platform.claude.com/docs/en/", "")
             parts = path.split("/")
             if len(parts) >= 1:
-                lang_groups[parts[0]].append(path)
+                groups[parts[0]].append(path)
 
-        for lang in sorted(lang_groups.keys()):
-            paths = lang_groups[lang]
-            print(f"{lang}/ ({len(paths)})")
+        for section in sorted(groups.keys(), key=lambda x: -len(groups[x])):
+            paths = groups[section]
+            print(f"  {section}/ ({len(paths)})")
 
-            # Group by second level (docs, api, resources, etc.)
-            second_level = defaultdict(list)
+            # Show subsections
+            subs = defaultdict(int)
             for path in paths:
                 parts = path.split("/")
                 if len(parts) >= 2:
-                    second_level[parts[1]].append(path)
+                    subs[parts[1]] += 1
 
-            for section in sorted(second_level.keys(), key=lambda x: -len(second_level[x])):
-                section_paths = second_level[section]
-                print(f"  {section}/ ({len(section_paths)})")
+            shown = 0
+            for sub, count in sorted(subs.items(), key=lambda x: -x[1]):
+                if shown < 5:
+                    print(f"    {sub}/ ({count})")
+                    shown += 1
+                elif shown == 5:
+                    remaining = len(subs) - shown
+                    if remaining > 0:
+                        print(f"    [+{remaining} more]")
+                    break
 
-                # Group by third level
-                third_level = defaultdict(int)
-                for path in section_paths:
-                    parts = path.split("/")
-                    if len(parts) >= 3:
-                        third_level[parts[2]] += 1
-
-                shown = 0
-                for subsection, count in sorted(
-                    third_level.items(), key=lambda x: -x[1]
-                ):
-                    if shown < 8:
-                        print(f"    {subsection}/ ({count})")
-                        shown += 1
-                    else:
-                        remaining = len(third_level) - shown
-                        if remaining > 0:
-                            print(f"    [+{remaining} more]")
-                        break
-
-            print()
-
-        print("Usage:")
-        print("  fetcher.py --section en/docs/claude-code")
-        print("  fetcher.py --section en/api/agent-sdk")
-        print("  fetcher.py --section en/docs")
+        print("\nUsage:")
+        print("  fetcher.py                     # Fetch all")
+        print("  fetcher.py --section claude-code")
+        print("  fetcher.py --section api")
+        print("  fetcher.py --section blog")
 
 
 async def main():
     parser = ArgumentParser(
-        description="Fetch Claude Code documentation",
+        description="Fetch Claude documentation from platform.claude.com and code.claude.com",
         formatter_class=RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  fetcher.py                                 Fetch all docs
-  fetcher.py --tree                          Show sitemap structure
-  fetcher.py --section en/docs/claude-code   Fetch specific section
-  fetcher.py --incremental                   Skip existing files
-  fetcher.py --jobs 100                      Use 100 parallel jobs
+  fetcher.py                       Fetch all docs (platform + claude-code + blog)
+  fetcher.py --tree                Show available documentation structure
+  fetcher.py --section claude-code Fetch only Claude Code docs
+  fetcher.py --section api         Fetch only API/platform docs
+  fetcher.py --section blog        Fetch only blog posts
+  fetcher.py --incremental         Skip existing files
+  fetcher.py --jobs 100            Use 100 parallel jobs
         """,
     )
     parser.add_argument("--out", default="content", help="Output directory")
@@ -354,12 +407,14 @@ Examples:
         "--jobs", "-j", type=int, default=50, help="Parallel jobs (default: 50)"
     )
     parser.add_argument(
-        "--section", "-s", help="Filter to specific section (e.g., en/docs/claude-code)"
+        "--section", "-s",
+        choices=["claude-code", "api", "platform", "blog", "all"],
+        help="Section to fetch (default: all)",
     )
     parser.add_argument(
         "--incremental", action="store_true", help="Skip existing files"
     )
-    parser.add_argument("--tree", action="store_true", help="Show sitemap structure")
+    parser.add_argument("--tree", action="store_true", help="Show documentation structure")
 
     args = parser.parse_args()
 

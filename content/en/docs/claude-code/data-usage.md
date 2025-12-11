@@ -17,7 +17,7 @@ We will train new models using data from Free, Pro, and Max accounts when this s
   If you're a new user, you can pick your setting for model training during the signup process.
   You can change your selection at any time in your Privacy Settings.
 
-**Commercial users**: (Team and Enterprise plans, API, 3rd-party platforms, and Claude Gov) maintain existing policies: Anthropic does not train generative models using code or prompts sent to Claude Code under commercial terms, unless the customer has chosen to provide their data to us for model improvement (e.g. [Developer Partner Program](https://support.claude.com/en/articles/11174108-about-the-development-partner-program)).
+**Commercial users**: (Team and Enterprise plans, API, 3rd-party platforms, and Claude Gov) maintain existing policies: Anthropic does not train generative models using code or prompts sent to Claude Code under commercial terms, unless the customer has chosen to provide their data to us for model improvement (for example, the [Developer Partner Program](https://support.claude.com/en/articles/11174108-about-the-development-partner-program)).
 
 ### Development Partner Program
 
@@ -94,3 +94,8 @@ By default, we disable all non-essential traffic (including error reporting, tel
 | **Claude API (`/bug` reports)** | Default on.<br />`DISABLE_BUG_COMMAND=1` to disable.     | Default off.<br />`CLAUDE_CODE_USE_VERTEX` must be 1. | Default off.<br />`CLAUDE_CODE_USE_BEDROCK` must be 1. |
 
 All environment variables can be checked into `settings.json` ([read more](/en/settings)).
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

@@ -11,7 +11,7 @@
 Claude Code on the web lets developers kick off Claude Code from the Claude app. This is perfect for:
 
 * **Answering questions**: Ask about code architecture and how features are implemented
-* **Bugfixes and routine tasks**: Well-defined tasks that don't require frequent steering
+* **Bug fixes and routine tasks**: Well-defined tasks that don't require frequent steering
 * **Parallel work**: Tackle multiple bug fixes in parallel
 * **Repositories not on your local machine**: Work on code you don't have checked out locally
 * **Backend changes**: Where Claude Code can write tests and then write code to pass those tests
@@ -29,8 +29,8 @@ Claude Code on the web is available in research preview to:
 
 * **Pro users**
 * **Max users**
-
-Coming soon to Team and Enterprise premium seat users.
+* **Team premium seat users**
+* **Enterprise premium seat users**
 
 ## Getting started
 
@@ -92,11 +92,20 @@ This command displays:
 The universal image includes pre-configured environments for:
 
 * **Python**: Python 3.x with pip, poetry, and common scientific libraries
-* **Node.js**: Latest LTS versions with npm, yarn, and pnpm
+* **Node.js**: Latest LTS versions with npm, yarn, pnpm, and bun
+* **Ruby**: Versions 3.1.6, 3.2.6, 3.3.6 (default: 3.3.6) with gem, bundler, and rbenv for version management
+* **PHP**: Version 8.4.14
 * **Java**: OpenJDK with Maven and Gradle
 * **Go**: Latest stable version with module support
 * **Rust**: Rust toolchain with cargo
 * **C++**: GCC and Clang compilers
+
+#### Databases
+
+The universal image includes the following databases:
+
+* **PostgreSQL**: Version 16
+* **Redis**: Version 7.0
 
 ### Environment configuration
 
@@ -464,7 +473,7 @@ Claude Code on the web shares rate limits with all other Claude and Claude Code 
 
 ## Best practices
 
-1. **Use Claude Code hooks**: Configure [sessionStart hooks](/en/hooks#sessionstart) to automate environment setup and dependency installation.
+1. **Use Claude Code hooks**: Configure [SessionStart hooks](/en/hooks#sessionstart) to automate environment setup and dependency installation.
 2. **Document requirements**: Clearly specify dependencies and commands in your `CLAUDE.md` file. If you have an `AGENTS.md` file, you can source it in your `CLAUDE.md` using `@AGENTS.md` to maintain a single source of truth.
 
 ## Related resources
@@ -473,3 +482,8 @@ Claude Code on the web shares rate limits with all other Claude and Claude Code 
 * [Settings reference](/en/settings)
 * [Security](/en/security)
 * [Data usage](/en/data-usage)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

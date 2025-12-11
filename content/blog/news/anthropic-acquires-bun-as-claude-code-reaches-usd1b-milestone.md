@@ -24,18 +24,14 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
-### Claude for Nonprofits
+### Donating the Model Context Protocol and establishing the Agentic AI Foundation
 
-Anthropic launches Claude for Nonprofits to help organizations maximize their impact, featuring free AI training and discounted rates.
+[Read more](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
 
-[Read more](https://www.anthropic.com/news/claude-for-nonprofits)
+### Accenture and Anthropic launch multi-year partnership to move enterprises from AI pilots to production
 
-### Introducing Claude Opus 4.5
+[Read more](https://www.anthropic.com/news/anthropic-accenture-partnership)
 
-The best model in the world for coding, agents, and computer use, with meaningful improvements to everyday tasks like slides and spreadsheets. Claude Opus 4.5 delivers frontier performance and dramatically improved token efficiency.
+### Snowflake and Anthropic announce $200 million partnership to bring agentic AI to global enterprises
 
-[Read more](https://www.anthropic.com/news/claude-opus-4-5)
-
-### Claude now available in Microsoft Foundry and Microsoft 365 Copilot
-
-[Read more](https://www.anthropic.com/news/claude-in-microsoft-foundry)
+[Read more](https://www.anthropic.com/news/snowflake-anthropic-expanded-partnership)

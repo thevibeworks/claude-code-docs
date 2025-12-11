@@ -19,12 +19,15 @@ Code through hierarchical settings:
   settings. System administrators can deploy policies to:
   * macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
   * Linux and WSL: `/etc/claude-code/managed-settings.json`
-  * Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
+  * Windows: `C:\Program Files\ClaudeCode\managed-settings.json`
+    * `C:\ProgramData\ClaudeCode\managed-settings.json` will be deprecated in a future version.
 * Enterprise deployments can also configure **managed MCP servers** that override
   user-configured servers. See [Enterprise MCP configuration](/en/mcp#enterprise-mcp-configuration):
   * macOS: `/Library/Application Support/ClaudeCode/managed-mcp.json`
   * Linux and WSL: `/etc/claude-code/managed-mcp.json`
-  * Windows: `C:\ProgramData\ClaudeCode\managed-mcp.json`
+  * Windows: `C:\Program Files\ClaudeCode\managed-mcp.json`
+    * `C:\ProgramData\ClaudeCode\managed-mcp.json` will be deprecated in a future version.
+* **Other configuration** is stored in `~/.claude.json`. This file contains your preferences (theme, notification settings, editor mode), OAuth session, [MCP server](/en/mcp) configurations for user and local scopes, per-project state (allowed tools, trust settings), and various caches. Project-scoped MCP servers are stored separately in `.mcp.json`.
 
 ```JSON Example settings.json theme={null}
 {
@@ -60,15 +63,16 @@ Code through hierarchical settings:
 | Key                          | Description                                                                                                                                                                                                                                                      | Example                                                                 |
 | :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
 | `apiKeyHelper`               | Custom script, to be executed in `/bin/sh`, to generate an auth value. This value will be sent as `X-Api-Key` and `Authorization: Bearer` headers for model requests                                                                                             | `/bin/generate_temp_api_key.sh`                                         |
-| `cleanupPeriodDays`          | How long to locally retain chat transcripts based on last activity date (default: 30 days)                                                                                                                                                                       | `20`                                                                    |
+| `cleanupPeriodDays`          | Sessions inactive for longer than this period are deleted at startup. Setting to `0` immediately deletes all sessions. (default: 30 days)                                                                                                                        | `20`                                                                    |
 | `companyAnnouncements`       | Announcement to display to users at startup. If multiple announcements are provided, they will be cycled through at random.                                                                                                                                      | `["Welcome to Acme Corp! Review our code guidelines at docs.acme.com"]` |
 | `env`                        | Environment variables that will be applied to every session                                                                                                                                                                                                      | `{"FOO": "bar"}`                                                        |
-| `includeCoAuthoredBy`        | Whether to include the `co-authored-by Claude` byline in git commits and pull requests (default: `true`)                                                                                                                                                         | `false`                                                                 |
+| `attribution`                | Customize attribution for git commits and pull requests. See [Attribution settings](#attribution-settings)                                                                                                                                                       | `{"commit": "🤖 Generated with Claude Code", "pr": ""}`                 |
+| `includeCoAuthoredBy`        | **Deprecated**: Use `attribution` instead. Whether to include the `co-authored-by Claude` byline in git commits and pull requests (default: `true`)                                                                                                              | `false`                                                                 |
 | `permissions`                | See table below for structure of permissions.                                                                                                                                                                                                                    |                                                                         |
 | `hooks`                      | Configure custom commands to run before or after tool executions. See [hooks documentation](/en/hooks)                                                                                                                                                           | `{"PreToolUse": {"Bash": "echo 'Running command...'"}}`                 |
 | `disableAllHooks`            | Disable all [hooks](/en/hooks)                                                                                                                                                                                                                                   | `true`                                                                  |
 | `model`                      | Override the default model to use for Claude Code                                                                                                                                                                                                                | `"claude-sonnet-4-5-20250929"`                                          |
-| `statusLine`                 | Configure a custom status line to display context. See [statusLine documentation](/en/statusline)                                                                                                                                                                | `{"type": "command", "command": "~/.claude/statusline.sh"}`             |
+| `statusLine`                 | Configure a custom status line to display context. See [`statusLine` documentation](/en/statusline)                                                                                                                                                              | `{"type": "command", "command": "~/.claude/statusline.sh"}`             |
 | `outputStyle`                | Configure an output style to adjust the system prompt. See [output styles documentation](/en/output-styles)                                                                                                                                                      | `"Explanatory"`                                                         |
 | `forceLoginMethod`           | Use `claudeai` to restrict login to Claude.ai accounts, `console` to restrict login to Claude Console (API usage billing) accounts                                                                                                                               | `claudeai`                                                              |
 | `forceLoginOrgUUID`          | Specify the UUID of an organization to automatically select it during login, bypassing the organization selection step. Requires `forceLoginMethod` to be set                                                                                                    | `"xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"`                                |
@@ -104,7 +108,7 @@ Configure advanced sandboxing behavior. Sandboxing isolates bash commands from y
 | `excludedCommands`          | Commands that should run outside of the sandbox                                                                                                                                                                                                                                                                                   | `["git", "docker"]`       |
 | `allowUnsandboxedCommands`  | Allow commands to run outside the sandbox via the `dangerouslyDisableSandbox` parameter. When set to `false`, the `dangerouslyDisableSandbox` escape hatch is completely disabled and all commands must run sandboxed (or be in `excludedCommands`). Useful for enterprise policies that require strict sandboxing. Default: true | `false`                   |
 | `network.allowUnixSockets`  | Unix socket paths accessible in sandbox (for SSH agents, etc.)                                                                                                                                                                                                                                                                    | `["~/.ssh/agent-socket"]` |
-| `network.allowLocalBinding` | Allow binding to localhost ports (MacOS only). Default: false                                                                                                                                                                                                                                                                     | `true`                    |
+| `network.allowLocalBinding` | Allow binding to localhost ports (macOS only). Default: false                                                                                                                                                                                                                                                                     | `true`                    |
 | `network.httpProxyPort`     | HTTP proxy port used if you wish to bring your own proxy. If not specified, Claude will run its own proxy.                                                                                                                                                                                                                        | `8080`                    |
 | `network.socksProxyPort`    | SOCKS5 proxy port used if you wish to bring your own proxy. If not specified, Claude will run its own proxy.                                                                                                                                                                                                                      | `8081`                    |
 | `enableWeakerNestedSandbox` | Enable weaker sandbox for unprivileged Docker environments (Linux only). **Reduces security.** Default: false                                                                                                                                                                                                                     | `true`                    |
@@ -133,24 +137,61 @@ Configure advanced sandboxing behavior. Sandboxing isolates bash commands from y
 }
 ```
 
-**Filesystem access** is controlled via Read/Edit permissions:
+**Filesystem and network restrictions** use standard permission rules:
 
-* Read deny rules block file reads in sandbox
-* Edit allow rules permit file writes (in addition to the defaults, e.g. the current working directory)
-* Edit deny rules block writes within allowed paths
+* Use `Read` deny rules to block Claude from reading specific files or directories
+* Use `Edit` allow rules to let Claude write to directories beyond the current working directory
+* Use `Edit` deny rules to block writes to specific paths
+* Use `WebFetch` allow/deny rules to control which network domains Claude can access
 
-**Network access** is controlled via WebFetch permissions:
+### Attribution settings
 
-* WebFetch allow rules permit network domains
-* WebFetch deny rules block network domains
+Claude Code adds attribution to git commits and pull requests. These are configured separately:
+
+* Commits use [git trailers](https://git-scm.com/docs/git-interpret-trailers) (like `Co-Authored-By`) by default,  which can be customized or disabled
+* Pull request descriptions are plain text
+
+| Keys     | Description                                                                                |
+| :------- | :----------------------------------------------------------------------------------------- |
+| `commit` | Attribution for git commits, including any trailers. Empty string hides commit attribution |
+| `pr`     | Attribution for pull request descriptions. Empty string hides pull request attribution     |
+
+**Default commit attribution:**
+
+```
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+   Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+```
+
+**Default pull request attribution:**
+
+```
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+
+**Example:**
+
+```json  theme={null}
+{
+  "attribution": {
+    "commit": "Generated with AI\n\nCo-Authored-By: AI <ai@example.com>",
+    "pr": ""
+  }
+}
+```
+
+<Note>
+  The `attribution` setting takes precedence over the deprecated `includeCoAuthoredBy` setting. To hide all attribution, set `commit` and `pr` to empty strings.
+</Note>
 
 ### Settings precedence
 
-Settings are applied in order of precedence (highest to lowest):
+Settings apply in order of precedence. From highest to lowest:
 
 1. **Enterprise managed policies** (`managed-settings.json`)
    * Deployed by IT/DevOps
-   * Cannot be overridden
+   * Can't be overridden
 
 2. **Command line arguments**
    * Temporary overrides for a specific session
@@ -166,24 +207,24 @@ Settings are applied in order of precedence (highest to lowest):
 
 This hierarchy ensures that enterprise security policies are always enforced while still allowing teams and individuals to customize their experience.
 
+For example, if your user settings allow `Bash(npm run:*)` but a project's shared settings deny it, the project setting takes precedence and the command is blocked.
+
 ### Key points about the configuration system
 
-* **Memory files (CLAUDE.md)**: Contain instructions and context that Claude loads at startup
+* **Memory files (`CLAUDE.md`)**: Contain instructions and context that Claude loads at startup
 * **Settings files (JSON)**: Configure permissions, environment variables, and tool behavior
 * **Slash commands**: Custom commands that can be invoked during a session with `/command-name`
 * **MCP servers**: Extend Claude Code with additional tools and integrations
 * **Precedence**: Higher-level configurations (Enterprise) override lower-level ones (User/Project)
 * **Inheritance**: Settings are merged, with more specific settings adding to or overriding broader ones
 
-### System prompt availability
+### System prompt
 
-<Note>
-  Unlike for claude.ai, we do not publish Claude Code's internal system prompt on this website. Use CLAUDE.md files or `--append-system-prompt` to add custom instructions to Claude Code's behavior.
-</Note>
+Claude Code's internal system prompt is not published. To add custom instructions, use `CLAUDE.md` files or the `--append-system-prompt` flag.
 
 ### Excluding sensitive files
 
-To prevent Claude Code from accessing files containing sensitive information (e.g., API keys, secrets, environment files), use the `permissions.deny` setting in your `.claude/settings.json` file:
+To prevent Claude Code from accessing files containing sensitive information like API keys, secrets, and environment files, use the `permissions.deny` setting in your `.claude/settings.json` file:
 
 ```json  theme={null}
 {
@@ -322,6 +363,7 @@ Claude Code supports the following environment variables to control its behavior
 | `ANTHROPIC_DEFAULT_HAIKU_MODEL`            | See [Model configuration](/en/model-config#environment-variables)                                                                                                                                                                                                                                                                                                                            |
 | `ANTHROPIC_DEFAULT_OPUS_MODEL`             | See [Model configuration](/en/model-config#environment-variables)                                                                                                                                                                                                                                                                                                                            |
 | `ANTHROPIC_DEFAULT_SONNET_MODEL`           | See [Model configuration](/en/model-config#environment-variables)                                                                                                                                                                                                                                                                                                                            |
+| `ANTHROPIC_FOUNDRY_API_KEY`                | API key for Microsoft Foundry authentication (see [Microsoft Foundry](/en/microsoft-foundry))                                                                                                                                                                                                                                                                                                |
 | `ANTHROPIC_MODEL`                          | Name of the model setting to use (see [Model Configuration](/en/model-config#environment-variables))                                                                                                                                                                                                                                                                                         |
 | `ANTHROPIC_SMALL_FAST_MODEL`               | \[DEPRECATED] Name of [Haiku-class model for background tasks](/en/costs)                                                                                                                                                                                                                                                                                                                    |
 | `ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION`    | Override AWS region for the Haiku-class model when using Bedrock                                                                                                                                                                                                                                                                                                                             |
@@ -334,16 +376,21 @@ Claude Code supports the following environment variables to control its behavior
 | `CLAUDE_CODE_CLIENT_CERT`                  | Path to client certificate file for mTLS authentication                                                                                                                                                                                                                                                                                                                                      |
 | `CLAUDE_CODE_CLIENT_KEY_PASSPHRASE`        | Passphrase for encrypted CLAUDE\_CODE\_CLIENT\_KEY (optional)                                                                                                                                                                                                                                                                                                                                |
 | `CLAUDE_CODE_CLIENT_KEY`                   | Path to client private key file for mTLS authentication                                                                                                                                                                                                                                                                                                                                      |
+| `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`   | Set to `1` to disable Anthropic API-specific `anthropic-beta` headers. Use this if experiencing issues like "Unexpected value(s) for the `anthropic-beta` header" when using an LLM gateway with third-party providers                                                                                                                                                                       |
 | `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | Equivalent of setting `DISABLE_AUTOUPDATER`, `DISABLE_BUG_COMMAND`, `DISABLE_ERROR_REPORTING`, and `DISABLE_TELEMETRY`                                                                                                                                                                                                                                                                       |
 | `CLAUDE_CODE_DISABLE_TERMINAL_TITLE`       | Set to `1` to disable automatic terminal title updates based on conversation context                                                                                                                                                                                                                                                                                                         |
 | `CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL`        | Skip auto-installation of IDE extensions                                                                                                                                                                                                                                                                                                                                                     |
 | `CLAUDE_CODE_MAX_OUTPUT_TOKENS`            | Set the maximum number of output tokens for most requests                                                                                                                                                                                                                                                                                                                                    |
-| `CLAUDE_CODE_SKIP_BEDROCK_AUTH`            | Skip AWS authentication for Bedrock (e.g. when using an LLM gateway)                                                                                                                                                                                                                                                                                                                         |
-| `CLAUDE_CODE_SKIP_VERTEX_AUTH`             | Skip Google authentication for Vertex (e.g. when using an LLM gateway)                                                                                                                                                                                                                                                                                                                       |
+| `CLAUDE_CODE_SHELL_PREFIX`                 | Command prefix to wrap all bash commands (for example, for logging or auditing). Example: `/path/to/logger.sh` will execute `/path/to/logger.sh <command>`                                                                                                                                                                                                                                   |
+| `CLAUDE_CODE_SKIP_BEDROCK_AUTH`            | Skip AWS authentication for Bedrock (for example, when using an LLM gateway)                                                                                                                                                                                                                                                                                                                 |
+| `CLAUDE_CODE_SKIP_FOUNDRY_AUTH`            | Skip Azure authentication for Microsoft Foundry (for example, when using an LLM gateway)                                                                                                                                                                                                                                                                                                     |
+| `CLAUDE_CODE_SKIP_VERTEX_AUTH`             | Skip Google authentication for Vertex (for example, when using an LLM gateway)                                                                                                                                                                                                                                                                                                               |
 | `CLAUDE_CODE_SUBAGENT_MODEL`               | See [Model configuration](/en/model-config)                                                                                                                                                                                                                                                                                                                                                  |
 | `CLAUDE_CODE_USE_BEDROCK`                  | Use [Bedrock](/en/amazon-bedrock)                                                                                                                                                                                                                                                                                                                                                            |
+| `CLAUDE_CODE_USE_FOUNDRY`                  | Use [Microsoft Foundry](/en/microsoft-foundry)                                                                                                                                                                                                                                                                                                                                               |
 | `CLAUDE_CODE_USE_VERTEX`                   | Use [Vertex](/en/google-vertex-ai)                                                                                                                                                                                                                                                                                                                                                           |
-| `DISABLE_AUTOUPDATER`                      | Set to `1` to disable automatic updates. This takes precedence over the `autoUpdates` configuration setting.                                                                                                                                                                                                                                                                                 |
+| `CLAUDE_CONFIG_DIR`                        | Customize where Claude Code stores its configuration and data files                                                                                                                                                                                                                                                                                                                          |
+| `DISABLE_AUTOUPDATER`                      | Set to `1` to disable automatic updates.                                                                                                                                                                                                                                                                                                                                                     |
 | `DISABLE_BUG_COMMAND`                      | Set to `1` to disable the `/bug` command                                                                                                                                                                                                                                                                                                                                                     |
 | `DISABLE_COST_WARNINGS`                    | Set to `1` to disable cost warning messages                                                                                                                                                                                                                                                                                                                                                  |
 | `DISABLE_ERROR_REPORTING`                  | Set to `1` to opt out of Sentry error reporting                                                                                                                                                                                                                                                                                                                                              |
@@ -361,7 +408,7 @@ Claude Code supports the following environment variables to control its behavior
 | `MCP_TOOL_TIMEOUT`                         | Timeout in milliseconds for MCP tool execution                                                                                                                                                                                                                                                                                                                                               |
 | `NO_PROXY`                                 | List of domains and IPs to which requests will be directly issued, bypassing proxy                                                                                                                                                                                                                                                                                                           |
 | `SLASH_COMMAND_TOOL_CHAR_BUDGET`           | Maximum number of characters for slash command metadata shown to [SlashCommand tool](/en/slash-commands#slashcommand-tool) (default: 15000)                                                                                                                                                                                                                                                  |
-| `USE_BUILTIN_RIPGREP`                      | Set to `0` to use system-installed `rg` intead of `rg` included with Claude Code                                                                                                                                                                                                                                                                                                             |
+| `USE_BUILTIN_RIPGREP`                      | Set to `0` to use system-installed `rg` instead of `rg` included with Claude Code                                                                                                                                                                                                                                                                                                            |
 | `VERTEX_REGION_CLAUDE_3_5_HAIKU`           | Override region for Claude 3.5 Haiku when using Vertex AI                                                                                                                                                                                                                                                                                                                                    |
 | `VERTEX_REGION_CLAUDE_3_7_SONNET`          | Override region for Claude 3.7 Sonnet when using Vertex AI                                                                                                                                                                                                                                                                                                                                   |
 | `VERTEX_REGION_CLAUDE_4_0_OPUS`            | Override region for Claude 4.0 Opus when using Vertex AI                                                                                                                                                                                                                                                                                                                                     |
@@ -372,23 +419,89 @@ Claude Code supports the following environment variables to control its behavior
 
 Claude Code has access to a set of powerful tools that help it understand and modify your codebase:
 
-| Tool             | Description                                                         | Permission Required |
-| :--------------- | :------------------------------------------------------------------ | :------------------ |
-| **Bash**         | Executes shell commands in your environment                         | Yes                 |
-| **Edit**         | Makes targeted edits to specific files                              | Yes                 |
-| **Glob**         | Finds files based on pattern matching                               | No                  |
-| **Grep**         | Searches for patterns in file contents                              | No                  |
-| **NotebookEdit** | Modifies Jupyter notebook cells                                     | Yes                 |
-| **NotebookRead** | Reads and displays Jupyter notebook contents                        | No                  |
-| **Read**         | Reads the contents of files                                         | No                  |
-| **SlashCommand** | Runs a [custom slash command](/en/slash-commands#slashcommand-tool) | Yes                 |
-| **Task**         | Runs a sub-agent to handle complex, multi-step tasks                | No                  |
-| **TodoWrite**    | Creates and manages structured task lists                           | No                  |
-| **WebFetch**     | Fetches content from a specified URL                                | Yes                 |
-| **WebSearch**    | Performs web searches with domain filtering                         | Yes                 |
-| **Write**        | Creates or overwrites files                                         | Yes                 |
+| Tool                | Description                                                                                       | Permission Required |
+| :------------------ | :------------------------------------------------------------------------------------------------ | :------------------ |
+| **AskUserQuestion** | Asks the user multiple choice questions to gather information or clarify ambiguity                | No                  |
+| **Bash**            | Executes shell commands in your environment (see [Bash tool behavior](#bash-tool-behavior) below) | Yes                 |
+| **BashOutput**      | Retrieves output from a background bash shell                                                     | No                  |
+| **Edit**            | Makes targeted edits to specific files                                                            | Yes                 |
+| **ExitPlanMode**    | Prompts the user to exit plan mode and start coding                                               | Yes                 |
+| **Glob**            | Finds files based on pattern matching                                                             | No                  |
+| **Grep**            | Searches for patterns in file contents                                                            | No                  |
+| **KillShell**       | Kills a running background bash shell by its ID                                                   | No                  |
+| **NotebookEdit**    | Modifies Jupyter notebook cells                                                                   | Yes                 |
+| **Read**            | Reads the contents of files                                                                       | No                  |
+| **Skill**           | Executes a skill within the main conversation                                                     | Yes                 |
+| **SlashCommand**    | Runs a [custom slash command](/en/slash-commands#slashcommand-tool)                               | Yes                 |
+| **Task**            | Runs a sub-agent to handle complex, multi-step tasks                                              | No                  |
+| **TodoWrite**       | Creates and manages structured task lists                                                         | No                  |
+| **WebFetch**        | Fetches content from a specified URL                                                              | Yes                 |
+| **WebSearch**       | Performs web searches with domain filtering                                                       | Yes                 |
+| **Write**           | Creates or overwrites files                                                                       | Yes                 |
 
 Permission rules can be configured using `/allowed-tools` or in [permission settings](/en/settings#available-settings). Also see [Tool-specific permission rules](/en/iam#tool-specific-permission-rules).
+
+### Bash tool behavior
+
+The Bash tool executes shell commands with the following persistence behavior:
+
+* **Working directory persists**: When Claude changes the working directory (for example, `cd /path/to/dir`), subsequent Bash commands will execute in that directory. You can use `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1` to reset to the project directory after each command.
+* **Environment variables do NOT persist**: Environment variables set in one Bash command (for example, `export MY_VAR=value`) are **not** available in subsequent Bash commands. Each Bash command runs in a fresh shell environment.
+
+To make environment variables available in Bash commands, you have **three options**:
+
+**Option 1: Activate environment before starting Claude Code** (simplest approach)
+
+Activate your virtual environment in your terminal before launching Claude Code:
+
+```bash  theme={null}
+conda activate myenv
+# or: source /path/to/venv/bin/activate
+claude
+```
+
+This works for shell environments but environment variables set within Claude's Bash commands will not persist between commands.
+
+**Option 2: Set CLAUDE\_ENV\_FILE before starting Claude Code** (persistent environment setup)
+
+Export the path to a shell script containing your environment setup:
+
+```bash  theme={null}
+export CLAUDE_ENV_FILE=/path/to/env-setup.sh
+claude
+```
+
+Where `/path/to/env-setup.sh` contains:
+
+```bash  theme={null}
+conda activate myenv
+# or: source /path/to/venv/bin/activate
+# or: export MY_VAR=value
+```
+
+Claude Code will source this file before each Bash command, making the environment persistent across all commands.
+
+**Option 3: Use a SessionStart hook** (project-specific configuration)
+
+Configure in `.claude/settings.json`:
+
+```json  theme={null}
+{
+  "hooks": {
+    "SessionStart": [{
+      "matcher": "startup",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'conda activate myenv' >> \"$CLAUDE_ENV_FILE\""
+      }]
+    }]
+  }
+}
+```
+
+The hook writes to `$CLAUDE_ENV_FILE`, which is then sourced before each Bash command. This is ideal for team-shared project configurations.
+
+See [SessionStart hooks](/en/hooks#persisting-environment-variables) for more details on Option 3.
 
 ### Extending tools with hooks
 
@@ -404,3 +517,8 @@ files by blocking Write operations to certain paths.
 * [Identity and Access Management](/en/iam#configuring-permissions) - Learn about Claude Code's permission system
 * [IAM and access control](/en/iam#enterprise-managed-policy-settings) - Enterprise policy management
 * [Troubleshooting](/en/troubleshooting#auto-updater-issues) - Solutions for common configuration issues
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

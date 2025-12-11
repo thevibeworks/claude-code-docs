@@ -4,10 +4,11 @@
 
 ## Authentication methods
 
-Setting up Claude Code requires access to Anthropic models. For teams, you can set up Claude Code access in one of three ways:
+Setting up Claude Code requires access to Anthropic models. For teams, you can set up Claude Code access in one of four ways:
 
 * Claude API via the Claude Console
 * Amazon Bedrock
+* Microsoft Foundry
 * Google Vertex AI
 
 ### Claude API authentication
@@ -29,9 +30,9 @@ Setting up Claude Code requires access to Anthropic models. For teams, you can s
 
 ### Cloud provider authentication
 
-**To set up Claude Code access for your team via Bedrock or Vertex:**
+**To set up Claude Code access for your team via Bedrock, Vertex, or Azure:**
 
-1. Follow the [Bedrock docs](/en/amazon-bedrock) or [Vertex docs](/en/google-vertex-ai)
+1. Follow the [Bedrock docs](/en/amazon-bedrock), [Vertex docs](/en/google-vertex-ai), or [Microsoft Foundry docs](/en/microsoft-foundry)
 2. Distribute the environment variables and instructions for generating cloud credentials to your users. Read more about how to [manage configuration here](/en/settings).
 3. Users can [install Claude Code](/en/setup#installation)
 
@@ -170,11 +171,7 @@ Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore
 
 For enterprise deployments of Claude Code, we support enterprise managed policy settings that take precedence over user and project settings. This allows system administrators to enforce security policies that users cannot override.
 
-System administrators can deploy policies to:
-
-* macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
-* Linux and WSL: `/etc/claude-code/managed-settings.json`
-* Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
+System administrators can deploy policies to the [managed settings file locations](/en/settings#settings-files).
 
 These policy files follow the same format as regular [settings files](/en/settings#settings-files) but cannot be overridden by user or project settings. This ensures consistent security policies across your organization.
 
@@ -195,6 +192,11 @@ This hierarchy ensures that organizational policies are always enforced while st
 Claude Code securely manages your authentication credentials:
 
 * **Storage location**: On macOS, API keys, OAuth tokens, and other credentials are stored in the encrypted macOS Keychain.
-* **Supported authentication types**: Claude.ai credentials, Claude API credentials, Bedrock Auth, and Vertex Auth.
+* **Supported authentication types**: Claude.ai credentials, Claude API credentials, Azure Auth, Bedrock Auth, and Vertex Auth.
 * **Custom credential scripts**: The [`apiKeyHelper`](/en/settings#available-settings) setting can be configured to run a shell script that returns an API key.
 * **Refresh intervals**: By default, `apiKeyHelper` is called after 5 minutes or on HTTP 401 response. Set `CLAUDE_CODE_API_KEY_HELPER_TTL_MS` environment variable for custom refresh intervals.
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt
