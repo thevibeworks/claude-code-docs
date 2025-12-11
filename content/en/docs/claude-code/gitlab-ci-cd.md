@@ -9,7 +9,7 @@
 </Info>
 
 <Note>
-  This integration is built on top of the [Claude Code CLI and SDK](https://docs.claude.com/en/api/agent-sdk), enabling programmatic use of Claude in your CI/CD jobs and custom automation workflows.
+  This integration is built on top of the [Claude Code CLI and SDK](https://docs.claude.com/en/docs/agent-sdk), enabling programmatic use of Claude in your CI/CD jobs and custom automation workflows.
 </Note>
 
 ## Why use Claude Code with GitLab?
@@ -379,7 +379,7 @@ Create a `CLAUDE.md` file at the repository root to define coding standards, rev
 
 ### Security considerations
 
-Never commit API keys or cloud credentials to your repository! Always use GitLab CI/CD variables:
+**Never commit API keys or cloud credentials to your repository**. Always use GitLab CI/CD variables:
 
 * Add `ANTHROPIC_API_KEY` as a masked variable (and protect it if needed)
 * Use provider-specific OIDC where possible (no long-lived keys)
@@ -460,3 +460,8 @@ You can guide Claude in two primary ways:
 
 1. **CLAUDE.md**: Define coding standards, security requirements, and project conventions. Claude reads this during runs and follows your rules.
 2. **Custom prompts**: Pass task-specific instructions via `prompt`/`prompt_file` in the job. Use different prompts for different jobs (for example, review, implement, refactor).
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

@@ -58,18 +58,14 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
-### Anthropic acquires Bun as Claude Code reaches $1B milestone
+### Donating the Model Context Protocol and establishing the Agentic AI Foundation
 
-[Read more](https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone)
+[Read more](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
 
-### Claude for Nonprofits
+### Accenture and Anthropic launch multi-year partnership to move enterprises from AI pilots to production
 
-Anthropic launches Claude for Nonprofits to help organizations maximize their impact, featuring free AI training and discounted rates.
+[Read more](https://www.anthropic.com/news/anthropic-accenture-partnership)
 
-[Read more](https://www.anthropic.com/news/claude-for-nonprofits)
+### Snowflake and Anthropic announce $200 million partnership to bring agentic AI to global enterprises
 
-### Introducing Claude Opus 4.5
-
-The best model in the world for coding, agents, and computer use, with meaningful improvements to everyday tasks like slides and spreadsheets. Claude Opus 4.5 delivers frontier performance and dramatically improved token efficiency.
-
-[Read more](https://www.anthropic.com/news/claude-opus-4-5)
+[Read more](https://www.anthropic.com/news/snowflake-anthropic-expanded-partnership)
