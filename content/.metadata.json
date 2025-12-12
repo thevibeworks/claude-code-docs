@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-11T13:51:32.202351Z"
+    "fetch_date": "2025-12-12T01:25:29.332053Z"
   },
   "items": [
     {
@@ -316,8 +316,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "feb00bf910cdbfdd33cf762b52bbe8f4b28e7b416f4b2ee36a72349d1d570a3a",
-      "size": 7423
+      "sha256": "78123c31fbd3697852c923fb5f45d8b51ea101251a2d558dc90abfe77e95e4e3",
+      "size": 17858
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
+      "status": "success",
+      "path": "en/agent-sdk/quickstart.md",
+      "sha256": "7fd096fdb4fd9ad8da8919286211137d2f154ca6f743835fa1d8fad8f2eee489",
+      "size": 11936
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
@@ -330,8 +337,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript-v2-preview",
       "status": "success",
       "path": "en/agent-sdk/typescript-v2-preview.md",
-      "sha256": "743e19150b15d9195be44db84270dedbc37a6b8207d4623fca8d9a8321512ad1",
-      "size": 8303
+      "sha256": "154986f62e0363cb7c35ecf69ba0ea54aaf7e467245747f3d0ddedd873ac5aa6",
+      "size": 10842
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/python",
@@ -3704,8 +3711,8 @@
       "url": "https://code.claude.com/docs/en/amazon-bedrock",
       "status": "success",
       "path": "en/docs/claude-code/amazon-bedrock.md",
-      "sha256": "9296b17c147185aecc9ab962677437ec6a171a8789105fb84814bfa03f65fa32",
-      "size": 9551
+      "sha256": "a7bf981296d86a140210aa4cf10b983521b6b61b504bf7cb97f693c2d2bdad3d",
+      "size": 9750
     },
     {
       "url": "https://code.claude.com/docs/en/analytics",
@@ -3823,8 +3830,8 @@
       "url": "https://code.claude.com/docs/en/interactive-mode",
       "status": "success",
       "path": "en/docs/claude-code/interactive-mode.md",
-      "sha256": "272544d792d051f1cb9ac5b735d9f1e61a8682ad47861d5e08bef216bd280771",
-      "size": 9077
+      "sha256": "be6174278ef58f36a197956a0335d49e44094142aa9b9a7686a6502017e67b5c",
+      "size": 9419
     },
     {
       "url": "https://code.claude.com/docs/en/jetbrains",
@@ -4033,14 +4040,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "cb2edcebd670017479542095d734719477fdee081f215d32171dc62fe8a0e35f",
+      "sha256": "b1387acf809846b214effff0ca30b08d0039f7f891e03c941ffca66bf87feafc",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "ea7b812aa3360dc5efa759fad69190eaa85252ac945672a597e65911edc28530",
+      "sha256": "2ed7880b05ac6ea3fb5bdb1d075ebdb3bf9d72491057baaeb000a8829e0d0127",
       "size": 8764
     },
     {
@@ -4066,8 +4073,8 @@
     }
   ],
   "summary": {
-    "total": 580,
-    "downloaded": 580,
+    "total": 581,
+    "downloaded": 581,
     "skipped": 0,
     "failed": 0,
     "success_rate": 100.0
