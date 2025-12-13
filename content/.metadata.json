@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-11T13:51:32.202351Z"
+    "fetch_date": "2025-12-13T01:20:39.493391Z"
   },
   "items": [
     {
@@ -316,8 +316,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "feb00bf910cdbfdd33cf762b52bbe8f4b28e7b416f4b2ee36a72349d1d570a3a",
-      "size": 7423
+      "sha256": "78123c31fbd3697852c923fb5f45d8b51ea101251a2d558dc90abfe77e95e4e3",
+      "size": 17858
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
+      "status": "success",
+      "path": "en/agent-sdk/quickstart.md",
+      "sha256": "d41cf46fa23ce4515cac7d45939294ddc8bea6a5722541676c3f9985e9f3954b",
+      "size": 12180
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
@@ -330,8 +337,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript-v2-preview",
       "status": "success",
       "path": "en/agent-sdk/typescript-v2-preview.md",
-      "sha256": "743e19150b15d9195be44db84270dedbc37a6b8207d4623fca8d9a8321512ad1",
-      "size": 8303
+      "sha256": "154986f62e0363cb7c35ecf69ba0ea54aaf7e467245747f3d0ddedd873ac5aa6",
+      "size": 10842
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/python",
@@ -3704,8 +3711,8 @@
       "url": "https://code.claude.com/docs/en/amazon-bedrock",
       "status": "success",
       "path": "en/docs/claude-code/amazon-bedrock.md",
-      "sha256": "9296b17c147185aecc9ab962677437ec6a171a8789105fb84814bfa03f65fa32",
-      "size": 9551
+      "sha256": "a7bf981296d86a140210aa4cf10b983521b6b61b504bf7cb97f693c2d2bdad3d",
+      "size": 9750
     },
     {
       "url": "https://code.claude.com/docs/en/analytics",
@@ -3739,8 +3746,8 @@
       "url": "https://code.claude.com/docs/en/common-workflows",
       "status": "success",
       "path": "en/docs/claude-code/common-workflows.md",
-      "sha256": "5adcb02275d519001a2a87d6d173a61ed1fa7b23c1d3727ca47c0456c628f78a",
-      "size": 26536
+      "sha256": "cdd4557bc66afb224609140f1fa6b92cb90bdb72a1dec0064dbda535396e03f4",
+      "size": 28447
     },
     {
       "url": "https://code.claude.com/docs/en/costs",
@@ -3823,8 +3830,8 @@
       "url": "https://code.claude.com/docs/en/interactive-mode",
       "status": "success",
       "path": "en/docs/claude-code/interactive-mode.md",
-      "sha256": "272544d792d051f1cb9ac5b735d9f1e61a8682ad47861d5e08bef216bd280771",
-      "size": 9077
+      "sha256": "41903eba6f86065149723ac3cca642874564f79c53f2bbf7c8bbfa40c3ec1a29",
+      "size": 8477
     },
     {
       "url": "https://code.claude.com/docs/en/jetbrains",
@@ -3956,15 +3963,15 @@
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "964e9b652f09de7f5ce3d46479be6191cea42a91eec2a8d72a716c72b6a1345f",
-      "size": 58658
+      "sha256": "63c2bf384f023d131eea58deae12fcf59a0a8b57e58b92e2831ee0916d335636",
+      "size": 59024
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
       "status": "success",
       "path": "en/docs/claude-code/setup.md",
-      "sha256": "683b0cf69987aa8f1bfc5338564d601a350ccec61f1a374d05d1e561a60d5ccb",
-      "size": 9627
+      "sha256": "d89c96cf2ccb801612a94a65ceee11e85f01cde829618f123dd9c044fc6a7731",
+      "size": 9567
     },
     {
       "url": "https://code.claude.com/docs/en/skills",
@@ -4033,14 +4040,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "cb2edcebd670017479542095d734719477fdee081f215d32171dc62fe8a0e35f",
+      "sha256": "c83af430aac47c74d9d4bccafd26f4858ad09ab67c704ab1cbd09e4a8109b43d",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "ea7b812aa3360dc5efa759fad69190eaa85252ac945672a597e65911edc28530",
+      "sha256": "86a9a46f3c027ba79918f846ff6b8d714f68b0645a83718bd3360e2d04413ea2",
       "size": 8764
     },
     {
@@ -4066,8 +4073,8 @@
     }
   ],
   "summary": {
-    "total": 580,
-    "downloaded": 580,
+    "total": 581,
+    "downloaded": 581,
     "skipped": 0,
     "failed": 0,
     "success_rate": 100.0
