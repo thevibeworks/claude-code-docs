@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-14T01:39:29.932155Z"
+    "fetch_date": "2025-12-14T18:25:06.710200Z"
   },
   "items": [
     {
@@ -316,15 +316,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "78123c31fbd3697852c923fb5f45d8b51ea101251a2d558dc90abfe77e95e4e3",
-      "size": 17858
+      "sha256": "bbe4058dd00497c4921326a57666f7792e03e49f5bfa1c7e30ea0ea7ad42771f",
+      "size": 18559
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
       "status": "success",
       "path": "en/agent-sdk/quickstart.md",
-      "sha256": "d41cf46fa23ce4515cac7d45939294ddc8bea6a5722541676c3f9985e9f3954b",
-      "size": 12180
+      "sha256": "34c44e0a041faf583afdb179c73ebe852fa14ad2128d9016ed18d0f32acf1d03",
+      "size": 12303
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
@@ -4051,13 +4051,6 @@
       "size": 8764
     },
     {
-      "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
-      "status": "success",
-      "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
-      "sha256": "2b76fc831b86da36663442301035f347bce95029d8e6c6a39be939c1e66ecb49",
-      "size": 4600
-    },
-    {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
@@ -4074,9 +4067,9 @@
   ],
   "summary": {
     "total": 581,
-    "downloaded": 581,
+    "downloaded": 580,
     "skipped": 0,
-    "failed": 0,
-    "success_rate": 100.0
+    "failed": 1,
+    "success_rate": 99.8
   }
 }
