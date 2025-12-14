@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-13T01:20:39.493391Z"
+    "fetch_date": "2025-12-14T01:39:29.932155Z"
   },
   "items": [
     {
@@ -3865,8 +3865,8 @@
       "url": "https://code.claude.com/docs/en/memory",
       "status": "success",
       "path": "en/docs/claude-code/memory.md",
-      "sha256": "7824df90065bd8ec0ee17b916232eefa3849d9be383beaa3aa3cf00c0cf5bd6d",
-      "size": 10677
+      "sha256": "bfb0737ddfd8af370ca9574d85d10c84cf4091092b343af03cc3e218d09baa22",
+      "size": 10435
     },
     {
       "url": "https://code.claude.com/docs/en/microsoft-foundry",
@@ -4047,7 +4047,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "86a9a46f3c027ba79918f846ff6b8d714f68b0645a83718bd3360e2d04413ea2",
+      "sha256": "7f765bd530c7b938ea5dd7a9ee850068ceb3ce15ca492ac9807471ca8e114845",
       "size": 8764
     },
     {
