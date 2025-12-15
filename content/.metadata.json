@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-14T01:39:29.932155Z"
+    "fetch_date": "2025-12-15T01:27:28.836802Z"
   },
   "items": [
     {
@@ -316,15 +316,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "78123c31fbd3697852c923fb5f45d8b51ea101251a2d558dc90abfe77e95e4e3",
-      "size": 17858
+      "sha256": "bbe4058dd00497c4921326a57666f7792e03e49f5bfa1c7e30ea0ea7ad42771f",
+      "size": 18559
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
       "status": "success",
       "path": "en/agent-sdk/quickstart.md",
-      "sha256": "d41cf46fa23ce4515cac7d45939294ddc8bea6a5722541676c3f9985e9f3954b",
-      "size": 12180
+      "sha256": "34c44e0a041faf583afdb179c73ebe852fa14ad2128d9016ed18d0f32acf1d03",
+      "size": 12303
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
