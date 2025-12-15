@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-14T01:39:29.932155Z"
+    "fetch_date": "2025-12-15T18:28:45.028191Z"
   },
   "items": [
     {
@@ -204,8 +204,8 @@
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
       "status": "success",
       "path": "en/agents-and-tools/tool-use/overview.md",
-      "sha256": "f94ea3bfa814b08722bd1696803c7222b6287d6a7c378a67a223680edf22ac33",
-      "size": 57403
+      "sha256": "c6e1d80d0fde4f64f8e18c96dfff6060580791364a3b59cb8945ef4127931dbc",
+      "size": 60224
     },
     {
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use",
@@ -316,15 +316,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "78123c31fbd3697852c923fb5f45d8b51ea101251a2d558dc90abfe77e95e4e3",
-      "size": 17858
+      "sha256": "bbe4058dd00497c4921326a57666f7792e03e49f5bfa1c7e30ea0ea7ad42771f",
+      "size": 18559
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
       "status": "success",
       "path": "en/agent-sdk/quickstart.md",
-      "sha256": "d41cf46fa23ce4515cac7d45939294ddc8bea6a5722541676c3f9985e9f3954b",
-      "size": 12180
+      "sha256": "34c44e0a041faf583afdb179c73ebe852fa14ad2128d9016ed18d0f32acf1d03",
+      "size": 12303
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
@@ -3739,7 +3739,7 @@
       "url": "https://code.claude.com/docs/en/cli-reference",
       "status": "success",
       "path": "en/docs/claude-code/cli-reference.md",
-      "sha256": "0008d7582dd382b277eccd67ec9ae51744d9d47942ef6ae5513dbfac9e8bc43c",
+      "sha256": "1f74e23fa86b4371fc33681751e303252a7b222d2da28beaf28c3e09b5bee882",
       "size": 18896
     },
     {
@@ -3802,8 +3802,8 @@
       "url": "https://code.claude.com/docs/en/headless",
       "status": "success",
       "path": "en/docs/claude-code/headless.md",
-      "sha256": "7e52e398c60c0ca0fa4c5b39c28bba4d80ba78907d0039e03075fb9243e3a7cf",
-      "size": 9100
+      "sha256": "a9ccdc4e232e12284c55680ba2cb91ce03576b93a4828cecbbefcceab8ed087a",
+      "size": 9016
     },
     {
       "url": "https://code.claude.com/docs/en/hooks",
@@ -4040,7 +4040,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "c83af430aac47c74d9d4bccafd26f4858ad09ab67c704ab1cbd09e4a8109b43d",
+      "sha256": "5d4cf885a8713684191491d04b63d624d5ce172bb9dc66235951ba8a5d933c60",
       "size": 30033
     },
     {

@@ -228,6 +228,91 @@ Server tools follow a different workflow:
 
 ---
 
+## Using MCP tools with Claude
+
+If you're building an application that uses the [Model Context Protocol (MCP)](https://modelcontextprotocol.io), you can use tools from MCP servers directly with Claude's Messages API. MCP tool definitions use a schema format that's similar to Claude's tool format. You just need to rename `inputSchema` to `input_schema`.
+
+<Tip>
+**Don't want to build your own MCP client?** Use the [MCP connector](/docs/en/agents-and-tools/mcp-connector) to connect directly to remote MCP servers from the Messages API without implementing a client.
+</Tip>
+
+### Converting MCP tools to Claude format
+
+When you build an MCP client and call `list_tools()` on an MCP server, you'll receive tool definitions with an `inputSchema` field. To use these tools with Claude, convert them to Claude's format:
+
+<CodeGroup>
+```python Python
+from mcp import ClientSession
+
+async def get_claude_tools(mcp_session: ClientSession):
+    """Convert MCP tools to Claude's tool format."""
+    mcp_tools = await mcp_session.list_tools()
+
+    claude_tools = []
+    for tool in mcp_tools.tools:
+        claude_tools.append({
+            "name": tool.name,
+            "description": tool.description or "",
+            "input_schema": tool.inputSchema  # Rename inputSchema to input_schema
+        })
+
+    return claude_tools
+```
+
+```typescript TypeScript
+import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+
+async function getClaudeTools(mcpClient: Client) {
+  // Convert MCP tools to Claude's tool format
+  const mcpTools = await mcpClient.listTools();
+
+  return mcpTools.tools.map((tool) => ({
+    name: tool.name,
+    description: tool.description ?? "",
+    input_schema: tool.inputSchema, // Rename inputSchema to input_schema
+  }));
+}
+```
+</CodeGroup>
+
+Then pass these converted tools to Claude:
+
+<CodeGroup>
+```python Python
+import anthropic
+
+client = anthropic.Anthropic()
+claude_tools = await get_claude_tools(mcp_session)
+
+response = client.messages.create(
+    model="claude-sonnet-4-5",
+    max_tokens=1024,
+    tools=claude_tools,
+    messages=[{"role": "user", "content": "What tools do you have available?"}]
+)
+```
+
+```typescript TypeScript
+import Anthropic from "@anthropic-ai/sdk";
+
+const anthropic = new Anthropic();
+const claudeTools = await getClaudeTools(mcpClient);
+
+const response = await anthropic.messages.create({
+  model: "claude-sonnet-4-5",
+  max_tokens: 1024,
+  tools: claudeTools,
+  messages: [{ role: "user", content: "What tools do you have available?" }],
+});
+```
+</CodeGroup>
+
+When Claude responds with a `tool_use` block, execute the tool on your MCP server using `call_tool()` and return the result to Claude in a `tool_result` block.
+
+For a complete guide to building MCP clients, see [Build an MCP client](https://modelcontextprotocol.io/docs/develop/build-client).
+
+---
+
 ## Tool use examples
 
 Here are a few code examples demonstrating various tool use patterns and techniques. For brevity's sake, the tools are simple tools, and the tool descriptions are shorter than would be ideal to ensure best performance.
