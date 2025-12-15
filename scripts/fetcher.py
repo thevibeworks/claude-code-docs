@@ -328,6 +328,70 @@ class Fetcher:
         async with aiofiles.open(metadata_file, "w") as f:
             await f.write(json.dumps(metadata, indent=2))
 
+    def validate_url(self, url: str) -> bool:
+        """Validate URL is from allowed domains"""
+        allowed = ["platform.claude.com", "code.claude.com"]
+        return any(f"https://{domain}" in url for domain in allowed)
+
+    async def fetch_urls(self, urls: List[str]):
+        """Fetch specific URLs (URLs normalized - .md stripped/added automatically)"""
+
+        # Validate URLs
+        invalid = [u for u in urls if not self.validate_url(u)]
+        if invalid:
+            print("ERROR: Invalid URLs (must be from platform.claude.com or code.claude.com):", file=sys.stderr)
+            for u in invalid:
+                print(f"  {u}", file=sys.stderr)
+            sys.exit(1)
+
+        print(f"Fetching {len(urls)} URL(s) to {self.output_dir}")
+        if self.incremental:
+            print("Incremental: skip existing")
+
+        # Normalize URLs (strip .md if present, we add it back when fetching)
+        normalized = []
+        for url in urls:
+            if url.endswith(".md"):
+                url = url[:-3]
+            normalized.append(url)
+
+        timeout = aiohttp.ClientTimeout(total=300)
+        connector = aiohttp.TCPConnector(limit=self.jobs)
+
+        async with aiohttp.ClientSession(
+            timeout=timeout, connector=connector
+        ) as session:
+            self.stats["total"] = len(normalized)
+            semaphore = asyncio.Semaphore(self.jobs)
+
+            tasks = [self.download_doc(session, url, semaphore) for url in normalized]
+            results = await tqdm_asyncio.gather(
+                *tasks, desc="Downloading", unit="file"
+            )
+
+            await self.save_metadata(results)
+
+        # Print results
+        print()
+        for r in results:
+            status = r.get("status", "unknown")
+            url = r.get("url", "")
+            if status == "success":
+                print(f"  OK: {r.get('path')}")
+            elif status == "skipped":
+                print(f"SKIP: {url}")
+            else:
+                print(f"FAIL: {url} - {r.get('error', 'unknown error')}", file=sys.stderr)
+
+        print()
+        print(f"Total:      {self.stats['total']}")
+        print(f"Downloaded: {self.stats['downloaded']}")
+        print(f"Skipped:    {self.stats['skipped']}")
+        print(f"Failed:     {self.stats['failed']}")
+
+        if self.stats["failed"] > 0:
+            sys.exit(1)
+
     async def show_tree(self):
         print("Fetching sources...")
         timeout = aiohttp.ClientTimeout(total=60)
@@ -400,7 +464,20 @@ Examples:
   fetcher.py --section blog        Fetch only blog posts
   fetcher.py --incremental         Skip existing files
   fetcher.py --jobs 100            Use 100 parallel jobs
+
+Single URL fetch (URLs normalized - .md stripped/added automatically):
+  fetcher.py https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
+  fetcher.py https://code.claude.com/docs/en/overview.md   # .md suffix OK too
+
+Multiple URLs:
+  fetcher.py URL1 URL2 URL3
+
+Note: Only platform.claude.com and code.claude.com URLs are allowed.
         """,
+    )
+    parser.add_argument(
+        "urls", nargs="*", metavar="URL",
+        help="Specific URL(s) to fetch (appends .md automatically)"
     )
     parser.add_argument("--out", default="content", help="Output directory")
     parser.add_argument(
@@ -427,6 +504,8 @@ Examples:
 
     if args.tree:
         await fetcher.show_tree()
+    elif args.urls:
+        await fetcher.fetch_urls(args.urls)
     else:
         await fetcher.fetch_all()
 

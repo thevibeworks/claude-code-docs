@@ -20,6 +20,9 @@ Documentation is now split across two domains (Dec 2025):
 
 **Note**: Python 3.14 free-threaded, ~40 sec for 575+ docs.
 
+**Direct Markdown Access**: Anthropic docs support `.md` suffix for raw markdown.
+The fetcher supports fetching specific URLs (see `fetcher.py --help`).
+
 ## Repository Purpose
 
 Acting as the Claude Code tutor, teach "vibe coders" / "vibe learners" to learn how to get started with claude-code according to the claude-docs and related resources.
@@ -115,6 +118,10 @@ content/
 ├── blog/                  # Blog posts
 ├── CHANGELOG.md           # GitHub CHANGELOG
 └── claude-code-manifest.json
+prompts/
+├── README.md              # Prompts index
+├── prompt-optimizer.md    # Meta prompt for improving prompts
+└── agent-patterns.md      # Patterns for agentic workflows
 scripts/
 ├── fetcher.py             # Main fetch script
 └── README.md
