@@ -74,7 +74,7 @@ To use the OpenAI SDK compatibility feature, you'll need to:
 
 Here are the most substantial differences from using OpenAI:
 
-* The `strict` parameter for function calling is ignored, which means the tool use JSON is not guaranteed to follow the supplied schema.
+* The `strict` parameter for function calling is ignored, which means the tool use JSON is not guaranteed to follow the supplied schema. For guaranteed schema conformance, use the native [Claude API with Structured Outputs](/docs/en/build-with-claude/structured-outputs).
 * Audio input is not supported; it will simply be ignored and stripped from input  
 * Prompt caching is not supported, but it is supported in [the Anthropic SDK](/docs/en/api/client-sdks)  
 * System/developer messages are hoisted and concatenated to the beginning of the conversation, as Anthropic only supports a single initial system message.
@@ -138,7 +138,7 @@ Rate limits follow Anthropic's [standard limits](/docs/en/api/rate-limits) for t
 | `n` | Must be exactly 1 |
 | `logprobs` | Ignored |
 | `metadata` | Ignored |
-| `response_format` | Ignored |
+| `response_format` | Ignored. For JSON output, use [Structured Outputs](/docs/en/build-with-claude/structured-outputs) with the native Claude API |
 | `prediction` | Ignored |
 | `presence_penalty` | Ignored |
 | `frequency_penalty` | Ignored |
@@ -163,7 +163,7 @@ Rate limits follow Anthropic's [standard limits](/docs/en/api/rate-limits) for t
 | `name`       | Fully supported |
 | `description`| Fully supported |
 | `parameters` | Fully supported |
-| `strict`     | Ignored         |
+| `strict`     | Ignored. Use [Structured Outputs](/docs/en/build-with-claude/structured-outputs) with native Claude API for strict schema validation |
 </Tab>
 <Tab title="Functions">
 
@@ -176,7 +176,7 @@ OpenAI has deprecated the `functions` field and suggests using `tools` instead.
 | `name`       | Fully supported |
 | `description`| Fully supported |
 | `parameters` | Fully supported |
-| `strict`     | Ignored         |
+| `strict`     | Ignored. Use [Structured Outputs](/docs/en/build-with-claude/structured-outputs) with native Claude API for strict schema validation |
 </Tab>
 </Tabs>
 
