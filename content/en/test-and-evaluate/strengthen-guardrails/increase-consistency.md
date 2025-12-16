@@ -1,4 +1,4 @@
-# Increase output consistency (JSON mode)
+# Increase output consistency
 
 ---
 

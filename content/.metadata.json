@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-16T01:26:11.883633Z"
+    "fetch_date": "2025-12-16T06:30:09.113872Z"
   },
   "items": [
     {
@@ -71,8 +71,8 @@
       "url": "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "status": "success",
       "path": "en/build-with-claude/working-with-messages.md",
-      "sha256": "31c3ab9c3d68c89f71c39d4e2a23b6ac5250eede9d27e03e5d3667775ef7e81e",
-      "size": 12265
+      "sha256": "3ed62b1a0dd40ea6c9dc5bfe73b3d3949e847486bcbba43935ecfd8401fc81e4",
+      "size": 12353
     },
     {
       "url": "https://platform.claude.com/docs/en/build-with-claude/context-windows",
@@ -190,22 +190,15 @@
       "url": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
       "status": "success",
       "path": "en/build-with-claude/structured-outputs.md",
-      "sha256": "a9575f34b2ec9dc1ae04c7be097e565d9e4560f46bf5667bf27f1764a78b16e5",
-      "size": 29997
-    },
-    {
-      "url": "https://platform.claude.com/docs/en/agents-and-tools/claude-for-sheets",
-      "status": "success",
-      "path": "en/agents-and-tools/claude-for-sheets.md",
-      "sha256": "892726a1f94e99a50e45f6544640ef846a8a2fe401154c822dc7d3644002e2f1",
-      "size": 8784
+      "sha256": "4592982ef605d2d796f76a46e93afa2e971e9f7f11773dc657446f90ceca72f0",
+      "size": 31988
     },
     {
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview",
       "status": "success",
       "path": "en/agents-and-tools/tool-use/overview.md",
-      "sha256": "c6e1d80d0fde4f64f8e18c96dfff6060580791364a3b59cb8945ef4127931dbc",
-      "size": 60224
+      "sha256": "c4f106fd75769fd9d01cfe52f0582f124b983c9762f07cc2cd41af8244e102e9",
+      "size": 48674
     },
     {
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use",
@@ -624,8 +617,8 @@
       "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/increase-consistency",
       "status": "success",
       "path": "en/test-and-evaluate/strengthen-guardrails/increase-consistency.md",
-      "sha256": "4aaea6ff3720af487d0dd93986b6d5c851fc48e410e47f372faad8cc6df4dd44",
-      "size": 12211
+      "sha256": "63b3c3ca2aa258df916f208582a742a4a6f8d70624f2c1ad9afb06bc6f64c645",
+      "size": 12199
     },
     {
       "url": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks",
@@ -743,8 +736,8 @@
       "url": "https://platform.claude.com/docs/en/api/openai-sdk",
       "status": "success",
       "path": "en/api/openai-sdk.md",
-      "sha256": "501791395f04e657f0dc086ff677e232a3c4825adcd674c603ad127c815cd9fb",
-      "size": 11386
+      "sha256": "17fa12b13358d1c8a58ffce6f7c2ac77aed3a762e3096cadb3b3ff3dd4782907",
+      "size": 11872
     },
     {
       "url": "https://platform.claude.com/docs/en/resources/overview",
@@ -4040,14 +4033,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "5d4cf885a8713684191491d04b63d624d5ce172bb9dc66235951ba8a5d933c60",
+      "sha256": "75d9d63f33ffcedc1d15048fd666c72278d11bd0a19b8e542866b5bc911dc8d9",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "8cd07fa93703adbe1685c281ce35b63342bc184d44754d8cae16515a86058ca9",
+      "sha256": "6e1040cf683587b0169d34d7ba5d54b1a65aaadc3853351c840c7bfe0b814feb",
       "size": 8764
     },
     {
@@ -4073,8 +4066,8 @@
     }
   ],
   "summary": {
-    "total": 581,
-    "downloaded": 581,
+    "total": 580,
+    "downloaded": 580,
     "skipped": 0,
     "failed": 0,
     "success_rate": 100.0
