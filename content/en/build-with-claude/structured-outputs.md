@@ -4,7 +4,12 @@ Get validated JSON results from agent workflows
 
 ---
 
-Structured outputs constrain Claude's responses to follow a specific schema, ensuring valid, parseable output for downstream processing. Use **JSON outputs** (`output_format`) for structured data responses, or **strict tool use** (`strict: true`) for guaranteed schema validation on tool names and inputs.
+Structured outputs constrain Claude's responses to follow a specific schema, ensuring valid, parseable output for downstream processing. Two complementary features are available:
+
+- **JSON outputs** (`output_format`): Get Claude's response in a specific JSON format
+- **Strict tool use** (`strict: true`): Guarantee schema validation on tool names and inputs
+
+These features can be used independently or together in the same request.
 
 <Note>
 Structured outputs are currently available as a public beta feature in the Claude API for Claude Sonnet 4.5, Claude Opus 4.1, Claude Opus 4.5, and Claude Haiku 4.5.
@@ -28,12 +33,17 @@ Structured outputs guarantee schema-compliant responses through constrained deco
 - **Always valid**: No more `JSON.parse()` errors
 - **Type safe**: Guaranteed field types and required fields
 - **Reliable**: No retries needed for schema violations
-- **Two modes**: JSON for tasks like data extraction, and strict tools for situations like complex tools and agentic workflows
 
-## Quick start
+## JSON outputs
 
-<Tabs>
-<Tab title="JSON outputs">
+JSON outputs control Claude's response format, ensuring Claude returns valid JSON matching your schema. Use JSON outputs when you need to:
+
+- Control Claude's response format
+- Extract data from images or text
+- Generate structured reports
+- Format API responses
+
+### Quick start
 
 <CodeGroup>
 
@@ -150,8 +160,356 @@ console.log(response.content[0].text);
 }
 ```
 
-</Tab>
-<Tab title="Strict tool use">
+### How it works
+
+<Steps>
+  <Step title="Define your JSON schema">
+    Create a JSON schema that describes the structure you want Claude to follow. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](#json-schema-limitations)).
+  </Step>
+  <Step title="Add the output_format parameter">
+    Include the `output_format` parameter in your API request with `type: "json_schema"` and your schema definition.
+  </Step>
+  <Step title="Include the beta header">
+    Add the `anthropic-beta: structured-outputs-2025-11-13` header to your request.
+  </Step>
+  <Step title="Parse the response">
+    Claude's response will be valid JSON matching your schema, returned in `response.content[0].text`.
+  </Step>
+</Steps>
+
+### Working with JSON outputs in SDKs
+
+The Python and TypeScript SDKs provide helpers that make it easier to work with JSON outputs, including schema transformation, automatic validation, and integration with popular schema libraries.
+
+#### Using Pydantic and Zod
+
+For Python and TypeScript developers, you can use familiar schema definition tools like Pydantic and Zod instead of writing raw JSON schemas.
+
+<CodeGroup>
+
+```python Python
+from pydantic import BaseModel
+from anthropic import Anthropic, transform_schema
+
+class ContactInfo(BaseModel):
+    name: str
+    email: str
+    plan_interest: str
+    demo_requested: bool
+
+client = Anthropic()
+
+# With .create() - requires transform_schema()
+response = client.beta.messages.create(
+    model="claude-sonnet-4-5",
+    max_tokens=1024,
+    betas=["structured-outputs-2025-11-13"],
+    messages=[
+        {
+            "role": "user",
+            "content": "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
+        }
+    ],
+    output_format={
+        "type": "json_schema",
+        "schema": transform_schema(ContactInfo),
+    }
+)
+
+print(response.content[0].text)
+
+# With .parse() - can pass Pydantic model directly
+response = client.beta.messages.parse(
+    model="claude-sonnet-4-5",
+    max_tokens=1024,
+    betas=["structured-outputs-2025-11-13"],
+    messages=[
+        {
+            "role": "user",
+            "content": "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
+        }
+    ],
+    output_format=ContactInfo,
+)
+
+print(response.parsed_output)
+```
+
+```typescript TypeScript
+import Anthropic from '@anthropic-ai/sdk';
+import { z } from 'zod';
+import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
+
+const ContactInfoSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  plan_interest: z.string(),
+  demo_requested: z.boolean(),
+});
+
+const client = new Anthropic();
+
+const response = await client.beta.messages.parse({
+  model: "claude-sonnet-4-5",
+  max_tokens: 1024,
+  betas: ["structured-outputs-2025-11-13"],
+  messages: [
+    {
+      role: "user",
+      content: "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
+    }
+  ],
+  output_format: betaZodOutputFormat(ContactInfoSchema),
+});
+
+// Automatically parsed and validated
+console.log(response.parsed_output);
+```
+
+</CodeGroup>
+
+#### SDK-specific methods
+
+**Python: `client.beta.messages.parse()` (Recommended)**
+
+The `parse()` method automatically transforms your Pydantic model, validates the response, and returns a `parsed_output` attribute.
+
+<Note>
+The `parse()` method is available on `client.beta.messages`, not `client.messages`.
+</Note>
+
+<section title="Example usage">
+
+```python
+from pydantic import BaseModel
+import anthropic
+
+class ContactInfo(BaseModel):
+    name: str
+    email: str
+    plan_interest: str
+
+client = anthropic.Anthropic()
+
+response = client.beta.messages.parse(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "..."}],
+    output_format=ContactInfo,
+)
+
+# Access the parsed output directly
+contact = response.parsed_output
+print(contact.name, contact.email)
+```
+
+</section>
+
+**Python: `transform_schema()` helper**
+
+For when you need to manually transform schemas before sending, or when you want to modify a Pydantic-generated schema. Unlike `client.beta.messages.parse()`, which transforms provided schemas automatically, this gives you the transformed schema so you can further customize it.
+
+<section title="Example usage">
+
+```python
+from anthropic import transform_schema
+from pydantic import TypeAdapter
+
+# First convert Pydantic model to JSON schema, then transform
+schema = TypeAdapter(ContactInfo).json_schema()
+schema = transform_schema(schema)
+# Modify schema if needed
+schema["properties"]["custom_field"] = {"type": "string"}
+
+response = client.beta.messages.create(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    max_tokens=1024,
+    output_format=schema,
+    messages=[{"role": "user", "content": "..."}],
+)
+```
+
+</section>
+
+#### How SDK transformation works
+
+Both Python and TypeScript SDKs automatically transform schemas with unsupported features:
+
+1. **Remove unsupported constraints** (e.g., `minimum`, `maximum`, `minLength`, `maxLength`)
+2. **Update descriptions** with constraint info (e.g., "Must be at least 100"), when the constraint is not directly supported with structured outputs
+3. **Add `additionalProperties: false`** to all objects
+4. **Filter string formats** to supported list only
+5. **Validate responses** against your original schema (with all constraints)
+
+This means Claude receives a simplified schema, but your code still enforces all constraints through validation.
+
+**Example:** A Pydantic field with `minimum: 100` becomes a plain integer in the sent schema, but the description is updated to "Must be at least 100", and the SDK validates the response against the original constraint.
+
+### Common use cases
+
+<section title="Data extraction">
+
+Extract structured data from unstructured text:
+
+<CodeGroup>
+
+```python Python
+from pydantic import BaseModel
+from typing import List
+
+class Invoice(BaseModel):
+    invoice_number: str
+    date: str
+    total_amount: float
+    line_items: List[dict]
+    customer_name: str
+
+response = client.beta.messages.parse(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    output_format=Invoice,
+    messages=[{"role": "user", "content": f"Extract invoice data from: {invoice_text}"}]
+)
+```
+
+```typescript TypeScript
+import { z } from 'zod';
+
+const InvoiceSchema = z.object({
+  invoice_number: z.string(),
+  date: z.string(),
+  total_amount: z.number(),
+  line_items: z.array(z.record(z.any())),
+  customer_name: z.string(),
+});
+
+const response = await client.beta.messages.parse({
+  model: "claude-sonnet-4-5",
+  betas: ["structured-outputs-2025-11-13"],
+  output_format: InvoiceSchema,
+  messages: [{"role": "user", "content": `Extract invoice data from: ${invoiceText}`}]
+});
+```
+
+</CodeGroup>
+
+</section>
+
+<section title="Classification">
+
+Classify content with structured categories:
+
+<CodeGroup>
+
+```python Python
+from pydantic import BaseModel
+from typing import List
+
+class Classification(BaseModel):
+    category: str
+    confidence: float
+    tags: List[str]
+    sentiment: str
+
+response = client.beta.messages.parse(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    output_format=Classification,
+    messages=[{"role": "user", "content": f"Classify this feedback: {feedback_text}"}]
+)
+```
+
+```typescript TypeScript
+import { z } from 'zod';
+
+const ClassificationSchema = z.object({
+  category: z.string(),
+  confidence: z.number(),
+  tags: z.array(z.string()),
+  sentiment: z.string(),
+});
+
+const response = await client.beta.messages.parse({
+  model: "claude-sonnet-4-5",
+  betas: ["structured-outputs-2025-11-13"],
+  output_format: ClassificationSchema,
+  messages: [{"role": "user", "content": `Classify this feedback: ${feedbackText}`}]
+});
+```
+
+</CodeGroup>
+
+</section>
+
+<section title="API response formatting">
+
+Generate API-ready responses:
+
+<CodeGroup>
+
+```python Python
+from pydantic import BaseModel
+from typing import List, Optional
+
+class APIResponse(BaseModel):
+    status: str
+    data: dict
+    errors: Optional[List[dict]]
+    metadata: dict
+
+response = client.beta.messages.parse(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    output_format=APIResponse,
+    messages=[{"role": "user", "content": "Process this request: ..."}]
+)
+```
+
+```typescript TypeScript
+import { z } from 'zod';
+
+const APIResponseSchema = z.object({
+  status: z.string(),
+  data: z.record(z.any()),
+  errors: z.array(z.record(z.any())).optional(),
+  metadata: z.record(z.any()),
+});
+
+const response = await client.beta.messages.parse({
+  model: "claude-sonnet-4-5",
+  betas: ["structured-outputs-2025-11-13"],
+  output_format: APIResponseSchema,
+  messages: [{"role": "user", "content": "Process this request: ..."}]
+});
+```
+
+</CodeGroup>
+
+</section>
+
+## Strict tool use
+
+Strict tool use validates tool parameters, ensuring Claude calls your functions with correctly-typed arguments. Use strict tool use when you need to:
+
+- Validate tool parameters
+- Build agentic workflows
+- Ensure type-safe function calls
+- Handle complex tools with nested properties
+
+### Why strict tool use matters for agents
+
+Building reliable agentic systems requires guaranteed schema conformance. Without strict mode, Claude might return incompatible types (`"2"` instead of `2`) or missing required fields, breaking your functions and causing runtime errors.
+
+Strict tool use guarantees type-safe parameters:
+- Functions receive correctly-typed arguments every time
+- No need to validate and retry tool calls
+- Production-ready agents that work consistently at scale
+
+For example, suppose a booking system needs `passengers: int`. Without strict mode, Claude might provide `passengers: "two"` or `passengers: "2"`. With `strict: true`, the response will always contain `passengers: 2`.
+
+### Quick start
 
 <CodeGroup>
 
@@ -288,57 +646,7 @@ console.log(response.content);
 - Tool `input` strictly follows the `input_schema`
 - Tool `name` is always valid (from provided tools or server tools)
 
-</Tab>
-</Tabs>
-
-## When to use JSON outputs vs strict tool use
-
-Choose the right mode for your use case:
-
-| Use JSON outputs when | Use strict tool use when |
-|-----------------------|-------------------------|
-| You need Claude's response in a specific format | You need validated parameters and tool names for tool calls |
-| Extracting data from images or text | Building agentic workflows |
-| Generating structured reports | Ensuring type-safe function calls |
-| Formatting API responses | Complex tools with many and/or nested properties |
-
-### Why strict tool use matters for agents
-
-Building reliable agentic systems requires guaranteed schema conformance. Invalid tool parameters break your functions and workflows. Claude might return incompatible types (`"2"` instead of `2`) or missing fields, causing runtime errors.
-
-Strict tool use guarantees type-safe parameters:
-- Functions receive correctly-typed arguments every time
-- No need to validate and retry tool calls
-- Production-ready agents that work consistently at scale
-
-For example, suppose a booking system needs `passengers: int`. Without strict mode, Claude might provide `passengers: "two"` or `passengers: "2"`. With `strict: true`, you're guaranteed `passengers: 2`.
-
-## How structured outputs work
-
-<Tabs>
-<Tab title="JSON outputs">
-
-Implement JSON structured outputs with these steps:
-
-<Steps>
-  <Step title="Define your JSON schema">
-    Create a JSON schema that describes the structure you want Claude to follow. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](#json-schema-limitations)).
-  </Step>
-  <Step title="Add the output_format parameter">
-    Include the `output_format` parameter in your API request with `type: "json_schema"` and your schema definition.
-  </Step>
-  <Step title="Include the beta header">
-    Add the `anthropic-beta: structured-outputs-2025-11-13` header to your request.
-  </Step>
-  <Step title="Parse the response">
-    Claude's response will be valid JSON matching your schema, returned in `response.content[0].text`.
-  </Step>
-</Steps>
-
-</Tab>
-<Tab title="Strict tool use">
-
-Implement strict tool use with these steps:
+### How it works
 
 <Steps>
   <Step title="Define your tool schema">
@@ -355,332 +663,9 @@ Implement strict tool use with these steps:
   </Step>
 </Steps>
 
-</Tab>
-</Tabs>
+### Common use cases
 
-## Working with JSON outputs in SDKs
-
-The Python and TypeScript SDKs provide helpers that make it easier to work with JSON outputs, including schema transformation, automatic validation, and integration with popular schema libraries.
-
-### Using Pydantic and Zod
-
-For Python and TypeScript developers, you can use familiar schema definition tools like Pydantic and Zod instead of writing raw JSON schemas.
-
-<Note>
-**JSON outputs only**
-
-SDK helpers (Pydantic, Zod, `parse()`) only work with JSON outputs (`output_format`).
-
-These helpers transform and validate Claude's output to you. Strict tool use validates Claude's input to your tools, which use the existing `input_schema` field in tool definitions.
-
-For strict tool use, define your `input_schema` directly in the tool definition with `strict: true`.
-</Note>
-
-<CodeGroup>
-
-```python Python
-from pydantic import BaseModel
-from anthropic import Anthropic, transform_schema
-
-class ContactInfo(BaseModel):
-    name: str
-    email: str
-    plan_interest: str
-    demo_requested: bool
-
-client = Anthropic()
-
-# With .create() - requires transform_schema()
-response = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    betas=["structured-outputs-2025-11-13"],
-    messages=[
-        {
-            "role": "user",
-            "content": "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
-        }
-    ],
-    output_format={
-        "type": "json_schema",
-        "schema": transform_schema(ContactInfo),
-    }
-)
-
-print(response.content[0].text)
-
-# With .parse() - can pass Pydantic model directly
-response = client.beta.messages.parse(
-    model="claude-sonnet-4-5",
-    max_tokens=1024,
-    betas=["structured-outputs-2025-11-13"],
-    messages=[
-        {
-            "role": "user",
-            "content": "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
-        }
-    ],
-    output_format=ContactInfo,
-)
-
-print(response.parsed_output)
-```
-
-```typescript TypeScript
-import Anthropic from '@anthropic-ai/sdk';
-import { z } from 'zod';
-import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
-
-const ContactInfoSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  plan_interest: z.string(),
-  demo_requested: z.boolean(),
-});
-
-const client = new Anthropic();
-
-const response = await client.beta.messages.parse({
-  model: "claude-sonnet-4-5",
-  max_tokens: 1024,
-  betas: ["structured-outputs-2025-11-13"],
-  messages: [
-    {
-      role: "user",
-      content: "Extract the key information from this email: John Smith (john@example.com) is interested in our Enterprise plan and wants to schedule a demo for next Tuesday at 2pm."
-    }
-  ],
-  output_format: betaZodOutputFormat(ContactInfoSchema),
-});
-
-// Automatically parsed and validated
-console.log(response.parsed_output);
-```
-
-</CodeGroup>
-
-### SDK-specific methods
-
-**Python: `client.beta.messages.parse()` (Recommended)**
-
-The `parse()` method automatically transforms your Pydantic model, validates the response, and returns a `parsed_output` attribute.
-
-<Note>
-The `parse()` method is available on `client.beta.messages`, not `client.messages`.
-</Note>
-
-<section title="Example usage">
-
-```python
-from pydantic import BaseModel
-import anthropic
-
-class ContactInfo(BaseModel):
-    name: str
-    email: str
-    plan_interest: str
-
-client = anthropic.Anthropic()
-
-response = client.beta.messages.parse(
-    model="claude-sonnet-4-5",
-    betas=["structured-outputs-2025-11-13"],
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "..."}],
-    output_format=ContactInfo,
-)
-
-# Access the parsed output directly
-contact = response.parsed_output
-print(contact.name, contact.email)
-```
-
-</section>
-
-**Python: `transform_schema()` helper**
-
-For when you need to manually transform schemas before sending, or when you want to modify a Pydantic-generated schema. Unlike `client.beta.messages.parse()`, which transforms provided schemas automatically, this gives you the transformed schema so you can further customize it.
-
-<section title="Example usage">
-
-```python
-from anthropic import transform_schema
-from pydantic import TypeAdapter
-
-# First convert Pydantic model to JSON schema, then transform
-schema = TypeAdapter(ContactInfo).json_schema()
-schema = transform_schema(schema)
-# Modify schema if needed
-schema["properties"]["custom_field"] = {"type": "string"}
-
-response = client.beta.messages.create(
-    model="claude-sonnet-4-5",
-    betas=["structured-outputs-2025-11-13"],
-    max_tokens=1024,
-    output_format=schema,
-    messages=[{"role": "user", "content": "..."}],
-)
-```
-
-</section>
-
-### How SDK transformation works
-
-Both Python and TypeScript SDKs automatically transform schemas with unsupported features:
-
-1. **Remove unsupported constraints** (e.g., `minimum`, `maximum`, `minLength`, `maxLength`)
-2. **Update descriptions** with constraint info (e.g., "Must be at least 100"), when the constraint is not directly supported with structured outputs
-3. **Add `additionalProperties: false`** to all objects
-4. **Filter string formats** to supported list only
-5. **Validate responses** against your original schema (with all constraints)
-
-This means Claude receives a simplified schema, but your code still enforces all constraints through validation.
-
-**Example:** A Pydantic field with `minimum: 100` becomes a plain integer in the sent schema, but the description is updated to "Must be at least 100", and the SDK validates the response against the original constraint.
-
-## Common use cases
-
-<section title="Data extraction (JSON outputs)">
-
-Extract structured data from unstructured text:
-
-<CodeGroup>
-
-```python Python
-from pydantic import BaseModel
-from typing import List
-
-class Invoice(BaseModel):
-    invoice_number: str
-    date: str
-    total_amount: float
-    line_items: List[dict]
-    customer_name: str
-
-response = client.beta.messages.parse(
-    model="claude-sonnet-4-5",
-    betas=["structured-outputs-2025-11-13"],
-    output_format=Invoice,
-    messages=[{"role": "user", "content": f"Extract invoice data from: {invoice_text}"}]
-)
-```
-
-```typescript TypeScript
-import { z } from 'zod';
-
-const InvoiceSchema = z.object({
-  invoice_number: z.string(),
-  date: z.string(),
-  total_amount: z.number(),
-  line_items: z.array(z.record(z.any())),
-  customer_name: z.string(),
-});
-
-const response = await client.beta.messages.parse({
-  model: "claude-sonnet-4-5",
-  betas: ["structured-outputs-2025-11-13"],
-  output_format: InvoiceSchema,
-  messages: [{"role": "user", "content": `Extract invoice data from: ${invoiceText}`}]
-});
-```
-
-</CodeGroup>
-
-</section>
-
-<section title="Classification (JSON outputs)">
-
-Classify content with structured categories:
-
-<CodeGroup>
-
-```python Python
-from pydantic import BaseModel
-from typing import List
-
-class Classification(BaseModel):
-    category: str
-    confidence: float
-    tags: List[str]
-    sentiment: str
-
-response = client.beta.messages.parse(
-    model="claude-sonnet-4-5",
-    betas=["structured-outputs-2025-11-13"],
-    output_format=Classification,
-    messages=[{"role": "user", "content": f"Classify this feedback: {feedback_text}"}]
-)
-```
-
-```typescript TypeScript
-import { z } from 'zod';
-
-const ClassificationSchema = z.object({
-  category: z.string(),
-  confidence: z.number(),
-  tags: z.array(z.string()),
-  sentiment: z.string(),
-});
-
-const response = await client.beta.messages.parse({
-  model: "claude-sonnet-4-5",
-  betas: ["structured-outputs-2025-11-13"],
-  output_format: ClassificationSchema,
-  messages: [{"role": "user", "content": `Classify this feedback: ${feedbackText}`}]
-});
-```
-
-</CodeGroup>
-
-</section>
-
-<section title="API response formatting (JSON outputs)">
-
-Generate API-ready responses:
-
-<CodeGroup>
-
-```python Python
-from pydantic import BaseModel
-from typing import List, Optional
-
-class APIResponse(BaseModel):
-    status: str
-    data: dict
-    errors: Optional[List[dict]]
-    metadata: dict
-
-response = client.beta.messages.parse(
-    model="claude-sonnet-4-5",
-    betas=["structured-outputs-2025-11-13"],
-    output_format=APIResponse,
-    messages=[{"role": "user", "content": "Process this request: ..."}]
-)
-```
-
-```typescript TypeScript
-import { z } from 'zod';
-
-const APIResponseSchema = z.object({
-  status: z.string(),
-  data: z.record(z.any()),
-  errors: z.array(z.record(z.any())).optional(),
-  metadata: z.record(z.any()),
-});
-
-const response = await client.beta.messages.parse({
-  model: "claude-sonnet-4-5",
-  betas: ["structured-outputs-2025-11-13"],
-  output_format: APIResponseSchema,
-  messages: [{"role": "user", "content": "Process this request: ..."}]
-});
-```
-
-</CodeGroup>
-
-</section>
-
-<section title="Validated tool inputs (strict tool use)">
+<section title="Validated tool inputs">
 
 Ensure tool parameters exactly match your schema:
 
@@ -734,7 +719,7 @@ const response = await client.beta.messages.create({
 
 </section>
 
-<section title="Agentic workflow with multiple validated tools (strict tool use)">
+<section title="Agentic workflow with multiple validated tools">
 
 Build reliable multi-step agents with guaranteed tool parameters:
 
@@ -822,6 +807,91 @@ const response = await client.beta.messages.create({
 
 </section>
 
+## Using both features together
+
+JSON outputs and strict tool use solve different problems and can be used together:
+
+- **JSON outputs** control Claude's response format (what Claude says)
+- **Strict tool use** validates tool parameters (how Claude calls your functions)
+
+When combined, Claude can call tools with guaranteed-valid parameters AND return structured JSON responses. This is useful for agentic workflows where you need both reliable tool calls and structured final outputs.
+
+<CodeGroup>
+
+```python Python
+response = client.beta.messages.create(
+    model="claude-sonnet-4-5",
+    betas=["structured-outputs-2025-11-13"],
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Help me plan a trip to Paris for next month"}],
+    # JSON outputs: structured response format
+    output_format={
+        "type": "json_schema",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "summary": {"type": "string"},
+                "next_steps": {"type": "array", "items": {"type": "string"}}
+            },
+            "required": ["summary", "next_steps"],
+            "additionalProperties": False
+        }
+    },
+    # Strict tool use: guaranteed tool parameters
+    tools=[{
+        "name": "search_flights",
+        "strict": True,
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "destination": {"type": "string"},
+                "date": {"type": "string", "format": "date"}
+            },
+            "required": ["destination", "date"],
+            "additionalProperties": False
+        }
+    }]
+)
+```
+
+```typescript TypeScript
+const response = await client.beta.messages.create({
+  model: "claude-sonnet-4-5",
+  betas: ["structured-outputs-2025-11-13"],
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Help me plan a trip to Paris for next month" }],
+  // JSON outputs: structured response format
+  output_format: {
+    type: "json_schema",
+    schema: {
+      type: "object",
+      properties: {
+        summary: { type: "string" },
+        next_steps: { type: "array", items: { type: "string" } }
+      },
+      required: ["summary", "next_steps"],
+      additionalProperties: false
+    }
+  },
+  // Strict tool use: guaranteed tool parameters
+  tools: [{
+    name: "search_flights",
+    strict: true,
+    input_schema: {
+      type: "object",
+      properties: {
+        destination: { type: "string" },
+        date: { type: "string", format: "date" }
+      },
+      required: ["destination", "date"],
+      additionalProperties: false
+    }
+  }]
+});
+```
+
+</CodeGroup>
+
 ## Important considerations
 
 ### Grammar compilation and caching
@@ -908,7 +978,7 @@ Claude maintains its safety and helpfulness properties even when using structure
 - The response will have `stop_reason: "refusal"`
 - You'll receive a 200 status code
 - You'll be billed for the tokens generated
-- The output may not match your schema (the refusal takes precedence)
+- The output may not match your schema because the refusal message takes precedence over schema constraints
 
 **Token limit reached** (`stop_reason: "max_tokens"`)
 
