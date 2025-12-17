@@ -1,15 +1,15 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-16T18:28:31.756737Z"
+    "fetch_date": "2025-12-17T12:40:45.310383Z"
   },
   "items": [
     {
       "url": "https://platform.claude.com/docs/en/intro",
       "status": "success",
       "path": "en/intro.md",
-      "sha256": "f499303440151d95e0af5fc1b0842efbc014109af2b7e9a42470f8bd5391ca81",
-      "size": 2954
+      "sha256": "556c2a7efc7aae56d2847a5ad15611d0443b98dc8ba7d699263904ec2394527f",
+      "size": 2957
     },
     {
       "url": "https://platform.claude.com/docs/en/get-started",
@@ -260,8 +260,8 @@
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool",
       "status": "success",
       "path": "en/agents-and-tools/tool-use/web-search-tool.md",
-      "sha256": "fbb6903d51fc6421ddd27f7e02fb89c60cde2bbbfc6f3bf73da7e3663c59979b",
-      "size": 13441
+      "sha256": "77979398f853904eb8c5663e5880e3f740a175601f0b3c53904c669f972bf171",
+      "size": 13828
     },
     {
       "url": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool",
@@ -666,8 +666,8 @@
       "url": "https://platform.claude.com/docs/en/build-with-claude/usage-cost-api",
       "status": "success",
       "path": "en/build-with-claude/usage-cost-api.md",
-      "sha256": "8872f6bd448c74db066e867d0d6ab55d2075b9d1f97f00c202805adf6763c426",
-      "size": 10404
+      "sha256": "067402887a41cb40a9230fc92947a1ae47dace646a5ed3cc3e446850c1daf99e",
+      "size": 10737
     },
     {
       "url": "https://platform.claude.com/docs/en/build-with-claude/claude-code-analytics-api",
@@ -3711,8 +3711,8 @@
       "url": "https://code.claude.com/docs/en/amazon-bedrock",
       "status": "success",
       "path": "en/docs/claude-code/amazon-bedrock.md",
-      "sha256": "a7bf981296d86a140210aa4cf10b983521b6b61b504bf7cb97f693c2d2bdad3d",
-      "size": 9750
+      "sha256": "b57f9a2687ef34c9156a873bda76416093af0a9faa70a44a0c862a50d6dadce1",
+      "size": 9363
     },
     {
       "url": "https://code.claude.com/docs/en/analytics",
@@ -3963,8 +3963,8 @@
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "9e99b33459fb4eeae081cb5850be1f93da1f22449cfffa9ddba7fc6ff9680edf",
-      "size": 67073
+      "sha256": "d6193053323396cf4e7c8bc3a923b387ed32a0fdc151219d30a1734a749869a1",
+      "size": 68347
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
@@ -4033,21 +4033,21 @@
       "url": "https://code.claude.com/docs/en/vs-code",
       "status": "success",
       "path": "en/docs/claude-code/vs-code.md",
-      "sha256": "fd1087d0ade6491cdd1f872181257c8bbb9d2ab3e924fd3fc22941b9eeff3166",
-      "size": 8857
+      "sha256": "33be62ea974331d47956e67dea3234a965f01e62c15f2f5bf30ea81428870931",
+      "size": 21122
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "98ee8272fca068ecbb9a3c5a5a4dd7af6ffbadb5e6cbedd00dfd7463618496e8",
+      "sha256": "ba1175ab312bacf4613512d974162beaa0d7b2dd2f4322719437f5462b742ab8",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "348ef6614b88eea7bd70f76b27dabb48b47e064712be3490ddf61aeec132f3e1",
+      "sha256": "639d617eb3218a9b4ece7afbf4e268f36cacd5247fb0ad22456553e3a36d4841",
       "size": 8764
     },
     {
