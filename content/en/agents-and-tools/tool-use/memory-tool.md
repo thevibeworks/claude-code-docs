@@ -57,7 +57,7 @@ Claude calls the memory tool:
 {
   "type": "tool_result",
   "tool_use_id": "toolu_01C4D5E6F7G8H9I0J1K2L3M4",
-  "content": "Directory: /memories\n- customer_service_guidelines.xml\n- refund_policies.xml"
+  "content": "Here're the files and directories up to 2 levels deep in /memories, excluding hidden items and node_modules:\n4.0K\t/memories\n1.5K\t/memories/customer_service_guidelines.xml\n2.0K\t/memories/refund_policies.xml"
 }
 ```
 
@@ -79,7 +79,7 @@ Claude calls the memory tool:
 {
   "type": "tool_result",
   "tool_use_id": "toolu_01D5E6F7G8H9I0J1K2L3M4N5",
-  "content": "<guidelines>\n<addressing_customers>\n- Always address customers by their first name\n- Use empathetic language\n..."
+  "content": "Here's the content of /memories/customer_service_guidelines.xml with line numbers:\n     1\t<guidelines>\n     2\t<addressing_customers>\n     3\t- Always address customers by their first name\n     4\t- Use empathetic language\n..."
 }
 ```
 
@@ -191,7 +191,7 @@ const message = await anthropic.beta.messages.create({
 
 ## Tool commands
 
-Your client-side implementation needs to handle these memory tool commands:
+Your client-side implementation needs to handle these memory tool commands. While these specifications describe the recommended behaviors that Claude is most familiar with, you can modify your implementation and return strings as needed for your use case.
 
 ### view
 Shows directory contents or file contents with optional line ranges:
@@ -204,8 +204,48 @@ Shows directory contents or file contents with optional line ranges:
 }
 ```
 
+#### Return values
+
+**For directories:** Return a listing that shows files and directories with their sizes:
+```
+Here're the files and directories up to 2 levels deep in {path}, excluding hidden items and node_modules:
+{size}    {path}
+{size}    {path}/{filename1}
+{size}    {path}/{filename2}
+```
+
+- Lists files up to 2 levels deep
+- Shows human-readable sizes (e.g., `5.5K`, `1.2M`)
+- Excludes hidden items (files starting with `.`) and `node_modules`
+- Uses tab character between size and path
+
+**For files:** Return file contents with a header and line numbers:
+```
+Here's the content of {path} with line numbers:
+{line_numbers}{tab}{content}
+```
+
+Line number formatting:
+- **Width**: 6 characters, right-aligned with space padding
+- **Separator**: Tab character between line number and content
+- **Indexing**: 1-indexed (first line is line 1)
+- **Line limit**: Files with more than 999,999 lines should return an error: `"File {path} exceeds maximum line limit of 999,999 lines."`
+
+**Example output:**
+```
+Here's the content of /memories/notes.txt with line numbers:
+     1	Hello World
+     2	This is line two
+    10	Line ten
+   100	Line one hundred
+```
+
+#### Error handling
+
+- **File/directory does not exist**: `"The path {path} does not exist. Please provide a valid path."`
+
 ### create
-Create or overwrite a file:
+Create a new file:
 
 ```json
 {
@@ -214,6 +254,14 @@ Create or overwrite a file:
   "file_text": "Meeting notes:\n- Discussed project timeline\n- Next steps defined\n"
 }
 ```
+
+#### Return values
+
+- **Success**: `"File created successfully at: {path}"`
+
+#### Error handling
+
+- **File already exists**: `"Error: File {path} already exists"`
 
 ### str_replace
 Replace text in a file:
@@ -227,6 +275,20 @@ Replace text in a file:
 }
 ```
 
+#### Return values
+
+- **Success**: `"The memory file has been edited."` followed by a snippet of the edited file with line numbers
+
+#### Error handling
+
+- **File does not exist**: `"Error: The path {path} does not exist. Please provide a valid path."`
+- **Text not found**: ``"No replacement was performed, old_str `{old_str}` did not appear verbatim in {path}."``
+- **Duplicate text**: When `old_str` appears multiple times, return: ``"No replacement was performed. Multiple occurrences of old_str `{old_str}` in lines: {line_numbers}. Please ensure it is unique"``
+
+#### Directory handling
+
+If the path is a directory, return a "file does not exist" error.
+
 ### insert
 Insert text at a specific line:
 
@@ -239,6 +301,19 @@ Insert text at a specific line:
 }
 ```
 
+#### Return values
+
+- **Success**: `"The file {path} has been edited."`
+
+#### Error handling
+
+- **File does not exist**: `"Error: The path {path} does not exist"`
+- **Invalid line number**: ``"Error: Invalid `insert_line` parameter: {insert_line}. It should be within the range of lines of the file: [0, {n_lines}]"``
+
+#### Directory handling
+
+If the path is a directory, return a "file does not exist" error.
+
 ### delete
 Delete a file or directory:
 
@@ -248,6 +323,18 @@ Delete a file or directory:
   "path": "/memories/old_file.txt"
 }
 ```
+
+#### Return values
+
+- **Success**: `"Successfully deleted {path}"`
+
+#### Error handling
+
+- **File/directory does not exist**: `"Error: The path {path} does not exist"`
+
+#### Directory handling
+
+Deletes the directory and all its contents recursively.
 
 ### rename
 Rename or move a file/directory:
@@ -259,6 +346,19 @@ Rename or move a file/directory:
   "new_path": "/memories/final.txt"
 }
 ```
+
+#### Return values
+
+- **Success**: `"Successfully renamed {old_path} to {new_path}"`
+
+#### Error handling
+
+- **Source does not exist**: `"Error: The path {old_path} does not exist"`
+- **Destination already exists**: Return an error (do not overwrite): `"Error: The destination {new_path} already exists"`
+
+#### Directory handling
+
+Renames the directory.
 
 ## Prompting guidance
 
@@ -308,7 +408,7 @@ Consider these safeguards:
 
 ## Error handling
 
-The memory tool uses the same error handling patterns as the [text editor tool](/docs/en/agents-and-tools/tool-use/text-editor-tool#handle-errors). Common errors include file not found, permission errors, and invalid paths.
+The memory tool uses similar error handling patterns to the [text editor tool](/docs/en/agents-and-tools/tool-use/text-editor-tool#handle-errors). See the individual tool command sections above for detailed error messages and behaviors. Common errors include file not found, permission errors, invalid paths, and duplicate text matches.
 
 ## Using with Context Editing
 
