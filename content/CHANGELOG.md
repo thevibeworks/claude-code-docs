@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.0.72
+
+- Added Claude in Chrome (Beta) feature that works with the Chrome extension (https://claude.ai/chrome) to let you control your browser directly from Claude Code
+- Reduced terminal flickering
+- Added scannable QR code to mobile app tip for quick app downloads
+- Added loading indicator when resuming conversations for better feedback
+- Fixed `/context` command not respecting custom system prompts in non-interactive mode
+- Fixed order of consecutive Ctrl+K lines when pasting with Ctrl+Y
+- Improved @ mention file suggestion speed (~3x faster in git repositories)
+- Improved file suggestion performance in repos with `.ignore` or `.rgignore` files
+- Improved settings validation errors to be more prominent
+- Changed thinking toggle from Tab to Alt+T to avoid accidental triggers
+
+## 2.0.71
+
+- Added /config toggle to enable/disable prompt suggestions
+- Added `/settings` as an alias for the `/config` command
+- Fixed @ file reference suggestions incorrectly triggering when cursor is in the middle of a path
+- Fixed MCP servers from `.mcp.json` not loading when using `--dangerously-skip-permissions`
+- Fixed permission rules incorrectly rejecting valid bash commands containing shell glob patterns (e.g., `ls *.txt`, `for f in *.png`)
+- Bedrock: Environment variable `ANTHROPIC_BEDROCK_BASE_URL` is now respected for token counting and inference profile listing
+- New syntax highlighting engine for native build
+
 ## 2.0.70
 
 - Added Enter key to accept and submit prompt suggestions immediately (tab still accepts for editing)

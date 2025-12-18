@@ -4,17 +4,17 @@
 
 ## CLI commands
 
-| Command                            | Description                                    | Example                                           |
-| :--------------------------------- | :--------------------------------------------- | :------------------------------------------------ |
-| `claude`                           | Start interactive REPL                         | `claude`                                          |
-| `claude "query"`                   | Start REPL with initial prompt                 | `claude "explain this project"`                   |
-| `claude -p "query"`                | Query via SDK, then exit                       | `claude -p "explain this function"`               |
-| `cat file \| claude -p "query"`    | Process piped content                          | `cat logs.txt \| claude -p "explain"`             |
-| `claude -c`                        | Continue most recent conversation              | `claude -c`                                       |
-| `claude -c -p "query"`             | Continue via SDK                               | `claude -c -p "Check for type errors"`            |
-| `claude -r "<session-id>" "query"` | Resume session by ID                           | `claude -r "abc123" "Finish this PR"`             |
-| `claude update`                    | Update to latest version                       | `claude update`                                   |
-| `claude mcp`                       | Configure Model Context Protocol (MCP) servers | See the [Claude Code MCP documentation](/en/mcp). |
+| Command                         | Description                                    | Example                                           |
+| :------------------------------ | :--------------------------------------------- | :------------------------------------------------ |
+| `claude`                        | Start interactive REPL                         | `claude`                                          |
+| `claude "query"`                | Start REPL with initial prompt                 | `claude "explain this project"`                   |
+| `claude -p "query"`             | Query via SDK, then exit                       | `claude -p "explain this function"`               |
+| `cat file \| claude -p "query"` | Process piped content                          | `cat logs.txt \| claude -p "explain"`             |
+| `claude -c`                     | Continue most recent conversation              | `claude -c`                                       |
+| `claude -c -p "query"`          | Continue via SDK                               | `claude -c -p "Check for type errors"`            |
+| `claude -r "<session>" "query"` | Resume session by ID or name                   | `claude -r "auth-refactor" "Finish this PR"`      |
+| `claude update`                 | Update to latest version                       | `claude update`                                   |
+| `claude mcp`                    | Configure Model Context Protocol (MCP) servers | See the [Claude Code MCP documentation](/en/mcp). |
 
 ## CLI flags
 
@@ -28,6 +28,7 @@ Customize Claude Code's behavior with these command-line flags:
 | `--allowedTools`                 | Tools that execute without prompting for permission. To restrict which tools are available, use `--tools` instead                                                                                       | `"Bash(git log:*)" "Bash(git diff:*)" "Read"`                                                      |
 | `--append-system-prompt`         | Append custom text to the end of the default system prompt (works in both interactive and print modes)                                                                                                  | `claude --append-system-prompt "Always use TypeScript"`                                            |
 | `--betas`                        | Beta headers to include in API requests (API key users only)                                                                                                                                            | `claude --betas interleaved-thinking`                                                              |
+| `--chrome`                       | Enable [Chrome browser integration](/en/chrome) for web automation and testing                                                                                                                          | `claude --chrome`                                                                                  |
 | `--continue`, `-c`               | Load the most recent conversation in the current directory                                                                                                                                              | `claude --continue`                                                                                |
 | `--dangerously-skip-permissions` | Skip permission prompts (use with caution)                                                                                                                                                              | `claude --dangerously-skip-permissions`                                                            |
 | `--debug`                        | Enable debug mode with optional category filtering (for example, `"api,hooks"` or `"!statsig,!file"`)                                                                                                   | `claude --debug "api,mcp"`                                                                         |
@@ -41,12 +42,13 @@ Customize Claude Code's behavior with these command-line flags:
 | `--max-turns`                    | Limit the number of agentic turns in non-interactive mode                                                                                                                                               | `claude -p --max-turns 3 "query"`                                                                  |
 | `--mcp-config`                   | Load MCP servers from JSON files or strings (space-separated)                                                                                                                                           | `claude --mcp-config ./mcp.json`                                                                   |
 | `--model`                        | Sets the model for the current session with an alias for the latest model (`sonnet` or `opus`) or a model's full name                                                                                   | `claude --model claude-sonnet-4-5-20250929`                                                        |
+| `--no-chrome`                    | Disable [Chrome browser integration](/en/chrome) for this session                                                                                                                                       | `claude --no-chrome`                                                                               |
 | `--output-format`                | Specify output format for print mode (options: `text`, `json`, `stream-json`)                                                                                                                           | `claude -p "query" --output-format json`                                                           |
 | `--permission-mode`              | Begin in a specified [permission mode](/en/iam#permission-modes)                                                                                                                                        | `claude --permission-mode plan`                                                                    |
 | `--permission-prompt-tool`       | Specify an MCP tool to handle permission prompts in non-interactive mode                                                                                                                                | `claude -p --permission-prompt-tool mcp_auth_tool "query"`                                         |
 | `--plugin-dir`                   | Load plugins from directories for this session only (repeatable)                                                                                                                                        | `claude --plugin-dir ./my-plugins`                                                                 |
 | `--print`, `-p`                  | Print response without interactive mode (see [SDK documentation](https://docs.claude.com/en/docs/agent-sdk) for programmatic usage details)                                                             | `claude -p "query"`                                                                                |
-| `--resume`, `-r`                 | Resume a specific session by ID, or by choosing in interactive mode                                                                                                                                     | `claude --resume abc123 "query"`                                                                   |
+| `--resume`, `-r`                 | Resume a specific session by ID or name, or show an interactive picker to choose a session                                                                                                              | `claude --resume auth-refactor`                                                                    |
 | `--session-id`                   | Use a specific session ID for the conversation (must be a valid UUID)                                                                                                                                   | `claude --session-id "550e8400-e29b-41d4-a716-446655440000"`                                       |
 | `--setting-sources`              | Comma-separated list of setting sources to load (`user`, `project`, `local`)                                                                                                                            | `claude --setting-sources user,project`                                                            |
 | `--settings`                     | Path to a settings JSON file or a JSON string to load additional settings from                                                                                                                          | `claude --settings ./settings.json`                                                                |
@@ -133,6 +135,7 @@ streaming, verbose logging, and programmatic usage, see the
 
 ## See also
 
+* [Chrome extension](/en/chrome) - Browser automation and web testing
 * [Interactive mode](/en/interactive-mode) - Shortcuts, input modes, and interactive features
 * [Slash commands](/en/slash-commands) - Interactive session commands
 * [Quickstart guide](/en/quickstart) - Getting started with Claude Code
