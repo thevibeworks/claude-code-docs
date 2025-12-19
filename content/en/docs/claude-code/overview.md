@@ -16,25 +16,25 @@ To install Claude Code, use one of the following methods:
   <Tab title="Native Install (Recommended)">
     **macOS, Linux, WSL:**
 
-    ```bash  theme={null}
+    ```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
     ```
 
     **Windows PowerShell:**
 
-    ```powershell  theme={null}
+    ```powershell theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     irm https://claude.ai/install.ps1 | iex
     ```
 
     **Windows CMD:**
 
-    ```batch  theme={null}
+    ```batch theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
     ```
   </Tab>
 
   <Tab title="Homebrew">
-    ```sh  theme={null}
+    ```sh theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     brew install --cask claude-code
     ```
   </Tab>
@@ -42,7 +42,7 @@ To install Claude Code, use one of the following methods:
   <Tab title="NPM">
     If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
 
-    ```sh  theme={null}
+    ```sh theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     npm install -g @anthropic-ai/claude-code
     ```
   </Tab>
@@ -98,6 +98,10 @@ You'll be prompted to log in on first use. That's it! [Continue with Quickstart 
 ## Additional resources
 
 <CardGroup>
+  <Card title="About Claude Code" icon="sparkles" href="https://claude.com/product/claude-code">
+    Learn more about Claude Code on claude.com
+  </Card>
+
   <Card title="Build with the Agent SDK" icon="code-branch" href="https://docs.claude.com/en/docs/agent-sdk/overview">
     Create custom AI agents with the Claude Agent SDK
   </Card>

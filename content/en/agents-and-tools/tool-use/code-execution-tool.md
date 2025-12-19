@@ -25,7 +25,7 @@ The code execution tool is available on the following models:
 | Claude Sonnet 4 (`claude-sonnet-4-20250514`) | `code_execution_20250825` |
 | Claude Sonnet 3.7 (`claude-3-7-sonnet-20250219`) ([deprecated](/docs/en/about-claude/model-deprecations)) | `code_execution_20250825` |
 | Claude Haiku 4.5 (`claude-haiku-4-5-20251001`) | `code_execution_20250825` |
-| Claude Haiku 3.5 (`claude-3-5-haiku-latest`) | `code_execution_20250825` |
+| Claude Haiku 3.5 (`claude-3-5-haiku-latest`) ([deprecated](/docs/en/about-claude/model-deprecations)) | `code_execution_20250825` |
 
 <Note>
 The current version `code_execution_20250825` supports Bash commands and file operations. A legacy version `code_execution_20250522` (Python only) is also available. See [Upgrade to latest tool version](#upgrade-to-latest-tool-version) for migration details.

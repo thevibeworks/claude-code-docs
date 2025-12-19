@@ -258,7 +258,7 @@ Here are some common success criteria that may be useful regardless of whether a
 
 The choice of model depends on the trade-offs between cost, accuracy, and response time.
 
-Many customers have found `claude-3-5-haiku-20241022` an ideal model for ticket routing, as it is the fastest and most cost-effective model in the Claude 3 family while still delivering excellent results. If your classification problem requires deep subject matter expertise or a large volume of intent categories complex reasoning, you may opt for the [larger Sonnet model](/docs/en/about-claude/models). 
+Many customers have found `claude-haiku-4-5-20251001` an ideal model for ticket routing, as it is the fastest and most cost-effective model in the Claude 4 family while still delivering excellent results. If your classification problem requires deep subject matter expertise or a large volume of intent categories complex reasoning, you may opt for the [larger Sonnet model](/docs/en/about-claude/models). 
 
 ### Build a strong prompt
 
@@ -351,7 +351,7 @@ import re
 client = anthropic.Anthropic()
 
 # Set the default model
-DEFAULT_MODEL="claude-3-5-haiku-20241022"
+DEFAULT_MODEL="claude-haiku-4-5-20251001"
 
 def classify_support_request(ticket_contents):
     # Define the prompt for the classification task
@@ -416,7 +416,7 @@ import re
 client = anthropic.Anthropic()
 
 # Set the default model
-DEFAULT_MODEL="claude-3-5-haiku-20241022"
+DEFAULT_MODEL="claude-haiku-4-5-20251001"
 
 def classify_support_request(request, actual_intent):
     # Define the prompt for the classification task
