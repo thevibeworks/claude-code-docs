@@ -10,6 +10,9 @@ For release notes on Claude Apps, see the [Release notes for Claude Apps in the 
 For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### December 19, 2025
+- We announced the deprecation of the Claude Haiku 3.5 model. Read more in [our documentation](/docs/en/about-claude/model-deprecations).
+
 ### December 4, 2025
 - [Structured outputs](/docs/en/build-with-claude/structured-outputs) now supports Claude Haiku 4.5.
 

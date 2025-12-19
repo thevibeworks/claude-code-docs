@@ -64,7 +64,7 @@ All publicly released models are listed below with their status:
 |:----------------------------|:--------------------|:------------------|:-------------------------|
 | `claude-3-opus-20240229`    | Deprecated          | June 30, 2025     | January 5, 2026          |
 | `claude-3-haiku-20240307`   | Active              | N/A               | Not sooner than March 7, 2025 |
-| `claude-3-5-haiku-20241022` | Active              | N/A               | Not sooner than October 22, 2025 |
+| `claude-3-5-haiku-20241022` | Deprecated          | December 19, 2025 | February 19, 2026          |
 | `claude-3-7-sonnet-20250219`| Deprecated          | October 28, 2025  | February 19, 2026          |
 | `claude-sonnet-4-20250514`  | Active              | N/A               | Not sooner than May 14, 2026 |
 | `claude-opus-4-20250514`    | Active              | N/A               | Not sooner than May 14, 2026 |
@@ -76,6 +76,14 @@ All publicly released models are listed below with their status:
 ## Deprecation history
 
 All deprecations are listed below, with the most recent announcements at the top.
+
+### 2025-12-19: Claude Haiku 3.5 model
+
+On December 19, 2025, we notified developers using Claude Haiku 3.5 model of its upcoming retirement on the Claude API.
+
+| Retirement Date             | Deprecated Model            | Recommended Replacement         |
+|:----------------------------|:----------------------------|:--------------------------------|
+| February 19, 2026           | `claude-3-5-haiku-20241022` | `claude-haiku-4-5-20251001`     |
 
 ### 2025-10-28: Claude Sonnet 3.7 model
 
@@ -130,10 +138,10 @@ On September 4, 2024, we notified developers using Claude 1 and Instant models o
 
 | Retirement Date             | Deprecated Model          | Recommended Replacement    |
 |:----------------------------|:--------------------------|:---------------------------|
-| November 6, 2024            | `claude-1.0`              | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-1.1`              | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-1.2`              | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-1.3`              | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-instant-1.0`      | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-instant-1.1`      | `claude-3-5-haiku-20241022`|
-| November 6, 2024            | `claude-instant-1.2`      | `claude-3-5-haiku-20241022`|
+| November 6, 2024            | `claude-1.0`              | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-1.1`              | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-1.2`              | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-1.3`              | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-instant-1.0`      | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-instant-1.1`      | `claude-haiku-4-5-20251001`|
+| November 6, 2024            | `claude-instant-1.2`      | `claude-haiku-4-5-20251001`|

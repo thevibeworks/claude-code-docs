@@ -67,7 +67,7 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
         ```
       </Tab>
       <Tab title="Python (uv)">
-        [uv](https://docs.astral.sh/uv/) is a fast Python package manager that handles virtual environments automatically:
+        [uv Python package manager](https://docs.astral.sh/uv/) is a fast Python package manager that handles virtual environments automatically:
         ```bash
         uv init && uv add claude-agent-sdk
         ```
@@ -85,7 +85,7 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
   <Step title="Set your API key">
     If you've already authenticated Claude Code (by running `claude` in your terminal), the SDK uses that authentication automatically.
 
-    Otherwise, you need an API key, which you can get from the [Anthropic Console](https://console.anthropic.com/).
+    Otherwise, you need an API key, which you can get from the [Claude Console](https://console.anthropic.com/).
 
     Create a `.env` file in your project directory and store the API key there:
 
@@ -96,7 +96,7 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
     <Note>
     **Using Amazon Bedrock, Google Vertex AI, or Microsoft Azure?** See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/azure-ai-foundry).
 
-    Unless previously approved, we do not allow third party developers to offer Claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
+    Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
     </Note>
   </Step>
 </Steps>
@@ -198,15 +198,18 @@ This example uses streaming to show progress in real-time. If you don't need liv
 
 Your agent is ready. Run it with the following command:
 
-<CodeGroup>
-```bash Python
-python3 agent.py
-```
-
-```bash TypeScript
-npx tsx agent.ts
-```
-</CodeGroup>
+<Tabs>
+  <Tab title="Python">
+    ```bash
+    python3 agent.py
+    ```
+  </Tab>
+  <Tab title="TypeScript">
+    ```bash
+    npx tsx agent.ts
+    ```
+  </Tab>
+</Tabs>
 
 After running, check `utils.py`. You'll see defensive code handling empty lists and null users. Your agent autonomously:
 
