@@ -24,14 +24,14 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Working with the US Department of Energy to unlock the next era of scientific discovery
+
+[Read more](https://www.anthropic.com/news/genesis-mission-partnership)
+
+### Protecting the well-being of our users
+
+[Read more](https://www.anthropic.com/news/protecting-well-being-of-users)
+
 ### Donating the Model Context Protocol and establishing the Agentic AI Foundation
 
 [Read more](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
-
-### Accenture and Anthropic launch multi-year partnership to move enterprises from AI pilots to production
-
-[Read more](https://www.anthropic.com/news/anthropic-accenture-partnership)
-
-### Snowflake and Anthropic announce $200 million partnership to bring agentic AI to global enterprises
-
-[Read more](https://www.anthropic.com/news/snowflake-anthropic-expanded-partnership)
