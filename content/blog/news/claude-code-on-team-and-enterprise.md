@@ -52,6 +52,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Sharing our compliance framework for California's Transparency in Frontier AI Act
+
+[Read more](https://www.anthropic.com/news/compliance-framework-SB53)
+
 ### Working with the US Department of Energy to unlock the next era of scientific discovery
 
 [Read more](https://www.anthropic.com/news/genesis-mission-partnership)
@@ -59,7 +63,3 @@ Related content
 ### Protecting the well-being of our users
 
 [Read more](https://www.anthropic.com/news/protecting-well-being-of-users)
-
-### Donating the Model Context Protocol and establishing the Agentic AI Foundation
-
-[Read more](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation)
