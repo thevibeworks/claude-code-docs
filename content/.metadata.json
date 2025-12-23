@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-21T01:39:22.082871Z"
+    "fetch_date": "2025-12-23T06:30:40.924986Z"
   },
   "items": [
     {
@@ -4054,14 +4054,14 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "241ec0ab75849926b5b2794f8c84c7a0f00df962eb0af7620cf30cdea1f9601b",
+      "sha256": "2c743f5a51a457c7e70e13e1e1b650f0a2de47d42a1eccea616e9332c6d51b40",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "8fcde6cde745044c74845751a6c5abb9c2689d09be1cc674985136a099d9dc2a",
+      "sha256": "d3dd3fad27ce6481972576521603b27305538e2c27d7ac6214743cfec88b4bd3",
       "size": 8764
     },
     {
