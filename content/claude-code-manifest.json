@@ -99,6 +99,7 @@
   "_nodeVersion": "20.19.6",
   "dependencies": {},
   "_hasShrinkwrap": false,
+  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@img/sharp-linux-arm": "^0.33.5",
     "@img/sharp-linux-x64": "^0.33.5",

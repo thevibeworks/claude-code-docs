@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-23T06:30:40.924986Z"
+    "fetch_date": "2025-12-23T16:14:13.980581Z"
   },
   "items": [
     {
@@ -3795,8 +3795,8 @@
       "url": "https://code.claude.com/docs/en/discover-plugins",
       "status": "success",
       "path": "en/docs/claude-code/discover-plugins.md",
-      "sha256": "d8bde424db343fab1cf90039151ab920dd9c0b282359bd0b0bd7dd7bdc79f8fc",
-      "size": 11850
+      "sha256": "4ae1fc65e869e46c2dc5e25184925d499ef9179af912e8d4f60a19521039a0f0",
+      "size": 14608
     },
     {
       "url": "https://code.claude.com/docs/en/github-actions",
@@ -4061,7 +4061,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "d3dd3fad27ce6481972576521603b27305538e2c27d7ac6214743cfec88b4bd3",
+      "sha256": "c2477b983bebe8d7ce711ce20a3aabc7dfa707c88bc88e16dc812f7d79979080",
       "size": 8764
     },
     {
