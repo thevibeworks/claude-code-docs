@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-23T06:30:40.924986Z"
+    "fetch_date": "2025-12-24T02:46:24.460735Z"
   },
   "items": [
     {
@@ -3795,8 +3795,8 @@
       "url": "https://code.claude.com/docs/en/discover-plugins",
       "status": "success",
       "path": "en/docs/claude-code/discover-plugins.md",
-      "sha256": "d8bde424db343fab1cf90039151ab920dd9c0b282359bd0b0bd7dd7bdc79f8fc",
-      "size": 11850
+      "sha256": "4ae1fc65e869e46c2dc5e25184925d499ef9179af912e8d4f60a19521039a0f0",
+      "size": 14608
     },
     {
       "url": "https://code.claude.com/docs/en/github-actions",
