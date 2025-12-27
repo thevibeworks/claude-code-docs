@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-24T16:14:05.744535Z"
+    "fetch_date": "2025-12-27T11:08:47.502022Z"
   },
   "items": [
     {
@@ -3795,8 +3795,8 @@
       "url": "https://code.claude.com/docs/en/discover-plugins",
       "status": "success",
       "path": "en/docs/claude-code/discover-plugins.md",
-      "sha256": "4ae1fc65e869e46c2dc5e25184925d499ef9179af912e8d4f60a19521039a0f0",
-      "size": 14608
+      "sha256": "36e7ef330c71e6829d380828af191c16e4f53b2d1b6927772418666d61403627",
+      "size": 15034
     },
     {
       "url": "https://code.claude.com/docs/en/github-actions",
@@ -3823,8 +3823,8 @@
       "url": "https://code.claude.com/docs/en/headless",
       "status": "success",
       "path": "en/docs/claude-code/headless.md",
-      "sha256": "f9918de16d7c121ca2ca37341742dddc69915d07fb75833168dee2db407efa74",
-      "size": 4890
+      "sha256": "3b3fd5b137d4bb74e004c205b98d0720fccf0e8269bc6ce8621fee6da3c85be1",
+      "size": 6144
     },
     {
       "url": "https://code.claude.com/docs/en/hooks",
@@ -3942,8 +3942,8 @@
       "url": "https://code.claude.com/docs/en/plugins",
       "status": "success",
       "path": "en/docs/claude-code/plugins.md",
-      "sha256": "21d4a373469aa9bf51f486ffdd987a38a4f18338cb957a784f97291ad5797c80",
-      "size": 16330
+      "sha256": "3f9f67dc213377a80a2c5048428ec7a469e67f69e1d6fb8e4ad5ab69f56a5072",
+      "size": 16908
     },
     {
       "url": "https://code.claude.com/docs/en/plugins-reference",
@@ -3991,8 +3991,8 @@
       "url": "https://code.claude.com/docs/en/skills",
       "status": "success",
       "path": "en/docs/claude-code/skills.md",
-      "sha256": "67d1a207d9b79d690cddd87ddfd9086b26dc2186f8f26a3da21eed041b1db62d",
-      "size": 15462
+      "sha256": "3b235f36f90f4caa5095bcef11ac7e07f6173f19ffff6f2d5b6aaf55bfe98305",
+      "size": 22676
     },
     {
       "url": "https://code.claude.com/docs/en/slack",
@@ -4019,7 +4019,7 @@
       "url": "https://code.claude.com/docs/en/sub-agents",
       "status": "success",
       "path": "en/docs/claude-code/sub-agents.md",
-      "sha256": "f1ad1f9bc8b8b3068d019b3e7ccce1bc6e2f06ca8d97c17a07173bdb994f5370",
+      "sha256": "e7caa21fb064d2bd5c655b2bd10a074e08003ac08b50c17bf8d84366a11e6554",
       "size": 22732
     },
     {
@@ -4054,22 +4054,15 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "2c743f5a51a457c7e70e13e1e1b650f0a2de47d42a1eccea616e9332c6d51b40",
+      "sha256": "3b156fada037a19c2b05df3d19a0934473d622ba41a53b8db8f227d430cdc861",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "d3dd3fad27ce6481972576521603b27305538e2c27d7ac6214743cfec88b4bd3",
+      "sha256": "90c918fd1632349cab474ea6374497065038efe821952486c9e6fbb36b55f5f1",
       "size": 8764
-    },
-    {
-      "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
-      "status": "success",
-      "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
-      "sha256": "405d1bad96d4c327c070714a2ab289dc75dad466f04b2ca3389cb97475e84199",
-      "size": 4457
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
@@ -4088,9 +4081,9 @@
   ],
   "summary": {
     "total": 583,
-    "downloaded": 583,
+    "downloaded": 582,
     "skipped": 0,
-    "failed": 0,
-    "success_rate": 100.0
+    "failed": 1,
+    "success_rate": 99.8
   }
 }
