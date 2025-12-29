@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-27T11:08:47.502022Z"
+    "fetch_date": "2025-12-29T16:13:45.905703Z"
   },
   "items": [
     {
@@ -4061,8 +4061,15 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "90c918fd1632349cab474ea6374497065038efe821952486c9e6fbb36b55f5f1",
+      "sha256": "29580f23b8469214f1c2288d134444263af0332fc613e15074c951fe07038187",
       "size": 8764
+    },
+    {
+      "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
+      "status": "success",
+      "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
+      "sha256": "405d1bad96d4c327c070714a2ab289dc75dad466f04b2ca3389cb97475e84199",
+      "size": 4457
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
@@ -4081,9 +4088,9 @@
   ],
   "summary": {
     "total": 583,
-    "downloaded": 582,
+    "downloaded": 583,
     "skipped": 0,
-    "failed": 1,
-    "success_rate": 99.8
+    "failed": 0,
+    "success_rate": 100.0
   }
 }
