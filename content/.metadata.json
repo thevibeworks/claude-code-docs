@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2025-12-27T11:08:47.502022Z"
+    "fetch_date": "2025-12-30T06:18:34.349598Z"
   },
   "items": [
     {
@@ -309,15 +309,15 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/overview",
       "status": "success",
       "path": "en/agent-sdk/overview.md",
-      "sha256": "a97c39633b9ce7b364bcab956e61c7c6fd80c836371b69bff224036b9a9c3e15",
-      "size": 20041
+      "sha256": "eafb22c9c3ce30158e95b3e944983bbfceba423ddf8cc4d6b13bf5b1737c9dfe",
+      "size": 20026
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/quickstart",
       "status": "success",
       "path": "en/agent-sdk/quickstart.md",
-      "sha256": "85abc9a7afe949336b0939bc6358457fc6ef306758ed9a1d90d795631d855ef0",
-      "size": 12207
+      "sha256": "d1953ed0d03c8f51d01d4782ebf0d3a871a2f150da3a4a0b1ec5c0563feb3707",
+      "size": 12177
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
@@ -379,8 +379,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/file-checkpointing",
       "status": "success",
       "path": "en/agent-sdk/file-checkpointing.md",
-      "sha256": "74bd645cad4800cd33e4cd2ebe84d96be34bf8d9e21c9e97edfce3c06d37367e",
-      "size": 27585
+      "sha256": "418e214a1e8e99d1c0e05175068517b6f8a47b5cc117cd4690b0b73708ac0f30",
+      "size": 27654
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/structured-outputs",
@@ -4065,6 +4065,13 @@
       "size": 8764
     },
     {
+      "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
+      "status": "success",
+      "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
+      "sha256": "405d1bad96d4c327c070714a2ab289dc75dad466f04b2ca3389cb97475e84199",
+      "size": 4457
+    },
+    {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
@@ -4081,9 +4088,9 @@
   ],
   "summary": {
     "total": 583,
-    "downloaded": 582,
+    "downloaded": 583,
     "skipped": 0,
-    "failed": 1,
-    "success_rate": 99.8
+    "failed": 0,
+    "success_rate": 100.0
   }
 }
