@@ -379,7 +379,7 @@ print(f"Score: {grades.count('correct') / len(grades) * 100}%")
   <Card title="Brainstorm evaluations" icon="link" href="/docs/en/build-with-claude/prompt-engineering/overview">
     Learn how to craft prompts that maximize your eval scores.
   </Card>
-  <Card title="Evals cookbook" icon="link" href="https://github.com/anthropics/anthropic-cookbook/blob/main/misc/building%5Fevals.ipynb">
+  <Card title="Evals cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-evals">
     More code examples of human-, code-, and LLM-graded evals.
   </Card>
 </CardGroup>

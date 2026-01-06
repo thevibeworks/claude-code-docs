@@ -4,7 +4,7 @@
 
 ## Choosing a model
 
-We recommend using the latest Claude Sonnet (4.5) or Claude Opus (4.1) model for complex tools and ambiguous queries; they handle multiple tools better and seek clarification when needed.
+We recommend using the latest Claude Sonnet (4.5) or Claude Opus (4.5) model for complex tools and ambiguous queries; they handle multiple tools better and seek clarification when needed.
 
 Use Claude Haiku models for straightforward tools, but note they may infer missing parameters.
 
@@ -1433,7 +1433,7 @@ Claude Sonnet 3.7 may be less likely to make make parallel tool calls in a respo
 
 If you're still using Claude Sonnet 3.7, you can enable the `token-efficient-tools-2025-02-19` [beta header](/docs/en/api/beta-headers), which helps encourage Claude to use parallel tools. You can also introduce a "batch tool" that can act as a meta-tool to wrap invocations to other tools simultaneously.
 
-See [this example](https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/parallel_tools_claude_3_7_sonnet.ipynb) in our cookbook for how to use this workaround.
+See [this example](https://platform.claude.com/cookbook/tool-use-parallel-tools) in our cookbook for how to use this workaround.
 
 </Warning>
 

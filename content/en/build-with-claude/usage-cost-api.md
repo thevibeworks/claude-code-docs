@@ -198,7 +198,7 @@ page=page_xyz..." \
 
 ## Common use cases
 
-Explore detailed implementations in [anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook):
+Explore detailed implementations in [Claude Cookbook](https://platform.claude.com/cookbooks):
 
 - **Daily usage reports**: Track token consumption trends
 - **Cost attribution**: Allocate expenses by workspace for chargebacks
