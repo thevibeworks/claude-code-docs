@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-07T02:52:13.309217Z"
+    "fetch_date": "2026-01-07T11:11:12.720053Z"
   },
   "items": [
     {
@@ -3788,8 +3788,8 @@
       "url": "https://code.claude.com/docs/en/desktop",
       "status": "success",
       "path": "en/docs/claude-code/desktop.md",
-      "sha256": "dd05d101547f58b52ebae3c15b87b226371522ccd46457a3a19c0f16b1970d33",
-      "size": 6373
+      "sha256": "dbadc2bcc3a08b6609b30e739b9633124d55e0f993ac93ea1aaf70438122d5e8",
+      "size": 6353
     },
     {
       "url": "https://code.claude.com/docs/en/devcontainer",
@@ -3802,8 +3802,8 @@
       "url": "https://code.claude.com/docs/en/discover-plugins",
       "status": "success",
       "path": "en/docs/claude-code/discover-plugins.md",
-      "sha256": "36e7ef330c71e6829d380828af191c16e4f53b2d1b6927772418666d61403627",
-      "size": 15034
+      "sha256": "75fa44d45e3fc9475f41ee57ab54a50e4f1962081e641f3f07f53082f6043198",
+      "size": 15393
     },
     {
       "url": "https://code.claude.com/docs/en/github-actions",
