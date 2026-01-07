@@ -1002,7 +1002,7 @@ public class MessagesBatchDocumentExample {
   <Card
     title="Try PDF examples"
     icon="file"
-    href="https://github.com/anthropics/anthropic-cookbook/tree/main/multimodal"
+    href="https://platform.claude.com/cookbook/multimodal-getting-started-with-vision"
   >
     Explore practical examples of PDF processing in our cookbook recipe.
   </Card>

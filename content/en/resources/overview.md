@@ -46,7 +46,7 @@
       Step by step lessons on building with Claude.
     </Card>
 
-    <Card title="Cookbook" icon="fork-knife" href="https://github.com/anthropics/anthropic-cookbook">
+    <Card title="Cookbook" icon="fork-knife" href="https://platform.claude.com/cookbooks">
       Replicable code samples and implementations.
     </Card>
 

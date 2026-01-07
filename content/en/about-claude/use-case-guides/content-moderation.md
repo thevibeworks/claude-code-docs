@@ -4,7 +4,7 @@ Content moderation is a critical aspect of maintaining a safe, respectful, and p
 
 ---
 
-> Visit our [content moderation cookbook](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/building%5Fmoderation%5Ffilter.ipynb) to see an example content moderation implementation using Claude.
+> Visit our [content moderation cookbook](https://platform.claude.com/cookbook/misc-building-moderation-filter) to see an example content moderation implementation using Claude.
 
 <Tip>This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, please refer to our [guardrails guide](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations).</Tip>
 
@@ -184,7 +184,7 @@ The model's assessment is then parsed to determine if there is a violation. If t
 
 ### Evaluate your prompt
 
-Content moderation is a classification problem. Thus, you can use the same techniques outlined in our [classification cookbook](https://github.com/anthropics/anthropic-cookbook/blob/main/skills/classification/guide.ipynb) to determine the accuracy of your content moderation system.
+Content moderation is a classification problem. Thus, you can use the same techniques outlined in our [classification cookbook](https://platform.claude.com/cookbook/capabilities-classification-guide) to determine the accuracy of your content moderation system.
 
 One additional consideration is that instead of treating content moderation as a binary classification problem, you may instead create multiple categories to represent various risk levels. Creating multiple risk levels allows you to adjust the aggressiveness of your moderation. For example, you might want to automatically block user queries that are deemed high risk, while users with many medium risk queries are flagged for human review.
 
@@ -454,8 +454,8 @@ In this example, the `batch_moderate_messages` function handles the moderation o
 Inside the function, a prompt is created that includes the list of messages to evaluate, the defined unsafe content categories, and their descriptions. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its id, which corresponds to the message's position in the input list.
 Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison page](/docs/en/about-claude/models#model-comparison-table).
 
-<CardGroup cols={2}> 
-  <Card title="Content moderation cookbook" icon="link" href="https://github.com/anthropics/anthropic-cookbook/blob/main/misc/building%5Fmoderation%5Ffilter.ipynb">
+<CardGroup cols={2}>
+  <Card title="Content moderation cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-moderation-filter">
     View a fully implemented code-based example of how to use Claude for content moderation.
   </Card>
   <Card title="Guardrails guide" icon="link" href="/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">

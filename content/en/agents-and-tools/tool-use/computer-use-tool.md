@@ -42,13 +42,16 @@ Older tool versions are not guaranteed to be backwards-compatible with newer mod
 
 ## Security considerations
 
-<Warning>
-Computer use is a beta feature with unique risks distinct from standard API features. These risks are heightened when interacting with the internet. To minimize risks, consider taking precautions such as:
+Computer use is a beta feature with unique risks distinct from standard API features. These risks are heightened when interacting with the internet.
 
-1. Use a dedicated virtual machine or container with minimal privileges to prevent direct system attacks or accidents.
-2. Avoid giving the model access to sensitive data, such as account login information, to prevent information theft.
-3. Limit internet access to an allowlist of domains to reduce exposure to malicious content.
-4. Ask a human to confirm decisions that may result in meaningful real-world consequences as well as any tasks requiring affirmative consent, such as accepting cookies, executing financial transactions, or agreeing to terms of service.
+<Warning>
+To minimize risks, consider taking precautions such as:
+
+1. Using a dedicated virtual machine or container with minimal privileges to prevent direct system attacks or accidents.
+2. Avoiding giving the model access to sensitive data, such as account login information, to prevent information theft.
+3. Limiting internet access to an allowlist of domains to reduce exposure to malicious content.
+4. Asking a human to confirm decisions that may result in meaningful real-world consequences as well as any tasks requiring affirmative consent, such as accepting cookies, executing financial transactions, or agreeing to terms of service.
+</Warning>
 
 In some circumstances, Claude will follow commands found in content even if it conflicts with the user's instructions. For example, Claude instructions on webpages or contained in images may override instructions or cause Claude to make mistakes. We suggest taking precautions to isolate Claude from sensitive data and actions to avoid risks related to prompt injection.
 
@@ -57,8 +60,6 @@ We've trained the model to resist these prompt injections and have added an extr
 We still suggest taking precautions to isolate Claude from sensitive data and actions to avoid risks related to prompt injection.
 
 Finally, please inform end users of relevant risks and obtain their consent prior to enabling computer use in your own products.
-
-</Warning>
 
 <Card
   title="Computer use reference implementation"
@@ -162,19 +163,19 @@ The example above shows all three tools being used together, which requires the 
 
 <Steps>
   <Step
-    title="1. Provide Claude with the computer use tool and a user prompt"
+    title="Provide Claude with the computer use tool and a user prompt"
     icon="tool"
   >
     - Add the computer use tool (and optionally other tools) to your API request.
     - Include a user prompt that requires desktop interaction, e.g., "Save a picture of a cat to my desktop."
   </Step>
-  <Step title="2. Claude decides to use the computer use tool" icon="wrench">
+  <Step title="Claude decides to use the computer use tool" icon="wrench">
     - Claude assesses if the computer use tool can help with the user's query.
     - If yes, Claude constructs a properly formatted tool use request.
     - The API response has a `stop_reason` of `tool_use`, signaling Claude's intent.
   </Step>
   <Step
-    title="3. Extract tool input, evaluate the tool on a computer, and return results"
+    title="Extract tool input, evaluate the tool on a computer, and return results"
     icon="computer"
   >
     - On your end, extract the tool name and input from Claude's request.
@@ -182,7 +183,7 @@ The example above shows all three tools being used together, which requires the 
     - Continue the conversation with a new `user` message containing a `tool_result` content block.
   </Step>
   <Step
-    title="4. Claude continues calling computer use tools until it's completed the task"
+    title="Claude continues calling computer use tools until it's completed the task"
     icon="arrows-clockwise"
   >
     - Claude analyzes the tool results to determine if more tool use is needed or the task has been completed.

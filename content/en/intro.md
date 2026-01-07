@@ -52,7 +52,7 @@ Anthropic has best-in-class developer tools to build scalable applications with 
   <Card title="API Reference" icon="code" href="/docs/en/api/overview">
     Explore, implement, and scale with the Claude API and SDKs. 
   </Card>
-  <Card title="Claude Cookbook" icon="chef-hat" href="https://github.com/anthropics/anthropic-cookbook">
+  <Card title="Claude Cookbook" icon="chef-hat" href="https://platform.claude.com/cookbooks">
     Learn with interactive Jupyter notebooks that demonstrate uploading PDFs, embeddings, and more.
   </Card>
 </CardGroup>

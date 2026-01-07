@@ -489,7 +489,7 @@ Despite providing examples being the most effective way to improve performance, 
 
 In this scenario, you could employ a vector database to do similarity searches from a dataset of examples and retrieve the most relevant examples for a given query. 
 
-This approach, outlined in detail in our [classification recipe](https://github.com/anthropics/anthropic-cookbook/blob/82675c124e1344639b2a875aa9d3ae854709cd83/skills/classification/guide.ipynb), has been shown to improve performance from 71% accuracy to 93% accuracy.
+This approach, outlined in detail in our [classification recipe](https://platform.claude.com/cookbook/capabilities-classification-guide), has been shown to improve performance from 71% accuracy to 93% accuracy.
 
 ### Account specifically for expected edge cases
 
@@ -529,7 +529,7 @@ For either of these approaches, you will need to wrap your script in a service. 
 ***
 
 <CardGroup cols={2}>
-    <Card title="Classification cookbook" icon="link" href="https://github.com/anthropics/anthropic-cookbook/tree/main/capabilities/classification">
+    <Card title="Classification cookbook" icon="link" href="https://platform.claude.com/cookbook/capabilities-classification-guide">
         Visit our classification cookbook for more example code and detailed eval guidance.
     </Card>
     <Card title="Claude Console" icon="link" href="/dashboard">
