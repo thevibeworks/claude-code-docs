@@ -390,7 +390,7 @@ And fix any issues you find.`
 ## Next steps
 
 <CardGroup>
-  <Card title="Extended thinking cookbook" icon="book" href="https://github.com/anthropics/anthropic-cookbook/tree/main/extended_thinking">
+  <Card title="Extended thinking cookbook" icon="book" href="https://platform.claude.com/cookbook/extended-thinking-extended-thinking">
     Explore practical examples of extended thinking in our cookbook.
   </Card>
   <Card title="Extended thinking guide" icon="code" href="/docs/en/build-with-claude/extended-thinking">

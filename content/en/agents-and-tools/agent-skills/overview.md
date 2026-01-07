@@ -28,7 +28,7 @@ Anthropic provides pre-built Agent Skills for common document tasks (PowerPoint,
 <Note>
 **Get started:**
 - For pre-built Agent Skills: See the [quickstart tutorial](/docs/en/agents-and-tools/agent-skills/quickstart) to start using PowerPoint, Excel, Word, and PDF skills in the API
-- For custom Skills: See the [Agent Skills Cookbook](https://github.com/anthropics/claude-cookbooks/tree/main/skills) to learn how to create your own Skills
+- For custom Skills: See the [Agent Skills Cookbook](https://platform.claude.com/cookbook/skills-notebooks-01-skills-introduction) to learn how to create your own Skills
 </Note>
 
 ## How Skills work
@@ -263,7 +263,7 @@ These Skills are available on the Claude API and claude.ai. See the [quickstart 
 
 ### Custom Skills examples
 
-For complete examples of custom Skills, see the [Skills cookbook](https://github.com/anthropics/claude-cookbooks/tree/main/skills).
+For complete examples of custom Skills, see the [Skills cookbook](https://platform.claude.com/cookbook/skills-notebooks-01-skills-introduction).
 
 ## Limitations and constraints
 

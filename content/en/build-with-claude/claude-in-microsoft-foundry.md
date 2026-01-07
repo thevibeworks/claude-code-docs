@@ -6,7 +6,7 @@ Access Claude models through Microsoft Foundry with Azure-native endpoints and a
 
 This guide will walk you through the process of setting up and making API calls to Claude in Foundry in Python, TypeScript, or using direct HTTP requests. When you can access Claude in Foundry, you will be billed for Claude usage in the Microsoft Marketplace with your Azure subscription, allowing you to access Claude's latest capabilities while managing costs through your Azure subscription.
 
-Regional availability: At launch, Claude is available as a Global Standard deployment type in Foundry resources with US DataZone coming soon. Pricing for Claude in the Microsoft Marketplace uses Anthropic's standard API pricing. Visit our [pricing page](https://claude.com/pricing#api) for details.
+Regional availability: At launch, Claude is available as a Global Standard deployment type in Foundry resources (US DataZone coming soon). Pricing for Claude in the Microsoft Marketplace uses Anthropic's standard API pricing. Visit the [pricing page](https://claude.com/pricing#api) for details.
 
 ## Preview
 
@@ -24,13 +24,25 @@ Before you begin, ensure you have:
 
 Anthropic's [client SDKs](/docs/en/api/client-sdks) support Foundry through platform-specific packages.
 
+<Tabs>
+<Tab title="Python">
 ```bash
-# Python
 pip install -U "anthropic"
+```
+</Tab>
 
-# Typescript
+<Tab title="TypeScript">
+```bash
 npm install @anthropic-ai/foundry-sdk
 ```
+</Tab>
+
+<Tab title="C#">
+```bash
+dotnet add package Anthropic.Foundry
+```
+</Tab>
+</Tabs>
 
 ## Provisioning
 
@@ -238,7 +250,7 @@ Foundry includes request identifiers in HTTP response headers for debugging and 
 
 ## Supported features
 
-Claude on Foundry supports most of Claude's powerful features. You can find all the features currently supported [here](/docs/en/build-with-claude/overview).
+Claude on Foundry supports most of Claude's powerful features. You can find all the features currently supported in the [overview documentation](/docs/en/build-with-claude/overview).
 
 ### Features not supported
 
@@ -248,7 +260,7 @@ Claude on Foundry supports most of Claude's powerful features. You can find all 
 
 ## API responses
 
-API responses from Claude on Foundry follow the standard [Anthropic API response format](/docs/en/api/messages). This includes the `usage` object in response bodies, which provides detailed token consumption information for your requests. The `usage` object is consistent across all platforms (first-party API, Foundry, Amazon Bedrock, and Google Vertex AI).
+API responses from Claude on Foundry follow the standard [Claude API response format](/docs/en/api/messages). This includes the `usage` object in response bodies, which provides detailed token consumption information for your requests. The `usage` object is consistent across all platforms (first-party API, Foundry, Amazon Bedrock, and Google Vertex AI).
 
 For details on response headers specific to Foundry, see the [correlation request IDs section](#correlation-request-ids).
 

@@ -1,6 +1,6 @@
 # TypeScript SDK V2 interface (preview)
 
-Preview of the simplified V2 TypeScript Agent SDK, with session-based send/receive patterns for multi-turn conversations.
+Preview of the simplified V2 TypeScript Agent SDK, with session-based send/stream patterns for multi-turn conversations.
 
 ---
 
@@ -8,11 +8,11 @@ Preview of the simplified V2 TypeScript Agent SDK, with session-based send/recei
 The V2 interface is an **unstable preview**. APIs may change based on feedback before becoming stable. Some features like session forking are only available in the [V1 SDK](/docs/en/agent-sdk/typescript).
 </Warning>
 
-The V2 Claude Agent TypeScript SDK removes the need for async generators and yield coordination. This makes multi-turn conversations simpler—instead of managing generator state across turns, each turn is a separate `send()`/`receive()` cycle. The API surface reduces to three concepts:
+The V2 Claude Agent TypeScript SDK removes the need for async generators and yield coordination. This makes multi-turn conversations simpler, instead of managing generator state across turns, each turn is a separate `send()`/`stream()` cycle. The API surface reduces to three concepts:
 
 - `createSession()` / `resumeSession()`: Start or continue a conversation
 - `session.send()`: Send a message
-- `session.receive()`: Get the response
+- `session.stream()`: Get the response
 
 ## Installation
 
@@ -59,9 +59,9 @@ for await (const msg of q) {
 
 ### Basic session
 
-For interactions beyond a single prompt, create a session. V2 separates sending and receiving into distinct steps:
+For interactions beyond a single prompt, create a session. V2 separates sending and streaming into distinct steps:
 - `send()` dispatches your message
-- `receive()` streams back the response
+- `stream()` streams back the response
 
 This explicit separation makes it easier to add logic between turns (like processing responses before sending follow-ups).
 
@@ -75,7 +75,7 @@ await using session = unstable_v2_createSession({
 })
 
 await session.send('Hello!')
-for await (const msg of session.receive()) {
+for await (const msg of session.stream()) {
   // Filter for assistant messages to get human-readable output
   if (msg.type === 'assistant') {
     const text = msg.message.content
@@ -128,7 +128,7 @@ await using session = unstable_v2_createSession({
 
 // Turn 1
 await session.send('What is 5 + 3?')
-for await (const msg of session.receive()) {
+for await (const msg of session.stream()) {
   // Filter for assistant messages to get human-readable output
   if (msg.type === 'assistant') {
     const text = msg.message.content
@@ -141,7 +141,7 @@ for await (const msg of session.receive()) {
 
 // Turn 2
 await session.send('Multiply that by 2')
-for await (const msg of session.receive()) {
+for await (const msg of session.stream()) {
   if (msg.type === 'assistant') {
     const text = msg.message.content
       .filter(block => block.type === 'text')
@@ -224,7 +224,7 @@ await session.send('Remember this number: 42')
 
 // Get the session ID from any received message
 let sessionId: string | undefined
-for await (const msg of session.receive()) {
+for await (const msg of session.stream()) {
   sessionId = msg.session_id
   const text = getAssistantText(msg)
   if (text) console.log('Initial response:', text)
@@ -239,7 +239,7 @@ await using resumedSession = unstable_v2_resumeSession(sessionId!, {
 })
 
 await resumedSession.send('What number did I ask you to remember?')
-for await (const msg of resumedSession.receive()) {
+for await (const msg of resumedSession.stream()) {
   const text = getAssistantText(msg)
   if (text) console.log('Resumed response:', text)
 }
@@ -367,7 +367,7 @@ function unstable_v2_prompt(
 ```typescript
 interface Session {
   send(message: string): Promise<void>;
-  receive(): AsyncGenerator<SDKMessage>;
+  stream(): AsyncGenerator<SDKMessage>;
   close(): void;
 }
 ```

@@ -1961,7 +1961,7 @@ The billed output token count will **not** match the visible token count in the 
 ## Next steps
 
 <CardGroup>
-  <Card title="Try the extended thinking cookbook" icon="book" href="https://github.com/anthropics/anthropic-cookbook/tree/main/extended_thinking">
+  <Card title="Try the extended thinking cookbook" icon="book" href="https://platform.claude.com/cookbook/extended-thinking-extended-thinking">
     Explore practical examples of thinking in our cookbook.
   </Card>
   <Card title="Extended thinking prompting tips" icon="code" href="/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips">

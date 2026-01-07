@@ -310,7 +310,7 @@ Now that you have made your first Claude API request, it's time to explore what 
   <Card title="Client SDKs" icon="code-brackets" href="/docs/en/api/client-sdks">
     Discover Anthropic client libraries.
   </Card>
-  <Card title="Claude Cookbook" icon="chef-hat" href="https://github.com/anthropics/anthropic-cookbook">
+  <Card title="Claude Cookbook" icon="chef-hat" href="https://platform.claude.com/cookbooks">
     Learn with interactive Jupyter notebooks.
   </Card>
 </CardGroup>

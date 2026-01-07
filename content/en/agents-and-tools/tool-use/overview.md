@@ -1119,7 +1119,7 @@ When you use `tools`, we also automatically include a special system prompt for 
 
 These token counts are added to your normal input and output tokens to calculate the total cost of a request.
 
-Refer to our [models overview table](/docs/en/about-claude/models/overview#model-comparison-table) for current per-model prices.
+Refer to our [models overview table](/docs/en/about-claude/models/overview#latest-models-comparison) for current per-model prices.
 
 When you send a tool use prompt, just like any other API request, the response will output both input and output token counts as part of the reported `usage` metrics.
 
@@ -1133,7 +1133,7 @@ Explore our repository of ready-to-implement tool use code examples in our cookb
   <Card
     title="Calculator Tool"
     icon="calculator"
-    href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/calculator_tool.ipynb"
+    href="https://platform.claude.com/cookbook/tool-use-calculator-tool"
   >
     Learn how to integrate a simple calculator tool with Claude for precise numerical computations.
   </Card>
@@ -1142,7 +1142,7 @@ Explore our repository of ready-to-implement tool use code examples in our cookb
 <Card
   title="Customer Service Agent"
   icon="headset"
-  href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/customer_service_agent.ipynb"
+  href="https://platform.claude.com/cookbook/tool-use-customer-service-agent"
 >
   Build a responsive customer service bot that leverages client tools to
   enhance support.
@@ -1151,7 +1151,7 @@ Explore our repository of ready-to-implement tool use code examples in our cookb
   <Card
     title="JSON Extractor"
     icon="code-brackets"
-    href="https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/extracting_structured_json.ipynb"
+    href="https://platform.claude.com/cookbook/tool-use-extracting-structured-json"
   >
     See how Claude and tool use can extract structured data from unstructured text.
   </Card>

@@ -80,7 +80,7 @@ Here are the key tasks associated with the example insurance interaction above:
 
 2. Product Information
    - Provide information about electric vehicle coverage
-   <Note>This will require that Claude have the necessary information in its context, and might imply that a [RAG integration](https://github.com/anthropics/anthropic-cookbook/blob/main/skills/retrieval_augmented_generation/guide.ipynb) is necessary.</Note>
+   <Note>This will require that Claude have the necessary information in its context, and might imply that a [RAG integration](https://platform.claude.com/cookbook/capabilities-retrieval-augmented-generation-guide) is necessary.</Note>
    - Answer questions related to unique electric vehicle insurance needs
    - Answer follow-up questions about the quote or insurance details
    - Offer links to sources when appropriate
@@ -545,19 +545,19 @@ When dealing with large amounts of static and dynamic context, including all inf
 
 By using [embedding models like Voyage](/docs/en/build-with-claude/embeddings) to convert information into vector representations, you can create a more scalable and responsive system. This approach allows for dynamic retrieval of relevant information based on the current query, rather than including all possible context in every prompt.
 
-Implementing RAG for support use cases [RAG recipe](https://github.com/anthropics/anthropic-cookbook/blob/82675c124e1344639b2a875aa9d3ae854709cd83/skills/classification/guide.ipynb) has been shown to increase accuracy, reduce response times, and reduce API costs in systems with extensive context requirements.
+Implementing RAG for support use cases [RAG recipe](https://platform.claude.com/cookbook/capabilities-retrieval-augmented-generation-guide) has been shown to increase accuracy, reduce response times, and reduce API costs in systems with extensive context requirements.
 
 #### Integrate real-time data with tool use
 
 When dealing with queries that require real-time information, such as account balances or policy details, embedding-based RAG approaches are not sufficient. Instead, you can leverage tool use to significantly enhance your chatbot's ability to provide accurate, real-time responses. For example, you can use tool use to look up customer information, retrieve order details, and cancel orders on behalf of the customer.
 
-This approach, [outlined in our tool use: customer service agent recipe](https://github.com/anthropics/anthropic-cookbook/blob/main/tool_use/customer_service_agent.ipynb), allows you to seamlessly integrate live data into your Claude's responses and provide a more personalized and efficient customer experience.
+This approach, [outlined in our tool use: customer service agent recipe](https://platform.claude.com/cookbook/tool-use-customer-service-agent), allows you to seamlessly integrate live data into your Claude's responses and provide a more personalized and efficient customer experience.
 
 #### Strengthen input and output guardrails
 
 When deploying a chatbot, especially in customer service scenarios, it's crucial to prevent risks associated with misuse, out-of-scope queries, and inappropriate responses. While Claude is inherently resilient to such scenarios, here are additional steps to strengthen your chatbot guardrails:
 
-- [Reduce hallucination](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Implement fact-checking mechanisms and [citations](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/using_citations.ipynb) to ground responses in provided information.
+- [Reduce hallucination](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations): Implement fact-checking mechanisms and [citations](https://platform.claude.com/cookbook/misc-using-citations) to ground responses in provided information.
 - Cross-check information: Verify that the agent's responses align with your company's policies and known facts.
 - Avoid contractual commitments: Ensure the agent doesn't make promises or enter into agreements it's not authorized to make.
 - [Mitigate jailbreaks](/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks): Use methods like harmlessness screens and input validation to prevent users from exploiting model vulnerabilities, aiming to generate inappropriate content.
@@ -584,7 +584,7 @@ As the complexity of your Chatbot grows, your application architecture can evolv
 - Ensure that you are making the most out of your prompts and optimizing through prompt engineering. Use our [prompt engineering guides](/docs/en/build-with-claude/prompt-engineering/overview) to write the most effective prompts.
 - Add additional [tools](/docs/en/build-with-claude/tool-use) to the prompt (which can include [prompt chains](/docs/en/build-with-claude/prompt-engineering/chain-prompts)) and see if you can achieve the functionality required.
 
-If your Chatbot handles incredibly varied tasks, you may want to consider adding a [separate intent classifier](https://github.com/anthropics/anthropic-cookbook/blob/main/skills/classification/guide.ipynb) to route the initial customer query. For the existing application, this would involve creating a decision tree that would route customer queries through the classifier and then to specialized conversations (with their own set of tools and system prompts). Note, this method requires an additional call to Claude that can increase latency.
+If your Chatbot handles incredibly varied tasks, you may want to consider adding a [separate intent classifier](https://platform.claude.com/cookbook/capabilities-classification-guide) to route the initial customer query. For the existing application, this would involve creating a decision tree that would route customer queries through the classifier and then to specialized conversations (with their own set of tools and system prompts). Note, this method requires an additional call to Claude that can increase latency.
 
 ### Integrate Claude into your support workflow
 
@@ -600,10 +600,10 @@ Here's how you can approach this:
 2. Build a web interface: Implement a user-friendly web UI for interacting with the Claude-powered agent.
 
 <CardGroup cols={2}>
-  <Card title="Retrieval Augmented Generation (RAG) cookbook" icon="link" href="https://github.com/anthropics/anthropic-cookbook/blob/main/skills/retrieval_augmented_generation/guide.ipynb">
+  <Card title="Retrieval Augmented Generation (RAG) cookbook" icon="link" href="https://platform.claude.com/cookbook/capabilities-retrieval-augmented-generation-guide">
     Visit our RAG cookbook recipe for more example code and detailed guidance.
   </Card>
-  <Card title="Citations cookbook" icon="link" href="https://github.com/anthropics/anthropic-cookbook/blob/main/misc/using_citations.ipynb">
+  <Card title="Citations cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-using-citations">
     Explore our Citations cookbook recipe for how to ensure accuracy and explainability of information.
   </Card>
 </CardGroup>

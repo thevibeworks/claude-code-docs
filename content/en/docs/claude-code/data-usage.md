@@ -7,15 +7,7 @@
 ### Data training policy
 
 **Consumer users (Free, Pro, and Max plans)**:
-Starting August 28, 2025, we're giving you the choice to allow your data to be used to improve future Claude models.
-
-We will train new models using data from Free, Pro, and Max accounts when this setting is on (including when you use Claude Code from these accounts).
-
-* If you're a current user, you can select your preference now and your selection will immediately go into effect.
-  This setting will only apply to new or resumed chats and coding sessions on Claude. Previous chats with no additional activity will not be used for model training.
-* You have until October 8, 2025 to make your selection.
-  If you're a new user, you can pick your setting for model training during the signup process.
-  You can change your selection at any time in your Privacy Settings.
+We give you the choice to allow your data to be used to improve future Claude models. We will train new models using data from Free, Pro, and Max accounts when this setting is on (including when you use Claude Code from these accounts).
 
 **Commercial users**: (Team and Enterprise plans, API, 3rd-party platforms, and Claude Gov) maintain existing policies: Anthropic does not train generative models using code or prompts sent to Claude Code under commercial terms, unless the customer has chosen to provide their data to us for model improvement (for example, the [Developer Partner Program](https://support.claude.com/en/articles/11174108-about-the-development-partner-program)).
 
@@ -51,27 +43,28 @@ Learn more about data retention practices in our [Privacy Center](https://privac
 
 For full details, please review our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) (for Team, Enterprise, and API users) or [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) (for Free, Pro, and Max users) and [Privacy Policy](https://www.anthropic.com/legal/privacy).
 
-## Data flow and dependencies
+## Data access
 
-<img src="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=4672f138596e864633b4b7c7ae4ae812" alt="Claude Code data flow diagram" data-og-width="1597" width="1597" data-og-height="1285" height="1285" data-path="images/claude-code-data-flow.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=280&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=5d9bdaf7ea50fc38dc01bbde7b952835 280w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=560&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=525736e5860ac9f262de4b40c9c68a0e 560w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=840&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=5262f9d1a1d0cffb0d5944e49b2d72be 840w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=1100&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=ec74e6b2f87b667f6d0e2278c20944de 1100w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=1650&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=05f11b1d061b6ddbb69969d4e535547a 1650w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/claude-code-data-flow.png?w=2500&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=9b9cce0fb5989bd1d27f143825be73ff 2500w" />
+For all first party users, you can learn more about what data is logged for [local Claude Code](#local-claude-code-data-flow-and-dependencies) and [remote Claude Code](#cloud-execution-data-flow-and-dependencies). Note for remote Claude Code, Claude accesses the repository where you initiate your Claude Code session. Claude does not access repositories that you have connected but have not started a session in.
+
+## Local Claude Code: Data flow and dependencies
+
+The diagram below shows how Claude Code connects to external services during installation and normal operation. Solid lines indicate required connections, while dashed lines represent optional or user-initiated data flows.
+
+<img src="https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=9e77f476347e7c9983f6e211d27cf6a9" alt="Diagram showing Claude Code's external connections: install/update connects to NPM, and user requests connect to Anthropic services including Console auth, public-api, and optionally Statsig, Sentry, and bug reporting" data-og-width="720" width="720" data-og-height="520" height="520" data-path="images/claude-code-data-flow.svg" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=280&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=94c033b9b6db3d10b9e2d7c6d681d9dc 280w, https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=560&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=430aaaf77c28c501d5753ffa456ee227 560w, https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=840&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=63c3c3f160b522220a8291fe2f93f970 840w, https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=1100&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=a7f6e838482f4a1a0a0b4683439369ea 1100w, https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=1650&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=5fbf749c2f94babb3ef72edfb7aba1e9 1650w, https://mintcdn.com/claude-code/I9Dpo7RZuIbc86cX/images/claude-code-data-flow.svg?w=2500&fit=max&auto=format&n=I9Dpo7RZuIbc86cX&q=85&s=7a1babbdccc4986957698d9c5c30c4a8 2500w" />
 
 Claude Code is installed from [NPM](https://www.npmjs.com/package/@anthropic-ai/claude-code). Claude Code runs locally. In order to interact with the LLM, Claude Code sends data over the network. This data includes all user prompts and model outputs. The data is encrypted in transit via TLS and is not encrypted at rest. Claude Code is compatible with most popular VPNs and LLM proxies.
 
 Claude Code is built on Anthropic's APIs. For details regarding our API's security controls, including our API logging procedures, please refer to compliance artifacts offered in the [Anthropic Trust Center](https://trust.anthropic.com).
 
-### Cloud execution
-
-<Note>
-  The above data flow diagram and description applies to Claude Code CLI running locally on your machine. For cloud-based sessions using Claude Code on the web, see the section below.
-</Note>
+### Cloud execution: Data flow and dependencies
 
 When using [Claude Code on the web](/en/claude-code-on-the-web), sessions run in Anthropic-managed virtual machines instead of locally. In cloud environments:
 
-* **Code storage**: Your repository is cloned to an isolated VM and automatically deleted after session completion
-* **Credentials**: GitHub authentication is handled through a secure proxy; your GitHub credentials never enter the sandbox
-* **Network traffic**: All outbound traffic goes through a security proxy for audit logging and abuse prevention
-* **Data retention**: Code and session data are subject to the retention and usage policies for your account type
-* **Session data**: Prompts, code changes, and outputs follow the same data policies as local Claude Code usage
+* **Code and data storage:** Your repository is cloned to an isolated VM. Code and session data are subject to the retention and usage policies for your account type (see Data retention section above)
+* **Credentials:** GitHub authentication is handled through a secure proxy; your GitHub credentials never enter the sandbox
+* **Network traffic:** All outbound traffic goes through a security proxy for audit logging and abuse prevention
+* **Session data:** Prompts, code changes, and outputs follow the same data policies as local Claude Code usage
 
 For security details about cloud execution, see [Security](/en/security#cloud-execution-security).
 
