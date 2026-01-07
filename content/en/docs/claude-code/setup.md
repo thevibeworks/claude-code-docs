@@ -216,27 +216,27 @@ If you need to uninstall Claude Code, follow the instructions for your installat
 
 ### Native installation
 
-Remove the Claude Code binary and symlink:
+Remove the Claude Code binary and version files:
 
 **macOS, Linux, WSL:**
 
 ```bash  theme={null}
 rm -f ~/.local/bin/claude
-rm -rf ~/.claude-code
+rm -rf ~/.local/share/claude
 ```
 
 **Windows PowerShell:**
 
 ```powershell  theme={null}
-Remove-Item -Path "$env:LOCALAPPDATA\Programs\claude-code" -Recurse -Force
-Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\WindowsApps\claude.exe" -Force
+Remove-Item -Path "$env:USERPROFILE\.local\bin\claude.exe" -Force
+Remove-Item -Path "$env:USERPROFILE\.local\share\claude" -Recurse -Force
 ```
 
 **Windows CMD:**
 
 ```batch  theme={null}
-rmdir /s /q "%LOCALAPPDATA%\Programs\claude-code"
-del "%LOCALAPPDATA%\Microsoft\WindowsApps\claude.exe"
+del "%USERPROFILE%\.local\bin\claude.exe"
+rmdir /s /q "%USERPROFILE%\.local\share\claude"
 ```
 
 ### Homebrew installation
