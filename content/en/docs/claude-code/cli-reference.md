@@ -4,17 +4,17 @@
 
 ## CLI commands
 
-| Command                         | Description                                    | Example                                           |
-| :------------------------------ | :--------------------------------------------- | :------------------------------------------------ |
-| `claude`                        | Start interactive REPL                         | `claude`                                          |
-| `claude "query"`                | Start REPL with initial prompt                 | `claude "explain this project"`                   |
-| `claude -p "query"`             | Query via SDK, then exit                       | `claude -p "explain this function"`               |
-| `cat file \| claude -p "query"` | Process piped content                          | `cat logs.txt \| claude -p "explain"`             |
-| `claude -c`                     | Continue most recent conversation              | `claude -c`                                       |
-| `claude -c -p "query"`          | Continue via SDK                               | `claude -c -p "Check for type errors"`            |
-| `claude -r "<session>" "query"` | Resume session by ID or name                   | `claude -r "auth-refactor" "Finish this PR"`      |
-| `claude update`                 | Update to latest version                       | `claude update`                                   |
-| `claude mcp`                    | Configure Model Context Protocol (MCP) servers | See the [Claude Code MCP documentation](/en/mcp). |
+| Command                         | Description                                            | Example                                           |
+| :------------------------------ | :----------------------------------------------------- | :------------------------------------------------ |
+| `claude`                        | Start interactive REPL                                 | `claude`                                          |
+| `claude "query"`                | Start REPL with initial prompt                         | `claude "explain this project"`                   |
+| `claude -p "query"`             | Query via SDK, then exit                               | `claude -p "explain this function"`               |
+| `cat file \| claude -p "query"` | Process piped content                                  | `cat logs.txt \| claude -p "explain"`             |
+| `claude -c`                     | Continue most recent conversation in current directory | `claude -c`                                       |
+| `claude -c -p "query"`          | Continue via SDK                                       | `claude -c -p "Check for type errors"`            |
+| `claude -r "<session>" "query"` | Resume session by ID or name                           | `claude -r "auth-refactor" "Finish this PR"`      |
+| `claude update`                 | Update to latest version                               | `claude update`                                   |
+| `claude mcp`                    | Configure Model Context Protocol (MCP) servers         | See the [Claude Code MCP documentation](/en/mcp). |
 
 ## CLI flags
 
@@ -56,7 +56,7 @@ Customize Claude Code's behavior with these command-line flags:
 | `--strict-mcp-config`            | Only use MCP servers from `--mcp-config`, ignoring all other MCP configurations                                                                                                                         | `claude --strict-mcp-config --mcp-config ./mcp.json`                                               |
 | `--system-prompt`                | Replace the entire system prompt with custom text (works in both interactive and print modes)                                                                                                           | `claude --system-prompt "You are a Python expert"`                                                 |
 | `--system-prompt-file`           | Load system prompt from a file, replacing the default prompt (print mode only)                                                                                                                          | `claude -p --system-prompt-file ./custom-prompt.txt "query"`                                       |
-| `--tools`                        | Specify the list of available tools from the built-in set (use `""` to disable all, `"default"` for all, or tool names like `"Bash,Edit,Read"`)                                                         | `claude -p --tools "Bash,Edit,Read" "query"`                                                       |
+| `--tools`                        | Restrict which built-in tools Claude can use (works in both interactive and print modes). Use `""` to disable all, `"default"` for all, or tool names like `"Bash,Edit,Read"`                           | `claude --tools "Bash,Edit,Read"`                                                                  |
 | `--verbose`                      | Enable verbose logging, shows full turn-by-turn output (helpful for debugging in both print and interactive modes)                                                                                      | `claude --verbose`                                                                                 |
 | `--version`, `-v`                | Output the version number                                                                                                                                                                               | `claude -v`                                                                                        |
 

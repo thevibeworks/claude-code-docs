@@ -66,6 +66,7 @@ Everything that makes Claude Code powerful is available in the SDK:
     | **Grep** | Search file contents with regex |
     | **WebSearch** | Search the web for current information |
     | **WebFetch** | Fetch and parse web page content |
+    | **[AskUserQuestion](/docs/en/agent-sdk/user-input#handle-clarifying-questions)** | Ask the user clarifying questions with multiple choice options |
 
     This example creates an agent that searches your codebase for TODO comments:
 
@@ -259,6 +260,10 @@ Everything that makes Claude Code powerful is available in the SDK:
   </Tab>
   <Tab title="Permissions">
     Control exactly which tools your agent can use. Allow safe operations, block dangerous ones, or require approval for sensitive actions.
+
+    <Note>
+    For interactive approval prompts and the `AskUserQuestion` tool, see [Handle approvals and user input](/docs/en/agent-sdk/user-input).
+    </Note>
 
     This example creates a read-only agent that can analyze but not modify code:
 
