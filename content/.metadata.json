@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-08T06:18:29.875231Z"
+    "fetch_date": "2026-01-08T11:12:56.229308Z"
   },
   "items": [
     {
@@ -4075,7 +4075,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "6d9cb660ae9003797dd30c50a969456a11dc68054780963fa8052b26836d26cb",
+      "sha256": "6c5fb84f0297d047becf56c850c7b85a2389abcffc99df5b954b7428a0e5ebc0",
       "size": 8764
     },
     {
