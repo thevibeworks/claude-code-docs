@@ -382,35 +382,31 @@ from claude_agent_sdk import (
     ClaudeSDKClient,
     ClaudeAgentOptions
 )
+from claude_agent_sdk.types import PermissionResultAllow, PermissionResultDeny
 
 async def custom_permission_handler(
     tool_name: str,
     input_data: dict,
     context: dict
-):
+) -> PermissionResultAllow | PermissionResultDeny:
     """Custom logic for tool permissions."""
 
     # Block writes to system directories
     if tool_name == "Write" and input_data.get("file_path", "").startswith("/system/"):
-        return {
-            "behavior": "deny",
-            "message": "System directory write not allowed",
-            "interrupt": True
-        }
+        return PermissionResultDeny(
+            message="System directory write not allowed",
+            interrupt=True
+        )
 
     # Redirect sensitive file operations
     if tool_name in ["Write", "Edit"] and "config" in input_data.get("file_path", ""):
         safe_path = f"./sandbox/{input_data['file_path']}"
-        return {
-            "behavior": "allow",
-            "updatedInput": {**input_data, "file_path": safe_path}
-        }
+        return PermissionResultAllow(
+            updated_input={**input_data, "file_path": safe_path}
+        )
 
     # Allow everything else
-    return {
-        "behavior": "allow",
-        "updatedInput": input_data
-    }
+    return PermissionResultAllow(updated_input=input_data)
 
 async def main():
     options = ClaudeAgentOptions(
@@ -1081,6 +1077,50 @@ Documentation of input/output schemas for all built-in Claude Code tools. While 
     "usage": dict | None,             # Token usage statistics
     "total_cost_usd": float | None,  # Total cost in USD
     "duration_ms": int | None         # Execution duration in milliseconds
+}
+```
+
+### AskUserQuestion
+
+**Tool name:** `AskUserQuestion`
+
+Asks the user clarifying questions during execution. See [Handle approvals and user input](/docs/en/agent-sdk/user-input#handle-clarifying-questions) for usage details.
+
+**Input:**
+
+```python
+{
+    "questions": [                    # Questions to ask the user (1-4 questions)
+        {
+            "question": str,          # The complete question to ask the user
+            "header": str,            # Very short label displayed as a chip/tag (max 12 chars)
+            "options": [              # The available choices (2-4 options)
+                {
+                    "label": str,         # Display text for this option (1-5 words)
+                    "description": str    # Explanation of what this option means
+                }
+            ],
+            "multiSelect": bool       # Set to true to allow multiple selections
+        }
+    ],
+    "answers": dict | None            # User answers populated by the permission system
+}
+```
+
+**Output:**
+
+```python
+{
+    "questions": [                    # The questions that were asked
+        {
+            "question": str,
+            "header": str,
+            "options": [{"label": str, "description": str}],
+            "multiSelect": bool
+        }
+    ],
+    "answers": dict[str, str]         # Maps question text to answer string
+                                      # Multi-select answers are comma-separated
 }
 ```
 
