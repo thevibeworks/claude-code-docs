@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-11T11:09:17.329581Z"
+    "fetch_date": "2026-01-12T03:00:22.979594Z"
   },
   "items": [
     {
@@ -3795,8 +3795,8 @@
       "url": "https://code.claude.com/docs/en/desktop",
       "status": "success",
       "path": "en/docs/claude-code/desktop.md",
-      "sha256": "dbadc2bcc3a08b6609b30e739b9633124d55e0f993ac93ea1aaf70438122d5e8",
-      "size": 6353
+      "sha256": "a9126ea7d4a6242c9c34bd267ddf8ed002cc972f177605f1222b02e7276a78a8",
+      "size": 6854
     },
     {
       "url": "https://code.claude.com/docs/en/devcontainer",
@@ -3865,8 +3865,8 @@
       "url": "https://code.claude.com/docs/en/interactive-mode",
       "status": "success",
       "path": "en/docs/claude-code/interactive-mode.md",
-      "sha256": "4942b8d7e7d81d622472de077191d819cf8f0bd6fb7835f6efbb2c245d5446b2",
-      "size": 13495
+      "sha256": "de34f95a52d6d531c579d06c160455f53d08137b83b4a618a9e59b3a12ab7190",
+      "size": 13695
     },
     {
       "url": "https://code.claude.com/docs/en/jetbrains",
@@ -3991,8 +3991,8 @@
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "914708d3879e2b92b68db2c5adc15a427ce853d91740e197e5c3eab74d95122d",
-      "size": 74891
+      "sha256": "3df1110cb4b1e739c663de6ef069c1813dcb5b7696ad9d04b2e97f6b5f24e13c",
+      "size": 75324
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
@@ -4019,8 +4019,8 @@
       "url": "https://code.claude.com/docs/en/slash-commands",
       "status": "success",
       "path": "en/docs/claude-code/slash-commands.md",
-      "sha256": "d42a7f5b9649eb27481f8acfd3fa5f16a83262d8c96c7e8a09a902d8fad44978",
-      "size": 25808
+      "sha256": "fc691e72037b0db756d9c83bf4aa1475133e746b5bd0340a2fd7bc23463c3ef9",
+      "size": 26222
     },
     {
       "url": "https://code.claude.com/docs/en/statusline",
@@ -4033,8 +4033,8 @@
       "url": "https://code.claude.com/docs/en/sub-agents",
       "status": "success",
       "path": "en/docs/claude-code/sub-agents.md",
-      "sha256": "ccea2e1d625181cd2d36b004fd504cc78a39b70ae26584159aaf9fd65d64c01c",
-      "size": 32404
+      "sha256": "3db0bc9f8a388b36d31423523ea108b84c179cc282ba49478bc3038fc123a956",
+      "size": 32592
     },
     {
       "url": "https://code.claude.com/docs/en/terminal-config",
@@ -4075,29 +4075,29 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "0134a00dd7722fea5fc22cfaef634e09b552ac15df5aa255f1b15a560ffd5a28",
+      "sha256": "789fc7cc834a9fcefa32b7306f1626741724d53427f4142b97cd5aab1d6f323f",
       "size": 8764
     },
     {
       "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
       "status": "success",
       "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
-      "sha256": "405d1bad96d4c327c070714a2ab289dc75dad466f04b2ca3389cb97475e84199",
-      "size": 4457
+      "sha256": "8ea1d6ad26b825429d91e9278e664429877d2b94aaf96ddaf714a00696ac5e02",
+      "size": 4695
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
-      "sha256": "e8c19bd11eec8baaa8feb12f68a830d73685db6e277885dafb5c4fd7fba9c491",
-      "size": 5441
+      "sha256": "538d3c53f007543706d979a21bb63e8832d3978c01177e2252c1fd4857c6e9fe",
+      "size": 5679
     },
     {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
       "status": "success",
       "path": "blog/news/enabling-claude-code-to-work-more-autonomously.md",
-      "sha256": "8853880b14fe3ea146e9f045d933c08080d6c3b5ecb725aa32eb5fd769f72834",
-      "size": 4910
+      "sha256": "ac4fb489d68797f10930f2e974b31b61475cf83645abbc377c95579b70dbde61",
+      "size": 5148
     }
   ],
   "summary": {

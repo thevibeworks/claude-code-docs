@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.4",
+  "_id": "@anthropic-ai/claude-code@2.1.5",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -69,23 +69,23 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "c987bd25868922b3cc3bcb900eaf1c5436098e8e",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.4.tgz",
+    "shasum": "ff2d70b9941f5ea44e03df06bcbfc772d74f009d",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.5.tgz",
     "fileCount": 20,
-    "integrity": "sha512-6kkQe7t4RbyYmX0us8iWW6OTo59k1mHI7UycOIsGuB17rq0VVKof0QWIFDIsTYd9zFP+eTM5TosAajfyycN4iA==",
+    "integrity": "sha512-OSd96R9W91JK9W+5AaF4bZ44l+PJqNYYXHSFDxSPifjeWd3Hu41n0XItvT/Fu3K87YXhQu0cjo4GE+/qouEHdg==",
     "signatures": [
       {
-        "sig": "MEQCIC3zU9HQCnXCICqZKkI56d1K13BTsDTqkq4XyzepBjRiAiApsH3i0PW3mp8XwJeo7OtH39A6/hQUlJSGdqLEc5jwJQ==",
+        "sig": "MEUCIQDdPsSwebD+EG6/0fw4NPOv27DPmq5oKYcqeyYIGYoPtgIgJkMWB7BHBkR6ih7vSgz3TsSisYEadMJXvnFGDK/zD7E=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 70968863
+    "unpackedSize": 70969009
   },
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "73a6ed4b7c6737aef49d552abb1826825709f272",
+  "gitHead": "ec1e83fd619368a7837b6698f0792a525b105b10",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease see the release workflow documentation to publish this package.'); process.exit(1); }\""
   },
@@ -111,7 +111,7 @@
     "@img/sharp-linuxmusl-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.4_1768083810791_0.7063467669522283",
+    "tmp": "tmp/claude-code_2.1.5_1768167007853_0.13428708713702764",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
