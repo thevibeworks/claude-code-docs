@@ -392,9 +392,9 @@ The SDK also supports Claude Code's filesystem-based configuration. To use these
         brew install --cask claude-code
         ```
       </Tab>
-      <Tab title="npm">
-        ```bash
-        npm install -g @anthropic-ai/claude-code
+      <Tab title="WinGet">
+        ```powershell
+        winget install Anthropic.ClaudeCode
         ```
       </Tab>
     </Tabs>

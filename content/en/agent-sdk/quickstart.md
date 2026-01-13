@@ -33,9 +33,9 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
         brew install --cask claude-code
         ```
       </Tab>
-      <Tab title="npm">
-        ```bash
-        npm install -g @anthropic-ai/claude-code
+      <Tab title="WinGet">
+        ```powershell
+        winget install Anthropic.ClaudeCode
         ```
       </Tab>
     </Tabs>
