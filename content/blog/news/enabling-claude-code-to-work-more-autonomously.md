@@ -67,7 +67,3 @@ Claude for Healthcare introduces HIPAA-ready infrastructure for providers and pa
 ### Sharing our compliance framework for California's Transparency in Frontier AI Act
 
 [Read more](https://www.anthropic.com/news/compliance-framework-SB53)
-
-### Working with the US Department of Energy to unlock the next era of scientific discovery
-
-[Read more](https://www.anthropic.com/news/genesis-mission-partnership)
