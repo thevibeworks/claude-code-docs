@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-14T02:58:53.551687Z"
+    "fetch_date": "2026-01-14T06:18:53.614936Z"
   },
   "items": [
     {
@@ -3774,8 +3774,8 @@
       "url": "https://code.claude.com/docs/en/common-workflows",
       "status": "success",
       "path": "en/docs/claude-code/common-workflows.md",
-      "sha256": "91b186ff5c430188f1ef7e71eefcafc824169f1fd9f08305ba3e02c90f077601",
-      "size": 29956
+      "sha256": "4df9a88359607ad75dec3932d50250fed2e66e5446336a44b9cf06a6a9bcb871",
+      "size": 31328
     },
     {
       "url": "https://code.claude.com/docs/en/costs",
@@ -3991,15 +3991,15 @@
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "06d4fa8c616c6567f40a6e64a8b7f9bc6ba964ba27ed354003a95c584a394a3a",
+      "sha256": "27c2ef6c139816f28b8fcd69152315fa1e3d8709663739ca2d6255bf06d14754",
       "size": 75705
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
       "status": "success",
       "path": "en/docs/claude-code/setup.md",
-      "sha256": "a15faa702e3d76bb04647ab9a40e45c994bb7498bd02e5172d75e93f96e79a2d",
-      "size": 10819
+      "sha256": "7ac12558871eef8323113e593dd7c6cb88c2a118e0cfad09537ebde8a3f438ad",
+      "size": 10694
     },
     {
       "url": "https://code.claude.com/docs/en/skills",
@@ -4068,7 +4068,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "e0f65fc88abbb23751d53afa45221af40a4f8c856cfe28b3d9de91da105938d5",
+      "sha256": "70635ec8eec3aad18fe518bdd8919cc413e131b87c3d2817fc4423d61148bd4e",
       "size": 30033
     },
     {
