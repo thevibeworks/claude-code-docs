@@ -9,7 +9,7 @@ Claude Code is intentionally low-level and unopinionated, providing close to raw
 
 This post outlines general patterns that have proven effective, both for Anthropic's internal teams and for external engineers using Claude Code across various codebases, languages, and environments. Nothing in this list is set in stone nor universally applicable; consider these suggestions as starting points. We encourage you to experiment and find what works best for you!
 
-_Looking for more detailed information? Our comprehensive documentation at [claude.ai/code](https://claude.ai/redirect/website.v1.1e271389-f577-4dcc-9f20-059e25129a99/code)_ _covers all the features mentioned in this post and provides additional examples, implementation details, and advanced techniques._
+_Looking for more detailed information? Our comprehensive documentation at [claude.ai/code](https://claude.ai/redirect/website.v1.b0883fdb-44a3-455f-b737-551b261445c9/code)_ _covers all the features mentioned in this post and provides additional examples, implementation details, and advanced techniques._
 
 1. Customize your setup
 -----------------------
