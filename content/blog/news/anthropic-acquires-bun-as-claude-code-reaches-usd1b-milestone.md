@@ -24,12 +24,12 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### How scientists are using Claude to accelerate research and discovery
+
+[Read more](https://www.anthropic.com/news/accelerating-scientific-research)
+
 ### Advancing Claude in healthcare and the life sciences
 
 Claude for Healthcare introduces HIPAA-ready infrastructure for providers and payers, while expanded Life Sciences capabilities add connectors to Medidata and ClinicalTrials.gov for clinical trial operations and regulatory work.
 
 [Read more](https://www.anthropic.com/news/healthcare-life-sciences)
-
-### Sharing our compliance framework for California's Transparency in Frontier AI Act
-
-[Read more](https://www.anthropic.com/news/compliance-framework-SB53)
