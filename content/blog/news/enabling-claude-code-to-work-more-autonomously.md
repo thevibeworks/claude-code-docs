@@ -58,12 +58,10 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
-### Advancing Claude in healthcare and the life sciences
+### Anthropic appoints Irina Ghose as Managing Director of India ahead of Bengaluru office opening
 
-Claude for Healthcare introduces HIPAA-ready infrastructure for providers and payers, while expanded Life Sciences capabilities add connectors to Medidata and ClinicalTrials.gov for clinical trial operations and regulatory work.
+[Read more](https://www.anthropic.com/news/anthropic-appoints-irina-ghose-as-managing-director-of-india)
 
-[Read more](https://www.anthropic.com/news/healthcare-life-sciences)
+### How scientists are using Claude to accelerate research and discovery
 
-### Sharing our compliance framework for California's Transparency in Frontier AI Act
-
-[Read more](https://www.anthropic.com/news/compliance-framework-SB53)
+[Read more](https://www.anthropic.com/news/accelerating-scientific-research)
