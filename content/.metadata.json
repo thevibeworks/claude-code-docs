@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-15T02:53:13.200095Z"
+    "fetch_date": "2026-01-16T06:19:05.725772Z"
   },
   "items": [
     {
@@ -323,8 +323,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript",
       "status": "success",
       "path": "en/agent-sdk/typescript.md",
-      "sha256": "57c4a48f382725017a8d721b07c46d1af294542ff26804f0eabb7e79b4919711",
-      "size": 49119
+      "sha256": "5625cdf6fcd809d7a321cfc34c99dba01dd8cd091c733683a04cd3335daf7722",
+      "size": 49121
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/typescript-v2-preview",
@@ -344,8 +344,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/migration-guide",
       "status": "success",
       "path": "en/agent-sdk/migration-guide.md",
-      "sha256": "04a58d4175b43def18fab1bc0c7072c2c0b6cf54865e545f76d7925f476e7958",
-      "size": 9120
+      "sha256": "83a55fafb1c7551306d456410ddcacd082e6188c6b8ffdbee259fffac0a9ed2d",
+      "size": 9124
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/streaming-vs-single-mode",
@@ -393,8 +393,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/structured-outputs",
       "status": "success",
       "path": "en/agent-sdk/structured-outputs.md",
-      "sha256": "0f78341b9b61c01f9188fdaac6f26583b7b65bfc026f8b97ec6088c5b50be758",
-      "size": 10466
+      "sha256": "3e2d025138c438d6bd93cd60d93f0be237346146bfa764dc10609714d2375ac6",
+      "size": 14945
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/hosting",
@@ -414,8 +414,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/modifying-system-prompts",
       "status": "success",
       "path": "en/agent-sdk/modifying-system-prompts.md",
-      "sha256": "9c9d87fbfd8e7c6bc7a4be28462d1527fdcaa4267c124b09d4096677c05ff54a",
-      "size": 14940
+      "sha256": "7004f45a515bf7df8bab61659d9ef52b6d94ccbb555a14f807fae9d51c0c81e7",
+      "size": 15010
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/mcp",
@@ -435,8 +435,8 @@
       "url": "https://platform.claude.com/docs/en/agent-sdk/subagents",
       "status": "success",
       "path": "en/agent-sdk/subagents.md",
-      "sha256": "eaf4b5ca792985684b6bcad0ba9807bbb42aa87409b707bf1116f35e7d3e201a",
-      "size": 18078
+      "sha256": "6cd7128094818caefc0c74cfdff2cb2219decd51cbabbfaaabc6be9a6a6b5740",
+      "size": 23277
     },
     {
       "url": "https://platform.claude.com/docs/en/agent-sdk/slash-commands",
@@ -3760,8 +3760,8 @@
       "url": "https://code.claude.com/docs/en/claude-code-on-the-web",
       "status": "success",
       "path": "en/docs/claude-code/claude-code-on-the-web.md",
-      "sha256": "69433dbc0b51edde2ac81e7e83bb31329c37cefad2501931b321dd504f8d5c99",
-      "size": 19560
+      "sha256": "5ae89bc6b5755e5095b38f4981fcdfc54f897980a2d9490ea05d3deb6a10230d",
+      "size": 19609
     },
     {
       "url": "https://code.claude.com/docs/en/cli-reference",
@@ -4068,36 +4068,36 @@
       "url": "https://www.anthropic.com/engineering/claude-code-best-practices",
       "status": "success",
       "path": "blog/engineering/claude-code-best-practices.md",
-      "sha256": "ac401f47629dc1dc6d2cc0f31890938aabe01c1b7cd610bd655648d737bdfb64",
+      "sha256": "f677589bdf64577790823cf80596e7f4667b0d8a3c2c32f09246fed7b8fe14ad",
       "size": 30033
     },
     {
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "72072c1f5eca0c7e0007849c5f3bda05e4edbddd9e1ef15f67de58b1ed3500e8",
+      "sha256": "b44fe4b0243e48c3943aacf51d4031db4a7a44b88acabede9ffbb849d16ba57c",
       "size": 8764
     },
     {
       "url": "https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone",
       "status": "success",
       "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
-      "sha256": "3905e68c9e75b9e6958dcdeed76c0d0dd1027855edfc1575d893c7328610edee",
-      "size": 4529
+      "sha256": "499ed170f5a94e76ba45b1c583cdf84a3df818066d561fe33e0631269038a5d4",
+      "size": 4371
     },
     {
       "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
       "status": "success",
       "path": "blog/news/claude-code-on-team-and-enterprise.md",
-      "sha256": "88807fd272696852b7c01155ea83bbaa4dd1f552983de7fadc4845407f1a0e43",
-      "size": 5513
+      "sha256": "272d7ec137e0f8c01f83c0ad3c51782046f19166cc4d452bf51dbb5b5baa8f2c",
+      "size": 5355
     },
     {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
       "status": "success",
       "path": "blog/news/enabling-claude-code-to-work-more-autonomously.md",
-      "sha256": "88ea978566850f65c720ee3de6bdfc5f03dc9845f8df038e5be26962f199e9ae",
-      "size": 4982
+      "sha256": "eba81ed45b482b15bb8491680846ffe574296794798976444b6655125664f95b",
+      "size": 4824
     }
   ],
   "summary": {
