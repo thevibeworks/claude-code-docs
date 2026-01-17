@@ -1950,10 +1950,8 @@ from claude_agent_sdk import query, ClaudeAgentOptions, SandboxSettings
 sandbox_settings: SandboxSettings = {
     "enabled": True,
     "autoAllowBashIfSandboxed": True,
-    "excludedCommands": ["docker"],
     "network": {
-        "allowLocalBinding": True,
-        "allowUnixSockets": ["/var/run/docker.sock"]
+        "allowLocalBinding": True
     }
 }
 
@@ -1963,6 +1961,10 @@ async for message in query(
 ):
     print(message)
 ```
+
+<Warning>
+**Unix socket security**: The `allowUnixSockets` option can grant access to powerful system services. For example, allowing `/var/run/docker.sock` effectively grants full host system access through the Docker API, bypassing sandbox isolation. Only allow Unix sockets that are strictly necessary and understand the security implications of each.
+</Warning>
 
 ### `SandboxNetworkConfig`
 
@@ -2046,6 +2048,8 @@ This pattern enables you to:
 
 <Warning>
 Commands running with `dangerouslyDisableSandbox: True` have full system access. Ensure your `can_use_tool` handler validates these requests carefully.
+
+If `permission_mode` is set to `bypassPermissions` and `allow_unsandboxed_commands` is enabled, the model can autonomously execute commands outside the sandbox without any approval prompts. This combination effectively allows the model to escape sandbox isolation silently.
 </Warning>
 
 ## See also

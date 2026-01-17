@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.1.11
+
+- Fixed excessive MCP connection requests for HTTP/SSE transports
+
+## 2.1.10
+
+- Added new `Setup` hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations
+- Added keyboard shortcut 'c' to copy OAuth URL when browser doesn't open automatically during login
+- Fixed a crash when running bash commands containing heredocs with JavaScript template literals like `${index + 1}`
+- Improved startup to capture keystrokes typed before the REPL is fully ready
+- Improved file suggestions to show as removable attachments instead of inserting text when accepted
+- [VSCode] Added install count display to plugin listings
+- [VSCode] Added trust warning when installing plugins
+
 ## 2.1.9
 
 - Added `auto:N` syntax for configuring the MCP tool search auto-enable threshold, where N is the context window percentage (0-100)
@@ -14,7 +28,6 @@
 
 ## 2.1.7
 
-- Added customizable keyboard shortcuts via `~/.claude/keybindings.json`. Run `/keybindings` to get started. Learn more at https://code.claude.com/docs/en/keybindings
 - Added `showTurnDuration` setting to hide turn duration messages (e.g., "Cooked for 1m 6s")
 - Added ability to provide feedback when accepting permission prompts
 - Added inline display of agent's final response in task notifications, making it easier to see results without reading the full transcript file
