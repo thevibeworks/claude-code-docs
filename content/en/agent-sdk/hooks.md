@@ -326,7 +326,7 @@ Your callback function returns an object that tells the SDK how to proceed. Retu
 | `permissionDecision` | `'allow'` \| `'deny'` \| `'ask'` | PreToolUse | Controls whether the tool executes |
 | `permissionDecisionReason` | `string` | PreToolUse | Explanation shown to Claude for the decision |
 | `updatedInput` | `object` | PreToolUse | Modified tool input (requires `permissionDecision: 'allow'`) |
-| `additionalContext` | `string` | PostToolUse, UserPromptSubmit, SessionStart<sup>TS</sup>, SubagentStart<sup>TS</sup> | Context added to the conversation |
+| `additionalContext` | `string` | PreToolUse, PostToolUse, UserPromptSubmit, SessionStart<sup>TS</sup>, SubagentStart<sup>TS</sup> | Context added to the conversation |
 
 This example blocks write operations to the `/etc` directory while injecting a system message to remind Claude about safe file practices:
 
