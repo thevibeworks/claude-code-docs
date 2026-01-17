@@ -52,6 +52,10 @@ The SDK supports these permission modes:
 | `dontAsk` | Skip approval prompts | Auto-deny tools unless explicitly allowed by an [allow rule](https://code.claude.com/docs/en/settings#permission-settings) |
 | `bypassPermissions` | Bypass all permission checks | All tools run without permission prompts (use with caution) |
 
+<Warning>
+**Subagent inheritance**: When using `bypassPermissions`, all subagents inherit this mode and it cannot be overridden. Subagents may have different system prompts and less constrained behavior than your main agent. Enabling `bypassPermissions` grants them full, autonomous system access without any approval prompts.
+</Warning>
+
 <Note>
 `plan` mode is not currently supported in the SDK.
 </Note>
