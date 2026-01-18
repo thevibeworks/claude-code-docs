@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-18T03:01:19.201257Z"
+    "fetch_date": "2026-01-18T16:12:51.687644Z"
   },
   "items": [
     {
@@ -4075,7 +4075,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "b44fe4b0243e48c3943aacf51d4031db4a7a44b88acabede9ffbb849d16ba57c",
+      "sha256": "be936e1d50706f25122c520c58af95ce7def8cb18a593ee5f19bfdae6d32f06b",
       "size": 8764
     },
     {
@@ -4084,13 +4084,6 @@
       "path": "blog/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone.md",
       "sha256": "499ed170f5a94e76ba45b1c583cdf84a3df818066d561fe33e0631269038a5d4",
       "size": 4371
-    },
-    {
-      "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
-      "status": "success",
-      "path": "blog/news/claude-code-on-team-and-enterprise.md",
-      "sha256": "272d7ec137e0f8c01f83c0ad3c51782046f19166cc4d452bf51dbb5b5baa8f2c",
-      "size": 5355
     },
     {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
@@ -4102,9 +4095,9 @@
   ],
   "summary": {
     "total": 586,
-    "downloaded": 585,
+    "downloaded": 584,
     "skipped": 0,
-    "failed": 1,
-    "success_rate": 99.8
+    "failed": 2,
+    "success_rate": 99.7
   }
 }
