@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-18T16:12:51.687644Z"
+    "fetch_date": "2026-01-19T06:22:58.573183Z"
   },
   "items": [
     {
@@ -3767,8 +3767,8 @@
       "url": "https://code.claude.com/docs/en/cli-reference",
       "status": "success",
       "path": "en/docs/claude-code/cli-reference.md",
-      "sha256": "993d68bb70ffbb0039d43baa1ff3d4d742ca7878d08038b2dce761a84de53bbd",
-      "size": 22704
+      "sha256": "5a79ad19f0dfa3a0d629bf3cf8fbd85556b8ef78ceafdad16989bed9245b6b4b",
+      "size": 22794
     },
     {
       "url": "https://code.claude.com/docs/en/common-workflows",
@@ -3837,8 +3837,8 @@
       "url": "https://code.claude.com/docs/en/headless",
       "status": "success",
       "path": "en/docs/claude-code/headless.md",
-      "sha256": "3b3fd5b137d4bb74e004c205b98d0720fccf0e8269bc6ce8621fee6da3c85be1",
-      "size": 6144
+      "sha256": "17faa0c74834d76a7a6a821407a4e97bef1362ebca178bb88ab959e2fa2f2146",
+      "size": 6347
     },
     {
       "url": "https://code.claude.com/docs/en/hooks",
@@ -3858,8 +3858,8 @@
       "url": "https://code.claude.com/docs/en/iam",
       "status": "success",
       "path": "en/docs/claude-code/iam.md",
-      "sha256": "b74910e8b6d74e9bbc2ba7b3bf61aa3574db4f20198b84657bc37b6643fc085e",
-      "size": 13567
+      "sha256": "cf1080d3e63f862024ee17d38307695405b47d633b52a636584988dc255493ed",
+      "size": 13842
     },
     {
       "url": "https://code.claude.com/docs/en/interactive-mode",
@@ -3991,8 +3991,8 @@
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "cde92472dacba056bab5d9964d1debb0bd7922d637ac9f0a065bd05d97332034",
-      "size": 90223
+      "sha256": "961cb0b3c3d37f429c53e5b7499c3446e2d10e0c695abcf5bfbd2e281e982915",
+      "size": 93929
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
@@ -4086,6 +4086,13 @@
       "size": 4371
     },
     {
+      "url": "https://www.anthropic.com/news/claude-code-on-team-and-enterprise",
+      "status": "success",
+      "path": "blog/news/claude-code-on-team-and-enterprise.md",
+      "sha256": "272d7ec137e0f8c01f83c0ad3c51782046f19166cc4d452bf51dbb5b5baa8f2c",
+      "size": 5355
+    },
+    {
       "url": "https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously",
       "status": "success",
       "path": "blog/news/enabling-claude-code-to-work-more-autonomously.md",
@@ -4095,9 +4102,9 @@
   ],
   "summary": {
     "total": 586,
-    "downloaded": 584,
+    "downloaded": 585,
     "skipped": 0,
-    "failed": 2,
-    "success_rate": 99.7
+    "failed": 1,
+    "success_rate": 99.8
   }
 }
