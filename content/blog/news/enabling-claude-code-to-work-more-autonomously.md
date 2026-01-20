@@ -58,10 +58,14 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### Mariano-Florentino Cuéllar appointed to Anthropic’s Long-Term Benefit Trust
+
+[Read more](https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust)
+
+### Anthropic and Teach For All launch global AI training initiative for educators
+
+[Read more](https://www.anthropic.com/news/anthropic-teach-for-all)
+
 ### Anthropic appoints Irina Ghose as Managing Director of India ahead of Bengaluru office opening
 
 [Read more](https://www.anthropic.com/news/anthropic-appoints-irina-ghose-as-managing-director-of-india)
-
-### How scientists are using Claude to accelerate research and discovery
-
-[Read more](https://www.anthropic.com/news/accelerating-scientific-research)
