@@ -202,7 +202,7 @@ The following fields can be used in the YAML frontmatter. Only `name` and `descr
 | `description`     | Yes      | When Claude should delegate to this subagent                                                                                                                                                                 |
 | `tools`           | No       | [Tools](#available-tools) the subagent can use. Inherits all tools if omitted                                                                                                                                |
 | `disallowedTools` | No       | Tools to deny, removed from inherited or specified list                                                                                                                                                      |
-| `model`           | No       | [Model](#choose-a-model) to use: `sonnet`, `opus`, `haiku`, or `inherit`. Defaults to `sonnet`                                                                                                               |
+| `model`           | No       | [Model](#choose-a-model) to use: `sonnet`, `opus`, `haiku`, or `inherit`. Defaults to `inherit`                                                                                                              |
 | `permissionMode`  | No       | [Permission mode](#permission-modes): `default`, `acceptEdits`, `dontAsk`, `bypassPermissions`, or `plan`                                                                                                    |
 | `skills`          | No       | [Skills](/en/skills) to load into the subagent's context at startup. The full skill content is injected, not just made available for invocation. Subagents don't inherit skills from the parent conversation |
 | `hooks`           | No       | [Lifecycle hooks](#define-hooks-for-subagents) scoped to this subagent                                                                                                                                       |
@@ -212,8 +212,8 @@ The following fields can be used in the YAML frontmatter. Only `name` and `descr
 The `model` field controls which [AI model](/en/model-config) the subagent uses:
 
 * **Model alias**: Use one of the available aliases: `sonnet`, `opus`, or `haiku`
-* **inherit**: Use the same model as the main conversation (useful for consistency)
-* **Omitted**: If not specified, uses the default model configured for subagents (`sonnet`)
+* **inherit**: Use the same model as the main conversation
+* **Omitted**: If not specified, defaults to `inherit` (uses the same model as the main conversation)
 
 ### Control subagent capabilities
 
@@ -312,7 +312,7 @@ fi
 exit 0
 ```
 
-See [Hook input](/en/hooks#pretooluse-input) for the complete input schema and [exit codes](/en/hooks#exit-codes) for how exit codes affect behavior.
+See [Hook input](/en/hooks#pretooluse-input) for the complete input schema and [exit codes](/en/hooks#simple-exit-code) for how exit codes affect behavior.
 
 #### Disable specific subagents
 
@@ -510,8 +510,6 @@ Continue that code review and now analyze the authorization logic
 ```
 
 You can also ask Claude for the agent ID if you want to reference it explicitly, or find IDs in the transcript files at `~/.claude/projects/{project}/{sessionId}/subagents/`. Each transcript is stored as `agent-{agentId}.jsonl`.
-
-For programmatic usage, see [Subagents in the Agent SDK](/en/agent-sdk/subagents).
 
 Subagent transcripts persist independently of the main conversation:
 
@@ -722,7 +720,7 @@ Make the script executable:
 chmod +x ./scripts/validate-readonly-query.sh
 ```
 
-The hook receives JSON via stdin with the Bash command in `tool_input.command`. Exit code 2 blocks the operation and feeds the error message back to Claude. See [Hooks](/en/hooks#exit-codes) for details on exit codes and [Hook input](/en/hooks#pretooluse-input) for the complete input schema.
+The hook receives JSON via stdin with the Bash command in `tool_input.command`. Exit code 2 blocks the operation and feeds the error message back to Claude. See [Hooks](/en/hooks#simple-exit-code) for details on exit codes and [Hook input](/en/hooks#pretooluse-input) for the complete input schema.
 
 ## Next steps
 
