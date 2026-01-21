@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-01-21T06:20:03.458358Z"
+    "fetch_date": "2026-01-21T11:15:08.610189Z"
   },
   "items": [
     {
@@ -3589,13 +3589,6 @@
       "size": 12256
     },
     {
-      "url": "https://platform.claude.com/docs/en/api/admin/workspaces/create",
-      "status": "success",
-      "path": "en/api/admin/workspaces/create.md",
-      "sha256": "5446981e66510a224001bc77b7a2e773cc9aa863257f4fa046de3ad2a70f4a7e",
-      "size": 981
-    },
-    {
       "url": "https://platform.claude.com/docs/en/api/admin/workspaces/retrieve",
       "status": "success",
       "path": "en/api/admin/workspaces/retrieve.md",
@@ -4095,9 +4088,9 @@
   ],
   "summary": {
     "total": 585,
-    "downloaded": 584,
+    "downloaded": 583,
     "skipped": 0,
-    "failed": 1,
-    "success_rate": 99.8
+    "failed": 2,
+    "success_rate": 99.7
   }
 }
