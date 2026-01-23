@@ -432,6 +432,10 @@ For more detailed information, see the [extended thinking documentation](/docs/e
 ---
 ## Cache storage and sharing
 
+<Warning>
+Starting February 5, 2026, prompt caching will use workspace-level isolation instead of organization-level isolation. Caches will be isolated per workspace, ensuring data separation between workspaces within the same organization. This change applies to the Claude API and Azure; Amazon Bedrock and Google Vertex AI will maintain organization-level cache isolation. If you use multiple workspaces, review your caching strategy to account for this change.
+</Warning>
+
 - **Organization Isolation**: Caches are isolated between organizations. Different organizations never share caches, even if they use identical prompts.
 
 - **Exact Matching**: Cache hits require 100% identical prompt segments, including all text and images up to and including the block marked with cache control.
@@ -1701,6 +1705,9 @@ Prompt caching is designed with strong privacy and data separation measures:
 4. It's safe to use `cache_control` anywhere in your prompts. For cost efficiency, it's better to exclude highly variable parts (e.g., user's arbitrary input) from caching.
 
 These measures ensure that prompt caching maintains data privacy and security while offering performance benefits.
+
+Note: Starting February 5, 2026, caches will be isolated per workspace instead of per organization. This change applies to the Claude API and Azure. See [Cache storage and sharing](#cache-storage-and-sharing) for details.
+
   
 </section>
   <section title="Can I use prompt caching with the Batches API?">
