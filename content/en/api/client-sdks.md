@@ -16,6 +16,8 @@ Additional configuration is needed to use Anthropic's Client SDKs through a part
 
 **Requirements:** Python 3.8+
 
+**Minimum SDK version:** 0.22.0
+
 **Installation:**
 
 ```bash
@@ -31,6 +33,8 @@ pip install anthropic
 <Info>
 While this library is in TypeScript, it can also be used in JavaScript libraries.
 </Info>
+
+**Minimum SDK version:** 0.37.0
 
 **Installation:**
 
