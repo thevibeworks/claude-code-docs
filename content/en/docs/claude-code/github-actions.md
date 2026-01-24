@@ -1,3 +1,7 @@
+> ## Documentation Index
+> Fetch the complete documentation index at: https://code.claude.com/docs/llms.txt
+> Use this file to discover all available pages before exploring further.
+
 # Claude Code GitHub Actions
 
 > Learn about integrating Claude Code into your development workflow with Claude Code GitHub Actions
@@ -89,17 +93,17 @@ All beta users must make these changes to their workflow files in order to upgra
 
 ### Breaking Changes Reference
 
-| Old Beta Input        | New v1.0 Input                   |
-| --------------------- | -------------------------------- |
-| `mode`                | *(Removed - auto-detected)*      |
-| `direct_prompt`       | `prompt`                         |
-| `override_prompt`     | `prompt` with GitHub variables   |
-| `custom_instructions` | `claude_args: --system-prompt`   |
-| `max_turns`           | `claude_args: --max-turns`       |
-| `model`               | `claude_args: --model`           |
-| `allowed_tools`       | `claude_args: --allowedTools`    |
-| `disallowed_tools`    | `claude_args: --disallowedTools` |
-| `claude_env`          | `settings` JSON format           |
+| Old Beta Input        | New v1.0 Input                        |
+| --------------------- | ------------------------------------- |
+| `mode`                | *(Removed - auto-detected)*           |
+| `direct_prompt`       | `prompt`                              |
+| `override_prompt`     | `prompt` with GitHub variables        |
+| `custom_instructions` | `claude_args: --append-system-prompt` |
+| `max_turns`           | `claude_args: --max-turns`            |
+| `model`               | `claude_args: --model`                |
+| `allowed_tools`       | `claude_args: --allowedTools`         |
+| `disallowed_tools`    | `claude_args: --disallowedTools`      |
+| `claude_env`          | `settings` JSON format                |
 
 ### Before and After Example
 
@@ -124,7 +128,7 @@ All beta users must make these changes to their workflow files in order to upgra
     prompt: "Review this PR for security issues"
     anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
     claude_args: |
-      --system-prompt "Follow our coding standards"
+      --append-system-prompt "Follow our coding standards"
       --max-turns 10
       --model claude-sonnet-4-5-20250929
 ```
@@ -670,8 +674,3 @@ You can configure Claude's behavior in two ways:
 2. **Custom prompts**: Use the `prompt` parameter in the workflow file to provide workflow-specific instructions. This allows you to customize Claude's behavior for different workflows or tasks.
 
 Claude will follow these guidelines when creating PRs and responding to requests.
-
-
----
-
-> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt
