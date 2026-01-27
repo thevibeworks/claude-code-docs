@@ -3,6 +3,11 @@ Title: Claude Code Best Practices
 URL Source: https://www.anthropic.com/engineering/claude-code-best-practices
 
 Markdown Content:
+*   Claude Code best practices has moved to docs
+
+Jan 26, 2026 
+This blog post is no longer maintained. For the most current Claude Code best practices, please refer to the official documentation (https://code.claude.com/docs/en/best-practices), which is kept up to date as Claude Code evolves.
+
 We recently [released Claude Code](https://www.anthropic.com/news/claude-3-7-sonnet), a command line tool for agentic coding. Developed as a research project, Claude Code gives Anthropic engineers and researchers a more native way to integrate Claude into their coding workflows.
 
 Claude Code is intentionally low-level and unopinionated, providing close to raw model access without forcing specific workflows. This design philosophy creates a flexible, customizable, scriptable, and safe power tool. While powerful, this flexibility presents a learning curve for engineers new to agentic coding tools—at least until they develop their own best practices.
