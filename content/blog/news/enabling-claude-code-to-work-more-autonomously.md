@@ -58,10 +58,10 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### Anthropic partners with the UK Government to bring AI assistance to GOV.UK services
+
+[Read more](https://www.anthropic.com/news/gov-UK-partnership)
+
 ### Mariano-Florentino Cuéllar appointed to Anthropic’s Long-Term Benefit Trust
 
 [Read more](https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust)
-
-### Anthropic and Teach For All launch global AI training initiative for educators
-
-[Read more](https://www.anthropic.com/news/anthropic-teach-for-all)
