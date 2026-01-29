@@ -1,5 +1,36 @@
 # Changelog
 
+## 2.1.23
+
+- Added customizable spinner verbs setting (`spinnerVerbs`)
+- Fixed mTLS and proxy connectivity for users behind corporate proxies or using client certificates
+- Fixed per-user temp directory isolation to prevent permission conflicts on shared systems
+- Fixed a race condition that could cause 400 errors when prompt caching scope was enabled
+- Fixed pending async hooks not being cancelled when headless streaming sessions ended
+- Fixed tab completion not updating the input field when accepting a suggestion
+- Fixed ripgrep search timeouts silently returning empty results instead of reporting errors
+- Improved terminal rendering performance with optimized screen data layout
+- Changed Bash commands to show timeout duration alongside elapsed time
+- Changed merged pull requests to show a purple status indicator in the prompt footer
+- [IDE] Fixed model options displaying incorrect region strings for Bedrock users in headless mode
+
+## 2.1.22
+
+- Fixed structured outputs for non-interactive (-p) mode
+
+## 2.1.21
+
+- Added support for full-width (zenkaku) number input from Japanese IME in option selection prompts
+- Fixed shell completion cache files being truncated on exit
+- Fixed API errors when resuming sessions that were interrupted during tool execution
+- Fixed auto-compact triggering too early on models with large output token limits
+- Fixed task IDs potentially being reused after deletion
+- Fixed file search not working in VS Code extension on Windows
+- Improved read/search progress indicators to show "Reading…" while in progress and "Read" when complete
+- Improved Claude to prefer file operation tools (Read, Edit, Write) over bash equivalents (cat, sed, awk)
+- [VSCode] Added automatic Python virtual environment activation, ensuring `python` and `pip` commands use the correct interpreter (configurable via `claudeCode.usePythonEnvironment` setting)
+- [VSCode] Fixed message action buttons having incorrect background colors
+
 ## 2.1.20
 
 - Added arrow key history navigation in vim normal mode when cursor cannot move further
@@ -374,7 +405,7 @@
 - Added loading indicator when resuming conversations for better feedback
 - Fixed `/context` command not respecting custom system prompts in non-interactive mode
 - Fixed order of consecutive Ctrl+K lines when pasting with Ctrl+Y
-- Improved @ mention file suggestion speed (~3x faster in git repositories)
+- Improved @ mention file suggestion speed (~3× faster in git repositories)
 - Improved file suggestion performance in repos with `.ignore` or `.rgignore` files
 - Improved settings validation errors to be more prominent
 - Changed thinking toggle from Tab to Alt+T to avoid accidental triggers

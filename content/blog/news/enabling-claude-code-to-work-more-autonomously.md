@@ -58,10 +58,10 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### ServiceNow chooses Claude to power customer apps and increase internal productivity
+
+[Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)
+
 ### Anthropic partners with the UK Government to bring AI assistance to GOV.UK services
 
 [Read more](https://www.anthropic.com/news/gov-UK-partnership)
-
-### Mariano-Florentino Cuéllar appointed to Anthropic’s Long-Term Benefit Trust
-
-[Read more](https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust)
