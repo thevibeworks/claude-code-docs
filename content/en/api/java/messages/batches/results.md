@@ -237,6 +237,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `QUERY_TOO_LONG("query_too_long")`
 
+                  - `REQUEST_TOO_LARGE("request_too_large")`
+
                 - `JsonValue; type "web_search_tool_result_error"constant`
 
                   - `WEB_SEARCH_TOOL_RESULT_ERROR("web_search_tool_result_error")`

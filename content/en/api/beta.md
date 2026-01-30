@@ -2107,6 +2107,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
               - `"query_too_long"`
 
+              - `"request_too_large"`
+
             - `type: "web_search_tool_result_error"`
 
               - `"web_search_tool_result_error"`
@@ -3290,11 +3292,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
 - `output_config: optional BetaOutputConfig`
 
-  Configuration options for the model's output. Controls aspects like how much effort the model puts into its response.
+  Configuration options for the model's output, such as the output format.
 
   - `effort: optional "low" or "medium" or "high"`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, or `high`.
 
     - `"low"`
 
@@ -3302,9 +3306,23 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `"high"`
 
+  - `format: optional BetaJSONOutputFormat`
+
+    A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+    - `schema: map[unknown]`
+
+      The JSON schema of the format
+
+    - `type: "json_schema"`
+
+      - `"json_schema"`
+
 - `output_format: optional BetaJSONOutputFormat`
 
-  A schema to specify Claude's output format in responses.
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
   - `schema: map[unknown]`
 
@@ -3682,6 +3700,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
     - `type: optional "custom"`
 
       - `"custom"`
@@ -3737,6 +3757,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolBash20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "bash"`
@@ -3788,6 +3810,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250522 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -3837,6 +3861,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250825 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -3885,6 +3911,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20241022 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -3949,6 +3977,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaMemoryTool20250818 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "memory"`
@@ -3999,6 +4029,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20250124 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -4063,6 +4095,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20241022 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -4113,6 +4147,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20251124 = object { display_height_px, display_width_px, name, 8 more }`
 
@@ -4181,6 +4217,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -4232,6 +4270,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250429 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_based_edit_tool"`
@@ -4282,6 +4322,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolTextEditor20250728 = object { name, type, allowed_callers, 5 more }`
 
@@ -4337,6 +4379,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaWebSearchTool20250305 = object { name, type, allowed_callers, 7 more }`
 
@@ -4398,6 +4442,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Maximum number of times the tool can be used in the API request.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
     - `user_location: optional object { type, city, country, 2 more }`
 
@@ -4494,6 +4540,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolBm25_20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_bm25"`
@@ -4545,6 +4593,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolRegex20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_regex"`
@@ -4595,6 +4645,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaMCPToolset = object { mcp_server_name, type, cache_control, 2 more }`
 
@@ -4889,31 +4941,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             - `"code_execution_20250825"`
 
-    - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+    - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
       - `id: string`
-
-      - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-        Tool invocation directly from the model.
-
-        - `BetaDirectCaller = object { type }`
-
-          Tool invocation directly from the model.
-
-          - `type: "direct"`
-
-            - `"direct"`
-
-        - `BetaServerToolCaller = object { tool_id, type }`
-
-          Tool invocation generated by a server-side tool.
-
-          - `tool_id: string`
-
-          - `type: "code_execution_20250825"`
-
-            - `"code_execution_20250825"`
 
       - `input: map[unknown]`
 
@@ -4937,6 +4967,28 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `"server_tool_use"`
 
+      - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+        Tool invocation directly from the model.
+
+        - `BetaDirectCaller = object { type }`
+
+          Tool invocation directly from the model.
+
+          - `type: "direct"`
+
+            - `"direct"`
+
+        - `BetaServerToolCaller = object { tool_id, type }`
+
+          Tool invocation generated by a server-side tool.
+
+          - `tool_id: string`
+
+          - `type: "code_execution_20250825"`
+
+            - `"code_execution_20250825"`
+
     - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
       - `content: BetaWebSearchToolResultBlockContent`
@@ -4954,6 +5006,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
             - `"too_many_requests"`
 
             - `"query_too_long"`
+
+            - `"request_too_large"`
 
           - `type: "web_search_tool_result_error"`
 
@@ -5679,6 +5733,7 @@ curl https://api.anthropic.com/v1/messages \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    --max-time 600 \
     -d '{
           "max_tokens": 1024,
           "messages": [
@@ -7252,6 +7307,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
               - `"query_too_long"`
 
+              - `"request_too_large"`
+
             - `type: "web_search_tool_result_error"`
 
               - `"web_search_tool_result_error"`
@@ -8391,11 +8448,13 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
 - `output_config: optional BetaOutputConfig`
 
-  Configuration options for the model's output. Controls aspects like how much effort the model puts into its response.
+  Configuration options for the model's output, such as the output format.
 
   - `effort: optional "low" or "medium" or "high"`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, or `high`.
 
     - `"low"`
 
@@ -8403,9 +8462,23 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `"high"`
 
+  - `format: optional BetaJSONOutputFormat`
+
+    A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+    - `schema: map[unknown]`
+
+      The JSON schema of the format
+
+    - `type: "json_schema"`
+
+      - `"json_schema"`
+
 - `output_format: optional BetaJSONOutputFormat`
 
-  A schema to specify Claude's output format in responses.
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
   - `schema: map[unknown]`
 
@@ -8751,6 +8824,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
     - `type: optional "custom"`
 
       - `"custom"`
@@ -8806,6 +8881,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolBash20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "bash"`
@@ -8857,6 +8934,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250522 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -8906,6 +8985,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250825 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -8954,6 +9035,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20241022 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -9018,6 +9101,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaMemoryTool20250818 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "memory"`
@@ -9068,6 +9153,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20250124 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -9132,6 +9219,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20241022 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -9182,6 +9271,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20251124 = object { display_height_px, display_width_px, name, 8 more }`
 
@@ -9250,6 +9341,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -9301,6 +9394,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250429 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_based_edit_tool"`
@@ -9351,6 +9446,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolTextEditor20250728 = object { name, type, allowed_callers, 5 more }`
 
@@ -9406,6 +9503,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaWebSearchTool20250305 = object { name, type, allowed_callers, 7 more }`
 
@@ -9467,6 +9566,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       Maximum number of times the tool can be used in the API request.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
     - `user_location: optional object { type, city, country, 2 more }`
 
@@ -9563,6 +9664,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolBm25_20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_bm25"`
@@ -9614,6 +9717,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolRegex20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_regex"`
@@ -9664,6 +9769,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaMCPToolset = object { mcp_server_name, type, cache_control, 2 more }`
 
@@ -10594,6 +10701,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Code Execution Tool 20250825
 
 - `BetaCodeExecutionTool20250825 = object { name, type, allowed_callers, 3 more }`
@@ -10644,6 +10753,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Code Execution Tool Result Block
 
@@ -11162,31 +11273,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"code_execution_20250825"`
 
-  - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+  - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
     - `id: string`
-
-    - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-      Tool invocation directly from the model.
-
-      - `BetaDirectCaller = object { type }`
-
-        Tool invocation directly from the model.
-
-        - `type: "direct"`
-
-          - `"direct"`
-
-      - `BetaServerToolCaller = object { tool_id, type }`
-
-        Tool invocation generated by a server-side tool.
-
-        - `tool_id: string`
-
-        - `type: "code_execution_20250825"`
-
-          - `"code_execution_20250825"`
 
     - `input: map[unknown]`
 
@@ -11210,6 +11299,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"server_tool_use"`
 
+    - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+      Tool invocation directly from the model.
+
+      - `BetaDirectCaller = object { type }`
+
+        Tool invocation directly from the model.
+
+        - `type: "direct"`
+
+          - `"direct"`
+
+      - `BetaServerToolCaller = object { tool_id, type }`
+
+        Tool invocation generated by a server-side tool.
+
+        - `tool_id: string`
+
+        - `type: "code_execution_20250825"`
+
+          - `"code_execution_20250825"`
+
   - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
     - `content: BetaWebSearchToolResultBlockContent`
@@ -11227,6 +11338,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           - `"too_many_requests"`
 
           - `"query_too_long"`
+
+          - `"request_too_large"`
 
         - `type: "web_search_tool_result_error"`
 
@@ -13145,6 +13258,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           - `"too_many_requests"`
 
           - `"query_too_long"`
+
+          - `"request_too_large"`
 
         - `type: "web_search_tool_result_error"`
 
@@ -15072,6 +15187,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Memory Tool 20250818 Command
 
 - `BetaMemoryTool20250818Command = BetaMemoryTool20250818ViewCommand or BetaMemoryTool20250818CreateCommand or BetaMemoryTool20250818StrReplaceCommand or 3 more`
@@ -15511,31 +15628,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"code_execution_20250825"`
 
-    - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+    - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
       - `id: string`
-
-      - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-        Tool invocation directly from the model.
-
-        - `BetaDirectCaller = object { type }`
-
-          Tool invocation directly from the model.
-
-          - `type: "direct"`
-
-            - `"direct"`
-
-        - `BetaServerToolCaller = object { tool_id, type }`
-
-          Tool invocation generated by a server-side tool.
-
-          - `tool_id: string`
-
-          - `type: "code_execution_20250825"`
-
-            - `"code_execution_20250825"`
 
       - `input: map[unknown]`
 
@@ -15559,6 +15654,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"server_tool_use"`
 
+      - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+        Tool invocation directly from the model.
+
+        - `BetaDirectCaller = object { type }`
+
+          Tool invocation directly from the model.
+
+          - `type: "direct"`
+
+            - `"direct"`
+
+        - `BetaServerToolCaller = object { tool_id, type }`
+
+          Tool invocation generated by a server-side tool.
+
+          - `tool_id: string`
+
+          - `type: "code_execution_20250825"`
+
+            - `"code_execution_20250825"`
+
     - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
       - `content: BetaWebSearchToolResultBlockContent`
@@ -15576,6 +15693,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             - `"too_many_requests"`
 
             - `"query_too_long"`
+
+            - `"request_too_large"`
 
           - `type: "web_search_tool_result_error"`
 
@@ -17780,6 +17899,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"query_too_long"`
 
+              - `"request_too_large"`
+
             - `type: "web_search_tool_result_error"`
 
               - `"web_search_tool_result_error"`
@@ -18735,17 +18856,31 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Output Config
 
-- `BetaOutputConfig = object { effort }`
+- `BetaOutputConfig = object { effort, format }`
 
   - `effort: optional "low" or "medium" or "high"`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, or `high`.
 
     - `"low"`
 
     - `"medium"`
 
     - `"high"`
+
+  - `format: optional BetaJSONOutputFormat`
+
+    A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+    - `schema: map[unknown]`
+
+      The JSON schema of the format
+
+    - `type: "json_schema"`
+
+      - `"json_schema"`
 
 ### Beta Plain Text Source
 
@@ -19189,31 +19324,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"code_execution_20250825"`
 
-    - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+    - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
       - `id: string`
-
-      - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-        Tool invocation directly from the model.
-
-        - `BetaDirectCaller = object { type }`
-
-          Tool invocation directly from the model.
-
-          - `type: "direct"`
-
-            - `"direct"`
-
-        - `BetaServerToolCaller = object { tool_id, type }`
-
-          Tool invocation generated by a server-side tool.
-
-          - `tool_id: string`
-
-          - `type: "code_execution_20250825"`
-
-            - `"code_execution_20250825"`
 
       - `input: map[unknown]`
 
@@ -19237,6 +19350,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"server_tool_use"`
 
+      - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+        Tool invocation directly from the model.
+
+        - `BetaDirectCaller = object { type }`
+
+          Tool invocation directly from the model.
+
+          - `type: "direct"`
+
+            - `"direct"`
+
+        - `BetaServerToolCaller = object { tool_id, type }`
+
+          Tool invocation generated by a server-side tool.
+
+          - `tool_id: string`
+
+          - `type: "code_execution_20250825"`
+
+            - `"code_execution_20250825"`
+
     - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
       - `content: BetaWebSearchToolResultBlockContent`
@@ -19254,6 +19389,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             - `"too_many_requests"`
 
             - `"query_too_long"`
+
+            - `"request_too_large"`
 
           - `type: "web_search_tool_result_error"`
 
@@ -20104,31 +20241,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"code_execution_20250825"`
 
-      - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+      - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
         - `id: string`
-
-        - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-          Tool invocation directly from the model.
-
-          - `BetaDirectCaller = object { type }`
-
-            Tool invocation directly from the model.
-
-            - `type: "direct"`
-
-              - `"direct"`
-
-          - `BetaServerToolCaller = object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20250825"`
-
-              - `"code_execution_20250825"`
 
         - `input: map[unknown]`
 
@@ -20152,6 +20267,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"server_tool_use"`
 
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+          Tool invocation directly from the model.
+
+          - `BetaDirectCaller = object { type }`
+
+            Tool invocation directly from the model.
+
+            - `type: "direct"`
+
+              - `"direct"`
+
+          - `BetaServerToolCaller = object { tool_id, type }`
+
+            Tool invocation generated by a server-side tool.
+
+            - `tool_id: string`
+
+            - `type: "code_execution_20250825"`
+
+              - `"code_execution_20250825"`
+
       - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
         - `content: BetaWebSearchToolResultBlockContent`
@@ -20169,6 +20306,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               - `"too_many_requests"`
 
               - `"query_too_long"`
+
+              - `"request_too_large"`
 
             - `type: "web_search_tool_result_error"`
 
@@ -21126,31 +21265,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"code_execution_20250825"`
 
-        - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+        - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
           - `id: string`
-
-          - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-            Tool invocation directly from the model.
-
-            - `BetaDirectCaller = object { type }`
-
-              Tool invocation directly from the model.
-
-              - `type: "direct"`
-
-                - `"direct"`
-
-            - `BetaServerToolCaller = object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20250825"`
-
-                - `"code_execution_20250825"`
 
           - `input: map[unknown]`
 
@@ -21174,6 +21291,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"server_tool_use"`
 
+          - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+            Tool invocation directly from the model.
+
+            - `BetaDirectCaller = object { type }`
+
+              Tool invocation directly from the model.
+
+              - `type: "direct"`
+
+                - `"direct"`
+
+            - `BetaServerToolCaller = object { tool_id, type }`
+
+              Tool invocation generated by a server-side tool.
+
+              - `tool_id: string`
+
+              - `type: "code_execution_20250825"`
+
+                - `"code_execution_20250825"`
+
         - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
           - `content: BetaWebSearchToolResultBlockContent`
@@ -21191,6 +21330,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
                 - `"too_many_requests"`
 
                 - `"query_too_long"`
+
+                - `"request_too_large"`
 
               - `type: "web_search_tool_result_error"`
 
@@ -22215,31 +22356,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"code_execution_20250825"`
 
-      - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+      - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
         - `id: string`
-
-        - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-          Tool invocation directly from the model.
-
-          - `BetaDirectCaller = object { type }`
-
-            Tool invocation directly from the model.
-
-            - `type: "direct"`
-
-              - `"direct"`
-
-          - `BetaServerToolCaller = object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20250825"`
-
-              - `"code_execution_20250825"`
 
         - `input: map[unknown]`
 
@@ -22263,6 +22382,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"server_tool_use"`
 
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+          Tool invocation directly from the model.
+
+          - `BetaDirectCaller = object { type }`
+
+            Tool invocation directly from the model.
+
+            - `type: "direct"`
+
+              - `"direct"`
+
+          - `BetaServerToolCaller = object { tool_id, type }`
+
+            Tool invocation generated by a server-side tool.
+
+            - `tool_id: string`
+
+            - `type: "code_execution_20250825"`
+
+              - `"code_execution_20250825"`
+
       - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
         - `content: BetaWebSearchToolResultBlockContent`
@@ -22280,6 +22421,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               - `"too_many_requests"`
 
               - `"query_too_long"`
+
+              - `"request_too_large"`
 
             - `type: "web_search_tool_result_error"`
 
@@ -23548,31 +23691,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Server Tool Use Block
 
-- `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+- `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
   - `id: string`
-
-  - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-    Tool invocation directly from the model.
-
-    - `BetaDirectCaller = object { type }`
-
-      Tool invocation directly from the model.
-
-      - `type: "direct"`
-
-        - `"direct"`
-
-    - `BetaServerToolCaller = object { tool_id, type }`
-
-      Tool invocation generated by a server-side tool.
-
-      - `tool_id: string`
-
-      - `type: "code_execution_20250825"`
-
-        - `"code_execution_20250825"`
 
   - `input: map[unknown]`
 
@@ -23595,6 +23716,28 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `type: "server_tool_use"`
 
     - `"server_tool_use"`
+
+  - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+    Tool invocation directly from the model.
+
+    - `BetaDirectCaller = object { type }`
+
+      Tool invocation directly from the model.
+
+      - `type: "direct"`
+
+        - `"direct"`
+
+    - `BetaServerToolCaller = object { tool_id, type }`
+
+      Tool invocation generated by a server-side tool.
+
+      - `tool_id: string`
+
+      - `type: "code_execution_20250825"`
+
+        - `"code_execution_20250825"`
 
 ### Beta Server Tool Use Block Param
 
@@ -24634,6 +24777,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
   - `type: optional "custom"`
 
     - `"custom"`
@@ -24691,6 +24836,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Tool Bash 20250124
 
 - `BetaToolBash20250124 = object { name, type, allowed_callers, 4 more }`
@@ -24743,6 +24890,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Choice
 
@@ -24931,6 +25080,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Tool Computer Use 20250124
 
 - `BetaToolComputerUse20250124 = object { display_height_px, display_width_px, name, 7 more }`
@@ -24995,6 +25146,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Computer Use 20251124
 
@@ -25064,6 +25217,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Reference Block
 
@@ -25834,6 +25989,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Tool Search Tool Regex 20251119
 
 - `BetaToolSearchToolRegex20251119 = object { name, type, allowed_callers, 3 more }`
@@ -25886,6 +26043,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Search Tool Result Block
 
@@ -26165,6 +26324,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Tool Text Editor 20250124
 
 - `BetaToolTextEditor20250124 = object { name, type, allowed_callers, 4 more }`
@@ -26218,6 +26379,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Tool Text Editor 20250429
 
 - `BetaToolTextEditor20250429 = object { name, type, allowed_callers, 4 more }`
@@ -26270,6 +26433,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Text Editor 20250728
 
@@ -26327,6 +26492,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
   - `strict: optional boolean`
+
+    When true, guarantees schema validation on tool names and inputs
 
 ### Beta Tool Union
 
@@ -26402,6 +26569,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
     - `type: optional "custom"`
 
       - `"custom"`
@@ -26457,6 +26626,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolBash20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "bash"`
@@ -26508,6 +26679,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250522 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -26557,6 +26730,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaCodeExecutionTool20250825 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "code_execution"`
@@ -26605,6 +26780,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20241022 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -26669,6 +26846,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaMemoryTool20250818 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "memory"`
@@ -26719,6 +26898,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20250124 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -26783,6 +26964,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20241022 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -26833,6 +27016,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolComputerUse20251124 = object { display_height_px, display_width_px, name, 8 more }`
 
@@ -26901,6 +27086,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250124 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_editor"`
@@ -26952,6 +27139,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolTextEditor20250429 = object { name, type, allowed_callers, 4 more }`
 
     - `name: "str_replace_based_edit_tool"`
@@ -27002,6 +27191,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaToolTextEditor20250728 = object { name, type, allowed_callers, 5 more }`
 
@@ -27057,6 +27248,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaWebSearchTool20250305 = object { name, type, allowed_callers, 7 more }`
 
@@ -27118,6 +27311,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       Maximum number of times the tool can be used in the API request.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
     - `user_location: optional object { type, city, country, 2 more }`
 
@@ -27214,6 +27409,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolBm25_20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_bm25"`
@@ -27265,6 +27462,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `strict: optional boolean`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `BetaToolSearchToolRegex20251119 = object { name, type, allowed_callers, 3 more }`
 
     - `name: "tool_search_tool_regex"`
@@ -27315,6 +27514,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: optional boolean`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `BetaMCPToolset = object { mcp_server_name, type, cache_control, 2 more }`
 
@@ -27975,6 +28176,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
 ### Beta Web Fetch Tool Result Block
 
 - `BetaWebFetchToolResultBlock = object { content, tool_use_id, type }`
@@ -28576,6 +28779,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `strict: optional boolean`
 
+    When true, guarantees schema validation on tool names and inputs
+
   - `user_location: optional object { type, city, country, 2 more }`
 
     Parameters for the user's location. Used to provide more relevant search results.
@@ -28616,6 +28821,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"query_too_long"`
 
+    - `"request_too_large"`
+
   - `type: "web_search_tool_result_error"`
 
     - `"web_search_tool_result_error"`
@@ -28639,6 +28846,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `"too_many_requests"`
 
         - `"query_too_long"`
+
+        - `"request_too_large"`
 
       - `type: "web_search_tool_result_error"`
 
@@ -28681,6 +28890,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       - `"too_many_requests"`
 
       - `"query_too_long"`
+
+      - `"request_too_large"`
 
     - `type: "web_search_tool_result_error"`
 
@@ -28733,6 +28944,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `"too_many_requests"`
 
         - `"query_too_long"`
+
+        - `"request_too_large"`
 
       - `type: "web_search_tool_result_error"`
 
@@ -28799,6 +29012,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"query_too_long"`
 
+      - `"request_too_large"`
+
     - `type: "web_search_tool_result_error"`
 
       - `"web_search_tool_result_error"`
@@ -28819,13 +29034,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"query_too_long"`
 
+    - `"request_too_large"`
+
   - `type: "web_search_tool_result_error"`
 
     - `"web_search_tool_result_error"`
 
 ### Beta Web Search Tool Result Error Code
 
-- `BetaWebSearchToolResultErrorCode = "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 2 more`
+- `BetaWebSearchToolResultErrorCode = "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
   - `"invalid_tool_input"`
 
@@ -28836,6 +29053,8 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   - `"too_many_requests"`
 
   - `"query_too_long"`
+
+  - `"request_too_large"`
 
 # Batches
 
@@ -30424,6 +30643,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `"query_too_long"`
 
+                  - `"request_too_large"`
+
                 - `type: "web_search_tool_result_error"`
 
                   - `"web_search_tool_result_error"`
@@ -31607,11 +31828,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `output_config: optional BetaOutputConfig`
 
-      Configuration options for the model's output. Controls aspects like how much effort the model puts into its response.
+      Configuration options for the model's output, such as the output format.
 
       - `effort: optional "low" or "medium" or "high"`
 
-        All possible effort levels.
+        How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+        Valid values are `low`, `medium`, or `high`.
 
         - `"low"`
 
@@ -31619,9 +31842,23 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `"high"`
 
+      - `format: optional BetaJSONOutputFormat`
+
+        A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+        - `schema: map[unknown]`
+
+          The JSON schema of the format
+
+        - `type: "json_schema"`
+
+          - `"json_schema"`
+
     - `output_format: optional BetaJSONOutputFormat`
 
-      A schema to specify Claude's output format in responses.
+      Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+      A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
       - `schema: map[unknown]`
 
@@ -31999,6 +32236,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
         - `type: optional "custom"`
 
           - `"custom"`
@@ -32054,6 +32293,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolBash20250124 = object { name, type, allowed_callers, 4 more }`
 
         - `name: "bash"`
@@ -32105,6 +32346,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaCodeExecutionTool20250522 = object { name, type, allowed_callers, 3 more }`
 
         - `name: "code_execution"`
@@ -32154,6 +32397,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaCodeExecutionTool20250825 = object { name, type, allowed_callers, 3 more }`
 
         - `name: "code_execution"`
@@ -32202,6 +32447,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaToolComputerUse20241022 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -32266,6 +32513,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaMemoryTool20250818 = object { name, type, allowed_callers, 4 more }`
 
         - `name: "memory"`
@@ -32316,6 +32565,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `input_examples: optional array of map[unknown]`
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaToolComputerUse20250124 = object { display_height_px, display_width_px, name, 7 more }`
 
@@ -32380,6 +32631,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolTextEditor20241022 = object { name, type, allowed_callers, 4 more }`
 
         - `name: "str_replace_editor"`
@@ -32430,6 +32683,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `input_examples: optional array of map[unknown]`
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaToolComputerUse20251124 = object { display_height_px, display_width_px, name, 8 more }`
 
@@ -32498,6 +32753,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolTextEditor20250124 = object { name, type, allowed_callers, 4 more }`
 
         - `name: "str_replace_editor"`
@@ -32549,6 +32806,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolTextEditor20250429 = object { name, type, allowed_callers, 4 more }`
 
         - `name: "str_replace_based_edit_tool"`
@@ -32599,6 +32858,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `input_examples: optional array of map[unknown]`
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaToolTextEditor20250728 = object { name, type, allowed_callers, 5 more }`
 
@@ -32654,6 +32915,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaWebSearchTool20250305 = object { name, type, allowed_callers, 7 more }`
 
@@ -32715,6 +32978,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           Maximum number of times the tool can be used in the API request.
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
         - `user_location: optional object { type, city, country, 2 more }`
 
@@ -32811,6 +33076,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolSearchToolBm25_20251119 = object { name, type, allowed_callers, 3 more }`
 
         - `name: "tool_search_tool_bm25"`
@@ -32862,6 +33129,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `strict: optional boolean`
 
+          When true, guarantees schema validation on tool names and inputs
+
       - `BetaToolSearchToolRegex20251119 = object { name, type, allowed_callers, 3 more }`
 
         - `name: "tool_search_tool_regex"`
@@ -32912,6 +33181,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
         - `strict: optional boolean`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `BetaMCPToolset = object { mcp_server_name, type, cache_control, 2 more }`
 
@@ -34003,31 +34274,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `"code_execution_20250825"`
 
-          - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+          - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
             - `id: string`
-
-            - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-              Tool invocation directly from the model.
-
-              - `BetaDirectCaller = object { type }`
-
-                Tool invocation directly from the model.
-
-                - `type: "direct"`
-
-                  - `"direct"`
-
-              - `BetaServerToolCaller = object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20250825"`
-
-                  - `"code_execution_20250825"`
 
             - `input: map[unknown]`
 
@@ -34051,6 +34300,28 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `"server_tool_use"`
 
+            - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+              Tool invocation directly from the model.
+
+              - `BetaDirectCaller = object { type }`
+
+                Tool invocation directly from the model.
+
+                - `type: "direct"`
+
+                  - `"direct"`
+
+              - `BetaServerToolCaller = object { tool_id, type }`
+
+                Tool invocation generated by a server-side tool.
+
+                - `tool_id: string`
+
+                - `type: "code_execution_20250825"`
+
+                  - `"code_execution_20250825"`
+
           - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
             - `content: BetaWebSearchToolResultBlockContent`
@@ -34068,6 +34339,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `"too_many_requests"`
 
                   - `"query_too_long"`
+
+                  - `"request_too_large"`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -35354,31 +35627,9 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"code_execution_20250825"`
 
-          - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+          - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
             - `id: string`
-
-            - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-              Tool invocation directly from the model.
-
-              - `BetaDirectCaller = object { type }`
-
-                Tool invocation directly from the model.
-
-                - `type: "direct"`
-
-                  - `"direct"`
-
-              - `BetaServerToolCaller = object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20250825"`
-
-                  - `"code_execution_20250825"`
 
             - `input: map[unknown]`
 
@@ -35402,6 +35653,28 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"server_tool_use"`
 
+            - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+              Tool invocation directly from the model.
+
+              - `BetaDirectCaller = object { type }`
+
+                Tool invocation directly from the model.
+
+                - `type: "direct"`
+
+                  - `"direct"`
+
+              - `BetaServerToolCaller = object { tool_id, type }`
+
+                Tool invocation generated by a server-side tool.
+
+                - `tool_id: string`
+
+                - `type: "code_execution_20250825"`
+
+                  - `"code_execution_20250825"`
+
           - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
             - `content: BetaWebSearchToolResultBlockContent`
@@ -35419,6 +35692,8 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
                   - `"too_many_requests"`
 
                   - `"query_too_long"`
+
+                  - `"request_too_large"`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -36504,31 +36779,9 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"code_execution_20250825"`
 
-        - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+        - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
           - `id: string`
-
-          - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-            Tool invocation directly from the model.
-
-            - `BetaDirectCaller = object { type }`
-
-              Tool invocation directly from the model.
-
-              - `type: "direct"`
-
-                - `"direct"`
-
-            - `BetaServerToolCaller = object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20250825"`
-
-                - `"code_execution_20250825"`
 
           - `input: map[unknown]`
 
@@ -36552,6 +36805,28 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"server_tool_use"`
 
+          - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+            Tool invocation directly from the model.
+
+            - `BetaDirectCaller = object { type }`
+
+              Tool invocation directly from the model.
+
+              - `type: "direct"`
+
+                - `"direct"`
+
+            - `BetaServerToolCaller = object { tool_id, type }`
+
+              Tool invocation generated by a server-side tool.
+
+              - `tool_id: string`
+
+              - `type: "code_execution_20250825"`
+
+                - `"code_execution_20250825"`
+
         - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
           - `content: BetaWebSearchToolResultBlockContent`
@@ -36569,6 +36844,8 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
                 - `"too_many_requests"`
 
                 - `"query_too_long"`
+
+                - `"request_too_large"`
 
               - `type: "web_search_tool_result_error"`
 
@@ -37616,31 +37893,9 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"code_execution_20250825"`
 
-      - `BetaServerToolUseBlock = object { id, caller, input, 2 more }`
+      - `BetaServerToolUseBlock = object { id, input, name, 2 more }`
 
         - `id: string`
-
-        - `caller: BetaDirectCaller or BetaServerToolCaller`
-
-          Tool invocation directly from the model.
-
-          - `BetaDirectCaller = object { type }`
-
-            Tool invocation directly from the model.
-
-            - `type: "direct"`
-
-              - `"direct"`
-
-          - `BetaServerToolCaller = object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20250825"`
-
-              - `"code_execution_20250825"`
 
         - `input: map[unknown]`
 
@@ -37664,6 +37919,28 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"server_tool_use"`
 
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller`
+
+          Tool invocation directly from the model.
+
+          - `BetaDirectCaller = object { type }`
+
+            Tool invocation directly from the model.
+
+            - `type: "direct"`
+
+              - `"direct"`
+
+          - `BetaServerToolCaller = object { tool_id, type }`
+
+            Tool invocation generated by a server-side tool.
+
+            - `tool_id: string`
+
+            - `type: "code_execution_20250825"`
+
+              - `"code_execution_20250825"`
+
       - `BetaWebSearchToolResultBlock = object { content, tool_use_id, type }`
 
         - `content: BetaWebSearchToolResultBlockContent`
@@ -37681,6 +37958,8 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
               - `"too_many_requests"`
 
               - `"query_too_long"`
+
+              - `"request_too_large"`
 
             - `type: "web_search_tool_result_error"`
 

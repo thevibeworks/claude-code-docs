@@ -360,6 +360,7 @@ curl https://api.anthropic.com/v1/complete \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    --max-time 600 \
     -d '{
           "max_tokens_to_sample": 256,
           "model": "claude-opus-4-5-20251101",

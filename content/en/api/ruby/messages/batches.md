@@ -24,7 +24,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     Must be unique for each request within the Message Batch.
 
-  - `params: { max_tokens, messages, model, 11 more}`
+  - `params: { max_tokens, messages, model, 12 more}`
 
     Messages API creation parameters for the individual request.
 
@@ -1390,7 +1390,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `class WebSearchToolRequestError`
 
-                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 2 more`
+                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
 
                   - `:invalid_tool_input`
 
@@ -1401,6 +1401,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `:too_many_requests`
 
                   - `:query_too_long`
+
+                  - `:request_too_large`
 
                 - `type: :web_search_tool_result_error`
 
@@ -1544,6 +1546,22 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         An external identifier for the user who is associated with the request.
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+    - `output_config: { format_}`
+
+      Configuration options for the model's output, such as the output format.
+
+      - `format_: { schema, type}`
+
+        A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+        - `schema: Hash[Symbol, untyped]`
+
+          The JSON schema of the format
+
+        - `type: :json_schema`
+
+          - `:json_schema`
 
     - `service_tier: :auto | :standard_only`
 
@@ -1899,6 +1917,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
+
         - `type: :custom`
 
           - `:custom`
@@ -1940,6 +1962,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `:"1h"`
 
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
+
       - `class ToolTextEditor20250124`
 
         - `name: :str_replace_editor`
@@ -1977,6 +2003,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `:"1h"`
 
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
+
       - `class ToolTextEditor20250429`
 
         - `name: :str_replace_based_edit_tool`
@@ -2013,6 +2043,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `:"5m"`
 
             - `:"1h"`
+
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `class ToolTextEditor20250728`
 
@@ -2054,6 +2088,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `max_characters: Integer`
 
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
 
       - `class WebSearchTool20250305`
 
@@ -2103,6 +2141,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+        - `strict: bool`
+
+          When true, guarantees schema validation on tool names and inputs
 
         - `user_location: { type, city, country, 2 more}`
 
@@ -2245,7 +2287,7 @@ message_batch = anthropic.messages.batches.create(
   requests: [
     {
       custom_id: "my-custom-id-1",
-      params: {max_tokens: 1024, messages: [{content: "Hello, world", role: :user}], model: :"claude-opus-4-5-20251101"}
+      params: {max_tokens: 1024, messages: [{content: "Hello, world", role: :user}], model: :"claude-sonnet-4-5-20250929"}
     }
   ]
 )
@@ -2890,7 +2932,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `class WebSearchToolResultError`
 
-                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 2 more`
+                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
 
                   - `:invalid_tool_input`
 
@@ -2901,6 +2943,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `:too_many_requests`
 
                   - `:query_too_long`
+
+                  - `:request_too_large`
 
                 - `type: :web_search_tool_result_error`
 
@@ -3664,7 +3708,7 @@ puts(message_batch_individual_response)
 
               - `class WebSearchToolResultError`
 
-                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 2 more`
+                - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
 
                   - `:invalid_tool_input`
 
@@ -3675,6 +3719,8 @@ puts(message_batch_individual_response)
                   - `:too_many_requests`
 
                   - `:query_too_long`
+
+                  - `:request_too_large`
 
                 - `type: :web_search_tool_result_error`
 
@@ -4234,7 +4280,7 @@ puts(message_batch_individual_response)
 
             - `class WebSearchToolResultError`
 
-              - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 2 more`
+              - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
 
                 - `:invalid_tool_input`
 
@@ -4245,6 +4291,8 @@ puts(message_batch_individual_response)
                 - `:too_many_requests`
 
                 - `:query_too_long`
+
+                - `:request_too_large`
 
               - `type: :web_search_tool_result_error`
 
@@ -4766,7 +4814,7 @@ puts(message_batch_individual_response)
 
           - `class WebSearchToolResultError`
 
-            - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 2 more`
+            - `error_code: :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
 
               - `:invalid_tool_input`
 
@@ -4777,6 +4825,8 @@ puts(message_batch_individual_response)
               - `:too_many_requests`
 
               - `:query_too_long`
+
+              - `:request_too_large`
 
             - `type: :web_search_tool_result_error`
 

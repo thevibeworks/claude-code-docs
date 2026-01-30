@@ -62,7 +62,7 @@ Download File
 
 ### Returns
 
-- `unnamed_schema_0 = Response`
+- `unnamed_schema_1 = Response`
 
 ### Example
 
