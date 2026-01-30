@@ -235,6 +235,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `const WebSearchToolResultErrorErrorCodeQueryTooLong WebSearchToolResultErrorErrorCode = "query_too_long"`
 
+                  - `const WebSearchToolResultErrorErrorCodeRequestTooLarge WebSearchToolResultErrorErrorCode = "request_too_large"`
+
                 - `Type WebSearchToolResultError`
 
                   - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
