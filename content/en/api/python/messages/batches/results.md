@@ -223,7 +223,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `class WebSearchToolResultError: …`
 
-                - `error_code: Literal["invalid_tool_input", "unavailable", "max_uses_exceeded", 2 more]`
+                - `error_code: Literal["invalid_tool_input", "unavailable", "max_uses_exceeded", 3 more]`
 
                   - `"invalid_tool_input"`
 
@@ -234,6 +234,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `"too_many_requests"`
 
                   - `"query_too_long"`
+
+                  - `"request_too_large"`
 
                 - `type: Literal["web_search_tool_result_error"]`
 
@@ -275,8 +277,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
             - `claude-3-7-sonnet-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-3-7-sonnet-20250219` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-3-5-haiku-latest` - Fastest and most compact model for near-instant responsiveness
-            - `claude-3-5-haiku-20241022` - Our fastest model
+            - `claude-3-5-haiku-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+            - `claude-3-5-haiku-20241022` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-haiku-4-5` - Hybrid model, capable of near-instant responses and extended thinking
             - `claude-haiku-4-5-20251001` - Hybrid model, capable of near-instant responses and extended thinking
             - `claude-sonnet-4-20250514` - High-performance model with extended thinking

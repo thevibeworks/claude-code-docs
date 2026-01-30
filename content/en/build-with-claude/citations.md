@@ -197,7 +197,7 @@ Citations works in conjunction with other API features including [prompt caching
 <Warning>
 **Citations and Structured Outputs are incompatible**
 
-Citations cannot be used together with [Structured Outputs](/docs/en/build-with-claude/structured-outputs). If you enable citations on any user-provided document (Document blocks or RequestSearchResultBlock) and also include the `output_format` parameter, the API will return a 400 error.
+Citations cannot be used together with [Structured Outputs](/docs/en/build-with-claude/structured-outputs). If you enable citations on any user-provided document (Document blocks or RequestSearchResultBlock) and also include the `output_config.format` parameter, the API will return a 400 error.
 
 This is because citations require interleaving citation blocks with text output, which is incompatible with the strict JSON schema constraints of structured outputs.
 </Warning>

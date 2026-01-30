@@ -1521,6 +1521,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
               - `"query_too_long"`
 
+              - `"request_too_large"`
+
             - `type: Literal["web_search_tool_result_error"]`
 
               - `"web_search_tool_result_error"`
@@ -2464,8 +2466,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
     - `claude-3-7-sonnet-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
     - `claude-3-7-sonnet-20250219` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-    - `claude-3-5-haiku-latest` - Fastest and most compact model for near-instant responsiveness
-    - `claude-3-5-haiku-20241022` - Our fastest model
+    - `claude-3-5-haiku-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+    - `claude-3-5-haiku-20241022` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
     - `claude-haiku-4-5` - Hybrid model, capable of near-instant responses and extended thinking
     - `claude-haiku-4-5-20251001` - Hybrid model, capable of near-instant responses and extended thinking
     - `claude-sonnet-4-20250514` - High-performance model with extended thinking
@@ -2725,11 +2727,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
 - `output_config: Optional[BetaOutputConfigParam]`
 
-  Configuration options for the model's output. Controls aspects like how much effort the model puts into its response.
+  Configuration options for the model's output, such as the output format.
 
   - `effort: Optional[Literal["low", "medium", "high"]]`
 
-    All possible effort levels.
+    How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer.
+
+    Valid values are `low`, `medium`, or `high`.
 
     - `"low"`
 
@@ -2737,9 +2741,23 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `"high"`
 
+  - `format: Optional[BetaJSONOutputFormat]`
+
+    A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+    - `schema: Dict[str, object]`
+
+      The JSON schema of the format
+
+    - `type: Literal["json_schema"]`
+
+      - `"json_schema"`
+
 - `output_format: Optional[BetaJSONOutputFormatParam]`
 
-  A schema to specify Claude's output format in responses.
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
   - `schema: Dict[str, object]`
 
@@ -3119,6 +3137,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
     - `type: Optional[Literal["custom"]]`
 
       - `"custom"`
@@ -3174,6 +3194,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolBash20250124: …`
 
     - `name: Literal["bash"]`
@@ -3225,6 +3247,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaCodeExecutionTool20250522: …`
 
     - `name: Literal["code_execution"]`
@@ -3274,6 +3298,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaCodeExecutionTool20250825: …`
 
     - `name: Literal["code_execution"]`
@@ -3322,6 +3348,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaToolComputerUse20241022: …`
 
@@ -3386,6 +3414,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaMemoryTool20250818: …`
 
     - `name: Literal["memory"]`
@@ -3436,6 +3466,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: Optional[List[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaToolComputerUse20250124: …`
 
@@ -3500,6 +3532,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolTextEditor20241022: …`
 
     - `name: Literal["str_replace_editor"]`
@@ -3550,6 +3584,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: Optional[List[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaToolComputerUse20251124: …`
 
@@ -3618,6 +3654,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolTextEditor20250124: …`
 
     - `name: Literal["str_replace_editor"]`
@@ -3669,6 +3707,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolTextEditor20250429: …`
 
     - `name: Literal["str_replace_based_edit_tool"]`
@@ -3719,6 +3759,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `input_examples: Optional[List[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaToolTextEditor20250728: …`
 
@@ -3774,6 +3816,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaWebSearchTool20250305: …`
 
@@ -3835,6 +3879,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Maximum number of times the tool can be used in the API request.
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
     - `user_location: Optional[UserLocation]`
 
@@ -3931,6 +3977,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolSearchToolBm25_20251119: …`
 
     - `name: Literal["tool_search_tool_bm25"]`
@@ -3982,6 +4030,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `strict: Optional[bool]`
 
+      When true, guarantees schema validation on tool names and inputs
+
   - `class BetaToolSearchToolRegex20251119: …`
 
     - `name: Literal["tool_search_tool_regex"]`
@@ -4032,6 +4082,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
     - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
 
   - `class BetaMCPToolset: …`
 
@@ -4376,28 +4428,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `id: str`
 
-      - `caller: Caller`
-
-        Tool invocation directly from the model.
-
-        - `class BetaDirectCaller: …`
-
-          Tool invocation directly from the model.
-
-          - `type: Literal["direct"]`
-
-            - `"direct"`
-
-        - `class BetaServerToolCaller: …`
-
-          Tool invocation generated by a server-side tool.
-
-          - `tool_id: str`
-
-          - `type: Literal["code_execution_20250825"]`
-
-            - `"code_execution_20250825"`
-
       - `input: Dict[str, object]`
 
       - `name: Literal["web_search", "web_fetch", "code_execution", 4 more]`
@@ -4420,6 +4450,28 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `"server_tool_use"`
 
+      - `caller: Optional[Caller]`
+
+        Tool invocation directly from the model.
+
+        - `class BetaDirectCaller: …`
+
+          Tool invocation directly from the model.
+
+          - `type: Literal["direct"]`
+
+            - `"direct"`
+
+        - `class BetaServerToolCaller: …`
+
+          Tool invocation generated by a server-side tool.
+
+          - `tool_id: str`
+
+          - `type: Literal["code_execution_20250825"]`
+
+            - `"code_execution_20250825"`
+
     - `class BetaWebSearchToolResultBlock: …`
 
       - `content: BetaWebSearchToolResultBlockContent`
@@ -4437,6 +4489,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
             - `"too_many_requests"`
 
             - `"query_too_long"`
+
+            - `"request_too_large"`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -4964,8 +5018,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
       - `claude-3-7-sonnet-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-3-7-sonnet-20250219` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-5-haiku-latest` - Fastest and most compact model for near-instant responsiveness
-      - `claude-3-5-haiku-20241022` - Our fastest model
+      - `claude-3-5-haiku-latest` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+      - `claude-3-5-haiku-20241022` - Deprecated: Will reach end-of-life on February 19th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-haiku-4-5` - Hybrid model, capable of near-instant responses and extended thinking
       - `claude-haiku-4-5-20251001` - Hybrid model, capable of near-instant responses and extended thinking
       - `claude-sonnet-4-20250514` - High-performance model with extended thinking

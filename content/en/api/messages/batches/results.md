@@ -221,7 +221,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `WebSearchToolResultError = object { error_code, type }`
 
-                - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 2 more`
+                - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
                   - `"invalid_tool_input"`
 
@@ -232,6 +232,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `"too_many_requests"`
 
                   - `"query_too_long"`
+
+                  - `"request_too_large"`
 
                 - `type: "web_search_tool_result_error"`
 

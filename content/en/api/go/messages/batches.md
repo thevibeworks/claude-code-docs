@@ -1400,6 +1400,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                     - `const WebSearchToolRequestErrorErrorCodeQueryTooLong WebSearchToolRequestErrorErrorCode = "query_too_long"`
 
+                    - `const WebSearchToolRequestErrorErrorCodeRequestTooLarge WebSearchToolRequestErrorErrorCode = "request_too_large"`
+
                   - `Type WebSearchToolResultError`
 
                     - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
@@ -1542,6 +1544,22 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           An external identifier for the user who is associated with the request.
 
           This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+      - `OutputConfig MessageBatchNewParamsRequestParamsOutputConfig`
+
+        Configuration options for the model's output, such as the output format.
+
+        - `Format MessageBatchNewParamsRequestParamsOutputConfigFormat`
+
+          A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+          - `Schema map[string, any]`
+
+            The JSON schema of the format
+
+          - `Type JSONSchema`
+
+            - `const JSONSchemaJSONSchema JSONSchema = "json_schema"`
 
       - `ServiceTier string`
 
@@ -1895,6 +1913,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
           - `Type ToolType`
 
             - `const ToolTypeCustom ToolType = "custom"`
@@ -1936,6 +1958,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
 
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
         - `type ToolTextEditor20250124 struct{…}`
 
           - `Name StrReplaceEditor`
@@ -1973,6 +1999,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
 
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
         - `type ToolTextEditor20250429 struct{…}`
 
           - `Name StrReplaceBasedEditTool`
@@ -2009,6 +2039,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
               - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
               - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
 
         - `type ToolTextEditor20250728 struct{…}`
 
@@ -2050,6 +2084,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           - `MaxCharacters int64`
 
             Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
 
         - `type WebSearchTool20250305 struct{…}`
 
@@ -2099,6 +2137,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
           - `MaxUses int64`
 
             Maximum number of times the tool can be used in the API request.
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
 
           - `UserLocation WebSearchTool20250305UserLocation`
 
@@ -2254,13 +2296,13 @@ func main() {
         MaxTokens: 1024,
         Messages: []anthropic.MessageParam{anthropic.MessageParam{
           Content: []anthropic.ContentBlockParamUnion{anthropic.ContentBlockParamUnion{
-            OfText: &anthropic.TextBlockParam{Text: "What is a quaternion?", CacheControl: anthropic.CacheControlEphemeralParam{TTL: anthropic.CacheControlEphemeralTTLTTL5m}, Citations: []anthropic.TextCitationParamUnion{anthropic.TextCitationParamUnion{
-              OfCharLocation: &anthropic.CitationCharLocationParam{CitedText: "cited_text", DocumentIndex: 0, DocumentTitle: anthropic.String("x"), EndCharIndex: 0, StartCharIndex: 0},
-            }}},
+            OfText: &anthropic.TextBlockParam{
+              Text: "x",
+            },
           }},
           Role: anthropic.MessageParamRoleUser,
         }},
-        Model: anthropic.ModelClaudeOpus4_5_20251101,
+        Model: anthropic.ModelClaudeSonnet4_5_20250929,
       },
     }},
   })
@@ -2975,6 +3017,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `const WebSearchToolResultErrorErrorCodeTooManyRequests WebSearchToolResultErrorErrorCode = "too_many_requests"`
 
                   - `const WebSearchToolResultErrorErrorCodeQueryTooLong WebSearchToolResultErrorErrorCode = "query_too_long"`
+
+                  - `const WebSearchToolResultErrorErrorCodeRequestTooLarge WebSearchToolResultErrorErrorCode = "request_too_large"`
 
                 - `Type WebSearchToolResultError`
 
@@ -3763,6 +3807,8 @@ func main() {
 
                   - `const WebSearchToolResultErrorErrorCodeQueryTooLong WebSearchToolResultErrorErrorCode = "query_too_long"`
 
+                  - `const WebSearchToolResultErrorErrorCodeRequestTooLarge WebSearchToolResultErrorErrorCode = "request_too_large"`
+
                 - `Type WebSearchToolResultError`
 
                   - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
@@ -4333,6 +4379,8 @@ func main() {
 
                 - `const WebSearchToolResultErrorErrorCodeQueryTooLong WebSearchToolResultErrorErrorCode = "query_too_long"`
 
+                - `const WebSearchToolResultErrorErrorCodeRequestTooLarge WebSearchToolResultErrorErrorCode = "request_too_large"`
+
               - `Type WebSearchToolResultError`
 
                 - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
@@ -4864,6 +4912,8 @@ func main() {
               - `const WebSearchToolResultErrorErrorCodeTooManyRequests WebSearchToolResultErrorErrorCode = "too_many_requests"`
 
               - `const WebSearchToolResultErrorErrorCodeQueryTooLong WebSearchToolResultErrorErrorCode = "query_too_long"`
+
+              - `const WebSearchToolResultErrorErrorCodeRequestTooLarge WebSearchToolResultErrorErrorCode = "request_too_large"`
 
             - `Type WebSearchToolResultError`
 
