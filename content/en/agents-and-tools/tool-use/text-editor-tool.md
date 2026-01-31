@@ -380,7 +380,7 @@ Parameters:
 - `command`: Must be "insert"
 - `path`: The path to the file to modify
 - `insert_line`: The line number after which to insert the text (0 for beginning of file)
-- `new_str`: The text to insert
+- `insert_text`: The text to insert
 
 <section title="Example insert command">
 
@@ -393,7 +393,7 @@ Parameters:
     "command": "insert",
     "path": "primes.py",
     "insert_line": 0,
-    "new_str": "\"\"\"Module for working with prime numbers.\n\nThis module provides functions to check if a number is prime\nand to generate a list of prime numbers up to a given limit.\n\"\"\"\n"
+    "insert_text": "\"\"\"Module for working with prime numbers.\n\nThis module provides functions to check if a number is prime\nand to generate a list of prime numbers up to a given limit.\n\"\"\"\n"
   }
 }
 ```
