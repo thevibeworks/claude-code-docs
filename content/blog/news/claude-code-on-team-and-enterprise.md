@@ -52,6 +52,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery
+
+[Read more](https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute)
+
 ### ServiceNow chooses Claude to power customer apps and increase internal productivity
 
 [Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)

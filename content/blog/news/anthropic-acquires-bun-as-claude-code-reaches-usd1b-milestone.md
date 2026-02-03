@@ -24,6 +24,10 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery
+
+[Read more](https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute)
+
 ### ServiceNow chooses Claude to power customer apps and increase internal productivity
 
 [Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)
