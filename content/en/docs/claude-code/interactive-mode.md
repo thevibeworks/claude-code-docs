@@ -103,7 +103,7 @@ To create your own commands you can invoke with `/`, see [skills](/en/skills).
 | `/mcp`                    | Manage MCP server connections and OAuth authentication                                                                      |
 | `/memory`                 | Edit `CLAUDE.md` memory files                                                                                               |
 | `/model`                  | Select or change the AI model                                                                                               |
-| `/permissions`            | View or update [permissions](/en/iam#configuring-permissions)                                                               |
+| `/permissions`            | View or update [permissions](/en/permissions#manage-permissions)                                                            |
 | `/plan`                   | Enter plan mode directly from the prompt                                                                                    |
 | `/rename <name>`          | Rename the current session for easier identification                                                                        |
 | `/resume [session]`       | Resume a conversation by ID or name, or open the session picker                                                             |
@@ -269,6 +269,25 @@ Bash mode:
 * Supports history-based autocomplete: type a partial command and press **Tab** to complete from previous `!` commands in the current project
 
 This is useful for quick shell operations while maintaining conversation context.
+
+## Prompt suggestions
+
+When you first open a session, a grayed-out example command appears in the prompt input to help you get started. Claude Code picks this from your project's git history, so it reflects files you've been working on recently.
+
+After Claude responds, suggestions continue to appear based on your conversation history, such as a follow-up step from a multi-part request or a natural continuation of your workflow.
+
+* Press **Tab** to accept the suggestion, or press **Enter** to accept and submit
+* Start typing to dismiss it
+
+The suggestion runs as a background request that reuses the parent conversation's prompt cache, so the additional cost is minimal. Claude Code skips suggestion generation when the cache is cold to avoid unnecessary cost.
+
+Suggestions are automatically skipped after the first turn of a conversation, in non-interactive mode, and in plan mode.
+
+To disable prompt suggestions entirely, set the environment variable or toggle the setting in `/config`:
+
+```bash  theme={null}
+export CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false
+```
 
 ## Task list
 
