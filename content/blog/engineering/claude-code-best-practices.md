@@ -81,6 +81,7 @@ Get started in 30 seconds
 --------------------------------------------------------------------------------------------------------------------------
 
 Prerequisites:
+*   Meet the [system requirements](https://www.anthropic.com/docs/en/setup#system-requirements)
 *   A [Claude subscription](https://claude.com/pricing) (Pro, Max, Teams, or Enterprise) or [Claude Console](https://console.anthropic.com/) account
 
 **Install Claude Code:**To install Claude Code, use one of the following methods:
@@ -204,7 +205,7 @@ Next steps
 Additional resources
 ----------------------------------------------------------------------------------------------------------------
 
-[About Claude Code ----------------- Learn more about Claude Code on claude.com](https://claude.com/product/claude-code)[Build with the Agent SDK ------------------------ Create custom AI agents with the Claude Agent SDK](https://docs.claude.com/en/docs/agent-sdk/overview)[Host on AWS or GCP ------------------ Configure Claude Code with Amazon Bedrock or Google Vertex AI](https://www.anthropic.com/docs/en/third-party-integrations)[Settings -------- Customize Claude Code for your workflow](https://www.anthropic.com/docs/en/settings)[Commands -------- Learn about CLI commands and controls](https://www.anthropic.com/docs/en/cli-reference)[Reference implementation ------------------------ Clone our development container reference implementation](https://github.com/anthropics/claude-code/tree/main/.devcontainer)[Security -------- Discover Claude Code’s safeguards and best practices for safe usage](https://www.anthropic.com/docs/en/security)[Privacy and data usage ---------------------- Understand how Claude Code handles your data](https://www.anthropic.com/docs/en/data-usage)
+[About Claude Code ----------------- Learn more about Claude Code on claude.com](https://claude.com/product/claude-code)[Build with the Agent SDK ------------------------ Create custom AI agents with the Claude Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview)[Host on AWS or GCP ------------------ Configure Claude Code with Amazon Bedrock or Google Vertex AI](https://www.anthropic.com/docs/en/third-party-integrations)[Settings -------- Customize Claude Code for your workflow](https://www.anthropic.com/docs/en/settings)[Commands -------- Learn about CLI commands and controls](https://www.anthropic.com/docs/en/cli-reference)[Reference implementation ------------------------ Clone our development container reference implementation](https://github.com/anthropics/claude-code/tree/main/.devcontainer)[Security -------- Discover Claude Code’s safeguards and best practices for safe usage](https://www.anthropic.com/docs/en/security)[Privacy and data usage ---------------------- Understand how Claude Code handles your data](https://www.anthropic.com/docs/en/data-usage)
 
 Was this page helpful?
 

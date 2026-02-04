@@ -24,6 +24,10 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Apple’s Xcode now supports the Claude Agent SDK
+
+[Read more](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk)
+
 ### Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery
 
 [Read more](https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute)
@@ -31,7 +35,3 @@ Related content
 ### ServiceNow chooses Claude to power customer apps and increase internal productivity
 
 [Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)
-
-### Anthropic partners with the UK Government to bring AI assistance to GOV.UK services
-
-[Read more](https://www.anthropic.com/news/gov-UK-partnership)
