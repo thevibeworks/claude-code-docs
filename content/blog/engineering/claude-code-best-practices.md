@@ -71,7 +71,7 @@ Claude Code overview
 
 Copy page
 
-Learn about Claude Code, Anthropic’s agentic coding tool that lives in your terminal and helps you turn ideas into code faster than ever before.
+Learn about Claude Code, Anthropic’s agentic coding tool that works in your terminal, IDE, desktop app, and browser to help you turn ideas into code faster than ever before.
 
 Copy page
 
@@ -157,6 +157,7 @@ You’ll be prompted to log in on first use. That’s it! [Continue with Quickst
 
 See [advanced setup](https://www.anthropic.com/docs/en/setup) for installation options, manual updates, or uninstallation instructions. Visit [troubleshooting](https://www.anthropic.com/docs/en/troubleshooting) if you hit issues.
 
+Claude Code also runs in [VS Code](https://www.anthropic.com/docs/en/vs-code), [JetBrains IDEs](https://www.anthropic.com/docs/en/jetbrains), as a [desktop app](https://www.anthropic.com/docs/en/desktop), [on the web](https://www.anthropic.com/docs/en/claude-code-on-the-web), and in [Slack](https://www.anthropic.com/docs/en/slack). See [all platforms](https://www.anthropic.com/engineering/claude-code-best-practices#use-claude-code-everywhere) below.
 [​](https://www.anthropic.com/engineering/claude-code-best-practices#what-claude-code-does-for-you)
 
 What Claude Code does for you
@@ -172,7 +173,7 @@ What Claude Code does for you
 Why developers love Claude Code
 --------------------------------------------------------------------------------------------------------------------------------------
 
-*   **Works in your terminal**: Not another chat window. Not another IDE. Claude Code meets you where you already work, with the tools you already love.
+*   **Meets you where you work**: Use Claude Code in your terminal, your IDE, or a standalone desktop app. It integrates with the tools you already use.
 *   **Takes action**: Claude Code can directly edit files, run commands, and create commits. Need more? [MCP](https://www.anthropic.com/docs/en/mcp) lets Claude read your design docs in Google Drive, update your tickets in Jira, or use _your_ custom developer tooling.
 *   **Unix philosophy**: Claude Code is composable and scriptable. `tail -f app.log | claude -p "Slack me if you see any anomalies appear in this log stream"`_works_. Your CI can run `claude -p "If there are new text strings, translate them into French and raise a PR for @lang-fr-team to review"`.
 *   **Enterprise-ready**: Use the Claude API, or host on AWS or GCP. Enterprise-grade [security](https://www.anthropic.com/docs/en/security), [privacy](https://www.anthropic.com/docs/en/data-usage), and [compliance](https://trust.anthropic.com/) is built-in.

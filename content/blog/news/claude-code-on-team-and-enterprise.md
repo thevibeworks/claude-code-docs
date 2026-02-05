@@ -52,6 +52,12 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Claude is a space to think
+
+We’ve made a choice: Claude will remain ad-free. We explain why advertising incentives are incompatible with a genuinely helpful AI assistant, and how we plan to expand access without compromising user trust.
+
+[Read more](https://www.anthropic.com/news/claude-is-a-space-to-think)
+
 ### Apple’s Xcode now supports the Claude Agent SDK
 
 [Read more](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk)
@@ -59,7 +65,3 @@ Related content
 ### Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery
 
 [Read more](https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute)
-
-### ServiceNow chooses Claude to power customer apps and increase internal productivity
-
-[Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)

@@ -39,8 +39,6 @@ The callback fires in two cases:
 1. **Tool needs approval**: Claude wants to use a tool that isn't auto-approved by [permission rules](/docs/en/agent-sdk/permissions) or modes. Check `tool_name` for the tool (e.g., `"Bash"`, `"Write"`).
 2. **Claude asks a question**: Claude calls the `AskUserQuestion` tool. Check if `tool_name == "AskUserQuestion"` to handle it differently. If you specify a `tools` array, include `AskUserQuestion` for this to work. See [Handle clarifying questions](#handle-clarifying-questions) for details.
 
-Your callback must return within **60 seconds** or Claude will assume the request was denied and try a different approach.
-
 <Note>
 To automatically allow or deny tools without prompting users, use [hooks](/docs/en/agent-sdk/hooks) instead. Hooks execute before `canUseTool` and can allow, deny, or modify requests based on your own logic. You can also use the [`PermissionRequest` hook](/docs/en/agent-sdk/hooks#available-hooks) to send external notifications (Slack, email, push) when Claude is waiting for approval.
 </Note>
@@ -728,7 +726,6 @@ main();
 
 ## Limitations
 
-- **60-second timeout**: `canUseTool` callbacks must return within 60 seconds or Claude will retry with a different approach
 - **Subagents**: `AskUserQuestion` is not currently available in subagents spawned via the Task tool
 - **Question limits**: each `AskUserQuestion` call supports 1-4 questions with 2-4 options each
 
