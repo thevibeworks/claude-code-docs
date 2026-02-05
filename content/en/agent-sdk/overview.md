@@ -48,6 +48,77 @@ The Agent SDK includes built-in tools for reading files, running commands, and e
   </Card>
 </CardGroup>
 
+## Get started
+
+<Steps>
+  <Step title="Install the SDK">
+    <Tabs>
+      <Tab title="TypeScript">
+        ```bash
+        npm install @anthropic-ai/claude-agent-sdk
+        ```
+      </Tab>
+      <Tab title="Python">
+        ```bash
+        pip install claude-agent-sdk
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Set your API key">
+    Get an API key from the [Console](https://platform.claude.com/), then set it as an environment variable:
+
+    ```bash
+    export ANTHROPIC_API_KEY=your-api-key
+    ```
+
+    The SDK also supports authentication via third-party API providers:
+
+    - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
+    - **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
+    - **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` environment variable and configure Azure credentials
+
+    See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/azure-ai-foundry) for details.
+
+    <Note>
+    Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
+    </Note>
+  </Step>
+  <Step title="Run your first agent">
+    This example creates an agent that lists files in your current directory using built-in tools.
+
+    <CodeGroup>
+    ```python Python
+    import asyncio
+    from claude_agent_sdk import query, ClaudeAgentOptions
+
+    async def main():
+        async for message in query(
+            prompt="What files are in this directory?",
+            options=ClaudeAgentOptions(allowed_tools=["Bash", "Glob"])
+        ):
+            if hasattr(message, "result"):
+                print(message.result)
+
+    asyncio.run(main())
+    ```
+
+    ```typescript TypeScript
+    import { query } from "@anthropic-ai/claude-agent-sdk";
+
+    for await (const message of query({
+      prompt: "What files are in this directory?",
+      options: { allowedTools: ["Bash", "Glob"] },
+    })) {
+      if ("result" in message) console.log(message.result);
+    }
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
+
+**Ready to build?** Follow the [Quickstart](/docs/en/agent-sdk/quickstart) to create an agent that finds and fixes bugs in minutes.
+
 ## Capabilities
 
 Everything that makes Claude Code powerful is available in the SDK:
@@ -374,97 +445,6 @@ The SDK also supports Claude Code's filesystem-based configuration. To use these
 | [Slash commands](/docs/en/agent-sdk/slash-commands) | Custom commands for common tasks | `.claude/commands/*.md` |
 | [Memory](/docs/en/agent-sdk/modifying-system-prompts) | Project context and instructions | `CLAUDE.md` or `.claude/CLAUDE.md` |
 | [Plugins](/docs/en/agent-sdk/plugins) | Extend with custom commands, agents, and MCP servers | Programmatic via `plugins` option |
-
-## Get started
-
-<Steps>
-  <Step title="Install Claude Code">
-    The SDK uses Claude Code as its runtime:
-
-    <Tabs>
-      <Tab title="macOS/Linux/WSL">
-        ```bash
-        curl -fsSL https://claude.ai/install.sh | bash
-        ```
-      </Tab>
-      <Tab title="Homebrew">
-        ```bash
-        brew install --cask claude-code
-        ```
-      </Tab>
-      <Tab title="WinGet">
-        ```powershell
-        winget install Anthropic.ClaudeCode
-        ```
-      </Tab>
-    </Tabs>
-
-    See [Claude Code setup](https://code.claude.com/docs/en/setup) for Windows and other options.
-  </Step>
-  <Step title="Install the SDK">
-    <Tabs>
-      <Tab title="TypeScript">
-        ```bash
-        npm install @anthropic-ai/claude-agent-sdk
-        ```
-      </Tab>
-      <Tab title="Python">
-        ```bash
-        pip install claude-agent-sdk
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
-  <Step title="Set your API key">
-    ```bash
-    export ANTHROPIC_API_KEY=your-api-key
-    ```
-    Get your key from the [Console](https://platform.claude.com/).
-
-    The SDK also supports authentication via third-party API providers:
-
-    - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
-    - **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
-    - **Microsoft Foundry**: set `CLAUDE_CODE_USE_FOUNDRY=1` environment variable and configure Azure credentials
-
-    <Note>
-    Unless previously approved, we do not allow third party developers to offer Claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
-    </Note>
-  </Step>
-  <Step title="Run your first agent">
-    This example creates an agent that lists files in your current directory using built-in tools.
-
-    <CodeGroup>
-    ```python Python
-    import asyncio
-    from claude_agent_sdk import query, ClaudeAgentOptions
-
-    async def main():
-        async for message in query(
-            prompt="What files are in this directory?",
-            options=ClaudeAgentOptions(allowed_tools=["Bash", "Glob"])
-        ):
-            if hasattr(message, "result"):
-                print(message.result)
-
-    asyncio.run(main())
-    ```
-
-    ```typescript TypeScript
-    import { query } from "@anthropic-ai/claude-agent-sdk";
-
-    for await (const message of query({
-      prompt: "What files are in this directory?",
-      options: { allowedTools: ["Bash", "Glob"] },
-    })) {
-      if ("result" in message) console.log(message.result);
-    }
-    ```
-    </CodeGroup>
-  </Step>
-</Steps>
-
-**Ready to build?** Follow the [Quickstart](/docs/en/agent-sdk/quickstart) to create an agent that finds and fixes bugs in minutes.
 
 ## Compare the Agent SDK to other Claude tools
 
