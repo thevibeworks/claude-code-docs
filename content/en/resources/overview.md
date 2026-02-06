@@ -3,19 +3,23 @@
   </h2>
   
 
-    <Card title="Claude Opus 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-opus-4-5-system-card">
+    <Card title="Claude Opus 4.6 System Card" icon="file" href="https://www.anthropic.com/claude-opus-4-6-system-card">
+      Detailed documentation of Claude Opus 4.6.
+    </Card>
+
+    <Card title="Claude Opus 4.5 System Card" icon="file" href="https://www.anthropic.com/claude-opus-4-5-system-card">
       Detailed documentation of Claude Opus 4.5.
     </Card>
 
-    <Card title="Claude Haiku 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-haiku-4-5-system-card">
+    <Card title="Claude Haiku 4.5 System Card" icon="file" href="https://www.anthropic.com/claude-haiku-4-5-system-card">
       Detailed documentation of Claude Haiku 4.5.
     </Card>
 
-    <Card title="Claude Sonnet 4.5 System Card" icon="file" href="http://www.anthropic.com/claude-sonnet-4-5-system-card">
+    <Card title="Claude Sonnet 4.5 System Card" icon="file" href="https://www.anthropic.com/claude-sonnet-4-5-system-card">
       Detailed documentation of Claude Sonnet 4.5.
     </Card>
 
-    <Card title="Claude Opus 4.1 System Card" icon="file" href="http://www.anthropic.com/claude-opus-4-1-system-card">
+    <Card title="Claude Opus 4.1 System Card" icon="file" href="https://www.anthropic.com/claude-opus-4-1-system-card">
       Detailed documentation of Claude Opus 4.1.
     </Card>
 

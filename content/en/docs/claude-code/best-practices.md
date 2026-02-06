@@ -20,7 +20,7 @@ Most best practices are based on one constraint: Claude's context window fills u
 
 Claude's context window holds your entire conversation, including every message, every file Claude reads, and every command output. However, this can fill up fast. A single debugging session or codebase exploration might generate and consume tens of thousands of tokens.
 
-This matters since LLM performance degrades as context fills. When the context window is getting full, Claude may start "forgetting" earlier instructions or making more mistakes. The context window is the most important resource to manage. For detailed strategies on reducing token usage, see [Reduce token usage](/en/costs#reduce-token-usage).
+This matters since LLM performance degrades as context fills. When the context window is getting full, Claude may start "forgetting" earlier instructions or making more mistakes. The context window is the most important resource to manage. Track context usage continuously with a [custom status line](/en/statusline), and see [Reduce token usage](/en/costs#reduce-token-usage) for strategies on reducing token usage.
 
 ***
 
@@ -40,7 +40,7 @@ Without clear success criteria, it might produce something that looks right but 
 | **Verify UI changes visually**        | *"make the dashboard look better"*                      | *"\[paste screenshot] implement this design. take a screenshot of the result and compare it to the original. list differences and fix them"*                                                            |
 | **Address root causes, not symptoms** | *"the build is failing"*                                | *"the build fails with this error: \[paste error]. fix it and verify the build succeeds. address the root cause, don't suppress the error"*                                                             |
 
-UI changes can be verified using the [Claude in Chrome extension](/en/chrome). It opens a browser, tests the UI, and iterates until the code works.
+UI changes can be verified using the [Claude in Chrome extension](/en/chrome). It opens new tabs in your browser, tests the UI, and iterates until the code works.
 
 Your verification can also be a test suite, a linter, or a Bash command that checks output. Invest in making your verification rock-solid.
 
@@ -485,10 +485,11 @@ claude -p "Analyze this log file" --output-format stream-json
   Run multiple Claude sessions in parallel to speed up development, run isolated experiments, or start complex workflows.
 </Tip>
 
-There are two main ways to run parallel sessions:
+There are three main ways to run parallel sessions:
 
 * [Claude Desktop](/en/desktop): Manage multiple local sessions visually. Each session gets its own isolated worktree.
 * [Claude Code on the web](/en/claude-code-on-the-web): Run on Anthropic's secure cloud infrastructure in isolated VMs.
+* [Agent teams](/en/agent-teams): Automated coordination of multiple sessions with shared tasks, messaging, and a team lead.
 
 Beyond parallelizing work, multiple sessions enable quality-focused workflows. A fresh context improves code review since Claude won't be biased toward code it just wrote.
 

@@ -44,7 +44,7 @@ curl https://api.anthropic.com/v1/messages \
   -H "anthropic-version: 2023-06-01" \
   -H "anthropic-beta: mcp-client-2025-11-20" \
   -d '{
-    "model": "claude-sonnet-4-5",
+    "model": "claude-opus-4-6",
     "max_tokens": 1000,
     "messages": [{"role": "user", "content": "What tools do you have available?"}],
     "mcp_servers": [
@@ -70,7 +70,7 @@ import { Anthropic } from '@anthropic-ai/sdk';
 const anthropic = new Anthropic();
 
 const response = await anthropic.beta.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-opus-4-6",
   max_tokens: 1000,
   messages: [
     {
@@ -102,7 +102,7 @@ import anthropic
 client = anthropic.Anthropic()
 
 response = client.beta.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-opus-4-6",
     max_tokens=1000,
     messages=[{
         "role": "user",
@@ -346,7 +346,7 @@ You can connect to multiple MCP servers by including multiple server definitions
 
 ```json
 {
-  "model": "claude-sonnet-4-5",
+  "model": "claude-opus-4-6",
   "max_tokens": 1000,
   "messages": [
     {
@@ -426,6 +426,119 @@ Once you've obtained an access token using either OAuth flow above, you can use 
 
 For detailed explanations of the OAuth flow, refer to the [Authorization section](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization) in the MCP specification.
 
+## Client-side MCP helpers (TypeScript)
+
+If you manage your own MCP client connection (for example, with local stdio servers, MCP prompts, or MCP resources), the TypeScript SDK provides helper functions that convert between MCP types and Claude API types. This eliminates manual conversion code when using the [MCP SDK](https://github.com/modelcontextprotocol/typescript-sdk) alongside the Anthropic SDK.
+
+<Note>
+  These helpers are currently available in the TypeScript SDK only.
+</Note>
+<Note>
+  Use the [`mcp_servers` API parameter](#using-the-mcp-connector-in-the-messages-api) when you have remote servers accessible via URL and only need tool support. If you're using the [Agent SDK](/docs/en/agent-sdk/mcp), MCP connections are managed automatically. Use the client-side helpers when you need local servers, prompts, resources, or more control over the connection with the base SDK.
+</Note>
+
+### Installation
+
+Install both the Anthropic SDK and the MCP SDK:
+
+```bash
+npm install @anthropic-ai/sdk @modelcontextprotocol/sdk
+```
+
+### Available helpers
+
+Import the helpers from the beta namespace:
+
+```typescript
+import {
+  mcpTools,
+  mcpMessages,
+  mcpResourceToContent,
+  mcpResourceToFile,
+} from '@anthropic-ai/sdk/helpers/beta/mcp';
+```
+
+| Helper | Description |
+|--------|-------------|
+| `mcpTools(tools, mcpClient)` | Converts MCP tools to Claude API tools for use with `client.beta.messages.toolRunner()` |
+| `mcpMessages(messages)` | Converts MCP prompt messages to Claude API message format |
+| `mcpResourceToContent(resource)` | Converts an MCP resource to a Claude API content block |
+| `mcpResourceToFile(resource)` | Converts an MCP resource to a file object for upload |
+
+### Use MCP tools
+
+Convert MCP tools for use with the SDK's [tool runner](/docs/en/agents-and-tools/tool-use/implement-tool-use#tool-runner-beta), which handles tool execution automatically:
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+import { mcpTools } from '@anthropic-ai/sdk/helpers/beta/mcp';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
+
+const anthropic = new Anthropic();
+
+// Connect to an MCP server
+const transport = new StdioClientTransport({ command: 'mcp-server', args: [] });
+const mcpClient = new Client({ name: 'my-client', version: '1.0.0' });
+await mcpClient.connect(transport);
+
+// List tools and convert them for the Claude API
+const { tools } = await mcpClient.listTools();
+const runner = await anthropic.beta.messages.toolRunner({
+  model: 'claude-sonnet-4-5',
+  max_tokens: 1024,
+  messages: [{ role: 'user', content: 'What tools do you have available?' }],
+  tools: mcpTools(tools, mcpClient),
+});
+```
+
+### Use MCP prompts
+
+Convert MCP prompt messages into Claude API message format:
+
+```typescript
+import { mcpMessages } from '@anthropic-ai/sdk/helpers/beta/mcp';
+
+const { messages } = await mcpClient.getPrompt({ name: 'my-prompt' });
+const response = await anthropic.beta.messages.create({
+  model: 'claude-sonnet-4-5',
+  max_tokens: 1024,
+  messages: mcpMessages(messages),
+});
+```
+
+### Use MCP resources
+
+Convert MCP resources into content blocks to include in messages, or into file objects for upload:
+
+```typescript
+import { mcpResourceToContent, mcpResourceToFile } from '@anthropic-ai/sdk/helpers/beta/mcp';
+
+// As a content block in a message
+const resource = await mcpClient.readResource({ uri: 'file:///path/to/doc.txt' });
+await anthropic.beta.messages.create({
+  model: 'claude-sonnet-4-5',
+  max_tokens: 1024,
+  messages: [
+    {
+      role: 'user',
+      content: [
+        mcpResourceToContent(resource),
+        { type: 'text', text: 'Summarize this document' },
+      ],
+    },
+  ],
+});
+
+// As a file upload
+const fileResource = await mcpClient.readResource({ uri: 'file:///path/to/data.json' });
+await anthropic.beta.files.upload({ file: mcpResourceToFile(fileResource) });
+```
+
+### Error handling
+
+The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn't supported by the Claude API. This can happen with unsupported content types, MIME types, or non-HTTP resource links.
+
 ## Migration guide
 
 If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this guide to migrate to the new version.
@@ -442,7 +555,7 @@ If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this 
 
 ```json
 {
-  "model": "claude-sonnet-4-5",
+  "model": "claude-opus-4-6",
   "max_tokens": 1000,
   "messages": [...],
   "mcp_servers": [
@@ -464,7 +577,7 @@ If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this 
 
 ```json
 {
-  "model": "claude-sonnet-4-5",
+  "model": "claude-opus-4-6",
   "max_tokens": 1000,
   "messages": [...],
   "mcp_servers": [

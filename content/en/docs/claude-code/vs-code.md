@@ -85,7 +85,7 @@ The prompt box supports several features:
 * **Command menu**: Click `/` or type `/` to open the command menu. Options include attaching files, switching models, toggling extended thinking, and viewing plan usage (`/usage`). The Customize section provides access to MCP servers, hooks, memory, permissions, and plugins. Items with a terminal icon open in the integrated terminal.
 * **Context indicator**: The prompt box shows how much of Claude's context window you're using. Claude automatically compacts when needed, or you can run `/compact` manually.
 * **Extended thinking**: Lets Claude spend more time reasoning through complex problems. Toggle it on via the command menu (`/`). See [Extended thinking](/en/common-workflows#use-extended-thinking-thinking-mode) for details.
-* **Multi-line input**: Press `Shift+Enter` to add a new line without sending.
+* **Multi-line input**: Press `Shift+Enter` to add a new line without sending. This also works in the "Other" free-text input of question dialogs.
 
 ### Reference files and folders
 
@@ -95,6 +95,8 @@ Use @-mentions to give Claude context about specific files or folders. When you 
 > Explain the logic in @auth (fuzzy matches auth.js, AuthService.ts, etc.)
 > What's in @src/components/ (include a trailing slash for folders)
 ```
+
+For large PDFs, you can ask Claude to read specific pages instead of the whole file: a single page, a range like pages 1-10, or an open-ended range like page 3 onward.
 
 When you select text in the editor, Claude can see your highlighted code automatically. The prompt box footer shows how many lines are selected. Press `Option+K` (Mac) / `Alt+K` (Windows/Linux) to insert an @-mention with the file path and line numbers (e.g., `@app.ts#5-10`). Click the selection indicator to toggle whether Claude can see your highlighted text - the eye-slash icon means the selection is hidden from Claude.
 
@@ -190,6 +192,22 @@ After making changes, a banner prompts you to restart Claude Code to apply the u
 </Note>
 
 For more about the plugin system, see [Plugins](/en/plugins) and [Plugin marketplaces](/en/plugin-marketplaces).
+
+## Automate browser tasks with Chrome
+
+Connect Claude to your Chrome browser to test web apps, debug with console logs, and automate browser workflows without leaving VS Code. This requires the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) version 1.0.36 or higher.
+
+Type `@browser` in the prompt box followed by what you want Claude to do:
+
+```text  theme={null}
+@browser go to localhost:3000 and check the console for errors
+```
+
+You can also open the attachment menu to select specific browser tools like opening a new tab or reading page content.
+
+Claude opens new tabs for browser tasks and shares your browser's login state, so it can access any site you're already signed into.
+
+For setup instructions, the full list of capabilities, and troubleshooting, see [Use Claude Code with Chrome](/en/chrome).
 
 ## VS Code commands and shortcuts
 
