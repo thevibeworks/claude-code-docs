@@ -24,14 +24,18 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Introducing Claude Opus 4.6
+
+We’re upgrading our smartest model. Across agentic coding, computer use, tool use, search, and finance, Opus 4.6 is an industry-leading model, often by wide margin.
+
+[Read more](https://www.anthropic.com/news/claude-opus-4-6)
+
+### Claude is a space to think
+
+We’ve made a choice: Claude will remain ad-free. We explain why advertising incentives are incompatible with a genuinely helpful AI assistant, and how we plan to expand access without compromising user trust.
+
+[Read more](https://www.anthropic.com/news/claude-is-a-space-to-think)
+
 ### Apple’s Xcode now supports the Claude Agent SDK
 
 [Read more](https://www.anthropic.com/news/apple-xcode-claude-agent-sdk)
-
-### Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery
-
-[Read more](https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute)
-
-### ServiceNow chooses Claude to power customer apps and increase internal productivity
-
-[Read more](https://www.anthropic.com/news/servicenow-anthropic-claude)

@@ -1,5 +1,39 @@
 # Changelog
 
+## 2.1.33
+
+- Fixed agent teammate sessions in tmux to send and receive messages
+- Fixed warnings about agent teams not being available on your current plan
+- Added `TeammateIdle` and `TaskCompleted` hook events for multi-agent workflows
+- Added support for restricting which sub-agents can be spawned via `Task(agent_type)` syntax in agent "tools" frontmatter
+- Added `memory` frontmatter field support for agents, enabling persistent memory with `user`, `project`, or `local` scope
+- Added plugin name to skill descriptions and `/skills` menu for better discoverability
+- Fixed an issue where submitting a new message while the model was in extended thinking would interrupt the thinking phase
+- Fixed an API error that could occur when aborting mid-stream, where whitespace text combined with a thinking block would bypass normalization and produce an invalid request
+- Fixed API proxy compatibility issue where 404 errors on streaming endpoints no longer triggered non-streaming fallback
+- Fixed an issue where proxy settings configured via `settings.json` environment variables were not applied to WebFetch and other HTTP requests on the Node.js build
+- Fixed `/resume` session picker showing raw XML markup instead of clean titles for sessions started with slash commands
+- Improved error messages for API connection failures — now shows specific cause (e.g., ECONNREFUSED, SSL errors) instead of generic "Connection error"
+- Errors from invalid managed settings are now surfaced
+- VSCode: Added support for remote sessions, allowing OAuth users to browse and resume sessions from claude.ai
+- VSCode: Added git branch and message count to the session picker, with support for searching by branch name
+- VSCode: Fixed scroll-to-bottom under-scrolling on initial session load and session switch
+
+## 2.1.32
+
+- Claude Opus 4.6 is now available!
+- Added research preview agent teams feature for multi-agent collaboration (token-intensive feature, requires setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+- Claude now automatically records and recalls memories as it works
+- Added "Summarize from here" to the message selector, allowing partial conversation summarization.
+- Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically.
+- Fixed `@` file completion showing incorrect relative paths when running from a subdirectory
+- Updated --resume to re-use --agent value specified in previous conversation by default.
+- Fixed: Bash tool no longer throws "Bad substitution" errors when heredocs contain JavaScript template literals like `${index + 1}`, which previously interrupted tool execution
+- Skill character budget now scales with context window (2% of context), so users with larger context windows can see more skill descriptions without truncation
+- Fixed Thai/Lao spacing vowels (สระ า, ำ) not rendering correctly in the input field
+- VSCode: Fixed slash commands incorrectly being executed when pressing Enter with preceding text in the input field
+- VSCode: Added spinner when loading past conversations list
+
 ## 2.1.31
 
 - Added session resume hint on exit, showing how to continue your conversation later

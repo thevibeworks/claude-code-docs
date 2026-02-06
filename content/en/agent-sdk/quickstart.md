@@ -19,34 +19,6 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
 ## Setup
 
 <Steps>
-  <Step title="Install Claude Code">
-    The Agent SDK uses Claude Code as its runtime. Install it for your platform:
-
-    <Tabs>
-      <Tab title="macOS/Linux/WSL">
-        ```bash
-        curl -fsSL https://claude.ai/install.sh | bash
-        ```
-      </Tab>
-      <Tab title="Homebrew">
-        ```bash
-        brew install --cask claude-code
-        ```
-      </Tab>
-      <Tab title="WinGet">
-        ```powershell
-        winget install Anthropic.ClaudeCode
-        ```
-      </Tab>
-    </Tabs>
-
-    After installing Claude Code onto your machine, run `claude` in your terminal and follow the prompts to authenticate. The SDK will use this authentication automatically.
-
-    <Tip>
-    For more information on Claude Code installation, see [Claude Code setup](https://code.claude.com/docs/en/setup).
-    </Tip>
-  </Step>
-
   <Step title="Create a project folder">
     Create a new directory for this quickstart:
 
@@ -83,19 +55,21 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
   </Step>
 
   <Step title="Set your API key">
-    If you've already authenticated Claude Code (by running `claude` in your terminal), the SDK uses that authentication automatically.
-
-    Otherwise, you need an API key, which you can get from the [Claude Console](https://platform.claude.com/).
-
-    Create a `.env` file in your project directory and store the API key there:
+    Get an API key from the [Claude Console](https://platform.claude.com/), then create a `.env` file in your project directory:
 
     ```bash
     ANTHROPIC_API_KEY=your-api-key
     ```
 
-    <Note>
-    **Using Amazon Bedrock, Google Vertex AI, or Microsoft Azure?** See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/azure-ai-foundry).
+    The SDK also supports authentication via third-party API providers:
 
+    - **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
+    - **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
+    - **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` environment variable and configure Azure credentials
+
+    See the setup guides for [Bedrock](https://code.claude.com/docs/en/amazon-bedrock), [Vertex AI](https://code.claude.com/docs/en/google-vertex-ai), or [Azure AI Foundry](https://code.claude.com/docs/en/azure-ai-foundry) for details.
+
+    <Note>
     Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
     </Note>
   </Step>
@@ -220,7 +194,7 @@ After running, check `utils.py`. You'll see defensive code handling empty lists 
 This is what makes the Agent SDK different: Claude executes tools directly instead of asking you to implement them.
 
 <Note>
-If you see "Claude Code not found", [install Claude Code](#install-claude-code) and restart your terminal. For "API key not found", [set your API key](#set-your-api-key). See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
+If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in your `.env` file or shell environment. See the [full troubleshooting guide](https://code.claude.com/docs/en/troubleshooting) for more help.
 </Note>
 
 ### Try other prompts
