@@ -2855,6 +2855,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `"standard_only"`
 
+- `speed: Optional[Literal["standard", "fast"]]`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  - `"standard"`
+
+  - `"fast"`
+
 - `stop_sequences: Optional[SequenceNotStr[str]]`
 
   Custom text sequences that will cause the model to stop generating.
@@ -4249,7 +4257,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4288,6 +4296,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -5319,7 +5329,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `iterations: Optional[List[Iteration]]`
+    - `iterations: Optional[BetaIterationsUsage]`
 
       Per-iteration token usage breakdown.
 
@@ -5430,6 +5440,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `"priority"`
 
       - `"batch"`
+
+    - `speed: Optional[Literal["standard", "fast"]]`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
 
 ### Example
 
@@ -8240,6 +8258,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `"json_schema"`
 
+- `speed: Optional[str]`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
 - `system: Optional[Union[str, Iterable[BetaTextBlockParam]]]`
 
   System prompt.
@@ -9594,7 +9616,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -9633,6 +9655,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -14900,6 +14924,94 @@ print(beta_message_tokens_count.context_management)
 
   - `value: int`
 
+### Beta Iterations Usage
+
+- `BetaIterationsUsage = Optional[List[BetaIterationsUsageItem]]`
+
+  Per-iteration token usage breakdown.
+
+  Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+  - Determine which iterations exceeded long context thresholds (>=200k tokens)
+  - Calculate the true context window size from the last iteration
+  - Understand token accumulation across server-side tool use loops
+
+  - `class BetaMessageIterationUsage: …`
+
+    Token usage for a sampling iteration.
+
+    - `cache_creation: Optional[BetaCacheCreation]`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: int`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: int`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: int`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: int`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: int`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: int`
+
+      The number of output tokens which were used.
+
+    - `type: Literal["message"]`
+
+      Usage for a sampling iteration
+
+      - `"message"`
+
+  - `class BetaCompactionIterationUsage: …`
+
+    Token usage for a compaction iteration.
+
+    - `cache_creation: Optional[BetaCacheCreation]`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: int`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: int`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: int`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: int`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: int`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: int`
+
+      The number of output tokens which were used.
+
+    - `type: Literal["compaction"]`
+
+      Usage for a compaction iteration
+
+      - `"compaction"`
+
 ### Beta JSON Output Format
 
 - `class BetaJSONOutputFormat: …`
@@ -16466,7 +16578,7 @@ print(beta_message_tokens_count.context_management)
 
       The number of input tokens which were used.
 
-    - `iterations: Optional[List[Iteration]]`
+    - `iterations: Optional[BetaIterationsUsage]`
 
       Per-iteration token usage breakdown.
 
@@ -16578,6 +16690,14 @@ print(beta_message_tokens_count.context_management)
 
       - `"batch"`
 
+    - `speed: Optional[Literal["standard", "fast"]]`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
+
 ### Beta Message Delta Usage
 
 - `class BetaMessageDeltaUsage: …`
@@ -16594,7 +16714,7 @@ print(beta_message_tokens_count.context_management)
 
     The cumulative number of input tokens which were used.
 
-  - `iterations: Optional[List[Iteration]]`
+  - `iterations: Optional[BetaIterationsUsage]`
 
     Per-iteration token usage breakdown.
 
@@ -20366,7 +20486,7 @@ print(beta_message_tokens_count.context_management)
 
       The cumulative number of input tokens which were used.
 
-    - `iterations: Optional[List[Iteration]]`
+    - `iterations: Optional[BetaIterationsUsage]`
 
       Per-iteration token usage breakdown.
 
@@ -21500,7 +21620,7 @@ print(beta_message_tokens_count.context_management)
 
         The number of input tokens which were used.
 
-      - `iterations: Optional[List[Iteration]]`
+      - `iterations: Optional[BetaIterationsUsage]`
 
         Per-iteration token usage breakdown.
 
@@ -21611,6 +21731,14 @@ print(beta_message_tokens_count.context_management)
         - `"priority"`
 
         - `"batch"`
+
+      - `speed: Optional[Literal["standard", "fast"]]`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
 
   - `type: Literal["message_start"]`
 
@@ -22658,7 +22786,7 @@ print(beta_message_tokens_count.context_management)
 
           The number of input tokens which were used.
 
-        - `iterations: Optional[List[Iteration]]`
+        - `iterations: Optional[BetaIterationsUsage]`
 
           Per-iteration token usage breakdown.
 
@@ -22769,6 +22897,14 @@ print(beta_message_tokens_count.context_management)
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: Optional[Literal["standard", "fast"]]`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: Literal["message_start"]`
 
@@ -22898,7 +23034,7 @@ print(beta_message_tokens_count.context_management)
 
         The cumulative number of input tokens which were used.
 
-      - `iterations: Optional[List[Iteration]]`
+      - `iterations: Optional[BetaIterationsUsage]`
 
         Per-iteration token usage breakdown.
 
@@ -28594,7 +28730,7 @@ print(beta_message_tokens_count.context_management)
 
     The number of input tokens which were used.
 
-  - `iterations: Optional[List[Iteration]]`
+  - `iterations: Optional[BetaIterationsUsage]`
 
     Per-iteration token usage breakdown.
 
@@ -28705,6 +28841,14 @@ print(beta_message_tokens_count.context_management)
     - `"priority"`
 
     - `"batch"`
+
+  - `speed: Optional[Literal["standard", "fast"]]`
+
+    The inference speed mode used for this request.
+
+    - `"standard"`
+
+    - `"fast"`
 
 ### Beta Web Fetch Block
 
@@ -32875,6 +33019,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `"standard_only"`
 
+    - `speed: Optional[Literal["standard", "fast"]]`
+
+      The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+      - `"standard"`
+
+      - `"fast"`
+
     - `stop_sequences: Optional[SequenceNotStr[str]]`
 
       Custom text sequences that will cause the model to stop generating.
@@ -34267,7 +34419,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -34306,6 +34458,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34444,7 +34598,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -34483,6 +34637,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34621,7 +34777,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -34660,6 +34816,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34789,7 +34947,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -34828,6 +34986,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34958,7 +35118,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -34997,6 +35157,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35053,7 +35215,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -35092,6 +35254,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -36141,7 +36305,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `iterations: Optional[List[Iteration]]`
+          - `iterations: Optional[BetaIterationsUsage]`
 
             Per-iteration token usage breakdown.
 
@@ -36252,6 +36416,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: Optional[Literal["standard", "fast"]]`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: Literal["succeeded"]`
 
@@ -37634,7 +37806,7 @@ print(beta_message_batch_individual_response.custom_id)
 
             The number of input tokens which were used.
 
-          - `iterations: Optional[List[Iteration]]`
+          - `iterations: Optional[BetaIterationsUsage]`
 
             Per-iteration token usage breakdown.
 
@@ -37745,6 +37917,14 @@ print(beta_message_batch_individual_response.custom_id)
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: Optional[Literal["standard", "fast"]]`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: Literal["succeeded"]`
 
@@ -38920,7 +39100,7 @@ print(beta_message_batch_individual_response.custom_id)
 
           The number of input tokens which were used.
 
-        - `iterations: Optional[List[Iteration]]`
+        - `iterations: Optional[BetaIterationsUsage]`
 
           Per-iteration token usage breakdown.
 
@@ -39031,6 +39211,14 @@ print(beta_message_batch_individual_response.custom_id)
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: Optional[Literal["standard", "fast"]]`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: Literal["succeeded"]`
 
@@ -40168,7 +40356,7 @@ print(beta_message_batch_individual_response.custom_id)
 
         The number of input tokens which were used.
 
-      - `iterations: Optional[List[Iteration]]`
+      - `iterations: Optional[BetaIterationsUsage]`
 
         Per-iteration token usage breakdown.
 
@@ -40279,6 +40467,14 @@ print(beta_message_batch_individual_response.custom_id)
         - `"priority"`
 
         - `"batch"`
+
+      - `speed: Optional[Literal["standard", "fast"]]`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
 
   - `type: Literal["succeeded"]`
 

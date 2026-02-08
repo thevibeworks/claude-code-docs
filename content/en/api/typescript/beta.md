@@ -4,11 +4,11 @@
 
 ### Anthropic Beta
 
-- `AnthropicBeta = (string & {}) | "message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+- `AnthropicBeta = (string & {}) | "message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
   - `(string & {})`
 
-  - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+  - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -47,6 +47,8 @@
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Beta API Error
 
@@ -334,7 +336,7 @@ The Models API response can be used to determine which models are available for 
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -373,6 +375,8 @@ The Models API response can be used to determine which models are available for 
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -437,7 +441,7 @@ The Models API response can be used to determine information about a specific mo
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -476,6 +480,8 @@ The Models API response can be used to determine information about a specific mo
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -3376,6 +3382,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"standard_only"`
 
+    - `speed?: "standard" | "fast" | null`
+
+      Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+      - `"standard"`
+
+      - `"fast"`
+
     - `stop_sequences?: Array<string>`
 
       Body param: Custom text sequences that will cause the model to stop generating.
@@ -4770,7 +4784,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `(string & {})`
 
-      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
         - `"message-batches-2024-09-24"`
 
@@ -4809,6 +4823,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `"model-context-window-exceeded-2025-08-26"`
 
         - `"skills-2025-10-02"`
+
+        - `"fast-mode-2026-02-01"`
 
   - `MessageCreateParamsNonStreaming extends MessageCreateParamsBase`
 
@@ -5834,7 +5850,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+    - `iterations: BetaIterationsUsage | null`
 
       Per-iteration token usage breakdown.
 
@@ -5945,6 +5961,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `"priority"`
 
       - `"batch"`
+
+    - `speed: "standard" | "fast" | null`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
 
 ### Example
 
@@ -8729,6 +8753,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"json_schema"`
 
+  - `speed?: string | null`
+
+    Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
   - `system?: string | Array<BetaTextBlockParam>`
 
     Body param: System prompt.
@@ -10083,7 +10111,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -10122,6 +10150,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -15387,6 +15417,94 @@ console.log(betaMessageTokensCount.context_management);
 
   - `value: number`
 
+### Beta Iterations Usage
+
+- `BetaIterationsUsage = Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+
+  Per-iteration token usage breakdown.
+
+  Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+  - Determine which iterations exceeded long context thresholds (>=200k tokens)
+  - Calculate the true context window size from the last iteration
+  - Understand token accumulation across server-side tool use loops
+
+  - `BetaMessageIterationUsage`
+
+    Token usage for a sampling iteration.
+
+    - `cache_creation: BetaCacheCreation | null`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: number`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: number`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: number`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: number`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: number`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: number`
+
+      The number of output tokens which were used.
+
+    - `type: "message"`
+
+      Usage for a sampling iteration
+
+      - `"message"`
+
+  - `BetaCompactionIterationUsage`
+
+    Token usage for a compaction iteration.
+
+    - `cache_creation: BetaCacheCreation | null`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: number`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: number`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: number`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: number`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: number`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: number`
+
+      The number of output tokens which were used.
+
+    - `type: "compaction"`
+
+      Usage for a compaction iteration
+
+      - `"compaction"`
+
 ### Beta JSON Output Format
 
 - `BetaJSONOutputFormat`
@@ -16927,7 +17045,7 @@ console.log(betaMessageTokensCount.context_management);
 
       The number of input tokens which were used.
 
-    - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+    - `iterations: BetaIterationsUsage | null`
 
       Per-iteration token usage breakdown.
 
@@ -17039,6 +17157,14 @@ console.log(betaMessageTokensCount.context_management);
 
       - `"batch"`
 
+    - `speed: "standard" | "fast" | null`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
+
 ### Beta Message Delta Usage
 
 - `BetaMessageDeltaUsage`
@@ -17055,7 +17181,7 @@ console.log(betaMessageTokensCount.context_management);
 
     The cumulative number of input tokens which were used.
 
-  - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+  - `iterations: BetaIterationsUsage | null`
 
     Per-iteration token usage breakdown.
 
@@ -20827,7 +20953,7 @@ console.log(betaMessageTokensCount.context_management);
 
       The cumulative number of input tokens which were used.
 
-    - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+    - `iterations: BetaIterationsUsage | null`
 
       Per-iteration token usage breakdown.
 
@@ -21935,7 +22061,7 @@ console.log(betaMessageTokensCount.context_management);
 
         The number of input tokens which were used.
 
-      - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+      - `iterations: BetaIterationsUsage | null`
 
         Per-iteration token usage breakdown.
 
@@ -22046,6 +22172,14 @@ console.log(betaMessageTokensCount.context_management);
         - `"priority"`
 
         - `"batch"`
+
+      - `speed: "standard" | "fast" | null`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
 
   - `type: "message_start"`
 
@@ -23067,7 +23201,7 @@ console.log(betaMessageTokensCount.context_management);
 
           The number of input tokens which were used.
 
-        - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+        - `iterations: BetaIterationsUsage | null`
 
           Per-iteration token usage breakdown.
 
@@ -23178,6 +23312,14 @@ console.log(betaMessageTokensCount.context_management);
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: "standard" | "fast" | null`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: "message_start"`
 
@@ -23307,7 +23449,7 @@ console.log(betaMessageTokensCount.context_management);
 
         The cumulative number of input tokens which were used.
 
-      - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+      - `iterations: BetaIterationsUsage | null`
 
         Per-iteration token usage breakdown.
 
@@ -29003,7 +29145,7 @@ console.log(betaMessageTokensCount.context_management);
 
     The number of input tokens which were used.
 
-  - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+  - `iterations: BetaIterationsUsage | null`
 
     Per-iteration token usage breakdown.
 
@@ -29114,6 +29256,14 @@ console.log(betaMessageTokensCount.context_management);
     - `"priority"`
 
     - `"batch"`
+
+  - `speed: "standard" | "fast" | null`
+
+    The inference speed mode used for this request.
+
+    - `"standard"`
+
+    - `"fast"`
 
 ### Beta Web Fetch Block
 
@@ -33260,6 +33410,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `"standard_only"`
 
+      - `speed?: "standard" | "fast" | null`
+
+        The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        - `"standard"`
+
+        - `"fast"`
+
       - `stop_sequences?: Array<string>`
 
         Custom text sequences that will cause the model to stop generating.
@@ -34652,7 +34810,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -34691,6 +34849,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34831,7 +34991,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -34870,6 +35030,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35009,7 +35171,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -35048,6 +35210,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35180,7 +35344,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -35219,6 +35383,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35350,7 +35516,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -35389,6 +35555,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35446,7 +35614,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -35485,6 +35653,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -36508,7 +36678,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+          - `iterations: BetaIterationsUsage | null`
 
             Per-iteration token usage breakdown.
 
@@ -36619,6 +36789,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: "standard" | "fast" | null`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: "succeeded"`
 
@@ -37976,7 +38154,7 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
 
             The number of input tokens which were used.
 
-          - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+          - `iterations: BetaIterationsUsage | null`
 
             Per-iteration token usage breakdown.
 
@@ -38087,6 +38265,14 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: "standard" | "fast" | null`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: "succeeded"`
 
@@ -39236,7 +39422,7 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
 
           The number of input tokens which were used.
 
-        - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+        - `iterations: BetaIterationsUsage | null`
 
           Per-iteration token usage breakdown.
 
@@ -39347,6 +39533,14 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: "standard" | "fast" | null`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: "succeeded"`
 
@@ -40458,7 +40652,7 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
 
         The number of input tokens which were used.
 
-      - `iterations: Array<BetaMessageIterationUsage | BetaCompactionIterationUsage> | null`
+      - `iterations: BetaIterationsUsage | null`
 
         Per-iteration token usage breakdown.
 
@@ -40570,6 +40764,14 @@ console.log(betaMessageBatchIndividualResponse.custom_id);
 
         - `"batch"`
 
+      - `speed: "standard" | "fast" | null`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
+
   - `type: "succeeded"`
 
     - `"succeeded"`
@@ -40598,7 +40800,7 @@ Upload File
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -40637,6 +40839,8 @@ Upload File
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -40722,7 +40926,7 @@ List Files
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -40761,6 +40965,8 @@ List Files
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -40837,7 +41043,7 @@ Download File
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -40877,9 +41083,11 @@ Download File
 
       - `"skills-2025-10-02"`
 
+      - `"fast-mode-2026-02-01"`
+
 ### Returns
 
-- `unnamed_schema_1 = Response`
+- `unnamed_schema_2 = Response`
 
 ### Example
 
@@ -40920,7 +41128,7 @@ Get File Metadata
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -40959,6 +41167,8 @@ Get File Metadata
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41034,7 +41244,7 @@ Delete File
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41073,6 +41283,8 @@ Delete File
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41192,7 +41404,7 @@ Create Skill
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41231,6 +41443,8 @@ Create Skill
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41330,7 +41544,7 @@ List Skills
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41369,6 +41583,8 @@ List Skills
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41454,7 +41670,7 @@ Get Skill
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41493,6 +41709,8 @@ Get Skill
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41577,7 +41795,7 @@ Delete Skill
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41616,6 +41834,8 @@ Delete Skill
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41679,7 +41899,7 @@ Create Skill Version
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41718,6 +41938,8 @@ Create Skill Version
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41815,7 +42037,7 @@ List Skill Versions
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41854,6 +42076,8 @@ List Skill Versions
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41948,7 +42172,7 @@ Get Skill Version
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -41987,6 +42211,8 @@ Get Skill Version
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -42080,7 +42306,7 @@ Delete Skill Version
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 16 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 17 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -42119,6 +42345,8 @@ Delete Skill Version
       - `"model-context-window-exceeded-2025-08-26"`
 
       - `"skills-2025-10-02"`
+
+      - `"fast-mode-2026-02-01"`
 
 ### Returns
 

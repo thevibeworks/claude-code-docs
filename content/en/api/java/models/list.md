@@ -68,6 +68,8 @@ The Models API response can be used to determine which models are available for 
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class ModelInfo:`

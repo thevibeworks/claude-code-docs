@@ -24,7 +24,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     Must be unique for each request within the Message Batch.
 
-  - `params: { max_tokens, messages, model, 17 more}`
+  - `params: { max_tokens, messages, model, 18 more}`
 
     Messages API creation parameters for the individual request.
 
@@ -2849,6 +2849,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `:standard_only`
 
+    - `speed: :standard | :fast`
+
+      The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+      - `:standard`
+
+      - `:fast`
+
     - `stop_sequences: Array[String]`
 
       Custom text sequences that will cause the model to stop generating.
@@ -4241,7 +4249,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4280,6 +4288,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -4412,7 +4422,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4451,6 +4461,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -4586,7 +4598,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4625,6 +4637,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -4752,7 +4766,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4791,6 +4805,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -4918,7 +4934,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -4957,6 +4973,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -5010,7 +5028,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -5049,6 +5067,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -6076,7 +6096,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `iterations: Array[BetaMessageIterationUsage | BetaCompactionIterationUsage]`
+          - `iterations: BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -6187,6 +6207,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `:priority`
 
             - `:batch`
+
+          - `speed: :standard | :fast`
+
+            The inference speed mode used for this request.
+
+            - `:standard`
+
+            - `:fast`
 
       - `type: :succeeded`
 
@@ -7544,7 +7572,7 @@ puts(beta_message_batch_individual_response)
 
             The number of input tokens which were used.
 
-          - `iterations: Array[BetaMessageIterationUsage | BetaCompactionIterationUsage]`
+          - `iterations: BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -7655,6 +7683,14 @@ puts(beta_message_batch_individual_response)
             - `:priority`
 
             - `:batch`
+
+          - `speed: :standard | :fast`
+
+            The inference speed mode used for this request.
+
+            - `:standard`
+
+            - `:fast`
 
       - `type: :succeeded`
 
@@ -8808,7 +8844,7 @@ puts(beta_message_batch_individual_response)
 
           The number of input tokens which were used.
 
-        - `iterations: Array[BetaMessageIterationUsage | BetaCompactionIterationUsage]`
+        - `iterations: BetaIterationsUsage`
 
           Per-iteration token usage breakdown.
 
@@ -8919,6 +8955,14 @@ puts(beta_message_batch_individual_response)
           - `:priority`
 
           - `:batch`
+
+        - `speed: :standard | :fast`
+
+          The inference speed mode used for this request.
+
+          - `:standard`
+
+          - `:fast`
 
     - `type: :succeeded`
 
@@ -10034,7 +10078,7 @@ puts(beta_message_batch_individual_response)
 
         The number of input tokens which were used.
 
-      - `iterations: Array[BetaMessageIterationUsage | BetaCompactionIterationUsage]`
+      - `iterations: BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -10145,6 +10189,14 @@ puts(beta_message_batch_individual_response)
         - `:priority`
 
         - `:batch`
+
+      - `speed: :standard | :fast`
+
+        The inference speed mode used for this request.
+
+        - `:standard`
+
+        - `:fast`
 
   - `type: :succeeded`
 

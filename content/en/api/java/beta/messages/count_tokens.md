@@ -56,6 +56,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `List<BetaMessageParam> messages`
 
     Input messages.
@@ -2568,6 +2570,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
     A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+  - `Optional<String> speed`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
   - `Optional<System> system`
 

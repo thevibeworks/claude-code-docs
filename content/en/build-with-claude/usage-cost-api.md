@@ -76,7 +76,7 @@ Track token consumption across your organization with detailed breakdowns by mod
 
 - **Time buckets**: Aggregate usage data in fixed intervals (`1m`, `1h`, or `1d`)
 - **Token tracking**: Measure uncached input, cached input, cache creation, and output tokens
-- **Filtering & grouping**: Filter by API key, workspace, model, service tier, context window, or [data residency](/docs/en/build-with-claude/data-residency), and group results by these dimensions
+- **Filtering & grouping**: Filter by API key, workspace, model, service tier, context window, [data residency](/docs/en/build-with-claude/data-residency), or speed (beta), and group results by these dimensions
 - **Server tool usage**: Track usage of server-side tools like web search
 
 For complete parameter details and response schemas, see the [Usage API reference](/docs/en/api/admin-api/usage-cost/get-messages-usage-report).
@@ -160,6 +160,40 @@ bucket_width=1d" \
 
 <Note>
 Models released before February 2026 (prior to Claude Opus 4.6) don't support the `inference_geo` request parameter, so their usage reports return `"not_available"` for this dimension. You can use `not_available` as a filter value in `inference_geos[]` to target those models.
+</Note>
+
+#### Fast mode (research preview)
+
+Track [fast mode](/docs/en/build-with-claude/fast-mode) usage by grouping and filtering with the `speed` dimension. This is useful for monitoring standard vs. fast mode usage.
+
+```bash
+curl "https://api.anthropic.com/v1/organizations/usage_report/messages?\
+starting_at=2026-02-01T00:00:00Z&\
+ending_at=2026-02-08T00:00:00Z&\
+group_by[]=speed&\
+group_by[]=model&\
+bucket_width=1d" \
+  --header "anthropic-version: 2023-06-01" \
+  --header "anthropic-beta: fast-mode-2026-02-01" \
+  --header "x-api-key: $ADMIN_API_KEY"
+```
+
+You can also filter to a specific speed. Valid values are `standard` and `fast`:
+
+```bash
+curl "https://api.anthropic.com/v1/organizations/usage_report/messages?\
+starting_at=2026-02-01T00:00:00Z&\
+ending_at=2026-02-08T00:00:00Z&\
+speeds[]=fast&\
+group_by[]=model&\
+bucket_width=1d" \
+  --header "anthropic-version: 2023-06-01" \
+  --header "anthropic-beta: fast-mode-2026-02-01" \
+  --header "x-api-key: $ADMIN_API_KEY"
+```
+
+<Note>
+Both the `speeds[]` filter and the `speed` group_by value require the `fast-mode-2026-02-01` beta header.
 </Note>
 
 ### Time granularity limits

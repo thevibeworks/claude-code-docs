@@ -18,7 +18,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -57,6 +57,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Body Parameters
 
@@ -2879,6 +2881,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `"standard_only"`
 
+- `speed: optional "standard" or "fast"`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  - `"standard"`
+
+  - `"fast"`
+
 - `stop_sequences: optional array of string`
 
   Custom text sequences that will cause the model to stop generating.
@@ -5273,7 +5283,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+    - `iterations: BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -5385,6 +5395,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"batch"`
 
+    - `speed: "standard" or "fast"`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
+
 ### Example
 
 ```http
@@ -5423,7 +5441,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -5462,6 +5480,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Body Parameters
 
@@ -8217,6 +8237,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `type: "json_schema"`
 
     - `"json_schema"`
+
+- `speed: optional string`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
 - `system: optional string or array of BetaTextBlockParam`
 
@@ -14831,6 +14855,94 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `value: number`
 
+### Beta Iterations Usage
+
+- `BetaIterationsUsage = array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+
+  Per-iteration token usage breakdown.
+
+  Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+  - Determine which iterations exceeded long context thresholds (>=200k tokens)
+  - Calculate the true context window size from the last iteration
+  - Understand token accumulation across server-side tool use loops
+
+  - `BetaMessageIterationUsage = object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+
+    Token usage for a sampling iteration.
+
+    - `cache_creation: BetaCacheCreation`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: number`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: number`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: number`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: number`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: number`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: number`
+
+      The number of output tokens which were used.
+
+    - `type: "message"`
+
+      Usage for a sampling iteration
+
+      - `"message"`
+
+  - `BetaCompactionIterationUsage = object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+
+    Token usage for a compaction iteration.
+
+    - `cache_creation: BetaCacheCreation`
+
+      Breakdown of cached tokens by TTL
+
+      - `ephemeral_1h_input_tokens: number`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `ephemeral_5m_input_tokens: number`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `cache_creation_input_tokens: number`
+
+      The number of input tokens used to create the cache entry.
+
+    - `cache_read_input_tokens: number`
+
+      The number of input tokens read from the cache.
+
+    - `input_tokens: number`
+
+      The number of input tokens which were used.
+
+    - `output_tokens: number`
+
+      The number of output tokens which were used.
+
+    - `type: "compaction"`
+
+      Usage for a compaction iteration
+
+      - `"compaction"`
+
 ### Beta JSON Output Format
 
 - `BetaJSONOutputFormat = object { schema, type }`
@@ -16375,7 +16487,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The number of input tokens which were used.
 
-    - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+    - `iterations: BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -16487,6 +16599,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"batch"`
 
+    - `speed: "standard" or "fast"`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
+
 ### Beta Message Delta Usage
 
 - `BetaMessageDeltaUsage = object { cache_creation_input_tokens, cache_read_input_tokens, input_tokens, 3 more }`
@@ -16503,7 +16623,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The cumulative number of input tokens which were used.
 
-  - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+  - `iterations: BetaIterationsUsage`
 
     Per-iteration token usage breakdown.
 
@@ -20275,7 +20395,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The cumulative number of input tokens which were used.
 
-    - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+    - `iterations: BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -21387,7 +21507,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The number of input tokens which were used.
 
-      - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+      - `iterations: BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -21498,6 +21618,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         - `"priority"`
 
         - `"batch"`
+
+      - `speed: "standard" or "fast"`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
 
   - `type: "message_start"`
 
@@ -22523,7 +22651,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The number of input tokens which were used.
 
-        - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+        - `iterations: BetaIterationsUsage`
 
           Per-iteration token usage breakdown.
 
@@ -22634,6 +22762,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: "standard" or "fast"`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: "message_start"`
 
@@ -22763,7 +22899,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The cumulative number of input tokens which were used.
 
-      - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+      - `iterations: BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -28429,7 +28565,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Usage
 
-- `BetaUsage = object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 6 more }`
+- `BetaUsage = object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 7 more }`
 
   - `cache_creation: BetaCacheCreation`
 
@@ -28459,7 +28595,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The number of input tokens which were used.
 
-  - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+  - `iterations: BetaIterationsUsage`
 
     Per-iteration token usage breakdown.
 
@@ -28570,6 +28706,14 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"priority"`
 
     - `"batch"`
+
+  - `speed: "standard" or "fast"`
+
+    The inference speed mode used for this request.
+
+    - `"standard"`
+
+    - `"fast"`
 
 ### Beta Web Fetch Block
 
@@ -29887,7 +30031,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -29927,6 +30071,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"skills-2025-10-02"`
 
+    - `"fast-mode-2026-02-01"`
+
 ### Body Parameters
 
 - `requests: array of object { custom_id, params }`
@@ -29939,7 +30085,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     Must be unique for each request within the Message Batch.
 
-  - `params: object { max_tokens, messages, model, 17 more }`
+  - `params: object { max_tokens, messages, model, 18 more }`
 
     Messages API creation parameters for the individual request.
 
@@ -32764,6 +32910,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `"standard_only"`
 
+    - `speed: optional "standard" or "fast"`
+
+      The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+      - `"standard"`
+
+      - `"fast"`
+
     - `stop_sequences: optional array of string`
 
       Custom text sequences that will cause the model to stop generating.
@@ -34289,7 +34443,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -34328,6 +34482,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34460,7 +34616,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -34499,6 +34655,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34635,7 +34793,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -34674,6 +34832,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34799,7 +34959,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -34838,6 +34998,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34889,7 +35051,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `UnionMember0 = string`
 
-  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 16 more`
+  - `UnionMember1 = "message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 17 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -34928,6 +35090,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35955,7 +36119,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+          - `iterations: BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -36066,6 +36230,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: "standard" or "fast"`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: "succeeded"`
 
@@ -37420,7 +37592,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The number of input tokens which were used.
 
-          - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+          - `iterations: BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -37531,6 +37703,14 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
             - `"priority"`
 
             - `"batch"`
+
+          - `speed: "standard" or "fast"`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
 
       - `type: "succeeded"`
 
@@ -38684,7 +38864,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The number of input tokens which were used.
 
-        - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+        - `iterations: BetaIterationsUsage`
 
           Per-iteration token usage breakdown.
 
@@ -38795,6 +38975,14 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
           - `"priority"`
 
           - `"batch"`
+
+        - `speed: "standard" or "fast"`
+
+          The inference speed mode used for this request.
+
+          - `"standard"`
+
+          - `"fast"`
 
     - `type: "succeeded"`
 
@@ -39910,7 +40098,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         The number of input tokens which were used.
 
-      - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage`
+      - `iterations: BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -40021,6 +40209,14 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
         - `"priority"`
 
         - `"batch"`
+
+      - `speed: "standard" or "fast"`
+
+        The inference speed mode used for this request.
+
+        - `"standard"`
+
+        - `"fast"`
 
   - `type: "succeeded"`
 

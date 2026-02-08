@@ -18,7 +18,7 @@ Download File
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -57,6 +57,8 @@ Download File
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 

@@ -22,7 +22,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
   - `String`
 
-  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 16 more`
+  - `:"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 17 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -61,6 +61,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `:"model-context-window-exceeded-2025-08-26"`
 
     - `:"skills-2025-10-02"`
+
+    - `:"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -1088,7 +1090,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `iterations: Array[BetaMessageIterationUsage | BetaCompactionIterationUsage]`
+          - `iterations: BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -1199,6 +1201,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `:priority`
 
             - `:batch`
+
+          - `speed: :standard | :fast`
+
+            The inference speed mode used for this request.
+
+            - `:standard`
+
+            - `:fast`
 
       - `type: :succeeded`
 

@@ -58,6 +58,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `long maxTokensToSample`
 
     The maximum number of tokens to generate before stopping.

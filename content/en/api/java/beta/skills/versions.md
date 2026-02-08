@@ -60,6 +60,8 @@ Create Skill Version
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `Optional<List<String>> files`
 
     Files to upload for the skill.
@@ -205,6 +207,8 @@ List Skill Versions
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class VersionListResponse:`
@@ -339,6 +343,8 @@ Get Skill Version
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
 ### Returns
 
@@ -478,6 +484,8 @@ Delete Skill Version
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
 ### Returns
 

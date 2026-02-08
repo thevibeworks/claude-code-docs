@@ -54,6 +54,8 @@ Create Skill
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `Optional<String> displayTitle`
 
     Display title for the skill.
@@ -207,6 +209,8 @@ List Skills
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class SkillListResponse:`
@@ -332,6 +336,8 @@ Get Skill
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
 ### Returns
 
@@ -459,6 +465,8 @@ Delete Skill
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class SkillDeleteResponse:`
@@ -557,6 +565,8 @@ Create Skill Version
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
   - `Optional<List<String>> files`
 
@@ -703,6 +713,8 @@ List Skill Versions
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class VersionListResponse:`
@@ -837,6 +849,8 @@ Get Skill Version
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
 ### Returns
 
@@ -976,6 +990,8 @@ Delete Skill Version
     - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
 
 ### Returns
 

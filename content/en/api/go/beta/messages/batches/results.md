@@ -64,6 +64,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaMessageBatchIndividualResponse struct{…}`
@@ -1090,7 +1092,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `Iterations []BetaUsageIterationUnion`
+          - `Iterations BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -1201,6 +1203,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
             - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+          - `Speed BetaUsageSpeed`
+
+            The inference speed mode used for this request.
+
+            - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+            - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
       - `Type Succeeded`
 

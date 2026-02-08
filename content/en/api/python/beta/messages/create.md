@@ -2853,6 +2853,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `"standard_only"`
 
+- `speed: Optional[Literal["standard", "fast"]]`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  - `"standard"`
+
+  - `"fast"`
+
 - `stop_sequences: Optional[SequenceNotStr[str]]`
 
   Custom text sequences that will cause the model to stop generating.
@@ -4247,7 +4255,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `UnionMember0 = str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 16 more]`
+  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -4286,6 +4294,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `"model-context-window-exceeded-2025-08-26"`
 
     - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -5317,7 +5327,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `iterations: Optional[List[Iteration]]`
+    - `iterations: Optional[BetaIterationsUsage]`
 
       Per-iteration token usage breakdown.
 
@@ -5428,6 +5438,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `"priority"`
 
       - `"batch"`
+
+    - `speed: Optional[Literal["standard", "fast"]]`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
 
 ### Example
 

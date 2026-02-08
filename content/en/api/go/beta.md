@@ -48,6 +48,8 @@
 
     - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+    - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Beta API Error
 
 - `type BetaAPIError struct{…}`
@@ -374,6 +376,8 @@ The Models API response can be used to determine which models are available for 
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaModelInfo struct{…}`
@@ -488,6 +492,8 @@ The Models API response can be used to determine information about a specific mo
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -3157,6 +3163,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `const BetaMessageNewParamsServiceTierStandardOnly BetaMessageNewParamsServiceTier = "standard_only"`
 
+  - `Speed param.Field[BetaMessageNewParamsSpeed]`
+
+    Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    - `const BetaMessageNewParamsSpeedStandard BetaMessageNewParamsSpeed = "standard"`
+
+    - `const BetaMessageNewParamsSpeedFast BetaMessageNewParamsSpeed = "fast"`
+
   - `StopSequences param.Field[[]string]`
 
     Body param: Custom text sequences that will cause the model to stop generating.
@@ -4503,6 +4517,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaMessage struct{…}`
@@ -5511,7 +5527,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `Iterations []BetaUsageIterationUnion`
+    - `Iterations BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -5622,6 +5638,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
       - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+    - `Speed BetaUsageSpeed`
+
+      The inference speed mode used for this request.
+
+      - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+      - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
 ### Example
 
@@ -8184,6 +8208,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
+  - `Speed param.Field[string]`
+
+    Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
   - `System param.Field[BetaMessageCountTokensParamsSystemUnion]`
 
     Body param: System prompt.
@@ -9497,6 +9525,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -14778,6 +14808,94 @@ func main() {
 
   - `Value int64`
 
+### Beta Iterations Usage
+
+- `type BetaIterationsUsage []BetaIterationsUsageItemUnion`
+
+  Per-iteration token usage breakdown.
+
+  Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+  - Determine which iterations exceeded long context thresholds (>=200k tokens)
+  - Calculate the true context window size from the last iteration
+  - Understand token accumulation across server-side tool use loops
+
+  - `type BetaMessageIterationUsage struct{…}`
+
+    Token usage for a sampling iteration.
+
+    - `CacheCreation BetaCacheCreation`
+
+      Breakdown of cached tokens by TTL
+
+      - `Ephemeral1hInputTokens int64`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `Ephemeral5mInputTokens int64`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `CacheCreationInputTokens int64`
+
+      The number of input tokens used to create the cache entry.
+
+    - `CacheReadInputTokens int64`
+
+      The number of input tokens read from the cache.
+
+    - `InputTokens int64`
+
+      The number of input tokens which were used.
+
+    - `OutputTokens int64`
+
+      The number of output tokens which were used.
+
+    - `Type Message`
+
+      Usage for a sampling iteration
+
+      - `const MessageMessage Message = "message"`
+
+  - `type BetaCompactionIterationUsage struct{…}`
+
+    Token usage for a compaction iteration.
+
+    - `CacheCreation BetaCacheCreation`
+
+      Breakdown of cached tokens by TTL
+
+      - `Ephemeral1hInputTokens int64`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+      - `Ephemeral5mInputTokens int64`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+    - `CacheCreationInputTokens int64`
+
+      The number of input tokens used to create the cache entry.
+
+    - `CacheReadInputTokens int64`
+
+      The number of input tokens read from the cache.
+
+    - `InputTokens int64`
+
+      The number of input tokens which were used.
+
+    - `OutputTokens int64`
+
+      The number of output tokens which were used.
+
+    - `Type Compaction`
+
+      Usage for a compaction iteration
+
+      - `const CompactionCompaction Compaction = "compaction"`
+
 ### Beta JSON Output Format
 
 - `type BetaJSONOutputFormat struct{…}`
@@ -16322,7 +16440,7 @@ func main() {
 
       The number of input tokens which were used.
 
-    - `Iterations []BetaUsageIterationUnion`
+    - `Iterations BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -16434,6 +16552,14 @@ func main() {
 
       - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
 
+    - `Speed BetaUsageSpeed`
+
+      The inference speed mode used for this request.
+
+      - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+      - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
+
 ### Beta Message Delta Usage
 
 - `type BetaMessageDeltaUsage struct{…}`
@@ -16450,7 +16576,7 @@ func main() {
 
     The cumulative number of input tokens which were used.
 
-  - `Iterations []BetaMessageDeltaUsageIterationUnion`
+  - `Iterations BetaIterationsUsage`
 
     Per-iteration token usage breakdown.
 
@@ -20218,7 +20344,7 @@ func main() {
 
       The cumulative number of input tokens which were used.
 
-    - `Iterations []BetaMessageDeltaUsageIterationUnion`
+    - `Iterations BetaIterationsUsage`
 
       Per-iteration token usage breakdown.
 
@@ -21330,7 +21456,7 @@ func main() {
 
         The number of input tokens which were used.
 
-      - `Iterations []BetaUsageIterationUnion`
+      - `Iterations BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -21441,6 +21567,14 @@ func main() {
         - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
         - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+      - `Speed BetaUsageSpeed`
+
+        The inference speed mode used for this request.
+
+        - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+        - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
   - `Type MessageStart`
 
@@ -22466,7 +22600,7 @@ func main() {
 
           The number of input tokens which were used.
 
-        - `Iterations []BetaUsageIterationUnion`
+        - `Iterations BetaIterationsUsage`
 
           Per-iteration token usage breakdown.
 
@@ -22577,6 +22711,14 @@ func main() {
           - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
           - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+        - `Speed BetaUsageSpeed`
+
+          The inference speed mode used for this request.
+
+          - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+          - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
     - `Type MessageStart`
 
@@ -22706,7 +22848,7 @@ func main() {
 
         The cumulative number of input tokens which were used.
 
-      - `Iterations []BetaMessageDeltaUsageIterationUnion`
+      - `Iterations BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -28400,7 +28542,7 @@ func main() {
 
     The number of input tokens which were used.
 
-  - `Iterations []BetaUsageIterationUnion`
+  - `Iterations BetaIterationsUsage`
 
     Per-iteration token usage breakdown.
 
@@ -28511,6 +28653,14 @@ func main() {
     - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
     - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+  - `Speed BetaUsageSpeed`
+
+    The inference speed mode used for this request.
+
+    - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+    - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
 ### Beta Web Fetch Block
 
@@ -32657,6 +32807,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         - `const BetaMessageBatchNewParamsRequestParamsServiceTierStandardOnly BetaMessageBatchNewParamsRequestParamsServiceTier = "standard_only"`
 
+      - `Speed string`
+
+        The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        - `const BetaMessageBatchNewParamsRequestParamsSpeedStandard BetaMessageBatchNewParamsRequestParamsSpeed = "standard"`
+
+        - `const BetaMessageBatchNewParamsRequestParamsSpeedFast BetaMessageBatchNewParamsRequestParamsSpeed = "fast"`
+
       - `StopSequences []string`
 
         Custom text sequences that will cause the model to stop generating.
@@ -34087,6 +34245,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaMessageBatch struct{…}`
@@ -34281,6 +34441,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34477,6 +34639,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaMessageBatch struct{…}`
@@ -34659,6 +34823,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -34847,6 +35013,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaDeletedMessageBatch struct{…}`
@@ -34959,6 +35127,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -35986,7 +36156,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `Iterations []BetaUsageIterationUnion`
+          - `Iterations BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -36097,6 +36267,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
             - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+          - `Speed BetaUsageSpeed`
+
+            The inference speed mode used for this request.
+
+            - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+            - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
       - `Type Succeeded`
 
@@ -37473,7 +37651,7 @@ func main() {
 
             The number of input tokens which were used.
 
-          - `Iterations []BetaUsageIterationUnion`
+          - `Iterations BetaIterationsUsage`
 
             Per-iteration token usage breakdown.
 
@@ -37584,6 +37762,14 @@ func main() {
             - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
             - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+          - `Speed BetaUsageSpeed`
+
+            The inference speed mode used for this request.
+
+            - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+            - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
       - `Type Succeeded`
 
@@ -38737,7 +38923,7 @@ func main() {
 
           The number of input tokens which were used.
 
-        - `Iterations []BetaUsageIterationUnion`
+        - `Iterations BetaIterationsUsage`
 
           Per-iteration token usage breakdown.
 
@@ -38848,6 +39034,14 @@ func main() {
           - `const BetaUsageServiceTierPriority BetaUsageServiceTier = "priority"`
 
           - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
+
+        - `Speed BetaUsageSpeed`
+
+          The inference speed mode used for this request.
+
+          - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+          - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
 
     - `Type Succeeded`
 
@@ -39963,7 +40157,7 @@ func main() {
 
         The number of input tokens which were used.
 
-      - `Iterations []BetaUsageIterationUnion`
+      - `Iterations BetaIterationsUsage`
 
         Per-iteration token usage breakdown.
 
@@ -40075,6 +40269,14 @@ func main() {
 
         - `const BetaUsageServiceTierBatch BetaUsageServiceTier = "batch"`
 
+      - `Speed BetaUsageSpeed`
+
+        The inference speed mode used for this request.
+
+        - `const BetaUsageSpeedStandard BetaUsageSpeed = "standard"`
+
+        - `const BetaUsageSpeedFast BetaUsageSpeed = "fast"`
+
   - `Type Succeeded`
 
     - `const SucceededSucceeded Succeeded = "succeeded"`
@@ -40142,6 +40344,8 @@ Upload File
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -40282,6 +40486,8 @@ List Files
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type FileMetadata struct{…}`
@@ -40409,6 +40615,8 @@ Download File
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaFileDownloadResponse interface{…}`
@@ -40505,6 +40713,8 @@ Get File Metadata
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -40636,6 +40846,8 @@ Delete File
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -40812,6 +41024,8 @@ Create Skill
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaSkillNewResponse struct{…}`
@@ -40963,6 +41177,8 @@ List Skills
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaSkillListResponse struct{…}`
@@ -41098,6 +41314,8 @@ Get Skill
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41239,6 +41457,8 @@ Delete Skill
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaSkillDeleteResponse struct{…}`
@@ -41357,6 +41577,8 @@ Create Skill Version
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 
@@ -41511,6 +41733,8 @@ List Skill Versions
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaSkillVersionListResponse struct{…}`
@@ -41660,6 +41884,8 @@ Get Skill Version
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
 
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
+
 ### Returns
 
 - `type BetaSkillVersionGetResponse struct{…}`
@@ -41808,6 +42034,8 @@ Delete Skill Version
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 

@@ -52,6 +52,8 @@ Create Skill
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `Optional<String> displayTitle`
 
     Display title for the skill.
