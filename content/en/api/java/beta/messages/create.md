@@ -56,6 +56,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `long maxTokens`
 
     The maximum number of tokens to generate before stopping.
@@ -2629,6 +2631,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `STANDARD_ONLY("standard_only")`
 
+  - `Optional<Speed> speed`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    - `STANDARD("standard")`
+
+    - `FAST("fast")`
+
   - `Optional<List<String>> stopSequences`
 
     Custom text sequences that will cause the model to stop generating.
@@ -4929,7 +4939,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       The number of input tokens which were used.
 
-    - `Optional<List<Iteration>> iterations`
+    - `Optional<List<BetaIterationsUsageItems>> iterations`
 
       Per-iteration token usage breakdown.
 
@@ -5040,6 +5050,14 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `PRIORITY("priority")`
 
       - `BATCH("batch")`
+
+    - `Optional<Speed> speed`
+
+      The inference speed mode used for this request.
+
+      - `STANDARD("standard")`
+
+      - `FAST("fast")`
 
 ### Example
 

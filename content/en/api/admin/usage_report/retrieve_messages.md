@@ -37,9 +37,9 @@ Get Messages Usage Report
 
   Time buckets that end before this RFC 3339 timestamp will be returned.
 
-- `group_by: optional array of "api_key_id" or "workspace_id" or "model" or 3 more`
+- `group_by: optional array of "api_key_id" or "workspace_id" or "model" or 4 more`
 
-  Group by any subset of the available options.
+  Group by any subset of the available options. Grouping by `speed` requires the `fast-mode-2026-02-01` beta header.
 
   - `"api_key_id"`
 
@@ -52,6 +52,8 @@ Get Messages Usage Report
   - `"context_window"`
 
   - `"inference_geo"`
+
+  - `"speed"`
 
 - `inference_geos: optional array of "global" or "us" or "not_available"`
 
@@ -96,6 +98,15 @@ Get Messages Usage Report
 
   - `"flex_discount"`
 
+- `speeds: optional array of "standard" or "fast"`
+
+  Restrict usage returned to the specified speed(s) (research preview).
+  Requires the `fast-mode-2026-02-01` beta header.
+
+  - `"standard"`
+
+  - `"fast"`
+
 - `workspace_ids: optional array of string`
 
   Restrict usage returned to the specified workspace ID(s).
@@ -118,7 +129,7 @@ Get Messages Usage Report
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
-    - `results: array of object { api_key_id, cache_creation, cache_read_input_tokens, 8 more }`
+    - `results: array of object { api_key_id, cache_creation, cache_read_input_tokens, 9 more }`
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
@@ -186,6 +197,15 @@ Get Messages Usage Report
         - `"flex"`
 
         - `"flex_discount"`
+
+      - `speed: "standard" or "fast"`
+
+        Speed of the usage (research preview). `null` if not grouping by speed.
+        Only returned when the `fast-mode-2026-02-01` beta header is provided.
+
+        - `"standard"`
+
+        - `"fast"`
 
       - `uncached_input_tokens: number`
 

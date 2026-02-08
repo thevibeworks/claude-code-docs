@@ -60,6 +60,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
 ### Returns
 
 - `class BetaMessageBatchIndividualResponse:`
@@ -1078,7 +1080,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             The number of input tokens which were used.
 
-          - `Optional<List<Iteration>> iterations`
+          - `Optional<List<BetaIterationsUsageItems>> iterations`
 
             Per-iteration token usage breakdown.
 
@@ -1189,6 +1191,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `PRIORITY("priority")`
 
             - `BATCH("batch")`
+
+          - `Optional<Speed> speed`
+
+            The inference speed mode used for this request.
+
+            - `STANDARD("standard")`
+
+            - `FAST("fast")`
 
       - `JsonValue; type "succeeded"constant`
 

@@ -30,7 +30,7 @@ Get User
 
     Name of the User.
 
-  - `role: "user" or "developer" or "billing" or 2 more`
+  - `role: "user" or "developer" or "billing" or 3 more`
 
     Organization role of the User.
 
@@ -43,6 +43,8 @@ Get User
     - `"admin"`
 
     - `"claude_code_user"`
+
+    - `"managed"`
 
   - `type: "user"`
 

@@ -56,6 +56,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
   - `List<Request> requests`
 
     List of requests for prompt completion. Each is an individual request to create a Message.
@@ -2882,6 +2884,14 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         - `AUTO("auto")`
 
         - `STANDARD_ONLY("standard_only")`
+
+      - `Optional<Speed> speed`
+
+        The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        - `STANDARD("standard")`
+
+        - `FAST("fast")`
 
       - `Optional<List<String>> stopSequences`
 

@@ -2523,6 +2523,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
+  - `Speed param.Field[string]`
+
+    Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
   - `System param.Field[BetaMessageCountTokensParamsSystemUnion]`
 
     Body param: System prompt.
@@ -3836,6 +3840,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       - `const AnthropicBetaModelContextWindowExceeded2025_08_26 AnthropicBeta = "model-context-window-exceeded-2025-08-26"`
 
       - `const AnthropicBetaSkills2025_10_02 AnthropicBeta = "skills-2025-10-02"`
+
+      - `const AnthropicBetaFastMode2026_02_01 AnthropicBeta = "fast-mode-2026-02-01"`
 
 ### Returns
 

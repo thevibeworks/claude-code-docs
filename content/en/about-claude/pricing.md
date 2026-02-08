@@ -64,9 +64,26 @@ For implementation details and code examples:
 
 For Claude Opus 4.6 and newer models, specifying US-only inference via the `inference_geo` parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. Global routing (the default) uses standard pricing.
 
-This applies to the Claude API (1P) only. Third-party platforms have their own regional pricing — see [AWS Bedrock](https://aws.amazon.com/bedrock/pricing/), [Google Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing), and [Microsoft Foundry](https://azure.microsoft.com/en-us/pricing/details/ai-foundry/#pricing) for details. Earlier models retain their existing pricing regardless of `inference_geo` settings.
+This applies to the Claude API (1P) only. Third-party platforms have their own regional pricing. See [AWS Bedrock](https://aws.amazon.com/bedrock/pricing/), [Google Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing), and [Microsoft Foundry](https://azure.microsoft.com/en-us/pricing/details/ai-foundry/#pricing) for details. Earlier models retain their existing pricing regardless of `inference_geo` settings.
 
-For more information, see our [data residency documentation](/docs/en/build-with-claude/data-residency).
+For more information, see the [data residency documentation](/docs/en/build-with-claude/data-residency).
+
+### Fast mode pricing
+
+[Fast mode](/docs/en/build-with-claude/fast-mode) for Claude Opus 4.6 (resesarch preview) provides significantly faster output at premium pricing (6x standard rates). Currently supported on Opus 4.6:
+
+| Context window | Input | Output |
+|:---------------|:------|:-------|
+| ≤ 200K input tokens | $30 / MTok | $150 / MTok |
+| > 200K input tokens | $60 / MTok | $225 / MTok |
+
+Fast mode pricing stacks with other pricing modifiers:
+- [Prompt caching multipliers](#model-pricing) apply on top of fast mode pricing
+- [Data residency](/docs/en/build-with-claude/data-residency) multipliers apply on top of fast mode pricing
+
+Fast mode is not available with the [Batch API](#batch-processing).
+
+For more information, see the [fast mode documentation](/docs/en/build-with-claude/fast-mode).
 
 ### Batch processing
 
@@ -86,7 +103,7 @@ The Batch API allows asynchronous processing of large volumes of requests with a
 | Claude Opus 3 ([deprecated](/docs/en/about-claude/model-deprecations))  | $7.50 / MTok     | $37.50 / MTok   |
 | Claude Haiku 3    | $0.125 / MTok    | $0.625 / MTok   |
 
-For more information about batch processing, see our [batch processing documentation](/docs/en/build-with-claude/batch-processing).
+For more information about batch processing, see the [batch processing documentation](/docs/en/build-with-claude/batch-processing).
 
 ### Long context pricing
 
@@ -170,9 +187,9 @@ When you use `tools`, we also automatically include a special system prompt for 
 
 These token counts are added to your normal input and output tokens to calculate the total cost of a request.
 
-For current per-model prices, refer to our [model pricing](#model-pricing) section above.
+For current per-model prices, refer to the [model pricing](#model-pricing) section.
 
-For more information about tool use implementation and best practices, see our [tool use documentation](/docs/en/agents-and-tools/tool-use/overview).
+For more information about tool use implementation and best practices, see the [tool use documentation](/docs/en/agents-and-tools/tool-use/overview).
 
 ### Specific tool pricing
 
@@ -287,7 +304,7 @@ When building a customer support agent, here's how costs might break down:
   - Total cost: ~$37.00 per 10,000 tickets
 </Note>
 
-For a detailed walkthrough of this calculation, see our [customer support agent guide](/docs/en/about-claude/use-case-guides/customer-support-chat).
+For a detailed walkthrough of this calculation, see the [customer support agent guide](/docs/en/about-claude/use-case-guides/customer-support-chat).
 
 ### General agent workflow pricing
 
@@ -306,7 +323,7 @@ For more complex agent architectures with multiple steps:
    - Execution feedback: 500-1,000
    - Combined cost: ~$0.045 per action
 
-For a comprehensive guide on agent pricing patterns, see our [agent use cases guide](/docs/en/about-claude/use-case-guides).
+For a comprehensive guide on agent pricing patterns, see the [agent use cases guide](/docs/en/about-claude/use-case-guides).
 
 ### Cost optimization strategies
 
@@ -333,7 +350,7 @@ Rate limits vary by usage tier and affect how many requests you can make:
 - **Tier 4**: Maximum standard limits
 - **Enterprise**: Custom limits available
 
-For detailed rate limit information, see our [rate limits documentation](/docs/en/api/rate-limits).
+For detailed rate limit information, see the [rate limits documentation](/docs/en/api/rate-limits).
 
 For higher rate limits or custom pricing arrangements, [contact our sales team](https://claude.com/contact-sales).
 
