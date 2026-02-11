@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-02-11T03:42:46.161776Z"
+    "fetch_date": "2026-02-11T11:36:15.228902Z"
   },
   "items": [
     {
@@ -2654,316 +2654,316 @@
       "url": "https://platform.claude.com/docs/en/api/kotlin/completions",
       "status": "success",
       "path": "en/api/kotlin/completions.md",
-      "sha256": "c31f442fbf79348609d92932b6261723c6373769dfbbf295505a332d55cac29e",
-      "size": 134829
+      "sha256": "b9fdb0fb94aef3a7fab42f22c16064d378fa23f6e08abf576c1fbb5f8062ebc5",
+      "size": 134935
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/completions/create",
       "status": "success",
       "path": "en/api/kotlin/completions/create.md",
-      "sha256": "cae0b9389bfaa2d05d633dc8f862e570f8ead6825652747bd957c148e5f4f489",
-      "size": 134854
+      "sha256": "2f935b5953ba2c51ef2de085d349aabc652a8310cb5014db2772117583c9c6ea",
+      "size": 134962
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages",
       "status": "success",
       "path": "en/api/kotlin/messages.md",
-      "sha256": "2e93fa69396eec0391e0d151b6978f2dbe73fdd13167a96c725cf800b8850815",
-      "size": 134820
+      "sha256": "2a297ce8c044803dba3f9e2832bfe639e0c0c2439cc2bd1351d290b7426c566f",
+      "size": 134928
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/create",
       "status": "success",
       "path": "en/api/kotlin/messages/create.md",
-      "sha256": "d6ab5376a6a201bbe52f3cdfe1f7da8902795e50b03c184ee74ed5230fae2bfb",
-      "size": 134847
+      "sha256": "cf7f60d3b7f076e1ad63cd1fdb6c714bc3ab379ed18a5342e1a812494e40d1af",
+      "size": 134951
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/count_tokens",
       "status": "success",
       "path": "en/api/kotlin/messages/count_tokens.md",
-      "sha256": "c17fec2909490f4a45c228f4122067a7db5d67a7f76665fef6382a2e13b19eae",
-      "size": 134863
+      "sha256": "47b22a95ff74a123eec0f6f132c232988fc1b7bfb5af9918c41d8155ce45eb4c",
+      "size": 134971
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches",
       "status": "success",
       "path": "en/api/kotlin/messages/batches.md",
-      "sha256": "8fb4be2d3226fabc5690caf2c8242ec85ed9b89d6e132aba9c99ac60afb4e2bb",
-      "size": 134846
+      "sha256": "8639c9775e80bfa47bf425a86da021cac2e711fa29e0b6a22f8133fd6aea5018",
+      "size": 134956
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/create",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/create.md",
-      "sha256": "e7074f2711f76a0205b4c81d38bb1f712953a85c0f84f22b09772bdc62847ee4",
-      "size": 134875
+      "sha256": "fe34f996393042ebc89eae7f6de53e8116824374c49c13b77c65b37215d93ebc",
+      "size": 134981
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/retrieve.md",
-      "sha256": "c4a31be087c5133e3750d51f16a050909971366815b897b18adb2f41960ec9fb",
-      "size": 134879
+      "sha256": "f63ede298012843eafe305b4553fcd09764111c50def08a7cff29ae3d7350b25",
+      "size": 134987
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/list",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/list.md",
-      "sha256": "17e4703f9218cdaa680295307fdacc8bd8d076a0e8e80618e389ac45fb3b0b21",
-      "size": 134867
+      "sha256": "a654315983746e38769cd5c53d9e6aab63f02a61a43f678742b94e03b0d0cf73",
+      "size": 134975
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/cancel",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/cancel.md",
-      "sha256": "2e7e08d146658ca1e7091bf1c7bea398dea47df8b247714cb4cb6e1d07b765d0",
-      "size": 134873
+      "sha256": "8848874836e63af8464308f80d21c7eaeec8fabcbf34b69cf70c8eeffd22a5dd",
+      "size": 134981
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/delete",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/delete.md",
-      "sha256": "5f305df838f7bf9a1b12ed87c98cac29211148566cfc78324faca885c8bf5ae1",
-      "size": 134873
+      "sha256": "0b8545ace03f2539932776f82eb75702c053a1a3aaba2a9c42b4c7a47021e1df",
+      "size": 134979
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/messages/batches/results",
       "status": "success",
       "path": "en/api/kotlin/messages/batches/results.md",
-      "sha256": "b69d672eeb148aedd6a6500538f08566a07868720a9fd953ccb9191f7301aa94",
-      "size": 134876
+      "sha256": "fe6af6ed5727ca30c1af99caedb46989153621743f8af216d55fea8b2471b1c3",
+      "size": 134984
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/models",
       "status": "success",
       "path": "en/api/kotlin/models.md",
-      "sha256": "50f566cf712fd41a64e3205224908bbdf81c66b3fdcc5f9650d3f91a701c1014",
-      "size": 134814
+      "sha256": "a5c69c1f1d3987177233b164085bc7bb3f3f748d71dc34ae28de3fd843199caf",
+      "size": 134920
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/models/list",
       "status": "success",
       "path": "en/api/kotlin/models/list.md",
-      "sha256": "bac259c8ed38fb3f25631538f17ec416e6b1a1ff52b42ed8ef0c712e12cf2da8",
-      "size": 134829
+      "sha256": "6446a12a505dbf0dc2e8e1c695a22bda2a2151aed054da4fa246abf27f27ae19",
+      "size": 134939
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/models/retrieve",
       "status": "success",
       "path": "en/api/kotlin/models/retrieve.md",
-      "sha256": "199bd6afeeb573175e06f6a59c7aa181a3c7352c12f3ca99dafaa76123423d5a",
-      "size": 134845
+      "sha256": "0196c6d104d9811aa228abd8ba947544686b06d9a4be5792f26064dc5e8e6f44",
+      "size": 134951
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta",
       "status": "success",
       "path": "en/api/kotlin/beta.md",
-      "sha256": "8b2375344c61ee5f2c2aab16d7c357a27aa5393a41c3817235b8f8bc8c5881dd",
-      "size": 134806
+      "sha256": "a76eaceca42ad426b97fa67f5235b259cc78e9b2fdd15db614fa87e5d4335863",
+      "size": 134916
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/models",
       "status": "success",
       "path": "en/api/kotlin/beta/models.md",
-      "sha256": "8a84e1154fa9d7f5950f95b5dc35fb7614e1c9aa7bc538f48b936c49aba35708",
-      "size": 134835
+      "sha256": "12ccd5806cff3045895b40d2d1ee6761143e6b6663777ce5c42bf32cad1603e0",
+      "size": 134941
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/models/list",
       "status": "success",
       "path": "en/api/kotlin/beta/models/list.md",
-      "sha256": "f8f9cfadb98be1a689c3ff1fedec9ce1cecd138526795ec7b351757a0575ddc1",
-      "size": 134852
+      "sha256": "a4075d3e47d684e8d4beadf0f69b4035ef66f8f4c2d9f88803005c47e5e8e43c",
+      "size": 134958
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/models/retrieve",
       "status": "success",
       "path": "en/api/kotlin/beta/models/retrieve.md",
-      "sha256": "a9772577acc8ec40cc05ce256f26ac948007828f39046d1b68fdbd17c4995a19",
-      "size": 134864
+      "sha256": "638c4cb7e6d9d5a66ee4a1a8f40da71ae51e6fb794946aa751ec8fb585dff472",
+      "size": 134972
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages",
       "status": "success",
       "path": "en/api/kotlin/beta/messages.md",
-      "sha256": "20254c2fddd5dd1b226b7a96b423961c049abfea0f6bed155bae9733c6389fa0",
-      "size": 134839
+      "sha256": "bcf1b0aa10eb9378528637174d8de6a0787975435bed01dd02cffbca5a34beec",
+      "size": 134947
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/create",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/create.md",
-      "sha256": "2929f6edc86474fda2d283de5646ae6e836f9d9eaf7708f81eb2b7adeb208474",
-      "size": 134864
+      "sha256": "7ac7ffe3fa55495b486843dd7f5b6ab2d0faf084a56aadc51ac91b2025b4b7f5",
+      "size": 134972
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/count_tokens",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/count_tokens.md",
-      "sha256": "3daca70d8c24b2486b8da5baefd12a84e72e11005bd1253d5cfea60b99574a23",
-      "size": 134882
+      "sha256": "d7059c3d7fda87b6fb4c5034b68fe6dd61a9481144a9d381ff650579a3fe75b0",
+      "size": 134988
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches.md",
-      "sha256": "567bd421c185cf5aabbb42ae647ea33f493883cb0c465cf38c2b1345a7fd9757",
-      "size": 134867
+      "sha256": "3cc6bf7e585a5cdb61bd1d0299b12a9a2ec9204cc32b737aa9b803bd59b13584",
+      "size": 134975
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/create",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/create.md",
-      "sha256": "70045fa7244518db8b487daca3a7dffacdf102d5202286fa7284f19ad6521ffd",
-      "size": 134892
+      "sha256": "a89faa4fe90a4202c543a36140ff9afffc35a493e2ab21b357b0da1e9212b51d",
+      "size": 135000
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/retrieve.md",
-      "sha256": "e0105f19f47c3d525ab4b0ee0174c031f6c29060847e3810012569f89765e6c5",
-      "size": 134898
+      "sha256": "72a29322744d63389a7593f5845c7c286f7948bab987d9a120f170aa2cf0755c",
+      "size": 135006
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/list",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/list.md",
-      "sha256": "2a78f42865604517621649b2d9bd714db16e059547fd9733e1e13ec6930b368f",
-      "size": 134886
+      "sha256": "e80ecfe77323f451c054b749c99379b32d10a9ee4d9aaf6d33ed2d1acb32b7e8",
+      "size": 134994
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/cancel",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/cancel.md",
-      "sha256": "4785d139776cc3de89ca5497f842c51311d9ff45c568a492c751e6957a570a75",
-      "size": 134890
+      "sha256": "f1cf3e265c6809224a768d66d4767726ba26063ee4e4a30e43ff099242743748",
+      "size": 135000
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/delete",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/delete.md",
-      "sha256": "c33bbcdc666d35ef5372f1913eb7f484909548f1b0624ba5abba889a4b2e69c6",
-      "size": 134892
+      "sha256": "9f947604c5e9fc1e81fe577a01b2ce42f75adf8827ee7d1c60da9135581d3e9c",
+      "size": 134998
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/messages/batches/results",
       "status": "success",
       "path": "en/api/kotlin/beta/messages/batches/results.md",
-      "sha256": "8675d66258c607649cded93dffdf074f52b00a7f727bbf19002aafc8fb8ccab2",
-      "size": 134895
+      "sha256": "088d3824cccc8aa841b3b97c2e3a448afc0906102512ba147dd01bc2634d93a7",
+      "size": 135001
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files",
       "status": "success",
       "path": "en/api/kotlin/beta/files.md",
-      "sha256": "a44b2a8151ce3d6022cb8bd3587c49f7c4f60bb92aac94b848f6cb9c56ee9c1e",
-      "size": 134832
+      "sha256": "e6a75155fa96457d9c97e00ad43ec7d128feafe10567b0405f730b2b27957aae",
+      "size": 134936
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files/upload",
       "status": "success",
       "path": "en/api/kotlin/beta/files/upload.md",
-      "sha256": "b94482f12860153f4670494e8c22f9f3ae8e9d17c0b191a9a1816b576bf3db1a",
-      "size": 134855
+      "sha256": "f1d57168d39ecfee29b4114fac9b320854afd21778e1af4e5c72f416a520a59b",
+      "size": 134963
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files/list",
       "status": "success",
       "path": "en/api/kotlin/beta/files/list.md",
-      "sha256": "3e9437686441936163a43d0c118f95ff30f472c250a93e213bf9ed5f92ac5dd2",
-      "size": 134847
+      "sha256": "0fb7117bc3b5ccb275c54fa463d380fb08aee6f1b0efead08d6a5f3826fd3eb0",
+      "size": 134957
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files/download",
       "status": "success",
       "path": "en/api/kotlin/beta/files/download.md",
-      "sha256": "a255094e3f3d0898dca0a1546ff5f23e59c2cda244aac80ee347b8af85fe4abd",
-      "size": 134861
+      "sha256": "8f06881ab750d350b4c6f070d4c7f79f06ff336a37a234ec6bcc3845700ba3d1",
+      "size": 134967
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files/retrieve_metadata",
       "status": "success",
       "path": "en/api/kotlin/beta/files/retrieve_metadata.md",
-      "sha256": "be70d3bf0a4451129bc289a5edb5d3b556c3ef56e52f4b286b35b6f8bc2a4fbf",
-      "size": 134888
+      "sha256": "14b18b5f8949c929cd98c3119451f8f74f9caa92bcc0194b673788bd0b1b251e",
+      "size": 134994
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/files/delete",
       "status": "success",
       "path": "en/api/kotlin/beta/files/delete.md",
-      "sha256": "fce2ee322f111b5b1499f2dd839153373bf6f448639c33d074a5f57c023cf17a",
-      "size": 134853
+      "sha256": "378869fa96b6f28d3e2ecfc7191df6b84a285388c2b8336ea26120ffae40b366",
+      "size": 134963
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills",
       "status": "success",
       "path": "en/api/kotlin/beta/skills.md",
-      "sha256": "795ba4948776c1b78b2c5423191af19b2d1cf2c13822b35c1a75078dab56fe97",
-      "size": 134833
+      "sha256": "ddff2b93ebafbde368d6080179809a4ce02f7b3c8fa0108cdfe3662826431b88",
+      "size": 134941
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/create",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/create.md",
-      "sha256": "2b8a5bd97a771d861f3034cc283bed141dd558a92ab80e0dfe3781e6736d9ff3",
-      "size": 134856
+      "sha256": "277734410809052f241348711286c304f14d11eddaa0846d24d90dad22ea8ca4",
+      "size": 134966
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/list",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/list.md",
-      "sha256": "c7c282d21422b79f5d3fb921fad91f0f21ff72b6a5f239a4eeec8afa48cd5041",
-      "size": 134850
+      "sha256": "c43ff4b17978ddffad30fc4ff074b3b4017aa54ea5c848fd3856b7f93b0331ed",
+      "size": 134958
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/retrieve",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/retrieve.md",
-      "sha256": "7da4678a6fdea1646ee195c84477319acfd5ecb96698023a64ed7768b241ed32",
-      "size": 134862
+      "sha256": "9ae47f09e6b26547d55642bba110a69e4cf6268a7ae8724bf7d967ef031a22d8",
+      "size": 134970
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/delete",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/delete.md",
-      "sha256": "7ec45a6558fbc5569fd214087e473f5cc925069c69e3561826e1f0169efb0f1e",
-      "size": 134856
+      "sha256": "8841df083b0a6537130296dff872e547a3bd6219ff4492dbbba31133ae59c788",
+      "size": 134966
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/versions",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/versions.md",
-      "sha256": "de7a566d979ba727e171346cab66db7761f976689b6f5335981a1c9f060eb665",
-      "size": 134864
+      "sha256": "26faf0f4e88f824d569ad3aa1e8c28c6ed05984d74b6481d3e9233ca1915cd2b",
+      "size": 134972
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/versions/create",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/versions/create.md",
-      "sha256": "7f07c5e26b6152ed31b5a4da233912590f8f358ec8497c07c0923482ab8267a7",
-      "size": 134889
+      "sha256": "d7a96850f3d2283032f872416bea1d5baaf7ab2a6401d4321413ae1e27548f53",
+      "size": 134997
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/versions/list",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/versions/list.md",
-      "sha256": "e3642e8d03363ac4dbff2b531089735f7a24688d814fcc0a1c2de5d14c250147",
-      "size": 134881
+      "sha256": "642c6d04ca3316cfdd0f5c480637370417b44b1879ec569f1755b9d8ab88395b",
+      "size": 134989
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/versions/retrieve",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/versions/retrieve.md",
-      "sha256": "54205c152ae77b1b846c1ba1dfb069d6e13efdcaddcc33009197e193d02598ba",
-      "size": 134895
+      "sha256": "a877548693538870b97b85bc172914760c5073d6a0f97f45ffe4bb0562bc8097",
+      "size": 135003
     },
     {
       "url": "https://platform.claude.com/docs/en/api/kotlin/beta/skills/versions/delete",
       "status": "success",
       "path": "en/api/kotlin/beta/skills/versions/delete.md",
-      "sha256": "eec83a0a971761e386198dcd4a39accb19a75253dc1a8c94b5ea1e1136282726",
-      "size": 134889
+      "sha256": "3237495c60dccb28f9c1e97da602cab650cb49e9ffc0f8d01889dd708d30614b",
+      "size": 134997
     },
     {
       "url": "https://platform.claude.com/docs/en/api/go/completions",
@@ -3872,8 +3872,8 @@
       "url": "https://code.claude.com/docs/en/changelog",
       "status": "success",
       "path": "en/docs/claude-code/changelog.md",
-      "sha256": "ba7d1d5652bb9544acaf5e84569494f7c085fe7b691c685cc789818d8677e612",
-      "size": 621713
+      "sha256": "06eb91e064ee9a90a20ccc52ac9a813684fb5b8d16a40ab93b4ee2d03b4cf6d5",
+      "size": 622298
     },
     {
       "url": "https://code.claude.com/docs/en/checkpointing",
