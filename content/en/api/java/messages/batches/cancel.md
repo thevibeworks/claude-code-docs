@@ -107,24 +107,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `MESSAGE_BATCH("message_batch")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.messages.batches.BatchCancelParams;
-import com.anthropic.models.messages.batches.MessageBatch;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        MessageBatch messageBatch = client.messages().batches().cancel("message_batch_id");
-    }
-}
-```

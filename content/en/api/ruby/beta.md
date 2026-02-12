@@ -400,18 +400,6 @@ The Models API response can be used to determine which models are available for 
 
     - `:model`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.models.list
-
-puts(page)
-```
-
 ## Retrieve
 
 `beta.models.retrieve(model_id, **kwargs) -> BetaModelInfo`
@@ -499,18 +487,6 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `:model`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_model_info = anthropic.beta.models.retrieve("model_id")
-
-puts(beta_model_info)
-```
 
 ## Domain Types
 
@@ -5945,22 +5921,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `:fast`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message = anthropic.beta.messages.create(
-  max_tokens: 1024,
-  messages: [{content: "Hello, world", role: :user}],
-  model: :"claude-opus-4-6"
-)
-
-puts(beta_message)
-```
-
 ## Count Tokens
 
 `beta.messages.count_tokens(**kwargs) -> BetaMessageTokensCount`
@@ -10143,21 +10103,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `input_tokens: Integer`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message_tokens_count = anthropic.beta.messages.count_tokens(
-  messages: [{content: "string", role: :user}],
-  model: :"claude-opus-4-6"
-)
-
-puts(beta_message_tokens_count)
-```
 
 ## Domain Types
 
@@ -34929,25 +34874,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message_batch = anthropic.beta.messages.batches.create(
-  requests: [
-    {
-      custom_id: "my-custom-id-1",
-      params: {max_tokens: 1024, messages: [{content: "Hello, world", role: :user}], model: :"claude-opus-4-6"}
-    }
-  ]
-)
-
-puts(beta_message_batch)
-```
-
 ## Retrieve
 
 `beta.messages.batches.retrieve(message_batch_id, **kwargs) -> BetaMessageBatch`
@@ -35101,18 +35027,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `:message_batch`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message_batch = anthropic.beta.messages.batches.retrieve("message_batch_id")
-
-puts(beta_message_batch)
-```
 
 ## List
 
@@ -35278,18 +35192,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.messages.batches.list
-
-puts(page)
-```
-
 ## Cancel
 
 `beta.messages.batches.cancel(message_batch_id, **kwargs) -> BetaMessageBatch`
@@ -35446,18 +35348,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message_batch = anthropic.beta.messages.batches.cancel("message_batch_id")
-
-puts(beta_message_batch)
-```
-
 ## Delete
 
 `beta.messages.batches.delete(message_batch_id, **kwargs) -> BetaDeletedMessageBatch`
@@ -35539,18 +35429,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `:message_batch_deleted`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_deleted_message_batch = anthropic.beta.messages.batches.delete("message_batch_id")
-
-puts(beta_deleted_message_batch)
-```
 
 ## Results
 
@@ -36867,18 +36745,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: :expired`
 
         - `:expired`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message_batch_individual_response = anthropic.beta.messages.batches.results("message_batch_id")
-
-puts(beta_message_batch_individual_response)
-```
 
 ## Domain Types
 
@@ -40852,18 +40718,6 @@ Upload File
 
     Whether the file can be downloaded.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-file_metadata = anthropic.beta.files.upload(file: Pathname(__FILE__))
-
-puts(file_metadata)
-```
-
 ## List
 
 `beta.files.list(**kwargs) -> Page<FileMetadata>`
@@ -40974,18 +40828,6 @@ List Files
 
     Whether the file can be downloaded.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.files.list
-
-puts(page)
-```
-
 ## Download
 
 `beta.files.download(file_id, **kwargs) -> StringIO`
@@ -41051,18 +40893,6 @@ Download File
 ### Returns
 
 - `StringIO`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-response = anthropic.beta.files.download("file_id")
-
-puts(response)
-```
 
 ## Retrieve Metadata
 
@@ -41164,18 +40994,6 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-file_metadata = anthropic.beta.files.retrieve_metadata("file_id")
-
-puts(file_metadata)
-```
-
 ## Delete
 
 `beta.files.delete(file_id, **kwargs) -> DeletedFile`
@@ -41253,18 +41071,6 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `:file_deleted`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-deleted_file = anthropic.beta.files.delete("file_id")
-
-puts(deleted_file)
-```
 
 ## Domain Types
 
@@ -41439,18 +41245,6 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-skill = anthropic.beta.skills.create
-
-puts(skill)
-```
-
 ## List
 
 `beta.skills.list(**kwargs) -> PageCursor<SkillListResponse>`
@@ -41575,18 +41369,6 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.skills.list
-
-puts(page)
-```
-
 ## Retrieve
 
 `beta.skills.retrieve(skill_id, **kwargs) -> SkillRetrieveResponse`
@@ -41696,18 +41478,6 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-skill = anthropic.beta.skills.retrieve("skill_id")
-
-puts(skill)
-```
-
 ## Delete
 
 `beta.skills.delete(skill_id, **kwargs) -> SkillDeleteResponse`
@@ -41787,18 +41557,6 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-skill = anthropic.beta.skills.delete("skill_id")
-
-puts(skill)
-```
 
 # Versions
 
@@ -41919,18 +41677,6 @@ Create Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-version = anthropic.beta.skills.versions.create("skill_id")
-
-puts(version)
-```
 
 ## List
 
@@ -42054,18 +41800,6 @@ List Skill Versions
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.skills.versions.list("skill_id")
-
-puts(page)
-```
-
 ## Retrieve
 
 `beta.skills.versions.retrieve(version, **kwargs) -> VersionRetrieveResponse`
@@ -42184,18 +41918,6 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-version = anthropic.beta.skills.versions.retrieve("version", skill_id: "skill_id")
-
-puts(version)
-```
-
 ## Delete
 
 `beta.skills.versions.delete(version, **kwargs) -> VersionDeleteResponse`
@@ -42281,15 +42003,3 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-version = anthropic.beta.skills.versions.delete("version", skill_id: "skill_id")
-
-puts(version)
-```

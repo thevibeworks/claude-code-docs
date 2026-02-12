@@ -110,24 +110,3 @@ Create Skill
   - `String updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.SkillCreateParams;
-import com.anthropic.models.beta.skills.SkillCreateResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        SkillCreateResponse skill = client.beta().skills().create();
-    }
-}
-```

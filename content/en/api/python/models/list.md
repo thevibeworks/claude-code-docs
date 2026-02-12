@@ -28,9 +28,9 @@ The Models API response can be used to determine which models are available for 
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -95,17 +95,3 @@ The Models API response can be used to determine which models are available for 
     For Models, this is always `"model"`.
 
     - `"model"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-page = client.models.list()
-page = page.data[0]
-print(page.id)
-```

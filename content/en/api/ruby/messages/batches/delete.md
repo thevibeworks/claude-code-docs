@@ -31,15 +31,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `:message_batch_deleted`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-deleted_message_batch = anthropic.messages.batches.delete("message_batch_id")
-
-puts(deleted_message_batch)
-```

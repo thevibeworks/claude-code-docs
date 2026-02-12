@@ -350,27 +350,6 @@ The Models API response can be used to determine which models are available for 
 
     - `MODEL("model")`
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.models.ModelListPage;
-import com.anthropic.models.beta.models.ModelListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        ModelListPage page = client.beta().models().list();
-    }
-}
-```
-
 ## Retrieve
 
 `BetaModelInfo beta().models().retrieve(ModelRetrieveParamsparams = ModelRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -456,27 +435,6 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `MODEL("model")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.models.BetaModelInfo;
-import com.anthropic.models.beta.models.ModelRetrieveParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BetaModelInfo betaModelInfo = client.beta().models().retrieve("model_id");
-    }
-}
-```
 
 ## Domain Types
 
@@ -5567,33 +5525,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `FAST("fast")`
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.BetaMessage;
-import com.anthropic.models.beta.messages.MessageCreateParams;
-import com.anthropic.models.messages.Model;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        MessageCreateParams params = MessageCreateParams.builder()
-            .maxTokens(1024L)
-            .addUserMessage("Hello, world")
-            .model(Model.CLAUDE_OPUS_4_6)
-            .build();
-        BetaMessage betaMessage = client.beta().messages().create(params);
-    }
-}
-```
-
 ## Count Tokens
 
 `BetaMessageTokensCount beta().messages().countTokens(MessageCountTokensParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
@@ -9454,32 +9385,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `long inputTokens`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.BetaMessageTokensCount;
-import com.anthropic.models.beta.messages.MessageCountTokensParams;
-import com.anthropic.models.messages.Model;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        MessageCountTokensParams params = MessageCountTokensParams.builder()
-            .addUserMessage("Hello, world")
-            .model(Model.CLAUDE_OPUS_4_6)
-            .build();
-        BetaMessageTokensCount betaMessageTokensCount = client.beta().messages().countTokens(params);
-    }
-}
-```
 
 ## Domain Types
 
@@ -34129,38 +34034,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `MESSAGE_BATCH("message_batch")`
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.batches.BatchCreateParams;
-import com.anthropic.models.beta.messages.batches.BetaMessageBatch;
-import com.anthropic.models.messages.Model;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BatchCreateParams params = BatchCreateParams.builder()
-            .addRequest(BatchCreateParams.Request.builder()
-                .customId("my-custom-id-1")
-                .params(BatchCreateParams.Request.Params.builder()
-                    .maxTokens(1024L)
-                    .addUserMessage("Hello, world")
-                    .model(Model.CLAUDE_OPUS_4_6)
-                    .build())
-                .build())
-            .build();
-        BetaMessageBatch betaMessageBatch = client.beta().messages().batches().create(params);
-    }
-}
-```
-
 ## Retrieve
 
 `BetaMessageBatch beta().messages().batches().retrieve(BatchRetrieveParamsparams = BatchRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -34312,27 +34185,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `MESSAGE_BATCH("message_batch")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.batches.BatchRetrieveParams;
-import com.anthropic.models.beta.messages.batches.BetaMessageBatch;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BetaMessageBatch betaMessageBatch = client.beta().messages().batches().retrieve("message_batch_id");
-    }
-}
-```
 
 ## List
 
@@ -34496,27 +34348,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `MESSAGE_BATCH("message_batch")`
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.batches.BatchListPage;
-import com.anthropic.models.beta.messages.batches.BatchListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BatchListPage page = client.beta().messages().batches().list();
-    }
-}
-```
-
 ## Cancel
 
 `BetaMessageBatch beta().messages().batches().cancel(BatchCancelParamsparams = BatchCancelParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -34671,27 +34502,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `MESSAGE_BATCH("message_batch")`
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.batches.BatchCancelParams;
-import com.anthropic.models.beta.messages.batches.BetaMessageBatch;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BetaMessageBatch betaMessageBatch = client.beta().messages().batches().cancel("message_batch_id");
-    }
-}
-```
-
 ## Delete
 
 `BetaDeletedMessageBatch beta().messages().batches().delete(BatchDeleteParamsparams = BatchDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -34771,27 +34581,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `MESSAGE_BATCH_DELETED("message_batch_deleted")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.batches.BatchDeleteParams;
-import com.anthropic.models.beta.messages.batches.BetaDeletedMessageBatch;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        BetaDeletedMessageBatch betaDeletedMessageBatch = client.beta().messages().batches().delete("message_batch_id");
-    }
-}
-```
 
 ## Results
 
@@ -36098,28 +35887,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `JsonValue; type "expired"constant`
 
         - `EXPIRED("expired")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.core.http.StreamResponse;
-import com.anthropic.models.beta.messages.batches.BatchResultsParams;
-import com.anthropic.models.beta.messages.batches.BetaMessageBatchIndividualResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        StreamResponse<BetaMessageBatchIndividualResponse> betaMessageBatchIndividualResponse = client.beta().messages().batches().resultsStreaming("message_batch_id");
-    }
-}
-```
 
 ## Domain Types
 
@@ -40067,31 +39834,6 @@ Upload File
 
     Whether the file can be downloaded.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileUploadParams;
-import java.io.ByteArrayInputStream;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        FileUploadParams params = FileUploadParams.builder()
-            .file(ByteArrayInputStream("some content".getBytes()))
-            .build();
-        FileMetadata fileMetadata = client.beta().files().upload(params);
-    }
-}
-```
-
 ## List
 
 `FileListPage beta().files().list(FileListParamsparams = FileListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -40200,27 +39942,6 @@ List Files
 
     Whether the file can be downloaded.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.FileListPage;
-import com.anthropic.models.beta.files.FileListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        FileListPage page = client.beta().files().list();
-    }
-}
-```
-
 ## Download
 
 `HttpResponse beta().files().download(FileDownloadParamsparams = FileDownloadParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -40280,27 +40001,6 @@ Download File
     - `SKILLS_2025_10_02("skills-2025-10-02")`
 
     - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.core.http.HttpResponse;
-import com.anthropic.models.beta.files.FileDownloadParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        HttpResponse response = client.beta().files().download("file_id");
-    }
-}
-```
 
 ## Retrieve Metadata
 
@@ -40400,27 +40100,6 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileRetrieveMetadataParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        FileMetadata fileMetadata = client.beta().files().retrieveMetadata("file_id");
-    }
-}
-```
-
 ## Delete
 
 `DeletedFile beta().files().delete(FileDeleteParamsparams = FileDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -40496,27 +40175,6 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `FILE_DELETED("file_deleted")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.DeletedFile;
-import com.anthropic.models.beta.files.FileDeleteParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        DeletedFile deletedFile = client.beta().files().delete("file_id");
-    }
-}
-```
 
 ## Domain Types
 
@@ -40689,27 +40347,6 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.SkillCreateParams;
-import com.anthropic.models.beta.skills.SkillCreateResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        SkillCreateResponse skill = client.beta().skills().create();
-    }
-}
-```
-
 ## List
 
 `SkillListPage beta().skills().list(SkillListParamsparams = SkillListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -40832,27 +40469,6 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.SkillListPage;
-import com.anthropic.models.beta.skills.SkillListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        SkillListPage page = client.beta().skills().list();
-    }
-}
-```
-
 ## Retrieve
 
 `SkillRetrieveResponse beta().skills().retrieve(SkillRetrieveParamsparams = SkillRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -40960,27 +40576,6 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.SkillRetrieveParams;
-import com.anthropic.models.beta.skills.SkillRetrieveResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        SkillRetrieveResponse skill = client.beta().skills().retrieve("skill_id");
-    }
-}
-```
-
 ## Delete
 
 `SkillDeleteResponse beta().skills().delete(SkillDeleteParamsparams = SkillDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -41058,27 +40653,6 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.SkillDeleteParams;
-import com.anthropic.models.beta.skills.SkillDeleteResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        SkillDeleteResponse skill = client.beta().skills().delete("skill_id");
-    }
-}
-```
 
 # Versions
 
@@ -41197,27 +40771,6 @@ Create Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.versions.VersionCreateParams;
-import com.anthropic.models.beta.skills.versions.VersionCreateResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        VersionCreateResponse version = client.beta().skills().versions().create("skill_id");
-    }
-}
-```
 
 ## List
 
@@ -41339,27 +40892,6 @@ List Skill Versions
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.versions.VersionListPage;
-import com.anthropic.models.beta.skills.versions.VersionListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        VersionListPage page = client.beta().skills().versions().list("skill_id");
-    }
-}
-```
-
 ## Retrieve
 
 `VersionRetrieveResponse beta().skills().versions().retrieve(VersionRetrieveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
@@ -41476,31 +41008,6 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.versions.VersionRetrieveParams;
-import com.anthropic.models.beta.skills.versions.VersionRetrieveResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        VersionRetrieveParams params = VersionRetrieveParams.builder()
-            .skillId("skill_id")
-            .version("version")
-            .build();
-        VersionRetrieveResponse version = client.beta().skills().versions().retrieve(params);
-    }
-}
-```
-
 ## Delete
 
 `VersionDeleteResponse beta().skills().versions().delete(VersionDeleteParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
@@ -41584,28 +41091,3 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.versions.VersionDeleteParams;
-import com.anthropic.models.beta.skills.versions.VersionDeleteResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        VersionDeleteParams params = VersionDeleteParams.builder()
-            .skillId("skill_id")
-            .version("version")
-            .build();
-        VersionDeleteResponse version = client.beta().skills().versions().delete(params);
-    }
-}
-```

@@ -362,19 +362,3 @@ Future models and features will not be compatible with Text Completions. See our
     For Text Completions, this is always `"completion"`.
 
     - `:completion`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-completion = anthropic.completions.create(
-  max_tokens_to_sample: 256,
-  model: :"claude-opus-4-6",
-  prompt: "\n\nHuman: Hello, world!\n\nAssistant:"
-)
-
-puts(completion)
-```

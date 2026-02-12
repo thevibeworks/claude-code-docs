@@ -73,24 +73,3 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `FILE_DELETED("file_deleted")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.DeletedFile;
-import com.anthropic.models.beta.files.FileDeleteParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        DeletedFile deletedFile = client.beta().files().delete("file_id");
-    }
-}
-```

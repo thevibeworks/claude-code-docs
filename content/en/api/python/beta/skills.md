@@ -26,9 +26,9 @@ Create Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -115,19 +115,6 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-skill = client.beta.skills.create()
-print(skill.id)
-```
-
 ## List
 
 `beta.skills.list(SkillListParams**kwargs)  -> SyncPageCursor[SkillListResponse]`
@@ -163,9 +150,9 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -252,20 +239,6 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-page = client.beta.skills.list()
-page = page.data[0]
-print(page.id)
-```
-
 ## Retrieve
 
 `beta.skills.retrieve(strskill_id, SkillRetrieveParams**kwargs)  -> SkillRetrieveResponse`
@@ -286,9 +259,9 @@ Get Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -375,21 +348,6 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-skill = client.beta.skills.retrieve(
-    skill_id="skill_id",
-)
-print(skill.id)
-```
-
 ## Delete
 
 `beta.skills.delete(strskill_id, SkillDeleteParams**kwargs)  -> SkillDeleteResponse`
@@ -410,9 +368,9 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -470,21 +428,6 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-skill = client.beta.skills.delete(
-    skill_id="skill_id",
-)
-print(skill.id)
-```
-
 # Versions
 
 ## Create
@@ -513,9 +456,9 @@ Create Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -605,21 +548,6 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-version = client.beta.skills.versions.create(
-    skill_id="skill_id",
-)
-print(version.id)
-```
-
 ## List
 
 `beta.skills.versions.list(strskill_id, VersionListParams**kwargs)  -> SyncPageCursor[VersionListResponse]`
@@ -650,9 +578,9 @@ List Skill Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -742,22 +670,6 @@ List Skill Versions
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-page = client.beta.skills.versions.list(
-    skill_id="skill_id",
-)
-page = page.data[0]
-print(page.id)
-```
-
 ## Retrieve
 
 `beta.skills.versions.retrieve(strversion, VersionRetrieveParams**kwargs)  -> VersionRetrieveResponse`
@@ -784,9 +696,9 @@ Get Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -876,22 +788,6 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-version = client.beta.skills.versions.retrieve(
-    version="version",
-    skill_id="skill_id",
-)
-print(version.id)
-```
-
 ## Delete
 
 `beta.skills.versions.delete(strversion, VersionDeleteParams**kwargs)  -> VersionDeleteResponse`
@@ -918,9 +814,9 @@ Delete Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -977,19 +873,3 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-version = client.beta.skills.versions.delete(
-    version="version",
-    skill_id="skill_id",
-)
-print(version.id)
-```

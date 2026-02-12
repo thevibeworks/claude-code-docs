@@ -31,17 +31,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `"message_batch_deleted"`
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const deletedMessageBatch = await client.messages.batches.delete('message_batch_id');
-
-console.log(deletedMessageBatch.id);
-```

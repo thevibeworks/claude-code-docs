@@ -95,24 +95,3 @@ Get File Metadata
   - `Optional<Boolean> downloadable`
 
     Whether the file can be downloaded.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileRetrieveMetadataParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        FileMetadata fileMetadata = client.beta().files().retrieveMetadata("file_id");
-    }
-}
-```

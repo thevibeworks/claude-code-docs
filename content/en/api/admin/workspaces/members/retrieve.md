@@ -45,11 +45,3 @@ Get Workspace Member
     - `"workspace_admin"`
 
     - `"workspace_billing"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members/$USER_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```

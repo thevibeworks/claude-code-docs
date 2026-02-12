@@ -83,15 +83,3 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-version = anthropic.beta.skills.versions.delete("version", skill_id: "skill_id")
-
-puts(version)
-```

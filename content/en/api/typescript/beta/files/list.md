@@ -109,18 +109,3 @@ List Files
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-// Automatically fetches more pages as needed.
-for await (const fileMetadata of client.beta.files.list()) {
-  console.log(fileMetadata.id);
-}
-```

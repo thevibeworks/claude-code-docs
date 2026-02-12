@@ -89,9 +89,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-        - `ContentUnionMember0 = str`
+        - `str`
 
-        - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+        - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
           - `class TextBlockParam: …`
 
@@ -295,9 +295,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                  - `ContentUnionMember0 = str`
+                  - `str`
 
-                  - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                  - `List[ContentBlockSourceContent]`
 
                     - `class TextBlockParam: …`
 
@@ -752,9 +752,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: Optional[Union[str, List[Content], null]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `Content = List[Content]`
+              - `List[Content]`
 
                 - `class TextBlockParam: …`
 
@@ -1108,9 +1108,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                       - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                        - `ContentUnionMember0 = str`
+                        - `str`
 
-                        - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                        - `List[ContentBlockSourceContent]`
 
                           - `class TextBlockParam: …`
 
@@ -1372,7 +1372,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: WebSearchToolResultBlockParamContent`
 
-              - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+              - `List[WebSearchResultBlockParam]`
 
                 - `encrypted_content: str`
 
@@ -1447,7 +1447,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -1559,7 +1559,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `inference_geo: Optional[str]`
 
@@ -1633,9 +1633,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-      - `RequestParamsSystemUnionMember0 = str`
+      - `str`
 
-      - `RequestParamsSystemUnionMember1 = Iterable[TextBlockParam]`
+      - `Iterable[TextBlockParam]`
 
         - `text: str`
 
@@ -2325,28 +2325,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `"message_batch"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.create(
-    requests=[{
-        "custom_id": "my-custom-id-1",
-        "params": {
-            "max_tokens": 1024,
-            "messages": [{
-                "content": "Hello, world",
-                "role": "user",
-            }],
-            "model": "claude-opus-4-6",
-        },
-    }],
-)
-print(message_batch.id)
-```

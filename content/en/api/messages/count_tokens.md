@@ -2133,21 +2133,3 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `input_tokens: number`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/messages/count_tokens \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
-    -d '{
-          "messages": [
-            {
-              "content": "string",
-              "role": "user"
-            }
-          ],
-          "model": "claude-opus-4-6"
-        }'
-```

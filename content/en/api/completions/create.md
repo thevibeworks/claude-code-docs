@@ -360,18 +360,3 @@ Future models and features will not be compatible with Text Completions. See our
     For Text Completions, this is always `"completion"`.
 
     - `"completion"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/complete \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
-    --max-time 600 \
-    -d '{
-          "max_tokens_to_sample": 256,
-          "model": "claude-opus-4-6",
-          "prompt": "\\n\\nHuman: Hello, world!\\n\\nAssistant:"
-        }'
-```

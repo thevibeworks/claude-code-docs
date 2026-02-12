@@ -81,28 +81,3 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.skills.versions.VersionDeleteParams;
-import com.anthropic.models.beta.skills.versions.VersionDeleteResponse;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        VersionDeleteParams params = VersionDeleteParams.builder()
-            .skillId("skill_id")
-            .version("version")
-            .build();
-        VersionDeleteResponse version = client.beta().skills().versions().delete(params);
-    }
-}
-```

@@ -381,24 +381,6 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"completion"`
 
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const completion = await client.completions.create({
-  max_tokens_to_sample: 256,
-  model: 'claude-opus-4-6',
-  prompt: '\n\nHuman: Hello, world!\n\nAssistant:',
-});
-
-console.log(completion.id);
-```
-
 ## Domain Types
 
 ### Completion
