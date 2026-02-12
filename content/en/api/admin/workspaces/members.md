@@ -60,19 +60,6 @@ Create Workspace Member
 
     - `"workspace_billing"`
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY" \
-    -d '{
-          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
-          "workspace_role": "workspace_user"
-        }'
-```
-
 ## Retrieve
 
 **get** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
@@ -120,14 +107,6 @@ Get Workspace Member
     - `"workspace_admin"`
 
     - `"workspace_billing"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members/$USER_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
 
 ## List
 
@@ -201,14 +180,6 @@ List Workspace Members
 
   Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
-
 ## Update
 
 **post** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
@@ -271,18 +242,6 @@ Update Workspace Member
 
     - `"workspace_billing"`
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members/$USER_ID \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY" \
-    -d '{
-          "workspace_role": "workspace_user"
-        }'
-```
-
 ## Delete
 
 **delete** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
@@ -316,15 +275,6 @@ Delete Workspace Member
 - `workspace_id: string`
 
   ID of the Workspace.
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members/$USER_ID \
-    -X DELETE \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
 
 ## Domain Types
 

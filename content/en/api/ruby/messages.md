@@ -2638,22 +2638,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `:batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message = anthropic.messages.create(
-  max_tokens: 1024,
-  messages: [{content: "Hello, world", role: :user}],
-  model: :"claude-opus-4-6"
-)
-
-puts(message)
-```
-
 ## Count Tokens
 
 `messages.count_tokens(**kwargs) -> MessageTokensCount`
@@ -4791,18 +4775,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `input_tokens: Integer`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_tokens_count = anthropic.messages.count_tokens(messages: [{content: "string", role: :user}], model: :"claude-opus-4-6")
-
-puts(message_tokens_count)
-```
 
 ## Domain Types
 
@@ -16365,25 +16337,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch = anthropic.messages.batches.create(
-  requests: [
-    {
-      custom_id: "my-custom-id-1",
-      params: {max_tokens: 1024, messages: [{content: "Hello, world", role: :user}], model: :"claude-opus-4-6"}
-    }
-  ]
-)
-
-puts(message_batch)
-```
-
 ## Retrieve
 
 `messages.batches.retrieve(message_batch_id) -> MessageBatch`
@@ -16489,18 +16442,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `:message_batch`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch = anthropic.messages.batches.retrieve("message_batch_id")
-
-puts(message_batch)
-```
 
 ## List
 
@@ -16618,18 +16559,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.messages.batches.list
-
-puts(page)
-```
-
 ## Cancel
 
 `messages.batches.cancel(message_batch_id) -> MessageBatch`
@@ -16738,18 +16667,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `:message_batch`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch = anthropic.messages.batches.cancel("message_batch_id")
-
-puts(message_batch)
-```
-
 ## Delete
 
 `messages.batches.delete(message_batch_id) -> DeletedMessageBatch`
@@ -16783,18 +16700,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `:message_batch_deleted`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-deleted_message_batch = anthropic.messages.batches.delete("message_batch_id")
-
-puts(deleted_message_batch)
-```
 
 ## Results
 
@@ -17371,18 +17276,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: :expired`
 
         - `:expired`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch_individual_response = anthropic.messages.batches.results("message_batch_id")
-
-puts(message_batch_individual_response)
-```
 
 ## Domain Types
 

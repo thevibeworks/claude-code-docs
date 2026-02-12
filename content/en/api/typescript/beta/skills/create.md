@@ -114,17 +114,3 @@ Create Skill
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const skill = await client.beta.skills.create();
-
-console.log(skill.id);
-```

@@ -91,9 +91,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-        - `ContentUnionMember0 = str`
+        - `str`
 
-        - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+        - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
           - `class TextBlockParam: …`
 
@@ -297,9 +297,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                  - `ContentUnionMember0 = str`
+                  - `str`
 
-                  - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                  - `List[ContentBlockSourceContent]`
 
                     - `class TextBlockParam: …`
 
@@ -754,9 +754,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: Optional[Union[str, List[Content], null]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `Content = List[Content]`
+              - `List[Content]`
 
                 - `class TextBlockParam: …`
 
@@ -1110,9 +1110,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                       - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                        - `ContentUnionMember0 = str`
+                        - `str`
 
-                        - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                        - `List[ContentBlockSourceContent]`
 
                           - `class TextBlockParam: …`
 
@@ -1374,7 +1374,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: WebSearchToolResultBlockParamContent`
 
-              - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+              - `List[WebSearchResultBlockParam]`
 
                 - `encrypted_content: str`
 
@@ -1449,7 +1449,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -1561,7 +1561,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `inference_geo: Optional[str]`
 
@@ -1635,9 +1635,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-      - `RequestParamsSystemUnionMember0 = str`
+      - `str`
 
-      - `RequestParamsSystemUnionMember1 = Iterable[TextBlockParam]`
+      - `Iterable[TextBlockParam]`
 
         - `text: str`
 
@@ -2328,31 +2328,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.create(
-    requests=[{
-        "custom_id": "my-custom-id-1",
-        "params": {
-            "max_tokens": 1024,
-            "messages": [{
-                "content": "Hello, world",
-                "role": "user",
-            }],
-            "model": "claude-opus-4-6",
-        },
-    }],
-)
-print(message_batch.id)
-```
-
 ## Retrieve
 
 `messages.batches.retrieve(strmessage_batch_id)  -> MessageBatch`
@@ -2458,21 +2433,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `"message_batch"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.retrieve(
-    "message_batch_id",
-)
-print(message_batch.id)
-```
 
 ## List
 
@@ -2590,20 +2550,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-page = client.messages.batches.list()
-page = page.data[0]
-print(page.id)
-```
-
 ## Cancel
 
 `messages.batches.cancel(strmessage_batch_id)  -> MessageBatch`
@@ -2712,21 +2658,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.cancel(
-    "message_batch_id",
-)
-print(message_batch.id)
-```
-
 ## Delete
 
 `messages.batches.delete(strmessage_batch_id)  -> DeletedMessageBatch`
@@ -2760,21 +2691,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `"message_batch_deleted"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-deleted_message_batch = client.messages.batches.delete(
-    "message_batch_id",
-)
-print(deleted_message_batch.id)
-```
 
 ## Results
 
@@ -3019,7 +2935,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `"web_search_tool_result_error"`
 
-              - `UnionMember1 = List[WebSearchResultBlock]`
+              - `List[WebSearchResultBlock]`
 
                 - `encrypted_content: str`
 
@@ -3045,7 +2961,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+          - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
             The model that will complete your prompt.
 
@@ -3157,7 +3073,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               Our previous most fast and cost-effective
 
-          - `UnionMember1 = str`
+          - `str`
 
         - `role: Literal["assistant"]`
 
@@ -3373,21 +3289,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: Literal["expired"]`
 
         - `"expired"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch_individual_response = client.messages.batches.results(
-    "message_batch_id",
-)
-print(message_batch_individual_response.custom_id)
-```
 
 ## Domain Types
 
@@ -3828,7 +3729,7 @@ print(message_batch_individual_response.custom_id)
 
                   - `"web_search_tool_result_error"`
 
-              - `UnionMember1 = List[WebSearchResultBlock]`
+              - `List[WebSearchResultBlock]`
 
                 - `encrypted_content: str`
 
@@ -3854,7 +3755,7 @@ print(message_batch_individual_response.custom_id)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+          - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
             The model that will complete your prompt.
 
@@ -3966,7 +3867,7 @@ print(message_batch_individual_response.custom_id)
 
               Our previous most fast and cost-effective
 
-          - `UnionMember1 = str`
+          - `str`
 
         - `role: Literal["assistant"]`
 
@@ -4217,7 +4118,7 @@ print(message_batch_individual_response.custom_id)
 
 ### Message Batch Result
 
-- `MessageBatchResult = MessageBatchResult`
+- `MessageBatchResult`
 
   Processing result for this request.
 
@@ -4430,7 +4331,7 @@ print(message_batch_individual_response.custom_id)
 
                 - `"web_search_tool_result_error"`
 
-            - `UnionMember1 = List[WebSearchResultBlock]`
+            - `List[WebSearchResultBlock]`
 
               - `encrypted_content: str`
 
@@ -4456,7 +4357,7 @@ print(message_batch_individual_response.custom_id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+        - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
           The model that will complete your prompt.
 
@@ -4568,7 +4469,7 @@ print(message_batch_individual_response.custom_id)
 
             Our previous most fast and cost-effective
 
-        - `UnionMember1 = str`
+        - `str`
 
       - `role: Literal["assistant"]`
 
@@ -4994,7 +4895,7 @@ print(message_batch_individual_response.custom_id)
 
               - `"web_search_tool_result_error"`
 
-          - `UnionMember1 = List[WebSearchResultBlock]`
+          - `List[WebSearchResultBlock]`
 
             - `encrypted_content: str`
 
@@ -5020,7 +4921,7 @@ print(message_batch_individual_response.custom_id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -5132,7 +5033,7 @@ print(message_batch_individual_response.custom_id)
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `role: Literal["assistant"]`
 

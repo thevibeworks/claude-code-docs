@@ -5402,19 +5402,3 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `:standard`
 
       - `:fast`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_message = anthropic.beta.messages.create(
-  max_tokens: 1024,
-  messages: [{content: "Hello, world", role: :user}],
-  model: :"claude-opus-4-6"
-)
-
-puts(beta_message)
-```

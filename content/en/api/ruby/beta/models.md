@@ -98,18 +98,6 @@ The Models API response can be used to determine which models are available for 
 
     - `:model`
 
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-page = anthropic.beta.models.list
-
-puts(page)
-```
-
 ## Retrieve
 
 `beta.models.retrieve(model_id, **kwargs) -> BetaModelInfo`
@@ -197,18 +185,6 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `:model`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-beta_model_info = anthropic.beta.models.retrieve("model_id")
-
-puts(beta_model_info)
-```
 
 ## Domain Types
 

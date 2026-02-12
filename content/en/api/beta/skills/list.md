@@ -135,12 +135,3 @@ List Skills
   Token for fetching the next page of results.
 
   If `null`, there are no more results available. Pass this value to the `page_token` parameter in the next request to get the next page.
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/skills \
-    -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: skills-2025-10-02' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```

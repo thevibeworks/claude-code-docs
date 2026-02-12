@@ -131,12 +131,3 @@ List Skill Versions
 - `next_page: string`
 
   Token to provide in as `page` in the subsequent request to retrieve the next page of data.
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
-    -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: skills-2025-10-02' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```

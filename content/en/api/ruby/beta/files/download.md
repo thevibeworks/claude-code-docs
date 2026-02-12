@@ -63,15 +63,3 @@ Download File
 ### Returns
 
 - `StringIO`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-response = anthropic.beta.files.download("file_id")
-
-puts(response)
-```

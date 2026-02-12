@@ -73,9 +73,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
       - `class TextBlockParam: …`
 
@@ -279,9 +279,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             - `content: Union[str, List[ContentBlockSourceContent]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+              - `List[ContentBlockSourceContent]`
 
                 - `class TextBlockParam: …`
 
@@ -736,9 +736,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `content: Optional[Union[str, List[Content], null]]`
 
-          - `ContentUnionMember0 = str`
+          - `str`
 
-          - `Content = List[Content]`
+          - `List[Content]`
 
             - `class TextBlockParam: …`
 
@@ -1092,9 +1092,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
                   - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                    - `ContentUnionMember0 = str`
+                    - `str`
 
-                    - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                    - `List[ContentBlockSourceContent]`
 
                       - `class TextBlockParam: …`
 
@@ -1356,7 +1356,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `content: WebSearchToolResultBlockParamContent`
 
-          - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+          - `List[WebSearchResultBlockParam]`
 
             - `encrypted_content: str`
 
@@ -1431,7 +1431,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+  - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
     The model that will complete your prompt.
 
@@ -1543,7 +1543,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       Our previous most fast and cost-effective
 
-  - `UnionMember1 = str`
+  - `str`
 
 - `inference_geo: Optional[str]`
 
@@ -1619,9 +1619,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-  - `SystemUnionMember0 = str`
+  - `str`
 
-  - `SystemUnionMember1 = Iterable[TextBlockParam]`
+  - `Iterable[TextBlockParam]`
 
     - `text: str`
 
@@ -2429,7 +2429,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             - `"web_search_tool_result_error"`
 
-        - `UnionMember1 = List[WebSearchResultBlock]`
+        - `List[WebSearchResultBlock]`
 
           - `encrypted_content: str`
 
@@ -2455,7 +2455,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+    - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
       The model that will complete your prompt.
 
@@ -2567,7 +2567,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Our previous most fast and cost-effective
 
-    - `UnionMember1 = str`
+    - `str`
 
   - `role: Literal["assistant"]`
 
@@ -2679,23 +2679,3 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `"priority"`
 
       - `"batch"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message = client.messages.create(
-    max_tokens=1024,
-    messages=[{
-        "content": "Hello, world",
-        "role": "user",
-    }],
-    model="claude-opus-4-6",
-)
-print(message.id)
-```

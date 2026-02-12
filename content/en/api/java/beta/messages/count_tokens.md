@@ -3858,29 +3858,3 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `long inputTokens`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.beta.messages.BetaMessageTokensCount;
-import com.anthropic.models.beta.messages.MessageCountTokensParams;
-import com.anthropic.models.messages.Model;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        MessageCountTokensParams params = MessageCountTokensParams.builder()
-            .addUserMessage("Hello, world")
-            .model(Model.CLAUDE_OPUS_4_6)
-            .build();
-        BetaMessageTokensCount betaMessageTokensCount = client.beta().messages().countTokens(params);
-    }
-}
-```

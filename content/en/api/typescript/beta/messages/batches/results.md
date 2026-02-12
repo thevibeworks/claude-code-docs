@@ -1311,19 +1311,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: "expired"`
 
         - `"expired"`
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const betaMessageBatchIndividualResponse = await client.beta.messages.batches.results(
-  'message_batch_id',
-);
-
-console.log(betaMessageBatchIndividualResponse.custom_id);
-```

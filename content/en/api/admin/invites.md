@@ -82,19 +82,6 @@ Create Invite
 
     - `"invite"`
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/invites \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY" \
-    -d '{
-          "email": "user@emaildomain.com",
-          "role": "user"
-        }'
-```
-
 ## Retrieve
 
 **get** `/v1/organizations/invites/{invite_id}`
@@ -162,14 +149,6 @@ Get Invite
     For Invites, this is always `"invite"`.
 
     - `"invite"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
 
 ## List
 
@@ -261,14 +240,6 @@ List Invites
 
   Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/invites \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
-
 ## Delete
 
 **delete** `/v1/organizations/invites/{invite_id}`
@@ -294,15 +265,6 @@ Delete Invite
   For Invites, this is always `"invite_deleted"`.
 
   - `"invite_deleted"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
-    -X DELETE \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
-```
 
 ## Domain Types
 

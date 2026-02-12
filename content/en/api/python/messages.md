@@ -75,9 +75,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
       - `class TextBlockParam: …`
 
@@ -281,9 +281,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             - `content: Union[str, List[ContentBlockSourceContent]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+              - `List[ContentBlockSourceContent]`
 
                 - `class TextBlockParam: …`
 
@@ -738,9 +738,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `content: Optional[Union[str, List[Content], null]]`
 
-          - `ContentUnionMember0 = str`
+          - `str`
 
-          - `Content = List[Content]`
+          - `List[Content]`
 
             - `class TextBlockParam: …`
 
@@ -1094,9 +1094,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
                   - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                    - `ContentUnionMember0 = str`
+                    - `str`
 
-                    - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                    - `List[ContentBlockSourceContent]`
 
                       - `class TextBlockParam: …`
 
@@ -1358,7 +1358,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `content: WebSearchToolResultBlockParamContent`
 
-          - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+          - `List[WebSearchResultBlockParam]`
 
             - `encrypted_content: str`
 
@@ -1433,7 +1433,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+  - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
     The model that will complete your prompt.
 
@@ -1545,7 +1545,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       Our previous most fast and cost-effective
 
-  - `UnionMember1 = str`
+  - `str`
 
 - `inference_geo: Optional[str]`
 
@@ -1621,9 +1621,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-  - `SystemUnionMember0 = str`
+  - `str`
 
-  - `SystemUnionMember1 = Iterable[TextBlockParam]`
+  - `Iterable[TextBlockParam]`
 
     - `text: str`
 
@@ -2431,7 +2431,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             - `"web_search_tool_result_error"`
 
-        - `UnionMember1 = List[WebSearchResultBlock]`
+        - `List[WebSearchResultBlock]`
 
           - `encrypted_content: str`
 
@@ -2457,7 +2457,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+    - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
       The model that will complete your prompt.
 
@@ -2569,7 +2569,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Our previous most fast and cost-effective
 
-    - `UnionMember1 = str`
+    - `str`
 
   - `role: Literal["assistant"]`
 
@@ -2682,26 +2682,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message = client.messages.create(
-    max_tokens=1024,
-    messages=[{
-        "content": "Hello, world",
-        "role": "user",
-    }],
-    model="claude-opus-4-6",
-)
-print(message.id)
-```
-
 ## Count Tokens
 
 `messages.count_tokens(MessageCountTokensParams**kwargs)  -> MessageTokensCount`
@@ -2769,9 +2749,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
       - `class TextBlockParam: …`
 
@@ -2975,9 +2955,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
             - `content: Union[str, List[ContentBlockSourceContent]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+              - `List[ContentBlockSourceContent]`
 
                 - `class TextBlockParam: …`
 
@@ -3432,9 +3412,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `content: Optional[Union[str, List[Content], null]]`
 
-          - `ContentUnionMember0 = str`
+          - `str`
 
-          - `Content = List[Content]`
+          - `List[Content]`
 
             - `class TextBlockParam: …`
 
@@ -3788,9 +3768,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
                   - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                    - `ContentUnionMember0 = str`
+                    - `str`
 
-                    - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                    - `List[ContentBlockSourceContent]`
 
                       - `class TextBlockParam: …`
 
@@ -4052,7 +4032,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `content: WebSearchToolResultBlockParamContent`
 
-          - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+          - `List[WebSearchResultBlockParam]`
 
             - `encrypted_content: str`
 
@@ -4127,7 +4107,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+  - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
     The model that will complete your prompt.
 
@@ -4239,7 +4219,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       Our previous most fast and cost-effective
 
-  - `UnionMember1 = str`
+  - `str`
 
 - `output_config: Optional[OutputConfigParam]`
 
@@ -4275,9 +4255,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-  - `SystemUnionMember0 = str`
+  - `str`
 
-  - `SystemUnionMember1 = Iterable[TextBlockParam]`
+  - `Iterable[TextBlockParam]`
 
     - `text: str`
 
@@ -4862,25 +4842,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_tokens_count = client.messages.count_tokens(
-    messages=[{
-        "content": "string",
-        "role": "user",
-    }],
-    model="claude-opus-4-6",
-)
-print(message_tokens_count.input_tokens)
-```
-
 ## Domain Types
 
 ### Base64 Image Source
@@ -5242,7 +5203,7 @@ print(message_tokens_count.input_tokens)
 
 ### Content Block
 
-- `ContentBlock = ContentBlock`
+- `ContentBlock`
 
   - `class TextBlock: …`
 
@@ -5412,7 +5373,7 @@ print(message_tokens_count.input_tokens)
 
           - `"web_search_tool_result_error"`
 
-      - `UnionMember1 = List[WebSearchResultBlock]`
+      - `List[WebSearchResultBlock]`
 
         - `encrypted_content: str`
 
@@ -5434,7 +5395,7 @@ print(message_tokens_count.input_tokens)
 
 ### Content Block Param
 
-- `ContentBlockParam = Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 7 more]`
+- `Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 7 more]`
 
   Regular text content.
 
@@ -5640,9 +5601,9 @@ print(message_tokens_count.input_tokens)
 
         - `content: Union[str, List[ContentBlockSourceContent]]`
 
-          - `ContentUnionMember0 = str`
+          - `str`
 
-          - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+          - `List[ContentBlockSourceContent]`
 
             - `class TextBlockParam: …`
 
@@ -6097,9 +6058,9 @@ print(message_tokens_count.input_tokens)
 
     - `content: Optional[Union[str, List[Content], null]]`
 
-      - `ContentUnionMember0 = str`
+      - `str`
 
-      - `Content = List[Content]`
+      - `List[Content]`
 
         - `class TextBlockParam: …`
 
@@ -6453,9 +6414,9 @@ print(message_tokens_count.input_tokens)
 
               - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                - `ContentUnionMember0 = str`
+                - `str`
 
-                - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                - `List[ContentBlockSourceContent]`
 
                   - `class TextBlockParam: …`
 
@@ -6717,7 +6678,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: WebSearchToolResultBlockParamContent`
 
-      - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+      - `List[WebSearchResultBlockParam]`
 
         - `encrypted_content: str`
 
@@ -6786,9 +6747,9 @@ print(message_tokens_count.input_tokens)
 
   - `content: Union[str, List[ContentBlockSourceContent]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+    - `List[ContentBlockSourceContent]`
 
       - `class TextBlockParam: …`
 
@@ -6966,7 +6927,7 @@ print(message_tokens_count.input_tokens)
 
 ### Content Block Source Content
 
-- `ContentBlockSourceContent = ContentBlockSourceContent`
+- `ContentBlockSourceContent`
 
   - `class TextBlockParam: …`
 
@@ -7172,9 +7133,9 @@ print(message_tokens_count.input_tokens)
 
       - `content: Union[str, List[ContentBlockSourceContent]]`
 
-        - `ContentUnionMember0 = str`
+        - `str`
 
-        - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+        - `List[ContentBlockSourceContent]`
 
           - `class TextBlockParam: …`
 
@@ -7681,7 +7642,7 @@ print(message_tokens_count.input_tokens)
 
             - `"web_search_tool_result_error"`
 
-        - `UnionMember1 = List[WebSearchResultBlock]`
+        - `List[WebSearchResultBlock]`
 
           - `encrypted_content: str`
 
@@ -7707,7 +7668,7 @@ print(message_tokens_count.input_tokens)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+    - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
       The model that will complete your prompt.
 
@@ -7819,7 +7780,7 @@ print(message_tokens_count.input_tokens)
 
         Our previous most fast and cost-effective
 
-    - `UnionMember1 = str`
+    - `str`
 
   - `role: Literal["assistant"]`
 
@@ -7934,7 +7895,7 @@ print(message_tokens_count.input_tokens)
 
 ### Message Count Tokens Tool
 
-- `MessageCountTokensTool = MessageCountTokensTool`
+- `MessageCountTokensTool`
 
   - `class Tool: …`
 
@@ -8278,9 +8239,9 @@ print(message_tokens_count.input_tokens)
 
   - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
       - `class TextBlockParam: …`
 
@@ -8484,9 +8445,9 @@ print(message_tokens_count.input_tokens)
 
             - `content: Union[str, List[ContentBlockSourceContent]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+              - `List[ContentBlockSourceContent]`
 
                 - `class TextBlockParam: …`
 
@@ -8941,9 +8902,9 @@ print(message_tokens_count.input_tokens)
 
         - `content: Optional[Union[str, List[Content], null]]`
 
-          - `ContentUnionMember0 = str`
+          - `str`
 
-          - `Content = List[Content]`
+          - `List[Content]`
 
             - `class TextBlockParam: …`
 
@@ -9297,9 +9258,9 @@ print(message_tokens_count.input_tokens)
 
                   - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                    - `ContentUnionMember0 = str`
+                    - `str`
 
-                    - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                    - `List[ContentBlockSourceContent]`
 
                       - `class TextBlockParam: …`
 
@@ -9561,7 +9522,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: WebSearchToolResultBlockParamContent`
 
-          - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+          - `List[WebSearchResultBlockParam]`
 
             - `encrypted_content: str`
 
@@ -9650,13 +9611,13 @@ print(message_tokens_count.input_tokens)
 
 ### Model
 
-- `Model = Union[Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more], str]`
+- `Union[Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more], str]`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+  - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
     The model that will complete your prompt.
 
@@ -9768,7 +9729,7 @@ print(message_tokens_count.input_tokens)
 
       Our previous most fast and cost-effective
 
-  - `UnionMember1 = str`
+  - `str`
 
 ### Output Config
 
@@ -9814,7 +9775,7 @@ print(message_tokens_count.input_tokens)
 
 ### Raw Content Block Delta
 
-- `RawContentBlockDelta = RawContentBlockDelta`
+- `RawContentBlockDelta`
 
   - `class TextDelta: …`
 
@@ -10254,7 +10215,7 @@ print(message_tokens_count.input_tokens)
 
             - `"web_search_tool_result_error"`
 
-        - `UnionMember1 = List[WebSearchResultBlock]`
+        - `List[WebSearchResultBlock]`
 
           - `encrypted_content: str`
 
@@ -10561,7 +10522,7 @@ print(message_tokens_count.input_tokens)
 
               - `"web_search_tool_result_error"`
 
-          - `UnionMember1 = List[WebSearchResultBlock]`
+          - `List[WebSearchResultBlock]`
 
             - `encrypted_content: str`
 
@@ -10587,7 +10548,7 @@ print(message_tokens_count.input_tokens)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -10699,7 +10660,7 @@ print(message_tokens_count.input_tokens)
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `role: Literal["assistant"]`
 
@@ -10826,7 +10787,7 @@ print(message_tokens_count.input_tokens)
 
 ### Raw Message Stream Event
 
-- `RawMessageStreamEvent = RawMessageStreamEvent`
+- `RawMessageStreamEvent`
 
   - `class RawMessageStartEvent: …`
 
@@ -11035,7 +10996,7 @@ print(message_tokens_count.input_tokens)
 
                 - `"web_search_tool_result_error"`
 
-            - `UnionMember1 = List[WebSearchResultBlock]`
+            - `List[WebSearchResultBlock]`
 
               - `encrypted_content: str`
 
@@ -11061,7 +11022,7 @@ print(message_tokens_count.input_tokens)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+        - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
           The model that will complete your prompt.
 
@@ -11173,7 +11134,7 @@ print(message_tokens_count.input_tokens)
 
             Our previous most fast and cost-effective
 
-        - `UnionMember1 = str`
+        - `str`
 
       - `role: Literal["assistant"]`
 
@@ -11528,7 +11489,7 @@ print(message_tokens_count.input_tokens)
 
               - `"web_search_tool_result_error"`
 
-          - `UnionMember1 = List[WebSearchResultBlock]`
+          - `List[WebSearchResultBlock]`
 
             - `encrypted_content: str`
 
@@ -11945,7 +11906,7 @@ print(message_tokens_count.input_tokens)
 
 ### Stop Reason
 
-- `StopReason = Literal["end_turn", "max_tokens", "stop_sequence", 3 more]`
+- `Literal["end_turn", "max_tokens", "stop_sequence", 3 more]`
 
   - `"end_turn"`
 
@@ -12178,7 +12139,7 @@ print(message_tokens_count.input_tokens)
 
 ### Text Citation
 
-- `TextCitation = TextCitation`
+- `TextCitation`
 
   - `class CitationCharLocation: …`
 
@@ -12268,7 +12229,7 @@ print(message_tokens_count.input_tokens)
 
 ### Text Citation Param
 
-- `TextCitationParam = TextCitationParam`
+- `TextCitationParam`
 
   - `class CitationCharLocationParam: …`
 
@@ -12418,7 +12379,7 @@ print(message_tokens_count.input_tokens)
 
 ### Thinking Config Param
 
-- `ThinkingConfigParam = ThinkingConfigParam`
+- `ThinkingConfigParam`
 
   Configuration for enabling Claude's extended thinking.
 
@@ -12572,7 +12533,7 @@ print(message_tokens_count.input_tokens)
 
 ### Tool Choice
 
-- `ToolChoice = ToolChoice`
+- `ToolChoice`
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
@@ -12727,9 +12688,9 @@ print(message_tokens_count.input_tokens)
 
   - `content: Optional[Union[str, List[Content], null]]`
 
-    - `ContentUnionMember0 = str`
+    - `str`
 
-    - `Content = List[Content]`
+    - `List[Content]`
 
       - `class TextBlockParam: …`
 
@@ -13083,9 +13044,9 @@ print(message_tokens_count.input_tokens)
 
             - `content: Union[str, List[ContentBlockSourceContent]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+              - `List[ContentBlockSourceContent]`
 
                 - `class TextBlockParam: …`
 
@@ -13441,7 +13402,7 @@ print(message_tokens_count.input_tokens)
 
 ### Tool Union
 
-- `ToolUnion = ToolUnion`
+- `ToolUnion`
 
   - `class Tool: …`
 
@@ -14035,7 +13996,7 @@ print(message_tokens_count.input_tokens)
 
         - `"web_search_tool_result_error"`
 
-    - `UnionMember1 = List[WebSearchResultBlock]`
+    - `List[WebSearchResultBlock]`
 
       - `encrypted_content: str`
 
@@ -14057,7 +14018,7 @@ print(message_tokens_count.input_tokens)
 
 ### Web Search Tool Result Block Content
 
-- `WebSearchToolResultBlockContent = WebSearchToolResultBlockContent`
+- `WebSearchToolResultBlockContent`
 
   - `class WebSearchToolResultError: …`
 
@@ -14079,7 +14040,7 @@ print(message_tokens_count.input_tokens)
 
       - `"web_search_tool_result_error"`
 
-  - `UnionMember1 = List[WebSearchResultBlock]`
+  - `List[WebSearchResultBlock]`
 
     - `encrypted_content: str`
 
@@ -14099,7 +14060,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: WebSearchToolResultBlockParamContent`
 
-    - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+    - `List[WebSearchResultBlockParam]`
 
       - `encrypted_content: str`
 
@@ -14164,9 +14125,9 @@ print(message_tokens_count.input_tokens)
 
 ### Web Search Tool Result Block Param Content
 
-- `WebSearchToolResultBlockParamContent = WebSearchToolResultBlockParamContent`
+- `WebSearchToolResultBlockParamContent`
 
-  - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+  - `List[WebSearchResultBlockParam]`
 
     - `encrypted_content: str`
 
@@ -14315,9 +14276,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]]`
 
-        - `ContentUnionMember0 = str`
+        - `str`
 
-        - `ContentUnionMember1 = List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
+        - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 8 more]]`
 
           - `class TextBlockParam: …`
 
@@ -14521,9 +14482,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                  - `ContentUnionMember0 = str`
+                  - `str`
 
-                  - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                  - `List[ContentBlockSourceContent]`
 
                     - `class TextBlockParam: …`
 
@@ -14978,9 +14939,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: Optional[Union[str, List[Content], null]]`
 
-              - `ContentUnionMember0 = str`
+              - `str`
 
-              - `Content = List[Content]`
+              - `List[Content]`
 
                 - `class TextBlockParam: …`
 
@@ -15334,9 +15295,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                       - `content: Union[str, List[ContentBlockSourceContent]]`
 
-                        - `ContentUnionMember0 = str`
+                        - `str`
 
-                        - `ContentContentBlockSourceContent = List[ContentBlockSourceContent]`
+                        - `List[ContentBlockSourceContent]`
 
                           - `class TextBlockParam: …`
 
@@ -15598,7 +15559,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `content: WebSearchToolResultBlockParamContent`
 
-              - `WebSearchToolResultBlockItem = List[WebSearchResultBlockParam]`
+              - `List[WebSearchResultBlockParam]`
 
                 - `encrypted_content: str`
 
@@ -15673,7 +15634,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -15785,7 +15746,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `inference_geo: Optional[str]`
 
@@ -15859,9 +15820,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
 
-      - `RequestParamsSystemUnionMember0 = str`
+      - `str`
 
-      - `RequestParamsSystemUnionMember1 = Iterable[TextBlockParam]`
+      - `Iterable[TextBlockParam]`
 
         - `text: str`
 
@@ -16552,31 +16513,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.create(
-    requests=[{
-        "custom_id": "my-custom-id-1",
-        "params": {
-            "max_tokens": 1024,
-            "messages": [{
-                "content": "Hello, world",
-                "role": "user",
-            }],
-            "model": "claude-opus-4-6",
-        },
-    }],
-)
-print(message_batch.id)
-```
-
 ## Retrieve
 
 `messages.batches.retrieve(strmessage_batch_id)  -> MessageBatch`
@@ -16682,21 +16618,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `"message_batch"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.retrieve(
-    "message_batch_id",
-)
-print(message_batch.id)
-```
 
 ## List
 
@@ -16814,20 +16735,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-page = client.messages.batches.list()
-page = page.data[0]
-print(page.id)
-```
-
 ## Cancel
 
 `messages.batches.cancel(strmessage_batch_id)  -> MessageBatch`
@@ -16936,21 +16843,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     - `"message_batch"`
 
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch = client.messages.batches.cancel(
-    "message_batch_id",
-)
-print(message_batch.id)
-```
-
 ## Delete
 
 `messages.batches.delete(strmessage_batch_id)  -> DeletedMessageBatch`
@@ -16984,21 +16876,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `"message_batch_deleted"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-deleted_message_batch = client.messages.batches.delete(
-    "message_batch_id",
-)
-print(deleted_message_batch.id)
-```
 
 ## Results
 
@@ -17243,7 +17120,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `"web_search_tool_result_error"`
 
-              - `UnionMember1 = List[WebSearchResultBlock]`
+              - `List[WebSearchResultBlock]`
 
                 - `encrypted_content: str`
 
@@ -17269,7 +17146,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+          - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
             The model that will complete your prompt.
 
@@ -17381,7 +17258,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               Our previous most fast and cost-effective
 
-          - `UnionMember1 = str`
+          - `str`
 
         - `role: Literal["assistant"]`
 
@@ -17597,21 +17474,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: Literal["expired"]`
 
         - `"expired"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch_individual_response = client.messages.batches.results(
-    "message_batch_id",
-)
-print(message_batch_individual_response.custom_id)
-```
 
 ## Domain Types
 
@@ -18052,7 +17914,7 @@ print(message_batch_individual_response.custom_id)
 
                   - `"web_search_tool_result_error"`
 
-              - `UnionMember1 = List[WebSearchResultBlock]`
+              - `List[WebSearchResultBlock]`
 
                 - `encrypted_content: str`
 
@@ -18078,7 +17940,7 @@ print(message_batch_individual_response.custom_id)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+          - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
             The model that will complete your prompt.
 
@@ -18190,7 +18052,7 @@ print(message_batch_individual_response.custom_id)
 
               Our previous most fast and cost-effective
 
-          - `UnionMember1 = str`
+          - `str`
 
         - `role: Literal["assistant"]`
 
@@ -18441,7 +18303,7 @@ print(message_batch_individual_response.custom_id)
 
 ### Message Batch Result
 
-- `MessageBatchResult = MessageBatchResult`
+- `MessageBatchResult`
 
   Processing result for this request.
 
@@ -18654,7 +18516,7 @@ print(message_batch_individual_response.custom_id)
 
                 - `"web_search_tool_result_error"`
 
-            - `UnionMember1 = List[WebSearchResultBlock]`
+            - `List[WebSearchResultBlock]`
 
               - `encrypted_content: str`
 
@@ -18680,7 +18542,7 @@ print(message_batch_individual_response.custom_id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+        - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
           The model that will complete your prompt.
 
@@ -18792,7 +18654,7 @@ print(message_batch_individual_response.custom_id)
 
             Our previous most fast and cost-effective
 
-        - `UnionMember1 = str`
+        - `str`
 
       - `role: Literal["assistant"]`
 
@@ -19218,7 +19080,7 @@ print(message_batch_individual_response.custom_id)
 
               - `"web_search_tool_result_error"`
 
-          - `UnionMember1 = List[WebSearchResultBlock]`
+          - `List[WebSearchResultBlock]`
 
             - `encrypted_content: str`
 
@@ -19244,7 +19106,7 @@ print(message_batch_individual_response.custom_id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+      - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
         The model that will complete your prompt.
 
@@ -19356,7 +19218,7 @@ print(message_batch_individual_response.custom_id)
 
           Our previous most fast and cost-effective
 
-      - `UnionMember1 = str`
+      - `str`
 
     - `role: Literal["assistant"]`
 

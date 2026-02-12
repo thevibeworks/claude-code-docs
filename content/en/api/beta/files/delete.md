@@ -75,13 +75,3 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/files/$FILE_ID \
-    -X DELETE \
-    -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: files-api-2025-04-14' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```
