@@ -115,15 +115,3 @@ Create Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-version = anthropic.beta.skills.versions.create("skill_id")
-
-puts(version)
-```

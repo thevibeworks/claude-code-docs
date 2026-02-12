@@ -573,15 +573,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: :expired`
 
         - `:expired`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch_individual_response = anthropic.messages.batches.results("message_batch_id")
-
-puts(message_batch_individual_response)
-```

@@ -79,17 +79,3 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const skill = await client.beta.skills.delete('skill_id');
-
-console.log(skill.id);
-```

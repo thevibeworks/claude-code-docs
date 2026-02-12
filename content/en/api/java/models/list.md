@@ -93,24 +93,3 @@ The Models API response can be used to determine which models are available for 
     For Models, this is always `"model"`.
 
     - `MODEL("model")`
-
-### Example
-
-```java
-package com.anthropic.example;
-
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.models.ModelListPage;
-import com.anthropic.models.models.ModelListParams;
-
-public final class Main {
-    private Main() {}
-
-    public static void main(String[] args) {
-        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-        ModelListPage page = client.models().list();
-    }
-}
-```

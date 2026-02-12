@@ -110,14 +110,6 @@ The Models API response can be used to determine which models are available for 
 
   Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
-
-```http
-curl https://api.anthropic.com/v1/models \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```
-
 ## Retrieve
 
 **get** `/v1/models/{model_id}`
@@ -205,14 +197,6 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `"model"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/models/$MODEL_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```
 
 ## Domain Types
 

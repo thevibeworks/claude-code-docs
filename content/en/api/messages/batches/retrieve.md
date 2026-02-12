@@ -101,11 +101,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `"message_batch"`
-
-### Example
-
-```http
-curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY"
-```

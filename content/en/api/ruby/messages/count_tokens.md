@@ -2135,15 +2135,3 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   - `input_tokens: Integer`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_tokens_count = anthropic.messages.count_tokens(messages: [{content: "string", role: :user}], model: :"claude-opus-4-6")
-
-puts(message_tokens_count)
-```

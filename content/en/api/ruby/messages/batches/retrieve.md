@@ -103,15 +103,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `:message_batch`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message_batch = anthropic.messages.batches.retrieve("message_batch_id")
-
-puts(message_batch)
-```

@@ -2635,19 +2635,3 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `:priority`
 
       - `:batch`
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-message = anthropic.messages.create(
-  max_tokens: 1024,
-  messages: [{content: "Hello, world", role: :user}],
-  model: :"claude-opus-4-6"
-)
-
-puts(message)
-```

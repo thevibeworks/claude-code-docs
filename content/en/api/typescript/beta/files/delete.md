@@ -77,17 +77,3 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"`
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const deletedFile = await client.beta.files.delete('file_id');
-
-console.log(deletedFile.id);
-```

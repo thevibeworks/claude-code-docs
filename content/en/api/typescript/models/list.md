@@ -97,18 +97,3 @@ The Models API response can be used to determine which models are available for 
     For Models, this is always `"model"`.
 
     - `"model"`
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-// Automatically fetches more pages as needed.
-for await (const modelInfo of client.models.list()) {
-  console.log(modelInfo.id);
-}
-```

@@ -87,17 +87,3 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `"model"`
-
-### Example
-
-```typescript
-import Anthropic from '@anthropic-ai/sdk';
-
-const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
-});
-
-const modelInfo = await client.models.retrieve('model_id');
-
-console.log(modelInfo.id);
-```

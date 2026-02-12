@@ -241,7 +241,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                   - `"web_search_tool_result_error"`
 
-              - `UnionMember1 = List[WebSearchResultBlock]`
+              - `List[WebSearchResultBlock]`
 
                 - `encrypted_content: str`
 
@@ -267,7 +267,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `UnionMember0 = Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
+          - `Literal["claude-opus-4-6", "claude-opus-4-5-20251101", "claude-opus-4-5", 18 more]`
 
             The model that will complete your prompt.
 
@@ -379,7 +379,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               Our previous most fast and cost-effective
 
-          - `UnionMember1 = str`
+          - `str`
 
         - `role: Literal["assistant"]`
 
@@ -595,18 +595,3 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `type: Literal["expired"]`
 
         - `"expired"`
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-message_batch_individual_response = client.messages.batches.results(
-    "message_batch_id",
-)
-print(message_batch_individual_response.custom_id)
-```

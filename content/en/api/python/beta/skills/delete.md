@@ -18,9 +18,9 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-  - `UnionMember0 = str`
+  - `str`
 
-  - `UnionMember1 = Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 17 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -77,18 +77,3 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
-
-### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
-)
-skill = client.beta.skills.delete(
-    skill_id="skill_id",
-)
-print(skill.id)
-```
