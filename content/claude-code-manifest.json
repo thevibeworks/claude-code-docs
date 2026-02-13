@@ -1,16 +1,20 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.39",
+  "version": "2.1.41",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.39",
+  "_id": "@anthropic-ai/claude-code@2.1.41",
   "maintainers": [
     {
       "name": "zak-anthropic",
       "email": "zak@anthropic.com"
+    },
+    {
+      "name": "dylanc-anthropic",
+      "email": "dylanc@anthropic.com"
     },
     {
       "name": "benjmann",
@@ -69,23 +73,23 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "aacc5339a605223252b598a0d100c2feada079e6",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.39.tgz",
-    "fileCount": 20,
-    "integrity": "sha512-3tE1xk4erW4y+iIEWNzO0XiaCnkGNFJdgdw8Q4jd1Dcpl6MWjZonuqFqXtHomKX1Tw/8n/Sa3+oc1F4huvW/rQ==",
+    "shasum": "82681af0e015e245a0fbb8e88ab3204fc94d7bd0",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.41.tgz",
+    "fileCount": 22,
+    "integrity": "sha512-fdWv64UZ0BebqDXgSVUQpNiOffOdbA67ZAz7Y06DXAfPOFrsCHJCPyd7u1mld5ELOiBdJnTGhcSY4vGcH7ZYVA==",
     "signatures": [
       {
-        "sig": "MEUCIGeUTfZsz4SxvPFPL2iyWbo3a29oWmBKzM2avSeT+6XfAiEA3rhjttJidbWb74dU3rTqAgUtzKhGByc5sP57JFOqlsU=",
+        "sig": "MEQCIADXjM6v0Fvii0T5seSCk1xR3grIIEzGuJam6aoc0WAPAiALeSqK2OFmXRJYUTht1xQJz3iNXSbGCcmEXb8UOWZs8g==",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 71337042
+    "unpackedSize": 79335851
   },
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "875b40e96c3822dfdb6a5b67ac22b8b1d931c202",
+  "gitHead": "4a29df70e99191c503c23e593f8e815491a92888",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease see the release workflow documentation to publish this package.'); process.exit(1); }\""
   },
@@ -99,6 +103,7 @@
   "_nodeVersion": "20.20.0",
   "dependencies": {},
   "_hasShrinkwrap": false,
+  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@img/sharp-linux-arm": "^0.33.5",
     "@img/sharp-linux-x64": "^0.33.5",
@@ -110,7 +115,7 @@
     "@img/sharp-linuxmusl-arm64": "^0.33.5"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.39_1770757935538_0.15105980673293118",
+    "tmp": "tmp/claude-code_2.1.41_1770945160183_0.8808168214666712",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }

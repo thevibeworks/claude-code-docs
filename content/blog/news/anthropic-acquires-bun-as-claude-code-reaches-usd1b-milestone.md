@@ -24,18 +24,16 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Anthropic raises $30 billion in Series G funding at $380 billion post-money valuation
+
+We have raised $30 billion in Series G funding led by GIC and Coatue, valuing Anthropic at $380 billion post-money. The investment will fuel the frontier research, product development, and infrastructure expansions that have made Anthropic the market leader in enterprise AI and coding. Our run-rate revenue is $14 billion, with this figure growing over 10x annually in each of those past three years.
+
+[Read more](https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation)
+
+### Anthropic is donating $20 million to Public First Action
+
+[Read more](https://www.anthropic.com/news/donate-public-first-action)
+
 ### Covering electricity price increases from our data centers
 
 [Read more](https://www.anthropic.com/news/covering-electricity-price-increases)
-
-### Introducing Claude Opus 4.6
-
-We’re upgrading our smartest model. Across agentic coding, computer use, tool use, search, and finance, Opus 4.6 is an industry-leading model, often by wide margin.
-
-[Read more](https://www.anthropic.com/news/claude-opus-4-6)
-
-### Claude is a space to think
-
-We’ve made a choice: Claude will remain ad-free. We explain why advertising incentives are incompatible with a genuinely helpful AI assistant, and how we plan to expand access without compromising user trust.
-
-[Read more](https://www.anthropic.com/news/claude-is-a-space-to-think)
