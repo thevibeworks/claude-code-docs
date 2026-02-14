@@ -48,7 +48,7 @@ Claude Code overview
 ##### Platforms and integrations
 
 *   [Claude Code on the web](https://www.anthropic.com/docs/en/claude-code-on-the-web)
-*   [Claude Code on desktop](https://www.anthropic.com/docs/en/desktop)
+*   Claude Code on desktop 
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
 *   [Visual Studio Code](https://www.anthropic.com/docs/en/vs-code)
 *   [JetBrains IDEs](https://www.anthropic.com/docs/en/jetbrains)
@@ -181,8 +181,9 @@ Or search for “Claude Code” in the Extensions view (`Cmd+Shift+X` on Mac, `C
 A standalone app for running Claude Code outside your IDE or terminal. Review diffs visually, run multiple sessions side by side, and kick off cloud sessions.Download and install:
 *   [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code&utm_medium=docs) (Intel and Apple Silicon)
 *   [Windows](https://claude.ai/api/desktop/win32/x64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (x64)
+*   [Windows ARM64](https://claude.ai/api/desktop/win32/arm64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (remote sessions only)
 
-After installing, launch Claude, sign in, and click the **Code** tab to start coding.[Learn more about the desktop app →](https://www.anthropic.com/docs/en/desktop#installation-and-setup)
+After installing, launch Claude, sign in, and click the **Code** tab to start coding. A [paid subscription](https://claude.com/pricing) is required.[Learn more about the desktop app →](https://www.anthropic.com/docs/en/desktop#get-started)
 
 Run Claude Code in your browser with no local setup. Kick off long-running tasks and check back when they’re done, work on repos you don’t have locally, or run multiple tasks in parallel. Available on desktop browsers and the Claude iOS app.Start coding at [claude.ai/code](https://claude.ai/code).[Get started on the web →](https://www.anthropic.com/docs/en/claude-code-on-the-web#getting-started)
 
@@ -266,7 +267,10 @@ See the [CLI reference](https://www.anthropic.com/docs/en/cli-reference) for the
 
 Work from anywhere
 
-Start a task on your laptop and pick it up on your phone. [Claude Code on the web](https://www.anthropic.com/docs/en/claude-code-on-the-web) and the [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) run sessions on cloud infrastructure, so you can kick off work from anywhere without a local dev environment.You can also route coding tasks straight from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report or feature request, and get a pull request back.
+Sessions aren’t tied to a single surface. Move work between environments as your context changes:
+*   Kick off a long-running task on the [web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684), then pull it into your terminal with `/teleport`
+*   Hand off a terminal session to the [Desktop app](https://www.anthropic.com/docs/en/desktop) with `/desktop` for visual diff review
+*   Route tasks from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report and get a pull request back
 
 [​](https://www.anthropic.com/engineering/claude-code-best-practices#use-claude-code-everywhere)
 
