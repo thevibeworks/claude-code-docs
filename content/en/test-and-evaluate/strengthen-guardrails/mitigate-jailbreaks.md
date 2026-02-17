@@ -4,17 +4,33 @@
 
 Jailbreaking and prompt injections occur when users craft prompts to exploit model vulnerabilities, aiming to generate inappropriate content. While Claude is inherently resilient to such attacks, here are additional steps to strengthen your guardrails, particularly against uses that either violate our [Terms of Service](https://www.anthropic.com/legal/commercial-terms) or [Usage Policy](https://www.anthropic.com/legal/aup).
 
-<Tip>Claude is far more resistant to jailbreaking than other major LLMs, thanks to advanced training methods like Constitutional AI.</Tip>
-
-- **Harmlessness screens**: Use a lightweight model like Claude Haiku 3 to pre-screen user inputs. (Note: prefilling is deprecated and not supported on Claude Opus 4.6 and Sonnet 4.5.)
+- **Harmlessness screens**: Use a lightweight model like Claude Haiku 4.5 to pre-screen user inputs. Use [structured outputs](/docs/en/build-with-claude/structured-outputs) to constrain the response to a simple classification.
 
     <section title="Example: Harmlessness screen for content moderation">
 
         | Role | Content |
         | ---- | ------- |
-        | User | A user submitted this content:<br/>\<content><br/>\{\{CONTENT}\}<br/>\</content><br/><br/>Reply with (Y) if it refers to harmful, illegal, or explicit activities. Reply with (N) if it's safe. |
-        | Assistant (prefill) | \( |
-        | Assistant | N) |
+        | User | A user submitted this content:<br/>\<content><br/>\{\{CONTENT}\}<br/>\</content><br/><br/>Classify whether this content refers to harmful, illegal, or explicit activities. |
+
+        Use `output_config` with a JSON schema to constrain the response:
+
+        ```json
+        {
+          "output_config": {
+            "format": {
+              "type": "json_schema",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "is_harmful": { "type": "boolean" }
+                },
+                "required": ["is_harmful"],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+        ```
     
 </section>
 
@@ -48,8 +64,9 @@ Combine strategies for robust protection. Here's an enterprise-grade example wit
   ### Prompt within `harmlessness_screen` tool
   | Role | Content |
   | -------- | ------- |
-  | User | \<user_query><br/>\{\{USER_QUERY}}<br/>\</user_query><br/><br/>Evaluate if this query violates SEC rules, FINRA guidelines, or client privacy. Respond (Y) if it does, (N) if it doesn't. |
-  | Assistant (prefill) | \( |
+  | User | \<user_query><br/>\{\{USER_QUERY}}<br/>\</user_query><br/><br/>Evaluate if this query violates SEC rules, FINRA guidelines, or client privacy. |
+
+  Use [structured outputs](/docs/en/build-with-claude/structured-outputs) to constrain the response to a boolean classification.
 
 </section>
 
