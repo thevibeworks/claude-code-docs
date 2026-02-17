@@ -52,16 +52,14 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries
+
+[Read more](https://www.anthropic.com/news/anthropic-infosys)
+
+### Anthropic opens Bengaluru office and announces new partnerships across India
+
+[Read more](https://www.anthropic.com/news/bengaluru-office-partnerships-across-india)
+
 ### Anthropic partners with CodePath to bring Claude to the US’s largest collegiate computer science program
 
 [Read more](https://www.anthropic.com/news/anthropic-codepath-partnership)
-
-### Chris Liddell appointed to Anthropic’s board of directors
-
-[Read more](https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board)
-
-### Anthropic raises $30 billion in Series G funding at $380 billion post-money valuation
-
-We have raised $30 billion in Series G funding led by GIC and Coatue, valuing Anthropic at $380 billion post-money. The investment will fuel the frontier research, product development, and infrastructure expansions that have made Anthropic the market leader in enterprise AI and coding. Our run-rate revenue is $14 billion, with this figure growing over 10x annually in each of those past three years.
-
-[Read more](https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation)
