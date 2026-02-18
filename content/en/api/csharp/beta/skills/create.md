@@ -110,3 +110,13 @@ Create Skill
   - `required string UpdatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+### Example
+
+```csharp
+SkillCreateParams parameters = new();
+
+var skill = await client.Beta.Skills.Create(parameters);
+
+Console.WriteLine(skill);
+```

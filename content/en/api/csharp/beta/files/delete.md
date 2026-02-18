@@ -73,3 +73,13 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"FileDeleted`
+
+### Example
+
+```csharp
+FileDeleteParams parameters = new() { FileID = "file_id" };
+
+var deletedFile = await client.Beta.Files.Delete(parameters);
+
+Console.WriteLine(deletedFile);
+```

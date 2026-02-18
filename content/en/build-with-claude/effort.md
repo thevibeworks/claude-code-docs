@@ -7,11 +7,11 @@ Control how many tokens Claude uses when responding with the effort parameter, t
 The effort parameter allows you to control how eager Claude is about spending tokens when responding to requests. This gives you the ability to trade off between response thoroughness and token efficiency, all with a single model. The effort parameter is generally available on all supported models with no beta header required.
 
 <Note>
-  The effort parameter is supported by Claude Opus 4.6 and Claude Opus 4.5.
+  The effort parameter is supported by Claude Opus 4.6, Claude Sonnet 4.6, and Claude Opus 4.5.
 </Note>
 
 <Tip>
-For Claude Opus 4.6, effort replaces `budget_tokens` as the recommended way to control thinking depth. Combine effort with [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`) for the best experience. While `budget_tokens` is still accepted on Opus 4.6, it is deprecated and will be removed in a future model release. At `high` (default) and `max` effort, Claude will almost always think. At lower effort levels, it may skip thinking for simpler problems.
+For Claude Opus 4.6 and Sonnet 4.6, effort replaces `budget_tokens` as the recommended way to control thinking depth. Combine effort with [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`) for the best experience. While `budget_tokens` is still accepted on Opus 4.6 and Sonnet 4.6, it is deprecated and will be removed in a future model release. At `high` (default) and `max` effort, Claude will almost always think. At lower effort levels, it may skip thinking for simpler problems.
 </Tip>
 
 ## How effort works
@@ -45,6 +45,14 @@ This approach has two major advantages:
 <Note>
 Effort is a behavioral signal, not a strict token budget. At lower effort levels, Claude will still think on sufficiently difficult problems — it will just think less than it would at higher effort levels for the same problem.
 </Note>
+
+### Recommended effort levels for Sonnet 4.6
+
+Sonnet 4.6 defaults to `high` effort. We recommend explicitly setting effort when using Sonnet 4.6 to avoid unexpected latency:
+
+- **Medium effort** (recommended default): Best balance of speed, cost, and performance for most applications. Suitable for agentic coding, tool-heavy workflows, and code generation.
+- **Low effort**: For high-volume or latency-sensitive workloads. Suitable for chat and non-coding use cases where faster turnaround is prioritized.
+- **High effort**: For tasks requiring maximum intelligence from Sonnet 4.6.
 
 ## Basic usage
 
@@ -137,7 +145,8 @@ Higher effort levels may:
 The effort parameter works alongside extended thinking. Its behavior depends on the model:
 
 - **Claude Opus 4.6** uses [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`), where effort is the recommended control for thinking depth. While `budget_tokens` is still accepted on Opus 4.6, it is deprecated and will be removed in a future release. At `high` and `max` effort, Claude almost always thinks deeply. At lower levels, it may skip thinking for simpler problems.
-- **Claude Opus 4.5** uses manual thinking (`thinking: {type: "enabled", budget_tokens: N}`), where effort works alongside the thinking token budget. Set the effort level for your task, then set the thinking token budget based on task complexity.
+- **Claude Sonnet 4.6** supports both [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (where effort controls thinking depth) and manual thinking with [interleaved mode](/docs/en/build-with-claude/extended-thinking#interleaved-thinking) (`thinking: {type: "enabled", budget_tokens: N}`).
+- **Claude Opus 4.5 and other Claude 4 models** use manual thinking (`thinking: {type: "enabled", budget_tokens: N}`), where effort works alongside the thinking token budget. Set the effort level for your task, then set the thinking token budget based on task complexity.
 
 The effort parameter can be used with or without extended thinking enabled. When used without thinking, it still controls overall token spend for text responses and tool calls.
 

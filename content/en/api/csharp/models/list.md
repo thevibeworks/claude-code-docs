@@ -105,3 +105,15 @@ The Models API response can be used to determine which models are available for 
   - `required string? LastID`
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+### Example
+
+```csharp
+ModelListParams parameters = new();
+
+var page = await client.Models.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```

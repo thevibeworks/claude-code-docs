@@ -108,6 +108,18 @@ The Models API response can be used to determine which models are available for 
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
+### Example
+
+```csharp
+ModelListParams parameters = new();
+
+var page = await client.Beta.Models.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
 ## Retrieve
 
 `BetaModelInfo Beta.Models.Retrieve(ModelRetrieveParamsparameters, CancellationTokencancellationToken = default)`
@@ -191,6 +203,16 @@ The Models API response can be used to determine information about a specific mo
     Object type.
 
     For Models, this is always `"model"`.
+
+### Example
+
+```csharp
+ModelRetrieveParams parameters = new() { ModelID = "model_id" };
+
+var betaModelInfo = await client.Beta.Models.Retrieve(parameters);
+
+Console.WriteLine(betaModelInfo);
+```
 
 ## Domain Types
 

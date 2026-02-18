@@ -102,6 +102,20 @@ Upload File
 
     Whether the file can be downloaded.
 
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+const fileMetadata = await client.beta.files.upload({ file: fs.createReadStream('path/to/file') });
+
+console.log(fileMetadata.id);
+```
+
 ## List
 
 `client.beta.files.list(FileListParamsparams?, RequestOptionsoptions?): Page<FileMetadata>`
@@ -214,6 +228,21 @@ List Files
 
     Whether the file can be downloaded.
 
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const fileMetadata of client.beta.files.list()) {
+  console.log(fileMetadata.id);
+}
+```
+
 ## Download
 
 `client.beta.files.download(stringfileID, FileDownloadParamsparams?, RequestOptionsoptions?): Response`
@@ -280,7 +309,24 @@ Download File
 
 ### Returns
 
-- `unnamed_schema_2 = Response`
+- `unnamed_schema_1 = Response`
+
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+const response = await client.beta.files.download('file_id');
+
+console.log(response);
+
+const content = await response.blob();
+console.log(content);
+```
 
 ## Retrieve Metadata
 
@@ -384,6 +430,20 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+const fileMetadata = await client.beta.files.retrieveMetadata('file_id');
+
+console.log(fileMetadata.id);
+```
+
 ## Delete
 
 `client.beta.files.delete(stringfileID, FileDeleteParamsparams?, RequestOptionsoptions?): DeletedFile`
@@ -463,6 +523,20 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"`
+
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+const deletedFile = await client.beta.files.delete('file_id');
+
+console.log(deletedFile.id);
+```
 
 ## Domain Types
 

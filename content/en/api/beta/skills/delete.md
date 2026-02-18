@@ -75,3 +75,13 @@ Delete Skill
   Deleted object type.
 
   For Skills, this is always `"skill_deleted"`.
+
+### Example
+
+```http
+curl https://api.anthropic.com/v1/skills/$SKILL_ID?beta=true \
+    -X DELETE \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: skills-2025-10-02' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```

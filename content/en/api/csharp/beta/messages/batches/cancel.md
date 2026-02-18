@@ -149,3 +149,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     Object type.
 
     For Message Batches, this is always `"message_batch"`.
+
+### Example
+
+```csharp
+BatchCancelParams parameters = new() { MessageBatchID = "message_batch_id" };
+
+var betaMessageBatch = await client.Beta.Messages.Batches.Cancel(parameters);
+
+Console.WriteLine(betaMessageBatch);
+```

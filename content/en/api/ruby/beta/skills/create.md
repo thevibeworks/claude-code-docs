@@ -112,3 +112,15 @@ Create Skill
   - `updated_at: String`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+skill = anthropic.beta.skills.create
+
+puts(skill)
+```

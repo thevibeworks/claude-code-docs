@@ -162,6 +162,10 @@ Future models and features will not be compatible with Text Completions. See our
 
         Most intelligent model for building agents and coding
 
+      - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+
+        Frontier intelligence at scale — built for coding, agents, and enterprise workflows
+
       - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
         Premium model combining maximum intelligence with practical performance
@@ -260,3 +264,32 @@ Future models and features will not be compatible with Text Completions. See our
     For Text Completions, this is always `"completion"`.
 
     - `const CompletionCompletion Completion = "completion"`
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
+    MaxTokensToSample: 256,
+    Model: anthropic.ModelClaudeOpus4_6,
+    Prompt: "\n\nHuman: Hello, world!\n\nAssistant:",
+  })
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", completion.ID)
+}
+```

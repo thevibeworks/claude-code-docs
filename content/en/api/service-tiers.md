@@ -120,6 +120,7 @@ Priority Tier is supported by:
 - Claude Opus 4.5
 - Claude Opus 4.1
 - Claude Opus 4
+- Claude Sonnet 4.6
 - Claude Sonnet 4.5
 - Claude Sonnet 4
 - Claude Sonnet 3.7 ([deprecated](/docs/en/about-claude/model-deprecations))

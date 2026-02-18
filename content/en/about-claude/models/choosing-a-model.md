@@ -54,8 +54,8 @@ This approach is best for:
 
 | When you need... | We recommend starting with... | Example use cases |
 |------------------|-------------------|-------------------|
-| Claude Opus 4.6 is the latest version of our most intelligent model, and the world’s best model for coding, enterprise agents, and professional work. | Claude Opus 4.6 | Professional software engineering, advanced agents for office tasks, computer and browser use at scale, multi-hour research tasks, step-change vision applications |
-| The best combination of speed and intelligence for everyday tasks | Claude Sonnet 4.5 | Code generation, data analysis, content creation, visual understanding, agentic tool use |
+| Our most intelligent model, and the world’s best model for coding, enterprise agents, and professional work. | Claude Opus 4.6 | Professional software engineering, advanced agents for office tasks, computer and browser use at scale, multi-hour research tasks, step-change vision applications |
+| Frontier intelligence at scale—built for coding, agents, and enterprise workflows | Claude Sonnet 4.6 | Code generation, data analysis, content creation, visual understanding, agentic tool use |
 | Near-frontier performance with lightning-fast speed and extended thinking at the most economical price point | Claude Haiku 4.5 | Real-time applications, high-volume intelligent processing, cost-sensitive deployments needing strong reasoning, sub-agent tasks |
 
 ***

@@ -97,3 +97,18 @@ Upload File
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+file_metadata = client.beta.files.upload(
+    file=b"raw file contents",
+)
+print(file_metadata.id)
+```

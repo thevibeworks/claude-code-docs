@@ -56,7 +56,7 @@ These are not required but will improve your experience:
 
 3. **Remove fine-grained tool streaming beta header:** Fine-grained tool streaming is now GA. Remove `betas=["fine-grained-tool-streaming-2025-05-14"]` from your requests.
 
-4. **Remove interleaved thinking beta header:** Adaptive thinking automatically enables interleaved thinking. Remove `betas=["interleaved-thinking-2025-05-14"]` from your requests.
+4. **Remove interleaved thinking beta header (Opus 4.6 only):** Adaptive thinking automatically enables interleaved thinking on Opus 4.6. Remove `betas=["interleaved-thinking-2025-05-14"]` from your Opus 4.6 requests. Note: Sonnet 4.6 continues to support this beta header with manual extended thinking.
 
 5. **Migrate to output_config.format:** If using structured outputs, update `output_format={...}` to `output_config={"format": {...}}`. The old parameter remains functional but is deprecated and will be removed in a future model release.
 
@@ -168,7 +168,7 @@ model = "claude-opus-4-6"  # After
 - [ ] Verify tool call JSON parsing uses a standard JSON parser
 - [ ] Remove `effort-2025-11-24` beta header (effort is now GA)
 - [ ] Remove `fine-grained-tool-streaming-2025-05-14` beta header
-- [ ] Remove `interleaved-thinking-2025-05-14` beta header
+- [ ] Remove `interleaved-thinking-2025-05-14` beta header (Opus 4.6 only; Sonnet 4.6 still supports it)
 - [ ] Migrate `output_format` to `output_config.format` (if applicable)
 - [ ] If migrating from Claude 4.1 or earlier: update sampling parameters to use only `temperature` OR `top_p`
 - [ ] If migrating from Claude 4.1 or earlier: update tool versions (`text_editor_20250728`, `code_execution_20250825`)
@@ -177,6 +177,333 @@ model = "claude-opus-4-6"  # After
 - [ ] If migrating from Claude 4.1 or earlier: verify tool string parameter handling for trailing newlines
 - [ ] If migrating from Claude 4.1 or earlier: remove legacy beta headers (`token-efficient-tools-2025-02-19`, `output-128k-2025-02-19`)
 - [ ] Review and update prompts following [prompting best practices](/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+- [ ] Test in development environment before production deployment
+
+---
+
+## Migrating to Claude Sonnet 4.6
+
+Claude Sonnet 4.6 combines strong intelligence with fast performance, featuring improved agentic search capabilities and free code execution when used with web search or web fetch. It is ideal for everyday coding, analysis, and content tasks.
+
+For a complete overview of capabilities, see the [models overview](/docs/en/about-claude/models/overview).
+
+<Note>
+Sonnet 4.6 pricing is $3 per million input tokens, $15 per million output tokens. See [Claude pricing](/docs/en/about-claude/pricing) for details.
+</Note>
+
+**Update your model name:**
+
+```python
+# From Sonnet 4.5
+model = "claude-sonnet-4-5"  # Before
+model = "claude-sonnet-4-6"  # After
+
+# From Sonnet 4
+model = "claude-sonnet-4-20250514"  # Before
+model = "claude-sonnet-4-6"  # After
+```
+
+### Breaking changes
+
+#### When migrating from Sonnet 4.5
+
+1. **Prefilling assistant messages is no longer supported**
+
+   <Warning>
+   This is a breaking change when migrating from Sonnet 4.5 or earlier.
+   </Warning>
+
+   Prefilling assistant messages returns a `400` error on Sonnet 4.6. Use [structured outputs](/docs/en/build-with-claude/structured-outputs), system prompt instructions, or `output_config.format` instead.
+
+   **Common prefill use cases and migrations:**
+
+   - **Controlling output formatting** (forcing JSON/YAML output): Use [structured outputs](/docs/en/build-with-claude/structured-outputs) or tools with enum fields for classification tasks.
+
+   - **Eliminating preambles** (removing "Here is..." phrases): Add direct instructions in the system prompt: "Respond directly without preamble. Do not start with phrases like 'Here is...', 'Based on...', etc."
+
+   - **Avoiding bad refusals**: Claude is much better at appropriate refusals now. Clear prompting in the user message without prefill should be sufficient.
+
+   - **Continuations** (resuming interrupted responses): Move the continuation to the user message: "Your previous response was interrupted and ended with `[previous_response]`. Continue from where you left off."
+
+   - **Context hydration / role consistency** (refreshing context in long conversations): Inject what were previously prefilled-assistant reminders into the user turn instead.
+
+2. **Tool parameter JSON escaping may differ**
+
+   <Warning>
+   This is a breaking change when migrating from Sonnet 4.5 or earlier.
+   </Warning>
+
+   JSON string escaping in tool parameters may differ from previous models. Standard JSON parsers handle this automatically, but custom string-based parsing may need updates.
+
+#### When migrating from Claude 3.x
+
+3. **Update sampling parameters**
+
+   <Warning>
+   This is a breaking change when migrating from Claude 3.x models.
+   </Warning>
+
+   Use only `temperature` OR `top_p`, not both.
+
+4. **Update tool versions**
+
+   <Warning>
+   This is a breaking change when migrating from Claude 3.x models.
+   </Warning>
+
+   Update to the latest tool versions (`text_editor_20250728`, `code_execution_20250825`). Remove any code using the `undo_edit` command.
+
+5. **Handle the `refusal` stop reason**
+
+   Update your application to [handle `refusal` stop reasons](/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals).
+
+6. **Update your prompts for behavioral changes**
+
+   Claude 4 models have a more concise, direct communication style. Review [prompting best practices](/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) for optimization guidance.
+
+### Recommended changes
+
+1. **Remove `fine-grained-tool-streaming-2025-05-14` beta header** — Fine-grained tool streaming is now GA on Sonnet 4.6 and no longer requires a beta header.
+2. **Migrate `output_format` to `output_config.format`** — The `output_format` parameter is deprecated. Use `output_config.format` instead.
+
+### Migrating from Sonnet 4.5
+
+We strongly encourage migrating from Sonnet 4.5 to Sonnet 4.6, which delivers more intelligence at the same price point.
+
+<Warning>
+Sonnet 4.6 defaults to an effort level of `high`, in contrast to Sonnet 4.5 which had no effort parameter. We recommend adjusting the effort parameter as you migrate from Sonnet 4.5 to Sonnet 4.6. If not explicitly set, you may experience higher latency with the default effort level.
+</Warning>
+
+#### If you're not using extended thinking
+
+If you're not using extended thinking on Sonnet 4.5, you can continue without it on Sonnet 4.6. You should explicitly set effort to the level appropriate for your use case. At `low` effort with thinking disabled, you can expect similar or better performance relative to Sonnet 4.5 with no extended thinking.
+
+<CodeGroup>
+```python Python
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=8192,
+    output_config={"effort": "low"},
+    messages=[{"role": "user", "content": "Your prompt here"}],
+)
+```
+
+```typescript TypeScript
+const response = await client.messages.create({
+  model: "claude-sonnet-4-6",
+  max_tokens: 8192,
+  output_config: { effort: "low" },
+  messages: [{ role: "user", content: "Your prompt here" }]
+});
+```
+
+```bash Shell
+curl https://api.anthropic.com/v1/messages \
+     --header "x-api-key: $ANTHROPIC_API_KEY" \
+     --header "anthropic-version: 2023-06-01" \
+     --header "content-type: application/json" \
+     --data \
+'{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 8192,
+    "output_config": {
+        "effort": "low"
+    },
+    "messages": [
+        {
+            "role": "user",
+            "content": "Your prompt here"
+        }
+    ]
+}'
+```
+</CodeGroup>
+
+#### If you're using extended thinking
+
+If you're using extended thinking on Sonnet 4.5, it continues to be supported on Sonnet 4.6 with no changes needed to your thinking configuration. We recommend keeping a thinking budget around 16k tokens. In practice, most tasks don't use that much, but it provides headroom for harder problems without risk of runaway token usage.
+
+##### Coding and agentic use cases
+
+For agentic coding, frontend design, tool-heavy workflows, and complex enterprise workflows, we recommend starting with `medium` effort. If you find latency is too high, consider reducing effort to `low`. If you need higher intelligence, consider increasing effort to `high` or migrating to Opus 4.6.
+
+<CodeGroup>
+```python Python
+response = client.beta.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=16384,
+    thinking={"type": "enabled", "budget_tokens": 16384},
+    output_config={"effort": "medium"},
+    betas=["interleaved-thinking-2025-05-14"],
+    messages=[{"role": "user", "content": "Your prompt here"}],
+)
+```
+
+```typescript TypeScript
+const response = await client.beta.messages.create({
+  model: "claude-sonnet-4-6",
+  max_tokens: 16384,
+  thinking: { type: "enabled", budget_tokens: 16384 },
+  output_config: { effort: "medium" },
+  betas: ["interleaved-thinking-2025-05-14"],
+  messages: [{ role: "user", content: "Your prompt here" }]
+});
+```
+
+```bash Shell
+curl https://api.anthropic.com/v1/messages \
+     --header "x-api-key: $ANTHROPIC_API_KEY" \
+     --header "anthropic-version: 2023-06-01" \
+     --header "anthropic-beta: interleaved-thinking-2025-05-14" \
+     --header "content-type: application/json" \
+     --data \
+'{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 16384,
+    "thinking": {
+        "type": "enabled",
+        "budget_tokens": 16384
+    },
+    "output_config": {
+        "effort": "medium"
+    },
+    "messages": [
+        {
+            "role": "user",
+            "content": "Your prompt here"
+        }
+    ]
+}'
+```
+</CodeGroup>
+
+##### Chat and non-coding use cases
+
+For chat, content generation, search, classification, and other non-coding tasks, we recommend starting with `low` effort with extended thinking. If you need more depth, increase effort to `medium`.
+
+<CodeGroup>
+```python Python
+response = client.beta.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=8192,
+    thinking={"type": "enabled", "budget_tokens": 16384},
+    output_config={"effort": "low"},
+    betas=["interleaved-thinking-2025-05-14"],
+    messages=[{"role": "user", "content": "Your prompt here"}],
+)
+```
+
+```typescript TypeScript
+const response = await client.beta.messages.create({
+  model: "claude-sonnet-4-6",
+  max_tokens: 8192,
+  thinking: { type: "enabled", budget_tokens: 16384 },
+  output_config: { effort: "low" },
+  betas: ["interleaved-thinking-2025-05-14"],
+  messages: [{ role: "user", content: "Your prompt here" }]
+});
+```
+
+```bash Shell
+curl https://api.anthropic.com/v1/messages \
+     --header "x-api-key: $ANTHROPIC_API_KEY" \
+     --header "anthropic-version: 2023-06-01" \
+     --header "anthropic-beta: interleaved-thinking-2025-05-14" \
+     --header "content-type: application/json" \
+     --data \
+'{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 8192,
+    "thinking": {
+        "type": "enabled",
+        "budget_tokens": 16384
+    },
+    "output_config": {
+        "effort": "low"
+    },
+    "messages": [
+        {
+            "role": "user",
+            "content": "Your prompt here"
+        }
+    ]
+}'
+```
+</CodeGroup>
+
+##### When to try adaptive thinking
+
+The migration paths above use extended thinking with `budget_tokens` for predictable token usage. If your workload fits one of the following patterns, consider trying [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) instead:
+
+- **Autonomous multi-step agents:** coding agents that turn requirements into working software, data analysis pipelines, and bug finding where the model runs independently across many steps. Adaptive thinking lets the model calibrate its reasoning per step, staying on path over longer trajectories. For these workloads, start at `high` effort. If latency or token usage is a concern, scale down to `medium`.
+- **Computer use agents:** Sonnet 4.6 achieved best-in-class accuracy on computer use evaluations using adaptive mode.
+- **Bimodal workloads:** a mix of easy and hard tasks where adaptive skips thinking on simple queries and reasons deeply on complex ones.
+
+When using adaptive thinking, evaluate `medium` and `high` effort on your tasks. The right level depends on your workload's tradeoff between quality, latency, and token usage.
+
+<CodeGroup>
+```python Python
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=64000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "medium"},
+    messages=[{"role": "user", "content": "Your prompt here"}],
+)
+```
+
+```typescript TypeScript
+const response = await client.messages.create({
+  model: "claude-sonnet-4-6",
+  max_tokens: 64000,
+  thinking: { type: "adaptive" },
+  output_config: { effort: "medium" },
+  messages: [{ role: "user", content: "Your prompt here" }]
+});
+```
+
+```bash Shell
+curl https://api.anthropic.com/v1/messages \
+     --header "x-api-key: $ANTHROPIC_API_KEY" \
+     --header "anthropic-version: 2023-06-01" \
+     --header "content-type: application/json" \
+     --data \
+'{
+    "model": "claude-sonnet-4-6",
+    "max_tokens": 64000,
+    "thinking": {
+        "type": "adaptive"
+    },
+    "output_config": {
+        "effort": "medium"
+    },
+    "messages": [
+        {
+            "role": "user",
+            "content": "Your prompt here"
+        }
+    ]
+}'
+```
+</CodeGroup>
+
+<Note>
+If you see inconsistent behavior or quality regressions with adaptive thinking, switch to extended thinking with `budget_tokens`. This provides more predictable results with a cap on thinking costs.
+</Note>
+
+### Sonnet 4.6 migration checklist
+
+- [ ] Update model ID to `claude-sonnet-4-6`
+- [ ] **BREAKING:** Remove assistant message prefilling; use structured outputs or `output_config.format` instead
+- [ ] **BREAKING:** Verify tool parameter JSON parsing handles escaping differences
+- [ ] **BREAKING:** Update tool versions to latest (`text_editor_20250728`, `code_execution_20250825`); legacy versions are not supported (if migrating from 3.x)
+- [ ] **BREAKING:** Remove any code using the `undo_edit` command (if applicable)
+- [ ] **BREAKING:** Update sampling parameters to use only `temperature` OR `top_p`, not both (if migrating from 3.x)
+- [ ] Handle new `refusal` stop reason in your application
+- [ ] Remove `fine-grained-tool-streaming-2025-05-14` beta header (now GA)
+- [ ] Migrate `output_format` to `output_config.format`
+- [ ] Review and update prompts following [prompting best practices](/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices)
+- [ ] Consider enabling extended thinking or adaptive thinking for complex reasoning tasks
 - [ ] Test in development environment before production deployment
 
 ---

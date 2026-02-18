@@ -2,7 +2,8 @@
 
 ---
 
-This guide provides prompt engineering techniques for Claude's latest models, including Claude Opus 4.6, Claude Sonnet 4.5, and Claude Haiku 4.5. These models have been trained for more precise instruction following than previous generations of Claude models.
+This guide provides prompt engineering techniques for Claude's latest models, including Claude Opus 4.6, Claude Sonnet 4.6, and Claude Haiku 4.5. These models have been trained for more precise instruction following than previous generations of Claude models.
+
 <Tip>
   For an overview of model capabilities, see the [models overview](/docs/en/about-claude/models/overview). For details on what's new in Claude 4.6, see [What's new in Claude 4.6](/docs/en/about-claude/models/whats-new-claude-4-6). For migration guidance, see the [Migration guide](/docs/en/about-claude/models/migration-guide).
 </Tip>
@@ -57,7 +58,7 @@ Claude's latest models excel at long-horizon reasoning tasks with exceptional st
 
 #### Context awareness and multi-window workflows
 
-Claude Opus 4.6 and Claude 4.5 models feature [context awareness](/docs/en/build-with-claude/context-windows#context-awareness-in-claude-sonnet-45-and-haiku-45), enabling the model to track its remaining context window (i.e. "token budget") throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work.
+Claude 4.6 and Claude 4.5 models feature [context awareness](/docs/en/build-with-claude/context-windows#context-awareness-in-claude-sonnet-46-sonnet-45-and-haiku-45), enabling the model to track its remaining context window (i.e. "token budget") throughout a conversation. This enables Claude to execute tasks and manage context more effectively by understanding how much space it has to work.
 
 **Managing context limits:**
 
@@ -192,7 +193,7 @@ Do not jump into implementatation or changes files unless clearly instructed to 
 
 ### Tool usage and triggering
 
-Claude Opus 4.5 and Claude Opus 4.6 are more responsive to the system prompt than previous models. If your prompts were designed to reduce undertriggering on tools or skills, these models may now overtrigger. The fix is to dial back any aggressive language. Where you might have said "CRITICAL: You MUST use this tool when...", you can use more normal prompting like "Use this tool when...".
+Claude Opus 4.5 and Claude 4.6 models are more responsive to the system prompt than previous models. If your prompts were designed to reduce undertriggering on tools or skills, these models may now overtrigger. The fix is to dial back any aggressive language. Where you might have said "CRITICAL: You MUST use this tool when...", you can use more normal prompting like "Use this tool when...".
 
 ### Balancing autonomy and safety
 
@@ -211,17 +212,20 @@ When encountering obstacles, do not use destructive actions as a shortcut. For e
 
 ### Overthinking and excessive thoroughness
 
-Claude Opus 4.6 does significantly more upfront exploration than previous models, especially at higher `effort` settings. This initial work often helps to optimize the final results, but the model may gather extensive context or pursue multiple threads of research without being prompted. If your prompts previously encouraged the model to be more thorough, you should tune that guidance for Claude Opus 4.6:
+Claude 4.6 models do significantly more upfront exploration than previous models, especially at higher `effort` settings. This initial work often helps to optimize the final results, but the models may gather extensive context or pursue multiple threads of research without being prompted. If your prompts previously encouraged the model to be more thorough, you should tune that guidance for Claude 4.6 models:
 
-- **Replace blanket defaults with more targeted instructions.** Instead of "Default to using \[tool\]," add guidance like "Use \[tool\] when it would enhance your understanding of the problem."
-- **Remove over-prompting.** Tools that undertriggered in previous models are likely to trigger appropriately now. Instructions like "If in doubt, use \[tool\]" will cause overtriggering.
-- **Use effort as a fallback.** If Claude continues to be overly aggressive, use a lower setting for `effort`.
+- **Remove anti-laziness prompts.** Instructions like "be thorough," "think carefully," or "do not be lazy" were common workarounds for earlier models. On Claude 4.6 models, these amplify the model's already-proactive behavior and can cause runaway thinking or write-then-rewrite loops.
+- **Soften tool-use language.** Replace "You must use \[tool\]" or "If in doubt, use \[tool\]" with "Use \[tool\] when it would enhance your understanding of the problem." Tools that undertriggered in previous models are likely to trigger appropriately now.
+- **Remove explicit think tool instructions.** Instructions like "use the think tool to plan your approach" cause the models to over-plan. They think effectively without being told to.
+- **Use effort as the primary control lever.** If the model is still overly aggressive after prompt cleanup, lower the effort setting rather than adding more prompt constraints.
 
-In some cases, Claude Opus 4.6 may think extensively, which can inflate thinking tokens and slow down responses. If this behavior is undesirable, you can add explicit instructions to constrain its reasoning, or you can lower the `effort` setting to reduce overall thinking and token usage.
+In some cases, these models may think extensively, which can inflate thinking tokens and slow down responses. If this behavior is undesirable, you can add explicit instructions to constrain reasoning, or lower the `effort` setting to reduce overall thinking and token usage.
 
 ```text Sample prompt
-When you're deciding how to approach a problem, choose an approach and commit to it. Avoid revisiting decisions unless you encounter new information that directly contradicts your reasoning. If you're weighing two approaches, pick one and see it through. You can always course-correct later if the chosen approach fails.
+Prioritize execution over deliberation. Choose one approach and start producing output immediately. Do not compare alternatives or plan the entire solution before writing. Do not exhaustively explore before starting; begin with what you know. Write each piece of work once; do not go back to revise or rewrite. If uncertain about a detail, make a reasonable choice and continue. Only course-correct if you encounter a concrete failure.
 ```
+
+For Claude Sonnet 4.6 specifically, switching from adaptive to extended thinking with a `budget_tokens` cap provides a hard ceiling on thinking costs while preserving quality.
 
 ### Control the format of responses
 
@@ -310,7 +314,11 @@ When extended thinking is disabled, Claude Opus 4.5 is particularly sensitive to
 
 Claude's latest models offer thinking capabilities that can be especially helpful for tasks involving reflection after tool use or complex multi-step reasoning. You can guide its initial or interleaved thinking for better results.
 
-Claude Opus 4.6 uses [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`), where Claude dynamically decides when and how much to think. Claude calibrates its thinking based on two factors: the `effort` parameter and query complexity. Higher effort elicits more thinking, and more complex queries do the same. On easier queries that don't require thinking, the model responds directly. In internal evaluations, adaptive thinking reliably drives better performance than extended thinking, and we recommend moving to adaptive thinking to get the most intelligent responses. Older models use manual thinking mode with `budget_tokens`.
+Claude Opus 4.6 uses [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`), where Claude dynamically decides when and how much to think. Claude Sonnet 4.6 supports both adaptive thinking and manual extended thinking with [interleaved mode](/docs/en/build-with-claude/extended-thinking#interleaved-thinking).
+
+With adaptive thinking, Claude calibrates its thinking based on two factors: the `effort` parameter and query complexity. Higher effort elicits more thinking, and more complex queries do the same. On easier queries that don't require thinking, the model responds directly.
+
+For Sonnet 4.6, consider trying adaptive thinking for workloads that require agentic behavior such as multi-step tool use, complex coding tasks, and long-horizon agent loops. If adaptive thinking doesn't fit your use case, manual extended thinking with interleaved mode remains supported. Older models use manual thinking mode with `budget_tokens`.
 
 You can guide Claude's thinking behavior:
 
@@ -471,7 +479,7 @@ Never speculate about code you have not opened. If the user references a specifi
 
 ### Migrating away from prefilled responses
 
-Starting with Claude Opus 4.6, prefilled responses on the last assistant turn are no longer supported. Model intelligence and instruction following has advanced such that most use cases of prefill no longer require it. Existing models will continue to support prefills, and adding assistant messages elsewhere in the conversation is not affected.
+Starting with Claude 4.6 models, prefilled responses on the last assistant turn are no longer supported. Prefills have been a common vector for jailbreaks and other exploits. Model intelligence and instruction following has advanced such that most use cases of prefill no longer require it. Existing models will continue to support prefills, and adding assistant messages elsewhere in the conversation is not affected.
 
 Here are common prefill scenarios and how to migrate away from them:
 
@@ -533,10 +541,87 @@ When migrating to Claude 4.6 models from earlier generations:
 
 3. **Request specific features explicitly**: Animations and interactive elements should be requested explicitly when desired.
 
-4. **Update thinking configuration**: Claude Opus 4.6 uses [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`) instead of manual thinking with `budget_tokens`. Use the [effort parameter](/docs/en/build-with-claude/effort) to control thinking depth.
+4. **Update thinking configuration**: Claude 4.6 models use [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) (`thinking: {type: "adaptive"}`) instead of manual thinking with `budget_tokens`. Use the [effort parameter](/docs/en/build-with-claude/effort) to control thinking depth.
 
-5. **Migrate away from prefilled responses**: Prefilled responses on the last assistant turn are deprecated starting with Claude Opus 4.6. See [Migrating away from prefilled responses](#migrating-away-from-prefilled-responses) for detailed guidance on alternatives.
+5. **Migrate away from prefilled responses**: Prefilled responses on the last assistant turn are deprecated starting with Claude 4.6 models. See [Migrating away from prefilled responses](#migrating-away-from-prefilled-responses) for detailed guidance on alternatives.
 
-6. **Tune anti-laziness prompting**: If your prompts previously encouraged the model to be more thorough or use tools more aggressively, dial back that guidance. Claude Opus 4.6 is significantly more proactive and may overtrigger on instructions that were needed for previous models.
+6. **Tune anti-laziness prompting**: If your prompts previously encouraged the model to be more thorough or use tools more aggressively, dial back that guidance. Claude 4.6 models are significantly more proactive and may overtrigger on instructions that were needed for previous models.
 
 For detailed migration steps, see the [Migration guide](/docs/en/about-claude/models/migration-guide).
+
+### Migrating from Claude Sonnet 4.5 to Claude Sonnet 4.6
+
+Claude Sonnet 4.6 defaults to an effort level of `high`, in contrast to Claude Sonnet 4.5 which had no effort parameter. We recommend adjusting the effort parameter as you migrate from Claude Sonnet 4.5 to Claude Sonnet 4.6. If not explicitly set, you may experience higher latency with the default effort level.
+
+**Recommended effort settings:**
+- **Medium** for most applications
+- **Low** for high-volume or latency-sensitive workloads
+- Set a large max output token budget (64k tokens recommended) at medium or high effort to give the model room to think and act
+
+**When to use Opus 4.6 instead:** For the hardest, longest-horizon problems—large-scale code migrations, deep research, extended autonomous work—Opus 4.6 remains the right choice. Sonnet 4.6 is optimized for workloads where fast turnaround and cost efficiency matter most.
+
+#### If you're not using extended thinking
+
+If you're not using extended thinking on Claude Sonnet 4.5, you can continue without it on Claude Sonnet 4.6. You should explicitly set effort to the level appropriate for your use case. At `low` effort with thinking disabled, you can expect similar or better performance relative to Claude Sonnet 4.5 with no extended thinking.
+
+```python
+client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=8192,
+    thinking={"type": "disabled"},
+    output_config={"effort": "low"},
+    messages=[{"role": "user", "content": "..."}],
+)
+```
+
+#### If you're using extended thinking
+
+If you're using extended thinking on Claude Sonnet 4.5, it continues to be supported on Claude Sonnet 4.6 with no changes needed to your thinking configuration. We recommend keeping a thinking budget around 16k tokens. In practice, most tasks don't use that much, but it provides headroom for harder problems without risk of runaway token usage.
+
+**For coding use cases** (agentic coding, tool-heavy workflows, code generation):
+
+Start with `medium` effort. If you find latency is too high, consider reducing effort to `low`. If you need higher intelligence, consider increasing effort to `high` or migrating to Opus 4.6.
+
+```python
+client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=16384,
+    thinking={"type": "enabled", "budget_tokens": 16384},
+    output_config={"effort": "medium"},
+    messages=[{"role": "user", "content": "..."}],
+)
+```
+
+**For chat and non-coding use cases** (chat, content generation, search, classification):
+
+Start with `low` effort with extended thinking. If you need more depth, increase effort to `medium`.
+
+```python
+client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=8192,
+    thinking={"type": "enabled", "budget_tokens": 16384},
+    output_config={"effort": "low"},
+    messages=[{"role": "user", "content": "..."}],
+)
+```
+
+#### When to try adaptive thinking
+
+The extended thinking paths above use `budget_tokens` for predictable token usage. If your workload fits one of the following patterns, consider trying [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) instead:
+
+- **Autonomous multi-step agents:** coding agents that turn requirements into working software, data analysis pipelines, and bug finding where the model runs independently across many steps. Adaptive thinking lets the model calibrate its reasoning per step, staying on path over longer trajectories. For these workloads, start at `high` effort. If latency or token usage is a concern, scale down to `medium`.
+- **Computer use agents:** Claude Sonnet 4.6 achieved best-in-class accuracy on computer use evaluations using adaptive mode.
+- **Bimodal workloads:** a mix of easy and hard tasks where adaptive skips thinking on simple queries and reasons deeply on complex ones.
+
+When using adaptive thinking, evaluate `medium` and `high` effort on your tasks. The right level depends on your workload's tradeoff between quality, latency, and token usage.
+
+```python
+client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=64000,
+    thinking={"type": "adaptive"},
+    output_config={"effort": "high"},
+    messages=[{"role": "user", "content": "..."}],
+)
+```

@@ -192,7 +192,7 @@ If you're seeking higher limits for an Enterprise use case, contact sales throug
 
 _<sup>* - Opus rate limit is a total limit that applies to combined traffic across Opus 4.6, Opus 4.5, Opus 4.1, and Opus 4.</sup>_
 
-_<sup>** - Sonnet 4.x rate limit is a total limit that applies to combined traffic across Sonnet 4.5 and Sonnet 4.</sup>_
+_<sup>** - Sonnet 4.x rate limit is a total limit that applies to combined traffic across Sonnet 4.6, Sonnet 4.5, and Sonnet 4.</sup>_
 
 _<sup>† - Limit counts `cache_read_input_tokens` towards ITPM usage.</sup>_
 
@@ -234,10 +234,10 @@ The response includes `anthropic-fast-*` headers that indicate your fast mode ra
 
 ### Long context rate limits
 
-When using Claude Opus 4.6, Sonnet 4.5, or Sonnet 4 with the [1M token context window enabled](/docs/en/build-with-claude/context-windows#1m-token-context-window), the following dedicated rate limits apply to requests exceeding 200K tokens.
+When using Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, or Sonnet 4 with the [1M token context window enabled](/docs/en/build-with-claude/context-windows#1m-token-context-window), the following dedicated rate limits apply to requests exceeding 200K tokens.
 
 <Note>
-The 1M token context window is currently in beta for organizations in usage tier 4 and organizations with custom rate limits. The 1M token context window is only available for Claude Opus 4.6, Sonnet 4.5, and Sonnet 4.
+The 1M token context window is currently in beta for organizations in usage tier 4 and organizations with custom rate limits. The 1M token context window is only available for Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, and Sonnet 4.
 </Note>
 
 <Tabs>

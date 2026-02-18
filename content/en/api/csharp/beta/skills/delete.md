@@ -75,3 +75,13 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
+
+### Example
+
+```csharp
+SkillDeleteParams parameters = new() { SkillID = "skill_id" };
+
+var skill = await client.Beta.Skills.Delete(parameters);
+
+Console.WriteLine(skill);
+```

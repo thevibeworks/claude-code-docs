@@ -56,10 +56,12 @@ Related content
 
 [Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)
 
+### Introducing Claude Sonnet 4.6
+
+Sonnet 4.6 delivers frontier performance across coding, agents, and professional work at scale.
+
+[Read more](https://www.anthropic.com/news/claude-sonnet-4-6)
+
 ### Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries
 
 [Read more](https://www.anthropic.com/news/anthropic-infosys)
-
-### Anthropic opens Bengaluru office and announces new partnerships across India
-
-[Read more](https://www.anthropic.com/news/bengaluru-office-partnerships-across-india)
