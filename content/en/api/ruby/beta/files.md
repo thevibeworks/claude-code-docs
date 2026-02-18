@@ -100,6 +100,18 @@ Upload File
 
     Whether the file can be downloaded.
 
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+file_metadata = anthropic.beta.files.upload(file: Pathname(__FILE__))
+
+puts(file_metadata)
+```
+
 ## List
 
 `beta.files.list(**kwargs) -> Page<FileMetadata>`
@@ -210,6 +222,18 @@ List Files
 
     Whether the file can be downloaded.
 
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+page = anthropic.beta.files.list
+
+puts(page)
+```
+
 ## Download
 
 `beta.files.download(file_id, **kwargs) -> StringIO`
@@ -275,6 +299,18 @@ Download File
 ### Returns
 
 - `StringIO`
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+response = anthropic.beta.files.download("file_id")
+
+puts(response)
+```
 
 ## Retrieve Metadata
 
@@ -376,6 +412,18 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+file_metadata = anthropic.beta.files.retrieve_metadata("file_id")
+
+puts(file_metadata)
+```
+
 ## Delete
 
 `beta.files.delete(file_id, **kwargs) -> DeletedFile`
@@ -453,6 +501,18 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `:file_deleted`
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+deleted_file = anthropic.beta.files.delete("file_id")
+
+puts(deleted_file)
+```
 
 ## Domain Types
 

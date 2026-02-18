@@ -4,10 +4,14 @@
 
 The web fetch tool allows Claude to retrieve full content from specified web pages and PDF documents.
 
-<Note>
-The web fetch tool is currently in beta. To enable it, use the beta header `web-fetch-2025-09-10` in your API requests.
+The latest web fetch tool version (`web_fetch_20260209`) supports **dynamic filtering** with Claude Opus 4.6 and Sonnet 4.6. Claude can write and execute code to filter fetched content before it reaches the context window, keeping only relevant information and discarding the rest. This reduces token consumption while maintaining response quality. The previous tool version (`web_fetch_20250910`) remains available without dynamic filtering.
 
+<Note>
 Please use [this form](https://forms.gle/NhWcgmkcvPCMmPE86) to provide feedback on the quality of the model responses, the API itself, or the quality of the documentation.
+</Note>
+
+<Note>
+This feature is [Zero Data Retention (ZDR)](/docs/en/build-with-claude/zero-data-retention) eligible. When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
 </Note>
 
 <Warning>
@@ -29,6 +33,7 @@ Web fetch is available on:
 - Claude Opus 4.5 (`claude-opus-4-5-20251101`)
 - Claude Opus 4.1 (`claude-opus-4-1-20250805`)
 - Claude Opus 4 (`claude-opus-4-20250514`)
+- Claude Sonnet 4.6 (`claude-sonnet-4-6`)
 - Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
 - Claude Sonnet 4 (`claude-sonnet-4-20250514`)
 - Claude Sonnet 3.7 ([deprecated](/docs/en/about-claude/model-deprecations)) (`claude-3-7-sonnet-20250219`)
@@ -48,6 +53,92 @@ When you add the web fetch tool to your API request:
 The web fetch tool currently does not support web sites dynamically rendered via Javascript.
 </Note>
 
+### Dynamic filtering with Opus 4.6 and Sonnet 4.6
+
+Fetching full web pages and PDFs can quickly consume tokens, especially when only specific information is needed from large documents. With the `web_fetch_20260209` tool version, Claude can write and execute code to filter the fetched content before loading it into context.
+
+This dynamic filtering is particularly useful for:
+- Extracting specific sections from long documents
+- Processing structured data from web pages
+- Filtering relevant information from PDFs
+- Reducing token costs when working with large documents
+
+<Note>
+Dynamic filtering requires the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool) to be enabled. The web fetch tool (with and without dynamic filtering) is available on the Claude API and Microsoft Azure.
+</Note>
+
+To enable dynamic filtering, use the `web_fetch_20260209` tool version with the `code-execution-web-tools-2026-02-09` beta header:
+
+<CodeGroup>
+```bash Shell
+curl https://api.anthropic.com/v1/messages \
+    --header "x-api-key: $ANTHROPIC_API_KEY" \
+    --header "anthropic-version: 2023-06-01" \
+    --header "anthropic-beta: code-execution-web-tools-2026-02-09" \
+    --header "content-type: application/json" \
+    --data '{
+        "model": "claude-opus-4-6",
+        "max_tokens": 4096,
+        "messages": [
+            {
+                "role": "user",
+                "content": "Fetch the content at https://example.com/research-paper and extract the key findings."
+            }
+        ],
+        "tools": [{
+            "type": "web_fetch_20260209",
+            "name": "web_fetch"
+        }]
+    }'
+```
+
+```python Python
+import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.beta.messages.create(
+    model="claude-opus-4-6",
+    max_tokens=4096,
+    betas=["code-execution-web-tools-2026-02-09"],
+    messages=[
+        {
+            "role": "user",
+            "content": "Fetch the content at https://example.com/research-paper and extract the key findings.",
+        }
+    ],
+    tools=[{"type": "web_fetch_20260209", "name": "web_fetch"}],
+)
+print(response)
+```
+
+```typescript TypeScript
+import { Anthropic } from "@anthropic-ai/sdk";
+
+const anthropic = new Anthropic();
+
+async function main() {
+  const response = await anthropic.beta.messages.create({
+    model: "claude-opus-4-6",
+    max_tokens: 4096,
+    betas: ["code-execution-web-tools-2026-02-09"],
+    messages: [
+      {
+        role: "user",
+        content:
+          "Fetch the content at https://example.com/research-paper and extract the key findings."
+      }
+    ],
+    tools: [{ type: "web_fetch_20260209", name: "web_fetch" }]
+  });
+
+  console.log(response);
+}
+
+main().catch(console.error);
+```
+</CodeGroup>
+
 ## How to use web fetch
 
 Provide the web fetch tool in your API request:
@@ -57,7 +148,6 @@ Provide the web fetch tool in your API request:
 curl https://api.anthropic.com/v1/messages \
     --header "x-api-key: $ANTHROPIC_API_KEY" \
     --header "anthropic-version: 2023-06-01" \
-    --header "anthropic-beta: web-fetch-2025-09-10" \
     --header "content-type: application/json" \
     --data '{
         "model": "claude-opus-4-6",
@@ -81,10 +171,9 @@ import anthropic
 
 client = anthropic.Anthropic()
 
-response = client.beta.messages.create(
+response = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=1024,
-    betas=["web-fetch-2025-09-10"],
     messages=[
         {
             "role": "user",
@@ -102,10 +191,9 @@ import { Anthropic } from "@anthropic-ai/sdk";
 const anthropic = new Anthropic();
 
 async function main() {
-  const response = await anthropic.beta.messages.create({
+  const response = await anthropic.messages.create({
     model: "claude-opus-4-6",
     max_tokens: 1024,
-    betas: ["web-fetch-2025-09-10"],
     messages: [
       {
         role: "user",
@@ -347,10 +435,9 @@ import anthropic
 
 client = anthropic.Anthropic()
 
-response = client.beta.messages.create(
+response = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=4096,
-    betas=["web-fetch-2025-09-10"],
     messages=[
         {
             "role": "user",
@@ -392,10 +479,9 @@ messages = [
     }
 ]
 
-response1 = client.beta.messages.create(
+response1 = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=1024,
-    betas=["web-fetch-2025-09-10"],
     messages=messages,
     tools=[{"type": "web_fetch_20250910", "name": "web_fetch"}],
 )
@@ -412,10 +498,9 @@ messages.append(
     }
 )
 
-response2 = client.beta.messages.create(
+response2 = client.messages.create(
     model="claude-opus-4-6",
     max_tokens=1024,
-    betas=["web-fetch-2025-09-10"],
     messages=messages,
     tools=[{"type": "web_fetch_20250910", "name": "web_fetch"}],
 )

@@ -75,3 +75,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
+
+### Example
+
+```csharp
+BatchDeleteParams parameters = new() { MessageBatchID = "message_batch_id" };
+
+var betaDeletedMessageBatch = await client.Beta.Messages.Batches.Delete(parameters);
+
+Console.WriteLine(betaDeletedMessageBatch);
+```

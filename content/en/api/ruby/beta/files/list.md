@@ -107,3 +107,15 @@ List Files
   - `downloadable: bool`
 
     Whether the file can be downloaded.
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+page = anthropic.beta.files.list
+
+puts(page)
+```

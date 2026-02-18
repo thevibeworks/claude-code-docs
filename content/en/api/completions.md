@@ -74,7 +74,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `UnionMember0 = "claude-opus-4-6" or "claude-opus-4-5-20251101" or "claude-opus-4-5" or 18 more`
+  - `UnionMember0 = "claude-opus-4-6" or "claude-sonnet-4-6" or "claude-opus-4-5-20251101" or 19 more`
 
     The model that will complete your prompt.
 
@@ -83,6 +83,10 @@ Future models and features will not be compatible with Text Completions. See our
     - `"claude-opus-4-6"`
 
       Most intelligent model for building agents and coding
+
+    - `"claude-sonnet-4-6"`
+
+      Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
     - `"claude-opus-4-5-20251101"`
 
@@ -254,7 +258,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `UnionMember0 = "claude-opus-4-6" or "claude-opus-4-5-20251101" or "claude-opus-4-5" or 18 more`
+    - `UnionMember0 = "claude-opus-4-6" or "claude-sonnet-4-6" or "claude-opus-4-5-20251101" or 19 more`
 
       The model that will complete your prompt.
 
@@ -263,6 +267,10 @@ Future models and features will not be compatible with Text Completions. See our
       - `"claude-opus-4-6"`
 
         Most intelligent model for building agents and coding
+
+      - `"claude-sonnet-4-6"`
+
+        Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
       - `"claude-opus-4-5-20251101"`
 
@@ -363,6 +371,21 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"completion"`
 
+### Example
+
+```http
+curl https://api.anthropic.com/v1/complete \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    --max-time 600 \
+    -d '{
+          "max_tokens_to_sample": 256,
+          "model": "claude-opus-4-6",
+          "prompt": "\\n\\nHuman: Hello, world!\\n\\nAssistant:"
+        }'
+```
+
 ## Domain Types
 
 ### Completion
@@ -385,7 +408,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `UnionMember0 = "claude-opus-4-6" or "claude-opus-4-5-20251101" or "claude-opus-4-5" or 18 more`
+    - `UnionMember0 = "claude-opus-4-6" or "claude-sonnet-4-6" or "claude-opus-4-5-20251101" or 19 more`
 
       The model that will complete your prompt.
 
@@ -394,6 +417,10 @@ Future models and features will not be compatible with Text Completions. See our
       - `"claude-opus-4-6"`
 
         Most intelligent model for building agents and coding
+
+      - `"claude-sonnet-4-6"`
+
+        Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
       - `"claude-opus-4-5-20251101"`
 

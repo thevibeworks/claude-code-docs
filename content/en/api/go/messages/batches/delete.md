@@ -31,3 +31,28 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch_deleted"`.
 
     - `const MessageBatchDeletedMessageBatchDeleted MessageBatchDeleted = "message_batch_deleted"`
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  deletedMessageBatch, err := client.Messages.Batches.Delete(context.TODO(), "message_batch_id")
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", deletedMessageBatch.ID)
+}
+```

@@ -87,3 +87,34 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `const ModelModel Model = "model"`
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  betaModelInfo, err := client.Beta.Models.Get(
+    context.TODO(),
+    "model_id",
+    anthropic.BetaModelGetParams{
+
+    },
+  )
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", betaModelInfo.ID)
+}
+```

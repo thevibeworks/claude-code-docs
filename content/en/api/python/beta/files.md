@@ -100,6 +100,21 @@ Upload File
 
     Whether the file can be downloaded.
 
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+file_metadata = client.beta.files.upload(
+    file=b"raw file contents",
+)
+print(file_metadata.id)
+```
+
 ## List
 
 `beta.files.list(FileListParams**kwargs)  -> SyncPage[FileMetadata]`
@@ -210,6 +225,20 @@ List Files
 
     Whether the file can be downloaded.
 
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+page = client.beta.files.list()
+page = page.data[0]
+print(page.id)
+```
+
 ## Download
 
 `beta.files.download(strfile_id, FileDownloadParams**kwargs)  -> BinaryResponseContent`
@@ -275,6 +304,23 @@ Download File
 ### Returns
 
 - `BinaryResponseContent`
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+response = client.beta.files.download(
+    file_id="file_id",
+)
+print(response)
+content = response.read()
+print(content)
+```
 
 ## Retrieve Metadata
 
@@ -376,6 +422,21 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+file_metadata = client.beta.files.retrieve_metadata(
+    file_id="file_id",
+)
+print(file_metadata.id)
+```
+
 ## Delete
 
 `beta.files.delete(strfile_id, FileDeleteParams**kwargs)  -> DeletedFile`
@@ -453,6 +514,21 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"`
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+deleted_file = client.beta.files.delete(
+    file_id="file_id",
+)
+print(deleted_file.id)
+```
 
 ## Domain Types
 

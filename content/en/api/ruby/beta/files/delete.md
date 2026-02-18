@@ -75,3 +75,15 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `:file_deleted`
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+deleted_file = anthropic.beta.files.delete("file_id")
+
+puts(deleted_file)
+```

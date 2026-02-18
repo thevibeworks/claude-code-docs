@@ -104,3 +104,13 @@ Get Skill
   - `required string UpdatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+### Example
+
+```csharp
+SkillRetrieveParams parameters = new() { SkillID = "skill_id" };
+
+var skill = await client.Beta.Skills.Retrieve(parameters);
+
+Console.WriteLine(skill);
+```

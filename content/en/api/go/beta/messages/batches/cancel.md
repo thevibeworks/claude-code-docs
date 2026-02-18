@@ -155,3 +155,34 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     For Message Batches, this is always `"message_batch"`.
 
     - `const MessageBatchMessageBatch MessageBatch = "message_batch"`
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  betaMessageBatch, err := client.Beta.Messages.Batches.Cancel(
+    context.TODO(),
+    "message_batch_id",
+    anthropic.BetaMessageBatchCancelParams{
+
+    },
+  )
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", betaMessageBatch.ID)
+}
+```

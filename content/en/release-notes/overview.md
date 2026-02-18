@@ -10,6 +10,12 @@ For release notes on Claude Apps, see the [Release notes for Claude Apps in the 
 For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### February 17, 2026
+- We've launched [Claude Sonnet 4.6](https://www.anthropic.com/news/claude-sonnet-4-6), our latest balanced model combining speed and intelligence for everyday tasks. Sonnet 4.6 delivers improved agentic search performance while consuming fewer tokens. Sonnet 4.6 supports [extended thinking](/docs/en/build-with-claude/extended-thinking) and a [1M token context window](/docs/en/build-with-claude/context-windows#1m-token-context-window) (beta). See [Models & Pricing](/docs/en/about-claude/models) for details.
+- API [code execution](/docs/en/agents-and-tools/tool-use/code-execution-tool) is now **free when used with web search or web fetch**. Sandboxed code execution improves model capability and token efficiency. See the [pricing details](/docs/en/agents-and-tools/tool-use/code-execution-tool#usage-and-pricing) for standalone usage.
+- The [web search tool](/docs/en/agents-and-tools/tool-use/web-search-tool) and [programmatic tool calling](/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) are now generally available (no beta header required). Web search and web fetch now support [dynamic filtering](/docs/en/agents-and-tools/tool-use/web-search-tool#dynamic-filtering-with-opus-46-and-sonnet-46) in public beta, which uses code execution to filter results before they reach the context window for better performance and reduced token cost.
+- The [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool), [web fetch tool](/docs/en/agents-and-tools/tool-use/web-fetch-tool), [tool search tool](/docs/en/agents-and-tools/tool-use/tool-search-tool), [tool use examples](/docs/en/agents-and-tools/tool-use/implement-tool-use#providing-tool-use-examples), and [memory tool](/docs/en/agents-and-tools/tool-use/memory-tool) are now generally available (no beta header required).
+
 ### February 7, 2026
 - We've launched [fast mode](/docs/en/build-with-claude/fast-mode) in research preview for Opus 4.6, providing significantly faster output token generation via the `speed` parameter. Fast mode is up to 2.5x as fast at premium pricing. Interested customers should join the [waitlist](https://claude.com/fast-mode).
 

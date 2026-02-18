@@ -81,3 +81,17 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+### Example
+
+```csharp
+VersionDeleteParams parameters = new()
+{
+    SkillID = "skill_id",
+    Version = "version",
+};
+
+var version = await client.Beta.Skills.Versions.Delete(parameters);
+
+Console.WriteLine(version);
+```

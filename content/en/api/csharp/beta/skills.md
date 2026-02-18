@@ -113,6 +113,16 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
+### Example
+
+```csharp
+SkillCreateParams parameters = new();
+
+var skill = await client.Beta.Skills.Create(parameters);
+
+Console.WriteLine(skill);
+```
+
 ## List
 
 `SkillListPageResponse Beta.Skills.List(SkillListParams?parameters, CancellationTokencancellationToken = default)`
@@ -251,6 +261,18 @@ List Skills
 
     If `null`, there are no more results available. Pass this value to the `page_token` parameter in the next request to get the next page.
 
+### Example
+
+```csharp
+SkillListParams parameters = new();
+
+var page = await client.Beta.Skills.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
 ## Retrieve
 
 `SkillRetrieveResponse Beta.Skills.Retrieve(SkillRetrieveParamsparameters, CancellationTokencancellationToken = default)`
@@ -358,6 +380,16 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
+### Example
+
+```csharp
+SkillRetrieveParams parameters = new() { SkillID = "skill_id" };
+
+var skill = await client.Beta.Skills.Retrieve(parameters);
+
+Console.WriteLine(skill);
+```
+
 ## Delete
 
 `SkillDeleteResponse Beta.Skills.Delete(SkillDeleteParamsparameters, CancellationTokencancellationToken = default)`
@@ -435,6 +467,16 @@ Delete Skill
     Deleted object type.
 
     For Skills, this is always `"skill_deleted"`.
+
+### Example
+
+```csharp
+SkillDeleteParams parameters = new() { SkillID = "skill_id" };
+
+var skill = await client.Beta.Skills.Delete(parameters);
+
+Console.WriteLine(skill);
+```
 
 # Versions
 
@@ -553,6 +595,16 @@ Create Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+
+### Example
+
+```csharp
+VersionCreateParams parameters = new() { SkillID = "skill_id" };
+
+var version = await client.Beta.Skills.Versions.Create(parameters);
+
+Console.WriteLine(version);
+```
 
 ## List
 
@@ -686,6 +738,18 @@ List Skill Versions
 
     Token to provide in as `page` in the subsequent request to retrieve the next page of data.
 
+### Example
+
+```csharp
+VersionListParams parameters = new() { SkillID = "skill_id" };
+
+var page = await client.Beta.Skills.Versions.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
 ## Retrieve
 
 `VersionRetrieveResponse Beta.Skills.Versions.Retrieve(VersionRetrieveParamsparameters, CancellationTokencancellationToken = default)`
@@ -802,6 +866,20 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
+### Example
+
+```csharp
+VersionRetrieveParams parameters = new()
+{
+    SkillID = "skill_id",
+    Version = "version",
+};
+
+var version = await client.Beta.Skills.Versions.Retrieve(parameters);
+
+Console.WriteLine(version);
+```
+
 ## Delete
 
 `VersionDeleteResponse Beta.Skills.Versions.Delete(VersionDeleteParamsparameters, CancellationTokencancellationToken = default)`
@@ -885,3 +963,17 @@ Delete Skill Version
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+### Example
+
+```csharp
+VersionDeleteParams parameters = new()
+{
+    SkillID = "skill_id",
+    Version = "version",
+};
+
+var version = await client.Beta.Skills.Versions.Delete(parameters);
+
+Console.WriteLine(version);
+```

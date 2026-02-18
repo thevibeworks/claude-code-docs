@@ -95,3 +95,28 @@ Upload File
   - `Optional<Boolean> downloadable`
 
     Whether the file can be downloaded.
+
+### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.files.FileMetadata;
+import com.anthropic.models.beta.files.FileUploadParams;
+import java.io.ByteArrayInputStream;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        FileUploadParams params = FileUploadParams.builder()
+            .file(ByteArrayInputStream("some content".getBytes()))
+            .build();
+        FileMetadata fileMetadata = client.beta().files().upload(params);
+    }
+}
+```

@@ -55,7 +55,7 @@ response=$(curl -N https://api.anthropic.com/v1/messages \
   --header "content-type: application/json" \
   --header "x-api-key: $ANTHROPIC_API_KEY" \
   --data '{
-    "model": "claude-sonnet-4-5",
+    "model": "claude-sonnet-4-6",
     "messages": [{"role": "user", "content": "Hello"}],
     "max_tokens": 256,
     "stream": true
@@ -86,7 +86,7 @@ try:
     with client.messages.stream(
         max_tokens=1024,
         messages=messages + [{"role": "user", "content": "Hello"}],
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-4-6",
     ) as stream:
         for event in stream:
             # Check for refusal in message delta
@@ -113,7 +113,7 @@ function resetConversation() {
 try {
   const stream = await client.messages.stream({
     messages: [...messages, { role: "user", content: "Hello" }],
-    model: "claude-sonnet-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: 1024
   });
 

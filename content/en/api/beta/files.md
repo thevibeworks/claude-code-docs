@@ -94,6 +94,17 @@ Upload File
 
     Whether the file can be downloaded.
 
+### Example
+
+```http
+curl https://api.anthropic.com/v1/files?beta=true \
+    -H 'Content-Type: multipart/form-data' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: files-api-2025-04-14' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -F 'file=@/path/to/file'
+```
+
 ## List
 
 **get** `/v1/files`
@@ -218,6 +229,15 @@ List Files
 
   ID of the last file in this page of results.
 
+### Example
+
+```http
+curl https://api.anthropic.com/v1/files?beta=true \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: files-api-2025-04-14' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
 ## Download
 
 **get** `/v1/files/{file_id}/content`
@@ -279,6 +299,15 @@ Download File
     - `"skills-2025-10-02"`
 
     - `"fast-mode-2026-02-01"`
+
+### Example
+
+```http
+curl https://api.anthropic.com/v1/files/$FILE_ID/content?beta=true \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: files-api-2025-04-14' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
 
 ## Retrieve Metadata
 
@@ -380,6 +409,15 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
+### Example
+
+```http
+curl https://api.anthropic.com/v1/files/$FILE_ID?beta=true \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: files-api-2025-04-14' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
 ## Delete
 
 **delete** `/v1/files/{file_id}`
@@ -457,6 +495,16 @@ Delete File
     For file deletion, this is always `"file_deleted"`.
 
     - `"file_deleted"`
+
+### Example
+
+```http
+curl https://api.anthropic.com/v1/files/$FILE_ID?beta=true \
+    -X DELETE \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: files-api-2025-04-14' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
 
 ## Domain Types
 

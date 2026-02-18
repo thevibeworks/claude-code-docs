@@ -30,11 +30,15 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-opus-4-6" | "claude-opus-4-5-20251101" | "claude-opus-4-5" | 18 more`
+      - `"claude-opus-4-6" | "claude-sonnet-4-6" | "claude-opus-4-5-20251101" | 19 more`
 
         - `"claude-opus-4-6"`
 
           Most intelligent model for building agents and coding
+
+        - `"claude-sonnet-4-6"`
+
+          Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
         - `"claude-opus-4-5-20251101"`
 
@@ -276,11 +280,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-opus-4-6" | "claude-opus-4-5-20251101" | "claude-opus-4-5" | 18 more`
+    - `"claude-opus-4-6" | "claude-sonnet-4-6" | "claude-opus-4-5-20251101" | 19 more`
 
       - `"claude-opus-4-6"`
 
         Most intelligent model for building agents and coding
+
+      - `"claude-sonnet-4-6"`
+
+        Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
       - `"claude-opus-4-5-20251101"`
 
@@ -381,6 +389,24 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"completion"`
 
+### Example
+
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const client = new Anthropic({
+  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+});
+
+const completion = await client.completions.create({
+  max_tokens_to_sample: 256,
+  model: 'claude-opus-4-6',
+  prompt: '\n\nHuman: Hello, world!\n\nAssistant:',
+});
+
+console.log(completion.id);
+```
+
 ## Domain Types
 
 ### Completion
@@ -403,11 +429,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-opus-4-6" | "claude-opus-4-5-20251101" | "claude-opus-4-5" | 18 more`
+    - `"claude-opus-4-6" | "claude-sonnet-4-6" | "claude-opus-4-5-20251101" | 19 more`
 
       - `"claude-opus-4-6"`
 
         Most intelligent model for building agents and coding
+
+      - `"claude-sonnet-4-6"`
+
+        Frontier intelligence at scale — built for coding, agents, and enterprise workflows
 
       - `"claude-opus-4-5-20251101"`
 

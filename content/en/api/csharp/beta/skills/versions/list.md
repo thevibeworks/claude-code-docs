@@ -129,3 +129,15 @@ List Skill Versions
   - `required string? NextPage`
 
     Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+
+### Example
+
+```csharp
+VersionListParams parameters = new() { SkillID = "skill_id" };
+
+var page = await client.Beta.Skills.Versions.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```

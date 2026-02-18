@@ -95,3 +95,15 @@ The Models API response can be used to determine which models are available for 
     For Models, this is always `"model"`.
 
     - `:model`
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+page = anthropic.models.list
+
+puts(page)
+```

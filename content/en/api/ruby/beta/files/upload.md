@@ -97,3 +97,15 @@ Upload File
   - `downloadable: bool`
 
     Whether the file can be downloaded.
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+file_metadata = anthropic.beta.files.upload(file: Pathname(__FILE__))
+
+puts(file_metadata)
+```

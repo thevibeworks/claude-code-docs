@@ -65,3 +65,34 @@ Download File
 ### Returns
 
 - `type BetaFileDownloadResponse interface{…}`
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  response, err := client.Beta.Files.Download(
+    context.TODO(),
+    "file_id",
+    anthropic.BetaFileDownloadParams{
+
+    },
+  )
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", response)
+}
+```

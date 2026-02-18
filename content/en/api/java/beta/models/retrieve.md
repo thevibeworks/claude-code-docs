@@ -83,3 +83,24 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `MODEL("model")`
+
+### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.models.BetaModelInfo;
+import com.anthropic.models.beta.models.ModelRetrieveParams;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        BetaModelInfo betaModelInfo = client.beta().models().retrieve("model_id");
+    }
+}
+```

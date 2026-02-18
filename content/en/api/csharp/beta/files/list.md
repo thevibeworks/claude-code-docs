@@ -119,3 +119,15 @@ List Files
   - `string? LastID`
 
     ID of the last file in this page of results.
+
+### Example
+
+```csharp
+FileListParams parameters = new();
+
+var page = await client.Beta.Files.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```

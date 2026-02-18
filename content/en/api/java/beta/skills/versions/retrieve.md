@@ -113,3 +113,28 @@ Get Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+
+### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.skills.versions.VersionRetrieveParams;
+import com.anthropic.models.beta.skills.versions.VersionRetrieveResponse;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        VersionRetrieveParams params = VersionRetrieveParams.builder()
+            .skillId("skill_id")
+            .version("version")
+            .build();
+        VersionRetrieveResponse version = client.beta().skills().versions().retrieve(params);
+    }
+}
+```

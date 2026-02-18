@@ -98,6 +98,20 @@ The Models API response can be used to determine which models are available for 
 
     - `"model"`
 
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+page = client.models.list()
+page = page.data[0]
+print(page.id)
+```
+
 ## Retrieve
 
 `models.retrieve(strmodel_id, ModelRetrieveParams**kwargs)  -> ModelInfo`
@@ -185,6 +199,21 @@ The Models API response can be used to determine information about a specific mo
     For Models, this is always `"model"`.
 
     - `"model"`
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+model_info = client.models.retrieve(
+    model_id="model_id",
+)
+print(model_info.id)
+```
 
 ## Domain Types
 

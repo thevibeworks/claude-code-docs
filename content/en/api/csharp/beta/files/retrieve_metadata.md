@@ -93,3 +93,13 @@ Get File Metadata
   - `Boolean Downloadable`
 
     Whether the file can be downloaded.
+
+### Example
+
+```csharp
+FileRetrieveMetadataParams parameters = new() { FileID = "file_id" };
+
+var fileMetadata = await client.Beta.Files.RetrieveMetadata(parameters);
+
+Console.WriteLine(fileMetadata);
+```

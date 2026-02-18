@@ -81,3 +81,13 @@ The Models API response can be used to determine information about a specific mo
     Object type.
 
     For Models, this is always `"model"`.
+
+### Example
+
+```csharp
+ModelRetrieveParams parameters = new() { ModelID = "model_id" };
+
+var betaModelInfo = await client.Beta.Models.Retrieve(parameters);
+
+Console.WriteLine(betaModelInfo);
+```

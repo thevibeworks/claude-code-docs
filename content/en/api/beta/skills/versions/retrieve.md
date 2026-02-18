@@ -113,3 +113,12 @@ Get Skill Version
   Version identifier for the skill.
 
   Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+
+### Example
+
+```http
+curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION?beta=true \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: skills-2025-10-02' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```

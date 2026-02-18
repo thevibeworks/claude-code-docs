@@ -121,3 +121,17 @@ List Skills
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+)
+page = client.beta.skills.list()
+page = page.data[0]
+print(page.id)
+```

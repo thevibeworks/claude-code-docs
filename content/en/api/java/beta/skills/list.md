@@ -119,3 +119,24 @@ List Skills
   - `String updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+### Example
+
+```java
+package com.anthropic.example;
+
+import com.anthropic.client.AnthropicClient;
+import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.skills.SkillListPage;
+import com.anthropic.models.beta.skills.SkillListParams;
+
+public final class Main {
+    private Main() {}
+
+    public static void main(String[] args) {
+        AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+        SkillListPage page = client.beta().skills().list();
+    }
+}
+```

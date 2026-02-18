@@ -12,10 +12,11 @@ For Claude Opus 4.6, we recommend using [adaptive thinking](/docs/en/build-with-
 
 Extended thinking is supported in the following models:
 
-- Claude Opus 4.6 (`claude-opus-4-6`) — [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) recommended; manual mode (`type: "enabled"`) is deprecated
+- Claude Opus 4.6 (`claude-opus-4-6`) — [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) only; manual mode (`type: "enabled"`) is deprecated
 - Claude Opus 4.5 (`claude-opus-4-5-20251101`)
 - Claude Opus 4.1 (`claude-opus-4-1-20250805`)
 - Claude Opus 4 (`claude-opus-4-20250514`)
+- Claude Sonnet 4.6 (`claude-sonnet-4-6`) — supports both manual extended thinking with [interleaved mode](#interleaved-thinking) and [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking)
 - Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`)
 - Claude Sonnet 4 (`claude-sonnet-4-20250514`)
 - Claude Sonnet 3.7 (`claude-3-7-sonnet-20250219`) ([deprecated](/docs/en/about-claude/model-deprecations))
@@ -65,7 +66,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-sonnet-4-5",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 16000,
     "thinking": {
         "type": "enabled",
@@ -86,7 +87,7 @@ import anthropic
 client = anthropic.Anthropic()
 
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=16000,
     thinking={"type": "enabled", "budget_tokens": 10000},
     messages=[
@@ -111,7 +112,7 @@ import Anthropic from "@anthropic-ai/sdk";
 const client = new Anthropic();
 
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 16000,
   thinking: {
     type: "enabled",
@@ -186,7 +187,7 @@ curl https://api.anthropic.com/v1/messages \
      --header "content-type: application/json" \
      --data \
 '{
-    "model": "claude-sonnet-4-5",
+    "model": "claude-sonnet-4-6",
     "max_tokens": 16000,
     "stream": true,
     "thinking": {
@@ -208,7 +209,7 @@ import anthropic
 client = anthropic.Anthropic()
 
 with client.messages.stream(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=16000,
     thinking={"type": "enabled", "budget_tokens": 10000},
     messages=[
@@ -248,7 +249,7 @@ import Anthropic from "@anthropic-ai/sdk";
 const client = new Anthropic();
 
 const stream = await client.messages.stream({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 16000,
   thinking: {
     type: "enabled",
@@ -298,7 +299,7 @@ for await (const event of stream) {
 Example streaming output:
 ```json
 event: message_start
-data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-sonnet-4-5", "stop_reason": null, "stop_sequence": null}}
+data: {"type": "message_start", "message": {"id": "msg_01...", "type": "message", "role": "assistant", "content": [], "model": "claude-sonnet-4-6", "stop_reason": null, "stop_sequence": null}}
 
 event: content_block_start
 data: {"type": "content_block_start", "index": 0, "content_block": {"type": "thinking", "thinking": ""}}
@@ -417,7 +418,7 @@ weather_tool = {
 
 # First request - Claude responds with thinking and tool request
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=16000,
     thinking={"type": "enabled", "budget_tokens": 10000},
     tools=[weather_tool],
@@ -440,7 +441,7 @@ const weatherTool = {
 
 // First request - Claude responds with thinking and tool request
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 16000,
   thinking: {
     type: "enabled",
@@ -500,7 +501,7 @@ weather_data = {"temperature": 88}
 # Second request - Include thinking block and tool result
 # No new thinking blocks will be generated in the response
 continuation = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=16000,
     thinking={"type": "enabled", "budget_tokens": 10000},
     tools=[weather_tool],
@@ -537,7 +538,7 @@ const weatherData = { temperature: 88 };
 // Second request - Include thinking block and tool result
 // No new thinking blocks will be generated in the response
 const continuation = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 16000,
   thinking: {
     type: "enabled",
@@ -607,16 +608,16 @@ With interleaved thinking, Claude can:
 - Chain multiple tool calls with reasoning steps in between
 - Make more nuanced decisions based on intermediate results
 
-For Claude Opus 4.6, interleaved thinking is automatically enabled when using [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) — no beta header is needed.
-
-For Claude 4 models, add [the beta header](/docs/en/api/beta-headers) `interleaved-thinking-2025-05-14` to your API request to enable interleaved thinking.
+**Model support:**
+- **Claude Opus 4.6**: Interleaved thinking is automatically enabled when using [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) — no beta header is needed. The `interleaved-thinking-2025-05-14` beta header is **deprecated** on Opus 4.6 and is safely ignored if included.
+- **Claude Sonnet 4.6**: Supports the `interleaved-thinking-2025-05-14` beta header with manual extended thinking (`thinking: {type: "enabled"}`). You can also use [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking), which automatically enables interleaved thinking.
+- **Other Claude 4 models** (Opus 4.5, Opus 4.1, Opus 4, Sonnet 4.5, Sonnet 4): Add [the beta header](/docs/en/api/beta-headers) `interleaved-thinking-2025-05-14` to your API request to enable interleaved thinking.
 
 Here are some important considerations for interleaved thinking:
 - With interleaved thinking, the `budget_tokens` can exceed the `max_tokens` parameter, as it represents the total budget across all thinking blocks within one assistant turn.
 - Interleaved thinking is only supported for [tools used via the Messages API](/docs/en/agents-and-tools/tool-use/overview).
-- For Claude 4 models, interleaved thinking requires the beta header `interleaved-thinking-2025-05-14`.
-- Direct calls to the Claude API allow you to pass `interleaved-thinking-2025-05-14` in requests to any model, with no effect.
-- On 3rd-party platforms (for example, [Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock) and [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)), if you pass `interleaved-thinking-2025-05-14` to any model aside from Claude Opus 4.6, Claude Opus 4.5, Claude Opus 4.1, Opus 4, or Sonnet 4, your request will fail.
+- Direct calls to the Claude API allow you to pass `interleaved-thinking-2025-05-14` in requests to any model, with no effect (except Opus 4.6, where it's deprecated and safely ignored).
+- On 3rd-party platforms (for example, [Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock) and [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)), if you pass `interleaved-thinking-2025-05-14` to any model aside from Claude Sonnet 4.6, Claude Opus 4.5, Claude Opus 4.1, Opus 4, Sonnet 4.5, or Sonnet 4, your request will fail.
 
 <section title="Tool use without interleaved thinking">
 
@@ -795,7 +796,7 @@ MESSAGES = [{"role": "user", "content": "Analyze the tone of this passage."}]
 # First request - establish cache
 print("First request - establishing cache")
 response1 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={"type": "enabled", "budget_tokens": 4000},
     system=SYSTEM_PROMPT,
@@ -809,7 +810,7 @@ MESSAGES.append({"role": "user", "content": "Analyze the characters in this pass
 # Second request - same thinking parameters (cache hit expected)
 print("\nSecond request - same thinking parameters (cache hit expected)")
 response2 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={"type": "enabled", "budget_tokens": 4000},
     system=SYSTEM_PROMPT,
@@ -821,7 +822,7 @@ print(f"Second response usage: {response2.usage}")
 # Third request - different thinking parameters (cache miss for messages)
 print("\nThird request - different thinking parameters (cache miss for messages)")
 response3 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={
         "type": "enabled",
@@ -887,7 +888,7 @@ const MESSAGES = [
 // First request - establish cache
 console.log("First request - establishing cache");
 const response1 = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 20000,
   thinking: {
     type: "enabled",
@@ -911,7 +912,7 @@ MESSAGES.push({
 // Second request - same thinking parameters (cache hit expected)
 console.log("\nSecond request - same thinking parameters (cache hit expected)");
 const response2 = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 20000,
   thinking: {
     type: "enabled",
@@ -926,7 +927,7 @@ console.log(`Second response usage: ${response2.usage}`);
 // Third request - different thinking parameters (cache miss for messages)
 console.log("\nThird request - different thinking parameters (cache miss for messages)");
 const response3 = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 20000,
   thinking: {
     type: "enabled",
@@ -997,7 +998,7 @@ MESSAGES = [
 # First request - establish cache
 print("First request - establishing cache")
 response1 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={"type": "enabled", "budget_tokens": 4000},
     messages=MESSAGES,
@@ -1010,7 +1011,7 @@ MESSAGES.append({"role": "user", "content": "Analyze the characters in this pass
 # Second request - same thinking parameters (cache hit expected)
 print("\nSecond request - same thinking parameters (cache hit expected)")
 response2 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={
         "type": "enabled",
@@ -1027,7 +1028,7 @@ MESSAGES.append({"role": "user", "content": "Analyze the setting in this passage
 # Third request - different thinking budget (cache miss expected)
 print("\nThird request - different thinking budget (cache miss expected)")
 response3 = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=20000,
     thinking={
         "type": "enabled",
@@ -1092,7 +1093,7 @@ async function main() {
   // First request - establish cache
   console.log("First request - establishing cache");
   const response1 = await client.messages.create({
-    model: "claude-sonnet-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: 20000,
     thinking: {
       type: "enabled",
@@ -1118,7 +1119,7 @@ async function main() {
   // Second request - same thinking parameters (cache hit expected)
   console.log("\nSecond request - same thinking parameters (cache hit expected)");
   const response2 = await client.messages.create({
-    model: "claude-sonnet-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: 20000,
     thinking: {
       type: "enabled",
@@ -1144,7 +1145,7 @@ async function main() {
   // Third request - different thinking budget (cache miss expected)
   console.log("\nThird request - different thinking budget (cache miss expected)");
   const response3 = await client.messages.create({
-    model: "claude-sonnet-4-5",
+    model: "claude-sonnet-4-6",
     max_tokens: 20000,
     thinking: {
       type: "enabled",
@@ -1307,7 +1308,7 @@ client = anthropic.Anthropic()
 
 # Using a special prompt that triggers redacted thinking (for demonstration purposes only)
 response = client.messages.create(
-    model="claude-sonnet-4-5",
+    model="claude-sonnet-4-6",
     max_tokens=16000,
     thinking={"type": "enabled", "budget_tokens": 10000},
     messages=[
@@ -1348,7 +1349,7 @@ const client = new Anthropic();
 
 // Using a special prompt that triggers redacted thinking (for demonstration purposes only)
 const response = await client.messages.create({
-  model: "claude-sonnet-4-5",
+  model: "claude-sonnet-4-6",
   max_tokens: 16000,
   thinking: {
     type: "enabled",
@@ -1399,11 +1400,11 @@ The Messages API handles thinking differently across Claude Sonnet 3.7 and Claud
 
 See the table below for a condensed comparison:
 
-| Feature | Claude Sonnet 3.7 | Claude 4 Models (pre-Opus 4.5) | Claude Opus 4.5 | Claude Opus 4.6 ([adaptive thinking](/docs/en/build-with-claude/adaptive-thinking)) |
-|---------|------------------|-------------------------------|--------------------------|--------------------------|
-| **Thinking Output** | Returns full thinking output | Returns summarized thinking | Returns summarized thinking | Returns summarized thinking |
-| **Interleaved Thinking** | Not supported | Supported with `interleaved-thinking-2025-05-14` beta header | Supported with `interleaved-thinking-2025-05-14` beta header | Automatic with adaptive thinking (no beta header needed) |
-| **Thinking Block Preservation** | Not preserved across turns | Not preserved across turns | **Preserved by default** | **Preserved by default** |
+| Feature | Claude Sonnet 3.7 | Claude 4 Models (pre-Opus 4.5) | Claude Opus 4.5 | Claude Sonnet 4.6 | Claude Opus 4.6 ([adaptive thinking](/docs/en/build-with-claude/adaptive-thinking)) |
+|---------|------------------|-------------------------------|--------------------------|------------------|--------------------------|
+| **Thinking Output** | Returns full thinking output | Returns summarized thinking | Returns summarized thinking | Returns summarized thinking | Returns summarized thinking |
+| **Interleaved Thinking** | Not supported | Supported with `interleaved-thinking-2025-05-14` beta header | Supported with `interleaved-thinking-2025-05-14` beta header | Supported with `interleaved-thinking-2025-05-14` beta header or automatic with [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) | Automatic with adaptive thinking (beta header not supported) |
+| **Thinking Block Preservation** | Not preserved across turns | Not preserved across turns | **Preserved by default** | **Preserved by default** | **Preserved by default** |
 
 ### Thinking block preservation in Claude Opus 4.5 and later
 

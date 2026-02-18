@@ -113,3 +113,13 @@ Create Skill Version
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+
+### Example
+
+```csharp
+VersionCreateParams parameters = new() { SkillID = "skill_id" };
+
+var version = await client.Beta.Skills.Versions.Create(parameters);
+
+Console.WriteLine(version);
+```

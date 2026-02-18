@@ -103,3 +103,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     Object type.
 
     For Message Batches, this is always `"message_batch"`.
+
+### Example
+
+```csharp
+BatchRetrieveParams parameters = new() { MessageBatchID = "message_batch_id" };
+
+var messageBatch = await client.Messages.Batches.Retrieve(parameters);
+
+Console.WriteLine(messageBatch);
+```

@@ -51,7 +51,19 @@ implementation("com.anthropic:anthropic-java-vertex:2.+")
 go get github.com/anthropics/anthropic-sdk-go
 ```
 </Tab>
+
+<Tab title="Ruby">
+```bash
+# Gemfile
+gem "anthropic"
+gem "googleauth"
+```
+</Tab>
 </Tabs>
+
+<Note>
+The PHP SDK does not currently support Google Vertex AI. For available SDK platform integrations, see [Client SDKs](/docs/en/api/client-sdks).
+</Note>
 
 ## Accessing Vertex AI
 
@@ -64,6 +76,7 @@ Note that Anthropic model availability varies by region. Search for "Claude" in 
 | Model                          | Vertex AI API model ID |
 | ------------------------------ | ------------------------ |
 | Claude Opus 4.6                  | claude-opus-4-6 |
+| Claude Sonnet 4.6              | claude-sonnet-4-6 |
 | Claude Sonnet 4.5              | claude-sonnet-4-5@20250929 |
 | Claude Sonnet 4                | claude-sonnet-4@20250514 |
 | Claude Sonnet 3.7 <Tooltip tooltipContent="Deprecated as of October 28, 2025.">⚠️</Tooltip> | claude-3-7-sonnet@20250219 |
@@ -192,6 +205,23 @@ The following examples shows how to generate text from Claude on Vertex AI:
   }
   ```
 
+  ```ruby Ruby
+  require "anthropic"
+
+  client = Anthropic::VertexClient.new(
+    region: "global",
+    project_id: "MY_PROJECT_ID"
+  )
+
+  message = client.messages.create(
+    model: "claude-opus-4-6",
+    max_tokens: 100,
+    messages: [{role: "user", content: "Hey Claude!"}]
+  )
+
+  puts message.content.first.text
+  ```
+
   ```bash Shell
   MODEL_ID=claude-opus-4-6
   LOCATION=global
@@ -213,7 +243,7 @@ The following examples shows how to generate text from Claude on Vertex AI:
   ```
 </CodeGroup>
 
-See our [client SDKs](/docs/en/api/client-sdks) and the official [Vertex AI docs](https://cloud.google.com/vertex-ai/docs) for more details.
+See the [client SDKs](/docs/en/api/client-sdks) and the official [Vertex AI docs](https://cloud.google.com/vertex-ai/docs) for more details.
 
 Claude is also available through [Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock) and [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry).
 
@@ -228,7 +258,7 @@ Turning on this service does not give Google or Anthropic any access to your con
 </Note>
 
 ## Feature support
-You can find all the features currently supported on Vertex [here](/docs/en/api/overview).
+For all currently supported features on Vertex AI, see [API features overview](/docs/en/api/overview).
 
 ## Global vs regional endpoints
 
@@ -357,6 +387,23 @@ func main() {
 	_ = message
 }
 ```
+
+```ruby Ruby
+require "anthropic"
+
+client = Anthropic::VertexClient.new(
+  region: "global",
+  project_id: "MY_PROJECT_ID"
+)
+
+message = client.messages.create(
+  model: "claude-opus-4-6",
+  max_tokens: 100,
+  messages: [{role: "user", content: "Hey Claude!"}]
+)
+
+puts message.content.first.text
+```
 </CodeGroup>
 
 **Using regional endpoints:**
@@ -460,6 +507,23 @@ func main() {
 	})
 	_ = message
 }
+```
+
+```ruby Ruby
+require "anthropic"
+
+client = Anthropic::VertexClient.new(
+  region: "us-east1", # Specify a specific region
+  project_id: "MY_PROJECT_ID"
+)
+
+message = client.messages.create(
+  model: "claude-opus-4-6",
+  max_tokens: 100,
+  messages: [{role: "user", content: "Hey Claude!"}]
+)
+
+puts message.content.first.text
 ```
 </CodeGroup>
 

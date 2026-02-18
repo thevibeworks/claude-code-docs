@@ -127,3 +127,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
   - `required string? LastID`
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+### Example
+
+```csharp
+BatchListParams parameters = new();
+
+var page = await client.Messages.Batches.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```

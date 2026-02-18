@@ -97,3 +97,15 @@ Get File Metadata
   - `downloadable: bool`
 
     Whether the file can be downloaded.
+
+### Example
+
+```ruby
+require "anthropic"
+
+anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
+
+file_metadata = anthropic.beta.files.retrieve_metadata("file_id")
+
+puts(file_metadata)
+```

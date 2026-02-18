@@ -99,3 +99,34 @@ Get File Metadata
   - `Downloadable bool`
 
     Whether the file can be downloaded.
+
+### Example
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+
+  "github.com/anthropics/anthropic-sdk-go"
+  "github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+  client := anthropic.NewClient(
+    option.WithAPIKey("my-anthropic-api-key"),
+  )
+  fileMetadata, err := client.Beta.Files.GetMetadata(
+    context.TODO(),
+    "file_id",
+    anthropic.BetaFileGetMetadataParams{
+
+    },
+  )
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Printf("%+v\n", fileMetadata.ID)
+}
+```

@@ -57,3 +57,13 @@ Download File
     - `"skills-2025-10-02"Skills2025_10_02`
 
     - `"fast-mode-2026-02-01"FastMode2026_02_01`
+
+### Example
+
+```csharp
+FileDownloadParams parameters = new() { FileID = "file_id" };
+
+var response = await client.Beta.Files.Download(parameters);
+
+Console.WriteLine(response);
+```

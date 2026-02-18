@@ -36,7 +36,7 @@ response = client.beta.messages.create(
     model="claude-opus-4-6",
     max_tokens=1024,
     messages=[{"role": "user", "content": "Hello, Claude"}],
-    betas=["code-execution-2025-08-25"],
+    betas=["files-api-2025-04-14"],
 )
 ```
 
@@ -51,7 +51,7 @@ const msg = await anthropic.beta.messages.create({
   messages: [
     { role: "user", content: "Hello, Claude" }
   ],
-  betas: ["code-execution-2025-08-25"]
+  betas: ["files-api-2025-04-14"]
 });
 ```
 
@@ -59,7 +59,7 @@ const msg = await anthropic.beta.messages.create({
 curl https://api.anthropic.com/v1/messages \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \
-  -H "anthropic-beta: code-execution-2025-08-25" \
+  -H "anthropic-beta: files-api-2025-04-14" \
   -H "content-type: application/json" \
   -d '{
     "model": "claude-opus-4-6",
