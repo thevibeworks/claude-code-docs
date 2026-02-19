@@ -47,7 +47,7 @@
   
 
     <Card title="Quickstarts" icon="lightning" href="https://github.com/anthropics/anthropic-quickstarts">
-      Deployable applications built with our API.
+      Deployable applications built with the API.
     </Card>
 
     <Card title="Courses" icon="graduation-cap" href="https://anthropic.skilljar.com/">
