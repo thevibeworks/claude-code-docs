@@ -122,13 +122,13 @@ This quickstart walks you through creating a plugin with a custom skill. You'll 
     claude --plugin-dir ./my-first-plugin
     ```
 
-    Once Claude Code starts, try your new command:
+    Once Claude Code starts, try your new skill:
 
     ```shell  theme={null}
     /my-first-plugin:hello
     ```
 
-    You'll see Claude respond with a greeting. Run `/help` to see your command listed under the plugin namespace.
+    You'll see Claude respond with a greeting. Run `/help` to see your skill listed under the plugin namespace.
 
     <Note>
       **Why namespacing?** Plugin skills are always namespaced (like `/greet:hello`) to prevent conflicts when multiple plugins have skills with the same name.
@@ -140,19 +140,19 @@ This quickstart walks you through creating a plugin with a custom skill. You'll 
   <Step title="Add skill arguments">
     Make your skill dynamic by accepting user input. The `$ARGUMENTS` placeholder captures any text the user provides after the skill name.
 
-    Update your `hello.md` file:
+    Update your `SKILL.md` file:
 
-    ```markdown my-first-plugin/commands/hello.md theme={null}
+    ```markdown my-first-plugin/skills/hello/SKILL.md theme={null}
     ---
     description: Greet the user with a personalized message
     ---
 
-    # Hello Command
+    # Hello Skill
 
     Greet the user named "$ARGUMENTS" warmly and ask how you can help them today. Make the greeting personal and encouraging.
     ```
 
-    Restart Claude Code to pick up the changes, then try the command with your name:
+    Restart Claude Code to pick up the changes, then try the skill with your name:
 
     ```shell  theme={null}
     /my-first-plugin:hello Alex
@@ -165,7 +165,7 @@ This quickstart walks you through creating a plugin with a custom skill. You'll 
 You've successfully created and tested a plugin with these key components:
 
 * **Plugin manifest** (`.claude-plugin/plugin.json`): describes your plugin's metadata
-* **Commands directory** (`commands/`): contains your custom skills
+* **Skills directory** (`skills/`): contains your custom skills
 * **Skill arguments** (`$ARGUMENTS`): captures user input for dynamic behavior
 
 <Tip>
@@ -189,6 +189,7 @@ You've created a plugin with a skill, but plugins can include much more: custom 
 | `hooks/`          | Plugin root | Event handlers in `hooks.json`                                                 |
 | `.mcp.json`       | Plugin root | MCP server configurations                                                      |
 | `.lsp.json`       | Plugin root | LSP server configurations for code intelligence                                |
+| `settings.json`   | Plugin root | Default [settings](/en/settings) applied when the plugin is enabled            |
 
 <Note>
   **Next steps**: Ready to add more features? Jump to [Develop more complex plugins](#develop-more-complex-plugins) to add agents, hooks, MCP servers, and LSP servers. For complete technical specifications of all plugin components, see [Plugins reference](/en/plugins-reference).
@@ -254,6 +255,20 @@ Users installing your plugin must have the language server binary installed on t
 
 For complete LSP configuration options, see [LSP servers](/en/plugins-reference#lsp-servers).
 
+### Ship default settings with your plugin
+
+Plugins can include a `settings.json` file at the plugin root to apply default configuration when the plugin is enabled. Currently, only the `agent` key is supported.
+
+Setting `agent` activates one of the plugin's [custom agents](/en/sub-agents) as the main thread, applying its system prompt, tool restrictions, and model. This lets a plugin change how Claude Code behaves by default when enabled.
+
+```json settings.json theme={null}
+{
+  "agent": "security-reviewer"
+}
+```
+
+This example activates the `security-reviewer` agent defined in the plugin's `agents/` directory. Settings from `settings.json` take priority over `settings` declared in `plugin.json`. Unknown keys are silently ignored.
+
 ### Organize complex plugins
 
 For plugins with many components, organize your directory structure by functionality. For complete directory layouts and organization patterns, see [Plugin directory structure](/en/plugins-reference#plugin-directory-structure).
@@ -268,7 +283,7 @@ claude --plugin-dir ./my-plugin
 
 As you make changes to your plugin, restart Claude Code to pick up the updates. Test your plugin components:
 
-* Try your commands with `/command-name`
+* Try your skills with `/plugin-name:skill-name`
 * Check that agents appear in `/agents`
 * Verify hooks work as expected
 

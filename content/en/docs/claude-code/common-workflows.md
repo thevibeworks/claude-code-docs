@@ -642,72 +642,128 @@ Forked sessions (created with `/rewind` or `--fork-session`) are grouped togethe
 
 ## Run parallel Claude Code sessions with Git worktrees
 
-Suppose you need to work on multiple tasks simultaneously with complete code isolation between Claude Code instances.
+When working on multiple tasks at once, you need each Claude session to have its own copy of the codebase so changes don't collide. Git worktrees solve this by creating separate working directories that each have their own files and branch, while sharing the same repository history and remote connections. This means you can have Claude working on a feature in one worktree while fixing a bug in another, without either session interfering with the other.
 
-<Steps>
-  <Step title="Understand Git worktrees">
-    Git worktrees allow you to check out multiple branches from the same
-    repository into separate directories. Each worktree has its own working
-    directory with isolated files, while sharing the same Git history. Learn
-    more in the [official Git worktree
-    documentation](https://git-scm.com/docs/git-worktree).
-  </Step>
+Use the `--worktree` flag to create an isolated worktree and start Claude in it. The value you pass becomes the worktree directory name and branch name:
 
-  <Step title="Create a new worktree">
-    ```bash  theme={null}
-    # Create a new worktree with a new branch 
-    git worktree add ../project-feature-a -b feature-a
+```bash  theme={null}
+# Start Claude in a worktree named "feature-auth"
+# Creates .claude/worktrees/feature-auth/ with a new branch
+claude -w feature-auth
 
-    # Or create a worktree with an existing branch
-    git worktree add ../project-bugfix bugfix-123
-    ```
+# Start another session in a separate worktree
+claude -w bugfix-123
+```
 
-    This creates a new directory with a separate working copy of your repository.
-  </Step>
+If you omit the name, Claude generates a random one automatically:
 
-  <Step title="Run Claude Code in each worktree">
-    ```bash  theme={null}
-    # Navigate to your worktree 
-    cd ../project-feature-a
+```bash  theme={null}
+# Auto-generates a name like "bright-running-fox"
+claude -w
+```
 
-    # Run Claude Code in this isolated environment
-    claude
-    ```
-  </Step>
+Worktrees are created at `<repo>/.claude/worktrees/<name>` and branch from the default remote branch. The worktree branch is named `worktree-<name>`.
 
-  <Step title="Run Claude in another worktree">
-    ```bash  theme={null}
-    cd ../project-bugfix
-    claude
-    ```
-  </Step>
+You can also ask Claude to "work in a worktree" or "start a worktree" during a session, and it will create one automatically.
 
-  <Step title="Manage your worktrees">
-    ```bash  theme={null}
-    # List all worktrees
-    git worktree list
+### Worktree cleanup
 
-    # Remove a worktree when done
-    git worktree remove ../project-feature-a
-    ```
-  </Step>
-</Steps>
+When you exit a worktree session, Claude handles cleanup based on whether you made changes:
+
+* **No changes**: the worktree and its branch are removed automatically
+* **Changes or commits exist**: Claude prompts you to keep or remove the worktree. Keeping preserves the directory and branch so you can return later. Removing deletes the worktree directory and its branch, discarding all uncommitted changes and commits
+
+To clean up worktrees outside of a Claude session, use [manual worktree management](#manage-worktrees-manually).
 
 <Tip>
-  Tips:
+  Add `.claude/worktrees/` to your `.gitignore` to prevent worktree contents from appearing as untracked files in your main repository.
+</Tip>
 
-  * Each worktree has its own independent file state, making it perfect for parallel Claude Code sessions
-  * Changes made in one worktree won't affect others, preventing Claude instances from interfering with each other
-  * All worktrees share the same Git history and remote connections
-  * For long-running tasks, you can have Claude working in one worktree while you continue development in another
-  * Use descriptive directory names to easily identify which task each worktree is for
-  * Remember to initialize your development environment in each new worktree according to your project's setup. Depending on your stack, this might include:
-    * JavaScript projects: Running dependency installation (`npm install`, `yarn`)
-    * Python projects: Setting up virtual environments or installing with package managers
-    * Other languages: Following your project's standard setup process
+### Manage worktrees manually
+
+For more control over worktree location and branch configuration, create worktrees with Git directly. This is useful when you need to check out a specific existing branch or place the worktree outside the repository.
+
+```bash  theme={null}
+# Create a worktree with a new branch
+git worktree add ../project-feature-a -b feature-a
+
+# Create a worktree with an existing branch
+git worktree add ../project-bugfix bugfix-123
+
+# Start Claude in the worktree
+cd ../project-feature-a && claude
+
+# Clean up when done
+git worktree list
+git worktree remove ../project-feature-a
+```
+
+Learn more in the [official Git worktree documentation](https://git-scm.com/docs/git-worktree).
+
+<Tip>
+  Remember to initialize your development environment in each new worktree according to your project's setup. Depending on your stack, this might include running dependency installation (`npm install`, `yarn`), setting up virtual environments, or following your project's standard setup process.
 </Tip>
 
 For automated coordination of parallel sessions with shared tasks and messaging, see [agent teams](/en/agent-teams).
+
+***
+
+## Get notified when Claude needs your attention
+
+When you kick off a long-running task and switch to another window, you can set up desktop notifications so you know when Claude finishes or needs your input. This uses the `Notification` [hook event](/en/hooks-guide#get-notified-when-claude-needs-input), which fires whenever Claude is waiting for permission, idle and ready for a new prompt, or completing authentication.
+
+<Steps>
+  <Step title="Open the hooks menu">
+    Type `/hooks` and select `Notification` from the list of events.
+  </Step>
+
+  <Step title="Configure the matcher">
+    Select `+ Match all (no filter)` to fire on all notification types. To notify only for specific events, select `+ Add new matcher…` and enter one of these values:
+
+    | Matcher              | Fires when                                      |
+    | :------------------- | :---------------------------------------------- |
+    | `permission_prompt`  | Claude needs you to approve a tool use          |
+    | `idle_prompt`        | Claude is done and waiting for your next prompt |
+    | `auth_success`       | Authentication completes                        |
+    | `elicitation_dialog` | Claude is asking you a question                 |
+  </Step>
+
+  <Step title="Add your notification command">
+    Select `+ Add new hook…` and enter the command for your OS:
+
+    <Tabs>
+      <Tab title="macOS">
+        Uses [`osascript`](https://ss64.com/mac/osascript.html) to trigger a native macOS notification through AppleScript:
+
+        ```
+        osascript -e 'display notification "Claude Code needs your attention" with title "Claude Code"'
+        ```
+      </Tab>
+
+      <Tab title="Linux">
+        Uses `notify-send`, which is pre-installed on most Linux desktops with a notification daemon:
+
+        ```
+        notify-send 'Claude Code' 'Claude Code needs your attention'
+        ```
+      </Tab>
+
+      <Tab title="Windows (PowerShell)">
+        Uses PowerShell to show a native message box through .NET's Windows Forms:
+
+        ```
+        powershell.exe -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); [System.Windows.Forms.MessageBox]::Show('Claude Code needs your attention', 'Claude Code')"
+        ```
+      </Tab>
+    </Tabs>
+  </Step>
+
+  <Step title="Save to user settings">
+    Select `User settings` to apply the notification across all your projects.
+  </Step>
+</Steps>
+
+For the full walkthrough with JSON configuration examples, see [Automate workflows with hooks](/en/hooks-guide#get-notified-when-claude-needs-input). For the complete event schema and notification types, see the [Notification reference](/en/hooks#notification).
 
 ***
 
