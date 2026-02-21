@@ -24,6 +24,12 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Making frontier cybersecurity capabilities available to defenders
+
+Claude Code Security, a new capability built into Claude Code on the web, is now available in a limited research preview. It scans codebases for security vulnerabilities and suggests targeted software patches for human review, allowing teams to find and fix security issues that traditional methods often miss.
+
+[Read more](https://www.anthropic.com/news/claude-code-security)
+
 ### Anthropic and the Government of Rwanda sign MOU for AI in health and education
 
 [Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)
@@ -33,7 +39,3 @@ Related content
 Sonnet 4.6 delivers frontier performance across coding, agents, and professional work at scale.
 
 [Read more](https://www.anthropic.com/news/claude-sonnet-4-6)
-
-### Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries
-
-[Read more](https://www.anthropic.com/news/anthropic-infosys)

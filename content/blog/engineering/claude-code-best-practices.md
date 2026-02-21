@@ -183,7 +183,7 @@ A standalone app for running Claude Code outside your IDE or terminal. Review di
 *   [Windows](https://claude.ai/api/desktop/win32/x64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (x64)
 *   [Windows ARM64](https://claude.ai/api/desktop/win32/arm64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (remote sessions only)
 
-After installing, launch Claude, sign in, and click the **Code** tab to start coding. A [paid subscription](https://claude.com/pricing) is required.[Learn more about the desktop app →](https://www.anthropic.com/docs/en/desktop#get-started)
+After installing, launch Claude, sign in, and click the **Code** tab to start coding. A [paid subscription](https://claude.com/pricing) is required.[Learn more about the desktop app →](https://www.anthropic.com/docs/en/desktop-quickstart)
 
 Run Claude Code in your browser with no local setup. Kick off long-running tasks and check back when they’re done, work on repos you don’t have locally, or run multiple tasks in parallel. Available on desktop browsers and the Claude iOS app.Start coding at [claude.ai/code](https://claude.ai/code).[Get started on the web →](https://www.anthropic.com/docs/en/claude-code-on-the-web#getting-started)
 
