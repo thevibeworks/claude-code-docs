@@ -100,7 +100,7 @@ Choose your environment to get started. Most surfaces require a [Claude subscrip
 
     After installing, launch Claude, sign in, and click the **Code** tab to start coding. A [paid subscription](https://claude.com/pricing) is required.
 
-    [Learn more about the desktop app →](/en/desktop#get-started)
+    [Learn more about the desktop app →](/en/desktop-quickstart)
   </Tab>
 
   <Tab title="Web">
