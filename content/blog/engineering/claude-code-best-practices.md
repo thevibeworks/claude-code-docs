@@ -57,6 +57,7 @@ Claude Code overview
 *   [Claude Code in Slack](https://www.anthropic.com/docs/en/slack)
 
 On this page
+
 *   [Get started](https://www.anthropic.com/engineering/claude-code-best-practices#get-started)
 *   [What you can do](https://www.anthropic.com/engineering/claude-code-best-practices#what-you-can-do)
 *   [Use Claude Code everywhere](https://www.anthropic.com/engineering/claude-code-best-practices#use-claude-code-everywhere)
