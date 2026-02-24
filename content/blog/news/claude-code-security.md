@@ -50,6 +50,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 Related content
 ---------------
 
+### Detecting and preventing distillation attacks
+
+[Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
+
 ### Anthropic and the Government of Rwanda sign MOU for AI in health and education
 
 [Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)
@@ -59,7 +63,3 @@ Related content
 Sonnet 4.6 delivers frontier performance across coding, agents, and professional work at scale.
 
 [Read more](https://www.anthropic.com/news/claude-sonnet-4-6)
-
-### Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries
-
-[Read more](https://www.anthropic.com/news/anthropic-infosys)
