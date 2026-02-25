@@ -47,6 +47,7 @@ Claude Code overview
 
 ##### Platforms and integrations
 
+*   [Remote Control](https://www.anthropic.com/docs/en/remote-control)
 *   [Claude Code on the web](https://www.anthropic.com/docs/en/claude-code-on-the-web)
 *   Claude Code on desktop 
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
@@ -129,6 +130,8 @@ Ask AI
 ```
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 ```
+
+**Windows requires [Git for Windows](https://git-scm.com/downloads/win).** Install it first if you don’t have it.
 
 Native installations automatically update in the background to keep you on the latest version.
 
@@ -269,6 +272,7 @@ See the [CLI reference](https://www.anthropic.com/docs/en/cli-reference) for the
 Work from anywhere
 
 Sessions aren’t tied to a single surface. Move work between environments as your context changes:
+*   Step away from your desk and keep working from your phone or any browser with [Remote Control](https://www.anthropic.com/docs/en/remote-control)
 *   Kick off a long-running task on the [web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684), then pull it into your terminal with `/teleport`
 *   Hand off a terminal session to the [Desktop app](https://www.anthropic.com/docs/en/desktop) with `/desktop` for visual diff review
 *   Route tasks from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report and get a pull request back
@@ -282,6 +286,7 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 
 | I want to… | Best option |
 | --- | --- |
+| Continue a local session from my phone or another device | [Remote Control](https://www.anthropic.com/docs/en/remote-control) |
 | Start a task locally, continue on mobile | [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) |
 | Automate PR reviews and issue triage | [GitHub Actions](https://www.anthropic.com/docs/en/github-actions) or [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd) |
 | Route bug reports from Slack to pull requests | [Slack](https://www.anthropic.com/docs/en/slack) |
