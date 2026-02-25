@@ -58,6 +58,10 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### Anthropic’s Responsible Scaling Policy: Version 3.0
+
+[Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
+
 ### Detecting and preventing distillation attacks
 
 [Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
@@ -67,7 +71,3 @@ Related content
 Claude Code Security, a new capability built into Claude Code on the web, is now available in a limited research preview. It scans codebases for security vulnerabilities and suggests targeted software patches for human review, allowing teams to find and fix security issues that traditional methods often miss.
 
 [Read more](https://www.anthropic.com/news/claude-code-security)
-
-### Anthropic and the Government of Rwanda sign MOU for AI in health and education
-
-[Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)

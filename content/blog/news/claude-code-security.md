@@ -50,6 +50,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 Related content
 ---------------
 
+### Anthropic’s Responsible Scaling Policy: Version 3.0
+
+[Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
+
 ### Detecting and preventing distillation attacks
 
 [Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
@@ -57,9 +61,3 @@ Related content
 ### Anthropic and the Government of Rwanda sign MOU for AI in health and education
 
 [Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)
-
-### Introducing Claude Sonnet 4.6
-
-Sonnet 4.6 delivers frontier performance across coding, agents, and professional work at scale.
-
-[Read more](https://www.anthropic.com/news/claude-sonnet-4-6)
