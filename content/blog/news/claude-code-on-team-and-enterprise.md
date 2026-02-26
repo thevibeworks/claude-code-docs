@@ -52,6 +52,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Anthropic acquires Vercept to advance Claude's computer use capabilities
+
+[Read more](https://www.anthropic.com/news/acquires-vercept)
+
 ### Anthropic’s Responsible Scaling Policy: Version 3.0
 
 [Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
@@ -59,9 +63,3 @@ Related content
 ### Detecting and preventing distillation attacks
 
 [Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
-
-### Making frontier cybersecurity capabilities available to defenders
-
-Claude Code Security, a new capability built into Claude Code on the web, is now available in a limited research preview. It scans codebases for security vulnerabilities and suggests targeted software patches for human review, allowing teams to find and fix security issues that traditional methods often miss.
-
-[Read more](https://www.anthropic.com/news/claude-code-security)

@@ -50,6 +50,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 Related content
 ---------------
 
+### Anthropic acquires Vercept to advance Claude's computer use capabilities
+
+[Read more](https://www.anthropic.com/news/acquires-vercept)
+
 ### Anthropic’s Responsible Scaling Policy: Version 3.0
 
 [Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
@@ -57,7 +61,3 @@ Related content
 ### Detecting and preventing distillation attacks
 
 [Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
-
-### Anthropic and the Government of Rwanda sign MOU for AI in health and education
-
-[Read more](https://www.anthropic.com/news/anthropic-rwanda-mou)
