@@ -24,6 +24,12 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 Related content
 ---------------
 
+### Statement from Dario Amodei on our discussions with the Department of War
+
+A statement from our CEO on national security uses of AI.
+
+[Read more](https://www.anthropic.com/news/statement-department-of-war)
+
 ### Anthropic acquires Vercept to advance Claude's computer use capabilities
 
 [Read more](https://www.anthropic.com/news/acquires-vercept)
@@ -31,7 +37,3 @@ Related content
 ### Anthropic’s Responsible Scaling Policy: Version 3.0
 
 [Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
-
-### Detecting and preventing distillation attacks
-
-[Read more](https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks)
