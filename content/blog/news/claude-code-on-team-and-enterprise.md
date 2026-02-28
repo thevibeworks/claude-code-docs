@@ -52,6 +52,12 @@ To explore how Claude for Enterprise can transform your organization's productiv
 Related content
 ---------------
 
+### Statement on the comments from Secretary of War Pete Hegseth
+
+Anthropic's response to the Secretary of War and advice to customers.
+
+[Read more](https://www.anthropic.com/news/statement-comments-secretary-war)
+
 ### Statement from Dario Amodei on our discussions with the Department of War
 
 A statement from our CEO on national security uses of AI.
@@ -61,7 +67,3 @@ A statement from our CEO on national security uses of AI.
 ### Anthropic acquires Vercept to advance Claude's computer use capabilities
 
 [Read more](https://www.anthropic.com/news/acquires-vercept)
-
-### Anthropic’s Responsible Scaling Policy: Version 3.0
-
-[Read more](https://www.anthropic.com/news/responsible-scaling-policy-v3)
