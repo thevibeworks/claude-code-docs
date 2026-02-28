@@ -103,7 +103,6 @@
   "_nodeVersion": "20.20.0",
   "dependencies": {},
   "_hasShrinkwrap": false,
-  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@img/sharp-linux-arm": "^0.34.2",
     "@img/sharp-linux-x64": "^0.34.2",
