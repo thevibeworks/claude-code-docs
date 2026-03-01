@@ -42,6 +42,7 @@ Claude Code overview
 
 *   [How Claude Code works](https://www.anthropic.com/docs/en/how-claude-code-works)
 *   [Extend Claude Code](https://www.anthropic.com/docs/en/features-overview)
+*   [Store instructions and memories](https://www.anthropic.com/docs/en/memory)
 *   [Common workflows](https://www.anthropic.com/docs/en/common-workflows)
 *   [Best practices](https://www.anthropic.com/docs/en/best-practices)
 
@@ -240,7 +241,7 @@ The [Model Context Protocol (MCP)](https://www.anthropic.com/docs/en/mcp) is an 
 
 Customize with instructions, skills, and hooks
 
-[`CLAUDE.md`](https://www.anthropic.com/docs/en/claude-md) is a markdown file you add to your project root that Claude Code reads at the start of every session. Use it to set coding standards, architecture decisions, preferred libraries, and review checklists.Create [custom slash commands](https://www.anthropic.com/docs/en/skills) to package repeatable workflows your team can share, like `/review-pr` or `/deploy-staging`.[Hooks](https://www.anthropic.com/docs/en/hooks) let you run shell commands before or after Claude Code actions, like auto-formatting after every file edit or running lint before a commit.
+[`CLAUDE.md`](https://www.anthropic.com/docs/en/memory) is a markdown file you add to your project root that Claude Code reads at the start of every session. Use it to set coding standards, architecture decisions, preferred libraries, and review checklists. Claude also builds [auto memory](https://www.anthropic.com/docs/en/memory#auto-memory) as it works, saving learnings like build commands and debugging insights across sessions without you writing anything.Create [custom slash commands](https://www.anthropic.com/docs/en/skills) to package repeatable workflows your team can share, like `/review-pr` or `/deploy-staging`.[Hooks](https://www.anthropic.com/docs/en/hooks) let you run shell commands before or after Claude Code actions, like auto-formatting after every file edit or running lint before a commit.
 
 Run agent teams and build custom agents
 
@@ -300,7 +301,8 @@ Next steps
 
 Once you’ve installed Claude Code, these guides help you go deeper.
 *   [Quickstart](https://www.anthropic.com/docs/en/quickstart): walk through your first real task, from exploring a codebase to committing a fix
-*   Level up with [best practices](https://www.anthropic.com/docs/en/best-practices) and [common workflows](https://www.anthropic.com/docs/en/common-workflows)
+*   [Store instructions and memories](https://www.anthropic.com/docs/en/memory): give Claude persistent instructions with CLAUDE.md files and auto memory
+*   [Common workflows](https://www.anthropic.com/docs/en/common-workflows) and [best practices](https://www.anthropic.com/docs/en/best-practices): patterns for getting the most out of Claude Code
 *   [Settings](https://www.anthropic.com/docs/en/settings): customize Claude Code for your workflow
 *   [Troubleshooting](https://www.anthropic.com/docs/en/troubleshooting): solutions for common issues
 *   [code.claude.com](https://code.claude.com/): demos, pricing, and product details

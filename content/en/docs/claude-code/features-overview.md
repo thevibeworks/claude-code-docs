@@ -26,7 +26,7 @@ Extensions plug into different parts of the agentic loop:
 * **[Hooks](/en/hooks)** run outside the loop entirely as deterministic scripts
 * **[Plugins](/en/plugins)** and **[marketplaces](/en/plugin-marketplaces)** package and distribute these features
 
-[Skills](/en/skills) are the most flexible extension. A skill is a markdown file containing knowledge, workflows, or instructions. You can invoke skills with a slash command like `/deploy`, or Claude can load them automatically when relevant. Skills can run in your current conversation or in an isolated context via subagents.
+[Skills](/en/skills) are the most flexible extension. A skill is a markdown file containing knowledge, workflows, or instructions. You can invoke skills with a command like `/deploy`, or Claude can load them automatically when relevant. Skills can run in your current conversation or in an isolated context via subagents.
 
 ## Match features to your goal
 
@@ -81,7 +81,23 @@ Some features can seem similar. Here's how to tell them apart.
 
     **Put it in a skill** if it's reference material Claude needs sometimes (API docs, style guides) or a workflow you trigger with `/<name>` (deploy, review, release).
 
-    **Rule of thumb:** Keep CLAUDE.md under \~500 lines. If it's growing, move reference content to skills.
+    **Rule of thumb:** Keep CLAUDE.md under 200 lines. If it's growing, move reference content to skills or split into [`.claude/rules/`](/en/memory#organize-rules-with-clauderules) files.
+  </Tab>
+
+  <Tab title="CLAUDE.md vs Rules vs Skills">
+    All three store instructions, but they load differently:
+
+    | Aspect       | CLAUDE.md                           | `.claude/rules/`                                   | Skill                                    |
+    | ------------ | ----------------------------------- | -------------------------------------------------- | ---------------------------------------- |
+    | **Loads**    | Every session                       | Every session, or when matching files are opened   | On demand, when invoked or relevant      |
+    | **Scope**    | Whole project                       | Can be scoped to file paths                        | Task-specific                            |
+    | **Best for** | Core conventions and build commands | Language-specific or directory-specific guidelines | Reference material, repeatable workflows |
+
+    **Use CLAUDE.md** for instructions every session needs: build commands, test conventions, project architecture.
+
+    **Use rules** to keep CLAUDE.md focused. Rules with [`paths` frontmatter](/en/memory#path-specific-rules) only load when Claude works with matching files, saving context.
+
+    **Use skills** for content Claude only needs sometimes, like API documentation or a deployment checklist you trigger with `/<name>`.
   </Tab>
 
   <Tab title="Subagent vs Agent team">
@@ -132,7 +148,7 @@ Some features can seem similar. Here's how to tell them apart.
 
 Features can be defined at multiple levels: user-wide, per-project, via plugins, or through managed policies. You can also nest CLAUDE.md files in subdirectories or place skills in specific packages of a monorepo. When the same feature exists at multiple levels, here's how they layer:
 
-* **CLAUDE.md files** are additive: all levels contribute content to Claude's context simultaneously. Files from your working directory and above load at launch; subdirectories load as you work in them. When instructions conflict, Claude uses judgment to reconcile them, with more specific instructions typically taking precedence. See [how Claude looks up memories](/en/memory#how-claude-looks-up-memories).
+* **CLAUDE.md files** are additive: all levels contribute content to Claude's context simultaneously. Files from your working directory and above load at launch; subdirectories load as you work in them. When instructions conflict, Claude uses judgment to reconcile them, with more specific instructions typically taking precedence. See [how CLAUDE.md files load](/en/memory#how-claudemd-files-load).
 * **Skills and subagents** override by name: when the same name exists at multiple levels, one definition wins based on priority (managed > user > project for skills; managed > CLI flag > project > user > plugin for subagents). Plugin skills are [namespaced](/en/plugins#add-skills-to-your-plugin) to avoid conflicts. See [skill discovery](/en/skills#where-skills-live) and [subagent scope](/en/sub-agents#choose-the-subagent-scope).
 * **MCP servers** override by name: local > project > user. See [MCP scope](/en/mcp#scope-hierarchy-and-precedence).
 * **Hooks** merge: all registered hooks fire for their matching events regardless of source. See [hooks](/en/hooks).
@@ -180,13 +196,13 @@ Each feature loads at different points in your session. The tabs below explain w
 
     **What loads:** Full content of all CLAUDE.md files (managed, user, and project levels).
 
-    **Inheritance:** Claude reads CLAUDE.md files from your working directory up to the root, and discovers nested ones in subdirectories as it accesses those files. See [How Claude looks up memories](/en/memory#how-claude-looks-up-memories) for details.
+    **Inheritance:** Claude reads CLAUDE.md files from your working directory up to the root, and discovers nested ones in subdirectories as it accesses those files. See [How CLAUDE.md files load](/en/memory#how-claudemd-files-load) for details.
 
     <Tip>Keep CLAUDE.md under \~500 lines. Move reference material to skills, which load on-demand.</Tip>
   </Tab>
 
   <Tab title="Skills">
-    Skills are extra capabilities in Claude's toolkit. They can be reference material (like an API style guide) or invocable workflows you trigger with `/<name>` (like `/deploy`). Some are built-in; you can also create your own. Claude uses skills when appropriate, or you can invoke one directly.
+    Skills are extra capabilities in Claude's toolkit. They can be reference material (like an API style guide) or invocable workflows you trigger with `/<name>` (like `/deploy`). Claude Code ships with [bundled skills](/en/skills#bundled-skills) like `/simplify`, `/batch`, and `/debug` that work out of the box. You can also create your own. Claude uses skills when appropriate, or you can invoke one directly.
 
     **When:** Depends on the skill's configuration. By default, descriptions load at session start and full content loads when used. For user-only skills (`disable-model-invocation: true`), nothing loads until you invoke them.
 
