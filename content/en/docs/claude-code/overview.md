@@ -22,19 +22,19 @@ Choose your environment to get started. Most surfaces require a [Claude subscrip
       <Tab title="Native Install (Recommended)">
         **macOS, Linux, WSL:**
 
-        ```bash  theme={null}
+        ```bash theme={null} theme={null} theme={null} theme={null}
         curl -fsSL https://claude.ai/install.sh | bash
         ```
 
         **Windows PowerShell:**
 
-        ```powershell  theme={null}
+        ```powershell theme={null} theme={null} theme={null} theme={null}
         irm https://claude.ai/install.ps1 | iex
         ```
 
         **Windows CMD:**
 
-        ```batch  theme={null}
+        ```batch theme={null} theme={null} theme={null} theme={null}
         curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
         ```
 
@@ -46,7 +46,7 @@ Choose your environment to get started. Most surfaces require a [Claude subscrip
       </Tab>
 
       <Tab title="Homebrew">
-        ```bash  theme={null}
+        ```bash theme={null} theme={null} theme={null} theme={null}
         brew install --cask claude-code
         ```
 
@@ -56,7 +56,7 @@ Choose your environment to get started. Most surfaces require a [Claude subscrip
       </Tab>
 
       <Tab title="WinGet">
-        ```powershell  theme={null}
+        ```powershell theme={null} theme={null} theme={null} theme={null}
         winget install Anthropic.ClaudeCode
         ```
 
@@ -156,9 +156,9 @@ Here are some of the ways you can use Claude Code:
   </Accordion>
 
   <Accordion title="Customize with instructions, skills, and hooks" icon="sliders">
-    [`CLAUDE.md`](/en/claude-md) is a markdown file you add to your project root that Claude Code reads at the start of every session. Use it to set coding standards, architecture decisions, preferred libraries, and review checklists.
+    [`CLAUDE.md`](/en/memory) is a markdown file you add to your project root that Claude Code reads at the start of every session. Use it to set coding standards, architecture decisions, preferred libraries, and review checklists. Claude also builds [auto memory](/en/memory#auto-memory) as it works, saving learnings like build commands and debugging insights across sessions without you writing anything.
 
-    Create [custom slash commands](/en/skills) to package repeatable workflows your team can share, like `/review-pr` or `/deploy-staging`.
+    Create [custom commands](/en/skills) to package repeatable workflows your team can share, like `/review-pr` or `/deploy-staging`.
 
     [Hooks](/en/hooks) let you run shell commands before or after Claude Code actions, like auto-formatting after every file edit or running lint before a commit.
   </Accordion>
@@ -216,7 +216,8 @@ Beyond the [Terminal](/en/quickstart), [VS Code](/en/vs-code), [JetBrains](/en/j
 Once you've installed Claude Code, these guides help you go deeper.
 
 * [Quickstart](/en/quickstart): walk through your first real task, from exploring a codebase to committing a fix
-* Level up with [best practices](/en/best-practices) and [common workflows](/en/common-workflows)
+* [Store instructions and memories](/en/memory): give Claude persistent instructions with CLAUDE.md files and auto memory
+* [Common workflows](/en/common-workflows) and [best practices](/en/best-practices): patterns for getting the most out of Claude Code
 * [Settings](/en/settings): customize Claude Code for your workflow
 * [Troubleshooting](/en/troubleshooting): solutions for common issues
 * [code.claude.com](https://code.claude.com/): demos, pricing, and product details
