@@ -330,15 +330,7 @@ For comprehensive coverage, ask Claude to identify edge cases you might have mis
 
 ## Create pull requests
 
-You can create pull requests by asking Claude directly ("create a pr for my changes") or by using the `/commit-push-pr` skill, which commits, pushes, and opens a PR in one step.
-
-```
-> /commit-push-pr
-```
-
-If you have a Slack MCP server configured and specify channels in your CLAUDE.md (for example, "post PR URLs to #team-prs"), the skill automatically posts the PR URL to those channels.
-
-For more control over the process, guide Claude through it step-by-step or [create your own skill](/en/skills):
+You can create pull requests by asking Claude directly ("create a pr for my changes"), or guide Claude through it step-by-step:
 
 <Steps>
   <Step title="Summarize your changes">
