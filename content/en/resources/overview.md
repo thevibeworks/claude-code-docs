@@ -58,10 +58,6 @@
       Replicable code samples and implementations.
     </Card>
 
-    <Card title="Prompt library" icon="book" href="/docs/en/resources/prompt-library/library">
-      Explore optimized prompts for a breadth of business and personal tasks.
-    </Card>
-
     <Card title="Use case guides" icon="compass" href="/docs/en/about-claude/use-case-guides/overview">
       In-depth production guides for building common use cases with Claude.
     </Card>
