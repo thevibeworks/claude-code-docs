@@ -72,7 +72,7 @@ This walkthrough shows what's happening under the hood by manually creating a st
 
 <Note>Running [`/statusline`](#use-the-statusline-command) with a description of what you want configures all of this for you automatically.</Note>
 
-These examples use Bash scripts, which work on macOS and Linux. On Windows, you can run Bash scripts through [WSL (Windows Subsystem for Linux)](https://learn.microsoft.com/en-us/windows/wsl/install) or rewrite them in PowerShell.
+These examples use Bash scripts, which work on macOS and Linux. On Windows, see [Windows configuration](#windows-configuration) for PowerShell and Git Bash examples.
 
 <Frame>
   <img src="https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=696445e59ca0059213250651ad23db6b" alt="A status line showing model name, directory, and context percentage" data-og-width="726" width="726" data-og-height="164" height="164" data-path="images/statusline-quickstart.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=280&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=728c4bd06c8559cb46ddffffad983373 280w, https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=560&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=f9d28e0f8f48f695167dd1d632a6cf4f 560w, https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=840&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=57a2803a18cafe8cf1aa05619444f20c 840w, https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=1100&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=52cdd52865842f0cda24489dd5310d3b 1100w, https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=1650&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=f8876ea1f72bf40bd0aeec483ee20164 1650w, https://mintcdn.com/claude-code/nibzesLaJVh4ydOq/images/statusline-quickstart.png?w=2500&fit=max&auto=format&n=nibzesLaJVh4ydOq&q=85&s=6b1524305c7c71122cde65d0c3822374 2500w" />
@@ -165,6 +165,11 @@ Claude Code sends the following JSON fields to your script via stdin:
 | `output_style.name`                                                       | Name of the current output style                                                                                                                                                             |
 | `vim.mode`                                                                | Current vim mode (`NORMAL` or `INSERT`) when [vim mode](/en/interactive-mode#vim-editor-mode) is enabled                                                                                     |
 | `agent.name`                                                              | Agent name when running with the `--agent` flag or agent settings configured                                                                                                                 |
+| `worktree.name`                                                           | Name of the active worktree. Present only during `--worktree` sessions                                                                                                                       |
+| `worktree.path`                                                           | Absolute path to the worktree directory                                                                                                                                                      |
+| `worktree.branch`                                                         | Git branch name for the worktree (for example, `"worktree-my-feature"`). Absent for hook-based worktrees                                                                                     |
+| `worktree.original_cwd`                                                   | The directory Claude was in before entering the worktree                                                                                                                                     |
+| `worktree.original_branch`                                                | Git branch checked out before entering the worktree. Absent for hook-based worktrees                                                                                                         |
 
 <Accordion title="Full JSON schema">
   Your status line command receives this JSON structure via stdin:
@@ -212,6 +217,13 @@ Claude Code sends the following JSON fields to your script via stdin:
     },
     "agent": {
       "name": "security-reviewer"
+    },
+    "worktree": {
+      "name": "my-feature",
+      "path": "/path/to/.claude/worktrees/my-feature",
+      "branch": "worktree-my-feature",
+      "original_cwd": "/path/to/project",
+      "original_branch": "main"
     }
   }
   ```
@@ -220,6 +232,7 @@ Claude Code sends the following JSON fields to your script via stdin:
 
   * `vim`: appears only when vim mode is enabled
   * `agent`: appears only when running with the `--agent` flag or agent settings configured
+  * `worktree`: appears only during `--worktree` sessions. When present, `branch` and `original_branch` may also be absent for hook-based worktrees
 
   **Fields that may be `null`**:
 
@@ -794,6 +807,57 @@ Each script checks if the cache file is missing or older than 5 seconds before r
   ```
 </CodeGroup>
 
+### Windows configuration
+
+On Windows, Claude Code runs status line commands through Git Bash. You can invoke PowerShell from that shell:
+
+<CodeGroup>
+  ```json settings.json theme={null}
+  {
+    "statusLine": {
+      "type": "command",
+      "command": "powershell -NoProfile -File C:/Users/username/.claude/statusline.ps1"
+    }
+  }
+  ```
+
+  ```powershell statusline.ps1 theme={null}
+  $input_json = $input | Out-String | ConvertFrom-Json
+  $cwd = $input_json.cwd
+  $model = $input_json.model.display_name
+  $used = $input_json.context_window.used_percentage
+  $dirname = Split-Path $cwd -Leaf
+
+  if ($used) {
+      Write-Host "$dirname [$model] ctx: $used%"
+  } else {
+      Write-Host "$dirname [$model]"
+  }
+  ```
+</CodeGroup>
+
+Or run a Bash script directly:
+
+<CodeGroup>
+  ```json settings.json theme={null}
+  {
+    "statusLine": {
+      "type": "command",
+      "command": "~/.claude/statusline.sh"
+    }
+  }
+  ```
+
+  ```bash statusline.sh theme={null}
+  #!/usr/bin/env bash
+  input=$(cat)
+  cwd=$(echo "$input" | grep -o '"cwd":"[^"]*"' | cut -d'"' -f4)
+  model=$(echo "$input" | grep -o '"display_name":"[^"]*"' | cut -d'"' -f4)
+  dirname="${cwd##*[/\\]}"
+  echo "$dirname [$model]"
+  ```
+</CodeGroup>
+
 ## Tips
 
 * **Test with mock input**: `echo '{"model":{"display_name":"Opus"},"context_window":{"used_percentage":25}}' | ./statusline.sh`
@@ -810,6 +874,8 @@ Community projects like [ccstatusline](https://github.com/sirmalloc/ccstatusline
 * Check that your script outputs to stdout, not stderr
 * Run your script manually to verify it produces output
 * If `disableAllHooks` is set to `true` in your settings, the status line is also disabled. Remove this setting or set it to `false` to re-enable.
+* Run `claude --debug` to log the exit code and stderr from the first status line invocation in a session
+* Ask Claude to read your settings file and execute the `statusLine` command directly to surface errors
 
 **Status line shows `--` or empty values**
 
