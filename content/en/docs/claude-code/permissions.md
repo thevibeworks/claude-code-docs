@@ -221,20 +221,28 @@ For organizations that need centralized control over Claude Code configuration, 
 
 Some settings are only effective in managed settings:
 
-| Setting                                   | Description                                                                                                                                                                                                            |
-| :---------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disableBypassPermissionsMode`            | Set to `"disable"` to prevent `bypassPermissions` mode and the `--dangerously-skip-permissions` flag                                                                                                                   |
-| `allowManagedPermissionRulesOnly`         | When `true`, prevents user and project settings from defining `allow`, `ask`, or `deny` permission rules. Only rules in managed settings apply                                                                         |
-| `allowManagedHooksOnly`                   | When `true`, prevents loading of user, project, and plugin hooks. Only managed hooks and SDK hooks are allowed                                                                                                         |
-| `allowManagedMcpServersOnly`              | When `true`, only `allowedMcpServers` from managed settings are respected. `deniedMcpServers` still merges from all sources. See [Managed MCP configuration](/en/mcp#managed-mcp-configuration)                        |
-| `blockedMarketplaces`                     | Blocklist of marketplace sources. Blocked sources are checked before downloading, so they never touch the filesystem. See [managed marketplace restrictions](/en/plugin-marketplaces#managed-marketplace-restrictions) |
-| `sandbox.network.allowManagedDomainsOnly` | When `true`, only `allowedDomains` and `WebFetch(domain:...)` allow rules from managed settings are respected. Denied domains still merge from all sources                                                             |
-| `strictKnownMarketplaces`                 | Controls which plugin marketplaces users can add. See [managed marketplace restrictions](/en/plugin-marketplaces#managed-marketplace-restrictions)                                                                     |
-| `allow_remote_sessions`                   | When `true`, allows users to start [Remote Control](/en/remote-control) and [web sessions](/en/claude-code-on-the-web). Defaults to `true`. Set to `false` to prevent remote session access                            |
+| Setting                                   | Description                                                                                                                                                                                                                          |
+| :---------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `disableBypassPermissionsMode`            | Set to `"disable"` to prevent `bypassPermissions` mode and the `--dangerously-skip-permissions` flag                                                                                                                                 |
+| `allowManagedPermissionRulesOnly`         | When `true`, prevents user and project settings from defining `allow`, `ask`, or `deny` permission rules. Only rules in managed settings apply                                                                                       |
+| `allowManagedHooksOnly`                   | When `true`, prevents loading of user, project, and plugin hooks. Only managed hooks and SDK hooks are allowed                                                                                                                       |
+| `allowManagedMcpServersOnly`              | When `true`, only `allowedMcpServers` from managed settings are respected. `deniedMcpServers` still merges from all sources. See [Managed MCP configuration](/en/mcp#managed-mcp-configuration)                                      |
+| `blockedMarketplaces`                     | Blocklist of marketplace sources. Blocked sources are checked before downloading, so they never touch the filesystem. See [managed marketplace restrictions](/en/plugin-marketplaces#managed-marketplace-restrictions)               |
+| `sandbox.network.allowManagedDomainsOnly` | When `true`, only `allowedDomains` and `WebFetch(domain:...)` allow rules from managed settings are respected. Non-allowed domains are blocked automatically without prompting the user. Denied domains still merge from all sources |
+| `strictKnownMarketplaces`                 | Controls which plugin marketplaces users can add. See [managed marketplace restrictions](/en/plugin-marketplaces#managed-marketplace-restrictions)                                                                                   |
+| `allow_remote_sessions`                   | When `true`, allows users to start [Remote Control](/en/remote-control) and [web sessions](/en/claude-code-on-the-web). Defaults to `true`. Set to `false` to prevent remote session access                                          |
 
 ## Settings precedence
 
-Permission rules follow the same [settings precedence](/en/settings#settings-precedence) as all other Claude Code settings: managed settings have the highest precedence, followed by command line arguments, local project, shared project, and user settings.
+Permission rules follow the same [settings precedence](/en/settings#settings-precedence) as all other Claude Code settings:
+
+1. **Managed settings**: cannot be overridden by any other level, including command line arguments
+2. **Command line arguments**: temporary session overrides
+3. **Local project settings** (`.claude/settings.local.json`)
+4. **Shared project settings** (`.claude/settings.json`)
+5. **User settings** (`~/.claude/settings.json`)
+
+If a tool is denied at any level, no other level can allow it. For example, a managed settings deny cannot be overridden by `--allowedTools`, and `--disallowedTools` can add restrictions beyond what managed settings define.
 
 If a permission is allowed in user settings but denied in project settings, the project setting takes precedence and the permission is blocked.
 
