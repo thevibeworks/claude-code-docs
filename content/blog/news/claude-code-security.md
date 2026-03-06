@@ -50,6 +50,12 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 Related content
 ---------------
 
+### Where things stand with the Department of War
+
+A statement from Dario Amodei.
+
+[Read more](https://www.anthropic.com/news/where-stand-department-war)
+
 ### Statement on the comments from Secretary of War Pete Hegseth
 
 Anthropic's response to the Secretary of War and advice to customers.
@@ -61,7 +67,3 @@ Anthropic's response to the Secretary of War and advice to customers.
 A statement from our CEO on national security uses of AI.
 
 [Read more](https://www.anthropic.com/news/statement-department-of-war)
-
-### Anthropic acquires Vercept to advance Claude's computer use capabilities
-
-[Read more](https://www.anthropic.com/news/acquires-vercept)
