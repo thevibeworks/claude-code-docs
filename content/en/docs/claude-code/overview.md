@@ -92,7 +92,7 @@ Choose your environment to get started. Most surfaces require a [Claude subscrip
   </Tab>
 
   <Tab title="Desktop app">
-    A standalone app for running Claude Code outside your IDE or terminal. Review diffs visually, run multiple sessions side by side, and kick off cloud sessions.
+    A standalone app for running Claude Code outside your IDE or terminal. Review diffs visually, run multiple sessions side by side, schedule recurring tasks, and kick off cloud sessions.
 
     Download and install:
 

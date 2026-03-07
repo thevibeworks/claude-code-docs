@@ -7,7 +7,7 @@ Practical patterns and examples for using the Messages API effectively
 This guide covers common patterns for working with the Messages API, including basic requests, multi-turn conversations, prefill techniques, and vision capabilities. For complete API specifications, see the [Messages API reference](/docs/en/api/messages).
 
 <Note>
-This feature is [Zero Data Retention (ZDR)](/docs/en/build-with-claude/zero-data-retention) eligible. When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
+This feature is eligible for [Zero Data Retention (ZDR)](/docs/en/build-with-claude/zero-data-retention). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
 </Note>
 
 ## Basic request and response
@@ -582,7 +582,7 @@ Prefilling is deprecated and not supported on Claude Opus 4.6, Claude Sonnet 4.6
 
 ## Vision
 
-Claude can read both text and images in requests. Both `base64` and `url` source types are supported for images, along with the `image/jpeg`, `image/png`, `image/gif`, and `image/webp` media types. See the [vision guide](/docs/en/build-with-claude/vision) for more details.
+Claude can read both text and images in requests. Images can be supplied using the `base64`, `url`, or `file` source types. The `file` source type references an image uploaded through the [Files API](/docs/en/build-with-claude/files). Supported media types are `image/jpeg`, `image/png`, `image/gif`, and `image/webp`. See the [vision guide](/docs/en/build-with-claude/vision) for more details.
 
 <CodeGroup>
   ```bash Shell
@@ -591,7 +591,7 @@ Claude can read both text and images in requests. Both `base64` and `url` source
   # Option 1: Base64-encoded image
   IMAGE_URL="https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg"
   IMAGE_MEDIA_TYPE="image/jpeg"
-  IMAGE_BASE64=$(curl "$IMAGE_URL" | base64)
+  IMAGE_BASE64=$(curl "$IMAGE_URL" | base64 | tr -d '\n')
 
   curl https://api.anthropic.com/v1/messages \
        --header "x-api-key: $ANTHROPIC_API_KEY" \

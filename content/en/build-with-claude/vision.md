@@ -275,34 +275,38 @@ Below are examples of how to include images in a Messages API request using base
 ### Base64-encoded image example
 
 <CodeGroup>
-    ```bash Shell
+    ```bash Shell hidelines={1..2}
+    BASE64_IMAGE_DATA=$(curl -s "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg" | base64 | tr -d '\n')
+
     curl https://api.anthropic.com/v1/messages \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
       -H "content-type: application/json" \
-      -d '{
-        "model": "claude-opus-4-6",
-        "max_tokens": 1024,
-        "messages": [
-          {
-            "role": "user",
-            "content": [
-              {
-                "type": "image",
-                "source": {
-                  "type": "base64",
-                  "media_type": "image/jpeg",
-                  "data": "'"$BASE64_IMAGE_DATA"'"
-                }
-              },
-              {
-                "type": "text",
-                "text": "Describe this image."
+      -d @- <<EOF
+    {
+      "model": "claude-opus-4-6",
+      "max_tokens": 1024,
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "image",
+              "source": {
+                "type": "base64",
+                "media_type": "image/jpeg",
+                "data": "$BASE64_IMAGE_DATA"
               }
-            ]
-          }
-        ]
-      }'
+            },
+            {
+              "type": "text",
+              "text": "Describe this image."
+            }
+          ]
+        }
+      ]
+    }
+    EOF
     ```
     ```python Python hidelines={3..5,-1}
     import anthropic
@@ -371,6 +375,74 @@ Below are examples of how to include images in a Messages API request using base
 
     main();
     ```
+    ```csharp C#
+    using System.Collections.Generic;
+    using Anthropic;
+    using Anthropic.Models.Messages;
+
+    AnthropicClient client = new();
+
+    string imageData = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";
+
+    var message = await client.Messages.Create(new MessageCreateParams
+    {
+        Model = Model.ClaudeOpus4_6,
+        MaxTokens = 1024,
+        Messages =
+        [
+            new()
+            {
+                Role = Role.User,
+                Content = new MessageParamContent(new List<ContentBlockParam>
+                {
+                    new ContentBlockParam(new ImageBlockParam(
+                        new ImageBlockParamSource(new Base64ImageSource()
+                        {
+                            Data = imageData,
+                            MediaType = MediaType.ImagePng,
+                        })
+                    )),
+                    new ContentBlockParam(new TextBlockParam("Describe this image.")),
+                }),
+            }
+        ]
+    });
+
+    Console.WriteLine(message);
+    ```
+    ```go Go
+    package main
+
+    import (
+    	"context"
+    	"fmt"
+    	"log"
+
+    	"github.com/anthropics/anthropic-sdk-go"
+    )
+
+    func main() {
+    	client := anthropic.NewClient()
+
+    	imageData := "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC"
+
+    	message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+    		Model:     anthropic.ModelClaudeOpus4_6,
+    		MaxTokens: 1024,
+    		Messages: []anthropic.MessageParam{
+    			anthropic.NewUserMessage(
+    				anthropic.NewImageBlockBase64("image/png", imageData),
+    				anthropic.NewTextBlock("Describe this image."),
+    			),
+    		},
+    	})
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	fmt.Println(message)
+    }
+    ```
 
     
     ```java Java nocheck hidelines={1..8,-1}
@@ -411,6 +483,68 @@ Below are examples of how to include images in a Messages API request using base
         System.out.println(message);
       }
     }
+    ```
+    ```php PHP
+    <?php
+
+    use Anthropic\Client;
+
+    $client = new Client(apiKey: getenv("ANTHROPIC_API_KEY"));
+
+    $imageData = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";
+
+    $message = $client->messages->create(
+        maxTokens: 1024,
+        messages: [
+            [
+                'role' => 'user',
+                'content' => [
+                    [
+                        'type' => 'image',
+                        'source' => [
+                            'type' => 'base64',
+                            'media_type' => 'image/png',
+                            'data' => $imageData,
+                        ],
+                    ],
+                    ['type' => 'text', 'text' => 'Describe this image.'],
+                ],
+            ],
+        ],
+        model: 'claude-opus-4-6',
+    );
+
+    print_r($message);
+    ```
+    ```ruby Ruby
+    require "anthropic"
+
+    client = Anthropic::Client.new
+
+    image_data = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC"
+
+    message = client.messages.create(
+      model: "claude-opus-4-6",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "image",
+              source: {
+                type: "base64",
+                media_type: "image/png",
+                data: image_data
+              }
+            },
+            { type: "text", text: "Describe this image." }
+          ]
+        }
+      ]
+    )
+
+    puts message
     ```
 </CodeGroup>
 
@@ -506,6 +640,71 @@ Below are examples of how to include images in a Messages API request using base
 
     main();
     ```
+    ```csharp C#
+    using System.Collections.Generic;
+    using Anthropic;
+    using Anthropic.Models.Messages;
+
+    AnthropicClient client = new();
+
+    var message = await client.Messages.Create(new MessageCreateParams
+    {
+        Model = Model.ClaudeOpus4_6,
+        MaxTokens = 1024,
+        Messages =
+        [
+            new()
+            {
+                Role = Role.User,
+                Content = new MessageParamContent(new List<ContentBlockParam>
+                {
+                    new ContentBlockParam(new ImageBlockParam(
+                        new ImageBlockParamSource(new UrlImageSource()
+                        {
+                            Url = "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg",
+                        })
+                    )),
+                    new ContentBlockParam(new TextBlockParam("Describe this image.")),
+                }),
+            }
+        ]
+    });
+
+    Console.WriteLine(message);
+    ```
+    ```go Go
+    package main
+
+    import (
+    	"context"
+    	"fmt"
+    	"log"
+
+    	"github.com/anthropics/anthropic-sdk-go"
+    )
+
+    func main() {
+    	client := anthropic.NewClient()
+
+    	message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+    		Model:     anthropic.ModelClaudeOpus4_6,
+    		MaxTokens: 1024,
+    		Messages: []anthropic.MessageParam{
+    			anthropic.NewUserMessage(
+    				anthropic.NewImageBlock(anthropic.URLImageSourceParam{
+    					URL: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg",
+    				}),
+    				anthropic.NewTextBlock("Describe this image."),
+    			),
+    		},
+    	})
+    	if err != nil {
+    		log.Fatal(err)
+    	}
+
+    	fmt.Println(message)
+    }
+    ```
     ```java Java hidelines={1..9,-1}
     import com.anthropic.client.AnthropicClient;
     import com.anthropic.client.okhttp.AnthropicOkHttpClient;
@@ -545,11 +744,76 @@ Below are examples of how to include images in a Messages API request using base
       }
     }
     ```
+    ```php PHP
+    <?php
+
+    use Anthropic\Client;
+
+    $client = new Client(apiKey: getenv("ANTHROPIC_API_KEY"));
+
+    $message = $client->messages->create(
+        maxTokens: 1024,
+        messages: [
+            [
+                'role' => 'user',
+                'content' => [
+                    [
+                        'type' => 'image',
+                        'source' => [
+                            'type' => 'url',
+                            'url' => 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg',
+                        ],
+                    ],
+                    ['type' => 'text', 'text' => 'Describe this image.'],
+                ],
+            ],
+        ],
+        model: 'claude-opus-4-6',
+    );
+
+    print_r($message);
+    ```
+    ```ruby Ruby
+    require "anthropic"
+
+    client = Anthropic::Client.new
+
+    message = client.messages.create(
+      model: "claude-opus-4-6",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "image",
+              source: {
+                type: "url",
+                url: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg"
+              }
+            },
+            { type: "text", text: "Describe this image." }
+          ]
+        }
+      ]
+    )
+
+    puts message
+    ```
 </CodeGroup>
 
 ### Files API image example
 
-For images you'll use repeatedly or when you want to avoid encoding overhead, use the [Files API](/docs/en/build-with-claude/files):
+For images you'll use repeatedly or when you want to avoid encoding overhead, use the [Files API](/docs/en/build-with-claude/files). Upload the image once, then reference the returned `file_id` in subsequent messages instead of resending base64 data.
+
+<Tip>
+  In multi-turn conversations and agentic workflows, each request resends the
+  full conversation history. If images are base64-encoded, the full image bytes
+  are included in the payload on every turn, which can significantly increase
+  request size and latency as the conversation grows. Uploading images to the
+  Files API and referencing them by `file_id` keeps request payloads small
+  regardless of how many images accumulate in the conversation history.
+</Tip>
 
 <CodeGroup>
 ```bash Shell
@@ -665,6 +929,97 @@ async function main() {
 main();
 ```
 
+```csharp C# nocheck
+using Anthropic;
+
+var client = new AnthropicClient();
+
+// Upload the image file
+var fileUpload = await client.Beta.Files.Upload(
+    new FileUploadParams { File = File.OpenRead("image.jpg") });
+
+// Use the uploaded file in a message
+var response = await client.Beta.Messages.Create(
+    new MessageCreateParams
+    {
+        Model = "claude-opus-4-6",
+        MaxTokens = 1024,
+        Betas = new[] { "files-api-2025-04-14" },
+        Messages = new[]
+        {
+            new BetaMessageParam
+            {
+                Role = "user",
+                Content = new object[]
+                {
+                    new
+                    {
+                        type = "image",
+                        source = new { type = "file", file_id = fileUpload.Id }
+                    },
+                    new { type = "text", text = "Describe this image." }
+                }
+            }
+        }
+    });
+
+Console.WriteLine(response);
+```
+
+```go Go nocheck
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/anthropics/anthropic-sdk-go"
+)
+
+func main() {
+	client := anthropic.NewClient()
+
+	// Upload the image file
+	file, err := os.Open("image.jpg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	fileUpload, err := client.Beta.Files.Upload(context.Background(),
+		anthropic.BetaFileUploadParams{
+			File:  file,
+			Betas: []anthropic.AnthropicBeta{anthropic.AnthropicBetaFilesAPI2025_04_14},
+		})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Use the uploaded file in a message
+	message, err := client.Beta.Messages.New(context.Background(),
+		anthropic.BetaMessageNewParams{
+			Model:     anthropic.ModelClaudeOpus4_6,
+			MaxTokens: 1024,
+			Betas:     []anthropic.AnthropicBeta{anthropic.AnthropicBetaFilesAPI2025_04_14},
+			Messages: []anthropic.BetaMessageParam{
+				anthropic.NewBetaUserMessage(
+					anthropic.NewBetaImageBlock(anthropic.BetaFileImageSourceParam{
+						FileID: fileUpload.ID,
+					}),
+					anthropic.NewBetaTextBlock("Describe this image."),
+				),
+			},
+		})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(message.Content)
+}
+```
+
 ```java Java nocheck hidelines={1..13,-1}
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
@@ -709,6 +1064,73 @@ public class ImageFilesExample {
     System.out.println(message.content());
   }
 }
+```
+
+```php PHP nocheck
+<?php
+
+use Anthropic\Client;
+
+$client = new Client(apiKey: getenv("ANTHROPIC_API_KEY"));
+
+// Upload the image file
+$fileUpload = $client->beta->files->upload(
+    file: fopen('image.jpg', 'r'),
+    betas: ['files-api-2025-04-14'],
+);
+
+// Use the uploaded file in a message
+$message = $client->beta->messages->create(
+    maxTokens: 1024,
+    messages: [
+        [
+            'role' => 'user',
+            'content' => [
+                [
+                    'type' => 'image',
+                    'source' => ['type' => 'file', 'file_id' => $fileUpload->id],
+                ],
+                ['type' => 'text', 'text' => 'Describe this image.'],
+            ],
+        ],
+    ],
+    model: 'claude-opus-4-6',
+    betas: ['files-api-2025-04-14'],
+);
+
+print_r($message->content);
+```
+
+```ruby Ruby nocheck
+require "anthropic"
+
+client = Anthropic::Client.new
+
+# Upload the image file
+file_upload = client.beta.files.upload(
+  file: File.open("image.jpg", "rb")
+)
+
+# Use the uploaded file in a message
+message = client.beta.messages.create(
+  model: "claude-opus-4-6",
+  max_tokens: 1024,
+  betas: ["files-api-2025-04-14"],
+  messages: [
+    {
+      role: "user",
+      content: [
+        {
+          type: "image",
+          source: { type: "file", file_id: file_upload.id }
+        },
+        { type: "text", text: "Describe this image." }
+      ]
+    }
+  ]
+)
+
+puts message.content
 ```
 </CodeGroup>
 

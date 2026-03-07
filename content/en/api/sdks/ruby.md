@@ -219,10 +219,11 @@ end
 
 Alternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.
 
-```ruby
-if page.next_page?
-  new_page = page.next_page
-  puts(new_page.data[0].id)
+```ruby hidelines={1}
+page = client.messages.batches.list(limit: 20)
+while page.next_page?
+  page = page.next_page
+  page.data&.each { |batch| puts(batch.id) }
 end
 ```
 
@@ -230,7 +231,9 @@ end
 
 Request parameters that correspond to file uploads can be passed as raw contents, a [`Pathname`](https://rubyapi.org/3.2/o/pathname) instance, [`StringIO`](https://rubyapi.org/3.2/o/stringio), or more.
 
-```ruby
+```ruby hidelines={1..2} nocheck
+require "anthropic"
+anthropic = Anthropic::Client.new
 require "pathname"
 
 # Use `Pathname` to send the filename and/or avoid paging a large file into memory:
@@ -289,7 +292,7 @@ anthropic.messages.create(**params)
 
 Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, the SDK provides "tagged symbols", which is always a primitive at runtime:
 
-```ruby
+```ruby nocheck
 # :auto
 puts(Anthropic::MessageCreateParams::ServiceTier::AUTO)
 
@@ -345,7 +348,10 @@ You can send undocumented parameters to any endpoint, and read undocumented resp
 The `extra_` parameters of the same name override the documented parameters. For security reasons, ensure these methods are only used with trusted input data.
 </Warning>
 
-```ruby
+```ruby hidelines={1..3} nocheck
+require "anthropic"
+anthropic = Anthropic::Client.new
+value = "example"
 message =
   anthropic.messages.create(
     max_tokens: 1024,
@@ -369,7 +375,7 @@ If you want to explicitly send an extra param, you can do so with the `extra_que
 
 To make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:
 
-```ruby
+```ruby nocheck
 response = client.request(
   method: :post,
   path: '/undocumented/endpoint',
