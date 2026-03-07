@@ -30,7 +30,7 @@ Share feedback on this feature through the [feedback form](https://forms.gle/YXC
 </Note>
 
 <Note>
-This feature is in beta and is **not** covered by [Zero Data Retention (ZDR)](/docs/en/build-with-claude/zero-data-retention) arrangements. Beta features are excluded from ZDR.
+This feature is in beta and is **not** eligible for [Zero Data Retention (ZDR)](/docs/en/build-with-claude/zero-data-retention). Beta features are excluded from ZDR.
 </Note>
 
 ### Tool result clearing
@@ -756,7 +756,7 @@ curl https://api.anthropic.com/v1/messages \
     --data '{
         "model": "claude-opus-4-6",
         "max_tokens": 16000,
-        "messages": [/* ... */],
+        "messages": [{"role": "user", "content": "Hello"}],
         "thinking": {
             "type": "enabled",
             "budget_tokens": 10000
@@ -1443,7 +1443,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
                 "content": "Continue our conversation..."
             }
         ],
-        "tools": [...],
+        "tools": [],
         "context_management": {
             "edits": [
                 {

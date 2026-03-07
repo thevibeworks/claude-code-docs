@@ -2370,7 +2370,14 @@ public class Program
 
         var response = await client.Messages.Create(parameters);
 
-        var toolUses = response.Content.Where(block => block.Type == "tool_use").ToList();
+        var toolUses = new List<ToolUseBlock>();
+        foreach (var block in response.Content)
+        {
+            if (block.TryPickToolUse(out var toolUse))
+            {
+                toolUses.Add(toolUse);
+            }
+        }
         Console.WriteLine($"\n\u2713 Claude made {toolUses.Count} tool calls");
 
         if (toolUses.Count > 1)
@@ -2405,7 +2412,7 @@ public class Program
 
             toolResults.Add(new ContentBlockParam(new ToolResultBlockParam()
             {
-                ToolUseID = toolUse.Id,
+                ToolUseID = toolUse.ID,
                 Content = result,
             }));
         }
@@ -2417,14 +2424,15 @@ public class Program
             MaxTokens = 1024,
             Messages = [
                 new() { Role = Role.User, Content = "What's the weather in SF and NYC, and what time is it there?" },
-                new() { Role = Role.Assistant, Content = response.Content },
+                new() { Role = Role.Assistant, Content = response.Content.Select(block => new ContentBlockParam(block.Json)).ToList() },
                 new() { Role = Role.User, Content = new MessageParamContent(toolResults) }
             ],
             Tools = tools
         };
 
         var finalResponse = await client.Messages.Create(finalParameters);
-        Console.WriteLine($"\nClaude's response:\n{finalResponse.Content[0].Text}");
+        finalResponse.Content[0].TryPickText(out var text);
+        Console.WriteLine($"\nClaude's response:\n{text?.Text}");
 
         Console.WriteLine("\n--- Verification ---");
         Console.WriteLine($"\u2713 Tool results sent in single user message: {toolResults.Count} results");
@@ -3367,7 +3375,7 @@ client = anthropic.Anthropic()
 
 # Initial request with web search
 response = client.messages.create(
-    model="claude-3-7-sonnet-latest",
+    model="claude-opus-4-6",
     max_tokens=1024,
     messages=[
         {
@@ -3391,7 +3399,7 @@ if response.stop_reason == "pause_turn":
 
     # Send the continuation request
     continuation = client.messages.create(
-        model="claude-3-7-sonnet-latest",
+        model="claude-opus-4-6",
         max_tokens=1024,
         messages=messages,
         tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 10}],
@@ -3410,7 +3418,7 @@ const client = new Anthropic();
 async function main() {
   // Initial request with web search
   const response = await client.messages.create({
-    model: "claude-3-7-sonnet-latest",
+    model: "claude-opus-4-6",
     max_tokens: 1024,
     messages: [
       {
@@ -3442,7 +3450,7 @@ async function main() {
 
     // Send the continuation request
     const continuation = await client.messages.create({
-      model: "claude-3-7-sonnet-latest",
+      model: "claude-opus-4-6",
       max_tokens: 1024,
       messages: messages,
       tools: [
@@ -3467,6 +3475,7 @@ main().catch(console.error);
 using Anthropic;
 using Anthropic.Models.Messages;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 class Program
@@ -3477,7 +3486,7 @@ class Program
 
         var parameters = new MessageCreateParams
         {
-            Model = "claude-3-7-sonnet-latest",
+            Model = "claude-opus-4-6",
             MaxTokens = 1024,
             Messages = [
                 new() {
@@ -3494,7 +3503,7 @@ class Program
         {
             var continuationParams = new MessageCreateParams
             {
-                Model = "claude-3-7-sonnet-latest",
+                Model = "claude-opus-4-6",
                 MaxTokens = 1024,
                 Messages = [
                     new() {
@@ -3503,7 +3512,7 @@ class Program
                     },
                     new() {
                         Role = Role.Assistant,
-                        Content = response.Content
+                        Content = response.Content.Select(block => new ContentBlockParam(block.Json)).ToList()
                     }
                 ],
                 Tools = [new ToolUnion(new WebSearchTool20250305() { MaxUses = 10 })]
@@ -3541,7 +3550,7 @@ func main() {
 	}
 
 	response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-		Model:     anthropic.ModelClaude3_7SonnetLatest,
+		Model:     anthropic.ModelClaudeOpus4_6,
 		MaxTokens: 1024,
 		Messages: []anthropic.MessageParam{
 			anthropic.NewUserMessage(anthropic.NewTextBlock("Search for comprehensive information about quantum computing breakthroughs in 2025")),
@@ -3560,7 +3569,7 @@ func main() {
 		}
 
 		continuation, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-			Model:     anthropic.ModelClaude3_7SonnetLatest,
+			Model:     anthropic.ModelClaudeOpus4_6,
 			MaxTokens: 1024,
 			Messages: []anthropic.MessageParam{
 				anthropic.NewUserMessage(anthropic.NewTextBlock("Search for comprehensive information about quantum computing breakthroughs in 2025")),
@@ -3591,7 +3600,7 @@ public class WebSearchPauseTurn {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         MessageCreateParams params = MessageCreateParams.builder()
-            .model("claude-3-7-sonnet-latest")
+            .model("claude-opus-4-6")
             .maxTokens(1024L)
             .addUserMessage("Search for comprehensive information about quantum computing breakthroughs in 2025")
             .addTool(WebSearchTool20250305.builder()
@@ -3604,7 +3613,7 @@ public class WebSearchPauseTurn {
         if (response.stopReason().isPresent()
                 && response.stopReason().get().equals(StopReason.PAUSE_TURN)) {
             MessageCreateParams continuationParams = MessageCreateParams.builder()
-                .model("claude-3-7-sonnet-latest")
+                .model("claude-opus-4-6")
                 .maxTokens(1024L)
                 .addUserMessage("Search for comprehensive information about quantum computing breakthroughs in 2025")
                 .addMessage(response)
@@ -3637,7 +3646,7 @@ $response = $client->messages->create(
             'content' => 'Search for comprehensive information about quantum computing breakthroughs in 2025'
         ]
     ],
-    model: 'claude-3-7-sonnet-latest',
+    model: 'claude-opus-4-6',
     tools: [
         [
             'type' => 'web_search_20250305',
@@ -3662,7 +3671,7 @@ if ($response->stopReason === 'pause_turn') {
     $continuation = $client->messages->create(
         maxTokens: 1024,
         messages: $messages,
-        model: 'claude-3-7-sonnet-latest',
+        model: 'claude-opus-4-6',
         tools: [
             [
                 'type' => 'web_search_20250305',
@@ -3684,7 +3693,7 @@ require "anthropic"
 client = Anthropic::Client.new
 
 response = client.messages.create(
-  model: "claude-3-7-sonnet-latest",
+  model: "claude-opus-4-6",
   max_tokens: 1024,
   messages: [
     {
@@ -3715,7 +3724,7 @@ if response.stop_reason == :pause_turn
   ]
 
   continuation = client.messages.create(
-    model: "claude-3-7-sonnet-latest",
+    model: "claude-opus-4-6",
     max_tokens: 1024,
     messages: messages,
     tools: [
