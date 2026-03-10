@@ -8,7 +8,7 @@ Claude Code overview - Claude Code Docs
 
 [Skip to main content](https://www.anthropic.com/engineering/claude-code-best-practices#content-area)
 
-[Claude Code Docs home page![Image 1: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 2: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs)
+[Claude Code Docs home page![Image 1: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 2: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs/en/overview)
 
 ![Image 3: US](https://d3gk2c5xim1je2.cloudfront.net/flags/US.svg)
 
@@ -54,8 +54,7 @@ Claude Code overview
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
 *   [Visual Studio Code](https://www.anthropic.com/docs/en/vs-code)
 *   [JetBrains IDEs](https://www.anthropic.com/docs/en/jetbrains)
-*   [GitHub Actions](https://www.anthropic.com/docs/en/github-actions)
-*   [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd)
+*   Code review & CI/CD 
 *   [Claude Code in Slack](https://www.anthropic.com/docs/en/slack)
 
 On this page
@@ -290,6 +289,7 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 | Continue a local session from my phone or another device | [Remote Control](https://www.anthropic.com/docs/en/remote-control) |
 | Start a task locally, continue on mobile | [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) |
 | Automate PR reviews and issue triage | [GitHub Actions](https://www.anthropic.com/docs/en/github-actions) or [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd) |
+| Get automatic code review on every PR | [GitHub Code Review](https://www.anthropic.com/docs/en/code-review) |
 | Route bug reports from Slack to pull requests | [Slack](https://www.anthropic.com/docs/en/slack) |
 | Debug live web applications | [Chrome](https://www.anthropic.com/docs/en/chrome) |
 | Build custom agents for your own workflows | [Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) |
@@ -315,7 +315,7 @@ Yes No
 
 ⌘I
 
-[Claude Code Docs home page![Image 4: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 5: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs)
+[Claude Code Docs home page![Image 4: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 5: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs/en/overview)
 
 [x](https://x.com/AnthropicAI)[linkedin](https://www.linkedin.com/company/anthropicresearch)
 
