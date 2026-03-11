@@ -62,7 +62,7 @@ The `input` object contains tool-specific parameters. Common examples:
 | `Edit` | `file_path`, `old_string`, `new_string` |
 | `Read` | `file_path`, `offset`, `limit` |
 
-See the SDK reference for complete input schemas: [Python](/docs/en/agent-sdk/python#tool-inputoutput-types) | [TypeScript](/docs/en/agent-sdk/typescript#tool-input-types).
+See the SDK reference for complete input schemas: [Python](/docs/en/agent-sdk/python#tool-input-output-types) | [TypeScript](/docs/en/agent-sdk/typescript#tool-input-types).
 
 You can display this information to the user so they can decide whether to allow or reject the action, then return the appropriate response.
 
@@ -556,13 +556,13 @@ for await (const message of query({
   prompt: "Help me choose a card layout",
   options: {
     toolConfig: {
-      askUserQuestion: { previewFormat: "html" },
+      askUserQuestion: { previewFormat: "html" }
     },
     canUseTool: async (toolName, input) => {
       // input.questions[].options[].preview is an HTML string or undefined
       return { behavior: "allow", updatedInput: input };
-    },
-  },
+    }
+  }
 })) {
   // ...
 }
@@ -812,4 +812,4 @@ Custom tools give you full control over the interaction, but require more implem
 
 - [Configure permissions](/docs/en/agent-sdk/permissions): set up permission modes and rules
 - [Control execution with hooks](/docs/en/agent-sdk/hooks): run custom code at key points in the agent lifecycle
-- [TypeScript SDK reference](/docs/en/agent-sdk/typescript#canusetool): full canUseTool API documentation
+- [TypeScript SDK reference](/docs/en/agent-sdk/typescript#can-use-tool): full canUseTool API documentation
