@@ -50,18 +50,16 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 Related content
 ---------------
 
+### Introducing The Anthropic Institute
+
+We’re launching The Anthropic Institute, a new effort to confront the most significant challenges that powerful AI will pose to our societies.
+
+[Read more](https://www.anthropic.com/news/the-anthropic-institute)
+
+### Sydney will become Anthropic’s fourth office in Asia-Pacific
+
+[Read more](https://www.anthropic.com/news/sydney-fourth-office-asia-pacific)
+
 ### Partnering with Mozilla to improve Firefox’s security
 
 [Read more](https://www.anthropic.com/news/mozilla-firefox-security)
-
-### Where things stand with the Department of War
-
-A statement from Dario Amodei.
-
-[Read more](https://www.anthropic.com/news/where-stand-department-war)
-
-### Statement on the comments from Secretary of War Pete Hegseth
-
-Anthropic's response to the Secretary of War and advice to customers.
-
-[Read more](https://www.anthropic.com/news/statement-comments-secretary-war)
