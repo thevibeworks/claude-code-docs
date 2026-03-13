@@ -58,6 +58,12 @@ These updates are available now for Claude Code users.
 Related content
 ---------------
 
+### Anthropic invests $100 million into the Claude Partner Network
+
+We’re launching the Claude Partner Network, a program for partner organizations helping enterprises adopt Claude.
+
+[Read more](https://www.anthropic.com/news/claude-partner-network)
+
 ### Introducing The Anthropic Institute
 
 We’re launching The Anthropic Institute, a new effort to confront the most significant challenges that powerful AI will pose to our societies.
@@ -67,7 +73,3 @@ We’re launching The Anthropic Institute, a new effort to confront the most sig
 ### Sydney will become Anthropic’s fourth office in Asia-Pacific
 
 [Read more](https://www.anthropic.com/news/sydney-fourth-office-asia-pacific)
-
-### Partnering with Mozilla to improve Firefox’s security
-
-[Read more](https://www.anthropic.com/news/mozilla-firefox-security)

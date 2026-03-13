@@ -8,7 +8,7 @@ Claude Code overview - Claude Code Docs
 
 [Skip to main content](https://www.anthropic.com/engineering/claude-code-best-practices#content-area)
 
-[Claude Code Docs home page![Image 1: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 2: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs/en/overview)
+[Claude Code Docs home page![Image 1: light logo](https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/light.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=78fd01ff4f4340295a4f66e2ea54903c)![Image 2: dark logo](https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/dark.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=1298a0c3b3a1da603b190d0de0e31712)](https://www.anthropic.com/docs/en/overview)
 
 ![Image 3: US](https://d3gk2c5xim1je2.cloudfront.net/flags/US.svg)
 
@@ -36,7 +36,7 @@ Claude Code overview
 
 *   [Overview](https://www.anthropic.com/docs/en/overview)
 *   [Quickstart](https://www.anthropic.com/docs/en/quickstart)
-*   [Changelog](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md)
+*   [Changelog](https://www.anthropic.com/docs/en/changelog)
 
 ##### Core concepts
 
@@ -315,7 +315,7 @@ Yes No
 
 ⌘I
 
-[Claude Code Docs home page![Image 4: light logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/light.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=d535f2e20f53cd911acc59ad1b64b2e0)![Image 5: dark logo](https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/logo/dark.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=28e49a2ffe69101f4aae9bfa70b393d0)](https://www.anthropic.com/docs/en/overview)
+[Claude Code Docs home page![Image 4: light logo](https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/light.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=78fd01ff4f4340295a4f66e2ea54903c)![Image 5: dark logo](https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/logo/dark.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=1298a0c3b3a1da603b190d0de0e31712)](https://www.anthropic.com/docs/en/overview)
 
 [x](https://x.com/AnthropicAI)[linkedin](https://www.linkedin.com/company/anthropicresearch)
 
