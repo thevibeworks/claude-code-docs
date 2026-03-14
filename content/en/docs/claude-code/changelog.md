@@ -10,6 +10,66 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.76" description="March 14, 2026">
+  * Added MCP elicitation support — MCP servers can now request structured input mid-task via an interactive dialog (form fields or browser URL)
+  * Added new `Elicitation` and `ElicitationResult` hooks to intercept and override responses before they're sent back
+  * Added `-n` / `--name <name>` CLI flag to set a display name for the session at startup
+  * Added `worktree.sparsePaths` setting for `claude --worktree` in large monorepos to check out only the directories you need via git sparse-checkout
+  * Added `PostCompact` hook that fires after compaction completes
+  * Added `/effort` slash command to set model effort level
+  * Added session quality survey — enterprise admins can configure the sample rate via the `feedbackSurveyRate` setting
+  * Fixed deferred tools (loaded via `ToolSearch`) losing their input schemas after conversation compaction, causing array and number parameters to be rejected with type errors
+  * Fixed slash commands showing "Unknown skill"
+  * Fixed plan mode asking for re-approval after the plan was already accepted
+  * Fixed voice mode swallowing keypresses while a permission dialog or plan editor was open
+  * Fixed `/voice` not working on Windows when installed via npm
+  * Fixed spurious "Context limit reached" when invoking a skill with `model:` frontmatter on a 1M-context session
+  * Fixed "adaptive thinking is not supported on this model" error when using non-standard model strings
+  * Fixed `Bash(cmd:*)` permission rules not matching when a quoted argument contains `#`
+  * Fixed "don't ask again" in the Bash permission dialog showing the full raw command for pipes and compound commands
+  * Fixed auto-compaction retrying indefinitely after consecutive failures — a circuit breaker now stops after 3 attempts
+  * Fixed MCP reconnect spinner persisting after successful reconnection
+  * Fixed LSP plugins not registering servers when the LSP Manager initialized before marketplaces were reconciled
+  * Fixed clipboard copying in tmux over SSH — now attempts both direct terminal write and tmux clipboard integration
+  * Fixed `/export` showing only the filename instead of the full file path in the success message
+  * Fixed transcript not auto-scrolling to new messages after selecting text
+  * Fixed Escape key not working to exit the login method selection screen
+  * Fixed several Remote Control issues: sessions silently dying when the server reaps an idle environment, rapid messages being queued one-at-a-time instead of batched, and stale work items causing redelivery after JWT refresh
+  * Fixed bridge sessions failing to recover after extended WebSocket disconnects
+  * Fixed slash commands not found when typing the exact name of a soft-hidden command
+  * Improved `--worktree` startup performance by reading git refs directly and skipping redundant `git fetch` when the remote branch is already available locally
+  * Improved background agent behavior — killing a background agent now preserves its partial results in the conversation context
+  * Improved model fallback notifications — now always visible instead of hidden behind verbose mode, with human-friendly model names
+  * Improved blockquote readability on dark terminal themes — text is now italic with a left bar instead of dim
+  * Improved stale worktree cleanup — worktrees left behind after an interrupted parallel run are now automatically cleaned up
+  * Improved Remote Control session titles — now derived from your first prompt instead of showing "Interactive session"
+  * Improved `/voice` to show your dictation language on enable and warn when your `language` setting isn't supported for voice input
+  * Updated `--plugin-dir` to only accept one path to support subcommands — use repeated `--plugin-dir` for multiple directories
+  * \[VSCode] Fixed gitignore patterns containing commas silently excluding entire filetypes from the @-mention file picker
+</Update>
+
+<Update label="2.1.75" description="March 13, 2026">
+  * Added 1M context window for Opus 4.6 by default for Max, Team, and Enterprise plans (previously required extra usage)
+  * Added `/color` command for all users to set a prompt-bar color for your session
+  * Added session name display on the prompt bar when using `/rename`
+  * Added last-modified timestamps to memory files, helping Claude reason about which memories are fresh vs. stale
+  * Added hook source display (settings/plugin/skill) in permission prompts when a hook requires confirmation
+  * Fixed voice mode not activating correctly on fresh installs without toggling `/voice` twice
+  * Fixed the Claude Code header not updating the displayed model name after switching models with `/model` or Option+P
+  * Fixed session crash when an attachment message computation returns undefined values
+  * Fixed Bash tool mangling `!` in piped commands (e.g., `jq 'select(.x != .y)'` now works correctly)
+  * Fixed managed-disabled plugins showing up in the `/plugin` Installed tab — plugins force-disabled by your organization are now hidden
+  * Fixed token estimation over-counting for thinking and `tool_use` blocks, preventing premature context compaction
+  * Fixed corrupted marketplace config path handling
+  * Fixed `/resume` losing session names after resuming a forked or continued session
+  * Fixed Esc not closing the `/status` dialog after visiting the Config tab
+  * Fixed input handling when accepting or rejecting a plan
+  * Fixed footer hint in agent teams showing "↓ to expand" instead of the correct "shift + ↓ to expand"
+  * Improved startup performance on macOS non-MDM machines by skipping unnecessary subprocess spawns
+  * Suppressed async hook completion messages by default (visible with `--verbose` or transcript mode)
+  * Breaking change: Removed deprecated Windows managed settings fallback at `C:\ProgramData\ClaudeCode\managed-settings.json` — use `C:\Program Files\ClaudeCode\managed-settings.json`
+</Update>
+
 <Update label="2.1.74" description="March 12, 2026">
   * Added actionable suggestions to `/context` command — identifies context-heavy tools, memory bloat, and capacity warnings with specific optimization tips
   * Added `autoMemoryDirectory` setting to configure a custom directory for auto-memory storage
