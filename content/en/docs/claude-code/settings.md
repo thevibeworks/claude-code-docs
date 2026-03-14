@@ -66,16 +66,16 @@ Scopes apply to many Claude Code features:
 | Feature         | User location             | Project location                   | Local location                 |
 | :-------------- | :------------------------ | :--------------------------------- | :----------------------------- |
 | **Settings**    | `~/.claude/settings.json` | `.claude/settings.json`            | `.claude/settings.local.json`  |
-| **Subagents**   | `~/.claude/agents/`       | `.claude/agents/`                  | —                              |
+| **Subagents**   | `~/.claude/agents/`       | `.claude/agents/`                  | None                           |
 | **MCP servers** | `~/.claude.json`          | `.mcp.json`                        | `~/.claude.json` (per-project) |
 | **Plugins**     | `~/.claude/settings.json` | `.claude/settings.json`            | `.claude/settings.local.json`  |
-| **CLAUDE.md**   | `~/.claude/CLAUDE.md`     | `CLAUDE.md` or `.claude/CLAUDE.md` | —                              |
+| **CLAUDE.md**   | `~/.claude/CLAUDE.md`     | `CLAUDE.md` or `.claude/CLAUDE.md` | None                           |
 
 ***
 
 ## Settings files
 
-The `settings.json` file is our official mechanism for configuring Claude
+The `settings.json` file is the official mechanism for configuring Claude
 Code through hierarchical settings:
 
 * **User settings** are defined in `~/.claude/settings.json` and apply to all
@@ -91,9 +91,14 @@ Code through hierarchical settings:
     * Windows: `HKLM\SOFTWARE\Policies\ClaudeCode` registry key with a `Settings` value (REG\_SZ or REG\_EXPAND\_SZ) containing JSON (deployed via Group Policy or Intune)
     * Windows (user-level): `HKCU\SOFTWARE\Policies\ClaudeCode` (lowest policy priority, only used when no admin-level source exists)
   * **File-based**: `managed-settings.json` and `managed-mcp.json` deployed to system directories:
+
     * macOS: `/Library/Application Support/ClaudeCode/`
     * Linux and WSL: `/etc/claude-code/`
     * Windows: `C:\Program Files\ClaudeCode\`
+
+    <Warning>
+      The legacy Windows path `C:\ProgramData\ClaudeCode\managed-settings.json` is no longer supported as of v2.1.75. Administrators who deployed settings to that location must migrate files to `C:\Program Files\ClaudeCode\managed-settings.json`.
+    </Warning>
 
   See [managed settings](/en/permissions#managed-only-settings) and [Managed MCP configuration](/en/mcp#managed-mcp-configuration) for details.
 
@@ -162,6 +167,7 @@ The `$schema` line in the example above points to the [official JSON schema](htt
 | `model`                           | Override the default model to use for Claude Code                                                                                                                                                                                                                                                                            | `"claude-sonnet-4-6"`                                                   |
 | `availableModels`                 | Restrict which models users can select via `/model`, `--model`, Config tool, or `ANTHROPIC_MODEL`. Does not affect the Default option. See [Restrict model selection](/en/model-config#restrict-model-selection)                                                                                                             | `["sonnet", "haiku"]`                                                   |
 | `modelOverrides`                  | Map Anthropic model IDs to provider-specific model IDs such as Bedrock inference profile ARNs. Each model picker entry uses its mapped value when calling the provider API. See [Override model IDs per version](/en/model-config#override-model-ids-per-version)                                                            | `{"claude-opus-4-6": "arn:aws:bedrock:..."}`                            |
+| `effortLevel`                     | Persist the [effort level](/en/model-config#adjust-effort-level) across sessions. Accepts `"low"`, `"medium"`, or `"high"`. Written automatically when you run `/effort low`, `/effort medium`, or `/effort high`. Supported on Opus 4.6 and Sonnet 4.6                                                                      | `"medium"`                                                              |
 | `otelHeadersHelper`               | Script to generate dynamic OpenTelemetry headers. Runs at startup and periodically (see [Dynamic headers](/en/monitoring-usage#dynamic-headers))                                                                                                                                                                             | `/bin/generate_otel_headers.sh`                                         |
 | `statusLine`                      | Configure a custom status line to display context. See [`statusLine` documentation](/en/statusline)                                                                                                                                                                                                                          | `{"type": "command", "command": "~/.claude/statusline.sh"}`             |
 | `fileSuggestion`                  | Configure a custom script for `@` file autocomplete. See [File suggestion settings](#file-suggestion-settings)                                                                                                                                                                                                               | `{"type": "command", "command": "~/.claude/file-suggestion.sh"}`        |
@@ -191,6 +197,16 @@ The `$schema` line in the example above points to the [official JSON schema](htt
 | `prefersReducedMotion`            | Reduce or disable UI animations (spinners, shimmer, flash effects) for accessibility                                                                                                                                                                                                                                         | `true`                                                                  |
 | `fastModePerSessionOptIn`         | When `true`, fast mode does not persist across sessions. Each session starts with fast mode off, requiring users to enable it with `/fast`. The user's fast mode preference is still saved. See [Require per-session opt-in](/en/fast-mode#require-per-session-opt-in)                                                       | `true`                                                                  |
 | `teammateMode`                    | How [agent team](/en/agent-teams) teammates display: `auto` (picks split panes in tmux or iTerm2, in-process otherwise), `in-process`, or `tmux`. See [set up agent teams](/en/agent-teams#set-up-agent-teams)                                                                                                               | `"in-process"`                                                          |
+| `feedbackSurveyRate`              | Probability (0–1) that the session quality survey appears when eligible. Enterprise admins can set this to control how often the survey is shown to users. A value of `0.05` means 5% of eligible sessions                                                                                                                   | `0.05`                                                                  |
+
+### Worktree settings
+
+Configure how `--worktree` creates and manages git worktrees. Use these settings to reduce disk usage and startup time in large monorepos.
+
+| Key                           | Description                                                                                                                                                  | Example                               |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------ |
+| `worktree.symlinkDirectories` | Directories to symlink from the main repository into each worktree to avoid duplicating large directories on disk. No directories are symlinked by default   | `["node_modules", ".cache"]`          |
+| `worktree.sparsePaths`        | Directories to check out in each worktree via git sparse-checkout (cone mode). Only the listed paths are written to disk, which is faster in large monorepos | `["packages/my-app", "shared/utils"]` |
 
 ### Permission settings
 

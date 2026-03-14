@@ -18,9 +18,9 @@ These limits apply to both Standard and Priority Tier usage. For more informatio
 * Limits are designed to prevent API abuse, while minimizing impact on common customer usage patterns.
 * Limits are defined by **usage tier**, where each tier is associated with a different set of spend and rate limits.
 * Your organization will increase tiers automatically as you reach certain thresholds while using the API.
-  Limits are set at the organization level. You can see your organization's limits in the [Limits page](/settings/limits) in the [Claude Console](/).
-* You may hit rate limits over shorter time intervals. For instance, a rate of 60 requests per minute (RPM) may be enforced as 1 request per second. Short bursts of requests at a high volume can surpass the rate limit and result in rate limit errors.
-* The limits outlined below are the standard tier limits. If you're seeking higher, custom limits or Priority Tier for enhanced service levels, contact sales through the [Claude Console](/settings/limits).
+  Limits are set at the organization level. You can see your organization's limits on the [Limits](/settings/limits) page in the [Claude Console](/).
+* You may hit rate limits over shorter time intervals. For instance, a rate of 60 requests per minute (RPM) may be enforced as 1 request per second. Short bursts of requests can exceed the limit and trigger rate limit errors.
+* The limits outlined below are the standard tier limits. If you're seeking higher, custom limits or Priority Tier for enhanced service levels, contact sales on the [Limits](/settings/limits) page.
 * The API uses the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) to do rate limiting. This means that your capacity is continuously replenished up to your maximum limit, rather than being reset at fixed intervals.
 * All limits described here represent maximum allowed usage, not guaranteed minimums. These limits are intended to reduce unintentional overspend and ensure fair distribution of resources among users.
 
@@ -74,6 +74,36 @@ To qualify for the next tier, you must meet a deposit requirement. To minimize t
 **Max Credit Purchase** limits the maximum amount you can add to your account in a single transaction to prevent account overfunding.
 </Note>
 
+## Increasing your spend limits
+
+Your organization has two kinds of spend limits: a customer-set limit you control directly, and a tier-enforced ceiling set by your usage tier. Each has a different process for increasing it.
+
+### Customer-set spend limits
+
+You can set a spend limit lower than your tier's ceiling to control costs. To adjust it:
+
+<Steps>
+  <Step title="Navigate to the Limits page">
+    Go to [Settings > Limits](/settings/limits) in the Claude Console.
+  </Step>
+  <Step title="Open the spend limit editor">
+    In the **Spend limits** section, click **Change Limit** (or **Set spend limit** if no limit is currently set).
+  </Step>
+  <Step title="Adjust your spend limit">
+    Enter a new value. Your customer-set limit cannot exceed your current tier's limit.
+  </Step>
+</Steps>
+
+### Tier-enforced spend limits
+
+When you need a limit higher than your tier's ceiling (Tier 4's ceiling is $200,000 per month), click **Contact Sales** on the [Limits](/settings/limits) page. This opens the contact form in a new tab, and a member of the sales team will follow up by email when your organization is upgraded.
+
+Monthly Invoicing removes the monthly spend cap entirely and uses Net-30 payment terms by default.
+
+<Note>
+Support can also raise tier-enforced limits. For urgent needs, contact [support](https://support.anthropic.com).
+</Note>
+
 ## Rate limits
 
 The rate limits for the Messages API are measured in requests per minute (RPM), input tokens per minute (ITPM), and output tokens per minute (OTPM) for each model class.
@@ -101,7 +131,7 @@ The `input_tokens` field only represents tokens that appear **after your last ca
 total_input_tokens = cache_read_input_tokens + cache_creation_input_tokens + input_tokens
 ```
 
-This means when you have cached content, `input_tokens` will typically be much smaller than your total input. For example, with a 200K token cached document and a 50 token user question, you'd see `input_tokens: 50` even though the total input is 200,050 tokens.
+This means when you have cached content, `input_tokens` will typically be much smaller than your total input. For example, with a 200k token cached document and a 50 token user question, you'd see `input_tokens: 50` even though the total input is 200,050 tokens.
 
 For rate limit purposes on most models, only `input_tokens` + `cache_creation_input_tokens` count toward your ITPM limit, making [prompt caching](/docs/en/build-with-claude/prompt-caching) an effective way to increase your effective throughput.
 </Note>
@@ -133,10 +163,6 @@ You can check your current rate limits and behavior in the [Claude Console](/set
 
 <Note>
 Rate limits are currently shared across all `inference_geo` values. Requests with `inference_geo: "us"` and `inference_geo: "global"` draw from the same rate limit pool.
-</Note>
-
-<Note>
-For long context requests (>200K tokens) when using the `context-1m-2025-08-07` beta header with Claude Opus 4.x or Sonnet 4.x, separate rate limits apply. See [Long context rate limits](#long-context-rate-limits) below.
 </Note>
 
 <Tabs>
@@ -231,34 +257,11 @@ When using [fast mode](/docs/en/build-with-claude/fast-mode) (`speed: "fast"`) o
 
 The response includes `anthropic-fast-*` headers that indicate your fast mode rate limit status. See the [fast mode documentation](/docs/en/build-with-claude/fast-mode#rate-limits) for details on these headers.
 
-### Long context rate limits
-
-When using Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, or Sonnet 4 with the [1M token context window enabled](/docs/en/build-with-claude/context-windows#1m-token-context-window), the following dedicated rate limits apply to requests exceeding 200K tokens.
-
-<Note>
-The 1M token context window is currently in beta for organizations in usage tier 4 and organizations with custom rate limits. The 1M token context window is only available for Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5, and Sonnet 4.
-</Note>
-
-<Tabs>
-<Tab title="Tier 4">
-| Maximum input tokens per minute (ITPM) | Maximum output tokens per minute (OTPM) |
-| -------------------------------------- | --------------------------------------- |
-| 1,000,000                              | 200,000                                 |
-</Tab>
-<Tab title="Custom">
-For custom long context rate limits for enterprise use cases, contact sales through the [Claude Console](/settings/limits).
-</Tab>
-</Tabs>
-
-<Tip>
-To get the most out of the 1M token context window with rate limits, use [prompt caching](/docs/en/build-with-claude/prompt-caching).
-</Tip>
-
 ### Monitoring your rate limits in the Console
 
 You can monitor your rate limit usage on the [Usage](/usage) page of the [Claude Console](/).
 
-In addition to providing token and request charts, the Usage page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, when you may be hitting peak use, better undersand what rate limits to request, or how you can improve your caching rates. The charts visualize a number of metrics for a given rate limit (e.g. per model):
+In addition to providing token and request charts, the Usage page provides two separate rate limit charts. Use these charts to see what headroom you have to grow, when you may be hitting peak use, better understand what rate limits to request, or how you can improve your caching rates. The charts visualize a number of metrics for a given rate limit (e.g. per model):
 
 - The **Rate Limit - Input Tokens** chart includes:
   - Hourly maximum uncached input tokens per minute
