@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.76",
+  "version": "2.1.77",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.76",
+  "_id": "@anthropic-ai/claude-code@2.1.77",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -73,23 +73,23 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "3f2b73669df05e187637664261bbd96783fafbcc",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.76.tgz",
+    "shasum": "bb1fe53f0797947a6552a2ba24e70ecc65d27235",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.77.tgz",
     "fileCount": 26,
-    "integrity": "sha512-T6Uyl5Jw7fWiFaBqGZ1Faexm1nVc4P92KLLGbILoX4I/q3sRQrkDqrgwt0Jw45vMyfi794OrCP+BBSM267INZA==",
+    "integrity": "sha512-bygcy1SP50yklEJ7dEPYh3rePkVYJGpylvwsZoAvCUTeEkORJSrbpaFDu/iYuySLNlFr0uGeN4Qonqk9ZWqAug==",
     "signatures": [
       {
-        "sig": "MEYCIQCVJ5BCibG5vMN+UHgViP/6o8GKTWTC46G4j+icJ5MhmAIhAPugTwmgft9wo+8kuIPoBot0K+/0RPwAB0cL/hZtwjCe",
+        "sig": "MEUCIDpDYql71oU7dyDuYdJMGeCgxGEzfEwLELOAAVvFTwmnAiEA+xf4aPioYcxtbe/9JW6cMtJsKUFmrLD5AcjsyI23saA=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 58931881
+    "unpackedSize": 58993854
   },
   "type": "module",
   "engines": {
     "node": ">=18.0.0"
   },
-  "gitHead": "47b3e22ffd5f13a379bbc8b86e9ff54c02a9d576",
+  "gitHead": "3e13872fd78f0c2764ad051868c073ac02fed6cf",
   "scripts": {
     "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease see the release workflow documentation to publish this package.'); process.exit(1); }\""
   },
@@ -100,7 +100,7 @@
   "_npmVersion": "10.8.2",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
-  "_nodeVersion": "20.20.0",
+  "_nodeVersion": "20.20.1",
   "dependencies": {},
   "_hasShrinkwrap": false,
   "readmeFilename": "README.md",
@@ -116,7 +116,7 @@
     "@img/sharp-linuxmusl-arm64": "^0.34.2"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.76_1773447257011_0.31819976438360453",
+    "tmp": "tmp/claude-code_2.1.77_1773699411808_0.0002492906482085555",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
