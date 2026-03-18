@@ -84,6 +84,12 @@
 | `!` at start | Bash mode         | Run commands directly and add execution output to the session        |
 | `@`          | File path mention | Trigger file path autocomplete                                       |
 
+### Voice input
+
+| Shortcut     | Description            | Notes                                                                                                                                                      |
+| :----------- | :--------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hold `Space` | Push-to-talk dictation | Requires [voice dictation](/en/voice-dictation) to be enabled. Transcript inserts at cursor. [Rebindable](/en/voice-dictation#rebind-the-push-to-talk-key) |
+
 ## Built-in commands
 
 Type `/` in Claude Code to see all available commands, or type `/` followed by any letters to filter. The `/` menu shows both built-in commands and [bundled skills](/en/skills#bundled-skills) like `/simplify`. Not all commands are visible to every user since some depend on your platform or plan.
@@ -207,6 +213,7 @@ To run commands in the background, you can either:
 * Output is buffered and Claude can retrieve it using the TaskOutput tool
 * Background tasks have unique IDs for tracking and output retrieval
 * Background tasks are automatically cleaned up when Claude Code exits
+* Background tasks are automatically terminated if output exceeds 5GB, with a note in stderr explaining why
 
 To disable all background task functionality, set the `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` environment variable to `1`. See [Environment variables](/en/env-vars) for details.
 
