@@ -15,8 +15,7 @@ Constantly clicking "approve" slows down development cycles and can lead to ‘a
 
 To address this, we launched sandboxing for Claude Code.
 
-**Sandboxing: a safer and more autonomous approach**
-----------------------------------------------------
+## **Sandboxing: a safer and more autonomous approach**
 
 Sandboxing creates pre-defined boundaries within which Claude can work more freely, instead of asking for permission for each action. With sandboxing enabled, you get drastically fewer permission prompts and increased safety.
 
@@ -62,21 +61,19 @@ Claude Code on the web uses a custom proxy service that transparently handles al
 
 Claude Code's Git integration routes commands through a secure proxy that validates authentication tokens, branch names, and repository destinations—allowing safe version control workflows while preventing unauthorized pushes.
 
-Getting started
----------------
+## Getting started
 
 Our new sandboxed bash tool and Claude Code on the web offer substantial improvements in both security and productivity for developers using Claude for their engineering work.
 
 To get started with these tools:
 
 1.   Run `/sandbox` in Claude and check out [our docs](https://docs.claude.com/en/docs/claude-code/sandboxing) on how to configure this sandbox.
-2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.12a33d62-16ad-46e6-9d8d-215bb50df299/code) to try out Claude Code on the web.
+2.   Go to [claude.com/code](http://claude.ai/redirect/website.v1.ae6edf51-8b29-4db0-9a34-6a957f3e32f9/code) to try out Claude Code on the web.
 
 Or, if you're building your own agents, check out our [open-sourced sandboxing code](https://github.com/anthropic-experimental/sandbox-runtime), and consider integrating it into your work. We look forward to seeing what you build.
 
 To learn more about Claude Code on the web, check out our [launch blog post](https://www.anthropic.com/news/claude-code-on-the-web).
 
-Acknowledgements
-----------------
+## Acknowledgements
 
 Article written by David Dworken and Oliver Weller-Davies, with contributions from Meaghan Choi, Catherine Wu, Molly Vorwerck, Alex Isken, Kier Bradwell, and Kevin Garcia

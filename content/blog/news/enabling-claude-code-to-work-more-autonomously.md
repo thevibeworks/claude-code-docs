@@ -5,8 +5,7 @@ URL Source: https://www.anthropic.com/news/enabling-claude-code-to-work-more-aut
 Markdown Content:
 We’re introducing several upgrades to [Claude Code](https://claude.com/product/claude-code): a native VS Code extension, version 2.0 of our terminal interface, and checkpoints for autonomous operation. Powered by [Sonnet 4.5](https://www.anthropic.com/news/claude-sonnet-4-5), Claude Code now handles longer, more complex development tasks in your terminal and IDE.
 
-Claude Code on more surfaces
-----------------------------
+## Claude Code on more surfaces
 
 **VS Code extension**
 
@@ -24,8 +23,7 @@ For teams who want to create custom agentic experiences, the Claude Agent SDK (f
 
 Developers are [already building agents](https://anthropic.com/engineering/building-agents-with-the-claude-agent-sdk) for a broad range use cases with the SDK, including financial compliance agents, cybersecurity agents, and code debugging agents.
 
-Execute long-running tasks with confidence
-------------------------------------------
+## Execute long-running tasks with confidence
 
 As Claude Code takes on increasingly complex tasks, we're releasing a checkpointing feature to help delegate tasks to Claude Code with confidence while maintaining control. Combined with recent feature releases, Claude Code is now more capable of handling sophisticated tasks.
 
@@ -45,8 +43,7 @@ Checkpoints are especially useful when combined with Claude Code’s latest feat
 
 Together, these capabilities let you confidently delegate broad tasks like extensive refactors or feature exploration to Claude Code.
 
-Getting started
----------------
+## Getting started
 
 These updates are available now for Claude Code users.
 
@@ -55,8 +52,7 @@ These updates are available now for Claude Code users.
 *   **Terminal updates**, including the visual refresh and checkpoints, are available to all Claude Code users—just update your local installation
 *   **Claude Agent SDK:**[See the docs](https://docs.claude.com/en/api/agent-sdk/overview) to get started
 
-Related content
----------------
+## Related content
 
 ### Anthropic invests $100 million into the Claude Partner Network
 
