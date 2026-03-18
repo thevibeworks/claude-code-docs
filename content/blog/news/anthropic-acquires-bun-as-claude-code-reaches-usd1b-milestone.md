@@ -21,8 +21,7 @@ Bun will be instrumental in helping us build the infrastructure for the next gen
 
 If you’re interested in joining Anthropic’s engineering team, visit our [careers page](https://www.anthropic.com/jobs?team=4050633008).
 
-Related content
----------------
+## Related content
 
 ### Anthropic invests $100 million into the Claude Partner Network
 

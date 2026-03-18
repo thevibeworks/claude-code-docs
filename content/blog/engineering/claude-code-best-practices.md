@@ -3,8 +3,7 @@ Title: Claude Code overview - Claude Code Docs
 URL Source: https://www.anthropic.com/engineering/claude-code-best-practices
 
 Markdown Content:
-Claude Code overview - Claude Code Docs
-===============
+# Claude Code overview - Claude Code Docs
 
 [Skip to main content](https://www.anthropic.com/engineering/claude-code-best-practices#content-area)
 
@@ -66,8 +65,7 @@ On this page
 
 Getting started
 
-Claude Code overview
-====================
+# Claude Code overview
 
 Copy page
 
@@ -76,10 +74,9 @@ Claude Code is an agentic coding tool that reads your codebase, edits files, run
 Copy page
 
 Claude Code is an AI-powered coding assistant that helps you build features, fix bugs, and automate development tasks. It understands your entire codebase and can work across multiple files and tools to get things done.
-[​](https://www.anthropic.com/engineering/claude-code-best-practices#get-started)
+## [​](https://www.anthropic.com/engineering/claude-code-best-practices#get-started)
 
 Get started
-----------------------------------------------------------------------------------------------
 
 Choose your environment to get started. Most surfaces require a [Claude subscription](https://claude.com/pricing?utm_source=claude_code&utm_medium=docs&utm_content=overview_pricing) or [Anthropic Console](https://console.anthropic.com/) account. The Terminal CLI and VS Code also support [third-party providers](https://www.anthropic.com/docs/en/third-party-integrations).
 
@@ -193,10 +190,9 @@ Run Claude Code in your browser with no local setup. Kick off long-running tasks
 
 A plugin for IntelliJ IDEA, PyCharm, WebStorm, and other JetBrains IDEs with interactive diff viewing and selection context sharing.Install the [Claude Code plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) from the JetBrains Marketplace and restart your IDE.[Get started with JetBrains →](https://www.anthropic.com/docs/en/jetbrains)
 
-[​](https://www.anthropic.com/engineering/claude-code-best-practices#what-you-can-do)
+## [​](https://www.anthropic.com/engineering/claude-code-best-practices#what-you-can-do)
 
 What you can do
-------------------------------------------------------------------------------------------------------
 
 Here are some of the ways you can use Claude Code:
 
@@ -257,8 +253,8 @@ Copy
 Ask AI
 
 ```
-# Monitor logs and get alerted
-tail -f app.log | claude -p "Slack me if you see any anomalies"
+# Analyze recent log output
+tail -200 app.log | claude -p "Slack me if you see any anomalies"
 
 # Automate translations in CI
 claude -p "translate new strings into French and raise a PR for review"
@@ -277,10 +273,9 @@ Sessions aren’t tied to a single surface. Move work between environments as yo
 *   Hand off a terminal session to the [Desktop app](https://www.anthropic.com/docs/en/desktop) with `/desktop` for visual diff review
 *   Route tasks from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report and get a pull request back
 
-[​](https://www.anthropic.com/engineering/claude-code-best-practices#use-claude-code-everywhere)
+## [​](https://www.anthropic.com/engineering/claude-code-best-practices#use-claude-code-everywhere)
 
 Use Claude Code everywhere
-----------------------------------------------------------------------------------------------------------------------------
 
 Each surface connects to the same underlying Claude Code engine, so your CLAUDE.md files, settings, and MCP servers work across all of them.Beyond the [Terminal](https://www.anthropic.com/docs/en/quickstart), [VS Code](https://www.anthropic.com/docs/en/vs-code), [JetBrains](https://www.anthropic.com/docs/en/jetbrains), [Desktop](https://www.anthropic.com/docs/en/desktop), and [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) environments above, Claude Code integrates with CI/CD, chat, and browser workflows:
 
@@ -294,10 +289,9 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 | Debug live web applications | [Chrome](https://www.anthropic.com/docs/en/chrome) |
 | Build custom agents for your own workflows | [Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) |
 
-[​](https://www.anthropic.com/engineering/claude-code-best-practices#next-steps)
+## [​](https://www.anthropic.com/engineering/claude-code-best-practices#next-steps)
 
 Next steps
---------------------------------------------------------------------------------------------
 
 Once you’ve installed Claude Code, these guides help you go deeper.
 *   [Quickstart](https://www.anthropic.com/docs/en/quickstart): walk through your first real task, from exploring a codebase to committing a fix

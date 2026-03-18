@@ -11,8 +11,7 @@ AI is beginning to change that calculus. We’ve recently shown that [Claude can
 
 Claude Code Security is intended to put this power squarely in the hands of defenders and protect code against this new category of AI-enabled attack. We’re releasing it as a limited research preview to Enterprise and Team customers, with expedited access for maintainers of open-source repositories, so we can work together to refine its capabilities and ensure it is deployed responsibly.
 
-**How Claude Code Security works**
-----------------------------------
+## **How Claude Code Security works**
 
 Static analysis—a widely deployed form of automated security testing—is typically rule-based, meaning it matches code against known vulnerability patterns. That catches common issues, like exposed passwords or outdated encryption, but often misses more complex vulnerabilities, like flaws in business logic or broken access control.
 
@@ -22,8 +21,7 @@ Every finding goes through a multi-stage verification process before it reaches 
 
 Validated findings appear in the Claude Code Security dashboard, where teams can review them, inspect the suggested patches, and approve fixes. Because these issues often involve nuances that are difficult to assess from source code alone, Claude also provides a confidence rating for each finding. Nothing is applied without human approval: Claude Code Security identifies problems and suggests solutions, but developers always make the call.
 
-**Using Claude for cybersecurity**
-----------------------------------
+## **Using Claude for cybersecurity**
 
 Claude Code Security builds on more than a year of research into Claude’s cybersecurity capabilities. Our Frontier Red Team has been stress-testing these abilities systematically: entering Claude in [competitive Capture-the-Flag events](https://red.anthropic.com/2025/ai-for-cyber-defenders/), partnering with Pacific Northwest National Laboratory to [experiment with using AI to defend critical infrastructure](https://red.anthropic.com/2026/critical-infrastructure-defense/), and refining Claude’s ability to find and patch real vulnerabilities in code.
 
@@ -31,15 +29,13 @@ Claude’s cyberdefensive abilities have improved substantially as a result. Usi
 
 We also use Claude to review our own code, and we’ve found it to be extremely effective at securing Anthropic’s systems. We built Claude Code Security to make those same defensive capabilities more widely available. And since it’s built on Claude Code, teams can review findings and iterate on fixes within the tools they already use.
 
-**The road ahead**
-------------------
+## **The road ahead**
 
 This is a pivotal time for cybersecurity. We expect that a significant share of the world’s code will be scanned by AI in the near future, given how effective models have become at finding long-hidden bugs and security issues.
 
 Attackers will use AI to find exploitable weaknesses faster than ever. But defenders who move quickly can find those same weaknesses, patch them, and reduce the risk of an attack. Claude Code Security is one step towards our goal of more secure codebases and a higher security baseline across the industry.
 
-**Getting started**
--------------------
+## **Getting started**
 
 We’re opening a limited research preview of Claude Code Security to Enterprise and Team customers today. Participants will get early access and collaborate directly with our team to hone the tool’s capabilities. We also encourage open-source maintainers to apply for free, expedited access.
 
@@ -47,8 +43,7 @@ We’re opening a limited research preview of Claude Code Security to Enterprise
 
 To learn more, visit [claude.com/solutions/claude-code-security](http://claude.com/solutions/claude-code-security).
 
-Related content
----------------
+## Related content
 
 ### Anthropic invests $100 million into the Claude Partner Network
 
