@@ -257,8 +257,8 @@ Copy
 Ask AI
 
 ```
-# Monitor logs and get alerted
-tail -f app.log | claude -p "Slack me if you see any anomalies"
+# Analyze recent log output
+tail -200 app.log | claude -p "Slack me if you see any anomalies"
 
 # Automate translations in CI
 claude -p "translate new strings into French and raise a PR for review"
