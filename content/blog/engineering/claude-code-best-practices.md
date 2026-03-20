@@ -282,6 +282,7 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 | I want to… | Best option |
 | --- | --- |
 | Continue a local session from my phone or another device | [Remote Control](https://www.anthropic.com/docs/en/remote-control) |
+| Push events from Telegram, Discord, or my own webhooks into a session | [Channels](https://www.anthropic.com/docs/en/channels) |
 | Start a task locally, continue on mobile | [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) |
 | Automate PR reviews and issue triage | [GitHub Actions](https://www.anthropic.com/docs/en/github-actions) or [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd) |
 | Get automatic code review on every PR | [GitHub Code Review](https://www.anthropic.com/docs/en/code-review) |
