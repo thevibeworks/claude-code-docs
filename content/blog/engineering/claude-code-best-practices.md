@@ -47,8 +47,9 @@ Claude Code overview
 
 ##### Platforms and integrations
 
+*   [Overview](https://www.anthropic.com/docs/en/platforms)
 *   [Remote Control](https://www.anthropic.com/docs/en/remote-control)
-*   [Claude Code on the web](https://www.anthropic.com/docs/en/claude-code-on-the-web)
+*   Claude Code on the web 
 *   Claude Code on desktop 
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
 *   [Visual Studio Code](https://www.anthropic.com/docs/en/vs-code)
@@ -265,10 +266,18 @@ git diff main --name-only | claude -p "review these changed files for security i
 
 See the [CLI reference](https://www.anthropic.com/docs/en/cli-reference) for the full set of commands and flags.
 
+Schedule recurring tasks
+
+Run Claude on a schedule to automate work that repeats: morning PR reviews, overnight CI failure analysis, weekly dependency audits, or syncing docs after PRs merge.
+*   [Cloud scheduled tasks](https://www.anthropic.com/docs/en/web-scheduled-tasks) run on Anthropic-managed infrastructure, so they keep running even when your computer is off. Create them from the web, the Desktop app, or by running `/schedule` in the CLI.
+*   [Desktop scheduled tasks](https://www.anthropic.com/docs/en/desktop#schedule-recurring-tasks) run on your machine, with direct access to your local files and tools
+*   [`/loop`](https://www.anthropic.com/docs/en/scheduled-tasks) repeats a prompt within a CLI session for quick polling
+
 Work from anywhere
 
 Sessions aren’t tied to a single surface. Move work between environments as your context changes:
 *   Step away from your desk and keep working from your phone or any browser with [Remote Control](https://www.anthropic.com/docs/en/remote-control)
+*   Message [Dispatch](https://www.anthropic.com/docs/en/desktop#sessions-from-dispatch) a task from your phone and open the Desktop session it creates
 *   Kick off a long-running task on the [web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684), then pull it into your terminal with `/teleport`
 *   Hand off a terminal session to the [Desktop app](https://www.anthropic.com/docs/en/desktop) with `/desktop` for visual diff review
 *   Route tasks from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report and get a pull request back
@@ -284,6 +293,7 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 | Continue a local session from my phone or another device | [Remote Control](https://www.anthropic.com/docs/en/remote-control) |
 | Push events from Telegram, Discord, or my own webhooks into a session | [Channels](https://www.anthropic.com/docs/en/channels) |
 | Start a task locally, continue on mobile | [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) |
+| Run Claude on a recurring schedule | [Cloud scheduled tasks](https://www.anthropic.com/docs/en/web-scheduled-tasks) or [Desktop scheduled tasks](https://www.anthropic.com/docs/en/desktop#schedule-recurring-tasks) |
 | Automate PR reviews and issue triage | [GitHub Actions](https://www.anthropic.com/docs/en/github-actions) or [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd) |
 | Get automatic code review on every PR | [GitHub Code Review](https://www.anthropic.com/docs/en/code-review) |
 | Route bug reports from Slack to pull requests | [Slack](https://www.anthropic.com/docs/en/slack) |
