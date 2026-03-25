@@ -41,7 +41,11 @@ Claude Code overview
 
 *   [How Claude Code works](https://www.anthropic.com/docs/en/how-claude-code-works)
 *   [Extend Claude Code](https://www.anthropic.com/docs/en/features-overview)
+
+##### Use Claude Code
+
 *   [Store instructions and memories](https://www.anthropic.com/docs/en/memory)
+*   [Permission modes](https://www.anthropic.com/docs/en/permission-modes)
 *   [Common workflows](https://www.anthropic.com/docs/en/common-workflows)
 *   [Best practices](https://www.anthropic.com/docs/en/best-practices)
 
@@ -291,7 +295,7 @@ Each surface connects to the same underlying Claude Code engine, so your CLAUDE.
 | I want to… | Best option |
 | --- | --- |
 | Continue a local session from my phone or another device | [Remote Control](https://www.anthropic.com/docs/en/remote-control) |
-| Push events from Telegram, Discord, or my own webhooks into a session | [Channels](https://www.anthropic.com/docs/en/channels) |
+| Push events from Telegram, Discord, iMessage, or my own webhooks into a session | [Channels](https://www.anthropic.com/docs/en/channels) |
 | Start a task locally, continue on mobile | [Web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [Claude iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684) |
 | Run Claude on a recurring schedule | [Cloud scheduled tasks](https://www.anthropic.com/docs/en/web-scheduled-tasks) or [Desktop scheduled tasks](https://www.anthropic.com/docs/en/desktop#schedule-recurring-tasks) |
 | Automate PR reviews and issue triage | [GitHub Actions](https://www.anthropic.com/docs/en/github-actions) or [GitLab CI/CD](https://www.anthropic.com/docs/en/gitlab-ci-cd) |
