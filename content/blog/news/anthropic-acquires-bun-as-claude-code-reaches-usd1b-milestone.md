@@ -3,28 +3,6 @@ Title: Anthropic acquires Bun as Claude Code reaches $1B milestone
 URL Source: https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone
 
 Markdown Content:
-# Anthropic acquires Bun as Claude Code reaches $1B milestone \ Anthropic
-
-[Skip to main content](https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone#main-content)[Skip to footer](https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone#footer)
-
-[](https://www.anthropic.com/)
-
-*   [Research](https://www.anthropic.com/research)
-*   [Economic Futures](https://www.anthropic.com/economic-futures)
-*   Commitments
-*   Learn
-*   [News](https://www.anthropic.com/news)
-
-[Try Claude](https://claude.ai/)
-
-Announcements
-
-# Anthropic acquires Bun as Claude Code reaches $1B milestone
-
-Dec 3, 2025
-
-![Image 1: Anthropic acquires Bun as Claude Code reaches $1B milestone](https://www-cdn.anthropic.com/images/4zrzovbb/website/43abe7e54b56a891e74a8542944dfbd33f07f49c-1000x1000.svg)
-
 Claude is the world’s smartest and most capable AI model for developers, startups, and enterprises. Claude Code represents a new era of agentic coding, fundamentally changing how teams build software. In November, Claude Code achieved a significant milestone: just six months after becoming available to the public, it reached $1 billion in run-rate revenue. And today we’re announcing that Anthropic is acquiring [Bun](https://bun.com/)—a breakthrough JavaScript runtime—to further accelerate Claude Code.
 
 Bun is redefining speed and performance for modern software engineering and development. Founded by Jarred Sumner in 2021, Bun is dramatically faster than the leading competition. As an all-in-one toolkit—combining runtime, package manager, bundler, and test runner—it's become essential infrastructure for AI-led software engineering, helping developers build and test applications at unprecedented velocity.
@@ -43,8 +21,6 @@ Bun will be instrumental in helping us build the infrastructure for the next gen
 
 If you’re interested in joining Anthropic’s engineering team, visit our [careers page](https://www.anthropic.com/jobs?team=4050633008).
 
-[](https://twitter.com/intent/tweet?text=https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone)[](https://www.linkedin.com/shareArticle?mini=true&url=https://www.anthropic.com/news/anthropic-acquires-bun-as-claude-code-reaches-usd1b-milestone)
-
 ## Related content
 
 ### Anthropic invests $100 million into the Claude Partner Network
@@ -62,105 +38,3 @@ We’re launching The Anthropic Institute, a new effort to confront the most sig
 ### Sydney will become Anthropic’s fourth office in Asia-Pacific
 
 [Read more](https://www.anthropic.com/news/sydney-fourth-office-asia-pacific)
-
-[](https://www.anthropic.com/)
-
-### Products
-
-*   [Claude](https://claude.com/product/overview)
-*   [Claude Code](https://claude.com/product/claude-code)
-*   [Claude Code Enterprise](https://claude.com/product/claude-code/enterprise)
-*   [Claude Cowork](https://claude.com/product/cowork)
-*   [Claude for Chrome](https://claude.com/chrome)
-*   [Claude for Excel](https://claude.com/claude-for-excel)
-*   [Claude for PowerPoint](https://claude.com/claude-for-powerpoint)
-*   [Claude for Slack](https://claude.com/claude-for-slack)
-*   [Skills](https://www.claude.com/skills)
-*   [Max plan](https://claude.com/pricing/max)
-*   [Team plan](https://claude.com/pricing/team)
-*   [Enterprise plan](https://claude.com/pricing/enterprise)
-*   [Download app](https://claude.ai/download)
-*   [Pricing](https://claude.com/pricing)
-*   [Log in to Claude](https://claude.ai/)
-
-### Models
-
-*   [Opus](https://www.anthropic.com/claude/opus)
-*   [Sonnet](https://www.anthropic.com/claude/sonnet)
-*   [Haiku](https://www.anthropic.com/claude/haiku)
-
-### Solutions
-
-*   [AI agents](https://claude.com/solutions/agents)
-*   [Claude Code Security](https://claude.com/solutions/claude-code-security)
-*   [Code modernization](https://claude.com/solutions/code-modernization)
-*   [Coding](https://claude.com/solutions/coding)
-*   [Customer support](https://claude.com/solutions/customer-support)
-*   [Education](https://claude.com/solutions/education)
-*   [Financial services](https://claude.com/solutions/financial-services)
-*   [Government](https://claude.com/solutions/government)
-*   [Healthcare](https://claude.com/solutions/healthcare)
-*   [Life sciences](https://claude.com/solutions/life-sciences)
-*   [Nonprofits](https://claude.com/solutions/nonprofits)
-
-### Claude Platform
-
-*   [Overview](https://claude.com/platform/api)
-*   [Developer docs](https://platform.claude.com/docs)
-*   [Pricing](https://claude.com/pricing#api)
-*   [Marketplace](https://claude.com/platform/marketplace)
-*   [Regional compliance](https://claude.com/regional-compliance)
-*   [Amazon Bedrock](https://claude.com/partners/amazon-bedrock)
-*   [Google Cloud’s Vertex AI](https://claude.com/partners/google-cloud-vertex-ai)
-*   [Microsoft Foundry](https://claude.com/partners/microsoft-foundry)
-*   [Console login](https://platform.claude.com/)
-
-### Resources
-
-*   [Blog](https://claude.com/blog)
-*   [Claude partner network](https://claude.com/partners)
-*   [Community](https://claude.com/community)
-*   [Connectors](https://claude.com/connectors)
-*   [Courses](https://www.anthropic.com/learn)
-*   [Customer stories](https://claude.com/customers)
-*   [Engineering at Anthropic](https://www.anthropic.com/engineering)
-*   [Events](https://www.anthropic.com/events)
-*   [Inside Cowork](https://www.anthropic.com/product/claude-cowork)
-*   [Plugins](https://claude.com/plugins)
-*   [Powered by Claude](https://claude.com/partners/powered-by-claude)
-*   [Service partners](https://claude.com/partners/services)
-*   [Startups program](https://claude.com/programs/startups)
-*   [Tutorials](https://claude.com/resources/tutorials)
-*   [Use cases](https://claude.com/resources/use-cases)
-
-### Company
-
-*   [Anthropic](https://www.anthropic.com/company)
-*   [Careers](https://www.anthropic.com/careers)
-*   [Economic Futures](https://www.anthropic.com/economic-index)
-*   [Research](https://www.anthropic.com/research)
-*   [News](https://www.anthropic.com/news)
-*   [Claude’s Constitution](https://www.anthropic.com/constitution)
-*   [Responsible Scaling Policy](https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy)
-*   [Security and compliance](https://trust.anthropic.com/)
-*   [Transparency](https://www.anthropic.com/transparency)
-
-### Help and security
-
-*   [Availability](https://www.anthropic.com/supported-countries)
-*   [Status](https://status.anthropic.com/)
-*   [Support center](https://support.claude.com/en/)
-
-### Terms and policies
-
-*   [Privacy policy](https://www.anthropic.com/legal/privacy)
-*   [Consumer health data privacy policy](https://www.anthropic.com/legal/consumer-health-data-privacy-policy)
-*   [Responsible disclosure policy](https://www.anthropic.com/responsible-disclosure-policy)
-*   [Terms of service: Commercial](https://www.anthropic.com/legal/commercial-terms)
-*   [Terms of service: Consumer](https://www.anthropic.com/legal/consumer-terms)
-*   [Usage policy](https://www.anthropic.com/legal/aup)
-
-© 2026 Anthropic PBC
-*   [](https://www.linkedin.com/company/anthropicresearch)
-*   [](https://x.com/AnthropicAI)
-*   [](https://www.youtube.com/@anthropic-ai)
