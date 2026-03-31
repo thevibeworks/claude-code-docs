@@ -58,6 +58,7 @@ Claude Code overview
 *   Claude Code on the web 
 *   Claude Code on desktop 
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
+*   [Computer use (preview)](https://www.anthropic.com/docs/en/computer-use)
 *   [Visual Studio Code](https://www.anthropic.com/docs/en/vs-code)
 *   [JetBrains IDEs](https://www.anthropic.com/docs/en/jetbrains)
 *   Code review & CI/CD 
