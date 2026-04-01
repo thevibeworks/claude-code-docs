@@ -116,6 +116,9 @@ export AWS_REGION=us-east-1  # or your preferred region
 
 # Optional: Override the region for the small/fast model (Haiku)
 export ANTHROPIC_SMALL_FAST_MODEL_AWS_REGION=us-west-2
+
+# Optional: Override the Bedrock endpoint URL for custom endpoints or gateways
+# export ANTHROPIC_BEDROCK_BASE_URL=https://bedrock-runtime.us-east-1.amazonaws.com
 ```
 
 When enabling Bedrock for Claude Code, keep the following in mind:
@@ -244,6 +247,14 @@ Example configuration:
 ```
 
 ## Troubleshooting
+
+### Authentication loop with SSO and corporate proxies
+
+If browser tabs spawn repeatedly when using AWS SSO, remove the `awsAuthRefresh` setting from your [settings file](/en/settings). This can occur when corporate VPNs or TLS inspection proxies interrupt the SSO browser flow. Claude Code treats the interrupted connection as an authentication failure, re-runs `awsAuthRefresh`, and loops indefinitely.
+
+If your network environment interferes with automatic browser-based SSO flows, use `aws sso login` manually before starting Claude Code instead of relying on `awsAuthRefresh`.
+
+### Region issues
 
 If you encounter region issues:
 
