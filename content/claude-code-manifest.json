@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.88",
+  "version": "2.1.89",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.88",
+  "_id": "@anthropic-ai/claude-code@2.1.89",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -73,17 +73,17 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "c22a001bea2241defb15d0124939836170389daf",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.88.tgz",
-    "fileCount": 20,
-    "integrity": "sha512-ukMtYZCi0I7cD3rt89rnXy20D/Zvk0Gj/SW60xYfz17zTslLz+VuhXw/KPb+2ndp3/ATadJdyNEqdKQlcNk7nQ==",
+    "shasum": "f2cb6b8b589a0d4f8a2b83a3920812a747336cf8",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.89.tgz",
+    "fileCount": 19,
+    "integrity": "sha512-etjihHqVxj1RjS5Zu/o+rv3ojn1N7AWzfgIOCSSSncfyb4qJn9J677scj0LHIxtwzjgU7j1qAedXlXKxgkFG2w==",
     "signatures": [
       {
-        "sig": "MEUCIHXjhm3IsYM1o1worSMkPW8rIHqSNsV6D08wJoIArNumAiEAtiif6ZPqt/ovlEXSM0sEc8NuCteOb+yIkDZcff2kFSk=",
+        "sig": "MEQCIGE+C8+9YI/pUb190BmNwyXJoCVGOag9G1Y3vLZw2US4AiBS5g+q78qYJmLaQTdAG1Jrz2RfjHAuifZHgchG6+ESCg==",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 102754401
+    "unpackedSize": 43022346
   },
   "type": "module",
   "engines": {
@@ -115,7 +115,7 @@
     "@img/sharp-linuxmusl-arm64": "^0.34.2"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.88_1774910207554_0.1190643563209497",
+    "tmp": "tmp/claude-code_2.1.89_1774999959972_0.700223617424049",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }

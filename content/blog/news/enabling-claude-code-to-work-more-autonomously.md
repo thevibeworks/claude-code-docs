@@ -54,6 +54,10 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### Australian government and Anthropic sign MOU for AI safety and research
+
+[Read more](https://www.anthropic.com/news/australia-MOU)
+
 ### Anthropic invests $100 million into the Claude Partner Network
 
 We’re launching the Claude Partner Network, a program for partner organizations helping enterprises adopt Claude.
@@ -65,7 +69,3 @@ We’re launching the Claude Partner Network, a program for partner organization
 We’re launching The Anthropic Institute, a new effort to confront the most significant challenges that powerful AI will pose to our societies.
 
 [Read more](https://www.anthropic.com/news/the-anthropic-institute)
-
-### Sydney will become Anthropic’s fourth office in Asia-Pacific
-
-[Read more](https://www.anthropic.com/news/sydney-fourth-office-asia-pacific)
