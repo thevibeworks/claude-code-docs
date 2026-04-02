@@ -153,8 +153,8 @@ Or search for “Claude Code” in the Extensions view (`Cmd+Shift+X` on Mac, `C
 
 A standalone app for running Claude Code outside your IDE or terminal. Review diffs visually, run multiple sessions side by side, schedule recurring tasks, and kick off cloud sessions.Download and install:
 *   [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code&utm_medium=docs) (Intel and Apple Silicon)
-*   [Windows](https://claude.ai/api/desktop/win32/x64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (x64)
-*   [Windows ARM64](https://claude.ai/api/desktop/win32/arm64/exe/latest/redirect?utm_source=claude_code&utm_medium=docs) (remote sessions only)
+*   [Windows](https://claude.ai/api/desktop/win32/x64/setup/latest/redirect?utm_source=claude_code&utm_medium=docs) (x64)
+*   [Windows ARM64](https://claude.ai/api/desktop/win32/arm64/setup/latest/redirect?utm_source=claude_code&utm_medium=docs) (remote sessions only)
 
 After installing, launch Claude, sign in, and click the **Code** tab to start coding. A [paid subscription](https://claude.com/pricing?utm_source=claude_code&utm_medium=docs&utm_content=overview_desktop_pricing) is required.[Learn more about the desktop app →](https://www.anthropic.com/docs/en/desktop-quickstart)
 
@@ -231,7 +231,7 @@ Work from anywhere
 Sessions aren’t tied to a single surface. Move work between environments as your context changes:
 *   Step away from your desk and keep working from your phone or any browser with [Remote Control](https://www.anthropic.com/docs/en/remote-control)
 *   Message [Dispatch](https://www.anthropic.com/docs/en/desktop#sessions-from-dispatch) a task from your phone and open the Desktop session it creates
-*   Kick off a long-running task on the [web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684), then pull it into your terminal with `/teleport`
+*   Kick off a long-running task on the [web](https://www.anthropic.com/docs/en/claude-code-on-the-web) or [iOS app](https://apps.apple.com/app/claude-by-anthropic/id6473753684), then pull it into your terminal with `claude --teleport`
 *   Hand off a terminal session to the [Desktop app](https://www.anthropic.com/docs/en/desktop) with `/desktop` for visual diff review
 *   Route tasks from team chat: mention `@Claude` in [Slack](https://www.anthropic.com/docs/en/slack) with a bug report and get a pull request back
 
