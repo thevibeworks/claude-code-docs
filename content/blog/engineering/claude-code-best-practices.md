@@ -118,7 +118,7 @@ irm https://claude.ai/install.ps1 | iex
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 ```
 
-**Windows requires [Git for Windows](https://git-scm.com/downloads/win).** Install it first if you don’t have it.
+If you see `The token '&&' is not a valid statement separator`, you’re in PowerShell, not CMD. Use the PowerShell command above instead. Your prompt shows `PS C:\` when you’re in PowerShell.**Windows requires [Git for Windows](https://git-scm.com/downloads/win).** Install it first if you don’t have it.
 
 Native installations automatically update in the background to keep you on the latest version.
 
