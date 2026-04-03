@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.90",
+  "version": "2.1.91",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.90",
+  "_id": "@anthropic-ai/claude-code@2.1.91",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -73,19 +73,20 @@
     "claude": "cli.js"
   },
   "dist": {
-    "shasum": "b086e61c497edae02fb5bf52fae75293c034138a",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.90.tgz",
-    "fileCount": 19,
-    "integrity": "sha512-orm8uULh71ow5yA27PXMGYZrNlEAUmmGOwPrOava6wuai1wAC7J7ZOvx2cbM2u8GJBDkdiNSFdUwYmzc6QsWDQ==",
+    "shasum": "f7c6050592b4a7c10074eacda07872f79875dc61",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.91.tgz",
+    "fileCount": 18,
+    "integrity": "sha512-RvSjgk4yKfwjByUK+r6LXHU0aXLse0omlWhBefiFJhCyNAB8sc3NHc3N7+7CPaBLC/s3MHf3AQHSYqi6V8ltuA==",
     "signatures": [
       {
-        "sig": "MEQCIFqEht1VJg6BcBhwH8KmK7QgiENfHVW2a/DtRIFj8A2MAiBnOjQlz/gCtiw+GlyesG51y76uOUFaEJNo7llzHl4JYg==",
+        "sig": "MEUCIQCQubDdTodhmZh056FJOdAiUYNEWqq9qygWlJUAhdBp8AIgKXp4FeChs8AK+zrjgED2LflP2OS13NG/ivBCIK9N2p8=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 43069612
+    "unpackedSize": 43103342
   },
   "type": "module",
+  "_from": "file:/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.91.tgz",
   "engines": {
     "node": ">=18.0.0"
   },
@@ -96,6 +97,8 @@
     "name": "wolffiex",
     "email": "wolffiex@anthropic.com"
   },
+  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.91.tgz",
+  "_integrity": "sha512-RvSjgk4yKfwjByUK+r6LXHU0aXLse0omlWhBefiFJhCyNAB8sc3NHc3N7+7CPaBLC/s3MHf3AQHSYqi6V8ltuA==",
   "_npmVersion": "10.8.2",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
@@ -115,7 +118,7 @@
     "@img/sharp-linuxmusl-arm64": "^0.34.2"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.90_1775086298410_0.4334570060549343",
+    "tmp": "tmp/claude-code_2.1.91_1775169434533_0.35752482200072544",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
