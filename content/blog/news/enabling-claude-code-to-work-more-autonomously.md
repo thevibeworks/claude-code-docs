@@ -54,6 +54,10 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute
+
+[Read more](https://www.anthropic.com/news/google-broadcom-partnership-compute)
+
 ### Australian government and Anthropic sign MOU for AI safety and research
 
 [Read more](https://www.anthropic.com/news/australia-MOU)
@@ -63,9 +67,3 @@ These updates are available now for Claude Code users.
 We’re launching the Claude Partner Network, a program for partner organizations helping enterprises adopt Claude.
 
 [Read more](https://www.anthropic.com/news/claude-partner-network)
-
-### Introducing The Anthropic Institute
-
-We’re launching The Anthropic Institute, a new effort to confront the most significant challenges that powerful AI will pose to our societies.
-
-[Read more](https://www.anthropic.com/news/the-anthropic-institute)

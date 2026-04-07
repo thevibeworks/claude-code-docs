@@ -83,7 +83,3 @@
     <Card title="llms.txt" icon="file" href="/llms.txt">
       LLM-optimized documentation index.
     </Card>
-
-    <Card title="llms-full.txt" icon="file" href="/llms-full.txt">
-      Complete LLM-optimized documentation.
-    </Card>
