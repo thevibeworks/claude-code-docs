@@ -4,6 +4,10 @@ Anthropic's Claude models are now generally available through Amazon Bedrock.
 
 ---
 
+<Note>
+This page covers the legacy Amazon Bedrock integration (the `InvokeModel` API with ARN-versioned model identifiers and AWS event-stream encoding). For the new AWS-managed offering with the Messages API at `/anthropic/v1/messages` and SSE streaming, see [Claude in Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock).
+</Note>
+
 Calling Claude through Bedrock slightly differs from how you would call Claude when using Anthropic's client SDKs. This guide walks you through completing an API call to Claude on Bedrock using one of Anthropic's [client SDKs](/docs/en/api/client-sdks).
 
 Note that this guide assumes you have already signed up for an [AWS account](https://portal.aws.amazon.com/billing/signup) and configured programmatic access.
@@ -640,7 +644,7 @@ For more details on the two document processing modes and their limitations, ref
 
 ### Context window
 
-Claude Opus 4.6 and Sonnet 4.6 have a [1M-token context window](/docs/en/build-with-claude/context-windows) on Amazon Bedrock. Other Claude models, including Sonnet 4.5 and Sonnet 4, have a 200k-token context window.
+Claude Opus 4.6 and Claude Sonnet 4.6 have a [1M-token context window](/docs/en/build-with-claude/context-windows) on Amazon Bedrock. Other Claude models, including Sonnet 4.5 and Sonnet 4, have a 200k-token context window.
 
 Amazon Bedrock limits request payloads to 20 MB. When sending large documents or many images, you may reach this limit before the token limit.
 
@@ -935,6 +939,10 @@ message = client.messages.create(
 )
 ```
 </CodeGroup>
+
+<Note>
+**Claude Mythos Preview** is a research preview model available to invited customers on Amazon Bedrock. For more information, see [Project Glasswing](https://anthropic.com/glasswing).
+</Note>
 
 ### Additional resources
 
