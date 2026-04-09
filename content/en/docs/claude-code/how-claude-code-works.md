@@ -134,6 +134,8 @@ Claude Code manages context automatically as you approach the limit. It clears o
 
 To control what's preserved during compaction, add a "Compact Instructions" section to CLAUDE.md or run `/compact` with a focus (like `/compact focus on the API changes`).
 
+If a single file or tool output is so large that context refills immediately after each summary, Claude Code stops auto-compacting after a few attempts and shows an error instead of looping. See [Auto-compaction stops with a thrashing error](/en/troubleshooting#auto-compaction-stops-with-a-thrashing-error) for recovery steps.
+
 Run `/context` to see what's using space. MCP tool definitions are deferred by default and loaded on demand via [tool search](/en/mcp#scale-with-mcp-tool-search), so only tool names consume context until Claude uses a specific tool. Run `/mcp` to check per-server costs.
 
 #### Manage context with skills and subagents
@@ -161,7 +163,7 @@ Checkpoints are local to your session, separate from git. They only cover file c
 Press `Shift+Tab` to cycle through permission modes:
 
 * **Default**: Claude asks before file edits and shell commands
-* **Auto-accept edits**: Claude edits files without asking, still asks for commands
+* **Auto-accept edits**: Claude edits files and runs common filesystem commands like `mkdir` and `mv` without asking, still asks for other commands
 * **Plan mode**: Claude uses read-only tools only, creating a plan you can approve before execution
 * **Auto mode**: Claude evaluates all actions with background safety checks. Currently a research preview
 
