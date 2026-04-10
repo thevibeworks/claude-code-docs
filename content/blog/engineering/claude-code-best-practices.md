@@ -55,13 +55,13 @@ Best Practices for Claude Code
 
 *   [Overview](https://www.anthropic.com/docs/en/platforms)
 *   [Remote Control](https://www.anthropic.com/docs/en/remote-control)
-*   Claude Code on the web 
-*   Claude Code on desktop 
+*   Claude Code on the web  
+*   Claude Code on desktop  
 *   [Chrome extension (beta)](https://www.anthropic.com/docs/en/chrome)
 *   [Computer use (preview)](https://www.anthropic.com/docs/en/computer-use)
 *   [Visual Studio Code](https://www.anthropic.com/docs/en/vs-code)
 *   [JetBrains IDEs](https://www.anthropic.com/docs/en/jetbrains)
-*   Code review & CI/CD 
+*   Code review & CI/CD  
 *   [Claude Code in Slack](https://www.anthropic.com/docs/en/slack)
 
 On this page
@@ -125,7 +125,7 @@ Claude performs dramatically better when it can verify its own work, like run te
 
 | Strategy | Before | After |
 | --- | --- | --- |
-| **Provide verification criteria** | _”implement a function that validates email addresses"_ | _"write a validateEmail function. example test cases: [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#85f0f6e0f7c5e0fde4e8f5e9e0abe6eae8) is true, invalid is false, [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#5227213720127c313d3f) is false. run the tests after implementing”_ |
+| **Provide verification criteria** | _”implement a function that validates email addresses"_ | _"write a validateEmail function. example test cases: [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#2e5b5d4b5c6e4b564f435e424b004d4143) is true, invalid is false, [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#92e7e1f7e0d2bcf1fdff) is false. run the tests after implementing”_ |
 | **Verify UI changes visually** | _”make the dashboard look better"_ | _"[paste screenshot] implement this design. take a screenshot of the result and compare it to the original. list differences and fix them”_ |
 | **Address root causes, not symptoms** | _”the build is failing"_ | _"the build fails with this error: [paste error]. fix it and verify the build succeeds. address the root cause, don’t suppress the error”_ |
 
