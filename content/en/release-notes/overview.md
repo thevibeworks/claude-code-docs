@@ -10,13 +10,16 @@ For release notes on Claude Apps, see the [Release notes for Claude Apps in the 
 For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### April 9, 2026
+- We've launched the [advisor tool](/docs/en/agents-and-tools/tool-use/advisor-tool) in public beta. Pair a faster executor model with a higher-intelligence advisor model that provides strategic guidance mid-generation, so long-horizon agentic workloads get close to advisor-solo quality while the bulk of token generation happens at executor-model rates. Include the beta header `advisor-tool-2026-03-01` in your requests.
+
 ### April 8, 2026
 - We've launched **Claude Managed Agents** in public beta, a fully managed agent harness for running Claude as an autonomous agent with secure sandboxing, built-in tools, and server-sent event streaming. Create agents, configure containers, and run sessions through the API. All endpoints require the `managed-agents-2026-04-01` beta header. Learn more in [Claude Managed Agents overview](/docs/en/managed-agents/overview).
 - We've launched the **`ant` CLI**, a command-line client for the Claude API that enables faster interaction with the Claude API, native integration with Claude Code, and versioning of API resources in YAML files. Learn more in the [CLI reference](/docs/en/api/sdks/cli).
 
 ### April 7, 2026
 - We announced [Claude Mythos Preview](https://anthropic.com/glasswing) is available as a gated research preview for defensive cybersecurity work as part of [Project Glasswing](https://anthropic.com/glasswing). Access is invitation-only.
-- The [Messages API](/docs/en/api/messages) is now available on Amazon Bedrock as a research preview. The new Claude in Amazon Bedrock endpoint at `/anthropic/v1/messages` uses the same request shape as the first-party Claude API and runs on AWS-managed infrastructure with zero operator access. Available in `us-east-1`; contact your Anthropic account executive to request access. Learn more in [Claude in Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock).
+- The [Messages API](/docs/en/api/messages) is now available on Amazon Bedrock as a research preview. The new Claude in Amazon Bedrock endpoint at `/anthropic/v1/messages` uses the same request shape as the first-party Claude API and runs on AWS-managed infrastructure with zero operator access. Available in `us-east-1`; contact your Anthropic account executive to request access. Learn more in [Claude in Amazon Bedrock (research preview)](/docs/en/build-with-claude/claude-in-amazon-bedrock-research-preview).
 
 ### March 30, 2026
 - We've raised the `max_tokens` cap to 300k on the [Message Batches API](/docs/en/build-with-claude/batch-processing#extended-output-beta) for Claude Opus 4.6 and Sonnet 4.6. Include the `output-300k-2026-03-24` beta header to generate longer single-turn outputs for long-form content, structured data, and large code generation tasks.
