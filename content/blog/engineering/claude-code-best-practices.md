@@ -125,7 +125,7 @@ Claude performs dramatically better when it can verify its own work, like run te
 
 | Strategy | Before | After |
 | --- | --- | --- |
-| **Provide verification criteria** | _”implement a function that validates email addresses"_ | _"write a validateEmail function. example test cases: [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#c5b0b6a0b785a0bda4a8b5a9a0eba6aaa8) is true, invalid is false, [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#790c0a1c0b39571a1614) is false. run the tests after implementing”_ |
+| **Provide verification criteria** | _”implement a function that validates email addresses"_ | _"write a validateEmail function. example test cases: [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#a6d3d5c3d4e6c3dec7cbd6cac388c5c9cb) is true, invalid is false, [[email protected]](https://www.anthropic.com/cdn-cgi/l/email-protection#4732342235076924282a) is false. run the tests after implementing”_ |
 | **Verify UI changes visually** | _”make the dashboard look better"_ | _"[paste screenshot] implement this design. take a screenshot of the result and compare it to the original. list differences and fix them”_ |
 | **Address root causes, not symptoms** | _”the build is failing"_ | _"the build fails with this error: [paste error]. fix it and verify the build succeeds. address the root cause, don’t suppress the error”_ |
 
