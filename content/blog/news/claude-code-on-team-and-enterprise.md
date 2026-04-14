@@ -46,6 +46,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 
 ## Related content
 
+### Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors
+
+[Read more](https://www.anthropic.com/news/narasimhan-board)
+
 ### Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute
 
 [Read more](https://www.anthropic.com/news/google-broadcom-partnership-compute)
@@ -53,9 +57,3 @@ To explore how Claude for Enterprise can transform your organization's productiv
 ### Australian government and Anthropic sign MOU for AI safety and research
 
 [Read more](https://www.anthropic.com/news/australia-MOU)
-
-### Anthropic invests $100 million into the Claude Partner Network
-
-We’re launching the Claude Partner Network, a program for partner organizations helping enterprises adopt Claude.
-
-[Read more](https://www.anthropic.com/news/claude-partner-network)
