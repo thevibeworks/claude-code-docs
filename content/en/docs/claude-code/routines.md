@@ -160,11 +160,11 @@ Each routine has its own token, scoped to triggering that routine only. To rotat
 
 #### Trigger a routine
 
-Send a POST request to the `/fire` endpoint with the bearer token in the `Authorization` header. The request body accepts an optional `text` field that's appended to the routine's configured prompt as a one-shot user turn. Use `text` to pass context like an alert body or a failing log.
+Send a POST request to the `/fire` endpoint with the bearer token in the `Authorization` header. The request body accepts an optional `text` field for run-specific context such as an alert body or a failing log, passed to the routine alongside its saved prompt. The value is freeform text and is not parsed: if you send JSON or another structured payload, the routine receives it as a literal string.
 
 The example below triggers a routine from a shell:
 
-```bash  theme={null}
+```bash theme={null}
 curl -X POST https://api.anthropic.com/v1/claude_code/routines/trig_01ABCDEFGHJKLMNOPQRSTUVW/fire \
   -H "Authorization: Bearer sk-ant-oat01-xxxxx" \
   -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
@@ -175,7 +175,7 @@ curl -X POST https://api.anthropic.com/v1/claude_code/routines/trig_01ABCDEFGHJK
 
 A successful request returns a JSON body with the new session ID and URL:
 
-```json  theme={null}
+```json theme={null}
 {
   "type": "routine_fire",
   "claude_code_session_id": "session_01HJKLMNOPQRSTUVWXYZ",

@@ -35,8 +35,8 @@ MTok = Million tokens. The "Base Input Tokens" column shows standard input prici
 
 Claude models are available on [AWS Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock), [Google Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry). For official pricing, visit:
 - [AWS Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)
-- [Google Vertex AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing)
-- [Microsoft Foundry pricing](https://azure.microsoft.com/en-us/pricing/details/ai-foundry/#pricing)
+- [Google Vertex AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models)
+- [Microsoft Foundry pricing](https://azure.microsoft.com/en-us/pricing/details/microsoft-foundry/#pricing)
 
 <Note>
 **Regional and multi-region endpoint pricing for Claude 4.5 models and beyond**
@@ -47,7 +47,7 @@ Starting with Claude Sonnet 4.5 and Haiku 4.5:
 
 Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (1P) is global by default; for 1P data residency options and pricing, see [Data residency pricing](#data-residency-pricing) below.
 
-**Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, and all future models. Earlier models (Claude Sonnet 4, Opus 4, and prior releases) retain their existing pricing.
+**Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, and all future models. Earlier models (Claude Sonnet 4 (deprecated), Opus 4 (deprecated), and prior releases) retain their existing pricing.
 
 For implementation details and code examples:
 - [AWS Bedrock global vs regional endpoints](/docs/en/build-with-claude/claude-on-amazon-bedrock#global-vs-regional-endpoints)
@@ -83,7 +83,7 @@ For implementation details, supported models, and code examples, see the [prompt
 
 For Claude Opus 4.6 and newer models, specifying US-only inference via the `inference_geo` parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. Global routing (the default) uses standard pricing.
 
-This applies to the Claude API (1P) only. Third-party platforms have their own regional pricing. See [AWS Bedrock](https://aws.amazon.com/bedrock/pricing/) and [Google Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing) for details. Earlier models retain their existing pricing regardless of `inference_geo` settings.
+This applies to the Claude API (1P) only. Third-party platforms have their own regional pricing. See [AWS Bedrock](https://aws.amazon.com/bedrock/pricing/) and [Google Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) for details. Earlier models retain their existing pricing regardless of `inference_geo` settings.
 
 For more information, see the [data residency documentation](/docs/en/build-with-claude/data-residency).
 
