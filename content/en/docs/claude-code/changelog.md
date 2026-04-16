@@ -10,13 +10,87 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.111" description="April 16, 2026">
+  * Claude Opus 4.7 xhigh is now available! Use /effort to tune speed vs. intelligence
+  * Auto mode is now available for Max subscribers when using Opus 4.7
+  * Added `xhigh` effort level for Opus 4.7, sitting between `high` and `max`. Available via `/effort`, `--effort`, and the model picker; other models fall back to `high`
+  * `/effort` now opens an interactive slider when called without arguments, with arrow-key navigation between levels and Enter to confirm
+  * Added "Auto (match terminal)" theme option that matches your terminal's dark/light mode — select it from `/theme`
+  * Added `/less-permission-prompts` skill — scans transcripts for common read-only Bash and MCP tool calls and proposes a prioritized allowlist for `.claude/settings.json`
+  * Added `/ultrareview` for running comprehensive code review in the cloud using parallel multi-agent analysis and critique — invoke with no arguments to review your current branch, or `/ultrareview <PR#>` to fetch and review a specific GitHub PR
+  * Auto mode no longer requires `--enable-auto-mode`
+  * Windows: PowerShell tool is progressively rolling out. Opt in or out with `CLAUDE_CODE_USE_POWERSHELL_TOOL`. On Linux and macOS, enable with `CLAUDE_CODE_USE_POWERSHELL_TOOL=1` (requires `pwsh` on PATH)
+  * Read-only bash commands with glob patterns (e.g. `ls *.ts`) and commands starting with `cd <project-dir> &&` no longer trigger a permission prompt
+  * Suggest the closest matching subcommand when `claude <word>` is invoked with a near-miss typo (e.g. `claude udpate` → "Did you mean `claude update`?")
+  * Plan files are now named after your prompt (e.g. `fix-auth-race-snug-otter.md`) instead of purely random words
+  * Improved `/setup-vertex` and `/setup-bedrock` to show the actual `settings.json` path when `CLAUDE_CONFIG_DIR` is set, seed model candidates from existing pins on re-run, and offer a "with 1M context" option for supported models
+  * `/skills` menu now supports sorting by estimated token count — press `t` to toggle
+  * `Ctrl+U` now clears the entire input buffer (previously: delete to start of line); press `Ctrl+Y` to restore
+  * `Ctrl+L` now forces a full screen redraw in addition to clearing the prompt input
+  * Transcript view footer now shows `[` (dump to scrollback) and `v` (open in editor) shortcuts
+  * The "+N lines" marker for truncated long pastes is now a full-width rule for easier scanning
+  * Headless `--output-format stream-json` now includes `plugin_errors` on the init event when plugins are demoted for unsatisfied dependencies
+  * Added `OTEL_LOG_RAW_API_BODIES` environment variable to emit full API request and response bodies as OpenTelemetry log events for debugging
+  * Suppressed spurious decompression, network, and transient error messages that could appear in the TUI during normal operation
+  * Reverted the v2.1.110 cap on non-streaming fallback retries — it traded long waits for more outright failures during API overload
+  * Fixed terminal display tearing (random characters, drifting input) in iTerm2 + tmux setups when terminal notifications are sent
+  * Fixed `@` file suggestions re-scanning the entire project on every turn in non-git working directories, and showing only config files in freshly-initialized git repos with no tracked files
+  * Fixed LSP diagnostics from before an edit appearing after it, causing the model to re-read files it just edited
+  * Fixed tab-completing `/resume` immediately resuming an arbitrary titled session instead of showing the session picker
+  * Fixed `/context` grid rendering with extra blank lines between rows
+  * Fixed `/clear` dropping the session name set by `/rename`, causing statusline output to lose `session_name`
+  * Improved plugin error handling: dependency errors now distinguish conflicting, invalid, and overly complex version requirements; fixed stale resolved versions after `plugin update`; `plugin install` now recovers from interrupted prior installs
+  * Fixed Claude calling a non-existent `commit` skill and showing "Unknown skill: commit" for users without a custom `/commit` command
+  * Fixed 429 rate-limit errors on Bedrock/Vertex/Foundry referencing status.claude.com (it only covers Anthropic-operated providers)
+  * Fixed feedback surveys appearing back-to-back after dismissing one
+  * Fixed bare URLs in bash/PowerShell/MCP tool output being unclickable when the terminal wraps them across lines
+  * Windows: `CLAUDE_ENV_FILE` and SessionStart hook environment files now apply (previously a no-op)
+  * Windows: permission rules with drive-letter paths are now correctly root-anchored, and paths differing only by drive-letter case are recognized as the same path
+</Update>
+
+<Update label="2.1.110" description="April 15, 2026">
+  * Added `/tui` command and `tui` setting — run `/tui fullscreen` to switch to flicker-free rendering in the same conversation
+  * Added push notification tool — Claude can send mobile push notifications when Remote Control and "Push when Claude decides" config are enabled
+  * Changed `Ctrl+O` to toggle between normal and verbose transcript only; focus view is now toggled separately with the new `/focus` command
+  * Added `autoScrollEnabled` config to disable conversation auto-scroll in fullscreen mode
+  * Added option to show Claude's last response as commented context in the `Ctrl+G` external editor (enable via `/config`)
+  * Improved `/plugin` Installed tab — items needing attention and favorites appear at the top, disabled items are hidden behind a fold, and `f` favorites the selected item
+  * Improved `/doctor` to warn when an MCP server is defined in multiple config scopes with different endpoints
+  * `--resume`/`--continue` now resurrects unexpired scheduled tasks
+  * `/context`, `/exit`, and `/reload-plugins` now work from Remote Control (mobile/web) clients
+  * Write tool now informs the model when you edit the proposed content in the IDE diff before accepting
+  * Bash tool now enforces the documented maximum timeout instead of accepting arbitrarily large values
+  * SDK/headless sessions now read `TRACEPARENT`/`TRACESTATE` from the environment for distributed trace linking
+  * Session recap is now enabled for users with telemetry disabled (Bedrock, Vertex, Foundry, `DISABLE_TELEMETRY`). Opt out via `/config` or `CLAUDE_CODE_ENABLE_AWAY_SUMMARY=0`.
+  * Fixed MCP tool calls hanging indefinitely when the server connection drops mid-response on SSE/HTTP transports
+  * Fixed non-streaming fallback retries causing multi-minute hangs when the API is unreachable
+  * Fixed session recap, local slash-command output, and other system status lines not appearing in focus mode
+  * Fixed high CPU usage in fullscreen when text is selected while a tool is running
+  * Fixed plugin install not honoring dependencies declared in `plugin.json` when the marketplace entry omits them; `/plugin` install now lists auto-installed dependencies
+  * Fixed skills with `disable-model-invocation: true` failing when invoked via `/<skill>` mid-message
+  * Fixed `--resume` sometimes showing the first prompt instead of the `/rename` name for sessions still running or exited uncleanly
+  * Fixed queued messages briefly appearing twice during multi-tool-call turns
+  * Fixed session cleanup not removing the full session directory including subagent transcripts
+  * Fixed dropped keystrokes after the CLI relaunches (e.g. `/tui`, provider setup wizards)
+  * Fixed garbled startup rendering in macOS Terminal.app and other terminals that don't support synchronized output
+  * Hardened "Open in editor" actions against command injection from untrusted filenames
+  * Fixed `PermissionRequest` hooks returning `updatedInput` not being re-checked against `permissions.deny` rules; `setMode:'bypassPermissions'` updates now respect `disableBypassPermissionsMode`
+  * Fixed `PreToolUse` hook `additionalContext` being dropped when the tool call fails
+  * Fixed stdio MCP servers that print stray non-JSON lines to stdout being disconnected on the first stray line (regression in 2.1.105)
+  * Fixed headless/SDK session auto-title firing an extra Haiku request when `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` or `CLAUDE_CODE_DISABLE_TERMINAL_TITLE` is set
+  * Fixed potential excessive memory allocation when piped (non-TTY) Ink output contains a single very wide line
+  * Fixed `/skills` menu not scrolling when the list overflows the modal in fullscreen mode
+  * Fixed Remote Control sessions showing a generic error instead of prompting for re-login when the session is too old
+  * Fixed Remote Control session renames from claude.ai not persisting the title to the local CLI session
+</Update>
+
 <Update label="2.1.109" description="April 15, 2026">
   * Improved the extended-thinking indicator with a rotating progress hint
 </Update>
 
 <Update label="2.1.108" description="April 14, 2026">
   * Added `ENABLE_PROMPT_CACHING_1H` env var to opt into 1-hour prompt cache TTL on API key, Bedrock, Vertex, and Foundry (`ENABLE_PROMPT_CACHING_1H_BEDROCK` is deprecated but still honored), and `FORCE_PROMPT_CACHING_5M` to force 5-minute TTL
-  * Added recap feature to provide context when returning to a session, configurable in /config and manually invocable with /recap; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled.
+  * Added recap feature to provide context when returning to a session, configurable in `/config` and manually invocable with `/recap`; force with `CLAUDE_CODE_ENABLE_AWAY_SUMMARY` if telemetry disabled.
   * The model can now discover and invoke built-in slash commands like `/init`, `/review`, and `/security-review` via the Skill tool
   * `/undo` is now an alias for `/rewind`
   * Improved `/model` to warn before switching models mid-conversation, since the next response re-reads the full history uncached
