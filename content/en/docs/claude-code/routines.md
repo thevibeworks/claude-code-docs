@@ -16,7 +16,7 @@ Each routine can have one or more triggers attached to it:
 
 * **Scheduled**: run on a recurring cadence like hourly, nightly, or weekly
 * **API**: trigger on demand by sending an HTTP POST to a per-routine endpoint with a bearer token
-* **GitHub**: run automatically in response to repository events such as pull requests, pushes, issues, or workflow runs
+* **GitHub**: run automatically in response to repository events such as pull requests or releases
 
 A single routine can combine triggers. For example, a PR review routine can run nightly, trigger from a deploy script, and also react to every new PR.
 
