@@ -16,7 +16,7 @@ Each routine can have one or more triggers attached to it:
 
 * **Scheduled**: run on a recurring cadence like hourly, nightly, or weekly
 * **API**: trigger on demand by sending an HTTP POST to a per-routine endpoint with a bearer token
-* **GitHub**: run automatically in response to repository events such as pull requests, pushes, issues, or workflow runs
+* **GitHub**: run automatically in response to repository events such as pull requests or releases
 
 A single routine can combine triggers. For example, a PR review routine can run nightly, trigger from a deploy script, and also react to every new PR.
 
@@ -74,7 +74,7 @@ Routines belong to your individual claude.ai account. They are not shared with t
 
     * **Network access**: set the level of internet access available during each run
     * **Environment variables**: provide API keys, tokens, or other secrets Claude can use
-    * **Setup script**: run install commands before each session starts, like installing dependencies or configuring tools
+    * **Setup script**: install dependencies and tools the routine needs. The result is [cached](/en/claude-code-on-the-web#environment-caching), so the script doesn't re-run on every session
 
     A **Default** environment is provided. To use a custom environment, [create one](/en/claude-code-on-the-web#the-cloud-environment) before creating the routine.
   </Step>

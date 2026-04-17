@@ -54,6 +54,12 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### Introducing Claude Opus 4.7
+
+Our latest Opus model brings stronger performance across coding, agents, vision, and multi-step tasks, with greater thoroughness and consistency on the work that matters most.
+
+[Read more](https://www.anthropic.com/news/claude-opus-4-7)
+
 ### Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors
 
 [Read more](https://www.anthropic.com/news/narasimhan-board)
@@ -61,7 +67,3 @@ These updates are available now for Claude Code users.
 ### Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute
 
 [Read more](https://www.anthropic.com/news/google-broadcom-partnership-compute)
-
-### Australian government and Anthropic sign MOU for AI safety and research
-
-[Read more](https://www.anthropic.com/news/australia-MOU)

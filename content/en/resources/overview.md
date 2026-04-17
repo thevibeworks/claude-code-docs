@@ -3,8 +3,8 @@
   </h2>
   
 
-    <Card title="Claude Opus 4.6 System Card" icon="file" href="https://www.anthropic.com/claude-opus-4-6-system-card">
-      Detailed documentation of Claude Opus 4.6.
+    <Card title="Claude Opus 4.7 System Card" icon="file" href="https://www.anthropic.com/claude-opus-4-7-system-card">
+      Detailed documentation of Claude Opus 4.7.
     </Card>
 
     <Card title="Claude Sonnet 4.6 System Card" icon="file" href="https://www.anthropic.com/claude-sonnet-4-6-system-card">
