@@ -46,6 +46,12 @@ To explore how Claude for Enterprise can transform your organization's productiv
 
 ## Related content
 
+### Introducing Claude Design by Anthropic Labs
+
+Today, we’re launching Claude Design, a new Anthropic Labs product that lets you collaborate with Claude to create polished visual work like designs, prototypes, slides, one-pagers, and more.
+
+[Read more](https://www.anthropic.com/news/claude-design-anthropic-labs)
+
 ### Introducing Claude Opus 4.7
 
 Our latest Opus model brings stronger performance across coding, agents, vision, and multi-step tasks, with greater thoroughness and consistency on the work that matters most.
@@ -55,7 +61,3 @@ Our latest Opus model brings stronger performance across coding, agents, vision,
 ### Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors
 
 [Read more](https://www.anthropic.com/news/narasimhan-board)
-
-### Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute
-
-[Read more](https://www.anthropic.com/news/google-broadcom-partnership-compute)
