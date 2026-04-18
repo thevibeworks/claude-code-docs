@@ -1,12 +1,12 @@
 {
   "name": "@anthropic-ai/claude-code",
-  "version": "2.1.112",
+  "version": "2.1.114",
   "author": {
     "name": "Anthropic",
     "email": "support@anthropic.com"
   },
   "license": "SEE LICENSE IN README.md",
-  "_id": "@anthropic-ai/claude-code@2.1.112",
+  "_id": "@anthropic-ai/claude-code@2.1.114",
   "maintainers": [
     {
       "name": "zak-anthropic",
@@ -70,35 +70,36 @@
     "url": "https://github.com/anthropics/claude-code/issues"
   },
   "bin": {
-    "claude": "cli.js"
+    "claude": "bin/claude.exe"
   },
   "dist": {
-    "shasum": "318f43288d7056ae1eae9a23f4b7531ef3c67d31",
-    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.112.tgz",
-    "fileCount": 20,
-    "integrity": "sha512-9FUgJ0EOvILyhIqxFKNVliebiUjL68dwpEW3eGSSe0vkVDJ1c5qMDNWc22gW3zkD7zRAqtfQPSGv0t4vMM2DPA==",
+    "shasum": "42f8b092074c60ad2b2724a12bc37b49661fdb7b",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.114.tgz",
+    "fileCount": 7,
+    "integrity": "sha512-RPhw1ClFxzOESQdI+bXYp35IXlhS/bi75VIajQgrg11qH10k5jiYZ+ivz1dTN6rbeii+zaCuhjpMzKfdtN/JTw==",
     "signatures": [
       {
-        "sig": "MEUCIQDNq+V7L+Ux4Tqk1/LPdRRGFISaAt8swegEx6TzM4T+cAIgaIK07ApqnGOyp4GGh7oejfKBxqufKt5pL6R7l8cU1RU=",
+        "sig": "MEUCIQDDUct0DwoTDULvyS/d+FXylAJuQjO+y2covAfO1MnXlAIgWBNn35SrCIUWS1bxNZI8ycsHOcWrPXc7AZbygvpwlEg=",
         "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
       }
     ],
-    "unpackedSize": 49328681
+    "unpackedSize": 132292
   },
   "type": "module",
-  "_from": "file:/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.112.tgz",
+  "_from": "file:/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.114.tgz",
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
-    "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease see the release workflow documentation to publish this package.'); process.exit(1); }\""
+    "prepare": "node -e \"if (!process.env.AUTHORIZED) { console.error('ERROR: Direct publishing is not allowed.\\nPlease see the release workflow documentation to publish this package.'); process.exit(1); }\"",
+    "postinstall": "node install.cjs"
   },
   "_npmUser": {
     "name": "wolffiex",
     "email": "wolffiex@anthropic.com"
   },
-  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.112.tgz",
-  "_integrity": "sha512-9FUgJ0EOvILyhIqxFKNVliebiUjL68dwpEW3eGSSe0vkVDJ1c5qMDNWc22gW3zkD7zRAqtfQPSGv0t4vMM2DPA==",
+  "_resolved": "/home/runner/work/claude-cli-internal/claude-cli-internal/build-external/anthropic-ai-claude-code-2.1.114.tgz",
+  "_integrity": "sha512-RPhw1ClFxzOESQdI+bXYp35IXlhS/bi75VIajQgrg11qH10k5jiYZ+ivz1dTN6rbeii+zaCuhjpMzKfdtN/JTw==",
   "_npmVersion": "10.8.2",
   "description": "Use Claude, Anthropic's AI assistant, right from your terminal. Claude can understand your codebase, edit files, run terminal commands, and handle entire workflows for you.",
   "directories": {},
@@ -107,18 +108,17 @@
   "_hasShrinkwrap": false,
   "readmeFilename": "README.md",
   "optionalDependencies": {
-    "@img/sharp-linux-arm": "^0.34.2",
-    "@img/sharp-linux-x64": "^0.34.2",
-    "@img/sharp-win32-x64": "^0.34.2",
-    "@img/sharp-darwin-x64": "^0.34.2",
-    "@img/sharp-linux-arm64": "^0.34.2",
-    "@img/sharp-win32-arm64": "^0.34.2",
-    "@img/sharp-darwin-arm64": "^0.34.2",
-    "@img/sharp-linuxmusl-x64": "^0.34.2",
-    "@img/sharp-linuxmusl-arm64": "^0.34.2"
+    "@anthropic-ai/claude-code-linux-x64": "2.1.114",
+    "@anthropic-ai/claude-code-win32-x64": "2.1.114",
+    "@anthropic-ai/claude-code-darwin-x64": "2.1.114",
+    "@anthropic-ai/claude-code-linux-arm64": "2.1.114",
+    "@anthropic-ai/claude-code-win32-arm64": "2.1.114",
+    "@anthropic-ai/claude-code-darwin-arm64": "2.1.114",
+    "@anthropic-ai/claude-code-linux-x64-musl": "2.1.114",
+    "@anthropic-ai/claude-code-linux-arm64-musl": "2.1.114"
   },
   "_npmOperationalInternal": {
-    "tmp": "tmp/claude-code_2.1.112_1776367425756_0.921478538238917",
+    "tmp": "tmp/claude-code_2.1.114_1776468380415_0.8241303974706065",
     "host": "s3://npm-registry-packages-npm-production"
   }
 }
