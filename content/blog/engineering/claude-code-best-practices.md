@@ -477,7 +477,7 @@ Claude Code automatically compacts conversation history when you approach contex
 *   For more control, run `/compact <instructions>`, like `/compact Focus on the API changes`
 *   To compact only part of the conversation, use `Esc + Esc` or `/rewind`, select a message checkpoint, and choose **Summarize from here**. This condenses messages from that point forward while keeping earlier context intact.
 *   Customize compaction behavior in CLAUDE.md with instructions like `"When compacting, always preserve the full list of modified files and any test commands"` to ensure critical context survives summarization
-*   For quick questions that don’t need to stay in context, use [`/btw`](https://www.anthropic.com/docs/en/interactive-mode#side-questions-with-btw). The answer appears in a dismissible overlay and never enters conversation history, so you can check a detail without growing context.
+*   For quick questions that don’t need to stay in context, use [`/btw`](https://www.anthropic.com/docs/en/interactive-mode#side-questions-with-%2Fbtw). The answer appears in a dismissible overlay and never enters conversation history, so you can check a detail without growing context.
 
 ### [​](https://www.anthropic.com/engineering/claude-code-best-practices#use-subagents-for-investigation)
 
