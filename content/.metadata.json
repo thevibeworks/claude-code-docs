@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0",
-    "fetch_date": "2026-04-22T03:55:29.912924Z"
+    "fetch_date": "2026-04-23T04:00:21.777341Z"
   },
   "items": [
     {
@@ -288,8 +288,8 @@
       "url": "https://platform.claude.com/docs/en/build-with-claude/vision",
       "status": "success",
       "path": "en/build-with-claude/vision.md",
-      "sha256": "6151531f867b4534f42b105d982cb8b42d40d0270fd6ef5349f36aa3d9f82bbc",
-      "size": 52065
+      "sha256": "06d79f8c250acfbc2b7758c04e53fd5b169fd2d82126678836c8bc373ea67f09",
+      "size": 52558
     },
     {
       "url": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview",
@@ -1107,8 +1107,8 @@
       "url": "https://platform.claude.com/docs/en/api/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/beta/agents/delete#delete.md",
-      "sha256": "48d432df190628ab9a1afe88539a456d32981d93712165e22435df55f8ab6c61",
-      "size": 369974
+      "sha256": "883deb452b0787a8b292c5dca080749ff5661ddd463cb0f4bd2a796d6e7154d8",
+      "size": 371778
     },
     {
       "url": "https://platform.claude.com/docs/en/api/beta/agents/versions",
@@ -1793,8 +1793,8 @@
       "url": "https://platform.claude.com/docs/en/api/typescript/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/typescript/beta/agents/delete#delete.md",
-      "sha256": "22b5264f91c991c0486031b6d57b7980149c1e23aa0e67856b78f253eb4a2a47",
-      "size": 370033
+      "sha256": "6d0756093583a2cddb4365c69249575344d2e8cb7f9f84fc9a1b27e5bb99427e",
+      "size": 371837
     },
     {
       "url": "https://platform.claude.com/docs/en/api/typescript/beta/agents/versions",
@@ -2479,8 +2479,8 @@
       "url": "https://platform.claude.com/docs/en/api/python/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/python/beta/agents/delete#delete.md",
-      "sha256": "7c652ff983ad6fe8536930625a68f0abe785a6621e66314cc79283371b286c8c",
-      "size": 370013
+      "sha256": "908157632dcd3f959a2a96e759735c55f823b721eb07c003cd6f88086122dacf",
+      "size": 371817
     },
     {
       "url": "https://platform.claude.com/docs/en/api/python/beta/agents/versions",
@@ -3165,8 +3165,8 @@
       "url": "https://platform.claude.com/docs/en/api/java/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/java/beta/agents/delete#delete.md",
-      "sha256": "cb3eb778fda0fb318eed597c12cfd1b2718e2ce86a6b23077ae1d4c9cb090d67",
-      "size": 370003
+      "sha256": "1cad5a2f6356e4f10ba25ed6ea8f7f052302e7c76a9e3698ea4624f47cafe467",
+      "size": 371807
     },
     {
       "url": "https://platform.claude.com/docs/en/api/java/beta/agents/versions",
@@ -3851,8 +3851,8 @@
       "url": "https://platform.claude.com/docs/en/api/go/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/go/beta/agents/delete#delete.md",
-      "sha256": "d1b49180cd152bfdfc20bbf6a7702c1a517bf62823ba716137e2ddb7219e7a96",
-      "size": 369993
+      "sha256": "0f5a996402ed4c39c37e92973c7243ebef0c12fd1cdbe66969c8d5fcb0ddda8e",
+      "size": 371797
     },
     {
       "url": "https://platform.claude.com/docs/en/api/go/beta/agents/versions",
@@ -4537,8 +4537,8 @@
       "url": "https://platform.claude.com/docs/en/api/ruby/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/ruby/beta/agents/delete#delete.md",
-      "sha256": "56b7c6ed1e633ecc4424bb246d857cd49f9c78eaedaff95c3350d844cf0482a6",
-      "size": 370003
+      "sha256": "5cd6bd13a8bd5e3cfef87e2f1e528ea007f72a0175872a0ca0d6e3fa29fb09fc",
+      "size": 371807
     },
     {
       "url": "https://platform.claude.com/docs/en/api/ruby/beta/agents/versions",
@@ -4978,687 +4978,687 @@
       "url": "https://platform.claude.com/docs/en/api/terraform/completions",
       "status": "success",
       "path": "en/api/terraform/completions.md",
-      "sha256": "c636d62fc4977f824d62aad0856191327cb2f71bbabf4ac9ab98ac005fd38873",
-      "size": 330774
+      "sha256": "0539d9cab6ea7c4b2ccfd105efae885632ae5ec0f42f39775c94eff157a0ef1d",
+      "size": 332578
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/completions/create",
       "status": "success",
       "path": "en/api/terraform/completions/create.md",
-      "sha256": "c6945186d5f91c9e8d54da438011bcfdd3919db0f5c61571dde65f1e9784f408",
-      "size": 330799
+      "sha256": "e701209b49af053d64597bee113418a46f4be19dff15830df851cc9f641c1631",
+      "size": 332603
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages",
       "status": "success",
       "path": "en/api/terraform/messages.md",
-      "sha256": "42f32d8b8970947fba67325a4515286aab7c9e71b90ab743c062df3df4791f82",
-      "size": 330765
+      "sha256": "32137df881710fb5379ad450e6d9573cd534a5f7be3dd98b9e022a669de624b9",
+      "size": 332569
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/create",
       "status": "success",
       "path": "en/api/terraform/messages/create.md",
-      "sha256": "dc34e74f8feb96e9787ebfb0f7785d8cb2260651fea245a410d669073b469dd5",
-      "size": 330790
+      "sha256": "2491e273547b1771b080a7a0f527cd0e1d9881d2a3dd9efdc01f424499af6a2f",
+      "size": 332594
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/count_tokens",
       "status": "success",
       "path": "en/api/terraform/messages/count_tokens.md",
-      "sha256": "ff857e42841a87d168c739e117027afdf07e4c2814f95fca4366f1b794817279",
-      "size": 330808
+      "sha256": "76786af24f2abf5f6235fe13e4682878454b8e7fb5d1d8c8ecd0dc5b75ecf492",
+      "size": 332612
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches",
       "status": "success",
       "path": "en/api/terraform/messages/batches.md",
-      "sha256": "5967b2eff551e8ca99f308cc94f502c0686c68bc40a12a8d9d4e378b0912edb1",
-      "size": 330793
+      "sha256": "41632b75d3281656f15058b67fd668cf3dc0740f3325d947f43d0f969ac4f6a9",
+      "size": 332597
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/create",
       "status": "success",
       "path": "en/api/terraform/messages/batches/create.md",
-      "sha256": "13ca74b61e254817d8e5e428dffc9a7f4df616a0b2a5ff56fa15edeea5955e6a",
-      "size": 330818
+      "sha256": "394e55d645d5b8cb3540249d7589a0d2d76e6882fdd843113f6bdc946f7d6648",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/terraform/messages/batches/retrieve.md",
-      "sha256": "45255fb751a95133d12a7e66205824aa502e5de29fd66c5396d6812a668520ec",
-      "size": 330824
+      "sha256": "20e9bcfaf4ad991c9e5dbe862af53e7c83e2a714d1b2efcf979b4af3d525c9ff",
+      "size": 332628
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/list",
       "status": "success",
       "path": "en/api/terraform/messages/batches/list.md",
-      "sha256": "c531c2914ac7dd202e08036ebd1e6f83afb06de79ea698952202b7dfac8cf7b3",
-      "size": 330812
+      "sha256": "137dfb09d061da5f0a62a68a19c9660bd0b9f11e14a59a60adc23863c6b33d01",
+      "size": 332616
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/cancel",
       "status": "success",
       "path": "en/api/terraform/messages/batches/cancel.md",
-      "sha256": "c7ba2bfb7b8a4cf73fdc99f46c47f25578958c4c0eb845175ff1d98faf7e039d",
-      "size": 330818
+      "sha256": "346c767a0d6712afaa6cb37a773607215890f6a5e3156dbe79bfeb86cac8a097",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/delete",
       "status": "success",
       "path": "en/api/terraform/messages/batches/delete.md",
-      "sha256": "a9a5ea993dae9dbf07375d4b91cf570a19a69fd9d53a17eee56468b7c050b87f",
-      "size": 330818
+      "sha256": "ddfc0e100f2e43ee3cc9060a9559d12103ddfeb9da1a53f5dfde225fe588c5ef",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/messages/batches/results",
       "status": "success",
       "path": "en/api/terraform/messages/batches/results.md",
-      "sha256": "0f4f9273c5d9d11b598c23800166557f3202d2d8e80c421caca4f3de98d7d483",
-      "size": 330821
+      "sha256": "261750f99a20858ef6ede4de1128ef9079a538a19fc4856a62f366a30bf26e73",
+      "size": 332625
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/models",
       "status": "success",
       "path": "en/api/terraform/models.md",
-      "sha256": "dcaf9d915d4c8db53d79377aaf0d70a9a69337e73d3c627fbd5ea47fd41245c1",
-      "size": 330759
+      "sha256": "4e3b76839fcbe00e7919d6ba08b3f635dd6b4fd50028a2a5801295cf3fbdb669",
+      "size": 332563
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/models/list",
       "status": "success",
       "path": "en/api/terraform/models/list.md",
-      "sha256": "2c00709bede20e00c9dd9420c16f79295e066e9187e5386e2a0eb564e68d09ac",
-      "size": 330778
+      "sha256": "e4118068d61db078d7d72ea7d983ed8e33528b83490044d92f1c7ffe37329131",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/models/retrieve",
       "status": "success",
       "path": "en/api/terraform/models/retrieve.md",
-      "sha256": "78f869a298f9116677c6dbc3375e62a83206827a21ba36de92e0b07a60d8b3d7",
-      "size": 330790
+      "sha256": "51864602c92292fde227abefd275dfeae3399070e2fc3e1183c3a84cd4969e8a",
+      "size": 332594
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta",
       "status": "success",
       "path": "en/api/terraform/beta.md",
-      "sha256": "fd86a0871f3659931291f0082f8e85f1680fe6d85b6c228c6bcddf1678a58c50",
-      "size": 330753
+      "sha256": "948159157fada516c7dda2d110594f7f4113070afe9a6f85ce18acb5147134c8",
+      "size": 332557
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/models",
       "status": "success",
       "path": "en/api/terraform/beta/models.md",
-      "sha256": "db4e6e0f3ae108e4fdbbb18dad2205674ce56f57487475d9b68e8591610fba82",
-      "size": 330778
+      "sha256": "b345f7571f2452eea443265f9e8c975b27214330d929d3e46d970b36f794e5d1",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/models/list",
       "status": "success",
       "path": "en/api/terraform/beta/models/list.md",
-      "sha256": "36d691f5d83941e616af0f3e1499e933020c54daab7ee160021760bd0f9e280e",
-      "size": 330797
+      "sha256": "8d79bb6af2d219b6500eedb61fad7706ede52b25f3fb49ec83258ad64ad0f8e3",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/models/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/models/retrieve.md",
-      "sha256": "8c87349f284594d6851a2520e60a93384bbf8a564b1f06b45dcfef8761160826",
-      "size": 330809
+      "sha256": "07d017bdbcac9fe08b854d43f71d474195dbc3a89a35fa8ae55f180a29aed81a",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages",
       "status": "success",
       "path": "en/api/terraform/beta/messages.md",
-      "sha256": "5406010d9bd4e97800b34e0263888507f56f68e1439a951767d66050ab29a195",
-      "size": 330784
+      "sha256": "a6eed744d0dd969878a3a150616890374a836da67573306ebc1b6c130b4da4b2",
+      "size": 332588
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/create",
       "status": "success",
       "path": "en/api/terraform/beta/messages/create.md",
-      "sha256": "ac9d043b983dffd7f9aac5fc2d461a1d6de8d0f9b397a411373ad7bf9a86f5ba",
-      "size": 330809
+      "sha256": "a02d87cf66876a47632bad5b70d5443cdab19fec6bdf0a0e1483c5465e7a8938",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/count_tokens",
       "status": "success",
       "path": "en/api/terraform/beta/messages/count_tokens.md",
-      "sha256": "9dacd5c416f5816584165961be6137b58ecda1ce6ccf2aae38f455fd7f126bee",
-      "size": 330827
+      "sha256": "987c7de7a793bb740acde5ab4fd0c90d7f1bc52fe599dc7d85e9df8571f73a6e",
+      "size": 332631
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches.md",
-      "sha256": "87053faf7638fc89a943609fe5303cf96277443c78df6c800d16aebca06e76ba",
-      "size": 330812
+      "sha256": "af90341d963fe040ca49041c447bfdbe771216639e335f42abf6d060e2ddbfa9",
+      "size": 332616
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/create",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/create.md",
-      "sha256": "ede74d5904cb002895fcb970736f5d162eddcd7c34ea50a0ce31a58c794b343c",
-      "size": 330837
+      "sha256": "c53f8466f8f4519a0f3b0ddafdf65f26c892695328360690233aeb69639c8deb",
+      "size": 332641
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/retrieve.md",
-      "sha256": "8bf08c3f09bdce13aafa637cfe30c3b65848c25b5ecba7a032eb6b88b971d4bd",
-      "size": 330843
+      "sha256": "d71aee1ebccfa0c0828f47411eec22470a10ae503db1e041e1b3995d6991e155",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/list",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/list.md",
-      "sha256": "928fc4bbdb58b9b1aa274e05daa2f8e3249fb73a404b2148f1aadbc5eda93a98",
-      "size": 330831
+      "sha256": "402f021fa753b1f0f8cfc6ae39f8133b7f5ccf6d6eacbb9f698419ccbdc33f04",
+      "size": 332635
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/cancel",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/cancel.md",
-      "sha256": "7a45cbd087764d95ff0a4b8bf9d55acadf402a0924dd3ebfc0db98425d68fea2",
-      "size": 330837
+      "sha256": "b04115648c6ec72dce037366e3c047e887022f9406a1b54ea579286816f71ea4",
+      "size": 332641
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/delete",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/delete.md",
-      "sha256": "869549f00a040992feaa55f930735901396f7e1d8686fea32d0384e31fdf28ee",
-      "size": 330837
+      "sha256": "ae4ee46acfca32d36164a1ae6acddc569994d45ef6abff2fbc57f91e570ffd10",
+      "size": 332641
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/messages/batches/results",
       "status": "success",
       "path": "en/api/terraform/beta/messages/batches/results.md",
-      "sha256": "03fbd6f549c6cde69bd74bada8cca16484b8639c3f003cd9cb833159d91c52e7",
-      "size": 330840
+      "sha256": "3ba0cd2bc803f723389d7c2deb27a26014eb85161b63c873f0566a2cb8c4f3fb",
+      "size": 332644
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents",
       "status": "success",
       "path": "en/api/terraform/beta/agents.md",
-      "sha256": "a47a982660fa8cc540c2d70b6d6707c1aa15bfc2f006713ee153054425ff7a05",
-      "size": 330778
+      "sha256": "e0d6a0c0bf4eb081b61a04223d6b589599861d884ebcda1d5e61d50761b6f3b1",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/create",
       "status": "success",
       "path": "en/api/terraform/beta/agents/create.md",
-      "sha256": "c4ecc1e7f6d0f2a5d4b5772ff32ed7b4eb083d78fbb639f084730dc87cb7cf13",
-      "size": 330803
+      "sha256": "e88197b40d850870b71d63918bfbe09da745a7f7dc0c59f5faa557f61dec8e05",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/list",
       "status": "success",
       "path": "en/api/terraform/beta/agents/list.md",
-      "sha256": "c64741218ed15754100f4011a8c44dcfebd9864e04a24fee69f8f02f481bd7a0",
-      "size": 330797
+      "sha256": "3099aa2f3023b33fa5b43eba4c1e34b0d98d957f6202adb80b79f9dfa37163cd",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/agents/retrieve.md",
-      "sha256": "0674081b7825ea05c3e7bf4b3f053da82d919e2ddebfa751ce13bc5948f4d774",
-      "size": 330809
+      "sha256": "7ff3f35cf70dfa3d8a8559e7061c94ba164ae2fcedd5d41e3a87a1c53712fd9f",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/update",
       "status": "success",
       "path": "en/api/terraform/beta/agents/update.md",
-      "sha256": "3db70294c14c5cf14b7636ffc367fd52293d1a4b527ce2a802a8d4278f76d9cb",
-      "size": 330803
+      "sha256": "044e747a70064863e5ca57e643823a5b052466081fd7dea7b318892d7fab286e",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/archive",
       "status": "success",
       "path": "en/api/terraform/beta/agents/archive.md",
-      "sha256": "84fd9e8e9ca5a5aeed317bcdb9f93c175680363f2f79ac1749c1ac0f7eaf4e8e",
-      "size": 330806
+      "sha256": "1a2f8c67a0570350b51d2c2f36d12e57212231667aba19578d717104abdccde5",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/terraform/beta/agents/delete#delete.md",
-      "sha256": "7902649bc7ec679b561424ea2513c7d1bf2ed6e05f111521d557908f45634d5c",
-      "size": 370028
+      "sha256": "b02ab9ec4ce76bc357720afaecfb340a7f6678a2a8a42e750822e24677de71bc",
+      "size": 371832
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/versions",
       "status": "success",
       "path": "en/api/terraform/beta/agents/versions.md",
-      "sha256": "3ea3d7ebe25ed0d1fe6ba5ab0414762771c980308c33b5034b623a6f6008a936",
-      "size": 330809
+      "sha256": "e9707d26e055712dc1cbd310454cd372130376aed88974c013042558f9cc50c6",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/agents/versions/list",
       "status": "success",
       "path": "en/api/terraform/beta/agents/versions/list.md",
-      "sha256": "5899e2ba66d8e2b3575131399117e3572389b9423bfd3c1a05b8dd0e73222003",
-      "size": 330828
+      "sha256": "3f81ed7b1030c7b13fbdc5e7c204fd4f7268b5f823da810b70dfad1d7556fbbd",
+      "size": 332632
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments",
       "status": "success",
       "path": "en/api/terraform/beta/environments.md",
-      "sha256": "3ccb1f33e1f03b5cf003656d07df4bed62f83e1d329a274b9afb9e8d4681d460",
-      "size": 330796
+      "sha256": "10c2c408bb5e4e7302461834a756fca10061069a35b94cf8738709ce4c383972",
+      "size": 332600
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/create",
       "status": "success",
       "path": "en/api/terraform/beta/environments/create.md",
-      "sha256": "9c9d99adffd5c7a4fe4d5121e02616540dcb46f316d379e5fb4c554d1124473c",
-      "size": 330821
+      "sha256": "a41aae1e4518e364263005d1faa538a2fea7f1073fc98bcc8509d61cebfaf34a",
+      "size": 332625
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/list",
       "status": "success",
       "path": "en/api/terraform/beta/environments/list.md",
-      "sha256": "b69f88c2b48076fad7ce1dbfa8bac841b9fcd979af97b3f8593ca3d472595949",
-      "size": 330815
+      "sha256": "1410318311f5a861ad613e89b51e9c788dfd1a97ab648595cbe7506cbc6b9d66",
+      "size": 332619
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/environments/retrieve.md",
-      "sha256": "634a28826d7ca08555866dbf4248d06e796c7343212bf70fd93398ec9a8ac30f",
-      "size": 330827
+      "sha256": "adcf37c59181001334cd2b3b3532a9a40bf34c77b6f6beebe9437f9555e376f6",
+      "size": 332631
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/update",
       "status": "success",
       "path": "en/api/terraform/beta/environments/update.md",
-      "sha256": "61ded2b4c859456c4bd30ac906d1d10c25057bd929e385c1ac710b3487b3d47c",
-      "size": 330821
+      "sha256": "dce8d368c7546d6fdd8147d9912e83dcd5b5bff2c23abd176ac2e440b8503797",
+      "size": 332625
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/delete",
       "status": "success",
       "path": "en/api/terraform/beta/environments/delete.md",
-      "sha256": "ab0fe186e71e5831243d59a0da4570ba890ce367fd52d1a5db962f90d7c1eeb1",
-      "size": 330821
+      "sha256": "146c26e7746eff3329c0d585d374fafd58d31f4381b0f36a20113a0ca3973c7d",
+      "size": 332625
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/environments/archive",
       "status": "success",
       "path": "en/api/terraform/beta/environments/archive.md",
-      "sha256": "5cd1686143f507ee91af80f098edc78beae03b0a0f7718139512dd373597ad83",
-      "size": 330824
+      "sha256": "ed236ebdc604d58e95def0aaaf14968039eaf0505bdac23cd65990a14afee7e7",
+      "size": 332628
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions",
       "status": "success",
       "path": "en/api/terraform/beta/sessions.md",
-      "sha256": "6f9b06666414e1927a735612dc2d00fa6ecb0a14fc4069e7b2e3b71ee5e53475",
-      "size": 330784
+      "sha256": "58cd6a8ec1b1a7fbfa4bf21455afca5552a1c365f489ebdb5e7253fd2aac6e77",
+      "size": 332588
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/create",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/create.md",
-      "sha256": "dcf7ae0384822ac504dd4128a9cd260971c0340b1e0b2f61fa02c68f073eaf37",
-      "size": 330809
+      "sha256": "8a6b76b72040fecb61c43146a075b76513a34f67da10f2e3b885d22b5e5dfc3f",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/list",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/list.md",
-      "sha256": "d8b042ed5736b9fd15ff2238249db4a23f31d08a386ff421373c50be268353df",
-      "size": 330803
+      "sha256": "ac3a2e6e66b7c6cabf0b1711383079a430f515594fd6dca4586978b50768336a",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/retrieve.md",
-      "sha256": "9560a780c55001dc25dd7388178162ef0335c88361d10d1ae185b593ef87a35d",
-      "size": 330815
+      "sha256": "c0c0d47c8dfa29f025ac5d3071b147b20afd8cb1c01ea06287ecbc319376e9e7",
+      "size": 332619
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/update",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/update.md",
-      "sha256": "b9e4fdf6c1904865b10daa8e8f82980d538a65722efd43cd342eda4cfc29ac0f",
-      "size": 330809
+      "sha256": "a2d50b14824d2c2bfbdc83cce0238a7d804cd352cb57c56bbc1ee79b09400111",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/delete",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/delete.md",
-      "sha256": "c2f1083bfb67ba88c840bf9a7a4d5b70313860d459eb009e1839837359777e39",
-      "size": 330809
+      "sha256": "e6e2f7eb397fd26271ec6f8fc5f2dba7920a96d9dffa617f56861c251dddf316",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/archive",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/archive.md",
-      "sha256": "3a99f25ef6275d9480e2a12248bbf87af659e1e2dbbe63c6279b04b5d32a4df2",
-      "size": 330812
+      "sha256": "0b611fc8956b6e75072f573f3bfb4ed8eb03e70d25dbb10fa232e5b8f946ffdc",
+      "size": 332616
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/events",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/events.md",
-      "sha256": "3b986db1a00ed1d6ba536f4010effb692bf8cc7f32881a69c0116ad90d389d78",
-      "size": 330809
+      "sha256": "8967c2ca873ca0c298f97e8a80169d2931eddd042294a46e9e0ef65757cc5169",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/events/list",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/events/list.md",
-      "sha256": "720423c88fed5cc181149ff84f702398df63c407ab0c59c0f1bb80ae3b066fed",
-      "size": 330828
+      "sha256": "1338fca89e8cb1fcaa67502093916f9ad2951dc4d54afe20bff416ef28c69b88",
+      "size": 332632
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/events/send",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/events/send.md",
-      "sha256": "32c09ea6ff759e95c7b6776a8e459e5c3db52827e25513c6aa354ed961b42525",
-      "size": 330828
+      "sha256": "7b73b2d762b0fd730a9dc88196f3424128933c23da477f0ad7dd9a4d38a0a499",
+      "size": 332632
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/events/stream",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/events/stream.md",
-      "sha256": "406a0c0663c83bded43aea00f070cdfa003206e8e64d4a359864637076494156",
-      "size": 330834
+      "sha256": "75f039f4be1aba9365ca5e11d0bb50342fb17ff453501a691f22e5299a3fcc28",
+      "size": 332638
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources.md",
-      "sha256": "89852ab55ef06dbe5b74fd84a27312c39cdd4d9226e71d8e5c78f4a40b3054e5",
-      "size": 330818
+      "sha256": "816e368424715834465cf076ab251ce6436c2198a8e0282f54617b067625daf5",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources/add",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources/add.md",
-      "sha256": "d07601411815ead405d2a025ff523d3fc3da38d473a8a6e6c83fa67318103db9",
-      "size": 330834
+      "sha256": "01985a0d07bdc6c38b6e5b9d0e346d3189c6d22cc595e348a582dab0b6d659e6",
+      "size": 332638
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources/list",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources/list.md",
-      "sha256": "87e2b95c70f08b14f21856fc9ff902abd4378c6e158ad6d70c728ce541d7be30",
-      "size": 330837
+      "sha256": "f726f084bb91760cb4141f56666dd7aaf44edb1dd1be2c45ab51b8c9dd2940ff",
+      "size": 332641
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources/retrieve.md",
-      "sha256": "66fbe897adf171ddb821ee9e3304c9bacede0a5a2f44c1a8128e0025fdb9d8d5",
-      "size": 330849
+      "sha256": "244770f2a3bd630e4752fab5ba4c5baa1fc57364ed8b20dacfba99bb05413308",
+      "size": 332653
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources/update",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources/update.md",
-      "sha256": "e1a208d0e0411f915909f38eb46b713d5a4f746ce742a1ed53c91ea4fb241e89",
-      "size": 330843
+      "sha256": "952819074ff46c562a68c027f78ad54409a87a512db2e55e25a4fe362b177b27",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/sessions/resources/delete",
       "status": "success",
       "path": "en/api/terraform/beta/sessions/resources/delete.md",
-      "sha256": "acaa33d39f9481898cb752d808ff8985ad1abb5727b99593fa781a24747ddfd2",
-      "size": 330843
+      "sha256": "ffe9f4a86ae34509c2cbacc1baf8b90ff1feeddf9174c80c68fd7dfad47a1e4d",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults",
       "status": "success",
       "path": "en/api/terraform/beta/vaults.md",
-      "sha256": "665ed9e5d996b50d89d49bbbbb6a3a7e14fa6a286d6fcf52323779cb9adf67b4",
-      "size": 330778
+      "sha256": "c7aff55481d28f98a315b2b7a1aec4d17b33fd0b5d8fa12d1b81f178e97991b7",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/create",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/create.md",
-      "sha256": "52b60a4a3c5bb5d9769a2b0215f5c6031fac4cf7b57a3184698a6eaf1b145d3e",
-      "size": 330803
+      "sha256": "d1516a892c868a800b37d5fd287cfb087d77fb03cf5059f095d0e4ae0a3c84ab",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/list",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/list.md",
-      "sha256": "c68f228c48f46888daad8f0efd69f5e6dbe46a17419fe3323ec950b0bcd736c0",
-      "size": 330797
+      "sha256": "a1f03cdb445c5c7a8266332803c8ae80ca09692f7583745a6512070d1f32ae0f",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/retrieve.md",
-      "sha256": "c4a846910d6615b03d311afa2eb259ea68645410f87bbb4e113ab30e6721e0c3",
-      "size": 330809
+      "sha256": "c9e8f44cc1ed85d346413f444af7c6db91493dfd9370e21f558ecc2e9cb71385",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/update",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/update.md",
-      "sha256": "b99d4db62202a18075c9f645a4a57a556d8764fe100e784d0935a577d56edb4c",
-      "size": 330803
+      "sha256": "30be3e99c9bb82286a59a05821de2df8696dc05f1e160e5413faf73305974d18",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/delete",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/delete.md",
-      "sha256": "ed1a81ba54c39b51bb8777f1aabca5bbf3653dee3d6bd1e00b0a9d68b198b529",
-      "size": 330803
+      "sha256": "ee176555aa2fad883afe417b4fc852871482ce559abec154e818599e73c59694",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/archive",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/archive.md",
-      "sha256": "9378176f339c99a0582fb1df73cb551e32f80ee27bf8eac157e704b83dfe90b8",
-      "size": 330806
+      "sha256": "d765324d7d33fbc8f20942f83eb8b93adc9979d922f815ef6d6c4ce9c9e5a643",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials.md",
-      "sha256": "39a79518c9541c74543663fc37c9c8a4bd60d9376b82f45084ce4e612d95f2d4",
-      "size": 330818
+      "sha256": "c44d1745af4188c65c0e80184cb9ab111b635d9a6bd702c350b866ed1137b633",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/create",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/create.md",
-      "sha256": "0e0fc7d9c30a206d16a505c822811a7dd17bde24b338364ce7746cd6787a2ef7",
-      "size": 330843
+      "sha256": "8474b83591dd447bd4e933e5e7e98019d96e5d7c981e4ff3d4b808b04471f211",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/list",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/list.md",
-      "sha256": "8846a20fe91e241d03999bec27ef00b1c7b2c10c09fa4a5efec9ba84eadabc40",
-      "size": 330837
+      "sha256": "b8f5939543e1ad6fd9ae50806ffc150c15906779a98297bd63e5674912b0c2bb",
+      "size": 332641
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/retrieve.md",
-      "sha256": "08cb0158bc33999240b635f058f661794faad38313d56b76671211da5e51bdde",
-      "size": 330849
+      "sha256": "720fafc7b663f325249aa4d14017dc898249e7f0637ec9f72b3af904a3cdd9fe",
+      "size": 332653
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/update",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/update.md",
-      "sha256": "b7bf46dd9fd002a9ddcff837a8af85f7ebbd83f63d168abbfc58c5774b47011d",
-      "size": 330843
+      "sha256": "701a6169ae99a390e6e44ecf6401c17a32448e8222c9c1a3cd5ab34b03fa5cae",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/delete",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/delete.md",
-      "sha256": "a375bd0ab70f4a755e35fd37011b0461dff61d0c450163b1e47c3580cbb8bda4",
-      "size": 330843
+      "sha256": "de71c8aff666b2a303cd52d3bebeca876d7bf076f79fa0d0459551c6a9e0bdbd",
+      "size": 332647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/vaults/credentials/archive",
       "status": "success",
       "path": "en/api/terraform/beta/vaults/credentials/archive.md",
-      "sha256": "9cf385a1957bbd774e55e1402c8b6f9427ae0054d3120f410c8f00530638c0d4",
-      "size": 330846
+      "sha256": "731c5d79c6b8d1f7ff6de67ad20e507983308ac08cd5832784f782d12f5da331",
+      "size": 332650
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files",
       "status": "success",
       "path": "en/api/terraform/beta/files.md",
-      "sha256": "f739edfcd66bf6519240e17f2a200da0aed8dc0d386d0645d0cdd77fb4aec368",
-      "size": 330775
+      "sha256": "cc3e80613b69b94dabea8a16ac1c902ca30c83e1efc3b816eac3d88658f27587",
+      "size": 332579
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files/upload",
       "status": "success",
       "path": "en/api/terraform/beta/files/upload.md",
-      "sha256": "891f4a2cee7497c40c1485ce85d27ceec5790e1cd1c8393eb8b4591ccf898142",
-      "size": 330800
+      "sha256": "8443e6a713907ad30a43f6ed8e719720dbee2923f1c043ec691454301f5990cb",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files/list",
       "status": "success",
       "path": "en/api/terraform/beta/files/list.md",
-      "sha256": "6b27330497e90d1c8c51306d8ad7f79b9fb1482ada7eea49ad61c4f3ebcb6ef3",
-      "size": 330794
+      "sha256": "baf40469e13de1e819508de76feb37150e2647dbb0d2d1df1daed6642e031c91",
+      "size": 332598
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files/download",
       "status": "success",
       "path": "en/api/terraform/beta/files/download.md",
-      "sha256": "60cb021d55d0387b11b0ca708e8a7eabe52ac7900fd5837add3cc624ed9ba399",
-      "size": 330806
+      "sha256": "d2bd39d6d066d4267e0c603813f96d7df52887bbdd94917a8a2c0b39eb18d305",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files/retrieve_metadata",
       "status": "success",
       "path": "en/api/terraform/beta/files/retrieve_metadata.md",
-      "sha256": "4ee26a7576f6749729762c88dbccf562713816e95f3c83d199326f2ea36c3d34",
-      "size": 330833
+      "sha256": "d3391a4e472c20617e77da4284bee2a37892e2941ad7eeaf095c550f86c13aeb",
+      "size": 332637
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/files/delete",
       "status": "success",
       "path": "en/api/terraform/beta/files/delete.md",
-      "sha256": "341c234b15f3cd2a50c0dd21e125d5abe7ea6779399afbb1419ea9e8cb4eec08",
-      "size": 330800
+      "sha256": "56be7bf26631f00b060f9b2c2245cbbed5508b23772feb4b71458dcb2b25661e",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills",
       "status": "success",
       "path": "en/api/terraform/beta/skills.md",
-      "sha256": "8f98d2231ad96cc777aeebf2afeb10d0023e45f818debe4cf44ac4ebaa696c8f",
-      "size": 330778
+      "sha256": "ee6bac4e144e2dfb21d6ad6c7ed89b3891d4ed80639efee74cfe5124a73db672",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/create",
       "status": "success",
       "path": "en/api/terraform/beta/skills/create.md",
-      "sha256": "f247e7f49a2a9693fc7d0d423b6853db18e3924843db08f01aa58eebc843f618",
-      "size": 330803
+      "sha256": "4d2d8fde5a3d6839d9476707b581e718321e124ad5ee835d9ccf18ef694f1b22",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/list",
       "status": "success",
       "path": "en/api/terraform/beta/skills/list.md",
-      "sha256": "bf5b4ed2790d003107102fb59e26feacc5e6fc6effc105dadfcda7b19637c3dd",
-      "size": 330797
+      "sha256": "d4a83700c6040d7e7de5ec422c1f9d8ac0e796ab2d180b557f5fdb5525f3a542",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/skills/retrieve.md",
-      "sha256": "231618d080b0b20342680646332d4eba37e5eed6b7ff538ea1f0949fb19b13fc",
-      "size": 330809
+      "sha256": "7d28ed055db3e6c516e68337c67b291feb9b86dc5ec95e23949efcb3c593835f",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/delete",
       "status": "success",
       "path": "en/api/terraform/beta/skills/delete.md",
-      "sha256": "49eff9cf626213c023f3b7a8064c7b1511263d12fb5af60ff5cf0c9221452405",
-      "size": 330803
+      "sha256": "4a0b11636547f79929d76bfda01986a8bc95a3f2e3aebd9bfbfbecad53b28480",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/versions",
       "status": "success",
       "path": "en/api/terraform/beta/skills/versions.md",
-      "sha256": "aa5bb8b45e9ac722cc6d131e7e7849fc804d94003ac76b2464096c7793289be6",
-      "size": 330809
+      "sha256": "e423dfee45f062a520b5b1821c4d8418473b8b09e106c8d7370093b8140ebb67",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/versions/create",
       "status": "success",
       "path": "en/api/terraform/beta/skills/versions/create.md",
-      "sha256": "0f89496fdaa1122511aa5da111705d5d079ae7648e703636d9aa69ad6a8c5063",
-      "size": 330834
+      "sha256": "41df77ecefb3f16991300448f3319c0fc87ccdef1b26d5cd7aab135e4cfe09be",
+      "size": 332638
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/versions/list",
       "status": "success",
       "path": "en/api/terraform/beta/skills/versions/list.md",
-      "sha256": "d08e7caf8c2d6af70a524a188df12e8aa7c2147825d3221d4f04b1d05e6da9e9",
-      "size": 330828
+      "sha256": "ba15afac88adeac38c83820a5c16fe0d9c91ed078ffb600c9b3011a70c58b3c2",
+      "size": 332632
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/versions/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/skills/versions/retrieve.md",
-      "sha256": "7f9cc0f9ff4849aea1c5235ed4f9593ade28d8aa08c6cc94a8e1137d0f4e3c41",
-      "size": 330840
+      "sha256": "c48f00f339702c842d2744074b41afae552ec173611e389b8853843e1dd6aee7",
+      "size": 332644
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/skills/versions/delete",
       "status": "success",
       "path": "en/api/terraform/beta/skills/versions/delete.md",
-      "sha256": "0369fa92bf606f0ee10425804dbd2a0b29bab7fe674129d2370a9d4ed99a6e7d",
-      "size": 330834
+      "sha256": "165e599e1ea6b8c0131a1a3ebe2a7bbd4af2139838839a772619c66966fe7bd6",
+      "size": 332638
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles.md",
-      "sha256": "baa633faa6172777f694fc4033a82ede9a7588326275bdcfd226b24927184236",
-      "size": 330799
+      "sha256": "0b87c631126077ab07a3bad141d96e77d330a68518b3dc4c303e989fd969494b",
+      "size": 332603
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles/create",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles/create.md",
-      "sha256": "1a7d327e613f359a3de304784567cea640f5f1f26fdb86a3f20fa215ef4957c1",
-      "size": 330824
+      "sha256": "0818b7492d915ec22e65c263422e93f85a6b1bdaaa6ddd23caa83671fd23c101",
+      "size": 332628
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles/list",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles/list.md",
-      "sha256": "c53787cd26602ad58d453c8f233260f3ec6baa6ca377701bcabd420108c25585",
-      "size": 330818
+      "sha256": "edc7c8a2e370daea1784a3dd4829c8a2c6fdc00e868a81e867097b5316f55909",
+      "size": 332622
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles/retrieve",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles/retrieve.md",
-      "sha256": "c979f0771d9b8a0ae6f270926f2441108dd65e07405788afba633af9504e1ac6",
-      "size": 330830
+      "sha256": "f0789ca001071919efdc47042e3dd7a6dbb34f66c1e5ff90b36263b4c58419fc",
+      "size": 332634
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles/update",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles/update.md",
-      "sha256": "e0c5a9ffba975d056ff4318b88ff877b53d70dab91dd85408de02511deec0af5",
-      "size": 330824
+      "sha256": "084db01a76f90458adbfec3854b66f03d1d5226877d1cde602552466342f0a05",
+      "size": 332628
     },
     {
       "url": "https://platform.claude.com/docs/en/api/terraform/beta/user_profiles/create_enrollment_url",
       "status": "success",
       "path": "en/api/terraform/beta/user_profiles/create_enrollment_url.md",
-      "sha256": "d4c84c6d74f15648214e07748fefcbb1341fdd967c5a25d919c8edaeb2d7806b",
-      "size": 330869
+      "sha256": "6193b51b95a63e1ffbc24bdbe7ebf867504c6482672be47c2a48a27687af2a38",
+      "size": 332673
     },
     {
       "url": "https://platform.claude.com/docs/en/api/cli/completions",
@@ -5909,8 +5909,8 @@
       "url": "https://platform.claude.com/docs/en/api/cli/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/cli/beta/agents/delete#delete.md",
-      "sha256": "044dc2974934b4c5e99f49d29298c964893a0c0fcbf92b9967455f26148ea64a",
-      "size": 369998
+      "sha256": "7090ceeb5c829def39bb39d7caf4603442e382b7cc57b67b4ec1761ef3e12666",
+      "size": 371802
     },
     {
       "url": "https://platform.claude.com/docs/en/api/cli/beta/agents/versions",
@@ -6350,687 +6350,687 @@
       "url": "https://platform.claude.com/docs/en/api/php/completions",
       "status": "success",
       "path": "en/api/php/completions.md",
-      "sha256": "8afdec1d2644f0b5d83bfddb2dbd0e9a07a79fd8da66c32251c98dcf65e56979",
-      "size": 330756
+      "sha256": "bf9a2592be7f77432a1405ee4d9552b242fae7a1ba96881a33006643da4ef60b",
+      "size": 332560
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/completions/create",
       "status": "success",
       "path": "en/api/php/completions/create.md",
-      "sha256": "d5f086ab83e15abdbc6da96ffb1edfd7b9b4b79bb9618d586a4a07065b29271d",
-      "size": 330781
+      "sha256": "f175b29cdd6e0701b482168aad7f80c65811cd07a559de9e1666622e96b5ceb4",
+      "size": 332585
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages",
       "status": "success",
       "path": "en/api/php/messages.md",
-      "sha256": "44eed5a1a417e4fe94d30e406863ad028ae5b70d7fc0f38d1e8a041abc7ff26f",
-      "size": 330747
+      "sha256": "4a8fc1090c71900ee82bf69e6d281f7b9e126c2e5cb4bd3896afb68a5682e279",
+      "size": 332551
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/create",
       "status": "success",
       "path": "en/api/php/messages/create.md",
-      "sha256": "d5a5f7eb67cafd6200834fe27d07c616fb55af6e2d076e7085194218e8399064",
-      "size": 330772
+      "sha256": "7985814c667a3fec90d1035e346c35a2f6a926f07139019542e1f2858932f8bf",
+      "size": 332576
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/count_tokens",
       "status": "success",
       "path": "en/api/php/messages/count_tokens.md",
-      "sha256": "7af91a63a66d4eba3104a1ecd14d243e2be2e32b32406c0b4da2387026739f6d",
-      "size": 330790
+      "sha256": "8a20f7f94d75a24185f39bafe00c4368d290c70ee6490c1a323221985b46c64b",
+      "size": 332594
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches",
       "status": "success",
       "path": "en/api/php/messages/batches.md",
-      "sha256": "3194e8153a0e1ad312f5941dc01c5bdb9f59c8efa3b3e8304294ea5c0d4aaadc",
-      "size": 330775
+      "sha256": "eaf0bc72d2d948aa60527b7516a9b5c39fed77532a2c093520b38f4c72f8c3cd",
+      "size": 332579
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/create",
       "status": "success",
       "path": "en/api/php/messages/batches/create.md",
-      "sha256": "75d3b73748f9ad3a5ef1fbb1fc9aafc547e1ae8f9261a2d3f95fc1d2bb77fd42",
-      "size": 330800
+      "sha256": "a84ed551d2fe49bdc37fa9b2669f23d4b65d7ae1e00fabda910eab8fc118db4d",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/php/messages/batches/retrieve.md",
-      "sha256": "0f927aa77cbeaca115151e02c2102da0cf8710ca52d7c9576ad7035eaed9a70b",
-      "size": 330806
+      "sha256": "fa71e4f6c9b3d4ddd8818ccb550755efeca4e8eb6c0a71fbbcab03ca24d1325a",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/list",
       "status": "success",
       "path": "en/api/php/messages/batches/list.md",
-      "sha256": "0c165a628cf04c6d18ee448b09933bad4ecf058fbbcc651118e985bb9a37fd84",
-      "size": 330794
+      "sha256": "384215f3374d6fe96fca1a88e7eb31a8f06fd0729ede1c74332c0e8db7ed5d41",
+      "size": 332598
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/cancel",
       "status": "success",
       "path": "en/api/php/messages/batches/cancel.md",
-      "sha256": "58d3bcc2d60a1edd9effa3088371ef618eddc0f2d61acc9290cf2ed989dfbb65",
-      "size": 330800
+      "sha256": "c88fa7c23222660bbf04093d023ca0453086f5e6d475e73d4034ea3748cce047",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/delete",
       "status": "success",
       "path": "en/api/php/messages/batches/delete.md",
-      "sha256": "f7d1612d5e4d9db0ff223b291a18a6e0a00499f04dd7d82cd9ab768c91e34613",
-      "size": 330800
+      "sha256": "99a3560b0ca8def96217848d0ff6aae85432277aa19ef4030ed85b540d222c05",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/messages/batches/results",
       "status": "success",
       "path": "en/api/php/messages/batches/results.md",
-      "sha256": "56df3da1ec81ef3e89a1b4d71b0e437474ab471e19275932a631463a184c95f3",
-      "size": 330803
+      "sha256": "12ed5f7bd47306b015a04e89ad4aa65a9af9c96189ac415911ebbd303f5ae138",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/models",
       "status": "success",
       "path": "en/api/php/models.md",
-      "sha256": "ca456987456aea25424d5fa699d5be1e6998ca8845974a66f914af7946d3ed8b",
-      "size": 330741
+      "sha256": "f45c4c5b942c7d540606b4e01ea8f3213fe1af45b378c585a42da652b760029d",
+      "size": 332545
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/models/list",
       "status": "success",
       "path": "en/api/php/models/list.md",
-      "sha256": "c31abb05072665274675d1d370ae9f6a7483e5b7e346908e4a3f7670ff3d321a",
-      "size": 330760
+      "sha256": "9465cbd9414d0616dec764b097f630440d0e654194682eebce4359b3ddd07b23",
+      "size": 332564
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/models/retrieve",
       "status": "success",
       "path": "en/api/php/models/retrieve.md",
-      "sha256": "84433442d355e4b9969c90921f5d8501253550609f3507ed461b70063e31105f",
-      "size": 330772
+      "sha256": "f5fb28223f2544ea78e9294edf9f37ce727e3308f7cc8106ec696e8cb2b6757e",
+      "size": 332576
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta",
       "status": "success",
       "path": "en/api/php/beta.md",
-      "sha256": "44b04f558be889c8084768f26295e8a71dfbaa7d60995dcc40e4d6f55af0a05c",
-      "size": 330735
+      "sha256": "240c000ef4aa6eb06ff6ee2bc7a36125010311c31bbaf83e114d6170d786d2a4",
+      "size": 332539
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/models",
       "status": "success",
       "path": "en/api/php/beta/models.md",
-      "sha256": "c09a049683968cef084ed6ef6c4d376a17f024b447f5a4082594440787a5ef24",
-      "size": 330760
+      "sha256": "04994faf21be45ec3c4a63b3bb105c64d2275ae05461b019e401b5215182b719",
+      "size": 332564
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/models/list",
       "status": "success",
       "path": "en/api/php/beta/models/list.md",
-      "sha256": "b04d2117bb138a8c5d9d41c14e2695db782e999f8aad35ca3e7a72b3c000ff31",
-      "size": 330779
+      "sha256": "a039f659c80cd1d8b560243514eeaed7970d9652c6adcd87079f984866b0745a",
+      "size": 332583
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/models/retrieve",
       "status": "success",
       "path": "en/api/php/beta/models/retrieve.md",
-      "sha256": "30f000141e234d78d76b082a46fe03ecf20ddb4d0c8c878572ecf1b1a68e0bee",
-      "size": 330791
+      "sha256": "58d9281c1a93c06a614e5ee822ffb59a796cacfc72eb6e993e7fd781a9784a6e",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages",
       "status": "success",
       "path": "en/api/php/beta/messages.md",
-      "sha256": "10fa97d8d87c7d42291659b418b4a4b6909b354a7b3b8a5e82a39bd10b14d9ec",
-      "size": 330766
+      "sha256": "b9c179afec09ea19ed4268eed72df4c553002364a0e5b4ac530e5d6c25591f92",
+      "size": 332570
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/create",
       "status": "success",
       "path": "en/api/php/beta/messages/create.md",
-      "sha256": "d54b89d07d472240718b32de441a3f0628fed222787d63450dca90d23d427b0c",
-      "size": 330791
+      "sha256": "61ea37ca8eeb0b5f3dcc24bcd688c083c8c508fae23c75ed3a2db4fa1044d646",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/count_tokens",
       "status": "success",
       "path": "en/api/php/beta/messages/count_tokens.md",
-      "sha256": "454b0ca33dd3ecd6b7788bfac2ae2348a7d738911872647d62c823e05b84e116",
-      "size": 330809
+      "sha256": "05c68ee133a19256e146c4c61c2ef0eb60752f6a0e137c1b468417c14754c00a",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches",
       "status": "success",
       "path": "en/api/php/beta/messages/batches.md",
-      "sha256": "d6a5476a17379e55e9144d02639361bec24db48a5c2246d9958dc5b9b78a1c26",
-      "size": 330794
+      "sha256": "c0250ea44beedc8aa48ee870d148cb013992fc590f9583994ab1100ef5ab0cea",
+      "size": 332598
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/create",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/create.md",
-      "sha256": "dab928cd37a2d47b65dc75ed0895b023a1014c1f5c929b012f31543bdb8d400d",
-      "size": 330819
+      "sha256": "bcb44449d268e7fe44d7e93412cb844cd7877f2df95ca585151d07dd27112da9",
+      "size": 332623
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/retrieve",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/retrieve.md",
-      "sha256": "32c8888a4c85adb202914ba2e0b81ef0b30a34e9eb901da15b11b7e2f1f0f554",
-      "size": 330825
+      "sha256": "8d11fe6d27d49951a5f44ba2f2e19ee9c3a6878d5f25bde7614d2ebe57743aa3",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/list",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/list.md",
-      "sha256": "578eabd839d6ce4db4f7aa339fe3caab23cd6e85c2166d01a0f924c72a914c33",
-      "size": 330813
+      "sha256": "57ee2306e470dc7f389352abc4e229a0cb9c01102dbc5721a3d87544e2b14dd4",
+      "size": 332617
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/cancel",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/cancel.md",
-      "sha256": "75dcce58fc6e42988c789ff4c2eb3da48839272042fed6ca5b7dcb2c09fb586f",
-      "size": 330819
+      "sha256": "dcaa83c9f1f1b596493cfe1c64f1ecf38b27040d3661de4874aa4035c0d11d3e",
+      "size": 332623
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/delete",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/delete.md",
-      "sha256": "4c623a4f0b7a172ad84dababd69c3a891a6e40854a54da6a6f751628e7be73e0",
-      "size": 330819
+      "sha256": "c6703b2925c8fc9d4b62d69dff42769f3aef0367ced967da397038bbe79e97fe",
+      "size": 332623
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/messages/batches/results",
       "status": "success",
       "path": "en/api/php/beta/messages/batches/results.md",
-      "sha256": "9b82bd3ece73f75530235ee7b38139f880cab3296236a0abeb53f3a98a973bcc",
-      "size": 330822
+      "sha256": "87e7bfefaa8db29cf246bd060c5818dfef27b493279587ab7b912a5e4a04462e",
+      "size": 332626
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents",
       "status": "success",
       "path": "en/api/php/beta/agents.md",
-      "sha256": "d1171362eae5982be6e2c09243850678ed781a6767d4d6b5927b0572d52b56ff",
-      "size": 330760
+      "sha256": "dd87da1532ee796d99c858f55ed5aeccf1b252f0482a52ca58821c2ae7fe34c9",
+      "size": 332564
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/create",
       "status": "success",
       "path": "en/api/php/beta/agents/create.md",
-      "sha256": "f1db7b4c9231fd7ede3100a421a231b189a5a2345af41999b7efd2acf1eb64ba",
-      "size": 330785
+      "sha256": "aba6acc112998b22d143bd271666a57bf41a5aca3595e6471cc73ba27f88a1ec",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/list",
       "status": "success",
       "path": "en/api/php/beta/agents/list.md",
-      "sha256": "cdc04d3d0cae61230357a56757d8bce1db49bba966ed6ab7a61853d115dd16dd",
-      "size": 330779
+      "sha256": "1086cbf0d4a8552865e83fc162dbee6a8459d64c18b1ac9c92a6d0332cf9b13f",
+      "size": 332583
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/retrieve",
       "status": "success",
       "path": "en/api/php/beta/agents/retrieve.md",
-      "sha256": "15f33c8e2da42c056432fe6b2d02e9e88794e416b06db995156d2723427cce97",
-      "size": 330791
+      "sha256": "2c5927cd29b9f82c31c2934be74243a7042d9bd714a6199825101334eaaabb24",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/update",
       "status": "success",
       "path": "en/api/php/beta/agents/update.md",
-      "sha256": "db9b38072b920ad4efef628f3a13f7f5c07dd1c487dd089eaa332c28d4e9d049",
-      "size": 330785
+      "sha256": "ac447beafbad351dbc72561f28aa61c7a92b883d479937bce7c1a22328e9a7cb",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/archive",
       "status": "success",
       "path": "en/api/php/beta/agents/archive.md",
-      "sha256": "9d60d060e1bce0ad296e3eb56d033dcdeeb5b252bb2c2def815e2600fe4aa430",
-      "size": 330788
+      "sha256": "11232815f6ec0bcf2500232fbbb933e2f3ce6b253d5a4cfd91c9e4baf47cb08d",
+      "size": 332592
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/php/beta/agents/delete#delete.md",
-      "sha256": "cf9c33d68a753d6b9c025bea79d0a04940ea1f26192fb81318a923c80b1c36e9",
-      "size": 369998
+      "sha256": "cd06a3b4da460e59e3c18f7c6a6276cfb87c0d91cd8c39f0cf270b6e97fc2c76",
+      "size": 371802
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/versions",
       "status": "success",
       "path": "en/api/php/beta/agents/versions.md",
-      "sha256": "45727b7ed82b597aaba815e9bf20ffbef7b696141a6abccfe7a19bca4ed1fdb4",
-      "size": 330791
+      "sha256": "0b7eb0b8c444861e1b939b6f1742e65f69b9c0282158af7f41c4e9d800dcf7d1",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/agents/versions/list",
       "status": "success",
       "path": "en/api/php/beta/agents/versions/list.md",
-      "sha256": "3048bd950bffaa79fadc7e6f5dc9cd971d0247cfcacbf87a47d4181d9327f3c8",
-      "size": 330810
+      "sha256": "720c3a153bc15cdedf62e21d6b9e48881a62528e28d98a14e33a0fef242b6a32",
+      "size": 332614
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments",
       "status": "success",
       "path": "en/api/php/beta/environments.md",
-      "sha256": "188db12f7d7ac9584a296462deabaa1fa11cf69bb5eb5998b645d317fe96c05c",
-      "size": 330778
+      "sha256": "b56d8d038fb79ea1072c168764818f7935b2ebb04ab56e0973469e699fcf44b3",
+      "size": 332582
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/create",
       "status": "success",
       "path": "en/api/php/beta/environments/create.md",
-      "sha256": "ca53761ea7d2ca8fc369551ca5a60ea729e81c2c95a25673847548c22284e4ff",
-      "size": 330803
+      "sha256": "6239df34db83c83eaad99a01465d293a02106ec0c954170932a1e2f078292660",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/list",
       "status": "success",
       "path": "en/api/php/beta/environments/list.md",
-      "sha256": "eeb92bbb233528e4cfcd9890b133eb625d7dda3eac8b463444c5c7ec95b051bd",
-      "size": 330797
+      "sha256": "f1df456f6b35cdc92b92f92bb1baccb4794960b17318a9a404e5f6549f303731",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/retrieve",
       "status": "success",
       "path": "en/api/php/beta/environments/retrieve.md",
-      "sha256": "06e47849672c3a4da26b283ab513cd83b5995c995b80346366cf2d71a37e3d6c",
-      "size": 330809
+      "sha256": "32f7b6e47e34f73564e1fc562986e7c45570e007a5d422d24d2adb63d20502aa",
+      "size": 332613
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/update",
       "status": "success",
       "path": "en/api/php/beta/environments/update.md",
-      "sha256": "3b19652696533ed5c153e1a1856b1900136ed2c823651e8b293dcb0d8b36626d",
-      "size": 330803
+      "sha256": "ddecbf6745fbf330a0cd6edaba02829237a102fd198ea9d3e6218d61f39e9c51",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/delete",
       "status": "success",
       "path": "en/api/php/beta/environments/delete.md",
-      "sha256": "2c1ca9fb1e213dd722f78056f48ba71e37ab30c7442303389cae74ca1ff7ba68",
-      "size": 330803
+      "sha256": "bf4b2dd9c5a97c3f443d52c332a3259170313026a7da3da201d70ad914d31783",
+      "size": 332607
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/environments/archive",
       "status": "success",
       "path": "en/api/php/beta/environments/archive.md",
-      "sha256": "40d1c3e73ebde596fea29913be224a97f3120ab61e47d79b747b18bbc1fc0136",
-      "size": 330806
+      "sha256": "5a421f275c4510a292eb8d48dfb7d379a83be18e2d07c0bb3291cc198e4752ec",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions",
       "status": "success",
       "path": "en/api/php/beta/sessions.md",
-      "sha256": "84643404407efabbf53b82ccb5f863f0bb7ae24afc7b2f3c7582cdd29adc8015",
-      "size": 330766
+      "sha256": "37214068e4fcaae905f43866ce68eb9a5e921dc1a8e53429089cca7f5897f581",
+      "size": 332570
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/create",
       "status": "success",
       "path": "en/api/php/beta/sessions/create.md",
-      "sha256": "0b7179176b76e29f4b65413c16323e0b34491ed9d4b5f93ca0a94c4499701e5f",
-      "size": 330791
+      "sha256": "6b1f704ce085de129dc360ed32a140de0eb096d2220581aedf38010398861a9f",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/list",
       "status": "success",
       "path": "en/api/php/beta/sessions/list.md",
-      "sha256": "96b9cdbea2b9927f7991904824fd8881786aeb73c74f1405d93c9c1c2fd9ff5b",
-      "size": 330785
+      "sha256": "9237e3fc31601f38604e024ebefd36ee6db9127856780396b85fe309417800f2",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/retrieve",
       "status": "success",
       "path": "en/api/php/beta/sessions/retrieve.md",
-      "sha256": "1b9524e214b26685c3b4426b956de21c0877efbd9058f9b7b9731c735a547223",
-      "size": 330797
+      "sha256": "570b9d694420eb112da133acc02a751ba58990594117a5593a80ec1803c330a9",
+      "size": 332601
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/update",
       "status": "success",
       "path": "en/api/php/beta/sessions/update.md",
-      "sha256": "e79cc245b16f41d6e68fadc18bc46d257bac52550aa38006b22951ef0788b99f",
-      "size": 330791
+      "sha256": "c1c568c7a6705af84a0171f4c337c4dc079c516d301ccd2d164b2fae85f86b72",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/delete",
       "status": "success",
       "path": "en/api/php/beta/sessions/delete.md",
-      "sha256": "0c61535b922a012dd2bb1833b7edb4425eb930c64b173b00aa8a8516274d771d",
-      "size": 330791
+      "sha256": "86d3143832aaf5a8034158aaffce7eff93f556bc440e49ce80d34a78c8011dca",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/archive",
       "status": "success",
       "path": "en/api/php/beta/sessions/archive.md",
-      "sha256": "d4c754df5e7de329e0853a9d5a19abd1725467570b243f0a83c808d72e2f8098",
-      "size": 330794
+      "sha256": "b465547a4419b805a883793704d9820b0c81631529689390944a75935cf573ee",
+      "size": 332598
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/events",
       "status": "success",
       "path": "en/api/php/beta/sessions/events.md",
-      "sha256": "753a3831aa8f51c5dda2df6b3f1d1d5a9509655201fa0693aa17d7827b8fff50",
-      "size": 330791
+      "sha256": "c37ee97288c447022d0cbbb07436a959ef483a4f6a6426b20a93934d7e0899cb",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/events/list",
       "status": "success",
       "path": "en/api/php/beta/sessions/events/list.md",
-      "sha256": "12bf927bf8a83b759dae4009445cb84332dde8565c6ca0eac50e24da84906419",
-      "size": 330810
+      "sha256": "e44d3971bab2db1200ab259aa52df35cea14f9a5712a168ac947ed897f733a74",
+      "size": 332614
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/events/send",
       "status": "success",
       "path": "en/api/php/beta/sessions/events/send.md",
-      "sha256": "f93e6bfe09ec0aa5aeacb459df6d5f436687a8c89c4d183955c5e59bb4203413",
-      "size": 330810
+      "sha256": "9e8698dcea461c5e0584516edc143c946d4971038c60fe3df072911d10c4eca6",
+      "size": 332614
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/events/stream",
       "status": "success",
       "path": "en/api/php/beta/sessions/events/stream.md",
-      "sha256": "10eacc51d26c94ddc73b7ba7eb78f5df4a17b3f7661787c169a499e0ca9208d7",
-      "size": 330816
+      "sha256": "0a60e05c0ca610a0018e9d5b74d89ac6483c518b760d216252206046a75c0a66",
+      "size": 332620
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources.md",
-      "sha256": "5bb99346ab9921022c72dd3c137b7fe27959338d982e2d23e63098df22a2a602",
-      "size": 330800
+      "sha256": "30bd4834a2a58062ade1340156efb1c95266d94420d5bd11a81abda2ff5bcdc0",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources/add",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources/add.md",
-      "sha256": "4152f453dc5b388c194a62c9a656359f1541314b5a1f71cb4e6d8dd88e29beed",
-      "size": 330816
+      "sha256": "ea6f1bdc00f729b9f665acc702e63823bbd90ea3c1f938ca78c6fa125d4af86e",
+      "size": 332620
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources/list",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources/list.md",
-      "sha256": "2aaaf515f5f2fed17590214900015b607ea0af9e076c0267a03e4ed43bd231b2",
-      "size": 330819
+      "sha256": "1fc9928f1f623681ec4863963a0490beea17ca78828aaaff0291cedabcbc6997",
+      "size": 332623
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources/retrieve",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources/retrieve.md",
-      "sha256": "c0d9ceb7452bb1c929e68a10c2bd1f31daefba5445c9c3b7ad5ab9c7965fffaa",
-      "size": 330831
+      "sha256": "dee697c46adc63b3cf2c2f23dee20c94a60af175606a1c84fecf4e4d0ba69e34",
+      "size": 332635
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources/update",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources/update.md",
-      "sha256": "22cb38278037c5da57c49c04ed6388ad365a0b642b5f6c9c1b8f851a234fd8e8",
-      "size": 330825
+      "sha256": "28524b3fd2b2a4acd14d2364b373f17db9740a744ac1106f253bdbca492e6078",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/sessions/resources/delete",
       "status": "success",
       "path": "en/api/php/beta/sessions/resources/delete.md",
-      "sha256": "da2aa470a54065796f1a0d72a5bc6729484f3a9cfb67de529866a818cb53bca4",
-      "size": 330825
+      "sha256": "442934ba15c7cc7fce8ce49b190364bb6e94d1f2c23a38f6060f6a79871ff791",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults",
       "status": "success",
       "path": "en/api/php/beta/vaults.md",
-      "sha256": "46051c98d0901fc5b47d07372ab152acb930c3bcc72933d2c84ffa63b8a9f629",
-      "size": 330760
+      "sha256": "f97b5768e917dd491fc5135e7fb1ef7f7f616577d8177c004f87129f11442b58",
+      "size": 332564
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/create",
       "status": "success",
       "path": "en/api/php/beta/vaults/create.md",
-      "sha256": "1660bad5a24d16b9ecbcc09f261d26a7ae90d14a1d20749e18898a883ba6bb2f",
-      "size": 330785
+      "sha256": "38c27c301667f2a7e731555d5df7a68555e6b6d7d29a2d598830d042d5af2f32",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/list",
       "status": "success",
       "path": "en/api/php/beta/vaults/list.md",
-      "sha256": "f03ea5a7b6658a7bec45aaf54e0228be4c4c051c62f383ca4d4f980c3a81bea3",
-      "size": 330779
+      "sha256": "38d0ba9a6016c03dd984f2c820dd11bf9b405cc833c81d0f041ba6ee6a291c5c",
+      "size": 332583
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/retrieve",
       "status": "success",
       "path": "en/api/php/beta/vaults/retrieve.md",
-      "sha256": "4fac0726732acbc109f14837bdb6ddb7b6edf28e91f8af034a25876c91eb390e",
-      "size": 330791
+      "sha256": "eb624f2f2939e51dc4584c449ea3c469d9b771a49c783a95582302b1ecf5372c",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/update",
       "status": "success",
       "path": "en/api/php/beta/vaults/update.md",
-      "sha256": "49ac81c9e48e37281b24d214e2d41e8f3b9860d3522d16c0e1459f88d0c154cc",
-      "size": 330785
+      "sha256": "b64aa41a2b8ab4ba4772c0894132998512cfde25c6eaa5b5f15c07e8c5394163",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/delete",
       "status": "success",
       "path": "en/api/php/beta/vaults/delete.md",
-      "sha256": "7e850c73f92169969bfe497b74175ffb489ad5156ac79c4aed5c5f4e15b19515",
-      "size": 330785
+      "sha256": "7bdc5dd94bf45f5b4e424b549cc97b45a1dc3d82d4f87416c29900c853774c55",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/archive",
       "status": "success",
       "path": "en/api/php/beta/vaults/archive.md",
-      "sha256": "3edfbd42b7365b5e1969c4583bfccb7717c4dcaf2ff98c7552bb917e39169072",
-      "size": 330788
+      "sha256": "5667aa459d8665f3d15e9702f831a9d6b234bcaf56e2d8b307587b481cacefae",
+      "size": 332592
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials.md",
-      "sha256": "ee51a67ea726abdfebc846ba8e84f42e492d553aea7a40cb155f29e932b3fedd",
-      "size": 330800
+      "sha256": "b70c8ca0b306d89a9ecf244cc2519e142b2a7831c050b2a00a117d0c6f47c209",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/create",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/create.md",
-      "sha256": "4ef8f963c7a789cdab30d0304b2ebd5db7186a23f56027beac39ed5ef9c9c47a",
-      "size": 330825
+      "sha256": "d196bb08be8d1e89a062f8ecbf1aa897b2f4f72388f6300ae45e62d3ccfdd9b3",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/list",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/list.md",
-      "sha256": "27a95e17c2754d3908dba9221c907736f775498a7c42fe5125fcb7195550dac1",
-      "size": 330819
+      "sha256": "0dcd716f5c27f7fc6935abbf265b01d092bcfbfe9f2ba744d12a352600f03a6f",
+      "size": 332623
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/retrieve",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/retrieve.md",
-      "sha256": "ca2df14fa6cbbe74bc1387eeed584ae52c7cade1d63c7dd163c3e23ad313918b",
-      "size": 330831
+      "sha256": "a0077cf66269978ac37e14bfb1df390f5b608075e0ab22a37f1933570eef7476",
+      "size": 332635
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/update",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/update.md",
-      "sha256": "1ae921296cb1b218cb781886f767912bb5e97700f44a2d3203332b05999c7e90",
-      "size": 330825
+      "sha256": "bfbe7487b01d03b3dcf52da4cdb547963aa15aa0d25b29b8810bb062a31dd089",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/delete",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/delete.md",
-      "sha256": "2cc32760977e96253d48609dd2f368cbfe0e53dc061ce1821e63c6260db5f600",
-      "size": 330825
+      "sha256": "38c57f4798750f641024d4e0031da93f9724df09f69c4d243e2f67225df6b7b9",
+      "size": 332629
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/archive",
       "status": "success",
       "path": "en/api/php/beta/vaults/credentials/archive.md",
-      "sha256": "1df2c5237254ace50f925feeea1cfafa2d057f4bfe061cc5c024bdc0ad4f0976",
-      "size": 330828
+      "sha256": "ed45645d85be4219c4efa661bbcf2b5ef323913b460ca281e28f37a50fda8239",
+      "size": 332632
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files",
       "status": "success",
       "path": "en/api/php/beta/files.md",
-      "sha256": "c306eea5399326da881873905a0a4b41fc672cc3bbd51d29eaf5a2f0f380cb6d",
-      "size": 330757
+      "sha256": "f76931d02b11acac9afc729b5be5c9f5cf5c86b892341cb6c4a310eb221217e9",
+      "size": 332561
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files/upload",
       "status": "success",
       "path": "en/api/php/beta/files/upload.md",
-      "sha256": "fe3c60fc621c55cd21fad86cdd34245ca0e8042d7737daeb30a86bc7e1b22b0e",
-      "size": 330782
+      "sha256": "b96295212594bf94c8f5c2ec91db946cee5b000a8f82909ff7c768840f5e9773",
+      "size": 332586
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files/list",
       "status": "success",
       "path": "en/api/php/beta/files/list.md",
-      "sha256": "bf208e91c18b2c90010568bd620047b17d918c9a1bb6e0e3049ce7a83495a66e",
-      "size": 330776
+      "sha256": "f76068774a10624ee0641458556689fc8112c883903e1c2a85f05e67b51d350b",
+      "size": 332580
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files/download",
       "status": "success",
       "path": "en/api/php/beta/files/download.md",
-      "sha256": "f56c2e2296ae4f918526eccae0f595a4129861a8af695edd00ef88a2dc77b911",
-      "size": 330788
+      "sha256": "0af0ea8bc924b099bc1e32fab9718daa8c5c945712214425bb7dcac798722fd2",
+      "size": 332592
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files/retrieve_metadata",
       "status": "success",
       "path": "en/api/php/beta/files/retrieve_metadata.md",
-      "sha256": "2d25e0d4531a5bcf1b8b3e748e22d8fa147aa767a9e71d8d368e07b17609e3af",
-      "size": 330815
+      "sha256": "878a23ed034add1a13dd4b84a672db5ec65cb6f8702aa303f3eba725297cc2b2",
+      "size": 332619
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/files/delete",
       "status": "success",
       "path": "en/api/php/beta/files/delete.md",
-      "sha256": "a1e96509e34ae4731d07e59969378dbcde551c2ae8c79d19056b342ba2d8274b",
-      "size": 330782
+      "sha256": "57852858d3cd61ad22fc11e205fd0c767ccd9a8a7136612982f4d857b37c376f",
+      "size": 332586
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills",
       "status": "success",
       "path": "en/api/php/beta/skills.md",
-      "sha256": "774a3226d584b46faef79bb9506db38c8f42e0edf64add0b1e4f1f7820fd2af2",
-      "size": 330760
+      "sha256": "a88b18e33ec018d28c431b0341365d39df20cfd3ffc9f6106abd317ed230ef34",
+      "size": 332564
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/create",
       "status": "success",
       "path": "en/api/php/beta/skills/create.md",
-      "sha256": "9a16ffca34de1dc8a8027ee24f319fd4d0e3a12ef3e85db48aa240559ee5b0a7",
-      "size": 330785
+      "sha256": "d09dfc6ca1e292db25ddb65683aa1a512df19bacafd1e468b77f3ba283b11a76",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/list",
       "status": "success",
       "path": "en/api/php/beta/skills/list.md",
-      "sha256": "1aba195f1443e596fdc6ef22a27446c509cce846e589d0e64dde57f7a04a813f",
-      "size": 330779
+      "sha256": "2ea52f34546b3af590982d8c84f6e97755906630d319c6755c3629d154486497",
+      "size": 332583
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/retrieve",
       "status": "success",
       "path": "en/api/php/beta/skills/retrieve.md",
-      "sha256": "c36d431393aed7969d320a52c988815dde82fe313369fd7c55dd40df71f77988",
-      "size": 330791
+      "sha256": "2d4047dc3d8a1746af86f7bdfecf9c4cf7aab76865bb66194849f879717e5794",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/delete",
       "status": "success",
       "path": "en/api/php/beta/skills/delete.md",
-      "sha256": "3c42c85f945d177c4c6cf0cbec9ddb459d31722f84726f974cf54323d4d0e8ff",
-      "size": 330785
+      "sha256": "f79586fe468fcc1b95ca8caeb9b408ac3d76e2b6c4a03d4b470c24cae9ab9ac5",
+      "size": 332589
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/versions",
       "status": "success",
       "path": "en/api/php/beta/skills/versions.md",
-      "sha256": "d3fbd3fc88ff7ed41277b229abf6f6dd24016e8b604be0b084ba9d18aa458392",
-      "size": 330791
+      "sha256": "9b37334d9fa55ed121ff900880ae06ab2426d2a9d593900edc37d43b26d59393",
+      "size": 332595
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/versions/create",
       "status": "success",
       "path": "en/api/php/beta/skills/versions/create.md",
-      "sha256": "7107e1ff6dc304d355b1a00a3125c7ab2f1329ea8d7d12e57712ab0562020010",
-      "size": 330816
+      "sha256": "6c579c9cd76737e4387f57954fb560bf17d6527d5b49f30c572f4113452d7e65",
+      "size": 332620
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/versions/list",
       "status": "success",
       "path": "en/api/php/beta/skills/versions/list.md",
-      "sha256": "c1d1131684b448ed52c1db3e32eddfc00f437d9030bb6fad51d5724e46702ca9",
-      "size": 330810
+      "sha256": "f3e61efaee4746fd3ca25ffcccdc755eb4f6b9e174c4aed18c68175e8146d37c",
+      "size": 332614
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/versions/retrieve",
       "status": "success",
       "path": "en/api/php/beta/skills/versions/retrieve.md",
-      "sha256": "1d05dba6a8f2576830dfadfe7fc9e7beb119122e37c3918bc5fd84821ec06695",
-      "size": 330822
+      "sha256": "25272891ba842e148274ae8e8b7f0c13f8e43cd3278003cf4c5a571836165221",
+      "size": 332626
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/skills/versions/delete",
       "status": "success",
       "path": "en/api/php/beta/skills/versions/delete.md",
-      "sha256": "1f33b127ca32d6230a70b41feee32d41bffd7a748ee1405ee3f197fdc6ffb065",
-      "size": 330816
+      "sha256": "64601efd83a36dba9bf69936829d1cd121ad59027e8c75adf46a039b4b993c06",
+      "size": 332620
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles",
       "status": "success",
       "path": "en/api/php/beta/user_profiles.md",
-      "sha256": "7d5ce95375b1961105c689eda910e2bd4b9b1f35ebd63ba16713ced6d1691c85",
-      "size": 330781
+      "sha256": "f23818e40f58e4abae98a70ca75bb599f8231290fa8f725459aea8d4d780dd59",
+      "size": 332585
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles/create",
       "status": "success",
       "path": "en/api/php/beta/user_profiles/create.md",
-      "sha256": "bc12d91062cd452225645baf9fdd46706a404cdcc5d47805a181010406d4631c",
-      "size": 330806
+      "sha256": "e492db44ba7b1fb51fe23cefc8c01af5f628a586b9da2c92d69edf6770ad8796",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles/list",
       "status": "success",
       "path": "en/api/php/beta/user_profiles/list.md",
-      "sha256": "4661a63d3fa58e7dc6cea16ec956ad9ed74b18df0873f2a3bf6d599eec1c00c7",
-      "size": 330800
+      "sha256": "d1aca6ffd42ddebf3491a0f73591be22d90c30f13c6bdc5425c9d891dd955614",
+      "size": 332604
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles/retrieve",
       "status": "success",
       "path": "en/api/php/beta/user_profiles/retrieve.md",
-      "sha256": "ae13e4f40f20b00be5eebf4c55358c777aeb3d790f7e4a4864caaf4d9d3f1eab",
-      "size": 330812
+      "sha256": "7d23eeb156d10301041e78e786add3166210f1ea1e7a4c3ac906c0d6a601defa",
+      "size": 332616
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles/update",
       "status": "success",
       "path": "en/api/php/beta/user_profiles/update.md",
-      "sha256": "d3596bd53b2297704efc1286b9c727ab387cdb282d59c033e93a3f0e01dae2bb",
-      "size": 330806
+      "sha256": "4debd39f8bd8b5328c7e2b2632d5ace110d28e91620934add116c9b185815004",
+      "size": 332610
     },
     {
       "url": "https://platform.claude.com/docs/en/api/php/beta/user_profiles/create_enrollment_url",
       "status": "success",
       "path": "en/api/php/beta/user_profiles/create_enrollment_url.md",
-      "sha256": "0f88522ee1ce279183cfd2575c205413876847e5fee7d735d83d0cc541037636",
-      "size": 330851
+      "sha256": "99a92831c3492f5db2577c14e94b3f578dd6e4602e74d989cce5f530d2332980",
+      "size": 332655
     },
     {
       "url": "https://platform.claude.com/docs/en/api/csharp/completions",
@@ -7281,8 +7281,8 @@
       "url": "https://platform.claude.com/docs/en/api/csharp/beta/agents/delete#delete",
       "status": "success",
       "path": "en/api/csharp/beta/agents/delete#delete.md",
-      "sha256": "90bb3a72b9d1353c63d615d24c20e45df31ffe25b1ca7b0bd4cf41cdb54f8db2",
-      "size": 370013
+      "sha256": "c58d664f3e1241bae231d7ebcaadf649412cdeb5e06636c1b33ddb834f623ffd",
+      "size": 371817
     },
     {
       "url": "https://platform.claude.com/docs/en/api/csharp/beta/agents/versions",
@@ -7995,8 +7995,8 @@
       "url": "https://code.claude.com/docs/en/agent-sdk/hooks",
       "status": "success",
       "path": "en/docs/claude-code/agent-sdk/hooks.md",
-      "sha256": "b6cc899cd14e163f1b797046e2bb2ec7e306ac843b3c0a19e10eae9b639bdc2d",
-      "size": 38367
+      "sha256": "fd6644e168c38862b9324c5b4fa45ac7dfcdf4ef6c1db79224a441232c8dbdef",
+      "size": 38594
     },
     {
       "url": "https://code.claude.com/docs/en/agent-sdk/hosting",
@@ -8142,8 +8142,8 @@
       "url": "https://code.claude.com/docs/en/agent-sdk/typescript",
       "status": "success",
       "path": "en/docs/claude-code/agent-sdk/typescript.md",
-      "sha256": "7cb51ba14374f0262614b6caf708644fa6632c13a9ab5e4eb7ef3f9dbfb2a7e8",
-      "size": 123603
+      "sha256": "57266a94642181f933ce43d02d21295513f60df2105c9c679ae450838f5f5392",
+      "size": 124095
     },
     {
       "url": "https://code.claude.com/docs/en/agent-sdk/typescript-v2-preview",
@@ -8156,8 +8156,8 @@
       "url": "https://code.claude.com/docs/en/agent-sdk/user-input",
       "status": "success",
       "path": "en/docs/claude-code/agent-sdk/user-input.md",
-      "sha256": "bebc3ae00d658a9f69b7156997817c5cd4d081a1102eb9528e507c49339881b5",
-      "size": 35111
+      "sha256": "4d57dfc0b83f21d0e94a8e1efa36373d5c7062e1461e422861d23c49de572b5a",
+      "size": 35583
     },
     {
       "url": "https://code.claude.com/docs/en/agent-teams",
@@ -8188,6 +8188,13 @@
       "size": 9976
     },
     {
+      "url": "https://code.claude.com/docs/en/auto-mode-config",
+      "status": "success",
+      "path": "en/docs/claude-code/auto-mode-config.md",
+      "sha256": "ce2cef316e84999ff87e038bfbb4485486f322d8613e39ea5b36df064958dc71",
+      "size": 12397
+    },
+    {
       "url": "https://code.claude.com/docs/en/best-practices",
       "status": "success",
       "path": "en/docs/claude-code/best-practices.md",
@@ -8198,8 +8205,8 @@
       "url": "https://code.claude.com/docs/en/changelog",
       "status": "success",
       "path": "en/docs/claude-code/changelog.md",
-      "sha256": "93585aaf80cb77404bd840f2b68dd83ff12fab4eeb316c9f1dae4cdc08470128",
-      "size": 266493
+      "sha256": "2c38f9b56aabcad904dd12ef070cee65b3b982c7f672f75075a82b4be42f5efe",
+      "size": 270740
     },
     {
       "url": "https://code.claude.com/docs/en/channels",
@@ -8240,8 +8247,8 @@
       "url": "https://code.claude.com/docs/en/claude-directory",
       "status": "success",
       "path": "en/docs/claude-code/claude-directory.md",
-      "sha256": "6b0c2ef60f7a0ea3b1aacb8cb133e85015a78a6c61cceacb289afbdc0a37423c",
-      "size": 76517
+      "sha256": "959ee679e5182ff162fa56f946573eee1b058fbcaf4016312cfd0b48cbdb3a13",
+      "size": 77301
     },
     {
       "url": "https://code.claude.com/docs/en/cli-reference",
@@ -8261,15 +8268,15 @@
       "url": "https://code.claude.com/docs/en/commands",
       "status": "success",
       "path": "en/docs/claude-code/commands.md",
-      "sha256": "fff0f3bf79e45e69b961b4f5596b2dc1257955446b0c568515b4dd1751e5ad35",
+      "sha256": "2adbffc2db65095dfce54da65b3cafe1e1f42279dc7fa316bdb3920b91ae2987",
       "size": 57575
     },
     {
       "url": "https://code.claude.com/docs/en/common-workflows",
       "status": "success",
       "path": "en/docs/claude-code/common-workflows.md",
-      "sha256": "47726be6f8cebcf89f7be97afa6882cb286c8e3c12cd023cb7b06e64eefa8bd7",
-      "size": 43110
+      "sha256": "a5a6b515171ba7d7573133f127c5e6318a3c2d3e55c04dea020e7f4fb29e8956",
+      "size": 43441
     },
     {
       "url": "https://code.claude.com/docs/en/computer-use",
@@ -8310,7 +8317,7 @@
       "url": "https://code.claude.com/docs/en/desktop",
       "status": "success",
       "path": "en/docs/claude-code/desktop.md",
-      "sha256": "def817dca0512af0cb8be0a38f52c4bfe7ff43cfadc4427cd53a4861d95a2ca6",
+      "sha256": "900a508f665a2b28027b00c4e48d20d3fd57f9c78143325c0de744b9a50b38c5",
       "size": 64650
     },
     {
@@ -8352,8 +8359,8 @@
       "url": "https://code.claude.com/docs/en/errors",
       "status": "success",
       "path": "en/docs/claude-code/errors.md",
-      "sha256": "be00a377b6230f438f76c325381ff63a9ecef5bc58cafcb23b408db5e4ac7caf",
-      "size": 33835
+      "sha256": "8648349cb42d12be4854058cbc9e4a33b6bab923658c7090c2e86583516b2acf",
+      "size": 33893
     },
     {
       "url": "https://code.claude.com/docs/en/fast-mode",
@@ -8401,8 +8408,8 @@
       "url": "https://code.claude.com/docs/en/google-vertex-ai",
       "status": "success",
       "path": "en/docs/claude-code/google-vertex-ai.md",
-      "sha256": "64d74bada7dca73d78a6816b2ae5c76e7ea8943547339f4329d09717e75a0a71",
-      "size": 17269
+      "sha256": "c618f1dbb804809ef156e0187cec63d7a52380c0b82f5d09667883eba834abbb",
+      "size": 17781
     },
     {
       "url": "https://code.claude.com/docs/en/headless",
@@ -8415,8 +8422,8 @@
       "url": "https://code.claude.com/docs/en/hooks",
       "status": "success",
       "path": "en/docs/claude-code/hooks.md",
-      "sha256": "935ae07722380e76c60b41d519e8904df19219498b4e92155dc103f5d09e5afa",
-      "size": 148184
+      "sha256": "7cd6e4202b373b3925b563d0877de8df604220b73d131629b3d092e5134bb0c4",
+      "size": 148323
     },
     {
       "url": "https://code.claude.com/docs/en/hooks-guide",
@@ -8436,8 +8443,8 @@
       "url": "https://code.claude.com/docs/en/interactive-mode",
       "status": "success",
       "path": "en/docs/claude-code/interactive-mode.md",
-      "sha256": "b154a0ec6015f01e4b870fd2fa9c6a82608863dfea23de9e6bc073307d7c6a23",
-      "size": 28595
+      "sha256": "de74e4d06f7f2dd3f7e0b5d1f87f14e046b1a9335369dab1eccc42750f49a627",
+      "size": 28661
     },
     {
       "url": "https://code.claude.com/docs/en/jetbrains",
@@ -8450,8 +8457,8 @@
       "url": "https://code.claude.com/docs/en/keybindings",
       "status": "success",
       "path": "en/docs/claude-code/keybindings.md",
-      "sha256": "fba77e1de0d57d909811bd7a4846419786fca311aa4964833ea823fdd867710e",
-      "size": 22084
+      "sha256": "0b7bda9340c3b82767343eca7eb090dbbb71138c2c2523adabdbe3f1cb9f2892",
+      "size": 22180
     },
     {
       "url": "https://code.claude.com/docs/en/legal-and-compliance",
@@ -8471,15 +8478,15 @@
       "url": "https://code.claude.com/docs/en/mcp",
       "status": "success",
       "path": "en/docs/claude-code/mcp.md",
-      "sha256": "9a5e8d56ebac6de8ec8224e332b664cbd0208be9a01ce3a5157d717bd60fcf04",
-      "size": 56718
+      "sha256": "815587b7b8126718284fd03870953d29a0b59d9fa75a96221c87bcdb333df0df",
+      "size": 56990
     },
     {
       "url": "https://code.claude.com/docs/en/memory",
       "status": "success",
       "path": "en/docs/claude-code/memory.md",
-      "sha256": "b7da940889bead4c40ffdcb4e86e77a5256a764071a3937cfdcbe765a9cb3b2a",
-      "size": 27472
+      "sha256": "6f982898a5dd8c592c0791d5f63eb59fcd28f239f74a556294bda5e661a31c42",
+      "size": 27740
     },
     {
       "url": "https://code.claude.com/docs/en/microsoft-foundry",
@@ -8492,22 +8499,22 @@
       "url": "https://code.claude.com/docs/en/model-config",
       "status": "success",
       "path": "en/docs/claude-code/model-config.md",
-      "sha256": "09c14263e7f0c3b8ddc5766ef4b2dc680861b0a87d5bbd46826feb0f7719ea8c",
-      "size": 27915
+      "sha256": "b4c333444fbcae2587e4a5ba8f7325b933979bf1653906efcb19079eaef17b26",
+      "size": 28423
     },
     {
       "url": "https://code.claude.com/docs/en/monitoring-usage",
       "status": "success",
       "path": "en/docs/claude-code/monitoring-usage.md",
-      "sha256": "c5b693a20be93488b712db86617a8304d1edd47d1c63e4781297807f3e965719",
-      "size": 62411
+      "sha256": "16d03a06763c17c51163dcddfda629efbde5413b8b8aaa6930521961699ff84c",
+      "size": 63610
     },
     {
       "url": "https://code.claude.com/docs/en/network-config",
       "status": "success",
       "path": "en/docs/claude-code/network-config.md",
-      "sha256": "6faba3bbd4adb941c82eef7b17ec7a8c1105b169a54b48e62448a5b2d0abf64d",
-      "size": 6886
+      "sha256": "98ee01239b6a8ce7912b639054a3d32f47b52cfcef04e764e6a7e9147efbaca6",
+      "size": 7259
     },
     {
       "url": "https://code.claude.com/docs/en/output-styles",
@@ -8520,22 +8527,22 @@
       "url": "https://code.claude.com/docs/en/overview",
       "status": "success",
       "path": "en/docs/claude-code/overview.md",
-      "sha256": "7473bcb4d6cfcbf401867ea3954fd9fc49eac3a6262ad373a99c53ce129cca23",
-      "size": 39819
+      "sha256": "c9b1de8da843043aa56976215d55adfaad66980c7b67675ab2a7583d3293cc61",
+      "size": 39953
     },
     {
       "url": "https://code.claude.com/docs/en/permission-modes",
       "status": "success",
       "path": "en/docs/claude-code/permission-modes.md",
-      "sha256": "e94edcfb1403b6d267c51cd911fea0c2347a4a0a3cfce848613d30a359fe12a6",
-      "size": 19115
+      "sha256": "d8009b26e3f26d33885c8ed80d7d06d575b2ed63812efbf1e28517c1e0e58eaf",
+      "size": 19087
     },
     {
       "url": "https://code.claude.com/docs/en/permissions",
       "status": "success",
       "path": "en/docs/claude-code/permissions.md",
-      "sha256": "82ae16b84515dc4a878e4cc8491e8ebe4e01c6dc20a88d0aef3ada7726cf581a",
-      "size": 37701
+      "sha256": "322f69af96ed7165e9d1ec39f610e5b982a5dfa1e04a753166f673cd9e972847",
+      "size": 28286
     },
     {
       "url": "https://code.claude.com/docs/en/platforms",
@@ -8548,15 +8555,15 @@
       "url": "https://code.claude.com/docs/en/plugin-dependencies",
       "status": "success",
       "path": "en/docs/claude-code/plugin-dependencies.md",
-      "sha256": "44aad1ff875aa694eeee3f2bbd4822d45f01d4da4c0bbe3e45e2f47a08b24e3b",
-      "size": 11908
+      "sha256": "4fff3a84da8ce7a00caa6ee7cf5f4230e9efa7be6f49a336fc5f881146d40a4c",
+      "size": 13086
     },
     {
       "url": "https://code.claude.com/docs/en/plugin-marketplaces",
       "status": "success",
       "path": "en/docs/claude-code/plugin-marketplaces.md",
-      "sha256": "6bedd49c08e669eb6381a6161c3b743717d33578446d5908f149c8a9e3b80d72",
-      "size": 50474
+      "sha256": "a53f258c02e8e0406902311cc73b53e7fc02bc80b7dfeb141cbe6bc86c1f88e0",
+      "size": 50670
     },
     {
       "url": "https://code.claude.com/docs/en/plugins",
@@ -8576,15 +8583,15 @@
       "url": "https://code.claude.com/docs/en/quickstart",
       "status": "success",
       "path": "en/docs/claude-code/quickstart.md",
-      "sha256": "bb20f168f076efde49d6291617048f5e42e3d489d5be021e49fd1161a9676d86",
-      "size": 32480
+      "sha256": "fc751d9be10a9f33e925ad64d4aa567cd56aed50f34b7897e22b6452b00d905c",
+      "size": 32610
     },
     {
       "url": "https://code.claude.com/docs/en/remote-control",
       "status": "success",
       "path": "en/docs/claude-code/remote-control.md",
-      "sha256": "0d22f5bfbbca3f35ef636c18aff86441a481bacab2b7f9c3cc464c8a6134df06",
-      "size": 23864
+      "sha256": "5f01ebf5452133ef176414f98df866db152585aa5ad394cfeba3bf1a2f76ed32",
+      "size": 23888
     },
     {
       "url": "https://code.claude.com/docs/en/routines",
@@ -8618,22 +8625,22 @@
       "url": "https://code.claude.com/docs/en/server-managed-settings",
       "status": "success",
       "path": "en/docs/claude-code/server-managed-settings.md",
-      "sha256": "08952f8b79df6a1e2018b131fbcc3e78aef55938cfeacbc6cad53eb3d591a119",
-      "size": 13497
+      "sha256": "b9704970c7005ac823011707c1a5cc4fdb318d1d401e6c3a81e75c635432aac9",
+      "size": 13452
     },
     {
       "url": "https://code.claude.com/docs/en/settings",
       "status": "success",
       "path": "en/docs/claude-code/settings.md",
-      "sha256": "4de1384752b075ce1c1aa9df816ccb41d273100030898dbc66150eadfd989cd6",
-      "size": 101169
+      "sha256": "03e5ce19651844e79cc64989af8df8d7f54c6ce758d9cd2c1ef4fc3adf143f90",
+      "size": 102033
     },
     {
       "url": "https://code.claude.com/docs/en/setup",
       "status": "success",
       "path": "en/docs/claude-code/setup.md",
-      "sha256": "543dee6332abe992404bcd5faf0706fbc3f1f892f7efe1520f43197f8c60b459",
-      "size": 19376
+      "sha256": "b8c6c73ba2150333991f03bec099ffd6964152cd0a71dc53ac6387915733c057",
+      "size": 23074
     },
     {
       "url": "https://code.claude.com/docs/en/skills",
@@ -8660,8 +8667,8 @@
       "url": "https://code.claude.com/docs/en/sub-agents",
       "status": "success",
       "path": "en/docs/claude-code/sub-agents.md",
-      "sha256": "88215df8fdc973126c9f5673dea7fcb31a558fe2b5c6ccf6822d24700ed33db2",
-      "size": 52655
+      "sha256": "4d9d3567cfaba29d42ed804f8324f1ac568c76294142d0f529986b9d496e2737",
+      "size": 53070
     },
     {
       "url": "https://code.claude.com/docs/en/terminal-config",
@@ -8709,15 +8716,15 @@
       "url": "https://code.claude.com/docs/en/voice-dictation",
       "status": "success",
       "path": "en/docs/claude-code/voice-dictation.md",
-      "sha256": "45d9b0708fbd82b04841636b6145800574d4f0f9114b9186ab551107c4f65db6",
-      "size": 9474
+      "sha256": "0555c38d5c7b9da7993de3f66788f9c1986ab31bb8f5e658f5cb754b839d1f10",
+      "size": 12713
     },
     {
       "url": "https://code.claude.com/docs/en/vs-code",
       "status": "success",
       "path": "en/docs/claude-code/vs-code.md",
-      "sha256": "b854cafdbda254c4959104b8ad5038d481d53449be838064dfde35792186491b",
-      "size": 39080
+      "sha256": "d9c68b51159872e31650a430c096c1480ea962f70b1c919639131c5bc5b4c500",
+      "size": 39324
     },
     {
       "url": "https://code.claude.com/docs/en/web-quickstart",
@@ -8779,7 +8786,7 @@
       "url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
       "status": "success",
       "path": "blog/engineering/claude-code-sandboxing.md",
-      "sha256": "c7884ba79cd921713baa57adafa4ac80b32615b2e150d60ec8dfcebd7cf66a17",
+      "sha256": "a39a3a07001201332579b7bc9469ceb05ed63479b700419ec329404f6b151cc7",
       "size": 8687
     },
     {
@@ -8819,8 +8826,8 @@
     }
   ],
   "summary": {
-    "total": 1259,
-    "downloaded": 1259,
+    "total": 1260,
+    "downloaded": 1260,
     "skipped": 0,
     "failed": 0,
     "success_rate": 100.0
