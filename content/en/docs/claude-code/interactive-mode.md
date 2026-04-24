@@ -97,9 +97,9 @@ When the transcript viewer is open (toggled with `Ctrl+O`), these shortcuts are 
 
 ### Voice input
 
-| Shortcut     | Description            | Notes                                                                                                                                                      |
-| :----------- | :--------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hold `Space` | Push-to-talk dictation | Requires [voice dictation](/en/voice-dictation) to be enabled. Transcript inserts at cursor. [Rebindable](/en/voice-dictation#rebind-the-push-to-talk-key) |
+| Shortcut            | Description     | Notes                                                                                                                                                                            |
+| :------------------ | :-------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hold or tap `Space` | Voice dictation | Requires [voice dictation](/en/voice-dictation) to be enabled. Hold to record, or run `/voice tap` for tap-to-toggle. [Rebindable](/en/voice-dictation#rebind-the-dictation-key) |
 
 ## Commands
 
@@ -113,15 +113,17 @@ Enable vim-style editing via `/config` → Editor mode.
 
 ### Mode switching
 
-| Command | Action                      | From mode |
-| :------ | :-------------------------- | :-------- |
-| `Esc`   | Enter NORMAL mode           | INSERT    |
-| `i`     | Insert before cursor        | NORMAL    |
-| `I`     | Insert at beginning of line | NORMAL    |
-| `a`     | Insert after cursor         | NORMAL    |
-| `A`     | Insert at end of line       | NORMAL    |
-| `o`     | Open line below             | NORMAL    |
-| `O`     | Open line above             | NORMAL    |
+| Command | Action                                | From mode      |
+| :------ | :------------------------------------ | :------------- |
+| `Esc`   | Enter NORMAL mode                     | INSERT, VISUAL |
+| `i`     | Insert before cursor                  | NORMAL         |
+| `I`     | Insert at beginning of line           | NORMAL         |
+| `a`     | Insert after cursor                   | NORMAL         |
+| `A`     | Insert at end of line                 | NORMAL         |
+| `o`     | Open line below                       | NORMAL         |
+| `O`     | Open line above                       | NORMAL         |
+| `v`     | Start character-wise visual selection | NORMAL         |
+| `V`     | Start line-wise visual selection      | NORMAL         |
 
 ### Navigation (NORMAL mode)
 
@@ -181,6 +183,26 @@ Text objects work with operators like `d`, `c`, and `y`:
 | `i(`/`a(` | Inner/around parentheses                 |
 | `i[`/`a[` | Inner/around brackets                    |
 | `i{`/`a{` | Inner/around braces                      |
+
+### Visual mode
+
+Press `v` for character-wise selection or `V` for line-wise selection. Motions extend the selection, and operators act on it directly.
+
+| Command          | Action                                               |
+| :--------------- | :--------------------------------------------------- |
+| `d`/`x`          | Delete selection                                     |
+| `y`              | Yank selection                                       |
+| `c`/`s`          | Change selection                                     |
+| `p`              | Replace selection with register contents             |
+| `r{char}`        | Replace every selected character with `{char}`       |
+| `~`/`u`/`U`      | Toggle, lowercase, or uppercase selection            |
+| `>`/`<`          | Indent or dedent selected lines                      |
+| `J`              | Join selected lines                                  |
+| `o`              | Swap cursor and anchor                               |
+| `iw`/`aw`/`i"`/… | Select a text object                                 |
+| `v`/`V`          | Toggle between character-wise and line-wise, or exit |
+
+Block-wise visual mode with `Ctrl+V` is not supported.
 
 ## Command history
 

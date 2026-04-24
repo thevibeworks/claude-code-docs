@@ -54,6 +54,10 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce
+
+[Read more](https://www.anthropic.com/news/anthropic-nec)
+
 ### Introducing Claude Design by Anthropic Labs
 
 Today, we’re launching Claude Design, a new Anthropic Labs product that lets you collaborate with Claude to create polished visual work like designs, prototypes, slides, one-pagers, and more.
@@ -65,7 +69,3 @@ Today, we’re launching Claude Design, a new Anthropic Labs product that lets y
 Our latest Opus model brings stronger performance across coding, agents, vision, and multi-step tasks, with greater thoroughness and consistency on the work that matters most.
 
 [Read more](https://www.anthropic.com/news/claude-opus-4-7)
-
-### Anthropic’s Long-Term Benefit Trust appoints Vas Narasimhan to Board of Directors
-
-[Read more](https://www.anthropic.com/news/narasimhan-board)
