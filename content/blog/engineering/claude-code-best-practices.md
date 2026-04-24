@@ -29,7 +29,7 @@ Use Claude Code
 
 Best Practices for Claude Code
 
-[Getting started](https://www.anthropic.com/docs/en/overview)[Build with Claude Code](https://www.anthropic.com/docs/en/sub-agents)[Deployment](https://www.anthropic.com/docs/en/third-party-integrations)[Administration](https://www.anthropic.com/docs/en/setup)[Configuration](https://www.anthropic.com/docs/en/settings)[Reference](https://www.anthropic.com/docs/en/cli-reference)[Agent SDK](https://www.anthropic.com/docs/en/agent-sdk/overview)[What's New](https://www.anthropic.com/docs/en/whats-new)[Resources](https://www.anthropic.com/docs/en/legal-and-compliance)
+[Getting started](https://www.anthropic.com/docs/en/overview)[Build with Claude Code](https://www.anthropic.com/docs/en/sub-agents)[Deployment](https://www.anthropic.com/docs/en/third-party-integrations)[Administration](https://www.anthropic.com/docs/en/admin-setup)[Configuration](https://www.anthropic.com/docs/en/settings)[Reference](https://www.anthropic.com/docs/en/cli-reference)[Agent SDK](https://www.anthropic.com/docs/en/agent-sdk/overview)[What's New](https://www.anthropic.com/docs/en/whats-new)[Resources](https://www.anthropic.com/docs/en/legal-and-compliance)
 
 ##### Getting started
 
