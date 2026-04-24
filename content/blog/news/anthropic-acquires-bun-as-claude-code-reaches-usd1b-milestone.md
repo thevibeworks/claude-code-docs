@@ -23,18 +23,16 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 
 ## Related content
 
+### An update on our election safeguards
+
+We explain what we’re doing to ensure Claude plays a positive role in the US midterms and other major elections around the world this year.
+
+[Read more](https://www.anthropic.com/news/election-safeguards-update)
+
 ### Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce
 
 [Read more](https://www.anthropic.com/news/anthropic-nec)
 
-### Introducing Claude Design by Anthropic Labs
+### Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute
 
-Today, we’re launching Claude Design, a new Anthropic Labs product that lets you collaborate with Claude to create polished visual work like designs, prototypes, slides, one-pagers, and more.
-
-[Read more](https://www.anthropic.com/news/claude-design-anthropic-labs)
-
-### Introducing Claude Opus 4.7
-
-Our latest Opus model brings stronger performance across coding, agents, vision, and multi-step tasks, with greater thoroughness and consistency on the work that matters most.
-
-[Read more](https://www.anthropic.com/news/claude-opus-4-7)
+[Read more](https://www.anthropic.com/news/anthropic-amazon-compute)
