@@ -32,7 +32,3 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 We explain what we’re doing to ensure Claude plays a positive role in the US midterms and other major elections around the world this year.
 
 [Read more](https://www.anthropic.com/news/election-safeguards-update)
-
-### Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce
-
-[Read more](https://www.anthropic.com/news/anthropic-nec)
