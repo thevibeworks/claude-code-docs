@@ -46,6 +46,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 
 ## Related content
 
+### Anthropic names Theo Hourmouzis General Manager of Australia & New Zealand and officially opens Sydney office
+
+[Read more](https://www.anthropic.com/news/theo-hourmouzis-general-manager-australia-new-zealand)
+
 ### An update on our election safeguards
 
 We explain what we’re doing to ensure Claude plays a positive role in the US midterms and other major elections around the world this year.
@@ -55,7 +59,3 @@ We explain what we’re doing to ensure Claude plays a positive role in the US m
 ### Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce
 
 [Read more](https://www.anthropic.com/news/anthropic-nec)
-
-### Anthropic and Amazon expand collaboration for up to 5 gigawatts of new compute
-
-[Read more](https://www.anthropic.com/news/anthropic-amazon-compute)
