@@ -54,7 +54,3 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 We explain what we’re doing to ensure Claude plays a positive role in the US midterms and other major elections around the world this year.
 
 [Read more](https://www.anthropic.com/news/election-safeguards-update)
-
-### Anthropic and NEC collaborate to build Japan’s largest AI engineering workforce
-
-[Read more](https://www.anthropic.com/news/anthropic-nec)

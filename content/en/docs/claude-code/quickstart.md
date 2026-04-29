@@ -489,17 +489,17 @@ export const InstallConfigurator = ({defaultSurface = 'terminal'}) => {
       {}
       {target === 'terminal' && <div className="cc-ic-below">
           {isWinInstaller && <span>
-              Requires{' '}
               <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">
                 Git for Windows
-              </a>.
+              </a>{' '}
+              recommended. PowerShell is used if Git Bash is absent.
             </span>}
           {(pkg === 'brew' || pkg === 'winget') && <span>
               Does not auto-update. Run{' '}
               <code>{pkg === 'brew' ? 'brew upgrade claude-code' : 'winget upgrade Anthropic.ClaudeCode'}</code>{' '}
               periodically.
             </span>}
-          <a href="/en/troubleshooting">Troubleshooting</a>
+          <a href="/en/troubleshoot-install">Installation troubleshooting</a>
         </div>}
 
       {alt && <div className="cc-ic-handoff">
