@@ -72,7 +72,7 @@ List User Profiles
 
       Platform's own identifier for this user. Not enforced unique.
 
-  - `next_page: optional string`
+  - `next_page: string`
 
     Cursor for the next page, or `null` when there are no more results.
 

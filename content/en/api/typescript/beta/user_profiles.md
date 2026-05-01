@@ -70,9 +70,9 @@ Create User Profile
 
       - `"output-300k-2026-03-24"`
 
-      - `"advisor-tool-2026-03-01"`
-
       - `"user-profiles-2026-03-24"`
+
+      - `"advisor-tool-2026-03-01"`
 
 ### Returns
 
@@ -210,9 +210,9 @@ List User Profiles
 
       - `"output-300k-2026-03-24"`
 
-      - `"advisor-tool-2026-03-01"`
-
       - `"user-profiles-2026-03-24"`
+
+      - `"advisor-tool-2026-03-01"`
 
 ### Returns
 
@@ -337,9 +337,9 @@ Get User Profile
 
       - `"output-300k-2026-03-24"`
 
-      - `"advisor-tool-2026-03-01"`
-
       - `"user-profiles-2026-03-24"`
+
+      - `"advisor-tool-2026-03-01"`
 
 ### Returns
 
@@ -471,9 +471,9 @@ Update User Profile
 
       - `"output-300k-2026-03-24"`
 
-      - `"advisor-tool-2026-03-01"`
-
       - `"user-profiles-2026-03-24"`
+
+      - `"advisor-tool-2026-03-01"`
 
 ### Returns
 
@@ -597,9 +597,9 @@ Create Enrollment URL
 
       - `"output-300k-2026-03-24"`
 
-      - `"advisor-tool-2026-03-01"`
-
       - `"user-profiles-2026-03-24"`
+
+      - `"advisor-tool-2026-03-01"`
 
 ### Returns
 
