@@ -72,9 +72,9 @@ List User Profiles
 
     - `"output-300k-2026-03-24"Output300k2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
-
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+
+    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
 ### Returns
 
@@ -124,7 +124,7 @@ List User Profiles
 
       Platform's own identifier for this user. Not enforced unique.
 
-  - `string? NextPage`
+  - `required string? NextPage`
 
     Cursor for the next page, or `null` when there are no more results.
 
