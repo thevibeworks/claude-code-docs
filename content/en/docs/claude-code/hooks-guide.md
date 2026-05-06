@@ -171,6 +171,19 @@ This hook uses the `Notification` event, which fires when Claude is waiting for 
   </Tab>
 </Tabs>
 
+The empty `matcher` fires on all notification types. To fire only on specific events, set it to one of these values:
+
+| Matcher                | Fires when                                             |
+| :--------------------- | :----------------------------------------------------- |
+| `permission_prompt`    | Claude needs you to approve a tool use                 |
+| `idle_prompt`          | Claude is done and waiting for your next prompt        |
+| `auth_success`         | Authentication completes                               |
+| `elicitation_dialog`   | An MCP server opens an elicitation form                |
+| `elicitation_complete` | An MCP elicitation form is submitted or dismissed      |
+| `elicitation_response` | An MCP elicitation response is sent back to the server |
+
+Type `/hooks` and select `Notification` to confirm the hook is registered. For the full event schema, see the [Notification reference](/en/hooks#notification).
+
 ### Auto-format code after edits
 
 Automatically run [Prettier](https://prettier.io/) on every file Claude edits, so formatting stays consistent without manual intervention.
@@ -722,7 +735,10 @@ For decisions that require judgment rather than deterministic rules, use `type: 
 The model's only job is to return a yes/no decision as JSON:
 
 * `"ok": true`: the action proceeds
-* `"ok": false`: the action is blocked. The model's `"reason"` is fed back to Claude so it can adjust.
+* `"ok": false`: what happens depends on the event:
+  * `Stop` and `SubagentStop`: the `reason` is fed back to Claude so it keeps working
+  * `PreToolUse`: the tool call is denied and the `reason` is returned to Claude as the tool error, so it can adjust and continue
+  * `PostToolUse`, `PostToolBatch`, `UserPromptSubmit`, and `UserPromptExpansion`: the turn ends and the `reason` appears in the chat as a warning line
 
 This example uses a `Stop` hook to ask the model whether all requested tasks are complete. If the model returns `"ok": false`, Claude keeps working and uses the `reason` as its next instruction:
 

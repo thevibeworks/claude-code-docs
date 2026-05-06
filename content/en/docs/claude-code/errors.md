@@ -307,7 +307,7 @@ Common causes include no internet access, a VPN that blocks `api.anthropic.com`,
 * Ensure your firewall allows the hosts listed in [Network access requirements](/en/network-config#network-access-requirements)
 * Intermittent failures are [retried automatically](#automatic-retries); persistent failures point to a local network issue
 
-If `curl` succeeds but Claude Code still fails, the cause is usually something between Node.js and the network rather than the network itself:
+If `curl` succeeds but Claude Code still fails, the cause is usually something between the runtime and the network rather than the network itself:
 
 * On Linux and WSL, check `/etc/resolv.conf` for an unreachable nameserver. WSL in particular can inherit a broken resolver from the host.
 * On macOS, a VPN client that was disconnected or uninstalled can leave a tunnel interface or routing rule behind. Check `ifconfig` for stale `utun` interfaces and remove the VPN's network extension in System Settings.
@@ -315,7 +315,7 @@ If `curl` succeeds but Claude Code still fails, the cause is usually something b
 
 ### SSL certificate errors
 
-A proxy or security appliance on your network is intercepting TLS traffic with its own certificate, and Node.js does not trust it.
+A proxy or security appliance on your network is intercepting TLS traffic with its own certificate, and Claude Code does not trust it.
 
 ```text theme={null}
 Unable to connect to API: SSL certificate verification failed. Check your proxy or corporate SSL certificates
@@ -324,7 +324,7 @@ Unable to connect to API: Self-signed certificate detected
 
 **What to do:**
 
-* Export your organization's CA bundle and point Node at it with `NODE_EXTRA_CA_CERTS=/path/to/ca-bundle.pem`
+* Export your organization's CA bundle and point Claude Code at it with `NODE_EXTRA_CA_CERTS=/path/to/ca-bundle.pem`
 * See [Network configuration](/en/network-config#custom-ca-certificates) for full setup instructions
 * Do not set `NODE_TLS_REJECT_UNAUTHORIZED=0`, which disables certificate validation entirely
 
@@ -487,7 +487,7 @@ Claude Code adjusts these values automatically on the Anthropic API. You typical
 **What to do:**
 
 * Lower `MAX_THINKING_TOKENS`, or raise [`CLAUDE_CODE_MAX_OUTPUT_TOKENS`](/en/env-vars) above the thinking budget
-* See [Extended thinking](/en/common-workflows#use-extended-thinking-thinking-mode) for how the budget interacts with output length
+* See [Extended thinking](/en/model-config#extended-thinking) for how the budget interacts with output length
 
 ### Tool use or thinking block mismatch
 
