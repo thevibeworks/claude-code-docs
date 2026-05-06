@@ -23,6 +23,12 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 
 ## Related content
 
+### Higher usage limits for Claude and a compute deal with SpaceX
+
+We’ve raised Claude's usage limits and agreed a new compute partnership with SpaceX that will substantially increase our capacity in the near term.
+
+[Read more](https://www.anthropic.com/news/higher-limits-spacex)
+
 ### Agents for financial services
 
 We're releasing ten new Cowork and Claude Code plugins, integrations with the Microsoft 365 suite, new connectors, and an MCP app for financial services and insurance organizations.
