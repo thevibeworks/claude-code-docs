@@ -45,12 +45,12 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 
 ## Related content
 
-### Anthropic names Theo Hourmouzis General Manager of Australia & New Zealand and officially opens Sydney office
+### Agents for financial services
 
-[Read more](https://www.anthropic.com/news/theo-hourmouzis-general-manager-australia-new-zealand)
+We're releasing ten new Cowork and Claude Code plugins, integrations with the Microsoft 365 suite, new connectors, and an MCP app for financial services and insurance organizations.
 
-### An update on our election safeguards
+[Read more](https://www.anthropic.com/news/finance-agents)
 
-We explain what we’re doing to ensure Claude plays a positive role in the US midterms and other major elections around the world this year.
+### Building a new enterprise AI services company with Blackstone, Hellman & Friedman, and Goldman Sachs
 
-[Read more](https://www.anthropic.com/news/election-safeguards-update)
+[Read more](https://www.anthropic.com/news/enterprise-ai-services-company)

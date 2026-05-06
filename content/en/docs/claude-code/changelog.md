@@ -10,6 +10,11 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.131" description="May 6, 2026">
+  * Fixed VS Code extension failing to activate on Windows due to a hardcoded build path in the bundled SDK (`createRequire` polyfill bug)
+  * Fixed Mantle endpoint authentication failing with missing `x-api-key` header
+</Update>
+
 <Update label="2.1.129" description="May 6, 2026">
   * Added `--plugin-url <url>` flag to fetch a plugin `.zip` archive from a URL for the current session
   * Added `CLAUDE_CODE_FORCE_SYNC_OUTPUT=1` env var to force-enable synchronized output on terminals that auto-detection misses (e.g. Emacs `eat`)
