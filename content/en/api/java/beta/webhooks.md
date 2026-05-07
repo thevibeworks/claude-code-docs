@@ -114,7 +114,7 @@
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusScheduledEventData:`
+    - `class BetaWebhookSessionStatusRescheduledEventData:`
 
       - `String id`
 
@@ -122,9 +122,9 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_scheduled"constant`
+      - `JsonValue; type "session.status_rescheduled"constant`
 
-        - `SESSION_STATUS_SCHEDULED("session.status_scheduled")`
+        - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
 
       - `String workspaceId`
 
@@ -448,7 +448,7 @@
 
     - `String workspaceId`
 
-  - `class BetaWebhookSessionStatusScheduledEventData:`
+  - `class BetaWebhookSessionStatusRescheduledEventData:`
 
     - `String id`
 
@@ -456,9 +456,9 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.status_scheduled"constant`
+    - `JsonValue; type "session.status_rescheduled"constant`
 
-      - `SESSION_STATUS_SCHEDULED("session.status_scheduled")`
+      - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
 
     - `String workspaceId`
 
@@ -818,6 +818,22 @@
 
   - `String workspaceId`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `class BetaWebhookSessionStatusRescheduledEventData:`
+
+  - `String id`
+
+    ID of the resource that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "session.status_rescheduled"constant`
+
+    - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
+
+  - `String workspaceId`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `class BetaWebhookSessionStatusRunStartedEventData:`
@@ -831,22 +847,6 @@
   - `JsonValue; type "session.status_run_started"constant`
 
     - `SESSION_STATUS_RUN_STARTED("session.status_run_started")`
-
-  - `String workspaceId`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `class BetaWebhookSessionStatusScheduledEventData:`
-
-  - `String id`
-
-    ID of the resource that triggered the event.
-
-  - `String organizationId`
-
-  - `JsonValue; type "session.status_scheduled"constant`
-
-    - `SESSION_STATUS_SCHEDULED("session.status_scheduled")`
 
   - `String workspaceId`
 
@@ -1154,7 +1154,7 @@
 
       - `String workspaceId`
 
-    - `class BetaWebhookSessionStatusScheduledEventData:`
+    - `class BetaWebhookSessionStatusRescheduledEventData:`
 
       - `String id`
 
@@ -1162,9 +1162,9 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_scheduled"constant`
+      - `JsonValue; type "session.status_rescheduled"constant`
 
-        - `SESSION_STATUS_SCHEDULED("session.status_scheduled")`
+        - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
 
       - `String workspaceId`
 

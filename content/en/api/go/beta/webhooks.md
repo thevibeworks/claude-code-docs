@@ -1,34 +1,5 @@
 # Webhooks
 
-## Unwrap
-
-`client.Beta.Webhooks.Unwrap(ctx) error`
-
-**** ``
-
-### Example
-
-```go
-package main
-
-import (
-  "context"
-
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
-)
-
-func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  err := client.Beta.Webhooks.Unwrap(context.TODO())
-  if err != nil {
-    panic(err.Error())
-  }
-}
-```
-
 ## Domain Types
 
 ### Beta Webhook Event
@@ -143,7 +114,7 @@ func main() {
 
       - `WorkspaceID string`
 
-    - `type BetaWebhookSessionStatusScheduledEventData struct{…}`
+    - `type BetaWebhookSessionStatusRescheduledEventData struct{…}`
 
       - `ID string`
 
@@ -151,9 +122,9 @@ func main() {
 
       - `OrganizationID string`
 
-      - `Type SessionStatusScheduled`
+      - `Type SessionStatusRescheduled`
 
-        - `const SessionStatusScheduledSessionStatusScheduled SessionStatusScheduled = "session.status_scheduled"`
+        - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
 
       - `WorkspaceID string`
 
@@ -477,7 +448,7 @@ func main() {
 
     - `WorkspaceID string`
 
-  - `type BetaWebhookSessionStatusScheduledEventData struct{…}`
+  - `type BetaWebhookSessionStatusRescheduledEventData struct{…}`
 
     - `ID string`
 
@@ -485,9 +456,9 @@ func main() {
 
     - `OrganizationID string`
 
-    - `Type SessionStatusScheduled`
+    - `Type SessionStatusRescheduled`
 
-      - `const SessionStatusScheduledSessionStatusScheduled SessionStatusScheduled = "session.status_scheduled"`
+      - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
 
     - `WorkspaceID string`
 
@@ -847,6 +818,22 @@ func main() {
 
   - `WorkspaceID string`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `type BetaWebhookSessionStatusRescheduledEventData struct{…}`
+
+  - `ID string`
+
+    ID of the resource that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type SessionStatusRescheduled`
+
+    - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
+
+  - `WorkspaceID string`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `type BetaWebhookSessionStatusRunStartedEventData struct{…}`
@@ -860,22 +847,6 @@ func main() {
   - `Type SessionStatusRunStarted`
 
     - `const SessionStatusRunStartedSessionStatusRunStarted SessionStatusRunStarted = "session.status_run_started"`
-
-  - `WorkspaceID string`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `type BetaWebhookSessionStatusScheduledEventData struct{…}`
-
-  - `ID string`
-
-    ID of the resource that triggered the event.
-
-  - `OrganizationID string`
-
-  - `Type SessionStatusScheduled`
-
-    - `const SessionStatusScheduledSessionStatusScheduled SessionStatusScheduled = "session.status_scheduled"`
 
   - `WorkspaceID string`
 
@@ -1183,7 +1154,7 @@ func main() {
 
       - `WorkspaceID string`
 
-    - `type BetaWebhookSessionStatusScheduledEventData struct{…}`
+    - `type BetaWebhookSessionStatusRescheduledEventData struct{…}`
 
       - `ID string`
 
@@ -1191,9 +1162,9 @@ func main() {
 
       - `OrganizationID string`
 
-      - `Type SessionStatusScheduled`
+      - `Type SessionStatusRescheduled`
 
-        - `const SessionStatusScheduledSessionStatusScheduled SessionStatusScheduled = "session.status_scheduled"`
+        - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
 
       - `WorkspaceID string`
 
