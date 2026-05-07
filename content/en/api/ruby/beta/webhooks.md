@@ -1,23 +1,5 @@
 # Webhooks
 
-## Unwrap
-
-`beta.webhooks.unwrap() -> void`
-
-**** ``
-
-### Example
-
-```ruby
-require "anthropic"
-
-anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
-
-result = anthropic.beta.webhooks.unwrap
-
-puts(result)
-```
-
 ## Domain Types
 
 ### Beta Webhook Event
@@ -132,7 +114,7 @@ puts(result)
 
       - `workspace_id: String`
 
-    - `class BetaWebhookSessionStatusScheduledEventData`
+    - `class BetaWebhookSessionStatusRescheduledEventData`
 
       - `id: String`
 
@@ -140,9 +122,9 @@ puts(result)
 
       - `organization_id: String`
 
-      - `type: :"session.status_scheduled"`
+      - `type: :"session.status_rescheduled"`
 
-        - `:"session.status_scheduled"`
+        - `:"session.status_rescheduled"`
 
       - `workspace_id: String`
 
@@ -466,7 +448,7 @@ puts(result)
 
     - `workspace_id: String`
 
-  - `class BetaWebhookSessionStatusScheduledEventData`
+  - `class BetaWebhookSessionStatusRescheduledEventData`
 
     - `id: String`
 
@@ -474,9 +456,9 @@ puts(result)
 
     - `organization_id: String`
 
-    - `type: :"session.status_scheduled"`
+    - `type: :"session.status_rescheduled"`
 
-      - `:"session.status_scheduled"`
+      - `:"session.status_rescheduled"`
 
     - `workspace_id: String`
 
@@ -836,6 +818,22 @@ puts(result)
 
   - `workspace_id: String`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `class BetaWebhookSessionStatusRescheduledEventData`
+
+  - `id: String`
+
+    ID of the resource that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"session.status_rescheduled"`
+
+    - `:"session.status_rescheduled"`
+
+  - `workspace_id: String`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `class BetaWebhookSessionStatusRunStartedEventData`
@@ -849,22 +847,6 @@ puts(result)
   - `type: :"session.status_run_started"`
 
     - `:"session.status_run_started"`
-
-  - `workspace_id: String`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `class BetaWebhookSessionStatusScheduledEventData`
-
-  - `id: String`
-
-    ID of the resource that triggered the event.
-
-  - `organization_id: String`
-
-  - `type: :"session.status_scheduled"`
-
-    - `:"session.status_scheduled"`
 
   - `workspace_id: String`
 
@@ -1172,7 +1154,7 @@ puts(result)
 
       - `workspace_id: String`
 
-    - `class BetaWebhookSessionStatusScheduledEventData`
+    - `class BetaWebhookSessionStatusRescheduledEventData`
 
       - `id: String`
 
@@ -1180,9 +1162,9 @@ puts(result)
 
       - `organization_id: String`
 
-      - `type: :"session.status_scheduled"`
+      - `type: :"session.status_rescheduled"`
 
-        - `:"session.status_scheduled"`
+        - `:"session.status_rescheduled"`
 
       - `workspace_id: String`
 

@@ -100,7 +100,7 @@
 
       - `required string WorkspaceID`
 
-    - `class BetaWebhookSessionStatusScheduledEventData:`
+    - `class BetaWebhookSessionStatusRescheduledEventData:`
 
       - `required string ID`
 
@@ -108,7 +108,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_scheduled"constant`
+      - `JsonElement Type "session.status_rescheduled"constant`
 
       - `required string WorkspaceID`
 
@@ -388,7 +388,7 @@
 
     - `required string WorkspaceID`
 
-  - `class BetaWebhookSessionStatusScheduledEventData:`
+  - `class BetaWebhookSessionStatusRescheduledEventData:`
 
     - `required string ID`
 
@@ -396,7 +396,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.status_scheduled"constant`
+    - `JsonElement Type "session.status_rescheduled"constant`
 
     - `required string WorkspaceID`
 
@@ -710,6 +710,20 @@
 
   - `required string WorkspaceID`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `class BetaWebhookSessionStatusRescheduledEventData:`
+
+  - `required string ID`
+
+    ID of the resource that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "session.status_rescheduled"constant`
+
+  - `required string WorkspaceID`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `class BetaWebhookSessionStatusRunStartedEventData:`
@@ -721,20 +735,6 @@
   - `required string OrganizationID`
 
   - `JsonElement Type "session.status_run_started"constant`
-
-  - `required string WorkspaceID`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `class BetaWebhookSessionStatusScheduledEventData:`
-
-  - `required string ID`
-
-    ID of the resource that triggered the event.
-
-  - `required string OrganizationID`
-
-  - `JsonElement Type "session.status_scheduled"constant`
 
   - `required string WorkspaceID`
 
@@ -1006,7 +1006,7 @@
 
       - `required string WorkspaceID`
 
-    - `class BetaWebhookSessionStatusScheduledEventData:`
+    - `class BetaWebhookSessionStatusRescheduledEventData:`
 
       - `required string ID`
 
@@ -1014,7 +1014,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_scheduled"constant`
+      - `JsonElement Type "session.status_rescheduled"constant`
 
       - `required string WorkspaceID`
 

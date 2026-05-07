@@ -100,7 +100,7 @@
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_scheduled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
 
       - `id: string`
 
@@ -108,7 +108,7 @@
 
       - `organization_id: string`
 
-      - `type: "session.status_scheduled"`
+      - `type: "session.status_rescheduled"`
 
       - `workspace_id: string`
 
@@ -388,7 +388,7 @@
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_status_scheduled_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
 
     - `id: string`
 
@@ -396,7 +396,7 @@
 
     - `organization_id: string`
 
-    - `type: "session.status_scheduled"`
+    - `type: "session.status_rescheduled"`
 
     - `workspace_id: string`
 
@@ -710,6 +710,20 @@
 
   - `workspace_id: string`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
+
+  - `id: string`
+
+    ID of the resource that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "session.status_rescheduled"`
+
+  - `workspace_id: string`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `beta_webhook_session_status_run_started_event_data: object { id, organization_id, type, workspace_id }`
@@ -721,20 +735,6 @@
   - `organization_id: string`
 
   - `type: "session.status_run_started"`
-
-  - `workspace_id: string`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `beta_webhook_session_status_scheduled_event_data: object { id, organization_id, type, workspace_id }`
-
-  - `id: string`
-
-    ID of the resource that triggered the event.
-
-  - `organization_id: string`
-
-  - `type: "session.status_scheduled"`
 
   - `workspace_id: string`
 
@@ -1006,7 +1006,7 @@
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_scheduled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
 
       - `id: string`
 
@@ -1014,7 +1014,7 @@
 
       - `organization_id: string`
 
-      - `type: "session.status_scheduled"`
+      - `type: "session.status_rescheduled"`
 
       - `workspace_id: string`
 

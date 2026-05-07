@@ -1,9 +1,5 @@
 # Webhooks
 
-## Unwrap
-
-**** ``
-
 ## Domain Types
 
 ### Beta Webhook Event
@@ -118,7 +114,7 @@
 
       - `workspace_id: string`
 
-    - `BetaWebhookSessionStatusScheduledEventData = object { id, organization_id, type, workspace_id }`
+    - `BetaWebhookSessionStatusRescheduledEventData = object { id, organization_id, type, workspace_id }`
 
       - `id: string`
 
@@ -126,9 +122,9 @@
 
       - `organization_id: string`
 
-      - `type: "session.status_scheduled"`
+      - `type: "session.status_rescheduled"`
 
-        - `"session.status_scheduled"`
+        - `"session.status_rescheduled"`
 
       - `workspace_id: string`
 
@@ -452,7 +448,7 @@
 
     - `workspace_id: string`
 
-  - `BetaWebhookSessionStatusScheduledEventData = object { id, organization_id, type, workspace_id }`
+  - `BetaWebhookSessionStatusRescheduledEventData = object { id, organization_id, type, workspace_id }`
 
     - `id: string`
 
@@ -460,9 +456,9 @@
 
     - `organization_id: string`
 
-    - `type: "session.status_scheduled"`
+    - `type: "session.status_rescheduled"`
 
-      - `"session.status_scheduled"`
+      - `"session.status_rescheduled"`
 
     - `workspace_id: string`
 
@@ -822,6 +818,22 @@
 
   - `workspace_id: string`
 
+### Beta Webhook Session Status Rescheduled Event Data
+
+- `BetaWebhookSessionStatusRescheduledEventData = object { id, organization_id, type, workspace_id }`
+
+  - `id: string`
+
+    ID of the resource that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "session.status_rescheduled"`
+
+    - `"session.status_rescheduled"`
+
+  - `workspace_id: string`
+
 ### Beta Webhook Session Status Run Started Event Data
 
 - `BetaWebhookSessionStatusRunStartedEventData = object { id, organization_id, type, workspace_id }`
@@ -835,22 +847,6 @@
   - `type: "session.status_run_started"`
 
     - `"session.status_run_started"`
-
-  - `workspace_id: string`
-
-### Beta Webhook Session Status Scheduled Event Data
-
-- `BetaWebhookSessionStatusScheduledEventData = object { id, organization_id, type, workspace_id }`
-
-  - `id: string`
-
-    ID of the resource that triggered the event.
-
-  - `organization_id: string`
-
-  - `type: "session.status_scheduled"`
-
-    - `"session.status_scheduled"`
 
   - `workspace_id: string`
 
@@ -1158,7 +1154,7 @@
 
       - `workspace_id: string`
 
-    - `BetaWebhookSessionStatusScheduledEventData = object { id, organization_id, type, workspace_id }`
+    - `BetaWebhookSessionStatusRescheduledEventData = object { id, organization_id, type, workspace_id }`
 
       - `id: string`
 
@@ -1166,9 +1162,9 @@
 
       - `organization_id: string`
 
-      - `type: "session.status_scheduled"`
+      - `type: "session.status_rescheduled"`
 
-        - `"session.status_scheduled"`
+        - `"session.status_rescheduled"`
 
       - `workspace_id: string`
 
