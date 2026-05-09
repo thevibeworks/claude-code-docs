@@ -10,6 +10,10 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.138" description="May 9, 2026">
+  * Internal fixes
+</Update>
+
 <Update label="2.1.137" description="May 9, 2026">
   * \[VSCode] Fixed extension failing to activate on Windows
 </Update>
