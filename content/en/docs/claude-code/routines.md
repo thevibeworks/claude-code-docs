@@ -22,6 +22,8 @@ A single routine can combine triggers. For example, a PR review routine can run 
 
 Routines are available on Pro, Max, Team, and Enterprise plans with [Claude Code on the web](/en/claude-code-on-the-web) enabled. Create and manage them at [claude.ai/code/routines](https://claude.ai/code/routines), or from the CLI with `/schedule`.
 
+Team and Enterprise admins can disable routines for all members with the Routines toggle at [claude.ai/admin-settings/claude-code](https://claude.ai/admin-settings/claude-code). When disabled, existing routines stop running and members cannot create new ones.
+
 This page covers creating a routine, configuring each trigger type, managing runs, and how usage limits apply.
 
 ## Example use cases
@@ -359,6 +361,12 @@ Routines draw down subscription usage the same way interactive sessions do. In a
 When a routine hits the daily cap or your subscription usage limit, organizations with extra usage enabled can keep running routines on metered overage. Without extra usage, additional runs are rejected until the window resets. Enable extra usage from **Settings > Billing** on claude.ai.
 
 One-off runs do not count against the daily routine cap. They draw down your regular subscription usage like any other session, but they are exempt from the per-account daily routine run allowance.
+
+## Troubleshooting
+
+### "Routines are disabled by your organization's policy"
+
+Your Team or Enterprise admin has likely turned off the **Routines** toggle at [claude.ai/admin-settings/claude-code](https://claude.ai/admin-settings/claude-code). This is a server-side organization setting, so it cannot be overridden from your local configuration. Contact your admin to request that routines be enabled for your organization.
 
 ## Related resources
 

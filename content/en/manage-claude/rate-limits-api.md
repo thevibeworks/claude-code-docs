@@ -19,7 +19,7 @@ Use this API to:
 <Check>
   **Admin API key required**
 
-  This API is part of the [Admin API](/docs/en/manage-claude/overview). These endpoints require an Admin API key (starting with `sk-ant-admin...`) that differs from standard API keys. Only organization members with the admin role can provision Admin API keys through the [Claude Console](/settings/admin-keys).
+  This API is part of the [Admin API](/docs/en/manage-claude/admin-api). These endpoints require an Admin API key (starting with `sk-ant-admin...`) that differs from standard API keys. Only organization members with the admin role can provision Admin API keys through the [Claude Console](/settings/admin-keys).
 </Check>
 
 ## Quick start
@@ -67,8 +67,8 @@ curl "https://api.anthropic.com/v1/organizations/rate_limits" \
       ],
       "limits": [
         { "type": "requests_per_minute", "value": 4000 },
-        { "type": "input_tokens_per_minute", "value": 2000000 },
-        { "type": "output_tokens_per_minute", "value": 400000 }
+        { "type": "input_tokens_per_minute", "value": 10000000 },
+        { "type": "output_tokens_per_minute", "value": 800000 }
       ]
     },
     {
@@ -130,7 +130,7 @@ curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA
       ],
       "limits": [
         { "type": "requests_per_minute", "value": 1000, "org_limit": 4000 },
-        { "type": "input_tokens_per_minute", "value": 500000, "org_limit": 2000000 }
+        { "type": "input_tokens_per_minute", "value": 500000, "org_limit": 10000000 }
       ]
     }
   ],
@@ -171,7 +171,7 @@ No. To set workspace rate limits, open the workspace in the [Claude Console](/se
 ## See also
 
 - [Rate limits](/docs/en/api/rate-limits)
-- [Admin API overview](/docs/en/manage-claude/overview)
+- [Admin API](/docs/en/manage-claude/admin-api)
 - [Admin API reference](/docs/en/api/admin)
 - [Workspaces](/docs/en/manage-claude/workspaces)
 - [Usage and Cost API](/docs/en/manage-claude/usage-cost-api)
