@@ -14,6 +14,8 @@ Claude's API surface is organized into five areas:
 
 If you're new, start with [model capabilities](#model-capabilities) and [tools](#tools). Return to the other sections when you're ready to optimize cost, latency, or scale.
 
+For administration and governance, see the [Admin API](/docs/en/manage-claude/admin-api), the [Usage and Cost API](/docs/en/manage-claude/usage-cost-api), and the [Compliance API](/docs/en/manage-claude/compliance-api).
+
 ## Feature availability
 
 Features on the Claude Platform are assigned one of the following availability classifications per platform (shown in the Availability column of each table below). Not all features pass through every stage. A feature may enter at any classification and may skip stages.
@@ -46,7 +48,7 @@ You can discover which capabilities a model supports programmatically. The [Mode
 | [Extended thinking](/docs/en/build-with-claude/extended-thinking) | Enhanced reasoning capabilities for complex tasks, providing transparency into Claude's step-by-step thought process before delivering its final answer. | ZDR eligible | <PlatformAvailability claudeApi bedrock vertexAi azureAiBeta /> |
 | [PDF support](/docs/en/build-with-claude/pdf-support) | Process and analyze text and visual content from PDF documents. | ZDR eligible | <PlatformAvailability claudeApi bedrock vertexAi azureAiBeta /> |
 | [Search results](/docs/en/build-with-claude/search-results) | Enable natural citations for RAG applications by providing search results with proper source attribution. Achieve web search-quality citations for custom knowledge bases and tools. | ZDR eligible | <PlatformAvailability claudeApi bedrock vertexAi azureAiBeta /> |
-| [Structured outputs](/docs/en/build-with-claude/structured-outputs) | Guarantee schema conformance with two approaches: JSON outputs for structured data responses, and strict tool use for validated tool inputs. | [ZDR eligible (qualified)](/docs/en/build-with-claude/structured-outputs#data-retention)* | <PlatformAvailability claudeApi bedrock azureAiBeta /> |
+| [Structured outputs](/docs/en/build-with-claude/structured-outputs) | Guarantee schema conformance with two approaches: JSON outputs for structured data responses, and strict tool use for validated tool inputs. | [ZDR eligible (qualified)](/docs/en/build-with-claude/structured-outputs#data-retention)* | <PlatformAvailability claudeApi bedrock vertexAi azureAiBeta /> |
 
 ## Tools
 

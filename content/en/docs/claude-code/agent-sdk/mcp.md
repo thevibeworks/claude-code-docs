@@ -10,6 +10,10 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-
 
 MCP servers can run as local processes, connect over HTTP, or execute directly within your SDK application.
 
+<Note>
+  This page covers MCP configuration for the Agent SDK. To add MCP servers to the Claude Code CLI so they load in every project, see [MCP installation scopes](/en/mcp#mcp-installation-scopes).
+</Note>
+
 ## Quickstart
 
 This example connects to the [Claude Code documentation](https://code.claude.com/docs) MCP server using [HTTP transport](#httpsse-servers) and uses [`allowedTools`](#allow-mcp-tools) with a wildcard to permit all tools from the server.
@@ -305,7 +309,7 @@ Use HTTP or SSE for cloud-hosted MCP servers and remote APIs:
   </Tab>
 </Tabs>
 
-For HTTP (non-streaming), use `"type": "http"` instead.
+For the streamable HTTP transport, use `"type": "http"` instead. In `.mcp.json` and other JSON config files, `"streamable-http"` is accepted as an alias for `"http"`. The programmatic `mcpServers` option accepts only `"http"`.
 
 ### SDK MCP servers
 

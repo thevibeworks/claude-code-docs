@@ -45,14 +45,14 @@ go get github.com/anthropics/anthropic-sdk-go
 <Tab title="Java">
 <CodeGroup>
 ```groovy Gradle
-implementation("com.anthropic:anthropic-java-vertex:2.27.0")
+implementation("com.anthropic:anthropic-java-vertex:2.30.0")
 ```
 
 ```xml Maven
 <dependency>
     <groupId>com.anthropic</groupId>
     <artifactId>anthropic-java-vertex</artifactId>
-    <version>2.27.0</version>
+    <version>2.30.0</version>
 </dependency>
 ```
 
@@ -350,7 +350,7 @@ Turning on this service does not give Google or Anthropic any access to your con
 </Note>
 
 ## Feature support
-For all currently supported features on Vertex AI, see [API features overview](/docs/en/api/overview).
+For all currently supported features on Vertex AI, see [API features overview](/docs/en/build-with-claude/overview).
 
 ### Context window
 
@@ -360,7 +360,7 @@ Vertex AI limits request payloads to 30 MB. When sending large documents or many
 
 ## Global, multi-region, and regional endpoints
 
-Google Vertex AI offers three endpoint types:
+Vertex AI offers three endpoint types:
 
 - **Global endpoints:** Dynamic routing for maximum availability
 - **Multi-region endpoints:** Dynamic routing within a geographic area (for example, the United States or the European Union) for data residency with high availability
@@ -668,25 +668,29 @@ import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.vertex.backends.VertexBackend;
 
-// Multi-region identifier: "us" or "eu"
-AnthropicClient client = AnthropicOkHttpClient.builder()
-  .backend(
-    VertexBackend.builder()
-      .region("us")
-      .project("MY_PROJECT_ID")
-      .build()
-  )
-  .build();
+void main() {
+    // Multi-region identifier: "us" or "eu"
+    AnthropicClient client = AnthropicOkHttpClient.builder()
+        .backend(
+            VertexBackend.builder()
+                .region("us")
+                .project("MY_PROJECT_ID")
+                .build()
+        )
+        .build();
 
-var message = client
-  .messages()
-  .create(
-    MessageCreateParams.builder()
-      .model("claude-opus-4-7")
-      .maxTokens(100)
-      .addUserMessage("Hey Claude!")
-      .build()
-  );
+    var message = client
+        .messages()
+        .create(
+            MessageCreateParams.builder()
+                .model("claude-opus-4-7")
+                .maxTokens(100)
+                .addUserMessage("Hey Claude!")
+                .build()
+        );
+
+    IO.println(message);
+}
 ```
 
 ```php PHP nocheck
@@ -838,25 +842,29 @@ import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.vertex.backends.VertexBackend;
 
-// Uses default Google Cloud credentials with specific region
-AnthropicClient client = AnthropicOkHttpClient.builder()
-  .backend(
-    VertexBackend.builder()
-      .region("us-east1") // Specify a specific region
-      .project("MY_PROJECT_ID")
-      .build()
-  )
-  .build();
+void main() {
+    // Uses default Google Cloud credentials with specific region
+    AnthropicClient client = AnthropicOkHttpClient.builder()
+        .backend(
+            VertexBackend.builder()
+                .region("us-east1") // Specify a specific region
+                .project("MY_PROJECT_ID")
+                .build()
+        )
+        .build();
 
-var message = client
-  .messages()
-  .create(
-    MessageCreateParams.builder()
-      .model("claude-opus-4-7")
-      .maxTokens(100)
-      .addUserMessage("Hey Claude!")
-      .build()
-  );
+    var message = client
+        .messages()
+        .create(
+            MessageCreateParams.builder()
+                .model("claude-opus-4-7")
+                .maxTokens(100)
+                .addUserMessage("Hey Claude!")
+                .build()
+        );
+
+    IO.println(message);
+}
 ```
 
 ```php PHP nocheck
