@@ -6,12 +6,12 @@
 
 The API follows a predictable HTTP error code format:
 
-* 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed below.
-* 401 - `authentication_error`: There's an issue with your API key.
-* 402 - `billing_error`: There's an issue with your billing or payment information. Check your payment details in the [Console](https://platform.claude.com).
+* 400 - `invalid_request_error`: There was an issue with the format or content of your request. This error type may also be used for other 4XX status codes not listed in this section.
+* 401 - `authentication_error`: There's an issue with your API key. On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
+* 402 - `billing_error`: There's an issue with your billing or payment information. Check your payment details in the [Claude Console](https://platform.claude.com), or in AWS Marketplace if you're using Claude Platform on AWS.
 * 403 - `permission_error`: Your API key does not have permission to use the specified resource.
 * 404 - `not_found_error`: The requested resource was not found.
-* 413 - `request_too_large`: Request exceeds the maximum allowed number of bytes. The maximum request size is 32 MB for standard API endpoints.
+* 413 - `request_too_large`: Request exceeds the maximum allowed number of bytes. See [Request size limits](#request-size-limits) for per-endpoint maximums.
 * 429 - `rate_limit_error`: Your account has hit a rate limit.
 * 500 - `api_error`: An unexpected error has occurred internal to Anthropic's systems.
 * 504 - `timeout_error`: The request timed out while processing. Consider using [streaming](/docs/en/build-with-claude/streaming) for long-running requests.
@@ -20,23 +20,23 @@ The API follows a predictable HTTP error code format:
   <Warning>
   529 errors can occur when APIs experience high traffic across all users.
 
-  In rare cases, if your organization has a sharp increase in usage, you might see 429 errors due to acceleration limits on the API. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
+  In rare cases, if your organization has a sharp increase in usage, you might see 429 errors because of acceleration limits on the API. To avoid hitting acceleration limits, ramp up your traffic gradually and maintain consistent usage patterns.
   </Warning>
 
-When receiving a [streaming](/docs/en/build-with-claude/streaming) response via SSE, it's possible that an error can occur after returning a 200 response, in which case error handling wouldn't follow these standard mechanisms.
+When receiving a [streaming](/docs/en/build-with-claude/streaming) response over SSE, it's possible that an error can occur after returning a 200 response, in which case error handling wouldn't follow these standard mechanisms.
 
 ## Request size limits
 
 The API enforces request size limits to ensure optimal performance:
 
-| Endpoint Type | Maximum Request Size |
+| Endpoint type | Maximum request size |
 |:---|:---|
 | Messages API | 32 MB |
 | Token Counting API | 32 MB |
 | [Batch API](/docs/en/build-with-claude/batch-processing) | 256 MB |
 | [Files API](/docs/en/build-with-claude/files) | 500 MB |
 
-If you exceed these limits, you'll receive a 413 `request_too_large` error. The error is returned from Cloudflare before the request reaches the API servers.
+If you exceed these limits, you'll receive a 413 `request_too_large` error. On the direct Claude API, this error is returned from Cloudflare before the request reaches the API servers.
 
 ## Error shapes
 
@@ -55,11 +55,13 @@ Errors are always returned as JSON, with a top-level `error` object that always 
 
 In accordance with the [versioning](/docs/en/api/versioning) policy, the values within these objects may expand, and it is possible that the `type` values will grow over time.
 
-## Request id
+## Request ID
 
 Every API response includes a unique `request-id` header. This header contains a value such as `req_018EeWyXxfu5pfWkrYcMdjWG`. When contacting support about a specific request, include this ID to help quickly resolve your issue.
 
-The official SDKs provide this value as a property on top-level response objects, containing the value of the `request-id` header:
+On [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws), responses include two request IDs: the AWS request ID (`x-amzn-requestid`, primary, indexed in CloudTrail) and the Anthropic request ID (`request-id`, secondary). Use the AWS request ID for CloudTrail lookups and the Anthropic request ID for Anthropic support tickets.
+
+The official SDKs provide the Anthropic request ID as a property on top-level response objects, containing the value of the `request-id` header. On Claude Platform on AWS, use the raw-response accessor to also read the AWS request ID from the HTTP headers:
 
 <CodeGroup>
   ```bash CLI
@@ -95,7 +97,42 @@ The official SDKs provide this value as a property on top-level response objects
   });
   console.log("Request ID:", message._request_id);
   ```
+
+  
+  ```python Python (Claude Platform on AWS) nocheck
+  from anthropic import AnthropicAWS
+
+  client = AnthropicAWS(aws_region="us-west-2")
+
+  response = client.messages.with_raw_response.create(
+      model="claude-opus-4-7",
+      max_tokens=1024,
+      messages=[{"role": "user", "content": "Hello, Claude"}],
+  )
+  print(f"AWS request ID: {response.headers.get('x-amzn-requestid')}")
+  message = response.parse()
+  print(f"Anthropic request ID: {message._request_id}")
+  ```
+
+  
+  ```typescript TypeScript (Claude Platform on AWS) nocheck
+  import AnthropicAws from "@anthropic-ai/aws-sdk";
+
+  const client = new AnthropicAws({ awsRegion: "us-west-2" });
+
+  const { data: message, response: raw } = await client.messages
+    .create({
+      model: "claude-opus-4-7",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: "Hello, Claude" }]
+    })
+    .withResponse();
+  console.log("AWS request ID:", raw.headers.get("x-amzn-requestid"));
+  console.log("Anthropic request ID:", message._request_id);
+  ```
 </CodeGroup>
+
+For Claude Platform on AWS request-ID examples in other languages, see [Request IDs](/docs/en/build-with-claude/claude-platform-on-aws#request-ids).
 
 ## Long requests
 
@@ -126,6 +163,7 @@ If you don't need to process events incrementally, use `.stream()` with `.get_fi
         model="claude-opus-4-7",
     ) as stream:
         message = stream.get_final_message()
+    print(message.content)
     ```
 
     ```typescript TypeScript
@@ -135,6 +173,7 @@ If you don't need to process events incrementally, use `.stream()` with `.get_fi
       model: "claude-opus-4-7"
     });
     const message = await stream.finalMessage();
+    console.log(message.content);
     ```
 </CodeGroup>
 
@@ -157,3 +196,7 @@ See [Streaming Messages](/docs/en/build-with-claude/streaming#get-the-final-mess
 ```
 
 Use [structured outputs](/docs/en/build-with-claude/structured-outputs), system prompt instructions, or [`output_config.format`](/docs/en/build-with-claude/structured-outputs#json-outputs) instead.
+
+### Outbound web identity federation disabled (Claude Platform on AWS)
+
+If every request to [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) returns `"Outbound web identity federation is disabled for your account"`, run `aws iam enable-outbound-web-identity-federation` once per AWS account. See [Enable outbound web identity federation](/docs/en/build-with-claude/claude-platform-on-aws#enable-outbound-web-identity-federation) for details.

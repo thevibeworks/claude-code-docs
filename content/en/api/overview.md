@@ -1,4 +1,4 @@
-# API Overview
+# API overview
 
 ---
 
@@ -13,7 +13,7 @@ The Claude API is a RESTful API at `https://api.anthropic.com` that provides pro
 To use the Claude API, you'll need:
 
 - A [Claude Console account](https://platform.claude.com)
-- An [API key](/settings/keys)
+- An [API key](/settings/keys), or a configured [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation) rule
 
 For step-by-step setup instructions, see [Get started](/docs/en/get-started).
 
@@ -38,25 +38,28 @@ For the complete API reference with all endpoints, parameters, and response sche
 
 ## Authentication
 
-All requests to the Claude API must include these headers:
+For details on both authentication methods and when to use each, see [Authentication](/docs/en/manage-claude/authentication). All requests to the Claude API must include these headers:
 
 | Header | Value | Required |
 |--------|-------|----------|
-| `x-api-key` | Your API key from Console | Yes |
+| `x-api-key` | Your API key from Console | One of `x-api-key` or `Authorization` |
+| `Authorization` | `Bearer <token>`, where `<token>` is a short-lived access token obtained from `POST /v1/oauth/token` via [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation) | One of `x-api-key` or `Authorization` |
 | `anthropic-version` | API version (e.g., `2023-06-01`) | Yes |
 | `content-type` | `application/json` | Yes |
 
 If you are using the [Client SDKs](#client-sdks), the SDK will send these headers automatically. For API versioning details, see [API versions](/docs/en/api/versioning).
 
-### Getting API Keys
+When accessing Claude through a [cloud platform](#claude-api-vs-cloud-platforms), authentication is integrated with the cloud provider's IAM system. See the platform-specific documentation for supported credential types, required headers, and authentication options.
 
-The API is made available via the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](/docs/en/api/rate-limits) by use case.
+### Getting API keys
+
+The API is made available through the web [Console](https://platform.claude.com/). You can use the [Workbench](https://platform.claude.com/workbench) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys). Use [workspaces](https://platform.claude.com/settings/workspaces) to segment your API keys and [control spend](/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 
 Anthropic provides official SDKs that simplify API integration by handling authentication, request formatting, error handling, and more.
 
-**Benefits**:
+**Benefits:**
 - Automatic header management (x-api-key, anthropic-version, content-type)
 - Type-safe request and response handling
 - Built-in retry logic and error handling
@@ -65,60 +68,65 @@ Anthropic provides official SDKs that simplify API integration by handling authe
 
 For a list of client SDKs and their respective installation instructions, see [Client SDKs](/docs/en/api/client-sdks).
 
-## Availability on partner platforms
+## Claude API vs cloud platforms
 
-Claude is available through the direct Claude API and through partner platforms. Choose based on your infrastructure, compliance requirements, and pricing preferences.
+Claude is available through the direct Claude API and through cloud platforms. Choose based on your infrastructure, feature availability, compliance requirements, and pricing preferences.
 
 ### Claude API
 
-- **Direct access** to the latest models and features first
+- **Direct access** to the latest models and features
 - **Anthropic billing and support**
-- **Best for**: New integrations, full feature access, direct relationship with Anthropic
+- **Best for:** New integrations, full feature access, direct relationship with Anthropic
 
-### Third-Party Platform APIs
+### Cloud platform APIs
 
 Access Claude through AWS, Google Cloud, or Microsoft Azure:
 - **Integrated** with cloud provider billing and IAM
-- **May have feature delays** or differences from the direct API
-- **Best for**: Existing cloud commitments, specific compliance requirements, consolidated cloud billing
+- **Feature availability varies by platform:** Anthropic-operated platforms include [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) and [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry); partner-operated platforms include Amazon Bedrock and Vertex AI. See each platform's page for feature availability and timing.
+- **Best for:** Existing cloud commitments, specific compliance requirements, consolidated cloud billing
 
 | Platform | Provider | Documentation |
 |----------|----------|---------------|
+| Claude Platform on AWS | AWS (Anthropic-operated) | [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) |
 | Amazon Bedrock | AWS | [Claude in Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock) |
 | Vertex AI | Google Cloud | [Claude on Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai) |
-| Azure AI | Microsoft Azure | [Claude on Azure AI](/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Microsoft Foundry | Microsoft Azure (Anthropic-operated) | [Claude in Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 <Note>
-Claude Managed Agents is available only through the direct Claude API. For feature availability across platforms, see the [Features overview](/docs/en/build-with-claude/overview).
+Claude Managed Agents is available through the direct Claude API and [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws). For feature availability across platforms, see the [Features overview](/docs/en/build-with-claude/overview).
 </Note>
 
-## Request and Response Format
+## Request and response format
 
 ### Request size limits
 
 | Endpoint | Maximum request size |
 | --- | --- |
 | Messages, Token Counting | 32 MB |
-| [Batch API](/docs/en/build-with-claude/batch-processing) | 256 MB |
+| [Message Batches API](/docs/en/build-with-claude/batch-processing) | 256 MB |
 | [Files API](/docs/en/build-with-claude/files) | 500 MB |
 | Sessions, Agents, Environments | 32 MB |
 
 If you exceed these limits, you'll receive a 413 `request_too_large` error.
 
 <Note>
-Third-party platforms have their own request size limits: Vertex AI limits requests to 30 MB, and Amazon Bedrock limits requests to 20 MB. Consult your platform's documentation for current values.
+Partner-operated platforms have their own request size limits: Vertex AI limits requests to 30 MB, and Bedrock limits requests to 20 MB. Claude Platform on AWS uses the same limits as the direct Claude API. Consult your platform's documentation for current values.
 </Note>
 
-### Response Headers
+### Response headers
 
 The Claude API includes the following headers in every response:
 
 - `request-id`: A globally unique identifier for the request
 - `anthropic-organization-id`: The organization ID associated with the API key used in the request
 
-## Rate Limits and Availability
+<Note>
+Claude Platform on AWS adds an AWS request ID (`x-amzn-requestid`) alongside the standard `request-id` header. See [Request IDs](/docs/en/build-with-claude/claude-platform-on-aws#request-ids) for the dual-ID handling pattern.
+</Note>
 
-### Rate Limits
+## Rate limits and availability
+
+### Rate limits
 
 The API enforces rate limits and spend limits to prevent misuse and manage capacity. Limits are organized into usage tiers that increase automatically as you use the API. Each tier has:
 
@@ -133,7 +141,7 @@ For detailed information about limits, tiers, and the token bucket algorithm use
 
 The Claude API is available in [many countries and regions](/docs/en/api/supported-regions) worldwide. Check the supported regions page to confirm availability in your location.
 
-## Next Steps
+## Next steps
 
 <CardGroup cols={2}>
   <Card title="Messages API reference" icon="book" href="/docs/en/api/messages/create">

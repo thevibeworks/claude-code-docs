@@ -7,7 +7,7 @@ An open-source Agent Skill that provides Claude with up-to-date API reference ma
 The `claude-api` skill is an open-source [Agent Skill](/docs/en/agents-and-tools/agent-skills/overview) that provides Claude with detailed, up-to-date reference material for building applications on two Anthropic surfaces:
 
 - **Messages API** — the primary surface for single requests, streaming chat, tool use, batch processing, prompt caching, structured outputs, and custom agent loops.
-- **Claude Managed Agents (beta)** — a first-party surface for server-managed stateful agents with Anthropic-hosted tool execution, persistent agent configs, and per-session containers.
+- **Claude Managed Agents (beta):** An Anthropic-hosted surface for server-managed stateful agents with Anthropic-hosted tool execution, persistent agent configs, and per-session containers.
 
 It covers 8 programming languages for the Messages API (Python, TypeScript, Java, Go, Ruby, C#, PHP, and cURL) and 7 languages for Managed Agents (Python, TypeScript, Java, Go, Ruby, PHP, and cURL — C# is not currently supported).
 
@@ -35,7 +35,7 @@ When triggered, the skill equips Claude with:
 - **Onboarding flow:** An interview-driven walkthrough for setting up a new Managed Agent from scratch, available via the `/claude-api managed-agents-onboard` subcommand
 - **Language-specific Managed Agents docs:** Creating persistent agents, starting sessions, streaming events, and handling tool confirmations for Python, TypeScript, Java, Go, Ruby, PHP, and cURL
 - **Client patterns:** Lossless stream reconnect, `processed_at` queued/processed gate, interrupt handling, file-mount gotchas, and credential handling
-- **Deployment constraints:** Managed Agents is first-party only (not available on Amazon Bedrock, Google Vertex AI, or Microsoft Foundry) — the skill routes third-party deployments to Messages API + tool use instead
+- **Deployment constraints:** Managed Agents is available on the Claude API and [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) only (not on Amazon Bedrock, Vertex AI, or Microsoft Foundry). The skill routes other deployments to the Messages API and tool use instead.
 
 ## When the skill activates
 

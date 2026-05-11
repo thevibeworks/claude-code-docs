@@ -15,7 +15,7 @@ For API feature documentation with code examples, see the [API reference](/docs/
 <Tabs>
 <Tab title="Gradle">
 ```kotlin
-implementation("com.anthropic:anthropic-java:2.27.0")
+implementation("com.anthropic:anthropic-java:2.30.0")
 ```
 </Tab>
 <Tab title="Maven">
@@ -23,7 +23,7 @@ implementation("com.anthropic:anthropic-java:2.27.0")
 <dependency>
     <groupId>com.anthropic</groupId>
     <artifactId>anthropic-java</artifactId>
-    <version>2.27.0</version>
+    <version>2.30.0</version>
 </dependency>
 ```
 </Tab>
@@ -97,6 +97,8 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
   .apiKey("my-anthropic-api-key")
   .build();
 ```
+
+For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
 
 ### Configuration options
 
@@ -307,13 +309,13 @@ A `BetaMessageAccumulator` is also available for the accumulation of a `BetaMess
 
 ## Structured outputs
 
-For complete structured outputs documentation including Java examples, see [Structured Outputs](/docs/en/build-with-claude/structured-outputs).
+For complete structured outputs documentation including Java examples, see [Structured outputs](/docs/en/build-with-claude/structured-outputs).
 
 ## Tool use
 
-[Tool Use](/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for invoking a tool or calling a function when appropriate. You define JSON schemas for tools, and the model uses the schemas to decide when and how to use these tools.
+[Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
 
-The tool use feature supports a "strict" mode (beta) that guarantees that the JSON output from the AI model will conform to the JSON schema you provide in the input parameters.
+The tool use feature supports a "strict" mode that guarantees that the JSON output from the AI model will conform to the JSON schema you provide in the input parameters.
 
 The SDK can derive a tool and its parameters automatically from the structure of an arbitrary Java class: the class's name (converted to snake case) provides the tool name, and the class's fields define the tool's parameters.
 
@@ -393,9 +395,9 @@ static class Weather {
 
 ### Calling tools
 
-When your tool classes are defined, add them to the message parameters using `MessageCreateParams.addTool(Class<T>)` and then call them if requested to do so in the AI model's response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool's parameters in JSON form to an instance of your tool-defining class.
+When your tool classes are defined, add them to the message parameters using `MessageCreateParams.Builder.addTool(Class<T>)` and then call them if requested to do so in the AI model's response. `BetaToolUseBlock.input(Class<T>)` can be used to parse a tool's parameters in JSON form to an instance of your tool-defining class.
 
-After invoking the tool, use `BetaToolResultBlockParam.Builder.contentAsJson(Object)` to pass the tool's result back to the AI model:
+After calling the tool, use `BetaToolResultBlockParam.Builder.contentAsJson(Object)` to pass the tool's result back to the AI model:
 
 ```java nocheck
 import com.anthropic.client.AnthropicClient;
@@ -448,7 +450,7 @@ Tool names are derived from the camel case tool class names (e.g., `GetWeather`)
 
 ### Local tool JSON schema validation
 
-Like for structured outputs, you can perform local validation to check that the JSON schema derived from your tool class respects Anthropic's restrictions. Local validation is enabled by default, but it can be disabled:
+You can perform local validation to check that the JSON schema derived from your tool class respects Anthropic's restrictions. Local validation is enabled by default, but it can be disabled:
 
 ```java nocheck
 MessageCreateParams.Builder createParamsBuilder = MessageCreateParams.builder()
@@ -470,7 +472,7 @@ You can use annotations to add further information about tools to the JSON schem
 
 ## Message batches
 
-The SDK provides support for the [Message Batches API](/docs/en/build-with-claude/batch-processing) under the `client.messages().batches()` namespace. See the [pagination section](#pagination) for how to iterate through batch results.
+The SDK provides support for [Batch processing](/docs/en/build-with-claude/batch-processing) under the `client.messages().batches()` namespace. See [Pagination](#pagination) for how to list and paginate through batches.
 
 ## File uploads
 
@@ -616,7 +618,7 @@ try {
 
 ## Request IDs
 
-When using raw responses, you can access the `request-id` response header using the `requestId()` method:
+When using [raw responses](#raw-response-access), you can access the `request-id` response header using the `requestId()` method:
 
 ```java nocheck
 import com.anthropic.core.http.HttpResponseFor;
@@ -627,7 +629,7 @@ HttpResponseFor<Message> message = client.messages().withRawResponse().create(pa
 Optional<String> requestId = message.requestId();
 ```
 
-This can be used to quickly log failing requests and report them back to Anthropic. For more information on debugging requests, see the [API error documentation](/docs/en/api/errors#request-id).
+This can be used to quickly log failing requests and report them back to Anthropic. For more information on debugging requests, see [Request ID](/docs/en/api/errors#request-id).
 
 ## Retries
 
@@ -635,7 +637,7 @@ The SDK automatically retries 2 times by default, with a short exponential backo
 
 Only the following error types are retried:
 
-- Connection errors (for example, due to a network connectivity problem)
+- Connection errors (for example, because of a network connectivity problem)
 - 408 Request Timeout
 - 409 Conflict
 - 429 Rate Limit
@@ -1081,19 +1083,21 @@ To use a completely custom HTTP client:
 For detailed platform setup guides with code examples, see:
 - [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
 - [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
-- [Google Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
+- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
 - [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
+- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
 </Note>
 
-The Java SDK supports Bedrock, Vertex AI, and Foundry through separate dependencies that provide platform-specific `Backend` implementations:
+The Java SDK supports the following platforms through separate dependencies that provide platform-specific `Backend` implementations:
 
-- **Bedrock:** `com.anthropic:anthropic-java-bedrock`: Use `BedrockMantleBackend.fromEnv()` for the Messages-API Bedrock endpoint, or `BedrockBackend.fromEnv()` / `BedrockBackend.builder()` (`bedrock-runtime` path).
+- **Bedrock:** `com.anthropic:anthropic-java-bedrock`: Use `BedrockMantleBackend.fromEnv()` or `BedrockMantleBackend.builder()` for the Messages-API Bedrock endpoint, or `BedrockBackend.fromEnv()` / `BedrockBackend.builder()` (`bedrock-runtime` path).
 - **Vertex AI:** `com.anthropic:anthropic-java-vertex`: Use `VertexBackend.fromEnv()` or `VertexBackend.builder()`.
 - **Foundry:** `com.anthropic:anthropic-java-foundry`: Use `FoundryBackend.fromEnv()` or `FoundryBackend.builder()`.
+- **Claude Platform on AWS:** `com.anthropic:anthropic-java-aws`: Use `AwsBackend.fromEnv()` (reads `ANTHROPIC_AWS_WORKSPACE_ID` and the AWS default region/credential chain) or `AwsBackend.builder()`. Available in beta.
 
 Use `BedrockMantleBackend` for new projects; `BedrockBackend` remains for existing applications using the Bedrock `InvokeModel` API.
 
-Each backend is passed to the client via `.backend()` on `AnthropicOkHttpClient.builder()`. AWS, Google Cloud, and Azure classes are included as transitive dependencies of the respective library.
+Each `Backend` implementation is passed to the client with `.backend()` on `AnthropicOkHttpClient.builder()`. Each cloud backend pulls in its respective cloud-platform SDK classes as transitive dependencies.
 
 ## Advanced usage
 
@@ -1173,9 +1177,9 @@ ProGuard and R8 should automatically detect and use the published rules, but you
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
 
-#### Undocumented endpoints
+#### Undocumented request parameters
 
-To make requests to undocumented endpoints, you can use the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods as described in [Undocumented parameters](#undocumented-parameters).
+To set undocumented request parameters, use the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods as described in [Undocumented parameters](#undocumented-parameters).
 
 #### Undocumented response properties
 
@@ -1253,8 +1257,8 @@ Checked exceptions:
 
 - Are verbose to handle
 - Encourage error handling at the wrong level of abstraction, where nothing can be done about the error
-- Are tedious to propagate due to the function coloring problem
-- Don't play well with lambdas (also due to the function coloring problem)
+- Are tedious to propagate because of the function coloring problem
+- Don't play well with lambdas (also because of the function coloring problem)
 
 </section>
 
@@ -1270,5 +1274,5 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 - [GitHub repository](https://github.com/anthropics/anthropic-sdk-java)
 - [Javadocs](https://javadoc.io/doc/com.anthropic/anthropic-java)
 - [API reference](/docs/en/api/overview)
-- [Streaming guide](/docs/en/build-with-claude/streaming)
-- [Tool use guide](/docs/en/agents-and-tools/tool-use/overview)
+- [Streaming Messages](/docs/en/build-with-claude/streaming)
+- [Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview)

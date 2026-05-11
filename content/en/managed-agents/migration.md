@@ -19,7 +19,7 @@ If you built an agent by calling `messages.create` in a `while` loop, executing 
 | Before | After |
 | --- | --- |
 | You maintain the conversation history array and pass it back on every turn. | The session stores history server-side. Send events, receive events. |
-| You parse `stop_reason: "tool_use"`, execute the tool, and loop back with a `tool_result` message. | Pre-built tools execute inside the container automatically. You only handle custom tools via `agent.custom_tool_use` events. |
+| You iterate `tool_use` content blocks, run each tool, and loop back with `tool_result` messages. | Pre-built tools run inside the container automatically. You only handle custom tools through `agent.custom_tool_use` events. |
 | You provision your own sandbox for running agent-generated code. | The session container handles code execution, file operations, and bash. |
 | You decide when the loop is done. | The session emits `session.status_idle` when the agent has nothing more to do. |
 
@@ -249,7 +249,8 @@ end
 **After** (Claude Managed Agents):
 
 <CodeGroup>
-  ```bash curl
+  
+  ```bash cURL nocheck
   agent=$(
     curl --fail-with-body -sS "https://api.anthropic.com/v1/agents?beta=true" \
       -H "x-api-key: ${ANTHROPIC_API_KEY}" \
@@ -276,7 +277,7 @@ end
   # Open the SSE stream in the background, then send the user message.
   stream_log=$(mktemp)
   curl --fail-with-body -sS -N \
-    "https://api.anthropic.com/v1/sessions/${session_id}/stream?beta=true" \
+    "https://api.anthropic.com/v1/sessions/${session_id}/events/stream?beta=true" \
     -H "x-api-key: ${ANTHROPIC_API_KEY}" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -315,7 +316,7 @@ end
     --transform id --format yaml)
 
   # Open the stream first, then send the user message
-  exec {stream}< <(ant beta:sessions stream \
+  exec {stream}< <(ant beta:sessions:events stream \
     --session-id "$session_id" \
     --transform type --format yaml)
 
@@ -430,7 +431,7 @@ end
   	agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   		Name: "Task Runner",
   		Model: anthropic.BetaManagedAgentsModelConfigParams{
-  			ID:   "claude-opus-4-7",
+  			ID:   anthropic.BetaManagedAgentsModelClaudeOpus4_7,
   			Type: anthropic.BetaManagedAgentsModelConfigParamsTypeModelConfig,
   		},
   		Tools: []anthropic.BetaAgentNewParamsToolUnion{{
@@ -555,10 +556,10 @@ end
   $client->beta->sessions->events->send(
       $session->id,
       events: [
-          ManagedAgentsUserMessageEventParams::with(
-              type: 'user.message',
-              content: [ManagedAgentsTextBlock::with(type: 'text', text: $task)],
-          ),
+          [
+              'type' => 'user.message',
+              'content' => [['type' => 'text', 'text' => $task]],
+          ],
       ],
   );
 
@@ -595,7 +596,7 @@ end
 
 - **System prompt and model:** Same fields, now on the agent definition.
 - **Custom tools:** Still declared with JSON Schema. Execution moves from inline handling to responding to `agent.custom_tool_use` events. See [Session event stream](/docs/en/managed-agents/events-and-streaming).
-- **Context:** You can still inject context via the system prompt, [file resources](/docs/en/managed-agents/files), or [skills](/docs/en/managed-agents/skills).
+- **Context:** You can still inject context through the system prompt, [file resources](/docs/en/managed-agents/files), or [skills](/docs/en/managed-agents/skills).
 
 ## From the Claude Agent SDK
 
@@ -612,7 +613,7 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 | `cwd`, `add_dirs` point at local paths | Upload or mount [files](/docs/en/managed-agents/files) as session resources. |
 | `system_prompt` and the `CLAUDE.md` hierarchy | A single `system` string on the Agent. Each update produces a new server-side version; pin sessions to a specific version to promote or roll back without a deploy. See [Agent setup](/docs/en/managed-agents/agent-setup). |
 | `mcp_servers` configured and authenticated in one place | Declare servers on the Agent; provide credentials through a [Vault](/docs/en/managed-agents/vaults) on the Session. |
-| `permission_mode`, `can_use_tool` | Per-tool [`permission_policy`](/docs/en/managed-agents/permission-policies); respond to `user.tool_confirmation` events for `always_ask` tools. |
+| `permission_mode`, `can_use_tool` | Per-tool [`permission_policy`](/docs/en/managed-agents/permission-policies); send `user.tool_confirmation` events for `always_ask` tools. |
 
 ### Code comparison
 
@@ -697,7 +698,7 @@ with client.beta.sessions.events.stream(session.id) as stream:
     )
     for ev in stream:
         if ev.type == "agent.message":
-            print("".join(b.text for b in ev.content))
+            print("".join(block.text for block in ev.content if block.type == "text"))
         elif ev.type == "agent.custom_tool_use":
             result = get_weather(**ev.input)
             client.beta.sessions.events.send(
@@ -710,7 +711,11 @@ with client.beta.sessions.events.stream(session.id) as stream:
                     }
                 ],
             )
-        elif ev.type == "session.status_idle" and ev.stop_reason.type == "end_turn":
+        elif (
+            ev.type == "session.status_idle"
+            and ev.stop_reason
+            and ev.stop_reason.type == "end_turn"
+        ):
             break
 ```
 
@@ -722,7 +727,7 @@ The tradeoff for Anthropic running the agent loop is that a few things the SDK h
 
 | SDK feature | Managed Agents approach |
 | --- | --- |
-| Plan mode | Run a planning-only session first, then a second session to execute. |
+| Plan mode | Run a planning-only session first, then a second session to run the plan. |
 | Output styles, slash commands | Apply in your client before sending `user.message` or after receiving `agent.message`. |
 | `PreToolUse` / `PostToolUse` hooks | Your client already sees every `agent.custom_tool_use` event before responding; put the logic there. For built-in tools, use `permission_policy: always_ask`. |
 | `max_turns` | Count turns client-side. |
@@ -731,8 +736,8 @@ The tradeoff for Anthropic running the agent loop is that a few things the SDK h
 
 1. [Create an environment](/docs/en/managed-agents/environments) with the networking and runtimes your agent needs.
 2. Port your system prompt and tool selection to an [agent definition](/docs/en/managed-agents/agent-setup).
-3. Replace your loop with [`sessions.create`](/docs/en/managed-agents/sessions) and [`sessions.stream`](/docs/en/managed-agents/events-and-streaming).
-4. For any local files the agent reads, upload them via the [Files API](/docs/en/managed-agents/files) and mount them as `resources`.
+3. Replace your loop with [`sessions.create`](/docs/en/managed-agents/sessions) and [`sessions.events.stream`](/docs/en/managed-agents/events-and-streaming).
+4. For any local files the agent reads, upload them through the [Files API](/docs/en/managed-agents/files) and mount them as `resources`.
 5. For any custom tool handlers, move execution into your event loop as responses to `agent.custom_tool_use` events.
 6. Verify with a test session before pointing production traffic at the new flow.
 
@@ -741,7 +746,8 @@ The tradeoff for Anthropic running the agent loop is that a few things the SDK h
 When a new Claude model is released, migrating a Claude Managed Agents integration is typically a one-field change: update `model` on your [agent definition](/docs/en/managed-agents/agent-setup) and the change takes effect on the next session you create.
 
 <CodeGroup defaultLanguage="CLI">
-```bash curl
+
+```bash cURL nocheck
 curl -sS --fail-with-body "https://api.anthropic.com/v1/agents/$AGENT_ID?beta=true" \
   -H "x-api-key: $ANTHROPIC_API_KEY" \
   -H "anthropic-version: 2023-06-01" \

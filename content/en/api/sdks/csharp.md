@@ -50,13 +50,15 @@ MessageCreateParams parameters = new()
             Content = "Hello, Claude",
         },
     ],
-    Model = "claude-opus-4-7",
+    Model = Model.ClaudeOpus4_7,
 };
 
 var message = await client.Messages.Create(parameters);
 
 Console.WriteLine(message);
 ```
+
+For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
 
 ## Client configuration
 
@@ -134,7 +136,7 @@ MessageCreateParams parameters = new()
             Content = "Hello, Claude",
         },
     ],
-    Model = "claude-opus-4-7",
+    Model = Model.ClaudeOpus4_7,
 };
 
 await foreach (var message in client.Messages.CreateStreaming(parameters))
@@ -176,7 +178,7 @@ The SDK automatically retries 2 times by default, with a short exponential backo
 
 Only the following error types are retried:
 
-- Connection errors (for example, due to a network connectivity problem)
+- Connection errors (for example, because of a network connectivity problem)
 - 408 Request Timeout
 - 409 Conflict
 - 429 Rate Limit
@@ -311,7 +313,7 @@ Console.WriteLine(message);
 
 ## IChatClient integration
 
-The SDK provides an implementation of the `IChatClient` interface from the `Microsoft.Extensions.AI.Abstractions` library. This enables `AnthropicClient` (and `Anthropic.Services.IBetaService`) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (`ModelContextProtocol`) library can be used directly with an `AnthropicClient` exposed via `IChatClient`.
+The SDK provides an implementation of the `IChatClient` interface from the `Microsoft.Extensions.AI.Abstractions` library. This enables `AnthropicClient` (and `Anthropic.Services.IBetaService`) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (`ModelContextProtocol`) library can be used directly with an `AnthropicClient` exposed through `IChatClient`.
 
 ```csharp nocheck
 using Anthropic;
@@ -319,6 +321,8 @@ using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
 
 // Configured using the ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN and ANTHROPIC_BASE_URL environment variables
+AnthropicClient client = new();
+
 IChatClient chatClient = client.AsIChatClient("claude-opus-4-7")
     .AsBuilder()
     .UseFunctionInvocation()
@@ -410,7 +414,7 @@ await foreach (var item in response.Enumerate())
 All log messages are intended for debugging only. The format and content of log messages may change between releases.
 </Warning>
 
-Enable debug logging via environment variable:
+Enable debug logging by setting an environment variable:
 
 ```bash
 export ANTHROPIC_LOG=debug
@@ -426,25 +430,29 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 For detailed platform setup guides with code examples, see:
 - [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
 - [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
 - [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
+- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
 </Note>
 
-The C# SDK supports Bedrock and Foundry through separate NuGet packages:
+The C# SDK supports the following platforms through separate NuGet packages:
 
 - **Bedrock:** `Anthropic.Bedrock`. Use `AnthropicBedrockMantleClient` for the Messages-API Bedrock endpoint, or `AnthropicBedrockClient` (`bedrock-runtime` path). `AnthropicBedrockMantleClient` takes an optional `MantleAwsClientOptions` config object; `AnthropicBedrockClient` accepts `AnthropicBedrockCredentialsHelper.FromEnv()` or explicit credentials.
+- **Vertex AI:** `Anthropic.Vertex`. See [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai) for client setup.
 - **Foundry:** `Anthropic.Foundry`. Use `AnthropicFoundryClient` with `DefaultAnthropicFoundryCredentials.FromEnv()` or explicit credentials.
+- **Claude Platform on AWS:** `Anthropic.Aws`. Use `AnthropicAwsClient`; set `WorkspaceId` on the client or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable (see [Workspaces](/docs/en/build-with-claude/claude-platform-on-aws#workspaces)). Available in beta.
 
 Use `AnthropicBedrockMantleClient` for new projects; `AnthropicBedrockClient` remains for existing applications using the Bedrock `InvokeModel` API.
 
 ## Semantic versioning
 
 <Warning>
-While this package is versioned as 10+, it's currently in beta. During the beta period, breaking changes may occur in minor or patch releases. Once the library reaches stable release, SemVer conventions will be followed more strictly. Share feedback by [filing an issue](https://www.github.com/anthropics/anthropic-sdk-csharp/issues/new).
+Although this package is versioned as 10+, it's currently in beta. During the beta period, breaking changes may occur in minor or patch releases. Once the library reaches stable release, SemVer conventions will be followed more strictly. Share feedback by [filing an issue](https://github.com/anthropics/anthropic-sdk-csharp/issues/new).
 </Warning>
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
-1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let the maintainers know if you're relying on such internals.)_
+1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
 Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
@@ -454,4 +462,4 @@ Backwards-compatibility is taken seriously to ensure you can rely on a smooth up
 - [GitHub repository](https://github.com/anthropics/anthropic-sdk-csharp)
 - [NuGet package](https://www.nuget.org/packages/Anthropic)
 - [API reference](/docs/en/api/overview)
-- [Streaming guide](/docs/en/build-with-claude/streaming)
+- [Streaming Messages](/docs/en/build-with-claude/streaming)

@@ -36,7 +36,7 @@ Traditional ML approaches typically require separate models or extensive transla
 Claude's multimodal capabilities allow it to analyze and interpret content across both text and images. This makes it a versatile tool for comprehensive content moderation in environments where different media types need to be evaluated together.
 </section>
 
-<Note>Anthropic has trained all Claude models to be honest, helpful and harmless. This may result in Claude moderating content deemed particularly dangerous (in line with the [Acceptable Use Policy](https://www.anthropic.com/legal/aup)), regardless of the prompt used. For example, an adult website that wants to allow users to post explicit sexual content may find that Claude still flags explicit content as requiring moderation, even if they specify in their prompt not to moderate explicit sexual content. Consider reviewing the AUP in advance of building a moderation solution.</Note>
+<Note>Anthropic has trained all Claude models to be honest, helpful, and harmless. This may result in Claude moderating content deemed particularly dangerous (in line with the [Acceptable Use Policy](https://www.anthropic.com/legal/aup)), regardless of the prompt used. For example, an adult website that wants to allow users to post explicit sexual content may find that Claude still flags explicit content as requiring moderation, even if they specify in their prompt not to moderate explicit sexual content. Consider reviewing the AUP in advance of building a moderation solution.</Note>
 
 ### Generate examples of content to moderate
 Before developing a content moderation solution, first create examples of content that should be flagged and content that should not be flagged. Ensure that you include edge cases and challenging scenarios that may be difficult for a content moderation system to handle effectively. Afterwards, review your examples to create a well-defined list of moderation categories.
@@ -98,14 +98,14 @@ When selecting a model, it’s important to consider the size of your data. If c
     * Total output tokens: 1.5bn
 
 * **Claude Haiku 4.5 estimated cost**
-    * Input token cost: 2,860 MTok * \$1.00/MTok = \$2,860
-    * Output token cost: 1,500 MTok * \$5.00/MTok = \$7,500
-    * Monthly cost: \$2,860 + \$7,500 = \$10,360
+    * Input token cost: 28,600 MTok * \$1.00/MTok = \$28,600 USD
+    * Output token cost: 1,500 MTok * \$5.00/MTok = \$7,500 USD
+    * Monthly cost: \$28,600 + \$7,500 = \$36,100 USD
 
 * **Claude Opus 4.7 estimated cost**
-    * Input token cost: 2,860 MTok * \$5.00/MTok = \$14,300
-    * Output token cost: 1,500 MTok * \$25.00/MTok = \$37,500
-    * Monthly cost: \$14,300 + \$37,500 = \$51,800
+    * Input token cost: 28,600 MTok * \$5.00/MTok = \$143,000 USD
+    * Output token cost: 1,500 MTok * \$25.00/MTok = \$37,500 USD
+    * Monthly cost: \$143,000 + \$37,500 = \$180,500 USD
 
 <Tip>Actual costs may differ from these estimates. These estimates are based on the prompt highlighted in the section on [batch processing](#consider-batch-processing). Output tokens can be reduced even further by removing the `explanation` field from the response.</Tip>
 
@@ -204,7 +204,7 @@ def assess_risk_level(message, unsafe_categories):
 
     # Construct the prompt for Claude, including the message, unsafe categories, and risk level definitions
     assessment_prompt = f"""
-    Assess the risk level of the following message warrants moderation,
+    Assess the risk level of the following message,
     based on the unsafe categories listed below.
 
 Message:
@@ -273,7 +273,7 @@ This approach enables flexible content moderation by assigning risk levels. It c
 
 Once you are confident in the quality of your solution, it's time to deploy it to production. Here are some best practices to follow when using content moderation in production:
 
-1. **Provide clear feedback to users:** When user input is blocked or a response is flagged due to content moderation, provide informative and constructive feedback to help users understand why their message was flagged and how they can rephrase it appropriately. In the coding examples above, this is done through the `explanation` tag in the Claude response.
+1. **Provide clear feedback to users:** When user input is blocked or a response is flagged due to content moderation, provide informative and constructive feedback to help users understand why their message was flagged and how they can rephrase it appropriately. In the earlier coding examples, this is done through the `explanation` field in the Claude response.
 
 2. **Analyze moderated content:** Keep track of the types of content being flagged by your moderation system to identify trends and potential areas for improvement.
 
@@ -381,7 +381,7 @@ for comment in user_comments:
 
 The `moderate_message_with_definitions` function expands upon the earlier `moderate_message` function by allowing each unsafe category to be paired with a detailed definition. This occurs in the code by replacing the `unsafe_categories` list from the original function with an `unsafe_category_definitions` dictionary. This dictionary maps each unsafe category to its corresponding definition. Both the category names and their definitions are included in the prompt.
 
-Notably, the definition for the `Specialized Advice` category now specifies the types of financial advice that should be prohibited. As a result, the comment `It's a great time to invest in gold!`, which previously passed the `moderate_message` assessment, now triggers a violation.
+Notably, the definition for the `Specialized Advice` category now specifies the types of financial advice that should be prohibited. As a result, the comment `It is a great time to invest in gold!`, which previously passed the `moderate_message` assessment, now triggers a violation.
 
 ### Consider batch processing
 
@@ -412,7 +412,7 @@ Messages:
 {messages_str}
 </messages>
 
-Unsafe categories and their definitions:
+Unsafe Categories:
 <categories>
 {unsafe_category_str}
 </categories>
@@ -458,8 +458,8 @@ Explanation: {violation["explanation"]}
 ```
 
 In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call.
-Inside the function, a prompt is created that includes the list of messages to evaluate, the defined unsafe content categories, and their descriptions. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its id, which corresponds to the message's position in the input list.
-Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison page](/docs/en/about-claude/models#model-comparison-table).
+Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its id, which corresponds to the message's position in the input list.
+Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](/docs/en/about-claude/models/overview#latest-models-comparison).
 
 <CardGroup cols={2}>
   <Card title="Content moderation cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-moderation-filter">
