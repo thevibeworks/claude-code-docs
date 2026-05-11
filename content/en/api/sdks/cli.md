@@ -6,7 +6,7 @@ Interact with the Claude API directly from your terminal with the ant command-li
 
 The `ant` CLI provides access to the Claude API from your terminal. Every API resource is exposed as a subcommand, with output formatting, response filtering, and support for YAML or JSON file input that make it practical for both interactive exploration and automation.
 
-Compared to calling the API with `curl`, `ant` lets you build request bodies from typed flags or piped YAML rather than hand-written JSON, inline file contents into string fields with an `@path` reference, and extract fields from the response with a built-in `--transform` query — no separate JSON tooling required. List endpoints paginate automatically. Claude Code understands how to use `ant` natively.
+Compared to calling the API with `curl`, `ant` lets you build request bodies from typed flags or piped YAML rather than hand-written JSON, inline file contents into string fields with an `@path` reference, and extract fields from the response with a built-in `--transform` query (no separate JSON tooling required). List endpoints paginate automatically. Claude Code understands how to use `ant` natively.
 
 <Info>
 For endpoint-specific parameters and response schemas, see the [API reference](/docs/en/api/cli/messages/create). This page covers CLI-specific features and workflows that apply across all endpoints.
@@ -26,8 +26,8 @@ brew install anthropics/tap/ant
 
 For Linux environments, download the release binary directly.
 
-```bash
-VERSION=1.3.2
+```bash nocheck
+VERSION=1.7.0
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
 curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_${OS}_${ARCH}.tar.gz" \
@@ -62,7 +62,9 @@ ant --version
 
 ## Authentication
 
-The CLI reads your API key from the `ANTHROPIC_API_KEY` environment variable.
+### API key
+
+The CLI reads your API key from the `ANTHROPIC_API_KEY` environment variable. Get a key from the [Claude Console](https://platform.claude.com/settings/keys).
 
 <Tabs>
 <Tab title="zsh">
@@ -92,7 +94,63 @@ Open a new terminal for the change to take effect.
 </Tab>
 </Tabs>
 
-Get a key from the [Claude Console](https://platform.claude.com/settings/keys). To point at a different API host, set `ANTHROPIC_BASE_URL` or pass `--base-url` on any command.
+To override the key for a single invocation, pass `--api-key`. To point at a different API host, set `ANTHROPIC_BASE_URL` or pass `--base-url`.
+
+### Interactive login
+
+`ant auth login` lets you call the API without creating or managing an API key. It opens a browser-based OAuth flow against the Claude Console and stores the resulting credentials under `$ANTHROPIC_CONFIG_DIR` (see [Configuration directory](/docs/en/manage-claude/wif-reference#configuration-directory) for the OS-specific default). On a remote host or in any environment without a local browser, pass `--no-browser` to print the authorize URL and paste the returned code back into the terminal.
+
+```bash CLI nocheck
+ant auth login
+
+# On a remote host without a browser:
+ant auth login --no-browser
+
+# If the named profile you pass with --profile doesn't exist,
+# a new named profile will be created with that name.
+ant auth login --profile <profile-name>
+```
+
+Interactive login is intended for local development and scripting on your own machine. For non-interactive workloads such as CI, servers, and containers, use [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation) instead.
+
+Login writes credentials to `credentials/.json`. The first login for a profile also creates `configs/.json` and sets it as the active profile. To remove stored credentials, run `ant auth logout`, or `ant auth logout --all` to clear every profile.
+
+### Check authentication status
+
+`ant auth status` prints the credential source the CLI selected (API key environment variable, OAuth login, federation, or profile), the active profile, and the configuration directory paths. Use it to diagnose why a workload picked the wrong credential.
+
+```bash CLI nocheck
+ant auth status
+```
+
+```text
+Active profile:  default
+Config dir:      ~/.config/anthropic
+Profile config:  ~/.config/anthropic/configs/default.json
+Credentials:     ~/.config/anthropic/credentials/default.json
+
+Credentials
+  (active) * --api-key / ANTHROPIC_API_KEY                  sk-ant-api03-EXA...
+           * Federation (jwt-bearer)                        see 'Federation inputs' below
+...
+```
+
+Read the `(active)` row to see which source won. The command reports status rather than performing a health check, so don't script against the exit status. For the full ordering of credential sources, see [Credential precedence](/docs/en/manage-claude/wif-reference#credential-precedence).
+
+### Named profiles
+
+Every `ant` command accepts the global `--profile <name>` flag (or the `ANTHROPIC_PROFILE` environment variable), so `ant messages create --profile staging` works directly. The `ant profile` subcommands manage which profile is the default when you don't pass `--profile`.
+
+```bash CLI nocheck
+ant profile list
+ant profile activate <profile-name>
+ant profile set workspace_id wrkspc_... --profile <profile-name>
+ant profile get --profile <profile-name>
+```
+
+The writable keys for `ant profile set` are `workspace_id`, `base_url`, `organization_id`, `scope`, `client_id`, and `console_url`. For the profile file schema and the federation block, see [Profile configuration file](/docs/en/manage-claude/wif-reference#profile-configuration-file).
+
+For Workload Identity Federation, see the [Authentication overview](/docs/en/manage-claude/authentication) and the [WIF reference](/docs/en/manage-claude/wif-reference).
 
 ## Send your first request
 
@@ -134,7 +192,7 @@ ant <resource>[:<subresource>] <action> [flags]
 
 Run `ant --help` for the full resource list, or append `--help` to any subcommand for its flags.
 
-Resources currently in beta — including agents, sessions, deployments, environments, and skills — live under the `beta:` prefix. Commands in this namespace automatically send the appropriate `anthropic-beta` header for that resource, so you don't need to pass it yourself. Use `--beta <header>` only to override the default — for example, to opt into a different schema version.
+Resources in beta (including agents, sessions, deployments, environments, and skills) live under the `beta:` prefix. Commands in this namespace automatically send the appropriate `anthropic-beta` header for that resource, so you don't need to pass it yourself. Use `--beta <header>` only to override the default (for example, to opt into a different schema version).
 
 ```bash
 ant models list
@@ -197,7 +255,7 @@ ant beta:agents list \
 
 ### Extract a scalar
 
-To capture a single field as an unquoted string — for example, the ID of a newly created resource — pair `--transform` with `--format yaml`. YAML emits scalar values without quotes, so the result is ready to assign to a shell variable:
+To capture a single field as an unquoted string (for example, the ID of a newly created resource), pair `--transform` with `--format yaml`. YAML emits scalar values without quotes, so the result is ready to assign to a shell variable:
 
 ```bash
 AGENT_ID=$(ant beta:agents create \
@@ -333,7 +391,7 @@ ant beta:agents create < summarizer.agent.yaml
 }
 ```
 
-Note the `id` from the response — you'll pass it to the session create command below.
+Note the `id` from the response. You'll pass it to the session create command below.
 
 <Tip>
 Check `summarizer.agent.yaml` into your repository and keep it in sync with the API in your CI pipeline. The update command needs the agent ID and current version as flags:
@@ -371,7 +429,7 @@ ant beta:environments create < summarizer.environment.yaml
 }
 ```
 
-Note the `id` from the response — you'll pass it to the session create command below.
+Note the `id` from the response. You'll pass it to the session create command below.
 
 <Tip>
 Check `summarizer.environment.yaml` into your repository and keep it in sync with the API in your CI pipeline. The update command needs the environment ID as a flag:
@@ -429,7 +487,7 @@ Type safety catches errors at compile time rather than runtime, reducing bugs, i
 ```
 
 <Tip>
-To watch a session as it runs, use `ant beta:sessions stream --session-id session_01JZCh78XvmxJjiXVy3oSi7K`. Events are written to stdout as they arrive.
+To watch a session as it runs, use `ant beta:sessions:events stream --session-id session_01JZCh78XvmxJjiXVy3oSi7K`. Events are written to stdout as they arrive.
 </Tip>
 
 </Step>
@@ -454,7 +512,7 @@ ant beta:agents:versions list \
 
 ### Inspect errors
 
-The `--transform-error` and `--format-error` flags mirror their success-path counterparts and follow the same rule — pair with `yaml`, not `raw`, to apply the transform. Extract only the error message:
+The `--transform-error` and `--format-error` flags mirror their success-path counterparts and follow the same rule: pair with `yaml`, not `raw`, to apply the transform. Extract only the error message:
 
 ```bash
 ant beta:agents retrieve --agent-id bogus \
@@ -468,13 +526,13 @@ Agent not found.
 
 ## Use the CLI from Claude Code
 
-[Claude Code](https://docs.claude.com/en/docs/claude-code/overview) knows out of the box how to use the `ant` CLI. With the CLI installed and `ANTHROPIC_API_KEY` set, you can ask Claude Code to operate on your API resources directly — for example:
+[Claude Code](https://docs.claude.com/en/docs/claude-code/overview) knows out of the box how to use the `ant` CLI. With the CLI installed and `ANTHROPIC_API_KEY` set, you can ask Claude Code to operate on your API resources directly. For example:
 
 - "List my recent agent sessions and summarize which ones errored."
 - "Upload every PDF in `./reports` to the Files API and print the resulting IDs."
 - "Pull the events for session `session_01...` and tell me where the agent got stuck."
 
-Claude Code shells out to `ant`, parses the structured output, and reasons over the results — no custom integration code required.
+Claude Code shells out to `ant`, parses the structured output, and reasons over the results (no custom integration code required).
 
 ## Debugging
 

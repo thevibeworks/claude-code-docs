@@ -96,7 +96,7 @@ anthropic-beta: feature1,feature2,feature3
 
 ### Endpoint-specific headers
 
-Some beta features are scoped to specific endpoints rather than individual request parameters. [Claude Managed Agents](/docs/en/managed-agents/overview) uses a single beta header for all endpoints:
+Some beta features are scoped to specific endpoints rather than individual request parameters and require a feature-specific beta header on every request:
 
 | Endpoints | Beta header |
 | --- | --- |

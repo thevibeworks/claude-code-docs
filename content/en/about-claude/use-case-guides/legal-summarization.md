@@ -77,7 +77,7 @@ See the guide on [establishing success criteria](/docs/en/test-and-evaluate/deve
 
 Model accuracy is extremely important when summarizing legal documents. Claude Opus 4.7 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model like Claude Haiku 4.5.
 
-To help estimate these costs, below is a comparison of the cost to summarize 1,000 sublease agreements using both Sonnet and Haiku:
+To help estimate these costs, the following is a comparison of the cost to summarize 1,000 sublease agreements using both Opus and Haiku:
 
 * **Content size**
     * Number of agreements: 1,000
@@ -90,14 +90,14 @@ To help estimate these costs, below is a comparison of the cost to summarize 1,0
     * Total output tokens: 350,000
 
 * **Claude Opus 4.7 estimated cost**
-    * Input token cost: 86 MTok * \$5.00/MTok = \$430
-    * Output token cost: 0.35 MTok * \$25.00/MTok = \$8.75
-    * Total cost: \$430.00 + \$8.75 = \$438.75
+    * Input token cost: 86 MTok * \$5.00/MTok = \$430.00 USD
+    * Output token cost: 0.35 MTok * \$25.00/MTok = \$8.75 USD
+    * Total cost: \$430.00 + \$8.75 = \$438.75 USD
 
 * **Claude Haiku 4.5 estimated cost**
-    * Input token cost: 86 MTok * \$1.00/MTok = \$86.00
-    * Output token cost: 0.35 MTok * \$5.00/MTok = \$1.75
-    * Total cost: \$86.00 + \$1.75 = \$87.75
+    * Input token cost: 86 MTok * \$1.00/MTok = \$86.00 USD
+    * Output token cost: 0.35 MTok * \$5.00/MTok = \$1.75 USD
+    * Total cost: \$86.00 + \$1.75 = \$87.75 USD
 
 <Tip>Actual costs may differ from these estimates. These estimates are based on the example highlighted in the section on [prompting](#build-a-strong-prompt).</Tip>
 
@@ -119,11 +119,11 @@ def get_llm_text(pdf_file):
     reader = pypdf.PdfReader(pdf_file)
     text = "\n".join([page.extract_text() for page in reader.pages])
 
-    # Remove extra whitespace
-    text = re.sub(r"\s+", " ", text)
-
     # Remove page numbers
     text = re.sub(r"\n\s*\d+\s*\n", "\n", text)
+
+    # Remove extra whitespace
+    text = re.sub(r"\s+", " ", text)
 
     return text
 
@@ -144,7 +144,7 @@ print(document_text[:50000])
 
 In this example, you first download a pdf of a sample sublease agreement used in the [summarization cookbook](https://platform.claude.com/cookbook/capabilities-summarization-guide). This agreement was sourced from a publicly available sublease agreement from the [sec.gov website](https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm).
 
-The example uses the pypdf library to extract the contents of the pdf and convert it to text. The text data is then cleaned by removing extra whitespace and page numbers.
+The example uses the pypdf library to extract the contents of the pdf and convert it to text. The text data is then cleaned by removing page numbers and extra whitespace.
 
 ### Build a strong prompt
 
@@ -282,7 +282,7 @@ def summarize_long_document(
     </chunked_summaries>
 
     Focus on these key aspects:
-    {details_to_extract_str})
+    {details_to_extract_str}
 
     Provide the summary in bullet points nested within the XML header for each section. For example:
 

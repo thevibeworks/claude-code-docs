@@ -6,6 +6,10 @@ Official SDKs for building with the Claude API in Python, TypeScript, Java, Go, 
 
 Anthropic provides official client SDKs in multiple languages to make it easier to work with the Claude API. Each SDK provides idiomatic interfaces, type safety, and built-in support for features like streaming, retries, and error handling.
 
+<Info>
+  For the full API specification, see the [API reference](/docs/en/api/overview).
+</Info>
+
 <CardGroup cols={3}>
   <Card title="CLI" href="/docs/en/api/sdks/cli">
     Shell scripting, typed flags, response transforms
@@ -64,14 +68,14 @@ go get github.com/anthropics/anthropic-sdk-go
 <Tab title="Java">
 <CodeGroup>
 ```groovy Gradle
-implementation("com.anthropic:anthropic-java:2.27.0")
+implementation("com.anthropic:anthropic-java:2.30.0")
 ```
 
 ```xml Maven
 <dependency>
     <groupId>com.anthropic</groupId>
     <artifactId>anthropic-java</artifactId>
-    <version>2.27.0</version>
+    <version>2.30.0</version>
 </dependency>
 ```
 </CodeGroup>
@@ -83,7 +87,7 @@ composer require anthropic-ai/sdk
 </Tab>
 <Tab title="Ruby">
 ```bash
-bundler add anthropic
+bundle add anthropic
 ```
 </Tab>
 </Tabs>
@@ -223,16 +227,17 @@ puts message.content
 
 ## Platform support
 
-All SDKs support multiple deployment options:
+SDKs support the following platforms:
 
 | Platform | Description |
 |----------|-------------|
 | Claude API | Connect directly to Claude API endpoints |
-| [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock) | Use Claude through AWS |
-| [Google Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai) | Use Claude through Google Cloud |
-| [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry) | Use Claude through Microsoft Azure |
+| [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) | Use Anthropic-operated Claude on AWS infrastructure |
+| [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry) | Use Anthropic-operated Claude on Microsoft Azure |
+| [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock) | Use partner-operated Claude through the Bedrock API |
+| [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai) | Use partner-operated Claude through Google Cloud |
 
-See individual SDK pages for platform-specific setup instructions.
+Platform support varies by language. See individual SDK pages for platform-specific setup instructions and availability.
 
 ## Beta features
 
@@ -325,7 +330,7 @@ See [Beta headers](/docs/en/api/beta-headers) for available beta features.
 
 ## Requirements
 
-| SDK | Minimum Version |
+| SDK | Minimum version |
 |-----|-----------------|
 | Python | 3.9+ |
 | TypeScript | 4.9+ (Node.js 20+) |

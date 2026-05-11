@@ -271,25 +271,19 @@ These changes improve your experience on Opus 4.7. Items marked **(required on O
    using Anthropic;
    using Anthropic.Models.Messages;
 
-   public class Program
+   AnthropicClient client = new();
+
+   var parameters = new MessageCreateParams
    {
-       public static async Task Main(string[] args)
-       {
-           AnthropicClient client = new();
+       Model = Model.ClaudeOpus4_7,
+       MaxTokens = 16000,
+       Thinking = new ThinkingConfigAdaptive(),
+       OutputConfig = new OutputConfig { Effort = Effort.High },
+       Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
+   };
 
-           var parameters = new MessageCreateParams
-           {
-               Model = Model.ClaudeOpus4_7,
-               MaxTokens = 16000,
-               Thinking = new ThinkingConfigAdaptive(),
-               OutputConfig = new OutputConfig { Effort = Effort.High },
-               Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
-           };
-
-           var response = await client.Messages.Create(parameters);
-           Console.WriteLine(response);
-       }
-   }
+   var response = await client.Messages.Create(parameters);
+   Console.WriteLine(response);
    ```
 
    ```go Go hidelines={1..11,-1}
@@ -670,31 +664,23 @@ const response = await client.messages.create({
 ```
 
 ```csharp C#
-using System;
-using System.Threading.Tasks;
 using Anthropic;
 using Anthropic.Models.Messages;
 
-class Program
-{
-    static async Task Main(string[] args)
-    {
-        AnthropicClient client = new();
+AnthropicClient client = new();
 
-        var parameters = new MessageCreateParams
-        {
-            Model = Model.ClaudeSonnet4_6,
-            MaxTokens = 8192,
-            OutputConfig = new OutputConfig
-            {
-                Effort = Effort.Low
-            },
-            Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
-        };
-        var message = await client.Messages.Create(parameters);
-        Console.WriteLine(message);
-    }
-}
+var parameters = new MessageCreateParams
+{
+    Model = Model.ClaudeSonnet4_6,
+    MaxTokens = 8192,
+    OutputConfig = new OutputConfig
+    {
+        Effort = Effort.Low
+    },
+    Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
+};
+var message = await client.Messages.Create(parameters);
+Console.WriteLine(message);
 ```
 
 ```go Go hidelines={1..11,-1}
@@ -728,11 +714,12 @@ func main() {
 }
 ```
 
-```java Java hidelines={1..4,6..8,-2..}
+```java Java hidelines={1..5,7..9,-2..}
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.models.messages.Message;
+import com.anthropic.models.messages.Model;
 import com.anthropic.models.messages.OutputConfig;
 
 public class Main {
@@ -740,7 +727,7 @@ public class Main {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         MessageCreateParams params = MessageCreateParams.builder()
-            .model("claude-sonnet-4-6")
+            .model(Model.CLAUDE_SONNET_4_6)
             .maxTokens(8192L)
             .outputConfig(OutputConfig.builder()
                 .effort(OutputConfig.Effort.LOW)
@@ -867,28 +854,20 @@ const response = await client.messages.create({
 ```csharp C# nocheck
 using Anthropic;
 using Anthropic.Models.Messages;
-using System;
-using System.Threading.Tasks;
 
-class Program
+AnthropicClient client = new();
+
+var parameters = new MessageCreateParams
 {
-    static async Task Main(string[] args)
-    {
-        AnthropicClient client = new();
+    Model = Model.ClaudeSonnet4_6,
+    MaxTokens = 64000,
+    Thinking = new ThinkingConfigAdaptive(),
+    OutputConfig = new OutputConfig { Effort = Effort.Medium },
+    Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
+};
 
-        var parameters = new MessageCreateParams
-        {
-            Model = Model.ClaudeSonnet4_6,
-            MaxTokens = 64000,
-            Thinking = new ThinkingConfigAdaptive(),
-            OutputConfig = new OutputConfig { Effort = Effort.Medium },
-            Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
-        };
-
-        var message = await client.Messages.Create(parameters);
-        Console.WriteLine(message);
-    }
-}
+var message = await client.Messages.Create(parameters);
+Console.WriteLine(message);
 ```
 
 ```go Go nocheck hidelines={1..11,-1}
@@ -925,11 +904,12 @@ func main() {
 }
 ```
 
-```java Java nocheck hidelines={1..4,7..9,-2..}
+```java Java nocheck hidelines={1..5,8..10,-2..}
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.messages.MessageCreateParams;
 import com.anthropic.models.messages.Message;
+import com.anthropic.models.messages.Model;
 import com.anthropic.models.messages.OutputConfig;
 import com.anthropic.models.messages.ThinkingConfigAdaptive;
 
@@ -938,7 +918,7 @@ public class Main {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         MessageCreateParams params = MessageCreateParams.builder()
-            .model("claude-sonnet-4-6")
+            .model(Model.CLAUDE_SONNET_4_6)
             .maxTokens(64000L)
             .thinking(ThinkingConfigAdaptive.builder().build())
             .outputConfig(OutputConfig.builder()
@@ -968,7 +948,7 @@ $message = $client->messages->create(
     outputConfig: ['effort' => 'medium'],
 );
 
-echo $message->content[0]->text;
+echo array_find($message->content, fn($block) => $block->type === 'text')->text;
 ```
 
 ```ruby Ruby nocheck hidelines={1..2}
@@ -989,7 +969,7 @@ message = client.messages.create(
     { role: "user", content: "Your prompt here" }
   ]
 )
-puts message
+puts message.content.find { |block| block.type == :text }.text
 ```
 </CodeGroup>
 
@@ -1070,35 +1050,27 @@ const response = await client.beta.messages.create({
 ```
 
 ```csharp C#
-using System;
-using System.Threading.Tasks;
 using Anthropic;
 using Anthropic.Models.Beta;
 using Anthropic.Models.Beta.Messages;
 
-class Program
+AnthropicClient client = new();
+
+var parameters = new MessageCreateParams
 {
-    static async Task Main(string[] args)
+    Model = "claude-sonnet-4-6",
+    MaxTokens = 16384,
+    Thinking = new BetaThinkingConfigEnabled { BudgetTokens = 16384 },
+    OutputConfig = new BetaOutputConfig
     {
-        AnthropicClient client = new();
+        Effort = Effort.Medium
+    },
+    Betas = [AnthropicBeta.InterleavedThinking2025_05_14],
+    Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
+};
 
-        var parameters = new MessageCreateParams
-        {
-            Model = "claude-sonnet-4-6",
-            MaxTokens = 16384,
-            Thinking = new BetaThinkingConfigEnabled { BudgetTokens = 16384 },
-            OutputConfig = new BetaOutputConfig
-            {
-                Effort = Effort.Medium
-            },
-            Betas = [AnthropicBeta.InterleavedThinking2025_05_14],
-            Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
-        };
-
-        var message = await client.Beta.Messages.Create(parameters);
-        Console.WriteLine(message);
-    }
-}
+var message = await client.Beta.Messages.Create(parameters);
+Console.WriteLine(message);
 ```
 
 ```go Go hidelines={1..11,-1}
@@ -1134,11 +1106,13 @@ func main() {
 }
 ```
 
-```java Java hidelines={1..4,7..9,-2..}
+```java Java hidelines={1..6,9..11,-2..}
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.beta.messages.MessageCreateParams;
 import com.anthropic.models.beta.messages.BetaMessage;
+import com.anthropic.models.messages.Model;
+import com.anthropic.models.beta.AnthropicBeta;
 import com.anthropic.models.beta.messages.BetaThinkingConfigEnabled;
 import com.anthropic.models.beta.messages.BetaOutputConfig;
 
@@ -1147,7 +1121,7 @@ public class Main {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         MessageCreateParams params = MessageCreateParams.builder()
-            .model("claude-sonnet-4-6")
+            .model(Model.CLAUDE_SONNET_4_6)
             .maxTokens(16384L)
             .thinking(BetaThinkingConfigEnabled.builder()
                 .budgetTokens(16384L)
@@ -1155,7 +1129,7 @@ public class Main {
             .outputConfig(BetaOutputConfig.builder()
                 .effort(BetaOutputConfig.Effort.MEDIUM)
                 .build())
-            .addBeta("interleaved-thinking-2025-05-14")
+            .addBeta(AnthropicBeta.INTERLEAVED_THINKING_2025_05_14)
             .addUserMessage("Your prompt here")
             .build();
 
@@ -1181,7 +1155,7 @@ $message = $client->beta->messages->create(
     betas: ['interleaved-thinking-2025-05-14'],
 );
 
-echo $message;
+echo array_find($message->content, fn($block) => $block->type === 'text')->text;
 ```
 
 ```ruby Ruby hidelines={1..2}
@@ -1204,7 +1178,7 @@ message = client.beta.messages.create(
     { role: "user", content: "Your prompt here" }
   ]
 )
-puts message
+puts message.content.find { |block| block.type == :text }.text
 ```
 </CodeGroup>
 
@@ -1277,35 +1251,27 @@ const response = await client.beta.messages.create({
 ```
 
 ```csharp C#
-using System;
-using System.Threading.Tasks;
 using Anthropic;
 using Anthropic.Models.Beta;
 using Anthropic.Models.Beta.Messages;
 
-class Program
+AnthropicClient client = new();
+
+var parameters = new MessageCreateParams
 {
-    static async Task Main(string[] args)
+    Model = "claude-sonnet-4-6",
+    MaxTokens = 8192,
+    Thinking = new BetaThinkingConfigEnabled { BudgetTokens = 16384 },
+    OutputConfig = new BetaOutputConfig
     {
-        AnthropicClient client = new();
+        Effort = Effort.Low
+    },
+    Betas = [AnthropicBeta.InterleavedThinking2025_05_14],
+    Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
+};
 
-        var parameters = new MessageCreateParams
-        {
-            Model = "claude-sonnet-4-6",
-            MaxTokens = 8192,
-            Thinking = new BetaThinkingConfigEnabled { BudgetTokens = 16384 },
-            OutputConfig = new BetaOutputConfig
-            {
-                Effort = Effort.Low
-            },
-            Betas = [AnthropicBeta.InterleavedThinking2025_05_14],
-            Messages = [new() { Role = Role.User, Content = "Your prompt here" }]
-        };
-
-        var message = await client.Beta.Messages.Create(parameters);
-        Console.WriteLine(message);
-    }
-}
+var message = await client.Beta.Messages.Create(parameters);
+Console.WriteLine(message);
 ```
 
 ```go Go hidelines={1..11,-1}
@@ -1341,11 +1307,13 @@ func main() {
 }
 ```
 
-```java Java hidelines={1..4,7..9,-2..}
+```java Java hidelines={1..6,9..11,-2..}
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.beta.messages.MessageCreateParams;
 import com.anthropic.models.beta.messages.BetaMessage;
+import com.anthropic.models.messages.Model;
+import com.anthropic.models.beta.AnthropicBeta;
 import com.anthropic.models.beta.messages.BetaThinkingConfigEnabled;
 import com.anthropic.models.beta.messages.BetaOutputConfig;
 
@@ -1354,7 +1322,7 @@ public class Main {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         MessageCreateParams params = MessageCreateParams.builder()
-            .model("claude-sonnet-4-6")
+            .model(Model.CLAUDE_SONNET_4_6)
             .maxTokens(8192L)
             .thinking(BetaThinkingConfigEnabled.builder()
                 .budgetTokens(16384L)
@@ -1362,7 +1330,7 @@ public class Main {
             .outputConfig(BetaOutputConfig.builder()
                 .effort(BetaOutputConfig.Effort.LOW)
                 .build())
-            .addBeta("interleaved-thinking-2025-05-14")
+            .addBeta(AnthropicBeta.INTERLEAVED_THINKING_2025_05_14)
             .addUserMessage("Your prompt here")
             .build();
 
@@ -1388,7 +1356,7 @@ $message = $client->beta->messages->create(
     betas: ['interleaved-thinking-2025-05-14'],
 );
 
-echo $message;
+echo array_find($message->content, fn($block) => $block->type === 'text')->text;
 ```
 
 ```ruby Ruby hidelines={1..2}
@@ -1411,7 +1379,7 @@ message = client.beta.messages.create(
     { role: "user", content: "Your prompt here" }
   ]
 )
-puts message
+puts message.content.find { |block| block.type == :text }.text
 ```
 </CodeGroup>
 
@@ -1522,7 +1490,7 @@ For significant performance improvements on coding and reasoning tasks, consider
 <Note>
 Extended thinking impacts [prompt caching](/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks) efficiency.
 
-Extended thinking is deprecated in Claude 4.6 or newer models. If using newer models, use [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) instead.
+Extended thinking is deprecated in Claude 4.6 models and removed in Claude Opus 4.7. If using newer models, use [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) instead.
 </Note>
 
 **Explore new capabilities:** See the [models overview](/docs/en/about-claude/models/overview) for details on context awareness, increased output capacity (64k tokens), higher intelligence, and improved speed.

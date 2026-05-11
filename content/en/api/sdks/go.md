@@ -59,6 +59,8 @@ func main() {
 }
 ```
 
+For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
+
 <section title="Conversations">
 
 ```go
@@ -87,6 +89,9 @@ message, err = client.Messages.New(context.TODO(), anthropic.MessageNewParams{
 	Messages:  messages,
 	MaxTokens: 1024,
 })
+if err != nil {
+	panic(err)
+}
 
 fmt.Printf("%+v\n", message.Content)
 ```
@@ -94,7 +99,7 @@ fmt.Printf("%+v\n", message.Content)
 </section>
 <section title="System prompts">
 
-```go hidelines={1,10..11}
+```go hidelines={1}
 messages := []anthropic.MessageParam{anthropic.NewUserMessage(anthropic.NewTextBlock("Hello"))}
 message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
 	Model:     anthropic.ModelClaudeOpus4_7,
@@ -104,8 +109,10 @@ message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
 	},
 	Messages: messages,
 })
-_ = message
-_ = err
+if err != nil {
+	panic(err)
+}
+fmt.Printf("%+v\n", message.Content)
 ```
 
 </section>
@@ -355,21 +362,21 @@ custom := param.Override[anthropic.FooParams](12)
 Unions are represented as a struct with fields prefixed by "Of" for each of its variants,
 only one field can be non-zero. The non-zero field will be serialized.
 
-Sub-properties of the union can be accessed via methods on the union struct.
+Subproperties of the union can be accessed through methods on the union struct.
 These methods return a mutable pointer to the underlying data, if present.
 
 ```go nocheck
 // Only one field can be non-zero, use param.IsOmitted() to check if a field is set
 type AnimalUnionParam struct {
-	OfCat *Cat `json:",omitzero,inline`
-	OfDog *Dog `json:",omitzero,inline`
+	OfCat *Cat `json:",omitzero,inline"`
+	OfDog *Dog `json:",omitzero,inline"`
 }
 
 animal := AnimalUnionParam{
 	OfCat: &Cat{
 		Name: "Whiskers",
 		Owner: PersonParam{
-			Address: AddressParam{Street: "3333 Coyote Hill Rd", Zip: 0},
+			Address: AddressParam{Street: "3333 Coyote Hill Rd", ZipCode: 0},
 		},
 	},
 }
@@ -452,7 +459,7 @@ type Animal struct {
 	Age    int    `json:"age"`
 	JSON   struct {
 		Name        respjson.Field
-		Owner       respjson.Field
+		Owners      respjson.Field
 		Age         respjson.Field
 		ExtraFields map[string]respjson.Field
 	} `json:"-"`
@@ -460,7 +467,7 @@ type Animal struct {
 ```
 
 To handle optional data, use the `.Valid()` method on the JSON field.
-`.Valid()` returns true if a field is not `null`, not present, or couldn't be marshaled.
+`.Valid()` returns true when the field is present, non-`null`, and was unmarshaled successfully.
 
 If `.Valid()` is false, the corresponding field will be its zero value.
 
@@ -580,7 +587,7 @@ func main() {
 			println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 			println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 		}
-		panic(err.Error()) // GET "/v1/messages": 400 Bad Request (Request-ID: req_xxx) { ... }
+		panic(err.Error()) // POST "/v1/messages": 400 Bad Request (Request-ID: req_xxx) { ... }
 	}
 }
 ```
@@ -635,7 +642,7 @@ func main() {
 
 ## Timeouts
 
-Requests do not time out by default; use context to configure a timeout for a request lifecycle.
+Non-streaming Messages requests time out after 10 minutes by default; other requests have no default timeout. Use context to configure a timeout for a request lifecycle.
 
 Note that if a request is [retried](#retries), the context timeout does not start over.
 To set a per-retry timeout, use `option.WithRequestTimeout()`.
@@ -836,13 +843,16 @@ middleware has been applied.
 For detailed platform setup guides with code examples, see:
 - [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
 - [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
-- [Google Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
+- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
+- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
 </Note>
 
-The Go SDK supports Amazon Bedrock and Google Vertex AI through subpackages:
+The Go SDK supports the following platforms:
 
 - **Bedrock:** `import "github.com/anthropics/anthropic-sdk-go/bedrock"`. Use `bedrock.NewMantleClient` for the Messages-API Bedrock endpoint (streams over SSE), or `bedrock.WithLoadDefaultConfig(ctx)` / `bedrock.WithConfig(cfg)` (`bedrock-runtime` path). Importing the `bedrock` package globally registers a decoder for `application/vnd.amazon.eventstream` with the SDK's streaming layer (through package `init()`). This applies whether you use the `bedrock-runtime` `WithConfig`/`WithLoadDefaultConfig` path or `NewMantleClient`.
 - **Vertex AI:** `import "github.com/anthropics/anthropic-sdk-go/vertex"`. Use `vertex.WithGoogleAuth(ctx, region, projectID)` or `vertex.WithCredentials(ctx, region, projectID, creds)`.
+- **Foundry:** Not currently supported in the Go SDK. See [Claude in Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry) for supported SDKs.
+- **Claude Platform on AWS:** `import anthropicaws "github.com/anthropics/anthropic-sdk-go/aws"`. Use `anthropicaws.NewClient(ctx, cfg)` with an `anthropicaws.ClientConfig` value to construct a client; set `WorkspaceID` on the config or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `anthropicaws` import alias avoids a name collision with `github.com/aws/aws-sdk-go-v2/aws` when both are imported. Available in beta.
 
 Use `bedrock.NewMantleClient` for new projects; `bedrock.WithLoadDefaultConfig`/`WithConfig` remain for existing applications using the Bedrock `InvokeModel` API.
 
@@ -942,22 +952,22 @@ To access undocumented response properties, you may either access the raw JSON o
 with `result.JSON.RawJSON()`, or get the raw JSON of a particular field on the result with
 `result.JSON.Foo.Raw()`.
 
-Any fields that are not present on the response struct will be saved and can be accessed by `result.JSON.ExtraFields()` which returns the extra fields as a `map[string]Field`.
+Any fields that are not present on the response struct are saved and can be accessed through `result.JSON.ExtraFields`, which is a `map[string]respjson.Field`.
 
 ## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
-1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let the maintainers know if you're relying on such internals.)_
+1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
 Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
-Your feedback is welcome; please open an [issue](https://www.github.com/anthropics/anthropic-sdk-go/issues) with questions, bugs, or suggestions.
+Your feedback is welcome; open an [issue](https://github.com/anthropics/anthropic-sdk-go/issues) with questions, bugs, or suggestions.
 
 ## Additional resources
 
 - [GitHub repository](https://github.com/anthropics/anthropic-sdk-go)
 - [Go package documentation](https://pkg.go.dev/github.com/anthropics/anthropic-sdk-go)
 - [API reference](/docs/en/api/overview)
-- [Streaming guide](/docs/en/build-with-claude/streaming)
+- [Streaming Messages](/docs/en/build-with-claude/streaming)

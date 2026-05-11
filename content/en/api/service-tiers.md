@@ -7,7 +7,11 @@ Different tiers of service allow you to balance availability, performance, and p
 Anthropic offers three service tiers:
 - **Priority Tier:** Best for workflows deployed in production where time, availability, and predictable pricing are important
 - **Standard:** Default tier for both piloting and scaling everyday use cases
-- **Batch:** Best for asynchronous workflows which can wait or benefit from being outside your normal capacity
+- **Batch:** Best for asynchronous workflows that can wait or benefit from being outside your normal capacity
+
+<Note>
+[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) supports Standard and Batch service tiers. Priority Tier is not available.
+</Note>
 
 ## Standard Tier
 
@@ -31,17 +35,17 @@ Anthropic counts usage against Priority Tier capacity as follows:
 - Cache reads as 0.1 tokens per token read from the cache
 - Cache writes as 1.25 tokens per token written to the cache with a 5 minute TTL
 - Cache writes as 2.00 tokens per token written to the cache with a 1 hour TTL
-- For [US-only inference](/docs/en/build-with-claude/data-residency) (`inference_geo: "us"`) requests on Claude Opus 4.7, Claude Opus 4.6, and newer models, input tokens are 1.1 tokens per token
+- For [US-only inference](/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude Opus 4.6, Claude Sonnet 4.6, and later models, input tokens are 1.1 tokens per token
 - All other input tokens are 1 token per token
 
 **Output Tokens**
-- For [US-only inference](/docs/en/build-with-claude/data-residency) (`inference_geo: "us"`) requests on Claude Opus 4.7, Claude Opus 4.6, and newer models, output tokens are 1.1 tokens per token
+- For [US-only inference](/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude Opus 4.6, Claude Sonnet 4.6, and later models, output tokens are 1.1 tokens per token
 - All other output tokens are 1 token per token
 
 Otherwise, requests proceed at standard tier.
 
 <Note>
-These burndown rates reflect the relative pricing of each token type. For example, US-only inference is priced at 1.1x on Opus 4.7, Opus 4.6, and newer models, so each token consumed with `inference_geo: "us"` draws down 1.1 tokens from your Priority Tier capacity.
+These burndown rates reflect the relative pricing of each token type. For example, US-only inference is priced at 1.1x on Opus 4.6, Sonnet 4.6, and later models, so each token consumed with `inference_geo: "us"` draws down 1.1 tokens from your Priority Tier capacity.
 </Note>
 
 <Note>
@@ -60,6 +64,7 @@ message = client.messages.create(
     messages=[{"role": "user", "content": "Hello, Claude!"}],
     service_tier="auto",  # Automatically use Priority Tier when available, fallback to standard
 )
+print(message.usage.service_tier)
 ```
 
 The `service_tier` parameter accepts the following values:
@@ -96,11 +101,11 @@ You can use the presence of these headers to detect if your request was eligible
 ## Get started with Priority Tier
 
 You may want to commit to Priority Tier capacity if you are interested in:
-- **Higher availability**: Target 99.5% uptime with prioritized computational resources
-- **Cost Control**: Predictable spend and discounts for longer commitments
-- **Flexible overflow**: Automatically falls back to standard tier when you exceed your committed capacity
+- **Higher availability:** Target 99.5% uptime with prioritized computational resources
+- **Cost control:** Predictable spend and discounts for longer commitments
+- **Flexible overflow:** Automatically falls back to standard tier when you exceed your committed capacity
 
-Committing to Priority Tier will involve deciding:
+Committing to Priority Tier involves deciding:
 - A number of input tokens per minute
 - A number of output tokens per minute
 - A commitment duration (1, 3, 6, or 12 months)
@@ -114,12 +119,12 @@ The ratio of input to output tokens you purchase matters. Sizing your Priority T
 
 Priority Tier is supported on all available Claude models (including Claude Opus 4.7) except [Claude Mythos Preview](https://anthropic.com/glasswing).
 
-Check the [model overview page](/docs/en/about-claude/models/overview) for more details on available models.
+Check the [Models overview](/docs/en/about-claude/models/overview) for more details on available models.
 
 ### How to access Priority Tier
 
 To begin using Priority Tier:
 
-1. [Contact sales](https://claude.com/contact-sales/priority-tier) to complete provisioning
-2. (Optional) Update your API requests to optionally set the `service_tier` parameter to `auto`
-3. Monitor your usage through response headers and the Claude Console
+1. [Contact sales](https://claude.com/contact-sales/priority-tier) to complete provisioning.
+2. (Optional) Update your API requests to set the `service_tier` parameter to `auto`.
+3. Monitor your usage through response headers and the Claude Console.

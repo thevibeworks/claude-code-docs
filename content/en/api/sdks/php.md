@@ -43,8 +43,10 @@ $message = $client->messages->create(
   model: 'claude-opus-4-7',
 );
 
-var_dump($message->content);
+echo $message->content[0]->text;
 ```
+
+For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
 
 ## Value objects
 
@@ -98,7 +100,7 @@ try {
   );
 } catch (APIConnectionException $e) {
   echo "The server could not be reached", PHP_EOL;
-  var_dump($e->getPrevious());
+  echo $e->getPrevious()?->getMessage(), PHP_EOL;
 } catch (RateLimitException $_) {
   echo "A 429 status code was received; we should back off a bit.", PHP_EOL;
 } catch (APIStatusException $e) {
@@ -127,7 +129,7 @@ Error codes are as follows:
 
 Certain errors are automatically retried 2 times by default, with a short exponential backoff.
 
-Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts are all retried by default.
+Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts are all retried by default.
 
 You can use the `maxRetries` option to configure or disable this:
 
@@ -166,15 +168,13 @@ $client = new Client(
 
 $page = $client->beta->messages->batches->list(limit: 20);
 
-var_dump($page);
-
 // fetch items from the current page
 foreach ($page->getItems() as $item) {
-  var_dump($item->id);
+  echo $item->id, PHP_EOL;
 }
 // make additional network requests to fetch items from all pages, including and after the current page
 foreach ($page->pagingEachItem() as $item) {
-  var_dump($item->id);
+  echo $item->id, PHP_EOL;
 }
 ```
 
@@ -230,6 +230,27 @@ $response = $client->request(
 );
 ```
 
+## Platform integrations
+
+<Note>
+For detailed platform setup guides with code examples, see:
+- [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
+- [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
+- [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
+- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
+</Note>
+
+The PHP SDK supports the following platforms:
+
+- **Bedrock:** `Anthropic\Bedrock\MantleClient`. Use `new MantleClient(awsRegion: ...)`.
+- **Bedrock (legacy):** `Anthropic\Bedrock\Client`. Use `::fromEnvironment()` or `::withCredentials()`.
+- **Vertex AI:** `Anthropic\Vertex\Client`. Use `::fromEnvironment()`.
+- **Foundry:** `Anthropic\Foundry\Client`. Use `::withCredentials()`.
+- **Claude Platform on AWS:** `Anthropic\Aws\Client` (requires `aws/aws-sdk-php` as a soft dependency). Use `new Anthropic\Aws\Client(workspaceId: ...)` or set `ANTHROPIC_AWS_WORKSPACE_ID`. Available in beta.
+
+Use `MantleClient` for new projects; `Anthropic\Bedrock\Client` remains for existing applications using the Bedrock `InvokeModel` API.
+
 ## Semantic versioning
 
 This package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.
@@ -241,4 +262,4 @@ This package considers improvements to the (non-runtime) PHPDoc type definitions
 - [GitHub repository](https://github.com/anthropics/anthropic-sdk-php)
 - [Packagist](https://packagist.org/packages/anthropic-ai/sdk)
 - [API reference](/docs/en/api/overview)
-- [Streaming guide](/docs/en/build-with-claude/streaming)
+- [Streaming Messages](/docs/en/build-with-claude/streaming)

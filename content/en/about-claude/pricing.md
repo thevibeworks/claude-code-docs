@@ -6,11 +6,11 @@ Learn about Anthropic's pricing structure for models and features
 
 This page provides detailed pricing information for Anthropic's models and features. All prices are in USD.
 
-For the most current pricing information, please visit [claude.com/pricing](https://claude.com/pricing).
+For the most current pricing information, visit [claude.com/pricing](https://claude.com/pricing).
 
 ## Model pricing
 
-The following table shows pricing for all Claude models across different usage tiers:
+The following table shows pricing for all Claude models:
 
 | Model             | Base Input Tokens | 5m Cache Writes | 1h Cache Writes | Cache Hits & Refreshes | Output Tokens |
 |-------------------|-------------------|-----------------|-----------------|----------------------|---------------|
@@ -29,34 +29,68 @@ The following table shows pricing for all Claude models across different usage t
 | Claude Haiku 3    | $0.25 / MTok      | $0.30 / MTok    | $0.50 / MTok    | $0.03 / MTok | $1.25 / MTok  |
 
 <Note>
-MTok = Million tokens. The "Base Input Tokens" column shows standard input pricing, "Cache Writes" and "Cache Hits" are specific to [prompt caching](#prompt-caching), and "Output Tokens" shows output pricing. See [prompt caching pricing](#prompt-caching) below for an explanation of the cache columns and pricing multipliers.
+MTok = Million tokens. The "Base Input Tokens" column shows standard input pricing, the "5m Cache Writes", "1h Cache Writes", and "Cache Hits & Refreshes" columns are specific to [prompt caching](#prompt-caching), and "Output Tokens" shows output pricing. See [prompt caching pricing](#prompt-caching) for an explanation of the cache columns and pricing multipliers.
 </Note>
 
 <Note>
 Opus 4.7 uses a new tokenizer compared to previous models, contributing to its improved performance on a wide range of tasks. This new tokenizer may use up to 35% more tokens for the same fixed text.
 </Note>
 
-## Third-party platform pricing
+For Claude Platform on AWS pricing, see [Claude Platform on AWS pricing](#claude-platform-on-aws-pricing).
 
-Claude models are available on [AWS Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock), [Google Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry). For official pricing, visit:
-- [AWS Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)
-- [Google Vertex AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models)
-- [Microsoft Foundry pricing](https://azure.microsoft.com/en-us/pricing/details/microsoft-foundry/#pricing)
+## Cloud platform pricing
+
+This section covers partner-operated cloud platforms, where the cloud provider invoices you. For Anthropic-operated cloud platforms billed through a marketplace, see [Claude Platform on AWS pricing](#claude-platform-on-aws-pricing) and [Claude in Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry).
+
+Claude models are available on [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock) and [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai). For official pricing, visit:
+- [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)
+- [Vertex AI pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models)
 
 <Note>
 **Regional and multi-region endpoint pricing for Claude 4.5 models and beyond**
 
-Starting with Claude Sonnet 4.5 and Haiku 4.5:
-- **AWS Bedrock** offers two endpoint types: global endpoints (dynamic routing for maximum availability) and regional endpoints (guaranteed data routing through specific geographic regions).
-- **Google Vertex AI** offers three endpoint types: global endpoints, multi-region endpoints (dynamic routing within a geographic area), and regional endpoints.
+Starting with Claude Sonnet 4.5, Haiku 4.5, and Opus 4.5:
+- **Bedrock** offers two endpoint types: global endpoints (dynamic routing for maximum availability) and regional endpoints (guaranteed data routing through specific geographic regions).
+- **Vertex AI** offers three endpoint types: global endpoints, multi-region endpoints (dynamic routing within a geographic area), and regional endpoints.
 
-Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (1P) is global by default; for 1P data residency options and pricing, see [Data residency pricing](#data-residency-pricing) below.
+Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (first-party) is global by default; for first-party data residency options and pricing, see [Data residency pricing](#data-residency-pricing).
 
-**Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, and all future models. Earlier models (Claude Sonnet 4 (deprecated), Opus 4 (deprecated), and prior releases) retain their existing pricing.
+**Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, and all future models. Earlier models (Claude Sonnet 4 (deprecated), Opus 4 (deprecated), and prior releases) retain their existing pricing.
 
 For implementation details and code examples:
-- [AWS Bedrock global vs regional endpoints](/docs/en/build-with-claude/claude-in-amazon-bedrock#regions) for Opus 4.7, Haiku 4.5, and newer models, or [the legacy integration](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#global-vs-regional-endpoints) for all other models on Bedrock
-- [Google Vertex AI global, multi-region, and regional endpoints](/docs/en/build-with-claude/claude-on-vertex-ai#global-multi-region-and-regional-endpoints)
+- [Amazon Bedrock global vs regional endpoints](/docs/en/build-with-claude/claude-in-amazon-bedrock#regions) for Opus 4.7, Haiku 4.5, and later models, or [the legacy integration](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#global-vs-regional-endpoints) for all other models on Bedrock
+- [Vertex AI global, multi-region, and regional endpoints](/docs/en/build-with-claude/claude-on-vertex-ai#global-multi-region-and-regional-endpoints)
+</Note>
+
+## Claude Platform on AWS pricing
+
+[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) bills through AWS Marketplace using Claude Consumption Units (CCUs). Anthropic rates your token usage in USD at standard per-model, per-feature rates, applies any negotiated discount, converts the result to CCUs at $0.01 per CCU, and reports the CCU quantity to AWS Marketplace hourly. Your AWS bill shows a single CCU line item.
+
+| Concept | Details |
+| :--- | :--- |
+| **Billing unit** | Claude Consumption Unit (CCU) |
+| **CCU price** | $0.01 per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price) |
+| **Conversion** | Token usage rated in USD at standard per-model, per-feature rates (same as [Claude API pricing](#model-pricing)), then converted to CCUs at $0.01 per CCU |
+| **Billing cadence** | Hourly metering to AWS Marketplace; monthly invoices |
+| **Payment model** | Arrears only (postpaid); no prepaid credits |
+| **Discounts** | Applied as fewer CCUs metered |
+| **Tax** | Pre-tax metering; AWS Marketplace handles tax |
+| **Cost visibility** | Real-time breakdown in the Claude Console (access through the AWS Console); AWS Cost Explorer shows aggregated CCU |
+
+<Note>
+**Claude Consumption Units.** If Customer accesses the Services through certain Marketplace Platforms (e.g., Claude Platform on AWS), usage will be invoiced in Claude Consumption Units ("CCU") rather than per MTok. A CCU is a unit of measure used solely for Marketplace Platform invoicing. One hundred (100) CCU represents $1.00 USD of fees owed for the Services, calculated at the applicable prices on [claude.com/pricing#api](https://claude.com/pricing#api), after application of any discounts.
+</Note>
+
+### Inference geography
+
+For Claude Opus 4.6, Claude Sonnet 4.6, and later models, using `inference_geo: "us"` applies a 1.1x pricing multiplier. `inference_geo: "global"` (default) uses standard pricing. See [Data residency](/docs/en/manage-claude/data-residency) for details.
+
+### Private offers
+
+When you sign up on the AWS Console **Claude Platform on AWS** service page, the AWS Console looks up any private offer associated with your account and prompts you to accept it in AWS Marketplace. Contact your Anthropic account representative for private offer terms.
+
+<Note>
+If you have an existing Amazon Bedrock private offer, contact your Anthropic or AWS account representative before getting started with Claude Platform on AWS to ensure your discounts are applied correctly. Discounts cannot be applied retroactively to usage incurred before your private offer is accepted.
 </Note>
 
 ## Feature-specific pricing
@@ -82,31 +116,31 @@ Cache write tokens are charged when content is first stored. Cache read tokens a
 
 These multipliers stack with other pricing modifiers, including the Batch API discount and data residency.
 
-For implementation details, supported models, and code examples, see the [prompt caching documentation](/docs/en/build-with-claude/prompt-caching).
+For implementation details, supported models, and code examples, see [Prompt caching](/docs/en/build-with-claude/prompt-caching).
 
 ### Data residency pricing
 
-For Claude Opus 4.7, Claude Opus 4.6, and newer models, specifying US-only inference via the `inference_geo` parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. Global routing (the default) uses standard pricing.
+For Claude Opus 4.6, Claude Sonnet 4.6, and later models, specifying US-only inference through the `inference_geo` parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. Global routing (the default) uses standard pricing.
 
-This applies to the Claude API (1P) only. Third-party platforms have their own regional pricing. See [AWS Bedrock](https://aws.amazon.com/bedrock/pricing/) and [Google Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) for details. Earlier models retain their existing pricing regardless of `inference_geo` settings.
+This applies to the Claude API (first-party) and Claude Platform on AWS. Partner-operated platforms (Bedrock and Vertex AI) have independent regional pricing. See [Bedrock](https://aws.amazon.com/bedrock/pricing/) and [Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) for details. Earlier models do not support the `inference_geo` parameter and always use standard pricing; requests that include the parameter on these models return a 400 error.
 
-For more information, see the [data residency documentation](/docs/en/build-with-claude/data-residency).
+For more information, see [Data residency](/docs/en/manage-claude/data-residency).
 
 ### Fast mode pricing
 
-[Fast mode](/docs/en/build-with-claude/fast-mode) (beta: research preview) for Claude Opus 4.6 provides significantly faster output at premium pricing (6x standard rates). Fast mode pricing applies across the full context window, including requests over 200k input tokens. Currently supported on Opus 4.6:
+[Fast mode](/docs/en/build-with-claude/fast-mode), in beta (research preview), provides significantly faster output for Claude Opus 4.6 at premium pricing (6x standard rates). Fast mode pricing applies across the full context window, including requests over 200k input tokens. Fast mode is not available on Claude Platform on AWS. Currently supported on Opus 4.6:
 
 | Input | Output |
 |:------|:-------|
 | $30 / MTok | $150 / MTok |
 
 Fast mode pricing stacks with other pricing modifiers:
-- [Prompt caching multipliers](#model-pricing) apply on top of fast mode pricing
-- [Data residency](/docs/en/build-with-claude/data-residency) multipliers apply on top of fast mode pricing
+- [Prompt caching multipliers](#prompt-caching) apply on top of fast mode pricing
+- [Data residency](/docs/en/manage-claude/data-residency) multipliers apply on top of fast mode pricing
 
 Fast mode is not available with the [Batch API](#batch-processing).
 
-For more information, see the [fast mode documentation](/docs/en/build-with-claude/fast-mode).
+For more information, see [Fast mode](/docs/en/build-with-claude/fast-mode).
 
 ### Batch processing
 
@@ -128,7 +162,7 @@ The Batch API allows asynchronous processing of large volumes of requests with a
 | Claude Opus 3 ([deprecated](/docs/en/about-claude/model-deprecations))  | $7.50 / MTok     | $37.50 / MTok   |
 | Claude Haiku 3    | $0.125 / MTok    | $0.625 / MTok   |
 
-For more information about batch processing, see the [batch processing documentation](/docs/en/build-with-claude/batch-processing).
+For more information about batch processing, see [Batch processing](/docs/en/build-with-claude/batch-processing).
 
 ### Long context pricing
 
@@ -172,7 +206,7 @@ These token counts are added to your normal input and output tokens to calculate
 
 For current per-model prices, refer to the [model pricing](#model-pricing) section.
 
-For more information about tool use implementation and best practices, see the [tool use documentation](/docs/en/agents-and-tools/tool-use/overview).
+For more information about tool use implementation and best practices, see [Tool use](/docs/en/agents-and-tools/tool-use/overview).
 
 ### Specific tool pricing
 
@@ -294,7 +328,7 @@ If you're also using bash or text editor tools alongside computer use, those too
 
 ### Tokens
 
-All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](#model-pricing) above. [Prompt caching](#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches.
+All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](#model-pricing). [Prompt caching](#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On [Claude Platform on AWS](#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate.
 
 The following Messages API modifiers do **not** apply to Claude Managed Agents sessions:
 
@@ -303,7 +337,7 @@ The following Messages API modifiers do **not** apply to Claude Managed Agents s
 | [Batch API discount](#batch-processing) | Sessions are stateful and interactive. There is no batch mode. |
 | [Fast mode premium](#fast-mode-pricing) | Inference speed is managed by the runtime. |
 | [Data residency multiplier](#data-residency-pricing) | `inference_geo` is a Messages API request field. |
-| [Third-party platform pricing](#third-party-platform-pricing) | Claude Managed Agents is available only through the Claude API directly. |
+| [Cloud platform pricing](#cloud-platform-pricing) | Not available on partner-operated cloud platforms. |
 
 ### Session runtime
 
@@ -353,7 +387,7 @@ For a detailed walkthrough of this calculation, see the [customer support agent 
 
 When building agents with Claude:
 
-1. **Use appropriate models:** Choose Haiku for simple tasks, Sonnet for complex reasoning
+1. **Use appropriate models:** Choose Haiku for simple tasks, Sonnet for most production workloads, and Opus for the most complex reasoning
 2. **Implement prompt caching:** Reduce costs for repeated context
 3. **Batch operations:** Use the Batch API for non-time-sensitive tasks
 4. **Monitor usage patterns:** Track token consumption to identify optimization opportunities
@@ -372,7 +406,7 @@ Rate limits vary by usage tier and affect how many requests you can make:
 - **Tier 4:** Maximum standard limits
 - **Enterprise:** Custom limits available
 
-For detailed rate limit information, see the [rate limits documentation](/docs/en/api/rate-limits).
+For detailed rate limit information, see [Rate limits](/docs/en/api/rate-limits).
 
 For higher rate limits or custom pricing arrangements, [contact the sales team](https://claude.com/contact-sales).
 
@@ -380,7 +414,7 @@ For higher rate limits or custom pricing arrangements, [contact the sales team](
 
 Volume discounts may be available for high-volume users. These are negotiated on a case-by-case basis.
 
-- Standard tiers use the pricing shown above
+- Standard tiers use the pricing shown in [Model pricing](#model-pricing)
 - Enterprise customers can [contact sales](mailto:sales@anthropic.com) for custom pricing
 - Academic and research discounts may be available
 
