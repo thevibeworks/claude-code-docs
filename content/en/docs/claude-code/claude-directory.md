@@ -1497,6 +1497,7 @@ Files in the paths below are deleted on startup once they're older than [`cleanu
 | Path under `~/.claude/`                      | Contents                                                                                                          |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `projects/<project>/<session>.jsonl`         | Full conversation transcript: every message, tool call, and tool result                                           |
+| `projects/<project>/<session>/subagents/`    | [Subagent](/en/sub-agents) conversation transcripts, removed with the parent session transcript when it ages out  |
 | `projects/<project>/<session>/tool-results/` | Large tool outputs spilled to separate files                                                                      |
 | `file-history/<session>/`                    | Pre-edit snapshots of files Claude changed, used for [checkpoint restore](/en/checkpointing)                      |
 | `plans/`                                     | Plan files written during [plan mode](/en/permission-modes#analyze-before-you-edit-with-plan-mode)                |
@@ -1511,11 +1512,12 @@ Files in the paths below are deleted on startup once they're older than [`cleanu
 
 The following paths are not covered by automatic cleanup and persist indefinitely.
 
-| Path under `~/.claude/` | Contents                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| `history.jsonl`         | Every prompt you've typed, with timestamp and project path. Used for up-arrow recall. |
-| `stats-cache.json`      | Aggregated token and cost counts shown by `/usage`                                    |
-| `todos/`                | Legacy per-session task lists. No longer written by current versions; safe to delete. |
+| Path under `~/.claude/` | Contents                                                                                                                                                                        |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `history.jsonl`         | Every prompt you've typed, with timestamp and project path. Used for up-arrow recall.                                                                                           |
+| `stats-cache.json`      | Aggregated token and cost counts shown by `/usage`                                                                                                                              |
+| `remote-settings.json`  | Cached copy of [server-managed settings](/en/server-managed-settings) for your organization. Only present when your organization has configured them. Refreshed on each launch. |
+| `todos/`                | Legacy per-session task lists. No longer written by current versions; safe to delete.                                                                                           |
 
 Other small cache and lock files appear depending on which features you use and are safe to delete.
 
@@ -1570,6 +1572,7 @@ You can also delete any of the application-data paths above by hand. New session
 | `~/.claude/history.jsonl`                                                                                                                                                                    | Up-arrow prompt recall                                     |
 | `~/.claude/file-history/`                                                                                                                                                                    | Checkpoint restore for past sessions                       |
 | `~/.claude/stats-cache.json`                                                                                                                                                                 | Historical totals shown by `/usage`                        |
+| `~/.claude/remote-settings.json`                                                                                                                                                             | Nothing. Re-fetched on next launch.                        |
 | `~/.claude/debug/`, `~/.claude/plans/`, `~/.claude/paste-cache/`, `~/.claude/image-cache/`, `~/.claude/session-env/`, `~/.claude/tasks/`, `~/.claude/shell-snapshots/`, `~/.claude/backups/` | Nothing user-facing                                        |
 | `~/.claude/todos/`                                                                                                                                                                           | Nothing. Legacy directory not written by current versions. |
 
