@@ -13,6 +13,8 @@ Claude Code Security is intended to put this power squarely in the hands of defe
 
 ## **How Claude Code Security works**
 
+![Video 3](https://www.youtube.com/watch?v=sDpkV_iEnck)
+
 Static analysis—a widely deployed form of automated security testing—is typically rule-based, meaning it matches code against known vulnerability patterns. That catches common issues, like exposed passwords or outdated encryption, but often misses more complex vulnerabilities, like flaws in business logic or broken access control.
 
 Rather than scanning for known patterns, Claude Code Security reads and reasons about your code the way a human security researcher would: understanding how components interact, tracing how data moves through your application, and catching complex vulnerabilities that rule-based tools miss.
@@ -45,6 +47,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 
 ## Related content
 
+### Anthropic forms $200 million partnership with the Gates Foundation
+
+[Read more](https://www.anthropic.com/news/gates-foundation-partnership)
+
 ### Introducing Claude for Small Business
 
 We're launching Claude for Small Business, a package of connectors and ready-to-run workflows that put Claude inside the tools small businesses use every day.
@@ -56,9 +62,3 @@ We're launching Claude for Small Business, a package of connectors and ready-to-
 We’ve raised Claude's usage limits and agreed a new compute partnership with SpaceX that will substantially increase our capacity in the near term.
 
 [Read more](https://www.anthropic.com/news/higher-limits-spacex)
-
-### Agents for financial services
-
-We're releasing ten new Cowork and Claude Code plugins, integrations with the Microsoft 365 suite, new connectors, and an MCP app for financial services and insurance organizations.
-
-[Read more](https://www.anthropic.com/news/finance-agents)
