@@ -11,6 +11,8 @@ We’re introducing several upgrades to [Claude Code](https://claude.com/product
 
 We’re introducing a [native VS Code extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) in beta that brings Claude Code directly into your IDE. You can now see Claude’s changes in real-time through a dedicated sidebar panel with inline diffs. The extension provides a richer, graphical Claude Code experience for users who prefer to work in IDEs over terminals.
 
+![Video 5](https://www.youtube.com/watch?v=IpFG_K-1xog)
+
 **Enhanced terminal experience**
 
 We’ve also refreshed Claude Code’s terminal interface. The updated interface features improved status visibility and searchable prompt history (Ctrl+r), making it easier to reuse or edit previous prompts.
@@ -22,6 +24,8 @@ We’ve also refreshed Claude Code’s terminal interface. The updated interface
 For teams who want to create custom agentic experiences, the Claude Agent SDK (formerly the Claude Code SDK) gives access to the same core tools, context management systems, and permissions frameworks that power Claude Code. We’ve also released SDK support for subagents and hooks, making it more customizable for building agents for your specific workflows.
 
 Developers are [already building agents](https://anthropic.com/engineering/building-agents-with-the-claude-agent-sdk) for a broad range use cases with the SDK, including financial compliance agents, cybersecurity agents, and code debugging agents.
+
+![Video 6](https://www.youtube.com/watch?v=OZ-aLrJ0oVg)
 
 ## Execute long-running tasks with confidence
 
@@ -54,6 +58,10 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### Anthropic forms $200 million partnership with the Gates Foundation
+
+[Read more](https://www.anthropic.com/news/gates-foundation-partnership)
+
 ### Introducing Claude for Small Business
 
 We're launching Claude for Small Business, a package of connectors and ready-to-run workflows that put Claude inside the tools small businesses use every day.
@@ -65,9 +73,3 @@ We're launching Claude for Small Business, a package of connectors and ready-to-
 We’ve raised Claude's usage limits and agreed a new compute partnership with SpaceX that will substantially increase our capacity in the near term.
 
 [Read more](https://www.anthropic.com/news/higher-limits-spacex)
-
-### Agents for financial services
-
-We're releasing ten new Cowork and Claude Code plugins, integrations with the Microsoft 365 suite, new connectors, and an MCP app for financial services and insurance organizations.
-
-[Read more](https://www.anthropic.com/news/finance-agents)
