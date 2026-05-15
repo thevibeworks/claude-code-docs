@@ -23,6 +23,10 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 
 ## Related content
 
+### Anthropic forms $200 million partnership with the Gates Foundation
+
+[Read more](https://www.anthropic.com/news/gates-foundation-partnership)
+
 ### Introducing Claude for Small Business
 
 We're launching Claude for Small Business, a package of connectors and ready-to-run workflows that put Claude inside the tools small businesses use every day.
@@ -34,9 +38,3 @@ We're launching Claude for Small Business, a package of connectors and ready-to-
 We’ve raised Claude's usage limits and agreed a new compute partnership with SpaceX that will substantially increase our capacity in the near term.
 
 [Read more](https://www.anthropic.com/news/higher-limits-spacex)
-
-### Agents for financial services
-
-We're releasing ten new Cowork and Claude Code plugins, integrations with the Microsoft 365 suite, new connectors, and an MCP app for financial services and insurance organizations.
-
-[Read more](https://www.anthropic.com/news/finance-agents)
