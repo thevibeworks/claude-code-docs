@@ -11,7 +11,7 @@ We’re introducing several upgrades to [Claude Code](https://claude.com/product
 
 We’re introducing a [native VS Code extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) in beta that brings Claude Code directly into your IDE. You can now see Claude’s changes in real-time through a dedicated sidebar panel with inline diffs. The extension provides a richer, graphical Claude Code experience for users who prefer to work in IDEs over terminals.
 
-![Video 5](https://www.youtube.com/watch?v=IpFG_K-1xog)
+[Video 5](https://www.youtube.com/watch?v=IpFG_K-1xog)
 
 **Enhanced terminal experience**
 
@@ -25,7 +25,7 @@ For teams who want to create custom agentic experiences, the Claude Agent SDK (f
 
 Developers are [already building agents](https://anthropic.com/engineering/building-agents-with-the-claude-agent-sdk) for a broad range use cases with the SDK, including financial compliance agents, cybersecurity agents, and code debugging agents.
 
-![Video 6](https://www.youtube.com/watch?v=OZ-aLrJ0oVg)
+[Video 6](https://www.youtube.com/watch?v=OZ-aLrJ0oVg)
 
 ## Execute long-running tasks with confidence
 
@@ -58,6 +58,12 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
+### PwC is deploying Claude to build technology, execute deals, and reinvent enterprise functions for clients
+
+PwC will roll out Claude Code and Cowork starting with U.S. teams and expanding toward a global workforce of hundreds of thousands of professionals, establish a joint Center of Excellence, and train and certify 30,000 PwC professionals on Claude.
+
+[Read more](https://www.anthropic.com/news/pwc-expanded-partnership)
+
 ### Anthropic forms $200 million partnership with the Gates Foundation
 
 [Read more](https://www.anthropic.com/news/gates-foundation-partnership)
@@ -67,9 +73,3 @@ These updates are available now for Claude Code users.
 We're launching Claude for Small Business, a package of connectors and ready-to-run workflows that put Claude inside the tools small businesses use every day.
 
 [Read more](https://www.anthropic.com/news/claude-for-small-business)
-
-### Higher usage limits for Claude and a compute deal with SpaceX
-
-We’ve raised Claude's usage limits and agreed a new compute partnership with SpaceX that will substantially increase our capacity in the near term.
-
-[Read more](https://www.anthropic.com/news/higher-limits-spacex)
