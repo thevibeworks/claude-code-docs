@@ -132,6 +132,8 @@ Spans redact user prompt text, tool input details, and tool content by default. 
 
 When tracing is active, Bash and PowerShell subprocesses automatically inherit a `TRACEPARENT` environment variable containing the W3C trace context of the active tool execution span. This lets any subprocess that reads `TRACEPARENT` parent its own spans under the same trace, enabling end-to-end distributed tracing through scripts and commands that Claude runs.
 
+When tracing is active and Claude Code is connected directly to the Anthropic API, each model request carries a W3C `traceparent` header set to the `claude_code.llm_request` span's context, and the API's `traceresponse` header is recorded as a span link. Together these connect Claude Code's client-side spans to the server-side trace through any compliant intermediary. The header is not sent to third-party providers.
+
 In Agent SDK and non-interactive sessions started with `-p`, Claude Code also reads `TRACEPARENT` and `TRACESTATE` from its own environment when starting each interaction span. This lets an embedding process pass its active W3C trace context into the subprocess so Claude Code's spans appear as children of the caller's distributed trace. Interactive sessions ignore inbound `TRACEPARENT` to avoid accidentally inheriting ambient values from CI or container environments.
 
 #### Span hierarchy
@@ -196,15 +198,17 @@ Each retry attempt is also recorded as a `gen_ai.request.attempt` span event wit
 
 **`claude_code.tool`**
 
-| Attribute       | Description                                                 | Gated by                |
-| --------------- | ----------------------------------------------------------- | ----------------------- |
-| `tool_name`     | Tool name                                                   |                         |
-| `duration_ms`   | Wall-clock duration including permission wait and execution |                         |
-| `result_tokens` | Approximate token size of the tool result                   |                         |
-| `file_path`     | Target file path for Read, Edit, and Write tools            | `OTEL_LOG_TOOL_DETAILS` |
-| `full_command`  | Command string for the Bash tool                            | `OTEL_LOG_TOOL_DETAILS` |
-| `skill_name`    | Skill name for the Skill tool                               | `OTEL_LOG_TOOL_DETAILS` |
-| `subagent_type` | Subagent type for the Task tool                             | `OTEL_LOG_TOOL_DETAILS` |
+| Attribute         | Description                                                                                                        | Gated by                |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| `tool_name`       | Tool name                                                                                                          |                         |
+| `duration_ms`     | Wall-clock duration including permission wait and execution                                                        |                         |
+| `result_tokens`   | Approximate token size of the tool result                                                                          |                         |
+| `agent_id`        | Identifier of the subagent or teammate that ran the tool. Absent on the main session                               |                         |
+| `parent_agent_id` | Identifier of the agent that spawned this one. Absent for the main session and for agents spawned directly from it |                         |
+| `file_path`       | Target file path for Read, Edit, and Write tools                                                                   | `OTEL_LOG_TOOL_DETAILS` |
+| `full_command`    | Command string for the Bash tool                                                                                   | `OTEL_LOG_TOOL_DETAILS` |
+| `skill_name`      | Skill name for the Skill tool                                                                                      | `OTEL_LOG_TOOL_DETAILS` |
+| `subagent_type`   | Subagent type for the Task tool                                                                                    | `OTEL_LOG_TOOL_DETAILS` |
 
 When `OTEL_LOG_TOOL_CONTENT=1`, this span also records a `tool.output` span event whose attributes contain the tool's input and output bodies, truncated at 60 KB per attribute.
 
@@ -885,6 +889,22 @@ Logged when all hooks for a hook event have finished.
 * `managed_only`: `"true"` when only managed-policy hooks are permitted
 * `hook_source`: `"policySettings"` or `"merged"`
 * `hook_definitions`: JSON-serialized hook configuration. Included only when both detailed beta tracing and `OTEL_LOG_TOOL_DETAILS=1` are enabled
+
+#### Hook plugin metrics event
+
+Logged when an official-marketplace plugin hook emits per-invocation metrics. Only plugins installed from an official Anthropic marketplace can emit these. Third-party marketplace plugins and user-configured hooks do not emit to this event. Use this event to monitor plugin behavior such as finding rates, costs, and durations from your own observability stack.
+
+**Event Name**: `claude_code.hook_plugin_metrics`
+
+**Attributes**:
+
+* All [standard attributes](#standard-attributes)
+* `event.name`: `"hook_plugin_metrics"`
+* `event.timestamp`: ISO 8601 timestamp
+* `event.sequence`: monotonically increasing counter for ordering events within a session
+* `plugin_id`: plugin identifier in `<name>@<marketplace>` form
+* `hook_event`: hook event type that emitted the metrics
+* Up to 20 plugin-emitted metric keys. Names match `^[a-z][a-z0-9_]{0,39}$`. Values are boolean or number.
 
 #### Compaction event
 

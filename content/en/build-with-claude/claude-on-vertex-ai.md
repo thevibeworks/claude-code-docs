@@ -45,14 +45,14 @@ go get github.com/anthropics/anthropic-sdk-go
 <Tab title="Java">
 <CodeGroup>
 ```groovy Gradle
-implementation("com.anthropic:anthropic-java-vertex:2.32.0")
+implementation("com.anthropic:anthropic-java-vertex:2.33.0")
 ```
 
 ```xml Maven
 <dependency>
     <groupId>com.anthropic</groupId>
     <artifactId>anthropic-java-vertex</artifactId>
-    <version>2.32.0</version>
+    <version>2.33.0</version>
 </dependency>
 ```
 
@@ -124,6 +124,10 @@ Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](/docs/
 | Claude Opus 4 <br /><small>Deprecated. Retiring September 14, 2026.</small> | claude-opus-4@20250514   |
 | Claude Haiku 4.5               | claude-haiku-4-5@20251001 |
 | Claude Haiku 3.5 <br /><small>Deprecated. Retiring July 5, 2026.</small> | claude-3-5-haiku@20241022 |
+
+<Tip>
+Upgrading to a newer Claude model? In Claude Code, run `/claude-api migrate` to apply model ID swaps and breaking parameter changes across your codebase. The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform. See [Migrating to a newer Claude model](/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).
+</Tip>
 
 ### Making requests
 

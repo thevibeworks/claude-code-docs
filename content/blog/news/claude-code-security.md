@@ -47,6 +47,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 
 ## Related content
 
+### Widening the conversation on frontier AI
+
+[Read more](https://www.anthropic.com/news/widening-conversation-ai)
+
 ### KPMG integrates Claude across its core business and workforce of more than 276,000 in strategic alliance
 
 KPMG and Anthropic announce a global alliance, with Claude integrated into KPMG's Digital Gateway platform and available to all 276,000+ employees.
@@ -58,9 +62,3 @@ KPMG and Anthropic announce a global alliance, with Claude integrated into KPMG'
 Anthropic is acquiring Stainless, a leader in SDKs and MCP server tooling.
 
 [Read more](https://www.anthropic.com/news/anthropic-acquires-stainless)
-
-### PwC is deploying Claude to build technology, execute deals, and reinvent enterprise functions for clients
-
-PwC will roll out Claude Code and Cowork starting with U.S. teams and expanding toward a global workforce of hundreds of thousands of professionals, establish a joint Center of Excellence, and train and certify 30,000 PwC professionals on Claude.
-
-[Read more](https://www.anthropic.com/news/pwc-expanded-partnership)

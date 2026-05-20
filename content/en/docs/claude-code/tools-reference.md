@@ -130,7 +130,7 @@ Three checks must pass for an edit to apply:
 * **Match**: `old_string` must appear in the file exactly as written. A single character of whitespace or indentation difference is enough to miss.
 * **Uniqueness**: `old_string` must appear exactly once. When it appears more than once, Claude either supplies a longer string with enough surrounding context to pin down one occurrence, or sets `replace_all: true` to replace them all.
 
-Viewing a file with Bash also satisfies the read-before-edit requirement when the command is `cat path/to/file` or `sed -n 'X,Yp' path/to/file` on a single file with no pipes or redirects. Other Bash commands such as `head`, `tail`, or piped output do not count, and Claude must use Read before editing in those cases.
+Viewing a file with Bash also satisfies the read-before-edit requirement when the command is `cat`, `head`, `tail`, or `sed -n 'X,Yp'` on a single file with no pipes, redirects, or other flags. Piped output and other Bash commands do not count, and Claude must use Read before editing in those cases.
 
 This affects edit eligibility only, not permissions. [Read and Edit deny rules](/en/permissions#tool-specific-permission-rules) also apply to file commands Claude Code recognizes in Bash, such as `cat`, `head`, `tail`, and `sed`, but not to arbitrary subprocesses that read or write files indirectly, like a Python or Node script that opens files itself. For OS-level enforcement that covers every process, [enable the sandbox](/en/sandboxing).
 
@@ -247,7 +247,7 @@ The PowerShell tool has the following known limitations during the preview:
 
 The Read tool takes a file path and returns the contents with line numbers. Claude is instructed to always pass absolute paths.
 
-By default, Read returns the file from the start. Files over a size threshold return an error rather than partial content, prompting Claude to retry with `offset` and `limit` to read a specific range.
+By default, Read returns the file from the start. When a whole-file read exceeds the token limit, Read returns the first page with a `PARTIAL view` notice that tells Claude how much of the file it received and how to read more with `offset` and `limit`. A read that passes an explicit `offset` or `limit` and still exceeds the token limit returns an error.
 
 Read handles several file types beyond plain text:
 
@@ -294,7 +294,7 @@ The Write tool creates a new file or overwrites an existing one with the full co
 
 If the target path already exists, Claude must have read that file at least once in the current conversation before overwriting it. A Write to an unread existing file fails with an error. This constraint does not apply to new files.
 
-Viewing the file with Bash `cat` or `sed -n` also satisfies this requirement, as described in [Edit tool behavior](#edit-tool-behavior).
+Viewing the file with Bash also satisfies this requirement under the same rules described in [Edit tool behavior](#edit-tool-behavior).
 
 For partial changes to an existing file, Claude uses Edit instead of Write.
 
