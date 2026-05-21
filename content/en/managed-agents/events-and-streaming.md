@@ -613,7 +613,7 @@ await foreach (var streamEvent in stream.Enumerate())
 	defer stream.Close()
 
 	if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
-		Events: []anthropic.SendEventsParamsUnion{{
+		Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
 			OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
 				Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
 				Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
@@ -661,7 +661,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
             .build()
     );
 
-    for (var event : (Iterable<StreamEvents>) stream.stream()::iterator) {
+    for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
         if (event.isAgentMessage()) {
             event.asAgentMessage().content().forEach(block -> IO.print(block.text()));
         } else if (event.isSessionStatusIdle()) {
@@ -684,10 +684,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
   
 ````php
 // Open the stream first, then send the user message
-$stream = $client->beta->sessions->events->streamStream(
-    $session->id,
-    requestOptions: ['transporter' => $streamingClient],
-);
+$stream = $client->beta->sessions->events->streamStream($session->id);
 $client->beta->sessions->events->send(
     $session->id,
     events: [
@@ -925,7 +922,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
     }
 
     // Tail live events, skipping anything already seen
-    for (var event : (Iterable<StreamEvents>) stream.stream()::iterator) {
+    for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
         Optional<Map<String, JsonValue>> obj = event._json().orElseThrow().asObject();
         if (!seenEventIds.add(obj.orElseThrow().get("id").asStringOrThrow())) continue;
         if (event.isAgentMessage()) {
@@ -939,10 +936,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
 
   
 ````php
-$stream = $client->beta->sessions->events->streamStream(
-    $session->id,
-    requestOptions: ['transporter' => $streamingClient],
-);
+$stream = $client->beta->sessions->events->streamStream($session->id);
 
 // Stream is open and buffering. List history before tailing live.
 $seenEventIds = [];
@@ -1397,7 +1391,7 @@ loop:
   
 ````java
 try (var stream = client.beta().sessions().events().streamStreaming(session.id())) {
-    for (var event : (Iterable<StreamEvents>) stream.stream()::iterator) {
+    for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
         if (!event.isSessionStatusIdle()) continue;
         var stopReason = event.asSessionStatusIdle().stopReason().orElseThrow();
         if (stopReason.isRequiresAction()) {
@@ -1425,10 +1419,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
 
   
 ````php
-$stream = $client->beta->sessions->events->streamStream(
-    $session->id,
-    requestOptions: ['transporter' => $streamingClient],
-);
+$stream = $client->beta->sessions->events->streamStream($session->id);
 
 foreach ($stream as $event) {
     if ($event->type === 'session.status_idle' && $event->stopReason) {
@@ -1661,7 +1652,7 @@ loop:
   
 ````java
 try (var stream = client.beta().sessions().events().streamStreaming(session.id())) {
-    for (var event : (Iterable<StreamEvents>) stream.stream()::iterator) {
+    for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
         if (!event.isSessionStatusIdle()) continue;
         var stopReason = event.asSessionStatusIdle().stopReason().orElseThrow();
         if (stopReason.isRequiresAction()) {
@@ -1686,10 +1677,7 @@ try (var stream = client.beta().sessions().events().streamStreaming(session.id()
 
   
 ````php
-$stream = $client->beta->sessions->events->streamStream(
-    $session->id,
-    requestOptions: ['transporter' => $streamingClient],
-);
+$stream = $client->beta->sessions->events->streamStream($session->id);
 
 foreach ($stream as $event) {
     if ($event->type === 'session.status_idle' && $event->stopReason) {
