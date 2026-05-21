@@ -13,6 +13,8 @@ Claude Code Security is intended to put this power squarely in the hands of defe
 
 ## **How Claude Code Security works**
 
+[Video 3](https://www.youtube.com/watch?v=sDpkV_iEnck)
+
 Static analysis—a widely deployed form of automated security testing—is typically rule-based, meaning it matches code against known vulnerability patterns. That catches common issues, like exposed passwords or outdated encryption, but often misses more complex vulnerabilities, like flaws in business logic or broken access control.
 
 Rather than scanning for known patterns, Claude Code Security reads and reasons about your code the way a human security researcher would: understanding how components interact, tracing how data moves through your application, and catching complex vulnerabilities that rule-based tools miss.
