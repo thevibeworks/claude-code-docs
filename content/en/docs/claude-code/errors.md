@@ -20,7 +20,7 @@ Match the message you see in your terminal to a section below.
 
 | Message                                                                                       | Section                                                                                                                       |
 | :-------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `API Error: 500 ... Internal server error`                                                    | [Server errors](#api-error-500-internal-server-error)                                                                         |
+| `API Error: 500 Internal server error`                                                        | [Server errors](#api-error-500-internal-server-error)                                                                         |
 | `API Error: Repeated 529 Overloaded errors`                                                   | [Server errors](#api-error-repeated-529-overloaded-errors)                                                                    |
 | `Request timed out`                                                                           | [Server errors](#request-timed-out), or [Network](#unable-to-connect-to-api) if the message mentions your internet connection |
 | `<model> is temporarily unavailable, so auto mode cannot determine the safety of...`          | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action)                                                          |
@@ -44,6 +44,7 @@ Match the message you see in your terminal to a section below.
 | `Error during compaction: Conversation too long`                                              | [Request errors](#error-during-compaction-conversation-too-long)                                                              |
 | `Request too large`                                                                           | [Request errors](#request-too-large)                                                                                          |
 | `Image was too large`                                                                         | [Request errors](#image-was-too-large)                                                                                        |
+| `Unable to resize image`                                                                      | [Request errors](#unable-to-resize-image)                                                                                     |
 | `PDF too large` / `PDF is password protected`                                                 | [Request errors](#pdf-errors)                                                                                                 |
 | `Extra inputs are not permitted`                                                              | [Request errors](#extra-inputs-are-not-permitted)                                                                             |
 | `There's an issue with the selected model`                                                    | [Request errors](#theres-an-issue-with-the-selected-model)                                                                    |
@@ -67,21 +68,23 @@ When you see one of the errors on this page, those retries have already been exh
 
 ## Server errors
 
-These errors come from Anthropic infrastructure rather than your account or request.
+These errors come from the inference provider rather than your account or request. On the Anthropic API that means Anthropic infrastructure. On Bedrock, Vertex AI, Foundry, or a custom gateway it means that provider's infrastructure.
 
 ### API Error: 500 Internal server error
 
-Claude Code shows the raw API response body for any 5xx status. The example below shows a 500 response:
+Claude Code shows the status code and the API's error message for any 5xx response. The example below shows a 500 response on the Anthropic API:
 
 ```text theme={null}
-API Error: 500 {"type":"error","error":{"type":"api_error","message":"Internal server error"}} · check status.claude.com
+API Error: 500 Internal server error. This is a server-side issue, usually temporary — try again in a moment. If it persists, check status.claude.com.
 ```
+
+The trailing sentence names where to check service health and varies by provider. Bedrock, Vertex AI, and Foundry configurations name that provider's service status. A custom `ANTHROPIC_BASE_URL` names the gateway host.
 
 This indicates an unexpected failure inside the API. It is not caused by your prompt, settings, or account.
 
 **What to do:**
 
-* Check [status.claude.com](https://status.claude.com) for active incidents
+* Check [status.claude.com](https://status.claude.com), or the provider status page named in the message, for active incidents
 * Wait a minute, then send your message again. Your original message is still in the conversation, so for a long prompt you can type `try again` instead of pasting the whole thing.
 * If the error persists with no posted incident, run `/feedback` so Anthropic can investigate with your request details. See [Report an error](#report-an-error) if `/feedback` is unavailable in your environment.
 
@@ -90,14 +93,14 @@ This indicates an unexpected failure inside the API. It is not caused by your pr
 The API is temporarily at capacity across all users. Claude Code has already retried several times before showing this message:
 
 ```text theme={null}
-API Error: Repeated 529 Overloaded errors · check status.claude.com
+API Error: Repeated 529 Overloaded errors. The API is at capacity — this is usually temporary. Try again in a moment. If it persists, check status.claude.com.
 ```
 
-A 529 is not your usage limit and does not count against your quota.
+The trailing sentence varies by provider in the same way as the 500 error above. A 529 is not your usage limit and does not count against your quota.
 
 **What to do:**
 
-* Check [status.claude.com](https://status.claude.com) for capacity notices
+* Check [status.claude.com](https://status.claude.com), or the provider status page named in the message, for capacity notices
 * Try again in a few minutes
 * Run `/model` and switch to a different model to keep working, since capacity is tracked per model. Claude Code prompts you to do this when one model is under particularly high load, for example `Opus is experiencing high load, please use /model to switch to Sonnet`.
 
@@ -208,7 +211,7 @@ You have hit the rate limit configured for your API key, Amazon Bedrock project,
 API Error: Request rejected (429) · this may be a temporary capacity issue. If it persists, check status.claude.com.
 ```
 
-The trailing sentence names where to check service health and varies by provider. Bedrock and Vertex AI configurations name that provider's service status instead of the Anthropic status page.
+The trailing sentence names where to check service health and varies by provider. Bedrock, Vertex AI, and Foundry configurations name that provider's service status instead of the Anthropic status page. A custom `ANTHROPIC_BASE_URL` names the gateway host.
 
 **What to do:**
 
@@ -484,6 +487,24 @@ The image stays in conversation history after the error, so every subsequent mes
 * Press Esc twice and step back past the turn where the image was added
 * Resize the image before pasting. The API accepts images up to 8000 pixels on the longest edge for a single image, or 2000 pixels when many images are in context.
 * Take a tighter screenshot of the relevant region instead of the full screen
+
+### Unable to resize image
+
+Claude Code could not downscale an attached image before sending it to the API.
+
+```text theme={null}
+Unable to resize image — image processing is unavailable and dimensions could not be read from the file header. Please convert the image to PNG, JPEG, GIF, or WebP.
+Unable to resize image — dimensions exceed the 2000x2000px limit and image processing failed. Please resize the image to reduce its pixel dimensions.
+Unable to resize image (… raw, … base64). The image exceeds the … API limit and compression failed. Please resize the image manually or use a smaller image.
+Unable to resize image — could not verify image dimensions are within the 2000x2000px API limit.
+```
+
+Claude Code normally resizes large images automatically. These errors mean the native image processor failed to load or returned an error, so the image could not be resized to fit within API limits.
+
+**What to do:**
+
+* If the message asks you to convert the image, convert it to PNG, JPEG, GIF, or WebP and attach it again. Claude Code can verify dimensions for these formats without the image processor.
+* If the message reports a dimension or size limit, resize or recompress the image below that limit before attaching.
 
 ### PDF errors
 
