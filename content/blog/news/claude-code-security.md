@@ -47,6 +47,10 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 
 ## Related content
 
+### Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical "Magnifica humanitas"
+
+[Read more](https://www.anthropic.com/news/chris-olah-pope-leo-encyclical)
+
 ### Widening the conversation on frontier AI
 
 [Read more](https://www.anthropic.com/news/widening-conversation-ai)
@@ -56,9 +60,3 @@ To learn more, visit [claude.com/solutions/claude-code-security](http://claude.c
 KPMG and Anthropic announce a global alliance, with Claude integrated into KPMG's Digital Gateway platform and available to all 276,000+ employees.
 
 [Read more](https://www.anthropic.com/news/anthropic-kpmg)
-
-### Anthropic acquires Stainless
-
-Anthropic is acquiring Stainless, a leader in SDKs and MCP server tooling.
-
-[Read more](https://www.anthropic.com/news/anthropic-acquires-stainless)
