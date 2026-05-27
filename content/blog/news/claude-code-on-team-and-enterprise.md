@@ -46,6 +46,10 @@ To explore how Claude for Enterprise can transform your organization's productiv
 
 ## Related content
 
+### Anthropic appoints KiYoung Choi as Representative Director of Korea ahead of Seoul office opening
+
+[Read more](https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea)
+
 ### Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical "Magnifica humanitas"
 
 [Read more](https://www.anthropic.com/news/chris-olah-pope-leo-encyclical)
@@ -53,9 +57,3 @@ To explore how Claude for Enterprise can transform your organization's productiv
 ### Widening the conversation on frontier AI
 
 [Read more](https://www.anthropic.com/news/widening-conversation-ai)
-
-### KPMG integrates Claude across its core business and workforce of more than 276,000 in strategic alliance
-
-KPMG and Anthropic announce a global alliance, with Claude integrated into KPMG's Digital Gateway platform and available to all 276,000+ employees.
-
-[Read more](https://www.anthropic.com/news/anthropic-kpmg)
