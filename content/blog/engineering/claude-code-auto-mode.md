@@ -1,4 +1,4 @@
-Title: Claude Code auto mode: a safer way to skip permissions
+Title: How we built Claude Code auto mode: a safer way to skip permissions
 
 URL Source: https://www.anthropic.com/engineering/claude-code-auto-mode
 
