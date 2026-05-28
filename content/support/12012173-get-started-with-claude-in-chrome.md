@@ -19,7 +19,7 @@ This integration is especially useful for design verification (comparing Figma m
 
 Start a task in Claude Desktop and let it handle work in the browser without switching windows. Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1779950700&signature=45dd4fd157d85d2f60b84afac2949256c099f9814460d62f6fae6f349155763e&req=dSguFM93m4RfW%2FMW1HO4zdOew4JV7bN%2Bhnw73Y7ib%2BfzggiiOGKvgBQ0zEpC%0AgNUxIWlcadzsRgmM5Bk%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1779950700&signature=45dd4fd157d85d2f60b84afac2949256c099f9814460d62f6fae6f349155763e&req=dSguFM93m4RfW%2FMW1HO4zdOew4JV7bN%2Bhnw73Y7ib%2BfzggiiOGKvgBQ0zEpC%0AgNUxIWlcadzsRgmM5Bk%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1779963300&signature=c288e855493ba9b6a76ed4a448212b818804126ce93558426bfc5ed9a7e61b29&req=dSguFM93m4RfW%2FMW1HO4zdOew4JV7rB6hnw73Y7ib%2BdVQWEiLiPZBdA6pcSA%0AUxAA5B8osrO9vqQc2Kk%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1779963300&signature=c288e855493ba9b6a76ed4a448212b818804126ce93558426bfc5ed9a7e61b29&req=dSguFM93m4RfW%2FMW1HO4zdOew4JV7rB6hnw73Y7ib%2BdVQWEiLiPZBdA6pcSA%0AUxAA5B8osrO9vqQc2Kk%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
