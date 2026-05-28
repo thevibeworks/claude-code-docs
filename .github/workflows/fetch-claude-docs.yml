@@ -42,7 +42,9 @@ jobs:
           enable-cache: "true"
           cache-python: "true"
 
-      - name: Fetch Claude Code docs
+      - name: Fetch all Anthropic docs
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: uv run scripts/fetcher.py
 
       - name: Setup GitHub CLI and Git
@@ -53,7 +55,7 @@ jobs:
           git config --global user.email "claude-yolo@lroole.com"
 
       - name: Claude handles everything
-        uses: thevibeworks/claude-code-action@main
+        uses: anthropics/claude-code-action@main
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -61,7 +63,7 @@ jobs:
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: "claude-yolo[bot]"
           claude_args: |
-            --model claude-sonnet-4-20250514
+            --model claude-sonnet-4-6
             --allowedTools Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify
             --mcp-config '{
               "mcpServers": {
@@ -81,7 +83,7 @@ jobs:
               }
             }'
           prompt: |
-            You're an AI agent responsible for fetching and evaluating Claude Code documentation updates. Think like a news editor - you decide what's worth publishing.
+            You're an AI agent responsible for fetching and evaluating Anthropic documentation updates. Think like a news editor - you decide what's worth publishing.
 
             ## YOUR ROLE
             You're the overnight docs fetcher (night shift claude-yolo) who runs at 23:45 Pacific Time.
@@ -91,6 +93,18 @@ jobs:
 
             ## WHY YOU EXIST
             Docs change constantly. Most changes are noise. Your job: filter signal from noise.
+
+            ## CONTENT SOURCES
+            The fetcher archives from multiple sources:
+            - `content/en/docs/claude-code/` - Claude Code + Agent SDK docs
+            - `content/en/api/` - API reference (1500+ docs)
+            - `content/en/build-with-claude/` - Platform features
+            - `content/mcp/` - MCP protocol spec
+            - `content/blog/engineering/` - Anthropic engineering posts
+            - `content/blog/research/` - Research papers
+            - `content/blog/news/` - Model releases, announcements
+            - `content/github/` - GitHub repos (cookbooks, skills, plugins, courses)
+            - `content/support/` - Support articles
 
             ## YOUR WORKFLOW
 
@@ -105,22 +119,22 @@ jobs:
 
             ## DECISION CRITERIA (based on WHY it matters)
 
-            IGNORE (auto-generated noise; do not commit/PR):
-            - Any files under `content/anthropic-blog/**`
-              Examples:
-              - modified:   content/anthropic-blog/claude-code.md
-              - modified:   content/anthropic-blog/engineering/claude-code-best-practices.md
+            IGNORE (noise; do not commit/PR):
+            - Only blog/research content changed with no other files
+            - Only github/ repo content changed with no other files
+            - Only .metadata.json changed
 
-            If and only if the diff contains blog changes (and metadata) with no other files:
-            - Do nothing. No commit. No PR. Exit 0 politely.
+            If the diff contains only low-signal changes: do nothing, exit 0.
 
             **CREATE PR** (WHY: humans need to know):
             - Version updates in content/claude-code-manifest.json
-            - New features documented
+            - New features documented in claude-code or agent-sdk docs
             - CHANGELOG additions
-            - API changes
+            - API changes or new API endpoints
             - Breaking changes
             - Security-related updates
+            - New MCP spec versions
+            - New engineering blog posts (high signal)
 
             **COMMIT DIRECTLY** (WHY: not worth human attention):
             - Typo fixes < 5 lines
@@ -128,6 +142,7 @@ jobs:
             - Metadata changes
             - Formatting tweaks
             - Dead link fixes
+            - Minor doc wording changes
 
             ## HOW TO HANDLE
 

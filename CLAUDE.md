@@ -2,40 +2,39 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Maintenance: Documentation Sources
-
-Documentation is now split across two domains (Dec 2025):
-- **platform.claude.com** - API docs, Agent SDK, prompt engineering (sitemap.xml)
-- **code.claude.com** - Claude Code docs (llms.txt)
-
-**Fetcher script**: `scripts/fetcher.py`
-- Uses `platform.claude.com/sitemap.xml` for API/platform docs
-- Uses `code.claude.com/docs/llms.txt` for Claude Code docs
-- Supports `--section claude-code|api|blog` filtering
-
-**When adding new sections**:
-1. Update `get_output_path()` method for path mapping
-2. Update `CLAUDE.md` doc references
-3. Check for new URLs: `uv run scripts/fetcher.py --tree`
-
-**Note**: Python 3.14 free-threaded, ~40 sec for 575+ docs.
-
-**Direct Markdown Access**: Anthropic docs support `.md` suffix for raw markdown.
-The fetcher supports fetching specific URLs (see `fetcher.py --help`).
-
 ## Repository Purpose
 
-Acting as the Claude Code tutor, teach "vibe coders" / "vibe learners" to learn how to get started with claude-code according to the claude-docs and related resources.
+Comprehensive archive of everything Anthropic publishes for building with
+Claude. 2,900+ docs from 11 sources, auto-updated every 6 hours.
 
-## Teaching Approach
+## Fetcher
 
-Focus on practical examples using the repository's documentation to help beginners understand:
-1. How to install and configure Claude Code
-2. Settings and permissions management
-3. Common workflows and best practices
-4. Troubleshooting common issues
+`scripts/fetcher.py` -- single-file multi-source fetcher.
 
-Always reference specific documentation files in this repository when providing guidance.
+Sources: code.claude.com, platform.claude.com, modelcontextprotocol.io,
+anthropic.com (engineering/research/news), support.claude.com,
+github.com/anthropics/* (10 repos).
+
+```bash
+uv run scripts/fetcher.py                    # Fetch everything
+uv run scripts/fetcher.py --section mcp      # Single section
+uv run scripts/fetcher.py --tree             # Show sources
+uv run scripts/fetcher.py --discover         # Probe for new sources
+```
+
+Sections: `claude-code`, `api`, `platform`, `mcp`, `blog`, `engineering`,
+`research`, `news`, `github`, `support`, `all`
+
+Source registry: `sources.json`
+Architecture: `REFACTOR.md`
+
+When adding new sections:
+1. Add source to `sources.json`
+2. Add fetch logic + output path mapping to `fetcher.py`
+3. Test: `uv run scripts/fetcher.py --section <name>`
+4. Update this file's doc references below
+
+Reference documentation files in this repository when providing guidance.
 
 
 ### Documentation Resources
@@ -93,38 +92,48 @@ Use these paths to reference documentation when helping users:
 - `@./content/CHANGELOG.md` - Claude Code GitHub CHANGELOG
 
 #### Platform Docs (from platform.claude.com)
-Build with Claude, Agent SDK, Tool Use docs now at `content/en/` (mirroring platform.claude.com/docs/en/).
-Use `uv run scripts/fetcher.py --tree` to see current structure.
-
-Key sections: `build-with-claude/`, `agent-sdk/`, `agents-and-tools/`, `api/`, `resources/`
-
-#### Other Platform Sections
-- `content/en/api/` - API reference (359 docs)
-- `content/en/about-claude/` - Models, pricing, glossary
+- `content/en/api/` - API reference (1,500+ docs)
+- `content/en/build-with-claude/` - Platform features, streaming, batch
+- `content/en/agents-and-tools/` - Tool use, agent skills, MCP tunnels
+- `content/en/manage-claude/` - Admin, billing, organizations
+- `content/en/managed-agents/` - Managed agents API
 - `content/en/test-and-evaluate/` - Testing and evaluation
-- `content/en/release-notes/` - Release notes
-- `content/en/resources/prompt-library/` - 65+ curated prompts
+
+#### MCP Protocol (from modelcontextprotocol.io)
+- `content/mcp/docs/` - Getting started, build client/server
+- `content/mcp/specification/` - Protocol spec versions
+- `content/mcp/seps/` - Specification Enhancement Proposals
+- `content/mcp/community/` - Governance, working groups
+
+#### Engineering & Research (from anthropic.com)
+- `content/blog/engineering/` - "Building Effective Agents", tool use, harness design
+- `content/blog/research/` - Research papers
+- `content/blog/news/` - Model releases, announcements
+
+#### GitHub Repos (from github.com/anthropics)
+- `content/github/cookbooks/` - 164 recipes + notebooks
+- `content/github/skills/` - 90 official Agent Skills
+- `content/github/plugins-official/` - 266 plugin docs
+- `content/github/courses/` - 80 prompt engineering notebooks
+- `content/github/code-action/` - GitHub Actions docs
+- `content/github/sdk-python/` - Python SDK reference
+- `content/github/sdk-typescript/` - TypeScript SDK reference
 
 ## Repository Structure
 
 ```
-content/
-├── en/docs/claude-code/   # Claude Code docs (47 from code.claude.com)
-├── en/build-with-claude/  # Prompt engineering, features (from platform.claude.com)
-├── en/agent-sdk/          # Agent SDK docs
-├── en/agents-and-tools/   # Tool use, agent skills
-├── en/api/                # API reference (359 docs)
-├── en/resources/          # Prompt library
-├── blog/                  # Blog posts
-├── CHANGELOG.md           # GitHub CHANGELOG
-└── claude-code-manifest.json
-prompts/
-├── README.md              # Prompts index
-├── prompt-optimizer.md    # Meta prompt for improving prompts
-└── agent-patterns.md      # Patterns for agentic workflows
+content/                       2,900+ files
+  en/docs/claude-code/         Claude Code + Agent SDK (141)
+  en/api/                      API reference (1,500+)
+  en/build-with-claude/        Platform features
+  en/agents-and-tools/         Tool use, agent skills
+  mcp/                         MCP protocol spec (203)
+  blog/                        Engineering, research, news
+  github/                      10 repos (718 files)
+  support/                     Help articles
 scripts/
-├── fetcher.py             # Main fetch script
-└── README.md
+  fetcher.py                   Multi-source fetcher
+sources.json                   Source registry
 ```
 
 ### External Resources
@@ -132,13 +141,4 @@ scripts/
 - https://github.com/anthropics/claude-code/issues
 - https://code.claude.com/docs/en/overview
 - https://platform.claude.com/docs/en/home
-
-## Commands
-
-```bash
-uv run scripts/fetcher.py                      # Fetch all (575+ docs)
-uv run scripts/fetcher.py --section claude-code # Claude Code only (47 docs)
-uv run scripts/fetcher.py --section api         # API docs only
-uv run scripts/fetcher.py --tree                # Show structure
-uv run scripts/fetcher.py --incremental         # Skip existing
-```
+- https://modelcontextprotocol.io

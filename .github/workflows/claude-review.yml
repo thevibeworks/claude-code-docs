@@ -67,7 +67,7 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        uses: thevibeworks/claude-code-action@main
+        uses: anthropics/claude-code-action@main
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -75,8 +75,8 @@ jobs:
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: "claude-yolo[bot],github-actions[bot]"
           claude_args: |
-            --model claude-sonnet-4-20250514
-            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(uv run scripts/fetchccdocs.py:*),Bash(jq:*),mcp__barkme__notify
+            --model claude-sonnet-4-6
+            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(uv run scripts/fetcher.py:*),Bash(jq:*),mcp__barkme__notify
             --mcp-config '{
               "mcpServers": {
                 "barkme": {
