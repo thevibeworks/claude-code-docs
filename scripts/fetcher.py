@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """
-Fetch Claude documentation from platform.claude.com and code.claude.com
+Fetch Anthropic documentation from all known sources.
 
-Sources:
-  - platform.claude.com/sitemap.xml  → API docs
-  - code.claude.com/docs/llms.txt    → Claude Code docs
+Sources (see sources.json for the complete registry):
+  - platform.claude.com     -> API/platform docs (sitemap + .md suffix)
+  - code.claude.com         -> Claude Code + Agent SDK (llms.txt + .md suffix)
+  - modelcontextprotocol.io -> MCP spec (sitemap + .md suffix)
+  - anthropic.com           -> Engineering, research, news (jina.ai proxy)
+  - support.claude.com      -> Help articles (jina.ai proxy)
+  - github.com/anthropics/* -> Repos (raw.githubusercontent.com)
 
 Usage:
-  uv run scripts/fetcher.py
-  uv run scripts/fetcher.py --tree
-  uv run scripts/fetcher.py --section claude-code
-  uv run scripts/fetcher.py --section api
-  uv run scripts/fetcher.py --incremental --jobs 100
+  uv run scripts/fetcher.py                       # Fetch all
+  uv run scripts/fetcher.py --tree                 # Show source structure
+  uv run scripts/fetcher.py --discover             # Probe domains for new sources
+  uv run scripts/fetcher.py --section claude-code  # Single section
+  uv run scripts/fetcher.py --section mcp          # MCP spec docs
+  uv run scripts/fetcher.py --section github       # GitHub repos
 """
 # /// script
 # requires-python = ">=3.14"
@@ -25,6 +30,7 @@ Usage:
 import asyncio
 import hashlib
 import json
+import os
 import re
 import sys
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
@@ -36,6 +42,36 @@ from typing import Dict, List, Optional
 import aiofiles
 import aiohttp
 from tqdm.asyncio import tqdm_asyncio
+
+
+GITHUB_REPOS = [
+    ("anthropics/claude-cookbooks",        "main",   [".md", ".ipynb"]),
+    ("anthropics/skills",                  "main",   [".md"]),
+    ("anthropics/claude-plugins-official",  "main",   [".md", ".json"]),
+    ("anthropics/courses",                 "master", [".md", ".ipynb"]),
+    ("anthropics/claude-quickstarts",      "main",   [".md"]),
+    ("anthropics/claude-code-action",      "main",   [".md"]),
+    ("anthropics/cwc-workshops",           "main",   [".md", ".ipynb"]),
+    ("anthropics/cwc-long-running-agents", "main",   [".md"]),
+    ("anthropics/anthropic-sdk-python",    "main",   [".md"]),
+    ("anthropics/anthropic-sdk-typescript","main",   [".md"]),
+]
+
+NEWS_KEYWORDS = [
+    "claude", "model", "api", "agent", "mcp", "sdk", "opus", "sonnet",
+    "haiku", "code", "bedrock", "vertex", "foundry", "tool", "safety",
+    "computer-use",
+]
+
+DISCOVER_DOMAINS = [
+    ("anthropic.com",           "Main site"),
+    ("platform.claude.com",     "API platform docs"),
+    ("code.claude.com",         "Claude Code docs"),
+    ("support.claude.com",      "Support articles"),
+    ("modelcontextprotocol.io", "MCP protocol spec"),
+    ("claude.ai",               "Claude app"),
+    ("claude.com",              "Product landing"),
+]
 
 
 class Fetcher:
@@ -51,264 +87,363 @@ class Fetcher:
         self.incremental = incremental
         self.section = section
 
-        # New URL structure (Dec 2025)
         self.platform_sitemap_url = "https://platform.claude.com/sitemap.xml"
         self.claude_code_llms_url = "https://code.claude.com/docs/llms.txt"
         self.anthropic_sitemap_url = "https://www.anthropic.com/sitemap.xml"
+        self.mcp_sitemap_url = "https://modelcontextprotocol.io/sitemap.xml"
+        self.support_sitemap_url = "https://support.claude.com/sitemap.xml"
 
         self.stats = {"total": 0, "downloaded": 0, "skipped": 0, "failed": 0}
 
-    async def fetch_sitemap(self, session: aiohttp.ClientSession, url: str) -> str:
-        async with session.get(url) as response:
-            response.raise_for_status()
-            return await response.text()
+    def want(self, *sections: str) -> bool:
+        if not self.section or self.section == "all":
+            return True
+        return self.section in sections
 
-    async def fetch_npm_manifest(self, session: aiohttp.ClientSession) -> Dict:
-        url = "https://registry.npmjs.org/@anthropic-ai/claude-code/latest"
-        async with session.get(url) as response:
-            response.raise_for_status()
-            return await response.json()
+    # -- URL extraction ---------------------------------------------------
 
-    async def fetch_github_changelog(self, session: aiohttp.ClientSession) -> bytes:
-        url = "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
-        async with session.get(url) as response:
-            response.raise_for_status()
-            return await response.read()
+    async def fetch_text(self, session: aiohttp.ClientSession, url: str) -> str:
+        async with session.get(url) as r:
+            r.raise_for_status()
+            return await r.text()
+
+    async def fetch_bytes(self, session: aiohttp.ClientSession, url: str) -> bytes:
+        async with session.get(url) as r:
+            r.raise_for_status()
+            return await r.read()
+
+    def extract_sitemap_urls(self, xml: str, must_contain: str = "") -> List[str]:
+        urls = []
+        for line in xml.split("\n"):
+            if "<loc>" not in line:
+                continue
+            url = line.split("<loc>")[1].split("</loc>")[0]
+            if must_contain and must_contain not in url:
+                continue
+            urls.append(url)
+        return urls
 
     async def fetch_claude_code_urls(self, session: aiohttp.ClientSession) -> List[str]:
-        """Fetch Claude Code doc URLs from llms.txt (markdown link format)"""
-        async with session.get(self.claude_code_llms_url) as response:
-            response.raise_for_status()
-            content = await response.text()
-
+        content = await self.fetch_text(session, self.claude_code_llms_url)
         urls = []
-        # llms.txt uses markdown links: [Title](https://code.claude.com/docs/en/foo.md)
-        pattern = r'\(https://code\.claude\.com/docs/en/[^)]+\.md\)'
-        for match in re.findall(pattern, content):
-            url = match[1:-1]  # Remove parens
-            # Store without .md suffix (we add it back when fetching)
-            urls.append(url[:-3])
+        for match in re.findall(r'\(https://code\.claude\.com/docs/en/[^)]+\.md\)', content):
+            urls.append(match[1:-4])  # strip parens and .md
         return urls
 
-    def extract_platform_urls(self, sitemap_xml: str) -> List[str]:
-        """Extract English doc URLs from platform.claude.com sitemap"""
-        urls = []
+    def filter_blog_urls(self, sitemap_xml: str) -> Dict[str, List[str]]:
+        result = {"engineering": [], "research": [], "news": [], "product": []}
         for line in sitemap_xml.split("\n"):
-            if "<loc>" in line and "</loc>" in line:
-                url = line.split("<loc>")[1].split("</loc>")[0]
-                # Only English docs from platform
-                if "/docs/en/" in url and "platform.claude.com" in url:
-                    urls.append(url)
-        return urls
+            if "<loc>" not in line:
+                continue
+            url = line.split("<loc>")[1].split("</loc>")[0]
+            if "/engineering/" in url and url != "https://www.anthropic.com/engineering":
+                result["engineering"].append(url)
+            elif "/product/" in url:
+                result["product"].append(url)
+            elif "/news/" in url and url != "https://www.anthropic.com/news":
+                slug = url.rsplit("/", 1)[-1].lower()
+                if any(kw in slug for kw in NEWS_KEYWORDS):
+                    result["news"].append(url)
+            elif "/research/" in url and url != "https://www.anthropic.com/research":
+                if "/research/team/" not in url:
+                    result["research"].append(url)
+        return result
 
-    def extract_urls(self, sitemap_xml: str) -> List[str]:
-        """Legacy method - kept for compatibility"""
-        return self.extract_platform_urls(sitemap_xml)
+    def extract_support_urls(self, sitemap_xml: str) -> List[str]:
+        return [
+            url for url in self.extract_sitemap_urls(sitemap_xml)
+            if "/en/articles/" in url
+        ]
+
+    # -- Output path mapping ----------------------------------------------
 
     def get_output_path(self, url: str) -> Path:
-        """Map URL to local file path"""
         if "code.claude.com" in url:
-            # code.claude.com/docs/en/foo -> en/docs/claude-code/foo.md
             path = url.replace("https://code.claude.com/docs/", "")
-            parts = path.split("/", 1)  # ['en', 'foo']
+            parts = path.split("/", 1)
             if len(parts) == 2:
                 return self.output_dir / parts[0] / "docs" / "claude-code" / f"{parts[1]}.md"
             return self.output_dir / f"{path}.md"
         elif "platform.claude.com" in url:
-            # platform.claude.com/docs/en/foo -> en/foo.md
             path = url.replace("https://platform.claude.com/docs/", "")
             return self.output_dir / f"{path}.md"
+        elif "modelcontextprotocol.io" in url:
+            path = url.replace("https://modelcontextprotocol.io/", "")
+            return self.output_dir / "mcp" / f"{path}.md"
+        elif "support.claude.com" in url:
+            path = url.replace("https://support.claude.com/en/articles/", "")
+            return self.output_dir / "support" / f"{path}.md"
         else:
-            # Fallback
             path = url.replace("https://", "").split("/", 1)[-1]
             return self.output_dir / f"{path}.md"
 
-    async def download_doc(
-        self,
-        session: aiohttp.ClientSession,
-        url: str,
-        semaphore: asyncio.Semaphore,
-    ) -> Dict:
+    # -- Downloaders -------------------------------------------------------
+
+    async def download_doc(self, session, url, semaphore) -> Dict:
         async with semaphore:
             output_path = self.get_output_path(url)
-
             if self.incremental and output_path.exists():
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
-
             try:
-                fetch_url = f"{url}.md"
-                async with session.get(fetch_url) as response:
-                    response.raise_for_status()
-                    content = await response.read()
-
+                content = await self.fetch_bytes(session, f"{url}.md")
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
-
-                checksum = hashlib.sha256(content).hexdigest()
                 self.stats["downloaded"] += 1
-
                 return {
-                    "url": url,
-                    "status": "success",
+                    "url": url, "status": "success",
                     "path": str(output_path.relative_to(self.output_dir)),
-                    "sha256": checksum,
+                    "sha256": hashlib.sha256(content).hexdigest(),
                     "size": len(content),
                 }
-
             except Exception as e:
                 self.stats["failed"] += 1
                 return {"url": url, "status": "failed", "error": str(e)}
 
-    async def download_blog(
-        self,
-        session: aiohttp.ClientSession,
-        url: str,
-        semaphore: asyncio.Semaphore,
-    ) -> Dict:
+    async def download_via_jina(self, session, url, output_subdir, semaphore) -> Dict:
         async with semaphore:
-            slug = url.split("anthropic.com/")[1]
+            slug = url.split("anthropic.com/")[1] if "anthropic.com" in url else url.rsplit("/", 1)[-1]
             output_path = self.output_dir / "blog" / f"{slug}.md"
-
+            if output_subdir:
+                output_path = self.output_dir / output_subdir / f"{slug}.md"
             if self.incremental and output_path.exists():
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
-
             try:
-                fetch_url = f"https://r.jina.ai/{url}"
-                async with session.get(fetch_url) as response:
-                    response.raise_for_status()
-                    content = await response.read()
-
+                content = await self.fetch_bytes(session, f"https://r.jina.ai/{url}")
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
-
-                checksum = hashlib.sha256(content).hexdigest()
                 self.stats["downloaded"] += 1
-
                 return {
-                    "url": url,
-                    "status": "success",
+                    "url": url, "status": "success",
                     "path": str(output_path.relative_to(self.output_dir)),
-                    "sha256": checksum,
+                    "sha256": hashlib.sha256(content).hexdigest(),
                     "size": len(content),
                 }
-
             except Exception as e:
                 self.stats["failed"] += 1
                 return {"url": url, "status": "failed", "error": str(e)}
+
+    async def download_support_article(self, session, url, semaphore) -> Dict:
+        async with semaphore:
+            output_path = self.get_output_path(url)
+            if self.incremental and output_path.exists():
+                self.stats["skipped"] += 1
+                return {"url": url, "status": "skipped"}
+            try:
+                content = await self.fetch_bytes(session, f"https://r.jina.ai/{url}")
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                async with aiofiles.open(output_path, "wb") as f:
+                    await f.write(content)
+                self.stats["downloaded"] += 1
+                return {
+                    "url": url, "status": "success",
+                    "path": str(output_path.relative_to(self.output_dir)),
+                    "sha256": hashlib.sha256(content).hexdigest(),
+                    "size": len(content),
+                }
+            except Exception as e:
+                self.stats["failed"] += 1
+                return {"url": url, "status": "failed", "error": str(e)}
+
+    async def download_github_file(self, session, repo, branch, filepath, semaphore) -> Dict:
+        async with semaphore:
+            repo_short = repo.split("/")[1]
+            output_path = self.output_dir / "github" / repo_short / filepath
+            url = f"https://raw.githubusercontent.com/{repo}/{branch}/{filepath}"
+            if self.incremental and output_path.exists():
+                self.stats["skipped"] += 1
+                return {"url": url, "status": "skipped"}
+            try:
+                content = await self.fetch_bytes(session, url)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                async with aiofiles.open(output_path, "wb") as f:
+                    await f.write(content)
+                self.stats["downloaded"] += 1
+                return {
+                    "url": url, "status": "success",
+                    "path": str(output_path.relative_to(self.output_dir)),
+                    "sha256": hashlib.sha256(content).hexdigest(),
+                    "size": len(content),
+                }
+            except Exception as e:
+                self.stats["failed"] += 1
+                return {"url": url, "status": "failed", "error": str(e)}
+
+    # -- GitHub repo listing -----------------------------------------------
+
+    def _github_headers(self) -> Dict:
+        token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+        if token:
+            return {"Authorization": f"token {token}"}
+        return {}
+
+    async def list_github_files(self, session, repo, branch, extensions) -> List[str]:
+        url = f"https://api.github.com/repos/{repo}/git/trees/{branch}?recursive=1"
+        headers = self._github_headers()
+        try:
+            async with session.get(url, headers=headers) as r:
+                if r.status == 403:
+                    print(f"  WARN: GitHub rate limit for {repo}", file=sys.stderr)
+                    return []
+                r.raise_for_status()
+                data = await r.json()
+        except Exception as e:
+            print(f"  WARN: Failed to list {repo}: {e}", file=sys.stderr)
+            return []
+        files = []
+        for item in data.get("tree", []):
+            if item["type"] != "blob":
+                continue
+            if any(item["path"].endswith(ext) for ext in extensions):
+                files.append(item["path"])
+        return files
+
+    # -- Meta fetchers -----------------------------------------------------
+
+    async def fetch_npm_manifest(self, session) -> Dict:
+        url = "https://registry.npmjs.org/@anthropic-ai/claude-code/latest"
+        async with session.get(url) as r:
+            r.raise_for_status()
+            return await r.json()
+
+    async def fetch_github_changelog(self, session) -> bytes:
+        url = "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md"
+        return await self.fetch_bytes(session, url)
+
+    # -- Orchestration -----------------------------------------------------
 
     async def fetch_all(self):
         print(f"Fetching to {self.output_dir}")
         print(f"Jobs: {self.jobs}")
         if self.incremental:
-            print("Incremental: skip existing")
+            print("Mode: incremental (skip existing)")
         if self.section:
             print(f"Section: {self.section}")
+        print()
 
-        timeout = aiohttp.ClientTimeout(total=300)
+        timeout = aiohttp.ClientTimeout(total=600)
         connector = aiohttp.TCPConnector(limit=self.jobs)
 
-        async with aiohttp.ClientSession(
-            timeout=timeout, connector=connector
-        ) as session:
-            # Fetch NPM manifest
-            print("Fetching NPM manifest...")
-            try:
-                manifest = await self.fetch_npm_manifest(session)
-                manifest_path = self.output_dir / "claude-code-manifest.json"
-                manifest_path.parent.mkdir(parents=True, exist_ok=True)
-                async with aiofiles.open(manifest_path, "w") as f:
-                    await f.write(json.dumps(manifest, indent=2))
-                print(f"NPM manifest: v{manifest.get('version', 'unknown')}")
-            except Exception as e:
-                print(f"Failed to fetch NPM manifest: {e}", file=sys.stderr)
+        async with aiohttp.ClientSession(timeout=timeout, connector=connector) as session:
+            # -- Meta (always fetch) --
+            if self.want("meta", "claude-code"):
+                await self._fetch_meta(session)
 
-            # Fetch GitHub CHANGELOG
-            print("Fetching GitHub CHANGELOG...")
-            try:
-                changelog = await self.fetch_github_changelog(session)
-                changelog_path = self.output_dir / "CHANGELOG.md"
-                changelog_path.parent.mkdir(parents=True, exist_ok=True)
-                async with aiofiles.open(changelog_path, "wb") as f:
-                    await f.write(changelog)
-                print(f"CHANGELOG: {len(changelog)} bytes")
-            except Exception as e:
-                print(f"Failed to fetch CHANGELOG: {e}", file=sys.stderr)
+            tasks = []
+            semaphore = asyncio.Semaphore(self.jobs)
+            jina_semaphore = asyncio.Semaphore(min(self.jobs, 10))
+            counts = {}
 
-            # Fetch from both sources
-            print("Fetching sources...")
+            # -- Platform docs --
+            if self.want("api", "platform"):
+                print("Source: platform.claude.com/sitemap.xml")
+                xml = await self.fetch_text(session, self.platform_sitemap_url)
+                urls = self.extract_sitemap_urls(xml, "/docs/en/")
+                counts["platform"] = len(urls)
+                print(f"  {len(urls)} docs")
+                for url in urls:
+                    tasks.append(self.download_doc(session, url, semaphore))
 
-            # Platform docs (API, build-with-claude, etc.)
-            platform_urls = []
-            if not self.section or self.section in ("api", "platform", "all"):
-                print("  platform.claude.com/sitemap.xml...")
-                sitemap_xml = await self.fetch_sitemap(session, self.platform_sitemap_url)
-                platform_urls = self.extract_platform_urls(sitemap_xml)
-                print(f"    Found {len(platform_urls)} platform docs")
+            # -- Claude Code docs --
+            if self.want("claude-code"):
+                print("Source: code.claude.com/docs/llms.txt")
+                urls = await self.fetch_claude_code_urls(session)
+                counts["claude-code"] = len(urls)
+                print(f"  {len(urls)} docs")
+                for url in urls:
+                    tasks.append(self.download_doc(session, url, semaphore))
 
-            # Claude Code docs
-            claude_code_urls = []
-            if not self.section or self.section in ("claude-code", "all"):
-                print("  code.claude.com/docs/llms.txt...")
-                claude_code_urls = await self.fetch_claude_code_urls(session)
-                print(f"    Found {len(claude_code_urls)} Claude Code docs")
+            # -- MCP docs --
+            if self.want("mcp"):
+                print("Source: modelcontextprotocol.io/sitemap.xml")
+                xml = await self.fetch_text(session, self.mcp_sitemap_url)
+                urls = self.extract_sitemap_urls(xml)
+                counts["mcp"] = len(urls)
+                print(f"  {len(urls)} docs")
+                for url in urls:
+                    tasks.append(self.download_doc(session, url, semaphore))
 
-            # Blog posts
-            blog_urls = []
-            if not self.section or self.section in ("blog", "all"):
-                print("  anthropic.com/sitemap.xml...")
-                anthropic_xml = await self.fetch_sitemap(session, self.anthropic_sitemap_url)
-                for line in anthropic_xml.split("\n"):
-                    if "<loc>" in line and "claude-code" in line:
-                        url = line.split("<loc>")[1].split("</loc>")[0]
-                        blog_urls.append(url)
-                print(f"    Found {len(blog_urls)} blog posts")
+            # -- Blog: engineering, research, news, product --
+            if self.want("blog", "engineering", "research", "news"):
+                print("Source: anthropic.com/sitemap.xml")
+                xml = await self.fetch_text(session, self.anthropic_sitemap_url)
+                blog = self.filter_blog_urls(xml)
 
-            # Combine all URLs
-            urls = platform_urls + claude_code_urls
+                for category, urls in blog.items():
+                    if not self.want("blog", category):
+                        continue
+                    counts[f"blog/{category}"] = len(urls)
+                    print(f"  {len(urls)} {category}")
+                    for url in urls:
+                        tasks.append(self.download_via_jina(
+                            session, url, None, jina_semaphore))
 
-            self.stats["total"] = len(urls) + len(blog_urls)
-            print(f"\nTotal: {self.stats['total']} ({len(platform_urls)} platform, {len(claude_code_urls)} claude-code, {len(blog_urls)} blog)")
+            # -- Support articles --
+            if self.want("support"):
+                print("Source: support.claude.com/sitemap.xml")
+                xml = await self.fetch_text(session, self.support_sitemap_url)
+                urls = self.extract_support_urls(xml)
+                counts["support"] = len(urls)
+                print(f"  {len(urls)} articles")
+                for url in urls:
+                    tasks.append(self.download_support_article(
+                        session, url, jina_semaphore))
+
+            # -- GitHub repos --
+            if self.want("github"):
+                print("Source: github.com/anthropics/*")
+                for repo, branch, exts in GITHUB_REPOS:
+                    files = await self.list_github_files(session, repo, branch, exts)
+                    repo_short = repo.split("/")[1]
+                    counts[f"github/{repo_short}"] = len(files)
+                    print(f"  {repo_short}: {len(files)} files")
+                    for filepath in files:
+                        tasks.append(self.download_github_file(
+                            session, repo, branch, filepath, semaphore))
+
+            # -- Execute --
+            self.stats["total"] = len(tasks)
+            total_parts = " + ".join(f"{v} {k}" for k, v in counts.items())
+            print(f"\nTotal: {len(tasks)} ({total_parts})")
             print()
 
-            # Download concurrently
-            semaphore = asyncio.Semaphore(self.jobs)
-            tasks = []
+            if tasks:
+                results = await tqdm_asyncio.gather(*tasks, desc="Fetching", unit="file")
+                await self._save_metadata(results)
 
-            for url in urls:
-                tasks.append(self.download_doc(session, url, semaphore))
+        self._print_summary()
 
-            for url in blog_urls:
-                tasks.append(self.download_blog(session, url, semaphore))
+    async def _fetch_meta(self, session):
+        print("Meta: NPM manifest + CHANGELOG")
+        try:
+            manifest = await self.fetch_npm_manifest(session)
+            path = self.output_dir / "claude-code-manifest.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            async with aiofiles.open(path, "w") as f:
+                await f.write(json.dumps(manifest, indent=2))
+            print(f"  claude-code v{manifest.get('version', '?')}")
+        except Exception as e:
+            print(f"  WARN: NPM manifest: {e}", file=sys.stderr)
 
-            results = await tqdm_asyncio.gather(
-                *tasks, desc="Downloading", unit="file"
-            )
+        try:
+            changelog = await self.fetch_github_changelog(session)
+            path = self.output_dir / "CHANGELOG.md"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            async with aiofiles.open(path, "wb") as f:
+                await f.write(changelog)
+            print(f"  CHANGELOG: {len(changelog):,} bytes")
+        except Exception as e:
+            print(f"  WARN: CHANGELOG: {e}", file=sys.stderr)
 
-            # Save metadata
-            await self.save_metadata(results)
-
-        # Print summary
-        print()
-        print(f"Total:      {self.stats['total']}")
-        print(f"Downloaded: {self.stats['downloaded']}")
-        print(f"Skipped:    {self.stats['skipped']}")
-        print(f"Failed:     {self.stats['failed']}")
-        if self.stats["total"] > 0:
-            rate = (self.stats["downloaded"] / self.stats["total"]) * 100
-            print(f"Success:    {rate:.1f}%")
-
-    async def save_metadata(self, results: List[Dict]):
+    async def _save_metadata(self, results: List[Dict]):
         metadata = {
             "metadata": {
-                "version": "1.0",
-                "fetch_date": datetime.now(timezone.utc)
-                .replace(tzinfo=None)
-                .isoformat()
-                + "Z",
+                "version": "2.0",
+                "fetch_date": datetime.now(timezone.utc).replace(tzinfo=None).isoformat() + "Z",
+                "section": self.section or "all",
             },
             "items": [r for r in results if r.get("status") == "success"],
             "summary": {
@@ -318,191 +453,263 @@ class Fetcher:
                 "failed": self.stats["failed"],
                 "success_rate": (
                     round(self.stats["downloaded"] / self.stats["total"] * 100, 1)
-                    if self.stats["total"] > 0
-                    else 0
+                    if self.stats["total"] > 0 else 0
                 ),
             },
         }
-
-        metadata_file = self.output_dir / ".metadata.json"
-        async with aiofiles.open(metadata_file, "w") as f:
+        path = self.output_dir / ".metadata.json"
+        async with aiofiles.open(path, "w") as f:
             await f.write(json.dumps(metadata, indent=2))
 
-    def validate_url(self, url: str) -> bool:
-        """Validate URL is from allowed domains"""
-        allowed = ["platform.claude.com", "code.claude.com"]
-        return any(f"https://{domain}" in url for domain in allowed)
-
-    async def fetch_urls(self, urls: List[str]):
-        """Fetch specific URLs (URLs normalized - .md stripped/added automatically)"""
-
-        # Validate URLs
-        invalid = [u for u in urls if not self.validate_url(u)]
-        if invalid:
-            print("ERROR: Invalid URLs (must be from platform.claude.com or code.claude.com):", file=sys.stderr)
-            for u in invalid:
-                print(f"  {u}", file=sys.stderr)
-            sys.exit(1)
-
-        print(f"Fetching {len(urls)} URL(s) to {self.output_dir}")
-        if self.incremental:
-            print("Incremental: skip existing")
-
-        # Normalize URLs (strip .md if present, we add it back when fetching)
-        normalized = []
-        for url in urls:
-            if url.endswith(".md"):
-                url = url[:-3]
-            normalized.append(url)
-
-        timeout = aiohttp.ClientTimeout(total=300)
-        connector = aiohttp.TCPConnector(limit=self.jobs)
-
-        async with aiohttp.ClientSession(
-            timeout=timeout, connector=connector
-        ) as session:
-            self.stats["total"] = len(normalized)
-            semaphore = asyncio.Semaphore(self.jobs)
-
-            tasks = [self.download_doc(session, url, semaphore) for url in normalized]
-            results = await tqdm_asyncio.gather(
-                *tasks, desc="Downloading", unit="file"
-            )
-
-            await self.save_metadata(results)
-
-        # Print results
-        print()
-        for r in results:
-            status = r.get("status", "unknown")
-            url = r.get("url", "")
-            if status == "success":
-                print(f"  OK: {r.get('path')}")
-            elif status == "skipped":
-                print(f"SKIP: {url}")
-            else:
-                print(f"FAIL: {url} - {r.get('error', 'unknown error')}", file=sys.stderr)
-
+    def _print_summary(self):
         print()
         print(f"Total:      {self.stats['total']}")
         print(f"Downloaded: {self.stats['downloaded']}")
         print(f"Skipped:    {self.stats['skipped']}")
         print(f"Failed:     {self.stats['failed']}")
+        if self.stats["total"] > 0:
+            rate = (self.stats["downloaded"] / self.stats["total"]) * 100
+            print(f"Success:    {rate:.1f}%")
 
+    # -- Single-URL fetch --------------------------------------------------
+
+    def validate_url(self, url: str) -> bool:
+        allowed = ["platform.claude.com", "code.claude.com", "modelcontextprotocol.io"]
+        return any(f"https://{d}" in url for d in allowed)
+
+    async def fetch_urls(self, urls: List[str]):
+        invalid = [u for u in urls if not self.validate_url(u)]
+        if invalid:
+            print("ERROR: Invalid URLs:", file=sys.stderr)
+            for u in invalid:
+                print(f"  {u}", file=sys.stderr)
+            print("Allowed: platform.claude.com, code.claude.com, modelcontextprotocol.io", file=sys.stderr)
+            sys.exit(1)
+
+        normalized = [u[:-3] if u.endswith(".md") else u for u in urls]
+        print(f"Fetching {len(normalized)} URL(s)")
+
+        timeout = aiohttp.ClientTimeout(total=300)
+        connector = aiohttp.TCPConnector(limit=self.jobs)
+        async with aiohttp.ClientSession(timeout=timeout, connector=connector) as session:
+            self.stats["total"] = len(normalized)
+            sem = asyncio.Semaphore(self.jobs)
+            results = await tqdm_asyncio.gather(
+                *(self.download_doc(session, u, sem) for u in normalized),
+                desc="Fetching", unit="file",
+            )
+            await self._save_metadata(results)
+
+        for r in results:
+            s = r.get("status")
+            if s == "success":
+                print(f"  OK: {r.get('path')}")
+            elif s == "skipped":
+                print(f"SKIP: {r.get('url')}")
+            else:
+                print(f"FAIL: {r.get('url')} - {r.get('error')}", file=sys.stderr)
+        self._print_summary()
         if self.stats["failed"] > 0:
             sys.exit(1)
 
+    # -- Tree view ---------------------------------------------------------
+
     async def show_tree(self):
-        print("Fetching sources...")
+        print("Fetching source indexes...\n")
         timeout = aiohttp.ClientTimeout(total=60)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            # Platform docs
-            sitemap_xml = await self.fetch_sitemap(session, self.platform_sitemap_url)
-            platform_urls = self.extract_platform_urls(sitemap_xml)
+            platform_urls = self.extract_sitemap_urls(
+                await self.fetch_text(session, self.platform_sitemap_url), "/docs/en/")
+            cc_urls = await self.fetch_claude_code_urls(session)
+            mcp_urls = self.extract_sitemap_urls(
+                await self.fetch_text(session, self.mcp_sitemap_url))
+            anthropic_xml = await self.fetch_text(session, self.anthropic_sitemap_url)
+            blog = self.filter_blog_urls(anthropic_xml)
+            support_xml = await self.fetch_text(session, self.support_sitemap_url)
+            support_urls = self.extract_support_urls(support_xml)
 
-            # Claude Code docs
-            claude_code_urls = await self.fetch_claude_code_urls(session)
+        def show_grouped(title, urls, strip_prefix):
+            print(f"{title} ({len(urls)})")
+            print("-" * 50)
+            groups = defaultdict(list)
+            for url in urls:
+                path = url.replace(strip_prefix, "")
+                top = path.split("/")[0] if "/" in path else "(root)"
+                groups[top].append(path)
+            for sec in sorted(groups, key=lambda x: -len(groups[x])):
+                print(f"  {sec}/ ({len(groups[sec])})")
+            print()
 
-        # Show Claude Code docs
-        print(f"\ncode.claude.com ({len(claude_code_urls)} docs)")
-        print("-" * 40)
-        for url in sorted(claude_code_urls):
-            path = url.replace("https://code.claude.com/docs/en/", "")
-            print(f"  {path}")
+        show_grouped("code.claude.com", cc_urls, "https://code.claude.com/docs/en/")
+        show_grouped("platform.claude.com", platform_urls, "https://platform.claude.com/docs/en/")
+        show_grouped("modelcontextprotocol.io", mcp_urls, "https://modelcontextprotocol.io/")
 
-        # Show Platform docs grouped
-        print(f"\nplatform.claude.com ({len(platform_urls)} docs)")
-        print("-" * 40)
+        print(f"anthropic.com blog")
+        print("-" * 50)
+        for cat, urls in blog.items():
+            print(f"  {cat}: {len(urls)}")
+        print()
+        print(f"support.claude.com: {len(support_urls)} articles")
+        print(f"GitHub repos: {len(GITHUB_REPOS)} repos configured")
+        print()
 
-        # Group by path structure
-        groups = defaultdict(list)
-        for url in platform_urls:
-            path = url.replace("https://platform.claude.com/docs/en/", "")
-            parts = path.split("/")
-            if len(parts) >= 1:
-                groups[parts[0]].append(path)
+        total = len(cc_urls) + len(platform_urls) + len(mcp_urls) + sum(len(v) for v in blog.values()) + len(support_urls)
+        print(f"Total fetchable: {total}+ (excludes GitHub repos)")
 
-        for section in sorted(groups.keys(), key=lambda x: -len(groups[x])):
-            paths = groups[section]
-            print(f"  {section}/ ({len(paths)})")
+    # -- Discovery ---------------------------------------------------------
 
-            # Show subsections
-            subs = defaultdict(int)
-            for path in paths:
-                parts = path.split("/")
-                if len(parts) >= 2:
-                    subs[parts[1]] += 1
+    async def discover(self):
+        print("Probing Anthropic domains for content sources...")
+        print("=" * 60)
 
-            shown = 0
-            for sub, count in sorted(subs.items(), key=lambda x: -x[1]):
-                if shown < 5:
-                    print(f"    {sub}/ ({count})")
-                    shown += 1
-                elif shown == 5:
-                    remaining = len(subs) - shown
-                    if remaining > 0:
-                        print(f"    [+{remaining} more]")
-                    break
+        timeout = aiohttp.ClientTimeout(total=30)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            for domain, desc in DISCOVER_DOMAINS:
+                print(f"\n{domain} ({desc})")
+                print("-" * 40)
 
-        print("\nUsage:")
-        print("  fetcher.py                     # Fetch all")
-        print("  fetcher.py --section claude-code")
-        print("  fetcher.py --section api")
-        print("  fetcher.py --section blog")
+                # robots.txt
+                try:
+                    text = await self.fetch_text(session, f"https://{domain}/robots.txt")
+                    sitemaps = [
+                        l.split("Sitemap:", 1)[1].strip()
+                        for l in text.split("\n")
+                        if l.strip().startswith("Sitemap:")
+                    ]
+                    if sitemaps:
+                        for s in sitemaps:
+                            print(f"  Sitemap: {s}")
+                    signals = [l for l in text.split("\n") if "Content-Signal" in l]
+                    for s in signals:
+                        print(f"  {s.strip()}")
+                except Exception:
+                    print("  robots.txt: unreachable")
+
+                # llms.txt
+                for path in ["/llms.txt", "/docs/llms.txt"]:
+                    try:
+                        async with session.get(f"https://{domain}{path}") as r:
+                            ct = r.headers.get("content-type", "")
+                            if r.status == 200 and "text/" in ct and "html" not in ct:
+                                body = await r.text()
+                                lines = body.strip().split("\n")
+                                print(f"  {path}: {len(lines)} lines")
+                    except Exception:
+                        pass
+
+                # llms-full.txt
+                try:
+                    async with session.get(f"https://{domain}/llms-full.txt") as r:
+                        ct = r.headers.get("content-type", "")
+                        if r.status == 200 and "text/" in ct and "html" not in ct:
+                            size = int(r.headers.get("content-length", 0))
+                            if size == 0:
+                                body = await r.read()
+                                size = len(body)
+                            print(f"  /llms-full.txt: {size:,} bytes")
+                except Exception:
+                    pass
+
+                # sitemap.xml
+                for path in ["/sitemap.xml", "/docs/sitemap.xml"]:
+                    try:
+                        async with session.get(f"https://{domain}{path}") as r:
+                            ct = r.headers.get("content-type", "")
+                            if r.status == 200 and ("xml" in ct or "text/" in ct):
+                                text = await r.text()
+                                if "<loc>" in text:
+                                    url_count = text.count("<loc>")
+                                    has_lastmod = "<lastmod>" in text
+                                    extra = " (has lastmod)" if has_lastmod else ""
+                                    print(f"  {path}: {url_count} URLs{extra}")
+                    except Exception:
+                        pass
+
+            # GitHub org
+            print(f"\ngithub.com/anthropics")
+            print("-" * 40)
+            try:
+                page = 1
+                all_repos = []
+                while True:
+                    url = f"https://api.github.com/orgs/anthropics/repos?per_page=100&page={page}&type=public"
+                    async with session.get(url) as r:
+                        if r.status != 200:
+                            break
+                        repos = await r.json()
+                        if not repos:
+                            break
+                        all_repos.extend(repos)
+                        page += 1
+
+                all_repos.sort(key=lambda r: r.get("stargazers_count", 0), reverse=True)
+                print(f"  {len(all_repos)} public repos")
+                for r in all_repos[:15]:
+                    stars = r.get("stargazers_count", 0)
+                    updated = r.get("pushed_at", "")[:10]
+                    desc = (r.get("description") or "")[:50]
+                    print(f"  {stars:>7}* {r['name']:<35} {updated}  {desc}")
+                if len(all_repos) > 15:
+                    print(f"  ... +{len(all_repos)-15} more")
+            except Exception as e:
+                print(f"  Error: {e}")
+
+        print(f"\n{'=' * 60}")
+        print("Compare against sources.json to find gaps.")
 
 
 async def main():
     parser = ArgumentParser(
-        description="Fetch Claude documentation from platform.claude.com and code.claude.com",
+        description="Fetch Anthropic documentation from all known sources",
         formatter_class=RawDescriptionHelpFormatter,
         epilog="""
+Sections:
+  claude-code   Claude Code + Agent SDK docs (code.claude.com)
+  api/platform  API and platform docs (platform.claude.com)
+  mcp           MCP protocol spec (modelcontextprotocol.io)
+  blog          All blog content (engineering + research + news + product)
+  engineering   Engineering blog only
+  research      Research posts only
+  news          Filtered news (model releases, Claude updates)
+  github        All configured GitHub repos
+  support       Support articles (support.claude.com)
+  all           Everything (default)
+
 Examples:
-  fetcher.py                       Fetch all docs (platform + claude-code + blog)
-  fetcher.py --tree                Show available documentation structure
-  fetcher.py --section claude-code Fetch only Claude Code docs
-  fetcher.py --section api         Fetch only API/platform docs
-  fetcher.py --section blog        Fetch only blog posts
-  fetcher.py --incremental         Skip existing files
-  fetcher.py --jobs 100            Use 100 parallel jobs
-
-Single URL fetch (URLs normalized - .md stripped/added automatically):
-  fetcher.py https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview
-  fetcher.py https://code.claude.com/docs/en/overview.md   # .md suffix OK too
-
-Multiple URLs:
-  fetcher.py URL1 URL2 URL3
-
-Note: Only platform.claude.com and code.claude.com URLs are allowed.
+  fetcher.py                               Fetch everything
+  fetcher.py --section mcp                 MCP spec only
+  fetcher.py --section github              GitHub repos only
+  fetcher.py --section engineering          Engineering blog only
+  fetcher.py --tree                         Show all sources
+  fetcher.py --discover                     Probe domains for new sources
+  fetcher.py --incremental                  Skip existing files
+  fetcher.py URL [URL ...]                  Fetch specific URLs
         """,
     )
-    parser.add_argument(
-        "urls", nargs="*", metavar="URL",
-        help="Specific URL(s) to fetch (appends .md automatically)"
-    )
+    parser.add_argument("urls", nargs="*", metavar="URL")
     parser.add_argument("--out", default="content", help="Output directory")
-    parser.add_argument(
-        "--jobs", "-j", type=int, default=50, help="Parallel jobs (default: 50)"
-    )
+    parser.add_argument("--jobs", "-j", type=int, default=50)
     parser.add_argument(
         "--section", "-s",
-        choices=["claude-code", "api", "platform", "blog", "all"],
-        help="Section to fetch (default: all)",
+        choices=[
+            "claude-code", "api", "platform", "mcp",
+            "blog", "engineering", "research", "news",
+            "github", "support", "all",
+        ],
     )
-    parser.add_argument(
-        "--incremental", action="store_true", help="Skip existing files"
-    )
-    parser.add_argument("--tree", action="store_true", help="Show documentation structure")
+    parser.add_argument("--incremental", action="store_true", help="Skip existing files")
+    parser.add_argument("--tree", action="store_true", help="Show source structure")
+    parser.add_argument("--discover", action="store_true", help="Probe domains for new sources")
 
     args = parser.parse_args()
-
     fetcher = Fetcher(
-        output_dir=args.out,
-        jobs=args.jobs,
-        incremental=args.incremental,
-        section=args.section,
+        output_dir=args.out, jobs=args.jobs,
+        incremental=args.incremental, section=args.section,
     )
 
-    if args.tree:
+    if args.discover:
+        await fetcher.discover()
+    elif args.tree:
         await fetcher.show_tree()
     elif args.urls:
         await fetcher.fetch_urls(args.urls)
