@@ -9,7 +9,7 @@ By default, Managed Agents executes tools and code inside [Anthropic-managed clo
 Self-hosted sandboxes are not yet available on [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws).
 
 <Note>
-Self-hosted sandboxes support all Claude models available in Managed Agents, including Claude Opus 4.8. The model is configured on the [agent](/docs/en/managed-agents/agent-setup), not the environment.
+Self-hosted sandboxes support all Claude models available in Managed Agents, including <NextOpus />. The model is configured on the [agent](/docs/en/managed-agents/agent-setup), not the environment.
 </Note>
 
 ## How it differs from cloud environments
@@ -192,7 +192,7 @@ The SDK helpers require `/bin/bash` at that exact path. The TypeScript SDK addit
 
         
         ```bash nocheck
-        VERSION=1.9.1
+        VERSION=1.10.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
         curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${VERSION}/ant_${VERSION}_${OS}_${ARCH}.tar.gz" \
@@ -222,7 +222,7 @@ The SDK helpers require `/bin/bash` at that exact path. The TypeScript SDK addit
 
         ```text
         FROM your-base-image
-        ARG ANT_VERSION=1.9.1
+        ARG ANT_VERSION=1.10.0
         ARG TARGETARCH
         RUN ARCH=$([ "$TARGETARCH" = "arm64" ] && echo arm64 || echo amd64) && \
             curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${ANT_VERSION}/ant_${ANT_VERSION}_linux_${ARCH}.tar.gz" \

@@ -3,8 +3,6 @@ Title: Interpretability Dreams
 URL Source: https://www.anthropic.com/research/interpretability-dreams
 
 Markdown Content:
-# Interpretability Dreams \ Anthropic
-
 [Skip to main content](https://www.anthropic.com/research/interpretability-dreams#main-content)[Skip to footer](https://www.anthropic.com/research/interpretability-dreams#footer)
 
 [](https://www.anthropic.com/)
@@ -160,3 +158,5 @@ Privacy choices*   [Privacy policy](https://www.anthropic.com/legal/privacy)
 *   [](https://www.linkedin.com/company/anthropicresearch)
 *   [](https://x.com/AnthropicAI)
 *   [](https://www.youtube.com/@anthropic-ai)
+
+# Interpretability Dreams \ Anthropic
