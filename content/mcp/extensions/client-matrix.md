@@ -36,6 +36,7 @@ This matrix shows which MCP clients support each [official extension](/extension
 | [MCPJam](https://www.mcpjam.com/)                        |               <CHECK />               |                                                                       |                                                                      |
 | [ChatGPT](https://chatgpt.com/)                          |               <CHECK />               |                                                                       |                                                                      |
 | [Cursor](https://cursor.com/)                            |               <CHECK />               |                                                                       |                                                                      |
+| [Archestra.AI](https://www.archestra.ai/)                |               <CHECK />               |                                                                       |                               <CHECK />                              |
 
 <Note>
   Auth extension support (OAuth Client Credentials and Enterprise-Managed Authorization) is tracked separately from the core MCP authorization features (DCR, CIMD). Check each extension's specification and the [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth) for the latest implementation status.
