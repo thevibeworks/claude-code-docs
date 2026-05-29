@@ -1,7 +1,9 @@
 # Agent Battle — Claude plays Minecraft
 
 > **Workshop demo.** Not maintained and not accepting
-> contributions.
+> contributions. Report security issues to
+> security@anthropic.com; we do not commit to fixes or
+> timelines.
 >
 > Not an official Minecraft event. Anthropic is not affiliated
 > with, endorsed by, or sponsored by Microsoft / Mojang. The
@@ -20,7 +22,7 @@ run counts.
 ## 1. Clone
 
 ```bash
-git clone https://github.com/anthropics/cwc-workshops
+git clone https://github.com/anthropic-experimental/cwc-workshops
 cd cwc-workshops/agent-battle
 ```
 
@@ -28,6 +30,8 @@ cd cwc-workshops/agent-battle
 
 ```bash
 export ANTHROPIC_API_KEY="sk-ant-..."     # console.anthropic.com → API Keys
+                                          # (optional if your environment has
+                                          #  OAuth / workload-identity SDK auth)
 export PARTICIPANT="<your-unique-name>"
 export MINECRAFT_EULA=accept              # you have read https://www.minecraft.net/eula and agree
 ```

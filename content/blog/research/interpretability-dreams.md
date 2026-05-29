@@ -3,8 +3,6 @@ Title: Interpretability Dreams
 URL Source: https://www.anthropic.com/research/interpretability-dreams
 
 Markdown Content:
-# Interpretability Dreams \ Anthropic
-
 [Skip to main content](https://www.anthropic.com/research/interpretability-dreams#main-content)[Skip to footer](https://www.anthropic.com/research/interpretability-dreams#footer)
 
 [](https://www.anthropic.com/)
@@ -149,7 +147,7 @@ Our views on the AI competition between the US and China.
 
 ### Terms and policies
 
-Privacy choices*   [Privacy policy](https://www.anthropic.com/legal/privacy)
+*   [Privacy policy](https://www.anthropic.com/legal/privacy)
 *   [Consumer health data privacy policy](https://www.anthropic.com/legal/consumer-health-data-privacy-policy)
 *   [Responsible disclosure policy](https://www.anthropic.com/responsible-disclosure-policy)
 *   [Terms of service: Commercial](https://www.anthropic.com/legal/commercial-terms)
@@ -160,3 +158,5 @@ Privacy choices*   [Privacy policy](https://www.anthropic.com/legal/privacy)
 *   [](https://www.linkedin.com/company/anthropicresearch)
 *   [](https://x.com/AnthropicAI)
 *   [](https://www.youtube.com/@anthropic-ai)
+
+# Interpretability Dreams \ Anthropic
