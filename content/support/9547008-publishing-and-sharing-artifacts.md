@@ -10,6 +10,8 @@ Markdown Content:
 
 March 26, 2026
 
+Table of contents
+
 Artifacts are a powerful way to create content within Claude. You can take your creations further by sharing them so others can engage with and customize them. Similarly, if you see an artifact you like, you can customize it to make it your own. This article covers how to publish artifacts publicly, share them within your organization, and discover artifacts created by others.
 
 ## Publishing vs. sharing
@@ -38,11 +40,11 @@ Artifacts are organized into categories such as Learn something, Life hacks, and
 
 After publishing, you'll see a “Get embed code” button.
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1780379100&signature=460fe2bd2f5a14e85a216714a79c37be479fdd13ad0832669d7e69c239765bc9&req=dSkiF892mYhZWfMW1HO4zdcpD1ZR4gqAR8xgMH3ra8jIGrVjmcW89qbf4%2Boz%0AOoBPBrCGwzQNyhPRAuM%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1780379100&signature=460fe2bd2f5a14e85a216714a79c37be479fdd13ad0832669d7e69c239765bc9&req=dSkiF892mYhZWfMW1HO4zdcpD1ZR4gqAR8xgMH3ra8jIGrVjmcW89qbf4%2Boz%0AOoBPBrCGwzQNyhPRAuM%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1780412400&signature=c314531092d24b4ba71fd905845640f2e333b72952ae1ff1a9f93fdfe826ceca&req=dSkiF892mYhZWfMW1HO4zdcpD1ZW5AGFR8xgMH3ra8jnanm0L6ItwMhyHoT7%0Ar1vk%2F1dVg63DSxo622k%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1780412400&signature=c314531092d24b4ba71fd905845640f2e333b72952ae1ff1a9f93fdfe826ceca&req=dSkiF892mYhZWfMW1HO4zdcpD1ZW5AGFR8xgMH3ra8jnanm0L6ItwMhyHoT7%0Ar1vk%2F1dVg63DSxo622k%3D%0A)
 
 Click it to open a modal with automatically generated code you can copy and paste to embed your artifact on another website.
 
-[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1780379100&signature=134c8890a94ae2240df8f971ed219640f58e60819d4ef73f21ad2706b76a36bf&req=dSkiF892mIlZWfMW1HO4zcqH79mAzo1sf3CUbx4Ru6WhF%2BldRSQzdDKiPUMJ%0AxO5BgQfec4f12r1qanQ%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1780379100&signature=134c8890a94ae2240df8f971ed219640f58e60819d4ef73f21ad2706b76a36bf&req=dSkiF892mIlZWfMW1HO4zcqH79mAzo1sf3CUbx4Ru6WhF%2BldRSQzdDKiPUMJ%0AxO5BgQfec4f12r1qanQ%3D%0A)
+[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1780412400&signature=d41ed85045f28375a5635e672c62476826c8b9a3521627e4f36dee084addfd81&req=dSkiF892mIlZWfMW1HO4zcqH79mHyIZpf3CUbx4Ru6WDeevXm4on1mz%2BL8F6%0AMlxHzVpCQ4uKbIJahSY%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1780412400&signature=d41ed85045f28375a5635e672c62476826c8b9a3521627e4f36dee084addfd81&req=dSkiF892mIlZWfMW1HO4zcqH79mHyIZpf3CUbx4Ru6WDeevXm4on1mz%2BL8F6%0AMlxHzVpCQ4uKbIJahSY%3D%0A)
 
 You must specify which websites can embed your artifact by entering URLs in the **Allowed domains** field, separated by commas.
 
@@ -56,7 +58,7 @@ Artifacts created on Team or Enterprise accounts can only be shared within your 
 
 **To share an artifact:**
 
-[![Image 3](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1780379100&signature=29659e3333afbc859b8f131c15ac448f01dade8c2b9462335ef2afb9b7056751&req=dSkiF892nYBZWfMW1HO4zbvYOlHmKnCSK6hAzMpXfmNoIac29T123pnjU10Z%0ANwwQxtO1LcWjdv9vvjE%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1780379100&signature=29659e3333afbc859b8f131c15ac448f01dade8c2b9462335ef2afb9b7056751&req=dSkiF892nYBZWfMW1HO4zbvYOlHmKnCSK6hAzMpXfmNoIac29T123pnjU10Z%0ANwwQxtO1LcWjdv9vvjE%3D%0A)
+[![Image 3](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1780412400&signature=0fc3313c5f4f2eb76e8a416db5129927e2a82c47e770d6ae4751d2bacd4e357e&req=dSkiF892nYBZWfMW1HO4zbvYOlHhLHuXK6hAzMpXfmPk%2F7vfL%2Bgk0k%2Fu0I5L%0A1P2CigxBULvugDnXldE%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1780412400&signature=0fc3313c5f4f2eb76e8a416db5129927e2a82c47e770d6ae4751d2bacd4e357e&req=dSkiF892nYBZWfMW1HO4zbvYOlHhLHuXK6hAzMpXfmPk%2F7vfL%2Bgk0k%2Fu0I5L%0A1P2CigxBULvugDnXldE%3D%0A)
 
 ### Who can access shared artifacts
 
@@ -68,7 +70,7 @@ When you share an artifact, viewers also gain access to any attachments and file
 
 **To unshare an artifact:**
 
-[![Image 4](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1780379100&signature=57828ff6d79851eeb5fd0855ee895a95207d2701b6dc0092e1e7525b623442b1&req=dSkiF895m4hdXvMW1HO4zW9Ewgm%2B%2Fn2ygj8mTHivCKZcDA6qJUq0R2Ez%2FXoX%0A20EX6MBGIAoGHLLxtz8%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1780379100&signature=57828ff6d79851eeb5fd0855ee895a95207d2701b6dc0092e1e7525b623442b1&req=dSkiF895m4hdXvMW1HO4zW9Ewgm%2B%2Fn2ygj8mTHivCKZcDA6qJUq0R2Ez%2FXoX%0A20EX6MBGIAoGHLLxtz8%3D%0A)
+[![Image 4](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1780412400&signature=e2a3f6745196212c2e870bd7df260c8dce78a46b0928dece197915a42880f856&req=dSkiF895m4hdXvMW1HO4zW9Ewgm5%2BHa3gj8mTHivCKbclQS0xPdBw2L6zLkV%0AvxDrzzQkr%2FNFW2pLOPM%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1780412400&signature=e2a3f6745196212c2e870bd7df260c8dce78a46b0928dece197915a42880f856&req=dSkiF895m4hdXvMW1HO4zW9Ewgm5%2BHa3gj8mTHivCKbclQS0xPdBw2L6zLkV%0AvxDrzzQkr%2FNFW2pLOPM%3D%0A)
 
 ## Customizing artifacts
 
