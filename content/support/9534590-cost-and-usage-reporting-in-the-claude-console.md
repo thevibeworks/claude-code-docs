@@ -9,7 +9,7 @@ The Claude Console provides detailed cost and usage reporting to help you effect
 
 Users with access to these reports can click into them on the left navigation menu on the Console:
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780430400&signature=e1189057b3df8e126a68973fd9273749f6e2f7a195db1675823e0f6da6321088&req=dSUvEs97mYNeXvMW1HO4zYCWiSQcgsaeuqqBX2puyxQCa%2B0zB1Lh3dV0U35R%0ARaeEhbF3kNKcb2MLyiY%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780430400&signature=e1189057b3df8e126a68973fd9273749f6e2f7a195db1675823e0f6da6321088&req=dSUvEs97mYNeXvMW1HO4zYCWiSQcgsaeuqqBX2puyxQCa%2B0zB1Lh3dV0U35R%0ARaeEhbF3kNKcb2MLyiY%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780468200&signature=39e51f2c8009dde08f0737f6c4f47287fc76d542c993f3951bdbf1e4c6aff3b1&req=dSUvEs97mYNeXvMW1HO4zYCWiSQch86YuqqBX2puyxQceQbPTpm2ZdNz14Rd%0AeNz6PulEFeVf9dctBvo%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780468200&signature=39e51f2c8009dde08f0737f6c4f47287fc76d542c993f3951bdbf1e4c6aff3b1&req=dSUvEs97mYNeXvMW1HO4zYCWiSQch86YuqqBX2puyxQceQbPTpm2ZdNz14Rd%0AeNz6PulEFeVf9dctBvo%3D%0A)
 
 ## Usage Reporting
 
@@ -19,9 +19,9 @@ The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown 
 
 ### How to Use
 
-[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780430400&signature=4088f063ba8984035d42c9ca77128db6a82cf4ecc8a3469b5597ad5bd43b8c7a&req=dSUvEs94mYJdWPMW1HO4zQwER3MuIo9iqMITUZbanFC%2BLR7fDaPOCTulbr3V%0AY8w9cIO2D9mTWRoBOoM%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780430400&signature=4088f063ba8984035d42c9ca77128db6a82cf4ecc8a3469b5597ad5bd43b8c7a&req=dSUvEs94mYJdWPMW1HO4zQwER3MuIo9iqMITUZbanFC%2BLR7fDaPOCTulbr3V%0AY8w9cIO2D9mTWRoBOoM%3D%0A)
+[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780468200&signature=987dd4db7d1bdf94468611f0a476f0ebc4fd80df787aa661039c8bea3f4c57d2&req=dSUvEs94mYJdWPMW1HO4zQwER3MuJ4dkqMITUZbanFBuLWyNSCFnfzQOO1FX%0Ac4wni05LU7GkPqkkz3Y%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780468200&signature=987dd4db7d1bdf94468611f0a476f0ebc4fd80df787aa661039c8bea3f4c57d2&req=dSUvEs94mYJdWPMW1HO4zQwER3MuJ4dkqMITUZbanFBuLWyNSCFnfzQOO1FX%0Ac4wni05LU7GkPqkkz3Y%3D%0A)
 
-[![Image 3](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780430400&signature=4efa197f9bde1402f462689a6001a6220d4d76e927be2fa4cc9a9fc7bdc56935&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtJ5VFo21D6pckxWMa82E3p2Y%2B%2BwSABdLqQ%0AMAR9tMmDo1QoxAwL0AA%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780430400&signature=4efa197f9bde1402f462689a6001a6220d4d76e927be2fa4cc9a9fc7bdc56935&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtJ5VFo21D6pckxWMa82E3p2Y%2B%2BwSABdLqQ%0AMAR9tMmDo1QoxAwL0AA%3D%0A)
+[![Image 3](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780468200&signature=16c9d065f5b808aa9b8f58b63de65b85f8cb223e615cc696063f7e82b958866f&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtJ4Flu21D6pckxWMYKCIf0xw%2BJCpxRMG%2Fk%0A5l%2FSZWwJ%2BOC5pCnV1S8%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780468200&signature=16c9d065f5b808aa9b8f58b63de65b85f8cb223e615cc696063f7e82b958866f&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtJ4Flu21D6pckxWMYKCIf0xw%2BJCpxRMG%2Fk%0A5l%2FSZWwJ%2BOC5pCnV1S8%3D%0A)
 
 ### Rate Limit Use
 
@@ -39,7 +39,7 @@ The [Cost page](https://platform.claude.com/cost) helps you understand your spen
 
 ### How to Use
 
-[![Image 4](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780430400&signature=31ac46ca18bc82d0624806505516ef656077260becd994768eb1667d35da48b5&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zHUNBlCyIF5nuUsbwYjml4J5ZTV07BilzM%0AI6WaBmAmKtht1OxXhVs%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780430400&signature=31ac46ca18bc82d0624806505516ef656077260becd994768eb1667d35da48b5&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zHUNBlCyIF5nuUsbwYjml4J5ZTV07BilzM%0AI6WaBmAmKtht1OxXhVs%3D%0A)
+[![Image 4](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780468200&signature=d09a067af4f14d066e6b105cbde7b7b52536d9cd378b5664ed2aeab171f62475&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zHVdhjCyIF5nuUsbyP%2BG892Qe0dPOmHonx%0APIsBrblrFeZkIgFqclY%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780468200&signature=d09a067af4f14d066e6b105cbde7b7b52536d9cd378b5664ed2aeab171f62475&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zHVdhjCyIF5nuUsbyP%2BG892Qe0dPOmHonx%0APIsBrblrFeZkIgFqclY%3D%0A)
 
 * * *
 
