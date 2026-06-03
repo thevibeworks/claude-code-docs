@@ -7,7 +7,7 @@ Twelve months ago, we'd have rejected out of hand the idea of granting Claude ac
 
 ![Image 1](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F5ebc85c6325c7f59bd6c08950ff9beb1863f1345-1920x866.png&w=3840&q=75)
 
-_When bounds can be placed on the relative damage of an autonomous agent —such as through control over its environment—high-utility capabilities can motivate deployment. Claude Mythos Preview is an example of a model whose blast radius was deemed too high to ship in April 2026. However, we expect broader release of models with similar levels of capability to become appropriate as defenders harden critical systems and safeguards mature—even though some risk will always remain. Model capability is an important factor in the total risk of an agent’s deployment._
+_When bounds can be placed on the relative damage of an autonomous agent—such as through control over its environment—high-utility capabilities can motivate deployment. Claude Mythos Preview is an example of a model whose blast radius was deemed too high to ship in April 2026. However, we expect broader release of models with similar levels of capability to become appropriate as defenders harden critical systems and safeguards mature—even though some risk will always remain. Model capability is an important factor in the total risk of an agent’s deployment._
 
 There are broadly two ways to do this.
 
@@ -15,7 +15,7 @@ The first is to supervise the agent’s behavior via a human-in-the-loop. Claude
 
 The second approach to capping the blast radius—and the focus of much of this post—is containment. Rather than supervising what the agent does, we supervise what it’s _able_ to do by enforcing access boundaries through, for example, sandboxes, virtual machines, and egress controls. This is where Anthropic engineering has devoted the most effort, and also where many of the most surprising security failures have occurred.
 
-Over the past two years, we’ve shipped three primary agentic products: [claude.ai](http://claude.ai/redirect/website.v1.50887c69-167a-41e7-913c-f39ce512df26), Claude Code, and Claude Cowork. Each serves a different audience, requiring a different containment architecture. This article shares what’s held up, what’s broken, and what we’ve learned about agent security along the way.
+Over the past two years, we’ve shipped three primary agentic products: [claude.ai](http://claude.ai/redirect/website.v1.11ff5ad6-8e20-4f3f-9f68-27f847028a3e), Claude Code, and Claude Cowork. Each serves a different audience, requiring a different containment architecture. This article shares what’s held up, what’s broken, and what we’ve learned about agent security along the way.
 
 ## **Three types of risk, three components of defense**
 
@@ -45,17 +45,17 @@ Defenses should overlap and complement each other. When environmental defenses a
 
 ![Image 2](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F5fae1ecca4cd8aaefb9ac949348e96967f9a5100-1920x1080.png&w=3840&q=75)
 
-_Three components to defend: the model, the environment in which it runs, and the external content the agent can reach_.
+_Three components to defend: the model, the environment in which it runs, and the external content the agent can reach._
 
 ## **Patterns for containing agents**
 
-Focusing on the environment layer, we describe three isolation patterns and how they’re tailored for each Claude platform—[claude.ai](http://claude.ai/redirect/website.v1.50887c69-167a-41e7-913c-f39ce512df26), Claude Code, and Cowork. We arrived at each design gradually, after finding the balance between the capabilities we need from the agent and the degree of intervention required from the user.
+Focusing on the environment layer, we describe three isolation patterns and how they’re tailored for each Claude platform—[claude.ai](http://claude.ai/redirect/website.v1.11ff5ad6-8e20-4f3f-9f68-27f847028a3e), Claude Code, and Cowork. We arrived at each design gradually, after finding the balance between the capabilities we need from the agent and the degree of intervention required from the user.
 
 ### **Pattern 1: The ephemeral container (claude.ai code execution)**
 
 Though best known as a chat interface, claude.ai also writes and runs code, generates files, and calls connectors. When Claude runs code inside claude.ai, it does so in a [gVisor](https://en.wikipedia.org/wiki/GVisor) container on isolated infrastructure. The agent is entirely server-side; no code runs on the local machine, and the filesystem is ephemeral (per-session). The blast radius is minimal, but so is the ceiling on what Claude can do—there's no persistent workspace and no access to the user's filesystem.
 
-This also makes [claude.ai](http://claude.ai/redirect/website.v1.50887c69-167a-41e7-913c-f39ce512df26) subject to a more traditional threat model. We're not protecting user machines from agents; we're protecting our own infrastructure and each tenant from one another. Our pre-launch work for [claude.ai](http://claude.ai/redirect/website.v1.50887c69-167a-41e7-913c-f39ce512df26) was dominated by traditional security work like network configuration, internal service auth, and orchestration.
+This also makes [claude.ai](http://claude.ai/redirect/website.v1.11ff5ad6-8e20-4f3f-9f68-27f847028a3e) subject to a more traditional threat model. We're not protecting user machines from agents; we're protecting our own infrastructure and each tenant from one another. Our pre-launch work for [claude.ai](http://claude.ai/redirect/website.v1.11ff5ad6-8e20-4f3f-9f68-27f847028a3e) was dominated by traditional security work like network configuration, internal service auth, and orchestration.
 
 That work reinforced the oldest lesson in security: the weakest layer is the one you built yourself. gVisor and [seccomp](https://en.wikipedia.org/wiki/Seccomp) have been hardened against well-resourced adversaries for far longer than agentic AI has existed, so the review effort went into the newer pieces we'd built around them. We’ll come back to this later, since our custom proxy is also the piece that broke in our most consequential incident.
 
@@ -119,7 +119,7 @@ We fixed it using a defensive man-in-the-middle proxy inside the VM that interce
 
 ![Image 5](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fbeb481a2e7b314f73ba37821a2c1f1ca470d7063-1920x1080.png&w=3840&q=75)
 
-_Top: traffic to api.anthropic.com is let through, resulting in egress.Bottom: fix with a man-in-the-middle proxy intercepting traffic to our API._
+_Top: traffic to api.anthropic.com is let through, resulting in egress. Bottom: fix with a man-in-the-middle proxy intercepting traffic to our API._
 
 This is also a second instance of the principle that the software you build yourself is often the weakest. The hypervisor, seccomp, and gVisor across our products have been dependable. Our custom allowlist proxy was the piece that failed.
 
@@ -151,11 +151,11 @@ Models and products are advancing fast. As they do, risks morph and evolve, and 
 
 **Persistent memory poisoning.**The share of agent context that persists across sessions keeps growing—this includes product memory, CLAUDE.md files, mounted workspaces, and the state directories of scheduled and long-running agents. An injection that lands in any of these is reloaded each time the agent starts. As more agent state survives the session, we are threatened by new persistence mechanisms in the classic post-exploitation sense. Good classifiers on session startup will need to become more commonplace.
 
-**Multi-agent trust escalation.** On the one hand, sub-agents can isolate untrusted content, returning structured facts rather than raw text up to the main agent. On the other hand, this can be abused: if a sub-agent's output is treated as higher-trust than raw tool results, because such output came from "us,” a new vector for prompt injection is introduced. In multi-agent systems, there is a tradeoff between allocating differing trust levels and becoming liable to trust escalation.
+**Multi-agent trust escalation.** On the one hand, sub-agents can isolate untrusted content, returning structured facts rather than raw text up to the main agent. On the other hand, this can be abused: if a sub-agent's output is treated as higher-trust than raw tool results, because such output came from “us,” a new vector for prompt injection is introduced. In multi-agent systems, there is a tradeoff between allocating differing trust levels and becoming liable to trust escalation.
 
 **Agent identity.** Claude Cowork's answer to agent identity is concrete: credentials stay in the host keychain, the VM gets a per-session scoped-down token, and that token can be revoked independently of the user's. However, we are starting to grapple with the broader question of cross-platform agent identity. Should an agent possess its own principal identity, or should it act as an extension of the user and inherit the user’s permissions? Ultimately, the answer may be a blend of the two.
 
-As agents grow more capable, attack surfaces are constantly shifting. The types of failures we’ve seen are likely to be repeated across industries and labs. We need collective investment in agent-specific security posture, from shared benchmarks and disclosure norms to common identity standards and cross-vendor red-teaming. We focus on containment in this piece, but that's only one part of the security picture for agents. For governance, observability, and the rest of the stack, see [NIST's project on AI agent identity and authorization](https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization), the [six-agency guidance on adopting agentic AI](https://media.defense.gov/2026/Apr/30/2003922823/-1/-1/0/CAREFUL%20ADOPTION%20OF%20AGENTIC%20AI%20SERVICES_FINAL.PDF) led by Australia's ACSC with CISA and the UK's NCSC, and [ISO/IEC 42001](https://www.iso.org/standard/42001), the AI management standard.Our Glasswing initiative is one contribution, but we look forward to working with both partners and competitors on this critical issue.
+As agents grow more capable, attack surfaces are constantly shifting. The types of failures we’ve seen are likely to be repeated across industries and labs. We need collective investment in agent-specific security posture, from shared benchmarks and disclosure norms to common identity standards and cross-vendor red-teaming. We focus on containment in this piece, but that's only one part of the security picture for agents. For governance, observability, and the rest of the stack, see [NIST's project on AI agent identity and authorization](https://www.nccoe.nist.gov/projects/software-and-ai-agent-identity-and-authorization), the [six-agency guidance on adopting agentic AI](https://media.defense.gov/2026/Apr/30/2003922823/-1/-1/0/CAREFUL%20ADOPTION%20OF%20AGENTIC%20AI%20SERVICES_FINAL.PDF) led by Australia's ACSC with CISA and the UK's NCSC, and [ISO/IEC 42001](https://www.iso.org/standard/42001), the AI management standard. Our Glasswing initiative is one contribution, but we look forward to working with both partners and competitors on this critical issue.
 
 ## **Summary**
 

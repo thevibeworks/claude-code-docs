@@ -21,7 +21,7 @@ Most best practices are based on one constraint: Claude’s context window fills
 
 ## Give Claude a way to verify its work
 
-Claude performs dramatically better when it can verify its own work, like run tests, compare screenshots, and validate outputs.Without clear success criteria, it might produce something that looks right but actually doesn’t work. You become the only feedback loop, and every mistake requires your attention.
+Claude stops when the work looks done. Without a check it can run, “looks done” is the only signal available, and you become the verification loop: every mistake waits for you to notice it. Give Claude something that produces a pass or fail, and the loop closes on its own. Claude does the work, runs the check, reads the result, and iterates until the check passes.The check is anything that returns a signal Claude can read in the conversation: a test suite, a build exit code, a linter, a script that diffs output against a fixture, or a [browser screenshot](https://code.claude.com/docs/en/chrome) compared against a design.
 
 | Strategy | Before | After |
 | --- | --- | --- |
@@ -29,7 +29,14 @@ Claude performs dramatically better when it can verify its own work, like run te
 | **Verify UI changes visually** | _”make the dashboard look better"_ | _"[paste screenshot] implement this design. take a screenshot of the result and compare it to the original. list differences and fix them”_ |
 | **Address root causes, not symptoms** | _”the build is failing"_ | _"the build fails with this error: [paste error]. fix it and verify the build succeeds. address the root cause, don’t suppress the error”_ |
 
-UI changes can be verified using the [Claude in Chrome extension](https://code.claude.com/docs/en/chrome). It opens new tabs in your browser, tests the UI, and iterates until the code works.Your verification can also be a test suite, a linter, or a Bash command that checks output. Invest in making your verification rock-solid.Have Claude show evidence rather than asserting success: the test output, the command it ran and what it returned, or a screenshot of the result. Reviewing evidence is faster than re-running the verification yourself, and it works for sessions you weren’t watching.
+Once the check exists, decide how hard it gates the stop:
+
+*   **In one prompt**: ask Claude to run the check and iterate in the same message, as in the table above.
+*   **Across a session**: set the check as a [`/goal` condition](https://code.claude.com/docs/en/goal). A separate evaluator re-checks it after every turn and Claude keeps working until it holds.
+*   **As a deterministic gate**: a [Stop hook](https://code.claude.com/docs/en/hooks#stop) runs your check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook and ends the turn after 8 consecutive blocks.
+*   **By a second opinion**: a [verification subagent](https://code.claude.com/docs/en/sub-agents) or a [dynamic workflow](https://code.claude.com/docs/en/workflows) that checks its own findings has a fresh model try to refute the result, so the agent doing the work isn’t the one grading it.
+
+Each step trades setup for attention. The prompt version works on any task today. The `/goal` and Stop hook versions are what let an unattended run finish correctly without you.Have Claude show evidence rather than asserting success: the test output, the command it ran and what it returned, or a screenshot of the result. Reviewing evidence is faster than re-running the verification yourself, and it works for sessions you weren’t watching.
 
 * * *
 
