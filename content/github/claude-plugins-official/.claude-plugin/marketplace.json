@@ -19,7 +19,7 @@
         "url": "https://github.com/42Crunch-AI/claude-plugins.git",
         "path": "plugins/api-security-testing",
         "ref": "v1.5.5",
-        "sha": "b404d99a3f0bc1f3e74a1638671e2e3319187e2c"
+        "sha": "1db609845441d4fa8862019191e4138e61f77e67"
       },
       "homepage": "https://42crunch.com"
     },
@@ -57,7 +57,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SalesforceAIResearch/agentforce-adlc.git",
-        "sha": "1584dd52f388482db78949456addfa29a4c9d9c3"
+        "sha": "55220ca32965a7543261a2ed00a0e33da59f7c80"
       },
       "homepage": "https://github.com/SalesforceAIResearch/agentforce-adlc"
     },
@@ -226,7 +226,7 @@
         "source": "url",
         "url": "https://github.com/BrainBlend-AI/atomic-agents.git",
         "path": "claude-plugin/atomic-agents",
-        "sha": "57d6099f499fe21572bdf943396630bd3d968550"
+        "sha": "324399402b9b5965313de6a34ea09d6bb149a200"
       },
       "homepage": "https://github.com/BrainBlend-AI/atomic-agents",
       "tags": [
@@ -245,7 +245,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "c38453f6a99bbfeaf73b5be81db987ec6af982da"
+        "sha": "27b0aab6c1e522cf2d8a0d9baa4d74d4016e6351"
       },
       "homepage": "https://auth0.com/docs/quickstart/agent-skills"
     },
@@ -261,7 +261,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-agents",
         "ref": "main",
-        "sha": "ba1cc8ca4f063d88ca40c6acf3f670e6321b7a7f"
+        "sha": "df13dea64baaa1b7031b25d1b2f380756131efec"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -290,7 +290,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-core",
         "ref": "main",
-        "sha": "ba1cc8ca4f063d88ca40c6acf3f670e6321b7a7f"
+        "sha": "df13dea64baaa1b7031b25d1b2f380756131efec"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -306,7 +306,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-data-analytics",
         "ref": "main",
-        "sha": "ba1cc8ca4f063d88ca40c6acf3f670e6321b7a7f"
+        "sha": "df13dea64baaa1b7031b25d1b2f380756131efec"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -351,7 +351,7 @@
         "url": "https://github.com/awslabs/startups.git",
         "path": "advisor/plugins/aws-startup-advisor",
         "ref": "main",
-        "sha": "23a4f5eaf74a0f0fcf86f8a05bd36618a3f5faae"
+        "sha": "440c6a2681b89518622d4a9c65f72efdcde398c3"
       },
       "homepage": "https://github.com/awslabs/startups"
     },
@@ -362,7 +362,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-skills.git",
-        "sha": "d3440b8a4f138585a512ecd4e0c54ede13ab1cc2"
+        "sha": "b2b5d8b16346b5c965545208aff885d0c156c299"
       },
       "homepage": "https://github.com/microsoft/azure-skills"
     },
@@ -458,7 +458,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "49cfc652620672f3e4d4ca31c4ba4c6ebcc568de"
+        "sha": "eb00237daa211b0dc8dd815e013310c6ea9fc827"
       },
       "homepage": "https://carta.com"
     },
@@ -474,7 +474,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "49cfc652620672f3e4d4ca31c4ba4c6ebcc568de"
+        "sha": "eb00237daa211b0dc8dd815e013310c6ea9fc827"
       },
       "homepage": "https://carta.com"
     },
@@ -490,7 +490,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "e66d331cd8e669ee121c96ee35b0c91acd828970"
+        "sha": "f512df80dd54fd0a607ece2f18a9d226ca705019"
       },
       "homepage": "https://carta.com"
     },
@@ -506,7 +506,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cap-js/mcp-server.git",
-        "sha": "9658cea90c782a6ab007ac16278c90fa4feca0ed"
+        "sha": "b78913198fe1021f0d8b36b0e4ba0ca27003452f"
       },
       "homepage": "https://cap.cloud.sap/"
     },
@@ -517,7 +517,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "692b28adac70f6475737ffbc4e6e2a0bb65569db"
+        "sha": "30d59a78727c31ec9d70d2bd6d9310e78f1888b3"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -611,7 +611,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
-        "sha": "bfd22b9ca64288c149a623c45ad933b23f9de019"
+        "sha": "1f30864b720960a797e5c7f6138d328bec3984cb"
       },
       "homepage": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
     },
@@ -800,7 +800,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "2908d2f470f14f58d378b26c2af58825fa8d0149"
+        "sha": "5b661388dd24840b45766740eeb729fafae8da40"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -846,7 +846,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "0ec3db6b75d98badccf533597ce9a22fec744f5f"
+        "sha": "0300130371547c86630970138e302025c4b0a621"
       },
       "homepage": "https://dash0.com/"
     },
@@ -871,7 +871,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "86eb482b33d943aa4242ae6f06d627ec12064d46"
+        "sha": "7b17cb5147718013933d4b08011e6fea7d170d89"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -936,7 +936,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/datarobot-oss/datarobot-agent-skills.git",
-        "sha": "1bef28436b91fc945b8529d1a57b471cde3154ea"
+        "sha": "bf57624a502f8ebb664ce402154fe407f6d5912f"
       },
       "homepage": "https://datarobot.com"
     },
@@ -1130,7 +1130,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/firecrawl/firecrawl-claude-plugin.git",
-        "sha": "81178096fa7ae860285923948b8ba13d03c7fa0c"
+        "sha": "6768fb78185aab9e5b5a04777f84703863fb025b"
       },
       "homepage": "https://github.com/firecrawl/firecrawl-claude-plugin.git"
     },
@@ -1247,7 +1247,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/hunter-io/claude-plugin.git",
-        "sha": "4eb5fbbcb75e0c4c4f2c0d8aa02756165fdde629"
+        "sha": "69c4e59ee573f4ccd8aa38bbc89e356bc8e7f876"
       },
       "homepage": "https://hunter.io"
     },
@@ -1261,7 +1261,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "3c7e2f36497de471e5a63ecc6d582522d206b208"
+        "sha": "f5d81cb5a7b1d15cdc08c15bafbc7e3c91123a74"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1426,7 +1426,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/logfire",
         "ref": "main",
-        "sha": "56dadc9c3b4551b7baf01a9a9f728dc72383bd07"
+        "sha": "e412b6d8d4b6199ac577c5ee8653dcff840b3e92"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/logfire"
     },
@@ -1465,6 +1465,20 @@
       "homepage": "https://www.ory.sh"
     },
     {
+      "name": "lusha",
+      "description": "Prospect, enrich, and build call-ready lead lists using Lusha's B2B intelligence platform — verified phone numbers, company signals, and lookalike targeting.",
+      "author": {
+        "name": "Lusha"
+      },
+      "category": "productivity",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/lusha-oss/lusha-mcp-plugin.git",
+        "sha": "8fc71d5473ea40e01a92001787f0f3caaf5ca30e"
+      },
+      "homepage": "https://www.lusha.com"
+    },
+    {
       "name": "mapbox",
       "description": "Mapbox skills and MCP servers for building location-aware applications with AI. Includes geospatial tools, style management, and patterns for web, iOS, Android, and AI agent frameworks.",
       "author": {
@@ -1501,7 +1515,7 @@
         "url": "https://github.com/modelcontextprotocol/ext-apps.git",
         "path": "plugins/mcp-apps",
         "ref": "main",
-        "sha": "7d4434e991516d91286dded5bb10266cd6cddd02"
+        "sha": "a9907802937f1da067cbc4aa48b283cd4cfa7dc8"
       },
       "homepage": "https://modelcontextprotocol.io"
     },
@@ -1593,7 +1607,7 @@
         "url": "https://github.com/miroapp/miro-ai.git",
         "path": "claude-plugins/miro",
         "ref": "main",
-        "sha": "da5405f866d823c7121ad6c38256f11c60501dbe"
+        "sha": "9d7c3dc0a9a365b298e3808c741c53e2e80d86d1"
       },
       "homepage": "https://miro.com"
     },
@@ -1697,7 +1711,7 @@
         "url": "https://github.com/NVIDIA/skills.git",
         "path": "plugins/nvidia-skills",
         "ref": "main",
-        "sha": "91dbdf239b8af3b4c1511e0cfa5b505235a08ab1"
+        "sha": "e695a8397463bbb64d787b3cd88d3c58889be633"
       },
       "homepage": "https://github.com/NVIDIA/skills"
     },
@@ -1713,7 +1727,7 @@
         "url": "https://github.com/oracle-samples/oracle-aidp-samples.git",
         "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors",
         "ref": "main",
-        "sha": "d20075e440af2a209bc3b011a336276336e6d10c"
+        "sha": "dcd5a5a19537bf9aaa9dd4f48514bc4402bfbc40"
       },
       "homepage": "https://docs.oracle.com/en/cloud/paas/ai-data-platform/index.html"
     },
@@ -1729,7 +1743,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "5a87ebc13343ce6ebabac0bcc443c1da0bcf2459"
+        "sha": "34badf9feb80a9f8ab83c5945de7342ab8d32d0a"
       },
       "homepage": "https://output.ai"
     },
@@ -1839,7 +1853,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/PostHog/ai-plugin.git",
-        "sha": "1b743cdbc568de81da5f41503e5c7caa35a4b270"
+        "sha": "3ab2bf762552526a5db4183451a6b01b02b9205d"
       },
       "homepage": "https://posthog.com/docs/model-context-protocol"
     },
@@ -1894,7 +1908,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "56dadc9c3b4551b7baf01a9a9f728dc72383bd07"
+        "sha": "e412b6d8d4b6199ac577c5ee8653dcff840b3e92"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -1932,7 +1946,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "ea62a9857dabcc169597549da7681bd6d4cd13e9"
+        "sha": "cace39df5cc46f7f0c192ced7391d767749142a0"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -1971,7 +1985,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/quarkusio/quarkus-agent-mcp.git",
-        "sha": "065b4595cf9116f76bf87323fe29573d72a77a65"
+        "sha": "629622a4b7aa9dfc8724cc758ca389c3e24c0e77"
       },
       "homepage": "https://quarkus.io"
     },
@@ -2033,7 +2047,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "c2c82ab5fd2f4f5c0cddc9c7d8a749655dec4cb9"
+        "sha": "a4ff96f38622f7c4920dc349d59cc980663336f4"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -2174,7 +2188,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cap-js/mcp-server.git",
-        "sha": "92dc99f5ba0c56957ed5d390484693a69ebd1206"
+        "sha": "9658cea90c782a6ab007ac16278c90fa4feca0ed"
       },
       "homepage": "https://cap.cloud.sap/"
     },
@@ -2192,7 +2206,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "7432d23a7b5c3bd1c0a01cf76696bf0c417ecd1f"
+        "sha": "a5c52e7e2004f38cfb0f7c0d7778b9682bdae096"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
