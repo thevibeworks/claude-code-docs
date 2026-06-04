@@ -7,8 +7,8 @@
 > Specification Feature Lifecycle and Deprecation Policy
 
 <div className="flex items-center gap-2 mb-4">
-  <Badge color="gray" shape="pill">
-    Draft
+  <Badge color="green" shape="pill">
+    Final
   </Badge>
 
   <Badge color="gray" shape="pill">
@@ -20,7 +20,7 @@
 | ------------- | ------------------------------------------------------------------------------- |
 | **SEP**       | 2596                                                                            |
 | **Title**     | Specification Feature Lifecycle and Deprecation Policy                          |
-| **Status**    | Draft                                                                           |
+| **Status**    | Final                                                                           |
 | **Type**      | Process                                                                         |
 | **Created**   | 2026-04-17                                                                      |
 | **Author(s)** | Den Delimarsky ([@localden](https://github.com/localden))                       |

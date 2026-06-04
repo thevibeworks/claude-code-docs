@@ -7,8 +7,8 @@
 > TTL for List Results
 
 <div className="flex items-center gap-2 mb-4">
-  <Badge color="blue" shape="pill">
-    Accepted
+  <Badge color="green" shape="pill">
+    Final
   </Badge>
 
   <Badge color="gray" shape="pill">
@@ -20,7 +20,7 @@
 | ------------- | ------------------------------------------------------------------------------- |
 | **SEP**       | 2549                                                                            |
 | **Title**     | TTL for List Results                                                            |
-| **Status**    | Accepted                                                                        |
+| **Status**    | Final                                                                           |
 | **Type**      | Standards Track                                                                 |
 | **Created**   | 2026-04-09                                                                      |
 | **Author(s)** | Caitie McCaffrey ([@CaitieM20](https://github.com/CaitieM20))                   |
