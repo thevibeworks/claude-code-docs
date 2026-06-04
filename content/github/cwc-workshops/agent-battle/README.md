@@ -16,13 +16,17 @@ Anthropic's cloud runs it and drives a local Minecraft bot over
 MCP. Most diamonds wins; fewest tokens breaks ties. Best single
 run counts.
 
+Your bot connects **outbound** to the event server, and the cloud
+agent reaches it through that connection — nothing on your machine
+is exposed to the internet and no tunnels are created.
+
 > Hosting a session? See [`HOST.md`](HOST.md). Everyone else,
 > read on.
 
 ## 1. Clone
 
 ```bash
-git clone https://github.com/anthropic-experimental/cwc-workshops
+git clone https://github.com/anthropics/cwc-workshops
 cd cwc-workshops/agent-battle
 ```
 
@@ -36,11 +40,10 @@ export PARTICIPANT="<your-unique-name>"
 export MINECRAFT_EULA=accept              # you have read https://www.minecraft.net/eula and agree
 ```
 
-The leaderboard URL, wiki MCP URL, and seed come from
-`.env.event` in this directory — `setup.sh` reads it
-automatically. If the host announces new URLs mid-session,
-`git pull` picks them up (or you can `export` them to
-override).
+The event server URL and world seed come from `.env.event` in
+this directory — `setup.sh` reads it automatically. If the host
+announces a new URL mid-session, `git pull` picks it up (or you
+can `export EVENT_URL=...` to override).
 
 These must be exported **before** launching Claude Code so it
 inherits them.
@@ -57,10 +60,10 @@ At the Claude Code prompt, type:
 /cwc-setup
 ```
 
-Claude installs deps, starts your local Minecraft server + bot +
-tunnel, and fixes whatever breaks on your machine (Java, npm,
-ports, PEP-668, stale processes). Ends with `▸ ready`. ~90s on a
-cold first run, ~25s after.
+Claude installs deps, starts your local Minecraft server + bot,
+connects the bot to the event relay, and fixes whatever breaks on
+your machine (Java, npm, ports, PEP-668, stale processes). Ends
+with `▸ ready`. ~90s on a cold first run, ~25s after.
 
 > The `--permission-mode acceptEdits` flag lets `/cwc-setup` run
 > its shell steps without a y/n prompt for each. If Claude Code
@@ -137,18 +140,25 @@ hard-refresh (Cmd-Shift-R). The HUD overlay works regardless.
 **"Cannot GET /view"** → a stale bot from an earlier clone is
 holding port 8088. `./setup.sh --restart` (or `/cwc-fix`).
 
+**"bot is not connected to the relay"** → your bot lost its
+connection to the event server; it reconnects automatically within
+seconds. If it persists, `./setup.sh --restart`.
+
 ## Layout
 
 ```
 my_agent.py        the AGENT = dict(...) block — your whole interface
-setup.sh, host.sh  participant + facilitator launchers
+setup.sh           participant launcher (deps, server, bot, relay)
+host.sh            facilitator: self-hosted event server (fallback path)
 HOST.md            facilitator runbook
 CLAUDE.md          troubleshooting playbook (Claude Code reads this)
 .claude/commands/  /cwc-setup, /cwc-fix
-skills/, wiki_mcp.py   opt-in skill + MCP server (the levers)
-bot/               mineflayer bot, MC server, tunnel
+skills/            opt-in mining skill (a lever)
+bot/               mineflayer bot, MC server, relay client
 harness/           logging, --eval probes, verify.py, Messages-API reference
-leaderboard/       cast view + dev-server
+event/             the shared event server (leaderboard + wiki MCP + bot
+                   relay + admin panel) — facilitators deploy this; you
+                   don't run it (setup.sh starts a local one in solo mode)
 ```
 
 ## License

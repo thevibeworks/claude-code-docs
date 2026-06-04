@@ -11,6 +11,8 @@ With agent teams, multiple Claude instances work in parallel on a shared codebas
 
 To stress test it, I tasked 16 agents with writing a Rust-based C compiler, from scratch, capable of compiling the Linux kernel. Over nearly 2,000 Claude Code sessions and $20,000 in API costs, the agent team produced a 100,000-line compiler that can build Linux 6.9 on x86, ARM, and RISC-V.
 
+[Video 3](https://www.youtube.com/watch?v=vNeIQS9GsZ8)
+
 [The compiler is an interesting artifact](https://github.com/anthropics/claudes-c-compiler) on its own, but I focus here on what I learned about designing harnesses for long-running autonomous agent teams: how to write tests that keep agents on track without human oversight, how to structure work so multiple agents can make progress in parallel, and where this approach hits its ceiling.
 
 ## Enabling long-running Claudes
