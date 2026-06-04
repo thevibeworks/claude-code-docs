@@ -7,8 +7,8 @@
 > Require Conformance Tests for Standards Track SEPs to Reach Final Status
 
 <div className="flex items-center gap-2 mb-4">
-  <Badge color="gray" shape="pill">
-    Draft
+  <Badge color="green" shape="pill">
+    Final
   </Badge>
 
   <Badge color="gray" shape="pill">
@@ -20,7 +20,7 @@
 | ------------- | ------------------------------------------------------------------------------- |
 | **SEP**       | 2484                                                                            |
 | **Title**     | Require Conformance Tests for Standards Track SEPs to Reach Final Status        |
-| **Status**    | Draft                                                                           |
+| **Status**    | Final                                                                           |
 | **Type**      | Process                                                                         |
 | **Created**   | 2026-03-27                                                                      |
 | **Author(s)** | Paul Carleton ([@pcarleton](https://github.com/pcarleton))                      |

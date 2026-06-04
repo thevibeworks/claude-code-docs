@@ -7,8 +7,8 @@
 > Standardize Resource Not Found Error Code
 
 <div className="flex items-center gap-2 mb-4">
-  <Badge color="gray" shape="pill">
-    Draft
+  <Badge color="green" shape="pill">
+    Final
   </Badge>
 
   <Badge color="gray" shape="pill">
@@ -20,7 +20,7 @@
 | ------------- | ------------------------------------------------------------------------------- |
 | **SEP**       | 2164                                                                            |
 | **Title**     | Standardize Resource Not Found Error Code                                       |
-| **Status**    | Draft                                                                           |
+| **Status**    | Final                                                                           |
 | **Type**      | Standards Track                                                                 |
 | **Created**   | 2026-01-28                                                                      |
 | **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant))                        |
