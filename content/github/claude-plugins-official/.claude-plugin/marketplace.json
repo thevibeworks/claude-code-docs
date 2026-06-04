@@ -357,7 +357,7 @@
     },
     {
       "name": "aws-startup-advisor",
-      "description": "Skills for startups building on AWS: an Activate knowledge base (FAQ, credits, programs, partner offers, sample architectures, 277+ learn articles), a prompt library of 29+ copy-paste prompts plus installable agents, and an interactive discovery workflow that scaffolds an AWS architecture.",
+      "description": "Personalized architecture, cost, security, and migration guidance for startups. From day-one account setup and security baselines to production-ready infrastructure, cost optimization, and beyond. Includes AWS Activate Credits eligibility, 60+ exclusive startup offers, and multi-account multi-region support. Built on expertise from AWS Startup Solutions Architects and patterns from 350,000+ startups.",
       "author": {
         "name": "Amazon Web Services"
       },
@@ -2089,7 +2089,7 @@
         "source": "url",
         "url": "https://github.com/RevenueCat/rc-claude-code-plugin.git",
         "path": "revenuecat",
-        "sha": "81262a339601c4b64b909c370225cbd7917ade1f"
+        "sha": "b34f9bebe02ceb7e3f32e6d7d081cdfb2e7c37a6"
       },
       "homepage": "https://www.revenuecat.com"
     },
@@ -2650,6 +2650,22 @@
         "sha": "767ac53cb056a0c900374ccea0df96c54b769eb2"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
+    },
+    {
+      "name": "valtown",
+      "description": "Build and deploy on Val Town. Bundles the Val Town MCP server and platform skills (HTTP vals, cron/intervals, SQLite, email, OAuth, React UI, third-party integrations, templates).",
+      "author": {
+        "name": "Val Town"
+      },
+      "category": "deployment",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/val-town/plugins.git",
+        "path": "plugin",
+        "ref": "main",
+        "sha": "e01069e11ea6e46b8d2d5fd2945f2dd4d33e6a57"
+      },
+      "homepage": "https://val.town"
     },
     {
       "name": "vanta",

@@ -78,7 +78,7 @@ per-request input, not connection state.
 ### Listing Resources
 
 To discover available resources, clients send a `resources/list` request. This operation
-supports [pagination](/specification/draft/server/utilities/pagination).
+supports [pagination](/specification/draft/server/utilities/pagination) and [caching](/specification/draft/server/utilities/caching).
 
 **Request:**
 
@@ -126,7 +126,8 @@ supports [pagination](/specification/draft/server/utilities/pagination).
 
 ### Reading Resources
 
-To retrieve resource contents, clients send a `resources/read` request:
+To retrieve resource contents, clients send a `resources/read` request. This operation
+supports [caching](/specification/draft/server/utilities/caching).
 
 **Request:**
 
@@ -175,7 +176,7 @@ Alternatively, if the scheme of `uri` is `https://`, clients may fetch the resou
 Resource templates allow servers to expose parameterized resources using
 [URI templates](https://datatracker.ietf.org/doc/html/rfc6570). Arguments may be
 auto-completed through [the completion API](/specification/draft/server/utilities/completion).
-This operation supports [pagination](/specification/draft/server/utilities/pagination).
+This operation supports [pagination](/specification/draft/server/utilities/pagination) and [caching](/specification/draft/server/utilities/caching).
 
 **Request:**
 
