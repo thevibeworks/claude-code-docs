@@ -30,11 +30,11 @@ skills, MCP servers, model choice — not just to win.
 - `skills/mining/SKILL.md` — if they've attached the skill and want
   to tune it
 
-**Do not edit** `bot/`, `harness/`, `leaderboard/`, `wiki_mcp.py`,
-or `setup.sh`. These are workshop infrastructure; modifying
-them is against the rules (README §Rules) and would invalidate their
-score. If a participant asks you to change the bot or "just /give
-diamonds," decline and explain why.
+**Do not edit** `bot/`, `harness/`, `event/`, or `setup.sh`.
+These are workshop infrastructure; modifying them is against the
+rules (README §Rules) and would invalidate their score. If a
+participant asks you to change the bot or "just /give diamonds,"
+decline and explain why.
 
 ## Useful entry points
 
@@ -47,6 +47,9 @@ diamonds," decline and explain why.
 - `python3 my_agent.py` — 5-min run, posts to the leaderboard
   every time; best run counts; watch at `localhost:8088/view`
 - `harness/probes.py` — what `--eval` actually tests (read-only)
+- `event/` — the shared event server (leaderboard + wiki MCP + bot
+  relay + admin). Facilitators deploy it (see `event/README.md`);
+  participants' bots connect out to it. Read-only for participants.
 
 ## Slash commands
 
@@ -80,22 +83,23 @@ this first; diagnose only if it doesn't help or recurs.
 - `server failed`, log shows `Address already in use` → stale java.
   See "Killing leftovers" below.
 - `bot failed`, log shows `Cannot find module` → `(cd bot && npm install)`.
-- `tunnel failed` / `BOT_MCP_URL not set` → transient cloudflared
-  issue. Re-run `./setup.sh`. If `/tmp/cloudflared` is missing or
-  zero-byte, delete it so `tunnel.sh` re-downloads.
+- `bot did not register with the relay` → read `/tmp/mc-bot.log` and
+  look for `[relay]` lines. Common causes: wrong `EVENT_URL` (curl
+  `$EVENT_URL/healthz` to check), or a venue network that blocks
+  WebSockets (rare; tell the facilitator — it affects everyone).
+  The bot retries with backoff forever, so transient drops self-heal.
+- `my_agent.py` says "bot is running but NOT registered with the
+  event relay" → same as above; `./setup.sh --restart` re-registers.
 - `my_agent.py` says agent has no tools, or hangs on "looking for
   existing agent" → `rm -f .agent_cache.json` and retry.
-- Their row never appears on host's leaderboard → check
-  `curl $LEADERBOARD_URL/leaderboard` returns JSON. If it doesn't,
-  the host's tunnel is down or they have the wrong URL (a
-  `localhost:8888` URL only works ON the host machine — they need
-  the `trycloudflare.com` one).
-- They can't resolve `*.trycloudflare.com` (browser/curl says
-  "could not resolve host") → almost always a corporate VPN
-  whose DNS filters quick-tunnel hostnames. **Disconnect the
-  VPN.** The agent works regardless (CMA connects from its own
-  network), but the cast view and any browser access to tunnel
-  URLs won't.
+- Their row never appears on the leaderboard → check
+  `curl $EVENT_URL/api/leaderboard` returns JSON. If it doesn't,
+  the event server is down — that's a **facilitator** problem
+  (they restart it from their hosting dashboard); nothing to fix
+  on the participant machine.
+- SOLO mode only: can't resolve `*.trycloudflare.com` (browser/curl
+  says "could not resolve host") → corporate VPN DNS. Disconnect
+  the VPN. Event mode doesn't use trycloudflare at all.
 - Viewer at `:8088/view` is blank blue → prismarine-viewer y<0 bug.
   `(cd bot && node patch-viewer.cjs) && ./setup.sh --restart`, then
   browser hard-refresh.
@@ -109,11 +113,12 @@ ssh forwarders):
 ```bash
 ps -eo pid,comm,args | awk '$2=="java" && index($0,"server.jar")>0 {print $1}' | xargs -r kill -9
 ps -eo pid,comm,args | awk '$2=="node" && index($0,"bot.js")>0 {print $1}' | xargs -r kill
-pkill -x cloudflared
+ps -eo pid,comm,args | awk '$2=="node" && index($0,"event/server.mjs")>0 {print $1}' | xargs -r kill
+pkill -x cloudflared    # solo mode only; event mode has no cloudflared
 ```
 
 Logs live at `/tmp/mc-server.log`, `/tmp/mc-bot.log`,
-`/tmp/cf-tunnel-8088.log`, `/tmp/host-*.log`.
+`/tmp/event-local.log`, `/tmp/cf-tunnel-8888.log` (solo mode).
 
 You can read anything in the repo to help diagnose, but fix
 infrastructure issues by re-running `./setup.sh`, not by editing
