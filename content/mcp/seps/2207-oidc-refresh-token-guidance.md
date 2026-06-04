@@ -7,8 +7,8 @@
 > OIDC-Flavored Refresh Token Guidance
 
 <div className="flex items-center gap-2 mb-4">
-  <Badge color="blue" shape="pill">
-    Accepted
+  <Badge color="green" shape="pill">
+    Final
   </Badge>
 
   <Badge color="gray" shape="pill">
@@ -20,7 +20,7 @@
 | ------------- | ------------------------------------------------------------------------------- |
 | **SEP**       | 2207                                                                            |
 | **Title**     | OIDC-Flavored Refresh Token Guidance                                            |
-| **Status**    | Accepted                                                                        |
+| **Status**    | Final                                                                           |
 | **Type**      | Standards Track                                                                 |
 | **Created**   | 2026-02-04                                                                      |
 | **Author(s)** | Wils Dawson ([@wdawson](https://github.com/wdawson))                            |
