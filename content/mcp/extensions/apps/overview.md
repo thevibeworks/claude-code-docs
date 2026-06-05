@@ -166,7 +166,7 @@ best for your use case.
 ## Client support
 
 <Note>
-  MCP Apps is an extension to the [core MCP specification](/specification). Host support varies by client.
+  MCP Apps is an extension to the [core MCP specification](/specification/latest). Host support varies by client.
 </Note>
 
 MCP Apps are currently supported by [Claude](https://claude.ai),

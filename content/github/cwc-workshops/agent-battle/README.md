@@ -82,6 +82,10 @@ with `▸ ready`. ~90s on a cold first run, ~25s after.
 python3 my_agent.py
 ```
 
+> If setup said it created `.venv/` (Homebrew/Debian Python), run
+> `source .venv/bin/activate` first in any new terminal — otherwise
+> `python3` won't see the installed dependencies.
+
 **Every run is 5 minutes and posts to the leaderboard.** Open
 `http://localhost:8088/view` — your bot's first-person camera
 with a live 💎 counter and inventory. (Fallback: `localhost:3007`.)
