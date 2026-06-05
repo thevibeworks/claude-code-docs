@@ -10,6 +10,10 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.165" description="June 5, 2026">
+  * Bug fixes and reliability improvements
+</Update>
+
 <Update label="2.1.163" description="June 4, 2026">
   * Added `requiredMinimumVersion` and `requiredMaximumVersion` managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version
   * Added `/plugin list` command to list installed plugins, with `--enabled`/`--disabled` filters
