@@ -588,7 +588,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
   </Tab>
 
   <Tab title="Python">
-    You can see the complete Python project in the [sample repository](https://github.com/localden/min-py-mcp-auth).
+    You can see the complete Python project in the [sample repository](https://github.com/modelcontextprotocol/python-sdk/tree/main/examples/servers/simple-auth).
 
     To simplify our authorization interaction, in Python scenarios we rely on [FastMCP](https://gofastmcp.com/getting-started/welcome). Many of the conventions around authorization, like the endpoints and token validation logic, are consistent across languages, but some offer simpler ways of integrating them in production scenarios.
 

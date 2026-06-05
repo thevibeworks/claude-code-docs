@@ -548,7 +548,7 @@ executes based on the body value).
 </Note>
 
 When rejecting a request due to header validation failure, servers **MUST**
-return HTTP status `400 Bad Request` and **SHOULD** include a JSON-RPC error
+return HTTP status `400 Bad Request` and **MUST** include a JSON-RPC error
 response using the following error code:
 
 | Code     | Name             | Description                                                                                                            |
