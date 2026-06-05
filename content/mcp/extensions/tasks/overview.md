@@ -239,7 +239,7 @@ To return tasks from your server:
 ## Client support
 
 <Note>
-  MCP Tasks is an extension to the [core MCP specification](/specification). Host
+  MCP Tasks is an extension to the [core MCP specification](/specification/latest). Host
   support varies by client.
 </Note>
 
