@@ -21,6 +21,8 @@ In internal testing, we’ve found these features have helped us build things th
 
 Based on our experience, we believe these features open up new possibilities for what you can build with Claude.
 
+[Video 3](https://www.youtube.com/watch?v=2MJDdzSXL74)
+
 ## Tool Search Tool
 
 ### The challenge
