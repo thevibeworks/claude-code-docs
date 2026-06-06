@@ -8,7 +8,7 @@ Markdown Content:
 3.   [Plan overviews](https://support.claude.com/en/collections/18901829-plan-overviews)
 4.   What is the Team plan?
 
-Updated yesterday
+Updated this week
 
 Table of contents
 
