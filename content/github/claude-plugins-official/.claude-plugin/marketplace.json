@@ -1126,7 +1126,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/exa-labs/exa-mcp-server.git",
-        "sha": "ad888a188cdefbe832c9feed2c3a97d1cb93cb35"
+        "sha": "f08388256c5806f457fae777b5528eb02a48e703"
       },
       "homepage": "https://exa.ai/docs/reference/exa-mcp"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "dd9567446bce28dff9f8a163b03a0071870eb07b"
+        "sha": "29d6f1eac9915f435a6dd72cf9ed96431c6afaf8"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2140,7 +2140,7 @@
         "url": "https://github.com/railwayapp/railway-skills.git",
         "path": "plugins/railway",
         "ref": "main",
-        "sha": "daa677165306b5cf6db4fb763e411fdf67fe92ff"
+        "sha": "1df604ebd18f528ff16b84975125ecff944cc036"
       },
       "homepage": "https://docs.railway.com/ai/claude-code-plugin"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "29a68ecdf5ff34bf2334afbee6d95446aa8e543e"
+        "sha": "3f8f2a687a083710d4abfafeb48467ad1b3b51c5"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
