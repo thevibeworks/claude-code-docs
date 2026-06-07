@@ -502,7 +502,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "54602de67332dea3827b325966e454fd1c024240"
+        "sha": "0227331a2f2e5bc34485f3473d1046a3a52084d7"
       },
       "homepage": "https://carta.com"
     },
@@ -518,7 +518,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "54602de67332dea3827b325966e454fd1c024240"
+        "sha": "0227331a2f2e5bc34485f3473d1046a3a52084d7"
       },
       "homepage": "https://carta.com"
     },
@@ -534,7 +534,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "54602de67332dea3827b325966e454fd1c024240"
+        "sha": "0227331a2f2e5bc34485f3473d1046a3a52084d7"
       },
       "homepage": "https://carta.com"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "bacfb17538ae2c79343e816dd03d6a62f2d0163c"
+        "sha": "dd9567446bce28dff9f8a163b03a0071870eb07b"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1839,7 +1839,7 @@
         "url": "https://github.com/NVIDIA/skills.git",
         "path": "plugins/nvidia-skills",
         "ref": "main",
-        "sha": "bb0436faf7c9c5270f2dbc3d30c39379e5e2305b"
+        "sha": "e29b3c65dd0292e3f9f851b15eefe5a7c2023dd7"
       },
       "homepage": "https://github.com/NVIDIA/skills"
     },
@@ -2534,7 +2534,7 @@
         "url": "https://github.com/Snowflake-Labs/snowflake-ai-kit.git",
         "path": "plugins/cortex-code",
         "ref": "main",
-        "sha": "54760f12caec87e3dde7eaf9b14a2421e371561d"
+        "sha": "6a22eb1ff3b451c35e40468a118bbee54610c9bd"
       },
       "homepage": "https://docs.snowflake.com/en/user-guide/cortex-code"
     },
@@ -2676,7 +2676,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/JetBrains/teamcity-cli.git",
-        "sha": "3cc3013c0f8106ffc845b34fb322d763803bcb0e"
+        "sha": "67e21f0be908daa7ca1e04c8016d1bc81750baee"
       },
       "homepage": "https://www.jetbrains.com/teamcity/"
     },
@@ -2707,7 +2707,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/togethercomputer/skills.git",
-        "sha": "9772f2a2f83e2184c341dd2650ac4c7efb76c33b"
+        "sha": "fb94cc1402900eb608c31e7102fc23566f8b0363"
       },
       "homepage": "https://www.together.ai"
     },
@@ -2769,7 +2769,7 @@
         "url": "https://github.com/UI5/plugins-coding-agents.git",
         "path": "plugins/ui5",
         "ref": "main",
-        "sha": "767ac53cb056a0c900374ccea0df96c54b769eb2"
+        "sha": "9b3d7d80356f687725f9584988e4038dbead0d53"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
     },
@@ -2787,7 +2787,7 @@
         "url": "https://github.com/UI5/plugins-coding-agents.git",
         "path": "plugins/ui5-typescript-conversion",
         "ref": "main",
-        "sha": "767ac53cb056a0c900374ccea0df96c54b769eb2"
+        "sha": "9b3d7d80356f687725f9584988e4038dbead0d53"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
     },
@@ -2803,7 +2803,7 @@
         "url": "https://github.com/val-town/plugins.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "e01069e11ea6e46b8d2d5fd2945f2dd4d33e6a57"
+        "sha": "a3e884685d1914f28ce029e4f35acd17442e883f"
       },
       "homepage": "https://val.town"
     },
@@ -2856,7 +2856,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/explorium-ai/vibeprospecting-plugin.git",
-        "sha": "7ed0c4e2965ee315132c3c714609b46b23b5edc0"
+        "sha": "aa5903f52d79e7f2a5f9c324c6fff7d5a5d92631"
       },
       "homepage": "https://www.vibeprospecting.ai/product/claude-plugin"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "f99715fc149208608a148c0fe0ed16c0f80ee734"
+        "sha": "29a68ecdf5ff34bf2334afbee6d95446aa8e543e"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -2934,7 +2934,7 @@
         "url": "https://github.com/zapier/zapier-mcp.git",
         "path": "plugins/zapier",
         "ref": "main",
-        "sha": "f34a7854febed415c9ef766eec1c66529ef0668e"
+        "sha": "770167c572deaf74c588b45d88003ddf2145d608"
       },
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
     },
@@ -2988,7 +2988,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zscaler/zscaler-mcp-server.git",
-        "sha": "be37fb604a07dc9c5a4c3e009312c4f11acaa6d3"
+        "sha": "f84ce4f0ed48047614a4202ac311cbdf00ea9a10"
       },
       "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     }
