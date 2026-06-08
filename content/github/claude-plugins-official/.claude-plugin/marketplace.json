@@ -472,7 +472,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/brightdata/skills.git",
-        "sha": "68651246ad1819b98a1fc15ce10239e55406ff37"
+        "sha": "3e6d0838285cbc107b86d61e2e1a943baf7ead29"
       },
       "homepage": "https://docs.brightdata.com"
     },
@@ -1035,7 +1035,7 @@
         "url": "https://github.com/microsoft/Dataverse-skills.git",
         "path": ".github/plugins/dataverse",
         "ref": "main",
-        "sha": "ab906c960db0f2da83c2cb92a3fd162ccaba9cb9"
+        "sha": "2d50cf65f80efc17ac50632222d61fb374115a70"
       },
       "homepage": "https://github.com/microsoft/Dataverse-skills"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "29d6f1eac9915f435a6dd72cf9ed96431c6afaf8"
+        "sha": "fc01717c8219fd766e2b3fd8b6ea550457f03095"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "3f8f2a687a083710d4abfafeb48467ad1b3b51c5"
+        "sha": "038e0c5593f115519bfd634b1270fd897cf5b99d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
