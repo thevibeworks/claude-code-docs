@@ -19,7 +19,7 @@
         "url": "https://github.com/42Crunch-AI/claude-plugins.git",
         "path": "plugins/api-security-testing",
         "ref": "v1.5.5",
-        "sha": "c2951754af2b811955957d22716844b5a3c016e9"
+        "sha": "db2fb7e53e3d93a863930b6f6b7895be5ee01f21"
       },
       "homepage": "https://42crunch.com"
     },
@@ -561,7 +561,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "f90f863d4b9d643ab880c9dc8cdd78b6c88ae38d"
+        "sha": "7afd01673f99126e3cd98eb7f62190d7784ef71a"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -655,7 +655,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
-        "sha": "1f30864b720960a797e5c7f6138d328bec3984cb"
+        "sha": "ecbd47627d7e7b3de15b297b91e0abf3e6ebc746"
       },
       "homepage": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
     },
@@ -669,7 +669,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/agent-skills.git",
-        "sha": "3a1ee1152fbd21026d693cd665a7b7e811c07506"
+        "sha": "544384f4fab1d6ed59f16a354d1c68296dfa6007"
       },
       "homepage": "https://clickhouse.com"
     },
@@ -918,7 +918,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "1e64ae2d91fd0ae2d2dae1b6c8b4cb6681c5cd46"
+        "sha": "5ff7aa5b8e52e10d10e45ea8e2f7cbebc86758bf"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1333,7 +1333,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/huggingface/skills.git",
-        "sha": "504191c59a67888cae225ea54fe03aa502ef0319"
+        "sha": "d7223848c3895fbd447faf2aec73e0a6cdd7fdcd"
       },
       "homepage": "https://github.com/huggingface/skills.git"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "fc01717c8219fd766e2b3fd8b6ea550457f03095"
+        "sha": "1fd1b3164a87221fbb5c9e01557125d13e829554"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2348,7 +2348,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "070cb3c2bbef93da503753c2439a842c2d5f7286"
+        "sha": "f6e9ae1f44a45886c14f6c2c6f31fc06e256c3e2"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "038e0c5593f115519bfd634b1270fd897cf5b99d"
+        "sha": "8ed898abcfa5fb3ff8e43c4c1c39d7a55d9cedef"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
