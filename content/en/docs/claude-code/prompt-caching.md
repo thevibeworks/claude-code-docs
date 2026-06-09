@@ -71,6 +71,8 @@ Each model has its own cache. Switching with [`/model`](/en/model-config#setting
 
 The [`opusplan` model setting](/en/model-config#opusplan-model-setting) resolves to Opus during plan mode and Sonnet during execution, so each plan-mode toggle is a model switch and starts a fresh cache.
 
+[Automatic model fallback](/en/model-config#automatic-model-fallback) on Fable 5 is also a model switch. When a safety classifier flags a request, Claude Code re-runs it on the default Opus model and the session continues there.
+
 ### Changing effort level
 
 The cache is keyed by [effort level](/en/model-config#adjust-effort-level) as well as model, so switching with `/effort` means the next request reads the entire conversation history with no cache hits. Once a conversation has started, Claude Code shows a confirmation dialog before applying an effort change that would invalidate the cache. A change that resolves to the same level already in effect, such as setting the model's default explicitly, skips the dialog and keeps the cache.
@@ -102,7 +104,7 @@ Editing your MCP config does not by itself change the cache. The new config take
 
 The exception is a plugin that provides [MCP servers](/en/plugins-reference#mcp-servers). Enabling or disabling one follows the same rules as [connecting or disconnecting an MCP server](#connecting-or-disconnecting-an-mcp-server): the cache survives when the server's tools are deferred, and the next request re-reads the entire conversation when they load into the prefix.
 
-Plugin changes apply when you run [`/reload-plugins`](/en/discover-plugins#apply-plugin-changes-without-restarting) or start a new session. The cost, whether appended announcements or a full re-read, shows up on the first turn after the reload, not when you run `/plugin install`, `/plugin enable`, or `/plugin disable`. {/* min-version: 2.1.163 */}As of v2.1.163, when a reload would trigger the full re-read, `/reload-plugins` warns and holds instead of applying it. Pass `--force` to apply anyway.
+Plugin changes apply when you run [`/reload-plugins`](/en/discover-plugins#apply-plugin-changes-without-restarting) or start a new session. The cost, whether appended announcements or a full re-read, shows up on the first turn after the reload, not when you run `/plugin install`, `/plugin enable`, or `/plugin disable`. {/* min-version: 2.1.163 */}As of v2.1.163, when a reload would trigger the full re-read, `/reload-plugins` shows a warning and does not apply the reload. Pass `--force` to apply anyway.
 
 Disabling a plugin you enabled earlier in the session restores the previous request shape. If that prefix is still within its [cache lifetime](#cache-lifetime), the next request reads the older cache entry instead of rebuilding.
 
@@ -110,7 +112,7 @@ Disabling a plugin you enabled earlier in the session restores the previous requ
 
 Adding a bare tool name like `Bash` or `WebFetch` as a [deny rule](/en/permissions#manage-permissions) removes that tool from Claude's context entirely. Built-in tool definitions load into the system prompt layer, so adding or removing one of these rules mid-session invalidates the cache. The change takes effect on the next turn whether you add it through `/permissions` or by [editing a settings file directly](/en/settings#when-edits-take-effect).
 
-Only a bare tool name, or the equivalent `Bash(*)` form, has this effect. Scoped deny rules like `Bash(rm *)`, and all allow and ask rules, don't change which tools Claude sees. Claude Code checks them when Claude attempts a call, leaving the prefix intact.
+Only a deny rule that matches in the tool-name position has this effect: a bare tool name, the equivalent `Bash(*)` form, or a [tool-name glob](/en/permissions#tool-name-wildcards) like `"*"`. A glob that matches only MCP tools, such as `"mcp__*"`, removes those tools the same way but leaves the cache intact when the matched tools are [deferred](#connecting-or-disconnecting-an-mcp-server), the default, since deferred definitions were never in the cached prefix. Scoped deny rules like `Bash(rm *)`, and all allow and ask rules, don't change which tools Claude sees. Claude Code checks them when Claude attempts a call, leaving the prefix intact.
 
 ### Compacting the conversation
 

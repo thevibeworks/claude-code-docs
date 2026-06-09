@@ -32,6 +32,15 @@ and explain it in terms a modern engineer can act on.
 - **Note what's missing.** Unhandled error paths, TODO comments, commented-out
   blocks, magic numbers — these are signals about history and risk.
 
+## Secret handling (mandatory)
+
+Legacy code is full of live credentials, and your findings get copied into
+shareable reports. When the evidence for a finding — hardcoded config,
+dead code, debt, an interface payload — includes a credential, API key,
+token, connection string, or private key, **never reproduce the value**.
+Cite `file:line` with a masked preview (`VALUE 'Pr0d****'`,
+`password=****`). The finding is the practice, not the value.
+
 ## Output format
 
 Default to structured markdown: tables for inventories, Mermaid for graphs,

@@ -46,7 +46,7 @@ Merge the three result sets. Deduplicate. For each distinct rule, write a
   When  <trigger>
   Then  <outcome>
   [And  <additional outcome>]
-**Parameters:** <constants, rates, thresholds with their current values>
+**Parameters:** <constants, rates, thresholds with their current values — credentials masked: `<credential — masked, see file:line>`>
 **Edge cases handled:** <list>
 **Suspected defect:** <optional — legacy behavior that looks wrong; decide preserve-vs-fix during transform>
 **Confidence:** High | Medium | Low — <why; if < High, state the exact SME question>

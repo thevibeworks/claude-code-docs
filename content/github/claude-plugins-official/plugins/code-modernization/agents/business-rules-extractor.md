@@ -40,6 +40,15 @@ of the technology, skip it.
    from structure/names), **Low** (ambiguous; needs SME).
 6. If confidence < High, write the exact question an SME must answer.
 
+## Secret handling (mandatory)
+
+Rule parameters sometimes *are* credentials — hardcoded passwords in auth
+checks, API keys in partner-service calls, connection strings in batch
+routines. Record the **rule**, never the **value**: write the parameter as
+`<credential — masked, see file:line>` with at most a 2–4 character
+preview. Rule cards flow into briefs and steering decks; a raw credential
+in a parameter list is a leak.
+
 ## Output format
 
 One "Rule Card" per rule (see the format in the `/modernize-extract-rules`

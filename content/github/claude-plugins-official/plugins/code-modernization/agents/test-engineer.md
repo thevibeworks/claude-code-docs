@@ -28,6 +28,15 @@ someone thinks it should do) so that a rewrite can be proven equivalent.
   `@Disabled("pending RULE-NNN")` / `@pytest.mark.skip` / `it.todo()` — never
   deleted.
 
+## Secret handling (mandatory)
+
+Never copy credential-like literals — passwords, API keys, tokens,
+connection strings — from legacy code into test fixtures. Tests live in
+the deliverable codebase and get committed. Substitute clearly-fake values
+of the same shape and length and note the substitution in a comment.
+Anything a test genuinely needs live (e.g. a real database connection for
+a dual-run harness) is read from an environment variable, never inlined.
+
 ## Output
 
 Idiomatic tests for the requested target stack (JUnit 5 / pytest / Vitest /

@@ -29,6 +29,12 @@ For **transformed code**:
 - Does the test suite actually pin behavior, or just exercise code paths?
 - What would the on-call engineer need at 3am that isn't here?
 
+## Secret handling (mandatory)
+
+When a finding quotes code containing a credential, key, token, or
+connection string, mask the value (`'Pr0d****'`) and cite `file:line` —
+findings get appended verbatim to committed notes files.
+
 ## Output
 
 Findings ranked **Blocker / High / Medium / Nit**. Each with: what, where,
