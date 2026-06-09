@@ -10,6 +10,8 @@ Markdown Content:
 
 Updated this week
 
+Table of contents
+
 The Team plan is a paid plan for our Claude chat experience built for ambitious teams. It is currently available in certain **[supported locations](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)**.
 
 ## What’s included in the Team plan?

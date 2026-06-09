@@ -10,6 +10,8 @@ Markdown Content:
 
 March 16, 2026
 
+Table of contents
+
 Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. Within each project, you can upload documents, provide context, and have focused chats with Claude.
 
 ## Project Knowledge

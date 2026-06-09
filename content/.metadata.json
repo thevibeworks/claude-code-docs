@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-06-09T04:57:54.055511Z",
+    "fetch_date": "2026-06-09T13:34:58.723549Z",
     "section": "all"
   },
   "items": [
@@ -12480,13 +12480,6 @@
       "size": 1725
     },
     {
-      "url": "https://support.claude.com/en/articles/9264813-consumer-terms-of-service-updates",
-      "status": "success",
-      "path": "support/9264813-consumer-terms-of-service-updates.md",
-      "sha256": "05a34ddbe80ddc23b731cf8f6a5dcc51b3129eca6d8a7a716cda721d55cabea5",
-      "size": 2250
-    },
-    {
       "url": "https://support.claude.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team",
       "status": "success",
       "path": "support/9265372-who-owns-and-manages-the-data-of-my-team.md",
@@ -12511,8 +12504,8 @@
       "url": "https://support.claude.com/en/articles/9266767-what-is-the-team-plan",
       "status": "success",
       "path": "support/9266767-what-is-the-team-plan.md",
-      "sha256": "58adb215afa3660c24eafa5a2330c32831c116b8111de9b3906ff3b952968ac9",
-      "size": 3536
+      "sha256": "e81dbdfa68f3f9dbef6389fe404850e622ed013c5e2b33bccad1814aecc39406",
+      "size": 3555
     },
     {
       "url": "https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan",
@@ -12560,8 +12553,8 @@
       "url": "https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization",
       "status": "success",
       "path": "support/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization.md",
-      "sha256": "ce9f23ba606a43c00690eca41a88c059fca00b77326391d3a8b2cf9ec348bdc5",
-      "size": 3365
+      "sha256": "6b9110907151fcc4058142f4f7697e496a11acfbaa9d9e0913d6407052ae7626",
+      "size": 3353
     },
     {
       "url": "https://support.claude.com/en/articles/9301722-updates-to-our-acceptable-use-policy-now-usage-policy-consumer-terms-of-service-and-privacy-policy",
@@ -12602,8 +12595,15 @@
       "url": "https://support.claude.com/en/articles/9517075-what-are-projects",
       "status": "success",
       "path": "support/9517075-what-are-projects.md",
-      "sha256": "e61128cf2bd90d164ef5faad967f01c0d8ef3f04584a81d08e707b83efa8ec36",
-      "size": 2943
+      "sha256": "2294a9db4b40d8359639e2903cefadc67b8357bf63f598048dff732321489e3b",
+      "size": 2962
+    },
+    {
+      "url": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
+      "status": "success",
+      "path": "support/9519177-how-can-i-create-and-manage-projects.md",
+      "sha256": "8e75e90a99d9ec5618874abb602c53b8cbb0c15416592b64303cb9b0b5e5eb69",
+      "size": 9777
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/.claude/agents/code-reviewer.md",
@@ -14443,7 +14443,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json",
       "status": "success",
       "path": "github/claude-plugins-official/.claude-plugin/marketplace.json",
-      "sha256": "6ff797e5497bae53330b7977079553e1b15fffe87d1b74d2afffa47bf62733d0",
+      "sha256": "f5c397c456539042ec444e60d729979123ef672c48d9626ced9e1529b2166190",
       "size": 126429
     },
     {
