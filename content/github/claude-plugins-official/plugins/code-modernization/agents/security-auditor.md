@@ -39,7 +39,30 @@ terminal/screen items don't apply to a SPA. Work through what's relevant:
 
 Use available SAST where it helps (npm audit, pip-audit, grep for known-bad
 patterns) but **read the code** — tools miss logic flaws. Show tool output
-verbatim, then add your manual findings.
+verbatim — except secret values, which you redact (see below) — then add
+your manual findings.
+
+## Secret handling (mandatory)
+
+Legacy codebases routinely contain live production credentials, and your
+findings get pasted into decks, tickets, and committed markdown. Copying a
+secret into a report multiplies the exposure you were hired to find.
+
+When you discover a hardcoded credential, API key, token, connection
+string, or private key:
+
+- **Never write the secret's value into any output** — no finding table,
+  no report, no quoted code excerpt, no echoed tool output. Mask it to the
+  first 2–4 identifying characters plus `****` (`AKIA****`,
+  `postgres://app_user:****@db-prod…`). If a scanner prints a secret,
+  redact it before including the excerpt.
+- Cite `file:line`. The source file is the canonical location — anyone who
+  legitimately needs the value can open it there.
+- State what the credential appears to grant access to (database, queue,
+  cloud account, third-party API) and whether it looks like a production
+  or test credential.
+- Recommend rotation for anything that looks live — exposure in source
+  means it is already compromised, independent of any modernization plan.
 
 ## Reporting standard
 

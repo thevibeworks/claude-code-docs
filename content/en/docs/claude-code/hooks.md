@@ -306,13 +306,13 @@ The `if` field holds exactly one permission rule. There is no `&&`, `||`, or lis
 
 <span id="bash-if-matching" />For Bash patterns, whether your hook command runs depends on the shape of the pattern and the Bash command Claude is invoking. Leading `VAR=value` assignments are stripped before matching.
 
-| `if` pattern       | Bash command           | Hook runs? | Why                                                                                    |
-| :----------------- | :--------------------- | :--------- | :------------------------------------------------------------------------------------- |
-| `Bash(git *)`      | `FOO=bar git push`     | yes        | leading assignments are stripped; `git push` matches                                   |
-| `Bash(git *)`      | `npm test && git push` | yes        | each subcommand is checked; `git push` matches                                         |
-| `Bash(rm *)`       | `echo $(rm -rf /)`     | yes        | commands inside `$()` and backticks are checked; `rm -rf /` matches                    |
-| `Bash(rm *)`       | `echo $(date)`         | no         | no subcommand matches `rm *`                                                           |
-| `Bash(git push *)` | `echo $(date)`         | yes        | patterns that constrain past the command name fail open on `$()`, backticks, or `$VAR` |
+| `if` pattern       | Bash command           | Hook runs? | Why                                                                                                 |
+| :----------------- | :--------------------- | :--------- | :-------------------------------------------------------------------------------------------------- |
+| `Bash(git *)`      | `FOO=bar git push`     | yes        | leading assignments are stripped; `git push` matches                                                |
+| `Bash(git *)`      | `npm test && git push` | yes        | each subcommand is checked; `git push` matches                                                      |
+| `Bash(rm *)`       | `echo $(rm -rf /)`     | yes        | commands inside `$()` and backticks are checked; `rm -rf /` matches                                 |
+| `Bash(rm *)`       | `echo $(date)`         | no         | no subcommand matches `rm *`                                                                        |
+| `Bash(git push *)` | `echo $(date)`         | yes        | patterns that specify more than the command name run the hook anyway on `$()`, backticks, or `$VAR` |
 
 The filter also fails open, running your hook regardless of pattern, when the Bash command cannot be parsed. Because the `if` filter is best-effort, use the [permission system](/en/permissions) rather than a hook to enforce a hard allow or deny.
 
@@ -810,6 +810,15 @@ Not every event supports blocking or controlling behavior through JSON. The even
 | MessageDisplay                                                                                                                      | `hookSpecificOutput`           | `displayContent` replaces the displayed text on screen. Display-only: the transcript and what Claude sees keep the original                                                                                                         |
 | SessionStart, Setup, SubagentStart                                                                                                  | Context only                   | `hookSpecificOutput.additionalContext` adds context for Claude. SessionStart also accepts [`initialUserMessage`, `watchPaths`, `sessionTitle`, and `reloadSkills`](#sessionstart-decision-control). No blocking or decision control |
 | WorktreeRemove, Notification, SessionEnd, PostCompact, InstructionsLoaded, StopFailure, CwdChanged, FileChanged                     | None                           | No decision control. Used for side effects like logging or cleanup                                                                                                                                                                  |
+
+A few events can also rewrite content rather than only allow or block it:
+
+* `PreToolUse` — `updatedInput` directly under `hookSpecificOutput` replaces a tool's arguments before it runs ([details](#pretooluse-decision-control))
+* `PermissionRequest` — `updatedInput` inside the `decision` object ([details](#permissionrequest-decision-control))
+* `PostToolUse` — `updatedToolOutput` replaces the tool's result ([details](#posttooluse-decision-control))
+* `UserPromptSubmit` — cannot replace the prompt; only injects `additionalContext` alongside it
+
+For redaction or transformation use cases, intercept at `PreToolUse` for outbound tool inputs and `PostToolUse` for inbound tool results.
 
 Here are examples of each pattern in action:
 
@@ -1414,6 +1423,8 @@ In `PostToolUse`, `tool_response` for a completed Agent call carries the subagen
 | `usage`             | object | `{"input_tokens": 8320, ...}`                         | Per-type token breakdown: `input_tokens`, `output_tokens`, `cache_creation_input_tokens`, `cache_read_input_tokens` |
 
 For `run_in_background: true` calls, the tool returns immediately after launching the subagent, so `tool_response` carries no usage fields. It has `status: "async_launched"`, `agentId`, `description`, `prompt`, and `outputFile` instead.
+
+<a id="askuserquestion" />
 
 ##### AskUserQuestion
 
