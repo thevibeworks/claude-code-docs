@@ -10,8 +10,6 @@ Markdown Content:
 
 Updated over a week ago
 
-Table of contents
-
 Our unified directory brings skills, connectors, and plugins together in one place so you can find and install everything that customizes Claude without switching between separate menus. On Team and Enterprise plans, the directory is also where skills shared across your organization appear.
 
 ## Access the directory
