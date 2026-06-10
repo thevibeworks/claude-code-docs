@@ -150,7 +150,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/amazon-location-service",
         "ref": "main",
-        "sha": "b13ce7f008c52be10c3fcccce25d64ec614e76be"
+        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -304,7 +304,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/aws-amplify",
         "ref": "main",
-        "sha": "b13ce7f008c52be10c3fcccce25d64ec614e76be"
+        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -365,7 +365,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/aws-serverless",
         "ref": "main",
-        "sha": "b13ce7f008c52be10c3fcccce25d64ec614e76be"
+        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -414,7 +414,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/base44/skills.git",
-        "sha": "ec420cf2edd2c7e9a523d5afe2e71498a6357fa4"
+        "sha": "aef0fa35f21b3c0c000d5ab8c0b068e6188618b6"
       },
       "homepage": "https://docs.base44.com"
     },
@@ -502,7 +502,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
+        "sha": "4b5796517b62c4aeaac1a0bb6ccdaebeb73475a5"
       },
       "homepage": "https://carta.com"
     },
@@ -804,7 +804,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CodSpeedHQ/codspeed.git",
-        "sha": "c6112f168b405df8e7310b12a9b80484cd01ac14"
+        "sha": "7e86f11b2e0dee673f621c80271d8dae4893df73"
       },
       "homepage": "https://codspeed.io"
     },
@@ -872,7 +872,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "0a651a1472e4c03603780517374c654236bcce8b"
+        "sha": "57ae73b4a0e228ef2a2258513847dc6afa0e6131"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -918,7 +918,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "5ff7aa5b8e52e10d10e45ea8e2f7cbebc86758bf"
+        "sha": "37fd498b0775d98fcd27ff3c0fe3f68e412482a4"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1150,7 +1150,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "c38860242118df93d4ec4381a34f4144fff61928"
+        "sha": "1a5693e0acc95a0829ff1656b4426fee2f2c1167"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1198,7 +1198,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/figma/mcp-server-guide.git",
-        "sha": "54ad156019d7362a56d8024b9adbe99952aa29b6"
+        "sha": "2efd0e37d10c35c4a7cf6d2b7381c9dc1a569bd4"
       },
       "homepage": "https://github.com/figma/mcp-server-guide"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "81416ab3c9b04ca87d399e9b558ec7227b7d641c"
+        "sha": "8fcbb63a371752932027f3495dbc6ae6b5daf0f7"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1540,7 +1540,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/logfire",
         "ref": "main",
-        "sha": "ddc7d00569458f3838c6cf489f5be6c59afaf8c1"
+        "sha": "1e7a4567d8375e8ef07ad078d7f38bc03ce5e944"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/logfire"
     },
@@ -1759,7 +1759,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "9695a225d56ea55569a8b3a0b7294fb01c23b4ff"
+        "sha": "58b84dfb0815cca6dbb2f40bfdb23ddf934d2b5f"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -1885,7 +1885,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "83742db514fc4ab1d18b1277cd9cc1e28a95e732"
+        "sha": "f8d698eaf501aeeec1329266b254d44aef556658"
       },
       "homepage": "https://output.ai"
     },
@@ -1995,7 +1995,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/PostHog/ai-plugin.git",
-        "sha": "db4a86632293ca66eec9a6d278786ddb22c1787e"
+        "sha": "f674efefafeff7152294642f8559906eed885210"
       },
       "homepage": "https://posthog.com/docs/model-context-protocol"
     },
@@ -2314,7 +2314,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/sanity-io/agent-toolkit.git",
-        "sha": "66f0ec5d9167b3ccb8b3450e5ec34f3b523d4139"
+        "sha": "be762f2fc6c82432ff7e4e5d6f27becfc7a95b06"
       },
       "homepage": "https://www.sanity.io"
     },
@@ -2348,7 +2348,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "81b88637563446eb747ac93a31b8b3faee44a78d"
+        "sha": "67ad23a4670a26c0fb0e1560601e8eb6ddcb43ad"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -2380,7 +2380,7 @@
         "url": "https://github.com/spotify/save-to-spotify.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "cd4ea68111d96769b09c0b0d2199e692cf00a73c"
+        "sha": "a62408bcfb5e5be686e1fdcc361398493b8c4160"
       },
       "homepage": "https://github.com/spotify/save-to-spotify"
     },
@@ -2707,7 +2707,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/togethercomputer/skills.git",
-        "sha": "8aa08ca126a50d5e76f6d378f47386cee4267984"
+        "sha": "86bdd6627675eac3f2055f028e4acdd4d1b03fb0"
       },
       "homepage": "https://www.together.ai"
     },
@@ -2787,7 +2787,7 @@
         "url": "https://github.com/UI5/plugins-coding-agents.git",
         "path": "plugins/ui5-typescript-conversion",
         "ref": "main",
-        "sha": "6d72751f0b2983c379aaa457fe4c7cf4a075a66d"
+        "sha": "80f2d93287054f9d30dd990e842e15bcfca581c9"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
     },
