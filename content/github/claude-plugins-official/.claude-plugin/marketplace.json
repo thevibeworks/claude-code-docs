@@ -502,7 +502,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "7b4e568d35c0ceee698bc6c4e67eaf8070825a1e"
+        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
       },
       "homepage": "https://carta.com"
     },
@@ -518,7 +518,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "7b4e568d35c0ceee698bc6c4e67eaf8070825a1e"
+        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
       },
       "homepage": "https://carta.com"
     },
@@ -534,7 +534,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "7b4e568d35c0ceee698bc6c4e67eaf8070825a1e"
+        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
       },
       "homepage": "https://carta.com"
     },
@@ -943,7 +943,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "b47cae53405e90dd97d1ecde890a8d4707d1f115"
+        "sha": "c125eaea039b9440b306b428ee2068d79123ddb7"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "acd8e11789a7bf92f0ed4fac24ff030cd758da37"
+        "sha": "81416ab3c9b04ca87d399e9b558ec7227b7d641c"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1759,7 +1759,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "bd9ec7ff273ce54bdd3ebe581d5b0802a3479618"
+        "sha": "9695a225d56ea55569a8b3a0b7294fb01c23b4ff"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -2088,7 +2088,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "82337ccd4be601e52871f101844d57b2adbac52b"
+        "sha": "0814a0875db7a31bf29e46821668ef1b07f9f696"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -2127,7 +2127,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/quarkusio/quarkus-agent-mcp.git",
-        "sha": "9700cfeeb933c90a8eda623d5d1d68854bb76a72"
+        "sha": "f5c0dd4c4387531a1d5fcc2717030f2c5f41db85"
       },
       "homepage": "https://quarkus.io"
     },
@@ -2348,7 +2348,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "b9127510b2a7f23c5feb3c04820fc37e0bfc16e1"
+        "sha": "81b88637563446eb747ac93a31b8b3faee44a78d"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -2415,7 +2415,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/getsentry/sentry-for-claude.git",
-        "sha": "87de81a1300acc03fffa2438877fa2dcf078e703"
+        "sha": "9780bfc111f97b359893169e79c33d1e393891e5"
       },
       "homepage": "https://github.com/getsentry/sentry-for-claude/tree/main"
     },
@@ -2608,7 +2608,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "b8f6adcb5d05f6ff01334411561ee8cb1ec014c6"
+        "sha": "d076d0558c3b3d86149c2dddc84054fe9c6dd3e0"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "9666bc8d4856d9028e815610c23ab4f48d8ddd3b"
+        "sha": "cda44c29c9155f6e7b3440f953969721aed246be"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },

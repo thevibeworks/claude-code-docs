@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-06-10T09:37:15.632261Z",
+    "fetch_date": "2026-06-10T14:15:43.827045Z",
     "section": "all"
   },
   "items": [
@@ -13250,6 +13250,13 @@
       "size": 2766
     },
     {
+      "url": "https://www.anthropic.com/news/claude-3-family",
+      "status": "success",
+      "path": "blog/news/claude-3-family.md",
+      "sha256": "30c725c35b32ca22b46a08e0877e242b9cef5dbca30226584550250766a6054b",
+      "size": 14025
+    },
+    {
       "url": "https://support.claude.com/en/articles/13947068-assign-tasks-from-anywhere-in-claude-cowork",
       "status": "success",
       "path": "support/13947068-assign-tasks-from-anywhere-in-claude-cowork.md",
@@ -13274,15 +13281,15 @@
       "url": "https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-claude-cowork",
       "status": "success",
       "path": "support/14116274-organize-your-tasks-with-projects-in-claude-cowork.md",
-      "sha256": "85ff70fefbf35316e6e5e5b87d5ad3f85ac1a58f6e6437ef2fe6bb95a2f79502",
-      "size": 6713
+      "sha256": "96561d73372c564a758b28a71fbe7ae5398dc199fca16fc7e5432a423dee2f96",
+      "size": 6725
     },
     {
       "url": "https://support.claude.com/en/articles/14128542-let-claude-use-your-computer-in-cowork",
       "status": "success",
       "path": "support/14128542-let-claude-use-your-computer-in-cowork.md",
-      "sha256": "773cfb9565c052bf0de9ea65c05f0cd7c0d34ef4ef41a60b952e06f6cdfe1275",
-      "size": 5454
+      "sha256": "1d0c63a9d7559b39b204818de734d8b26f0bdc74cccebff3d2388749c6de8796",
+      "size": 5528
     },
     {
       "url": "https://support.claude.com/en/articles/14233555-set-up-code-review-for-claude-code",
@@ -13302,8 +13309,8 @@
       "url": "https://support.claude.com/en/articles/14328846-browse-skills-connectors-and-plugins-in-one-directory",
       "status": "success",
       "path": "support/14328846-browse-skills-connectors-and-plugins-in-one-directory.md",
-      "sha256": "97ca132e4d48b6bd74197e3f7596566bd8adedc320a240c8cdd7877b9e44a821",
-      "size": 3797
+      "sha256": "f3eae5d87bbb046de848fe86d228467265c5e45201a523ab9c7610c7e2eed367",
+      "size": 3778
     },
     {
       "url": "https://support.claude.com/en/articles/14328960-identity-verification-on-claude",
@@ -13330,8 +13337,8 @@
       "url": "https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry",
       "status": "success",
       "path": "support/14477985-monitor-claude-cowork-activity-with-opentelemetry.md",
-      "sha256": "b6ccc7fbcdb5d7088d69da61f4ea6c6ddb000f08515c8054f24121772222e250",
-      "size": 3249
+      "sha256": "8d1ea3d2e81ff259c848019ce42467a49e62e2a78f88f49a7184c38414d386d1",
+      "size": 3230
     },
     {
       "url": "https://support.claude.com/en/articles/14479288-claude-cowork-desktop-architecture-overview",
@@ -13351,8 +13358,8 @@
       "url": "https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations",
       "status": "success",
       "path": "support/14499648-how-scim-sync-works-for-enterprise-organizations.md",
-      "sha256": "a3db1c92e620ab9cabbda5ca793ac47800e5583769ef66d847f52312494b3bdc",
-      "size": 2998
+      "sha256": "cecf331f6bedfb75624d67c07feb0611a55009101ffbef390304ccd7856ba249",
+      "size": 12203
     },
     {
       "url": "https://support.claude.com/en/articles/14503520-available-beta-and-research-preview-features",
@@ -13372,22 +13379,15 @@
       "url": "https://support.claude.com/en/articles/14503613-sso-login",
       "status": "success",
       "path": "support/14503613-sso-login.md",
-      "sha256": "7a6e7daee7f9010c7937e34a0aabd19600fef4740388e0de916601f8feae5a1d",
-      "size": 4492
+      "sha256": "27e3d385aff515a5085e20f495799cb6fc657a2b7dcab18285135b8866ec4e3e",
+      "size": 4496
     },
     {
       "url": "https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government",
       "status": "success",
       "path": "support/14503643-set-up-scim-in-claude-for-government.md",
-      "sha256": "41a7e3e128e7c7098653fcb13c3fb04d9691bd4387b54f0ff31a98ce691ec9cd",
+      "sha256": "3adc2c70f32367a9bea509081a9ead2c2fc347c7c01601511ed97d99decf2dc9",
       "size": 5239
-    },
-    {
-      "url": "https://support.claude.com/en/articles/14503675-organization-instructions-in-claude-for-government",
-      "status": "success",
-      "path": "support/14503675-organization-instructions-in-claude-for-government.md",
-      "sha256": "86a9b81586520fea7dc2644a536868a4a22c8623de4cac62696d1680528a439c",
-      "size": 4598
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/.claude/agents/code-reviewer.md",
@@ -15269,7 +15269,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json",
       "status": "success",
       "path": "github/claude-plugins-official/.claude-plugin/marketplace.json",
-      "sha256": "ef2d2cf37bd2799db8df1ed388410f000deed425ccec8b2b3021aba2128465d4",
+      "sha256": "a4aa454f6c43d6ee8e2697b2e107c593df9ee4424ea6a68b74d63468f98aea05",
       "size": 126482
     },
     {
