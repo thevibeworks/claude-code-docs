@@ -14,7 +14,7 @@ When you start an agent, the SDK runs the same [execution loop that powers Claud
 
 Every agent session follows the same cycle:
 
-<img src="https://mintcdn.com/claude-code/gvy2DIUELtNA8qD3/images/agent-loop-diagram.svg?fit=max&auto=format&n=gvy2DIUELtNA8qD3&q=85&s=192e1bd6c8a2950a16e5ee0b94e27e26" alt="Agent loop: prompt enters, Claude evaluates, branches to tool calls or final answer" width="680" height="150" data-path="images/agent-loop-diagram.svg" />
+<img src="https://mintcdn.com/claude-code/ikqp3_70mqIahteV/images/agent-loop-diagram.svg?fit=max&auto=format&n=ikqp3_70mqIahteV&q=85&s=1c6e8f28d80dba14a7287419656f1237" alt="Diagram of the agent loop: your prompt enters the agentic loop, where Claude evaluates and either requests tool calls, whose results feed back into another evaluation, or returns the final answer" width="720" height="212" data-path="images/agent-loop-diagram.svg" />
 
 1. **Receive prompt.** Claude receives your prompt, along with the system prompt, tool definitions, and conversation history. The SDK yields a [`SystemMessage`](#message-types) with subtype `"init"` containing session metadata.
 2. **Evaluate and respond.** Claude evaluates the current state and determines how to proceed. It may respond with text, request one or more tool calls, or both. The SDK yields an [`AssistantMessage`](#message-types) containing the text and any tool call requests.
@@ -160,15 +160,15 @@ When either limit is hit, the SDK returns a `ResultMessage` with a corresponding
 
 The `effort` option controls how much reasoning Claude applies. Lower effort levels use fewer tokens per turn and reduce cost. Not all models support the effort parameter. See [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) for which models support it.
 
-| Level      | Behavior                          | Good for                                          |
-| :--------- | :-------------------------------- | :------------------------------------------------ |
-| `"low"`    | Minimal reasoning, fast responses | File lookups, listing directories                 |
-| `"medium"` | Balanced reasoning                | Routine edits, standard tasks                     |
-| `"high"`   | Thorough analysis                 | Refactors, debugging                              |
-| `"xhigh"`  | Extended reasoning depth          | Coding and agentic tasks; recommended on Opus 4.7 |
-| `"max"`    | Maximum reasoning depth           | Multi-step problems requiring deep analysis       |
+| Level      | Behavior                          | Good for                                                       |
+| :--------- | :-------------------------------- | :------------------------------------------------------------- |
+| `"low"`    | Minimal reasoning, fast responses | File lookups, listing directories                              |
+| `"medium"` | Balanced reasoning                | Routine edits, standard tasks                                  |
+| `"high"`   | Thorough analysis                 | Refactors, debugging                                           |
+| `"xhigh"`  | Extended reasoning depth          | Coding and agentic tasks; recommended on Opus 4.8 and Opus 4.7 |
+| `"max"`    | Maximum reasoning depth           | Multi-step problems requiring deep analysis                    |
 
-If you don't set `effort`, the Python SDK leaves the parameter unset and defers to the model's default behavior. The TypeScript SDK defaults to `"high"`.
+If you don't set `effort`, both SDKs leave the parameter unset and defer to the model's default behavior.
 
 <Note>
   `effort` trades latency and token cost for reasoning depth within each response. [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) is a separate feature that produces visible chain-of-thought blocks in the output. They are independent: you can set `effort: "low"` with extended thinking enabled, or `effort: "max"` without it.
@@ -184,7 +184,7 @@ The permission mode option (`permission_mode` in Python, `permissionMode` in Typ
 | :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `"default"`                | Tools not covered by allow rules trigger your approval callback; no callback means deny                                                                                                                                                                                                                                                                                                                       |
 | `"acceptEdits"`            | Auto-approves file edits and common filesystem commands (`mkdir`, `touch`, `mv`, `cp`, etc.); other Bash commands follow default rules                                                                                                                                                                                                                                                                        |
-| `"plan"`                   | Read-only tools run; Claude explores and produces a plan without editing your source files                                                                                                                                                                                                                                                                                                                    |
+| `"plan"`                   | Claude explores and plans without editing your source files; file edits are never auto-approved and prompt through your `canUseTool` callback                                                                                                                                                                                                                                                                 |
 | `"dontAsk"`                | Never prompts. Tools pre-approved by [permission rules](/en/settings#permission-settings) run, everything else is denied                                                                                                                                                                                                                                                                                      |
 | `"auto"` (TypeScript only) | Uses a model classifier to approve or deny each tool call. See [Auto mode](/en/permission-modes#eliminate-prompts-with-auto-mode) for availability and behavior                                                                                                                                                                                                                                               |
 | `"bypassPermissions"`      | Runs all allowed tools without asking, unless an explicit [`ask` rule](/en/settings#permission-settings) matches; see [How permissions are evaluated](/en/agent-sdk/permissions#how-permissions-are-evaluated) for where ask rules sit in the precedence order. Cannot be used when running as root on Unix. Use only in isolated environments where the agent's actions cannot affect systems you care about |

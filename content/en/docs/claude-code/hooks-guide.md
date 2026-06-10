@@ -484,7 +484,7 @@ Each hook has a `type` that determines how it runs. Most hooks use `"type": "com
 
 When multiple hooks match the same event, every hook's command runs to completion before Claude Code merges the results. One hook returning `deny` does not stop sibling hooks from executing. Don't rely on one hook's `deny` to suppress side effects in another hook.
 
-After all matching hooks finish, Claude Code combines their outputs. For `PreToolUse` permission decisions, the most restrictive answer wins: `deny` overrides `ask`, which overrides `allow`. Text from `additionalContext` is kept from every hook and passed to Claude together.
+After all matching hooks finish, Claude Code combines their outputs. For `PreToolUse` permission decisions, the most restrictive answer wins, in the order `deny`, `defer`, `ask`, `allow`. Text from `additionalContext` is kept from every hook and passed to Claude together.
 
 The example below registers two `PreToolUse` hooks on `Bash`. The first appends every command to a log file and exits 0. The second runs a script that exits 2 to deny when the command contains `rm -rf`:
 
@@ -760,14 +760,14 @@ The `if` field accepts the same patterns as permission rules: `"Bash(git *)"`, `
 
 Where you add a hook determines its scope:
 
-| Location                                                   | Scope                              | Shareable                          |
-| :--------------------------------------------------------- | :--------------------------------- | :--------------------------------- |
-| `~/.claude/settings.json`                                  | All your projects                  | No, local to your machine          |
-| `.claude/settings.json`                                    | Single project                     | Yes, can be committed to the repo  |
-| `.claude/settings.local.json`                              | Single project                     | No, gitignored                     |
-| Managed policy settings                                    | Organization-wide                  | Yes, admin-controlled              |
-| [Plugin](/en/plugins) `hooks/hooks.json`                   | When plugin is enabled             | Yes, bundled with the plugin       |
-| [Skill](/en/skills) or [agent](/en/sub-agents) frontmatter | While the skill or agent is active | Yes, defined in the component file |
+| Location                                                   | Scope                              | Shareable                                  |
+| :--------------------------------------------------------- | :--------------------------------- | :----------------------------------------- |
+| `~/.claude/settings.json`                                  | All your projects                  | No, local to your machine                  |
+| `.claude/settings.json`                                    | Single project                     | Yes, can be committed to the repo          |
+| `.claude/settings.local.json`                              | Single project                     | No, gitignored when Claude Code creates it |
+| Managed policy settings                                    | Organization-wide                  | Yes, admin-controlled                      |
+| [Plugin](/en/plugins) `hooks/hooks.json`                   | When plugin is enabled             | Yes, bundled with the plugin               |
+| [Skill](/en/skills) or [agent](/en/sub-agents) frontmatter | While the skill or agent is active | Yes, defined in the component file         |
 
 Run [`/hooks`](/en/hooks#the-%2Fhooks-menu) in Claude Code to browse all configured hooks grouped by event. To disable hooks, set `"disableAllHooks": true` in your settings file. Hooks configured in managed settings still run unless `disableAllHooks` is also set there.
 

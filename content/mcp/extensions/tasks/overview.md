@@ -2,13 +2,13 @@
 > Fetch the complete documentation index at: https://modelcontextprotocol.io/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# MCP Tasks
+# Tasks
 
 > Asynchronous task execution for long-running MCP operations
 
 The [experimental-ext-tasks repository](https://github.com/modelcontextprotocol/experimental-ext-tasks) contains the full specification and documentation for MCP Tasks.
 
-<Card title="modelcontextprotocol/experimental-ext-tasks" icon="github" href="https://github.com/modelcontextprotocol/experimental-ext-tasks">
+<Card title="modelcontextprotocol/ext-tasks" icon="github" href="https://github.com/modelcontextprotocol/ext-tasks">
   Full specification and documentation for MCP Tasks.
 </Card>
 
