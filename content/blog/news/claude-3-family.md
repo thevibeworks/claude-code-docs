@@ -126,6 +126,12 @@ We’re excited to see what you create with Claude 3 and hope you will give us f
 
 ## Related content
 
+### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
+
+We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
+
+[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
+
 ### Introducing Claude Corps
 
 We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
@@ -137,7 +143,3 @@ We’re launching Claude Corps, a national fellowship program for people early i
 Our next generation of intelligence for the hardest knowledge work and coding problems.
 
 [Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
-
-### Introducing the Services Track and Partner Hub of the Claude Partner Network
-
-[Read more](https://www.anthropic.com/news/services-track-partner-hub)
