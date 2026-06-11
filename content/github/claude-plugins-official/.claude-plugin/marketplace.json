@@ -19,7 +19,7 @@
         "url": "https://github.com/42Crunch-AI/claude-plugins.git",
         "path": "plugins/api-security-testing",
         "ref": "v1.5.5",
-        "sha": "b7e131e30ff033be2176faf796c94c151a68c63a"
+        "sha": "5cfa510f7ea4d940f0ff5f6688a21e4ea0db0a18"
       },
       "homepage": "https://42crunch.com"
     },
@@ -150,7 +150,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/amazon-location-service",
         "ref": "main",
-        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -161,7 +161,7 @@
         "url": "https://github.com/amplitude/mcp-marketplace.git",
         "path": "plugins/amplitude",
         "ref": "main",
-        "sha": "e9b4e15193666e1b513b5652ded23fab160bdc4e"
+        "sha": "fb22979da93d27dcb17b832dbd473e6b0caf2ca8"
       },
       "description": "Use Amplitude as an expert analyst — instrument Amplitude, discover product opportunities, analyze charts, create dashboards, manage experiments, and understand users and accounts.",
       "category": "monitoring",
@@ -304,7 +304,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/aws-amplify",
         "ref": "main",
-        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -365,7 +365,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/aws-serverless",
         "ref": "main",
-        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -502,7 +502,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "4b5796517b62c4aeaac1a0bb6ccdaebeb73475a5"
+        "sha": "fd503bbc698b89c6f88828acb2be2eaae71c6754"
       },
       "homepage": "https://carta.com"
     },
@@ -518,7 +518,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
+        "sha": "4b5796517b62c4aeaac1a0bb6ccdaebeb73475a5"
       },
       "homepage": "https://carta.com"
     },
@@ -534,7 +534,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "4b60ca6616ce614dacb306c2e3433aeca6ce3b5b"
+        "sha": "fd503bbc698b89c6f88828acb2be2eaae71c6754"
       },
       "homepage": "https://carta.com"
     },
@@ -872,7 +872,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "57ae73b4a0e228ef2a2258513847dc6afa0e6131"
+        "sha": "2f34384c9892753690abfac5fd7771f30809ca96"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -966,7 +966,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/databases-on-aws",
         "ref": "main",
-        "sha": "b13ce7f008c52be10c3fcccce25d64ec614e76be"
+        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -1048,7 +1048,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/deploy-on-aws",
         "ref": "main",
-        "sha": "b13ce7f008c52be10c3fcccce25d64ec614e76be"
+        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -1230,7 +1230,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/firestore-native.git",
-        "sha": "f88103bd0ccfe9e1e7a3a7d849de26d197978c9a"
+        "sha": "d7f42424cfddfb567efbae100023b94dfb4571be"
       },
       "homepage": "https://github.com/gemini-cli-extensions/firestore-native"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "8fcbb63a371752932027f3495dbc6ae6b5daf0f7"
+        "sha": "868c56fdbbe8d65caceb1933a781477f93dc1d81"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1770,7 +1770,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/netlify/context-and-tools.git",
-        "sha": "22025ef6c9dc9ef88d0c9c047980c10cacb178ee"
+        "sha": "99b990ce96a00160142ef1154f1db09708f3449c"
       },
       "homepage": "https://github.com/netlify/context-and-tools"
     },
@@ -1885,7 +1885,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "f8d698eaf501aeeec1329266b254d44aef556658"
+        "sha": "be9352cb3cb4bd7c204be0150db8c205dd939d9e"
       },
       "homepage": "https://output.ai"
     },
@@ -2050,7 +2050,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "ddc7d00569458f3838c6cf489f5be6c59afaf8c1"
+        "sha": "1e7a4567d8375e8ef07ad078d7f38bc03ce5e944"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2113,7 +2113,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/TheQtCompanyRnD/agent-skills.git",
-        "sha": "a7189a7bc17e616b725e7ce4e46a4f5ebd50d94f"
+        "sha": "2be55aaf050cf0e5d92d62966c473d2c5f6d780a"
       },
       "homepage": "https://www.qt.io/"
     },
@@ -2300,7 +2300,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/sagemaker-ai",
         "ref": "main",
-        "sha": "d8243e5f8f3933d656b3bdfe09cd658a5d9b9fac"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -2314,7 +2314,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/sanity-io/agent-toolkit.git",
-        "sha": "be762f2fc6c82432ff7e4e5d6f27becfc7a95b06"
+        "sha": "2d7b7c08a31a6e5b613e33a9edc76456e4d7c052"
       },
       "homepage": "https://www.sanity.io"
     },
@@ -2387,7 +2387,7 @@
     {
       "name": "security-guidance",
       "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
-      "version": "2.0.3",
+      "version": "2.0.4",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2431,7 +2431,7 @@
         "url": "https://github.com/getsentry/cli.git",
         "path": "plugins/sentry-cli",
         "ref": "main",
-        "sha": "18111b95ac8819d58e4f0334d4b8ee8f72513d1e"
+        "sha": "a5f26c3398ddfa458e32e2f139eb80ee3d9a8abf"
       },
       "homepage": "https://sentry.io"
     },
@@ -2534,7 +2534,7 @@
         "url": "https://github.com/Snowflake-Labs/snowflake-ai-kit.git",
         "path": "plugins/cortex-code",
         "ref": "main",
-        "sha": "7d2c7e7e0788e255019a64a8690aa5f85d073a2c"
+        "sha": "5a8f277f623394838ee76399261f4704c19eaba7"
       },
       "homepage": "https://docs.snowflake.com/en/user-guide/cortex-code"
     },
@@ -2803,7 +2803,7 @@
         "url": "https://github.com/val-town/plugins.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "02631f998eda9b88d73d699703b062db059d506b"
+        "sha": "1f7928397349f2ccb228302d8b062c7f20745871"
       },
       "homepage": "https://val.town"
     },
