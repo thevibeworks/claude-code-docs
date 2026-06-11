@@ -6,6 +6,10 @@
 
 > Which MCP clients implement which official extensions
 
+export const CHECK = () => <span className="flex justify-center">
+    <Icon icon="check" iconType="solid" size={18} className="text-green-500" />
+  </span>;
+
 This matrix shows which MCP clients support each [official extension](/extensions/overview). Extensions are always opt-in — a client only uses an extension if both client and server declare support during the [initialization handshake](/extensions/overview#negotiation).
 
 <Note>
@@ -24,15 +28,15 @@ This matrix shows which MCP clients support each [official extension](/extension
 
 | Client                                                   | [MCP Apps](/extensions/apps/overview) | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) | [Enterprise Auth](/extensions/auth/enterprise-managed-authorization) |
 | -------------------------------------------------------- | :-----------------------------------: | :-------------------------------------------------------------------: | :------------------------------------------------------------------: |
-| [Claude (web)](https://claude.ai)                        |                                       |                                                                       |                                                                      |
-| [Claude Desktop](https://claude.ai/download)             |                                       |                                                                       |                                                                      |
-| [VS Code GitHub Copilot](https://code.visualstudio.com/) |                                       |                                                                       |                                                                      |
-| [Goose](https://block.github.io/goose/)                  |                                       |                                                                       |                                                                      |
-| [Postman](https://postman.com)                           |                                       |                                                                       |                                                                      |
-| [MCPJam](https://www.mcpjam.com/)                        |                                       |                                                                       |                                                                      |
-| [ChatGPT](https://chatgpt.com/)                          |                                       |                                                                       |                                                                      |
-| [Cursor](https://cursor.com/)                            |                                       |                                                                       |                                                                      |
-| [Archestra.AI](https://www.archestra.ai/)                |                                       |                                                                       |                                                                      |
+| [Claude (web)](https://claude.ai)                        |               <CHECK />               |                                                                       |                                                                      |
+| [Claude Desktop](https://claude.ai/download)             |               <CHECK />               |                                                                       |                                                                      |
+| [VS Code GitHub Copilot](https://code.visualstudio.com/) |               <CHECK />               |                                                                       |                                                                      |
+| [Goose](https://block.github.io/goose/)                  |               <CHECK />               |                                                                       |                                                                      |
+| [Postman](https://postman.com)                           |               <CHECK />               |                                                                       |                                                                      |
+| [MCPJam](https://www.mcpjam.com/)                        |               <CHECK />               |                                                                       |                                                                      |
+| [ChatGPT](https://chatgpt.com/)                          |               <CHECK />               |                                                                       |                                                                      |
+| [Cursor](https://cursor.com/)                            |               <CHECK />               |                                                                       |                                                                      |
+| [Archestra.AI](https://www.archestra.ai/)                |               <CHECK />               |                                                                       |                               <CHECK />                              |
 
 <Note>
   Auth extension support (OAuth Client Credentials and Enterprise-Managed Authorization) is tracked separately from the core MCP authorization features (DCR, CIMD). Check each extension's specification and the [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth) for the latest implementation status.

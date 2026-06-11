@@ -46,14 +46,20 @@ To explore how Claude for Enterprise can transform your organization's productiv
 
 ## Related content
 
-### Anthropic appoints KiYoung Choi as Representative Director of Korea ahead of Seoul office opening
+### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
 
-[Read more](https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea)
+We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
 
-### Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical "Magnifica humanitas"
+[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
 
-[Read more](https://www.anthropic.com/news/chris-olah-pope-leo-encyclical)
+### Introducing Claude Corps
 
-### Widening the conversation on frontier AI
+We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
 
-[Read more](https://www.anthropic.com/news/widening-conversation-ai)
+[Read more](https://www.anthropic.com/news/claude-corps)
+
+### Claude Fable 5 and Claude Mythos 5
+
+Our next generation of intelligence for the hardest knowledge work and coding problems.
+
+[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
