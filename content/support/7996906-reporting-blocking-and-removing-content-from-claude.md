@@ -9,15 +9,13 @@ Markdown Content:
 
 March 16, 2026
 
-Table of contents
-
 Anthropic supports a variety of ways to allow people to control their content and personal information. As a site owner, you can control what shows up in Claude outputs that use web search. As a user or member of the public, you can report problematic content that another user shares publicly or that you receive in a Claude output. For each type of concern, follow the reporting instructions below.
 
 Please note, we reserve the right to suspend users who frequently provide manifestly illegal content and suspend the processing of notices for users who frequently submit notices which are manifestly unfounded. We will provide a warning before suspension.
 
 ## How to report safety issues
 
-We welcome reports concerning safety issues so that we can enhance the safety and harmlessness of our models. We would also like to hear from you if you identify our safety mechanisms causing any user experience issues. Please report such issues to [[email protected]](https://support.claude.com/cdn-cgi/l/email-protection#d3a6a0b6a1a0b2b5b6a7aa93b2bda7bba1bca3bab0fdb0bcbe) with enough detail for us to replicate the issue.
+We welcome reports concerning safety issues so that we can enhance the safety and harmlessness of our models. We would also like to hear from you if you identify our safety mechanisms causing any user experience issues. Please report such issues to [usersafety@anthropic.com](mailto:usersafety@anthropic.com) with enough detail for us to replicate the issue.
 
 ### Help us improve AI safety by reporting universal jailbreaks
 
@@ -44,7 +42,7 @@ Disallow Anthropic’s Bots Applicable: all content types
 Follow the instructions [here](https://privacy.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler).
 Block access to a URL already appearing in Claude outputs Applicable: all content types
 
-Submit a request to [[email protected]](https://support.claude.com/cdn-cgi/l/email-protection#592e3c3b2b3c2a2c352d2a36292d362c2d1938372d312b3629303a773a3634), including information necessary to prove you own the URL, which can be: an [ICANN registration](https://www.icann.org/resources/pages/register-domain-name-2017-06-20-en), [WHOIS lookup result](https://whois.domaintools.com/), domain registration payment receipt, SSL certificate, or use of a domain-specific email address.
+Submit a request to [webresultsoptout@anthropic.com](mailto:webresultsoptout@anthropic.com), including information necessary to prove you own the URL, which can be: an [ICANN registration](https://www.icann.org/resources/pages/register-domain-name-2017-06-20-en), [WHOIS lookup result](https://whois.domaintools.com/), domain registration payment receipt, SSL certificate, or use of a domain-specific email address.
 
 ### Blocking or removing content from shared Claude content
 

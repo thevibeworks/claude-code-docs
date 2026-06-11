@@ -126,6 +126,12 @@ We’re excited to see what you create with Claude 3 and hope you will give us f
 
 ## Related content
 
+### Introducing Claude Corps
+
+We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+
+[Read more](https://www.anthropic.com/news/claude-corps)
+
 ### Claude Fable 5 and Claude Mythos 5
 
 Our next generation of intelligence for the hardest knowledge work and coding problems.
@@ -135,9 +141,3 @@ Our next generation of intelligence for the hardest knowledge work and coding pr
 ### Introducing the Services Track and Partner Hub of the Claude Partner Network
 
 [Read more](https://www.anthropic.com/news/services-track-partner-hub)
-
-### What we learned mapping a year’s worth of AI-enabled cyber threats
-
-As AI transforms the nature of and methods behind cyberattacks, how well do the techniques and frameworks used by the security community hold up? In a new report, we seek to answer that question.
-
-[Read more](https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack)

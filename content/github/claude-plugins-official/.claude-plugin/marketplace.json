@@ -233,7 +233,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/atlanhq/agent-toolkit.git",
-        "sha": "789507c02d2495235240d10d67aaac8b2051023a"
+        "sha": "86bb1ad27f80e189b328333d2271b360ae579f2b"
       },
       "homepage": "https://docs.atlan.com/"
     },
@@ -291,7 +291,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-agents",
         "ref": "main",
-        "sha": "c0991f463b54ac94af32a730d6d13293dcff98cf"
+        "sha": "e089489e33747df19abf0f3548dcfb8d1f4ee6b8"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -320,7 +320,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-core",
         "ref": "main",
-        "sha": "c0991f463b54ac94af32a730d6d13293dcff98cf"
+        "sha": "e089489e33747df19abf0f3548dcfb8d1f4ee6b8"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -336,7 +336,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-data-analytics",
         "ref": "main",
-        "sha": "c0991f463b54ac94af32a730d6d13293dcff98cf"
+        "sha": "e089489e33747df19abf0f3548dcfb8d1f4ee6b8"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -872,7 +872,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "2f34384c9892753690abfac5fd7771f30809ca96"
+        "sha": "7e73f691dbae3cb0a21a2e135ca0a279a8d03b41"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -943,7 +943,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "c125eaea039b9440b306b428ee2068d79123ddb7"
+        "sha": "6f60c83ad13436f953224a61477d6380c199214b"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -966,7 +966,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/databases-on-aws",
         "ref": "main",
-        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -1048,7 +1048,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/deploy-on-aws",
         "ref": "main",
-        "sha": "f985fddc69953f103d9c16fa9e97096d2bc29b02"
+        "sha": "58373593c6ed2e4684181f81369c0b7a4c916423"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "868c56fdbbe8d65caceb1933a781477f93dc1d81"
+        "sha": "83662c11a83a9eaee850a7e1a16f338ca4f0d746"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1429,7 +1429,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/knowledge-catalog.git",
-        "sha": "317e96fdd12aa61778b950192aff627efdc21099"
+        "sha": "8aa886f1d34a398c54aac3b7385dd4202a14bed1"
       },
       "homepage": "https://github.com/gemini-cli-extensions/knowledge-catalog"
     },
@@ -2127,7 +2127,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/quarkusio/quarkus-agent-mcp.git",
-        "sha": "f5c0dd4c4387531a1d5fcc2717030f2c5f41db85"
+        "sha": "0ecd6237518001b92da64499f0b43103a278f95f"
       },
       "homepage": "https://quarkus.io"
     },
@@ -2140,7 +2140,7 @@
         "url": "https://github.com/railwayapp/railway-skills.git",
         "path": "plugins/railway",
         "ref": "main",
-        "sha": "72299c62ad19a5b1e7646262f3ba9cdd96d6e2a3"
+        "sha": "836d42c1b652953c17a4523a07f1b8a68cc22064"
       },
       "homepage": "https://docs.railway.com/ai/claude-code-plugin"
     },
@@ -2348,7 +2348,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "67ad23a4670a26c0fb0e1560601e8eb6ddcb43ad"
+        "sha": "372f76448e4ec9c9f22364b32b8073bfa35a9b42"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -2881,7 +2881,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "cda44c29c9155f6e7b3440f953969721aed246be"
+        "sha": "8cbffb9c0e5c0cee02e2a702e180676f72957e82"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -2988,7 +2988,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zscaler/zscaler-mcp-server.git",
-        "sha": "f84ce4f0ed48047614a4202ac311cbdf00ea9a10"
+        "sha": "a2162c384e1ffb68b3bf14783ea9a1a762c85ff5"
       },
       "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     }

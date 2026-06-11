@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-06-11T10:01:23.441375Z",
+    "fetch_date": "2026-06-11T14:27:26.555772Z",
     "section": "all"
   },
   "items": [
@@ -13250,11 +13250,25 @@
       "size": 2766
     },
     {
+      "url": "https://www.anthropic.com/news/claude-3-family",
+      "status": "success",
+      "path": "blog/news/claude-3-family.md",
+      "sha256": "905c78c9278cb249ad6d21a7e60dd652339203e1cb1cd5f76ac86262e6d55918",
+      "size": 13941
+    },
+    {
+      "url": "https://www.anthropic.com/news/testing-our-safety-defenses-with-a-new-bug-bounty-program",
+      "status": "success",
+      "path": "blog/news/testing-our-safety-defenses-with-a-new-bug-bounty-program.md",
+      "sha256": "8d745945f9ab89aef183aad2b4e1e6ac125230e933dd08759d4b0b81391a77a1",
+      "size": 4691
+    },
+    {
       "url": "https://www.anthropic.com/news/uk-ai-safety-summit",
       "status": "success",
       "path": "blog/news/uk-ai-safety-summit.md",
-      "sha256": "e0eac39803bc2c753e3c0b785e5802be3ff55cf3f450540d7d2d7932b99f8407",
-      "size": 8449
+      "sha256": "ca04239f3658c4fc1db0dc0e0c89cc4051c2241a39cb827c73d5a6d78bfc0aae",
+      "size": 8365
     },
     {
       "url": "https://www.anthropic.com/product/claude-code",
@@ -13316,78 +13330,64 @@
       "url": "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude",
       "status": "success",
       "path": "support/7996906-reporting-blocking-and-removing-content-from-claude.md",
-      "sha256": "07dbf37ca8a251a3e180f80033ed27ee7c2a7c762cd0e8ef379ac4d64f18393f",
-      "size": 5114
+      "sha256": "22fb62ed0239ffe8d45aa30aed848631572d1984c96e4d949559b2f903b1ff35",
+      "size": 4963
     },
     {
-      "url": "https://support.claude.com/en/articles/13947068-assign-tasks-from-anywhere-in-claude-cowork",
+      "url": "https://support.claude.com/en/articles/7996918-what-is-amazon-bedrock",
       "status": "success",
-      "path": "support/13947068-assign-tasks-from-anywhere-in-claude-cowork.md",
-      "sha256": "ad743f8e28a5c792516c3b9d6ad8af82d7c735a2eba5d4beae4c901b30e6bf3d",
-      "size": 4702
+      "path": "support/7996918-what-is-amazon-bedrock.md",
+      "sha256": "447d994e1b58992d1788605cb911c1abbf1756d19586cf2d78c05b10300657a3",
+      "size": 1827
     },
     {
-      "url": "https://support.claude.com/en/articles/13979539-custom-visuals-in-chat-and-cowork",
+      "url": "https://support.claude.com/en/articles/7996920-how-do-i-get-access-to-claude-in-amazon-bedrock",
       "status": "success",
-      "path": "support/13979539-custom-visuals-in-chat-and-cowork.md",
-      "sha256": "7cda31c3c95e7a575f2dc1bafc11b1b7b2ba054dc09e4ec5508e0d8d853f47ba",
-      "size": 3059
+      "path": "support/7996920-how-do-i-get-access-to-claude-in-amazon-bedrock.md",
+      "sha256": "36a377564d0c958e49ad566269d1ffe0b475b1a6ca63a7e4012ab41af1ff69c2",
+      "size": 2340
     },
     {
-      "url": "https://support.claude.com/en/articles/14051822-notice-regarding-consumption-tax-jct-for-japanese-customers",
+      "url": "https://support.claude.com/en/articles/7996921-i-use-claude-in-amazon-bedrock-who-do-i-contact-for-customer-support-inquiries",
       "status": "success",
-      "path": "support/14051822-notice-regarding-consumption-tax-jct-for-japanese-customers.md",
-      "sha256": "09ffd4665c72cdee0beeced2805a63397fd3763d1f6be21a4206228fdf4d72e1",
-      "size": 2367
+      "path": "support/7996921-i-use-claude-in-amazon-bedrock-who-do-i-contact-for-customer-support-inquiries.md",
+      "sha256": "8bc49f316405cf664e3c17304d2c84861b1cb699e5b9eb74e7a5a83d654fe895",
+      "size": 1636
     },
     {
-      "url": "https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-claude-cowork",
+      "url": "https://support.claude.com/en/articles/8106465-our-approach-to-user-safety",
       "status": "success",
-      "path": "support/14116274-organize-your-tasks-with-projects-in-claude-cowork.md",
-      "sha256": "8a15d12b66bc7cd388927462d291e440efe73779c2a6d86d735f1bb1a81fca0a",
-      "size": 6717
+      "path": "support/8106465-our-approach-to-user-safety.md",
+      "sha256": "0a558f36f81ebdeeed82d83be729ac333d5bc89fceb8e80bcafc4eca2a9c6a09",
+      "size": 2402
     },
     {
-      "url": "https://support.claude.com/en/articles/14128542-let-claude-use-your-computer-in-cowork",
+      "url": "https://support.claude.com/en/articles/8114487-what-interfaces-can-i-use-to-access-claude",
       "status": "success",
-      "path": "support/14128542-let-claude-use-your-computer-in-cowork.md",
-      "sha256": "67e7abfdddf0652531976e82560f2fe894c0b5bd454976d03bac141cb527f3b8",
-      "size": 5520
+      "path": "support/8114487-what-interfaces-can-i-use-to-access-claude.md",
+      "sha256": "c81245bf7d32548390ec7cc39042531e0fe2e926aa9f22c44d29bdc38c6e68c2",
+      "size": 2568
     },
     {
-      "url": "https://support.claude.com/en/articles/14233555-set-up-code-review-for-claude-code",
+      "url": "https://support.claude.com/en/articles/8114490-where-can-i-find-your-api-documentation",
       "status": "success",
-      "path": "support/14233555-set-up-code-review-for-claude-code.md",
-      "sha256": "060423d503cc85ea4399009f4651132282cb1ed7b09f7ebad5f1a83253e20a3b",
-      "size": 6353
+      "path": "support/8114490-where-can-i-find-your-api-documentation.md",
+      "sha256": "95ae4b36ff39bff66e3e40468ec24f203dd4541938534e83144310d534f99efd",
+      "size": 3076
     },
     {
-      "url": "https://support.claude.com/en/articles/14246112-buy-usage-bundles",
+      "url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
       "status": "success",
-      "path": "support/14246112-buy-usage-bundles.md",
-      "sha256": "b2ef1767f454663993a070a7ef5a3f7735c0f09714eeeb138276a13a25f1307d",
-      "size": 2767
+      "path": "support/8114491-get-started-with-claude.md",
+      "sha256": "2758ab2529b1dbd0d0b7b46821decde0e31369aae74b3213188618f5cf9ec274",
+      "size": 4095
     },
     {
-      "url": "https://support.claude.com/en/articles/14328846-browse-skills-connectors-and-plugins-in-one-directory",
+      "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data",
       "status": "success",
-      "path": "support/14328846-browse-skills-connectors-and-plugins-in-one-directory.md",
-      "sha256": "97ca132e4d48b6bd74197e3f7596566bd8adedc320a240c8cdd7877b9e44a821",
-      "size": 3797
-    },
-    {
-      "url": "https://support.claude.com/en/articles/14328960-identity-verification-on-claude",
-      "status": "success",
-      "path": "support/14328960-identity-verification-on-claude.md",
-      "sha256": "952780c432c18f1cc0582da26315e1645d93abdd6e59ec4f10d657e3e58a776e",
-      "size": 3186
-    },
-    {
-      "url": "https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents",
-      "status": "success",
-      "path": "support/14447276-configure-a-custom-opentelemetry-collector-for-office-agents.md",
-      "sha256": "71e3af8489ccc620161479c2edb2045f17e07a879b35544ee4760d66a847b940",
-      "size": 12601
+      "path": "support/8114494-how-up-to-date-is-claude-s-training-data.md",
+      "sha256": "c8b7012e96f5e434bee6a15bc1598dd0c248c27e28056d49bd7578acfe656503",
+      "size": 2038
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/.claude/agents/code-reviewer.md",
@@ -15269,7 +15269,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json",
       "status": "success",
       "path": "github/claude-plugins-official/.claude-plugin/marketplace.json",
-      "sha256": "9a67b287b205b0ad124e0aa65015b38daf8ea6dbd3e4f554b12e6d18f1833c48",
+      "sha256": "23231e6b760682166d383ee6722d5430846d4afb62e9c0b0adf71d03b5f692d2",
       "size": 126482
     },
     {
@@ -18529,10 +18529,10 @@
     }
   ],
   "summary": {
-    "total": 3348,
+    "total": 3349,
     "downloaded": 2646,
     "skipped": 0,
-    "failed": 702,
+    "failed": 703,
     "success_rate": 79.0
   }
 }

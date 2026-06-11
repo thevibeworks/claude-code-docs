@@ -27,7 +27,7 @@ You use **prompts** to communicate with Claude. The best approach is to speak to
 
 Type your prompt into the chat interface and click the submit button to start a conversation with Claude. You can click the "+" button in the lower left or type "/" to view additional options and commands:
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1781143200&signature=5e077425d40642e2ab8bfb708429b25de48fbc666e0b0e4cf5d4a527b7a9ea7c&req=dSkmEMt%2BlYRYUfMW1HO4zV2J7S7LsISD9crMELaMZPzJfJBprAQXD%2Fcco5WA%0AFX%2Bp6rWddk5Nr4UTrH0%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1781143200&signature=5e077425d40642e2ab8bfb708429b25de48fbc666e0b0e4cf5d4a527b7a9ea7c&req=dSkmEMt%2BlYRYUfMW1HO4zV2J7S7LsISD9crMELaMZPzJfJBprAQXD%2Fcco5WA%0AFX%2Bp6rWddk5Nr4UTrH0%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1781190000&signature=44cdb7a703b9b63ede3901b00111b6f017b9b1cedfcbbbd3b94a33d9315b9f2c&req=dSkmEMt%2BlYRYUfMW1HO4zV2J7S7LvYeB9crMELaMZPxnPpxRPDcNWWDN4vdx%0AsJhwWB1zhBiNAG9PIfw%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1781190000&signature=44cdb7a703b9b63ede3901b00111b6f017b9b1cedfcbbbd3b94a33d9315b9f2c&req=dSkmEMt%2BlYRYUfMW1HO4zV2J7S7LvYeB9crMELaMZPxnPpxRPDcNWWDN4vdx%0AsJhwWB1zhBiNAG9PIfw%3D%0A)
 
 ## Understanding Claude's capabilities
 
@@ -61,4 +61,4 @@ Once you've started using Claude, you can:
 
 Related Articles
 
-[Use research on Claude](https://support.claude.com/en/articles/11088861-use-research-on-claude)[FAQs on Using Claude for Education at Your University](https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university)[How do usage and length limits work?](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)[Claude Enterprise consumption guide](https://support.claude.com/en/articles/14782391-claude-enterprise-consumption-guide)
+[Use research on Claude](https://support.claude.com/en/articles/11088861-use-research-on-claude)[FAQs on Using Claude for Education at Your University](https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university)[How do usage and length limits work?](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)[Use Claude Code with your Team or Enterprise plan](https://support.claude.com/en/articles/11845131-use-claude-code-with-your-team-or-enterprise-plan)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)
