@@ -17,10 +17,6 @@ The organization-wide Cowork toggle in **Organization settings > Cowork** (**Ena
 
 ## Frequently asked questions
 
-### My organization started using Cowork during the research preview. Does this article apply to me?
-
-Not yet. Your organization is still on the older architecture and is being migrated to the one described here. We’ll email your organization admin before the switch.
-
 ### What happens if a member's device can't start the VM?
 
 Cowork continues running file and web tools while the VM is unavailable. Shell commands and code execution report "workspace unavailable" until the VM recovers.
@@ -35,4 +31,4 @@ No. The VM is isolated from host-based security tools by design. If your complia
 
 Related Articles
 
-[Install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)[Monitor Claude Cowork activity with OpenTelemetry](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry)
+[Install Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop)[Deploy Claude Desktop for macOS](https://support.claude.com/en/articles/12611117-deploy-claude-desktop-for-macos)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-claude-cowork-safely)[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)

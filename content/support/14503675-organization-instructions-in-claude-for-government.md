@@ -49,7 +49,7 @@ To remove instructions entirely, clear the text area and click "Save."
 
 **Response formatting** — "Prefer concise responses under 300 words. Use bullet points for lists with three or more items."
 
-**Referral guidance** — "When users ask about HR policies, direct them to [[email protected]](https://support.claude.com/cdn-cgi/l/email-protection#98f0ead8fde0f9f5e8f4fdb6fbf7f5) rather than providing specific policy advice."
+**Referral guidance** — "When users ask about HR policies, direct them to [hr@example.com](mailto:hr@example.com) rather than providing specific policy advice."
 
 * * *
 
