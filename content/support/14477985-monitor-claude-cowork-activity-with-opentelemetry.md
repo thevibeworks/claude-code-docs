@@ -8,7 +8,7 @@ Markdown Content:
 3.   [Analytics and usage](https://support.claude.com/en/collections/18901831-analytics-and-usage)
 4.   Monitor Claude Cowork activity with OpenTelemetry
 
-Updated over 3 weeks ago
+Updated over a month ago
 
 This article explains how to use OpenTelemetry (OTel) to monitor Claude Cowork activity across your organization. With OTel, your security and operations teams can stream Cowork events into the observability tools you already use to track usage, investigate incidents, and analyze performance.
 
