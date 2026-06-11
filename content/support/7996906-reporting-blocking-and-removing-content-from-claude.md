@@ -9,6 +9,8 @@ Markdown Content:
 
 March 16, 2026
 
+Table of contents
+
 Anthropic supports a variety of ways to allow people to control their content and personal information. As a site owner, you can control what shows up in Claude outputs that use web search. As a user or member of the public, you can report problematic content that another user shares publicly or that you receive in a Claude output. For each type of concern, follow the reporting instructions below.
 
 Please note, we reserve the right to suspend users who frequently provide manifestly illegal content and suspend the processing of notices for users who frequently submit notices which are manifestly unfounded. We will provide a warning before suspension.
