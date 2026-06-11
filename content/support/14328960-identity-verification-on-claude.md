@@ -9,8 +9,6 @@ Markdown Content:
 
 April 13, 2026
 
-Table of contents
-
 Being responsible with powerful technology starts with knowing who is using it. Identity verification helps us prevent abuse, enforce our usage policies, and comply with legal obligations.
 
 We are rolling out identity verification for a few use cases, and you might see a verification prompt when accessing certain capabilities, as part of our routine platform integrity checks, or other safety and compliance measures.
