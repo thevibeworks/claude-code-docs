@@ -19,7 +19,7 @@
         "url": "https://github.com/42Crunch-AI/claude-plugins.git",
         "path": "plugins/api-security-testing",
         "ref": "v1.5.5",
-        "sha": "5cfa510f7ea4d940f0ff5f6688a21e4ea0db0a18"
+        "sha": "10f3e847d2ca1944c03eb7cfaa6003c84d348f47"
       },
       "homepage": "https://42crunch.com"
     },
@@ -291,7 +291,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-agents",
         "ref": "main",
-        "sha": "f5ba81082aafe865ffe947ceabc574a7a0353e57"
+        "sha": "2b92b90e79e6dde7fa5413079ebe1240d4a53bd4"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -320,7 +320,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-core",
         "ref": "main",
-        "sha": "f5ba81082aafe865ffe947ceabc574a7a0353e57"
+        "sha": "2b92b90e79e6dde7fa5413079ebe1240d4a53bd4"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -336,7 +336,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-data-analytics",
         "ref": "main",
-        "sha": "f5ba81082aafe865ffe947ceabc574a7a0353e57"
+        "sha": "2b92b90e79e6dde7fa5413079ebe1240d4a53bd4"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -502,7 +502,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "ab95e738e5fa8945d0e0faa1e43b7d618980ac76"
+        "sha": "191ed3cb174ba8dd0b6fbbc7607fdc390a4e92ce"
       },
       "homepage": "https://carta.com"
     },
@@ -534,7 +534,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "ab95e738e5fa8945d0e0faa1e43b7d618980ac76"
+        "sha": "191ed3cb174ba8dd0b6fbbc7607fdc390a4e92ce"
       },
       "homepage": "https://carta.com"
     },
@@ -841,7 +841,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/get-convex/convex-backend-skill.git",
-        "sha": "002f9c834cdb834ddef1e4867d87cb6e80f0acba"
+        "sha": "d184f54776d20dd834218b11b83feb42d5e2a065"
       },
       "homepage": "https://github.com/get-convex/convex-backend-skill",
       "keywords": [
@@ -943,7 +943,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "23aab90cf7a198e8481dce1475020e14014a7ebe"
+        "sha": "79790536d73a529a2be5ab37747e990a19519700"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1429,7 +1429,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/knowledge-catalog.git",
-        "sha": "b3df58e81ae46a1497a1186fc82119d328ec730c"
+        "sha": "ed4eca831c7291929ddc64d9d6de9137c084dffd"
       },
       "homepage": "https://github.com/gemini-cli-extensions/knowledge-catalog"
     },
@@ -1770,7 +1770,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/netlify/context-and-tools.git",
-        "sha": "c594226e29e05cd6da81b73e8d5a67c6742b4437"
+        "sha": "ab80a6ed2b6c4933a3f964101c82b45cab847b5b"
       },
       "homepage": "https://github.com/netlify/context-and-tools"
     },
@@ -2127,7 +2127,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/quarkusio/quarkus-agent-mcp.git",
-        "sha": "0ecd6237518001b92da64499f0b43103a278f95f"
+        "sha": "7c92e19216010fd304bca2ef2be3958f870ad0d1"
       },
       "homepage": "https://quarkus.io"
     },
@@ -2348,7 +2348,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "cf2d1ef7f5641416c8f3ce7da7afac6c9271ad39"
+        "sha": "ea691796c3b5bfc6254a2e4938cdda3cabce19de"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -2431,7 +2431,7 @@
         "url": "https://github.com/getsentry/cli.git",
         "path": "plugins/sentry-cli",
         "ref": "main",
-        "sha": "a55d2a805aea69f6abb3fe58ed162377867ba2c5"
+        "sha": "209ed4bdf963b9def3c0787ba9ef642d6d6c1c36"
       },
       "homepage": "https://sentry.io"
     },
@@ -2608,7 +2608,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "d076d0558c3b3d86149c2dddc84054fe9c6dd3e0"
+        "sha": "2b60be10f6f838a739b0d4faa5eb3583cc7cec81"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },

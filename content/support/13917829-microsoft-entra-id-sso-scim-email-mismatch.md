@@ -14,9 +14,9 @@ People may experience one or more of the following when attempting to access you
 Microsoft Entra ID user accounts have multiple email-like attributes that can hold _different values_. SCIM provisioning and SSO authentication are configured in separate admin areas and each can pull from a different attribute:
 
 **Entra attribute****Typical value****Commonly used by**
-`userPrincipalName``testuser1@example.com` (may be employee ID format)Default SCIM userName mapping
-`mail``test.user.one@example.com` (standard email)OIDC / SAML email claim
-`proxyAddresses``SMTP:test.user.one@example.com`Exchange / M365 primary address
+`userPrincipalName``[email protected]` (may be employee ID format)Default SCIM userName mapping
+`mail``[email protected]` (standard email)OIDC / SAML email claim
+`proxyAddresses``SMTP:[email protected]`Exchange / M365 primary address
 `otherMails`May contain aliases or secondary addresses Alternative contact emails
 
 The mismatch occurs when SCIM pulls email from one attribute while SSO sends the email from another. Even a subtle difference blocks access—Claude requires an **exact string match**.

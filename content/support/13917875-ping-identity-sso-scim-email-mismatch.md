@@ -10,8 +10,6 @@ Markdown Content:
 
 March 24, 2026
 
-Table of contents
-
 Claude uses email as the primary identifier to match SSO logins to provisioned seats. Ping Identity products (PingOne and PingFederate) have flexible, layered attribute configuration. When SCIM provisioning and SAML/OIDC SSO pull from different user attributes, a mismatch blocks access.
 
 ## Symptoms
@@ -23,10 +21,10 @@ People may experience one or more of the following when attempting to access you
 Ping Identity products allow granular attribute mapping at multiple levels (directory, IdP adapter, SP connector, application). SCIM and SSO can each traverse different paths through these layers, resulting in different email values reaching Claude:
 
 **Ping attribute****Typical value****Commonly used by**
-`email` (PingOne)`[email protected]`Recommended for both SCIM and SAML/OIDC
-`username` (PingOne)`testuser1` or `[email protected]`Default login identifier; may differ from email
+`email` (PingOne)`test.user.one@example.com`Recommended for both SCIM and SAML/OIDC
+`username` (PingOne)`testuser1` or `testuser1@example.com`Default login identifier; may differ from email
 IdP adapter attribute (PingFederate)Varies by adapter type (LDAP, HTML Form, etc.)PingFederate identity sources
-LDAP `mail` attribute`[email protected]`Directory-sourced email in PingFederate
+LDAP `mail` attribute`test.user.one@example.com`Directory-sourced email in PingFederate
 LDAP `sAMAccountName` or uid May be employee ID or short username Sometimes mapped to email by mistake
 Custom population attributes Custom fields defined per environment Advanced PingOne configurations
 
