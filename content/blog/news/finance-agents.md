@@ -134,18 +134,20 @@ To see these capabilities in action, you can register for our [livestreamed keyn
 
 ## Related content
 
+### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
+
+We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
+
+[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
+
+### Introducing Claude Corps
+
+We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+
+[Read more](https://www.anthropic.com/news/claude-corps)
+
 ### Claude Fable 5 and Claude Mythos 5
 
 Our next generation of intelligence for the hardest knowledge work and coding problems.
 
 [Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
-
-### Introducing the Services Track and Partner Hub of the Claude Partner Network
-
-[Read more](https://www.anthropic.com/news/services-track-partner-hub)
-
-### What we learned mapping a year’s worth of AI-enabled cyber threats
-
-As AI transforms the nature of and methods behind cyberattacks, how well do the techniques and frameworks used by the security community hold up? In a new report, we seek to answer that question.
-
-[Read more](https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack)
