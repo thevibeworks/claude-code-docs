@@ -10,8 +10,6 @@ Markdown Content:
 
 March 24, 2026
 
-Table of contents
-
 This guide walks through configuring SSO and SCIM for Claude with OneLogin as your identity provider. It applies to Team plans, Enterprise plans, and Console organizations.
 
 ## Prerequisites

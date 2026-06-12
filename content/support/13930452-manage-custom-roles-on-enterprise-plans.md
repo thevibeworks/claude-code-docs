@@ -10,8 +10,6 @@ Markdown Content:
 
 Updated this week
 
-Table of contents
-
 ## What are custom roles?
 
 Custom roles let you define which features your members can access. Each custom role contains a set of permissions that grant or restrict access to specific capabilities like chat, Claude Cowork, Claude Code, and web search, plus the connectors your organization has added, such as Slack or Google Drive. Custom roles can also grant admin permissions, which give members access to specific administrative areas like billing, identity, or privacy without making them Owners.
