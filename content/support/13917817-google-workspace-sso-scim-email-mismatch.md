@@ -10,8 +10,6 @@ Markdown Content:
 
 March 24, 2026
 
-Table of contents
-
 Claude uses email as the primary identifier to match SSO logins to provisioned seats. In Google Workspace, SCIM auto-provisioning and SAML SSO can send different email values—especially when people have email aliases—causing a mismatch that blocks access.
 
 ## Symptoms
@@ -23,8 +21,8 @@ People may experience one or more of the following when attempting to access you
 Google Workspace accounts have a primary email and may have multiple aliases. SCIM provisioning and SAML SSO are configured separately in the Google Admin console and can pull from different address fields:
 
 **Google attribute****Typical value****Commonly used by**
-`primaryEmail``[email protected]`Recommended for both SCIM and SAML
-Email aliases`[email protected]`, `[email protected]`Sometimes mapped by mistake in SCIM
+`primaryEmail``test.user.one@example.com`Recommended for both SCIM and SAML
+Email aliases`testuser1@example.com`, `t.userone@example.com`Sometimes mapped by mistake in SCIM
 Custom schema fields Custom attributes defined per org Advanced attribute mappings
 Organization unit email OU-derived address variants Rarely, in complex org structures
 

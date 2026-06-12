@@ -10,6 +10,8 @@ Markdown Content:
 
 Updated over 2 weeks ago
 
+Table of contents
+
 We offer a set of open-source plugins that extend Claude with specialized capabilities for financial services workflows, including financial modeling, equity research, investment banking, private equity, and wealth management.
 
 You can add them as an Anthropic-built marketplace, called Financial Services, or from a public GitHub repository.

@@ -10,8 +10,6 @@ Markdown Content:
 
 March 24, 2026
 
-Table of contents
-
 Claude uses email as the primary identifier to match SSO logins to provisioned seats. In OneLogin, SCIM provisioning and SAML SSO are configured in separate tabs of the app and can reference different user profile fields, causing a mismatch that blocks access.
 
 ## Symptoms
@@ -23,8 +21,8 @@ People may experience one or more of the following when attempting to access you
 OneLogin user profiles contain distinct fields for username and email, which may hold different values. SCIM provisioning parameters and SAML attribute statements are configured independently and can each pull from a different field:
 
 **OneLogin field****Typical value****Commonly used by**
-`Username``testuser1` or [`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#f68293858283859384c7b6938e979b869a93d895999b)Sometimes used in SCIM userName mapping
-`Email`[`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#01756472752f747264732f6e6f64416479606c716d642f626e6c)Recommended for both SCIM and SAML
+`Username``testuser1` or [`testuser1@example.com`](mailto:testuser1@example.com)Sometimes used in SCIM userName mapping
+`Email`[`test.user.one@example.com`](mailto:test.user.one@example.com)Recommended for both SCIM and SAML
 `Login Name`May differ from email if SSO is used for non-email logins Legacy or custom configurations
 Custom user fields Custom attributes defined per org Advanced attribute mappings
 
