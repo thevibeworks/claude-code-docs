@@ -29,7 +29,7 @@ Both offerings let you use Claude through AWS, but they differ significantly in 
 | **Feature availability** | Typically same-day as Claude API (see [feature limitations](#features-not-supported)) | Per Amazon Bedrock release schedule | Per Amazon Bedrock release schedule |
 | **Agent Skills** | Available (beta) | Not available (requires code execution) | Not available |
 | **Beta features** | Pass through with `anthropic-beta` headers (see [feature limitations](#features-not-supported)) | `anthropic-beta` header not supported | `anthropic-beta` header not supported |
-| **Authentication** | AWS IAM / SigV4 or API key | AWS IAM / SigV4 | AWS IAM / SigV4 or bearer token (C#, Go, and Java SDKs only) |
+| **Authentication** | AWS IAM / SigV4 or API key | AWS IAM / SigV4 | AWS IAM / SigV4 or bearer token |
 | **Billing** | AWS Marketplace | AWS (native service) | AWS (native service) |
 | **Base URL** | `aws-external-anthropic.{region}.api.aws` | `bedrock-mantle.{region}.api.aws` | `bedrock-runtime.{region}.amazonaws.com` |
 | **SDK client** | Platform-specific client class (for example, `AnthropicAWS` in Python), in beta | `AnthropicBedrockMantle` | `AnthropicBedrock` / Bedrock SDK |
@@ -535,7 +535,6 @@ The following capabilities are not currently available on Claude Platform on AWS
 - **OAuth authentication:** Not supported. Use SigV4 or API key authentication.
 - **Fast mode:** Not available on Claude Platform on AWS.
 - **OpenAI-compatible API endpoints:** Not available on Claude Platform on AWS.
-- **Self-hosted sandbox work-list endpoint:** The `GET /v1/environments/{id}/work` endpoint, which lists pending work for a [self-hosted sandbox](/docs/en/managed-agents/self-hosted-sandboxes), is not currently available. The other work endpoints (poll, ack, heartbeat, stop, post results, per-item get, and stats) work normally.
 - **MCP tunnels:** Only MCP servers exposed over the public internet are supported.
 
 ## Data residency

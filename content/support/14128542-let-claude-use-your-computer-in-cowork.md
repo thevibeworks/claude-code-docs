@@ -21,7 +21,7 @@ If your work involves a physical machine, Claude keeps working while you step aw
 
 Claude asks for your permission before accessing each application. You’ll see a prompt and must approve before Claude can interact with that app. Some apps are off-limits by default.
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1781173800&signature=f0964a1129176f8017f2aecd781af9c7621b86e7d03b79ffd8b487e9e2cd0800&req=diEuFct3molbUPMW1HO4za8%2BRn2DRCOUOFMEfKzd96rLZ%2FNYnZi81zkcNSgG%0Ap6yQtJciO5X8yV3snp0%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1781173800&signature=f0964a1129176f8017f2aecd781af9c7621b86e7d03b79ffd8b487e9e2cd0800&req=diEuFct3molbUPMW1HO4za8%2BRn2DRCOUOFMEfKzd96rLZ%2FNYnZi81zkcNSgG%0Ap6yQtJciO5X8yV3snp0%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1781243100&signature=40cbc5668538a97dd8cca9d340693ab89ede817e596d1ac7421dd270aa0b8f87&req=diEuFct3molbUPMW1HO4za8%2BRn2ARyOdOFMEfKzd96p5%2Bs7KJSWtTRz0B9yJ%0A7TpPWdVQzz8yYVpE%2BDU%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1781243100&signature=40cbc5668538a97dd8cca9d340693ab89ede817e596d1ac7421dd270aa0b8f87&req=diEuFct3molbUPMW1HO4za8%2BRn2ARyOdOFMEfKzd96p5%2Bs7KJSWtTRz0B9yJ%0A7TpPWdVQzz8yYVpE%2BDU%3D%0A)
 
 Claude is trained to avoid risky operations—like transferring funds, modifying or deleting files, or handling sensitive data—and to flag signs of prompt injection. However, these safeguards aren't perfect, and Claude may occasionally act outside these boundaries.
 
@@ -59,7 +59,7 @@ This is a research preview. Keep the following in mind:
 
 To start using computer use:
 
-We’re sharing this early because it’s the kind of capability that gets better with real usage. If something doesn’t work as expected, use the in-app feedback button or reach out to [[email protected]](https://support.claude.com/cdn-cgi/l/email-protection#3c494f594e4f5d5a5948457c5d5248544e534c555f125f5351).
+We’re sharing this early because it’s the kind of capability that gets better with real usage. If something doesn’t work as expected, use the in-app feedback button or reach out to [[email protected]](https://support.claude.com/cdn-cgi/l/email-protection#2b5e584e59584a4d4e5f526b4a455f4359445b424805484446).
 
 * * *
 
