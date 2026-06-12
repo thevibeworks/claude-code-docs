@@ -943,7 +943,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "6f60c83ad13436f953224a61477d6380c199214b"
+        "sha": "23aab90cf7a198e8481dce1475020e14014a7ebe"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1150,7 +1150,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "1a5693e0acc95a0829ff1656b4426fee2f2c1167"
+        "sha": "bba3c55d7e75f62cbfc937150b4b4ed3873e3b0d"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "c52165d1b63cf11955ceb4e2265cbe34b0718852"
+        "sha": "a0ee97210b4cfd4d4e8658fef607467ae88383b7"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1759,7 +1759,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "58b84dfb0815cca6dbb2f40bfdb23ddf934d2b5f"
+        "sha": "654f914a925ac88d53cee8a2351f28bdb08f1e42"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -1855,7 +1855,7 @@
         "url": "https://github.com/oracle-samples/oracle-aidp-samples.git",
         "path": "ai/claude-code-plugins/oracle-ai-data-platform-workbench-spark-connectors",
         "ref": "main",
-        "sha": "deadf8f862f1360e08fd7de470ad1af38c3edb31"
+        "sha": "451ec14c83d65924a2a62615274122ad3b628404"
       },
       "homepage": "https://docs.oracle.com/en/cloud/paas/ai-data-platform/index.html"
     },
@@ -1885,7 +1885,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "be9352cb3cb4bd7c204be0150db8c205dd939d9e"
+        "sha": "5a29fff6ffa4ddfb73563c4c584755328e92d679"
       },
       "homepage": "https://output.ai"
     },
@@ -2016,7 +2016,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Postman-Devrel/postman-claude-code-plugin.git",
-        "sha": "812678b3d1d1956815252d8f25e3ccc10d1bca8f"
+        "sha": "cb8e002ec9b94d84e1d247bcb3e854dec4de0ace"
       },
       "homepage": "https://learning.postman.com/docs/developer/postman-mcp-server/"
     },
@@ -2387,7 +2387,7 @@
     {
       "name": "security-guidance",
       "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
-      "version": "2.0.4",
+      "version": "2.0.5",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2934,7 +2934,7 @@
         "url": "https://github.com/zapier/zapier-mcp.git",
         "path": "plugins/zapier",
         "ref": "main",
-        "sha": "770167c572deaf74c588b45d88003ddf2145d608"
+        "sha": "ea8ed6b4de66e9bb46c12b3a38da8286e3770ad9"
       },
       "homepage": "https://github.com/zapier/zapier-mcp/tree/main/plugins/zapier"
     },
