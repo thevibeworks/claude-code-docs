@@ -1,11 +1,11 @@
-Title: Introducing Claude Pro
+Title: Reflections on Qualitative Research
 
-URL Source: https://www.anthropic.com/news/claude-pro
+URL Source: https://www.anthropic.com/research/transformer-circuits
 
 Markdown Content:
-# Introducing Claude Pro \ Anthropic
+# Reflections on Qualitative Research \ Anthropic
 
-[Skip to main content](https://www.anthropic.com/news/claude-pro#main-content)[Skip to footer](https://www.anthropic.com/news/claude-pro#footer)
+[Skip to main content](https://www.anthropic.com/research/transformer-circuits#main-content)[Skip to footer](https://www.anthropic.com/research/transformer-circuits#footer)
 
 [](https://www.anthropic.com/)
 
@@ -17,53 +17,33 @@ Markdown Content:
 
 [Try Claude](https://claude.ai/)
 
-Announcements
+Interpretability Research
 
-# Introducing Claude Pro
+# Reflections on Qualitative Research
 
-Sep 7, 2023
+Mar 8, 2024
 
-[Subscribe today](https://claude.ai/settings/billing?action=subscribe)
+[Read Transformer Circuits](https://transformer-circuits.pub/2024/qualitative-essay/index.html)
 
-![Image 1](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F2504af2b3cd3b1d254bb0fff79d8eefb0db037c7-2880x1620.jpg&w=3840&q=75)
+This note offers some opinionated thoughts on why interpretability research may have qualitative aspects be more central than we're used to in other fields. It also aims to describe some heuristics for research taste in qualitative work.
 
-Today, we’re introducing a paid plan for our [Claude.ai](https://claude.ai/redirect/website.v1.93991724-8ea5-42df-97d9-98144e517283)chat experience, currently available in the US and UK.
-
-Since launching in July, users tell us they’ve chosen Claude.ai as their day-to-day AI assistant for its longer context windows, faster outputs, complex reasoning capabilities, and more.Many also shared that they would value more file uploads and conversations over longer periods.
-
-With [Claude Pro](https://claude.ai/redirect/website.v1.93991724-8ea5-42df-97d9-98144e517283/settings/billing?action=subscribe), subscribers can now gain **5x more usage** of our latest model, Claude 2, for a monthly price of $20 (US) or £18 (UK).
-
-This means you can level up your productivity across a range of tasks, including summarizing research papers, querying contracts, and iterating further on coding projects—like this recent [demo](https://www.youtube.com/watch?v=oVsHikXgK9Y) of building an interactive map.
-
-Claude Pro offers:
-
-*   5x more usage than our free tier provides, with the ability to send many more messages
-*   Priority access to Claude.ai during high-traffic periods
-*   Early access to new features that help you get the most out of Claude
-
-You can learn more about these benefits, including how to maximize your usage, [here](https://support.anthropic.com/en/articles/8324991-about-claude-pro-usage).
-
-We’re grateful for your support as we strive to build helpful, honest, and harmless systems that fuel productivity and inspire creativity.
-
-[](https://twitter.com/intent/tweet?text=https://www.anthropic.com/news/claude-pro)[](https://www.linkedin.com/shareArticle?mini=true&url=https://www.anthropic.com/news/claude-pro)
+[](https://twitter.com/intent/tweet?text=https://www.anthropic.com/research/transformer-circuits)[](https://www.linkedin.com/shareArticle?mini=true&url=https://www.anthropic.com/research/transformer-circuits)
 
 ## Related content
 
-### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
+### Paving the way for agents in biology
 
-The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
+[Read more](https://www.anthropic.com/research/agents-in-biology)
 
-[Read more](https://www.anthropic.com/news/fable-mythos-access)
+### Making Claude a chemist
 
-### Results from the first Anthropic Public Record
+[Read more](https://www.anthropic.com/research/making-claude-a-chemist)
 
-[Read more](https://www.anthropic.com/news/anthropic-public-record)
+### Coding agents in the social sciences
 
-### TCS and Anthropic partner to bring Claude to regulated industries
+Results from a survey of 1,260 social scientists about AI and coding agent use.
 
-We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
-
-[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
+[Read more](https://www.anthropic.com/research/coding-agents-social-sciences)
 
 [](https://www.anthropic.com/)
 
@@ -163,7 +143,7 @@ We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will 
 
 ### Terms and policies
 
-*   [Privacy policy](https://www.anthropic.com/legal/privacy)
+Privacy choices*   [Privacy policy](https://www.anthropic.com/legal/privacy)
 *   [Consumer health data privacy policy](https://www.anthropic.com/legal/consumer-health-data-privacy-policy)
 *   [Responsible disclosure policy](https://www.anthropic.com/responsible-disclosure-policy)
 *   [Terms of service: Commercial](https://www.anthropic.com/legal/commercial-terms)

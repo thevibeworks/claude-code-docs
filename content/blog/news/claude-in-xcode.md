@@ -30,20 +30,18 @@ For more details, see the [Xcode 26 release notes](https://developer.apple.com/d
 
 ## Related content
 
-### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Introducing Claude Corps
+### Results from the first Anthropic Public Record
 
-We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/claude-corps)
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-### Claude Fable 5 and Claude Mythos 5
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
-
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
