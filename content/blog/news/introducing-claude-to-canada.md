@@ -7,7 +7,7 @@ Markdown Content:
 
 [Claude](https://www.anthropic.com/claude) is now available in Canada. Starting today, people and businesses across the country will be able to access Claude via:
 
-*   [Claude.ai](http://claude.ai/redirect/website.v1.54e289cf-c024-428a-8a00-09e21dffc0fb): the web-based version of our next-generation AI assistant.
+*   [Claude.ai](http://claude.ai/redirect/website.v1.de984995-1b55-4a84-9ace-481b57d416c8): the web-based version of our next-generation AI assistant.
 *   The [Claude iOS app](https://apps.apple.com/app/claude/id6473753684): the free mobile app available in the Apple App Store that offers the same intuitive experience as mobile web.
 *   The [Claude API](https://www.anthropic.com/api): an interface that allows developers to integrate Anthropic’s state-of-the-art AI models into their own applications, websites, or services.
 *   The [Claude Team plan](https://www.anthropic.com/news/team-plan-and-ios): a secure workspace for teams to collaborate that offers increased usage for members.
@@ -18,20 +18,18 @@ We’re excited to expand our offerings to Canada—a country that has made sign
 
 ## Related content
 
-### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Introducing Claude Corps
+### Results from the first Anthropic Public Record
 
-We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/claude-corps)
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-### Claude Fable 5 and Claude Mythos 5
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
-
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
