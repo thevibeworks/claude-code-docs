@@ -39,18 +39,18 @@ Finally, I’d like to discuss the relationship between RSPs and regulation. RSP
 
 ## Related content
 
-### Introducing Claude Corps
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/claude-corps)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Claude Fable 5 and Claude Mythos 5
+### Results from the first Anthropic Public Record
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-### Introducing the Services Track and Partner Hub of the Claude Partner Network
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-[Read more](https://www.anthropic.com/news/services-track-partner-hub)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
