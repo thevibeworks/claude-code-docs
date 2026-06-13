@@ -222,7 +222,19 @@ Explore here
 
 ![Image 3](https://cdn.prod.website-files.com/68a44d4040f98a4adf2207b6/6903d227246bc2b5a3cc3626_9f6a378a1e3592cf8d27447457409ba12284faef-1000x1000.svg)
 
-# Fine-tune Claude 3 Haiku in Amazon Bedrock
+# Fine-tune
+
+Claude
+
+3
+
+Haiku
+
+in
+
+Amazon
+
+Bedrock
 
 Claude 3 Haiku can now be fine-tuned in Amazon Bedrock with custom training data, enabling faster, more accurate performance at lower cost.
 
@@ -462,7 +474,7 @@ this is a test
 
 [Anthropic](https://www.anthropic.com/)Anthropic
 
-© [year] Anthropic PBC
+© 2026 Anthropic PBC
 
 Products
 
@@ -601,3 +613,5 @@ Claude Platform
 [](https://www.anthropic.com/blog-usecases/business)
 
 Business
+
+×
