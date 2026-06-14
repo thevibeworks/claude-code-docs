@@ -23,8 +23,8 @@ People may experience one or more of the following when attempting to access you
 OneLogin user profiles contain distinct fields for username and email, which may hold different values. SCIM provisioning parameters and SAML attribute statements are configured independently and can each pull from a different field:
 
 **OneLogin field****Typical value****Commonly used by**
-`Username``testuser1` or [`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#01756472757472647330416479606c716d642f626e6c)Sometimes used in SCIM userName mapping
-`Email`[`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#99edfceaedb7eceafcebb7f6f7fcd9fce1f8f4e9f5fcb7faf6f4)Recommended for both SCIM and SAML
+`Username``testuser1` or [`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#0d79687e79787e687f3c4d68756c607d6168236e6260)Sometimes used in SCIM userName mapping
+`Email`[`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#e195849295cf94928493cf8e8f84a18499808c918d84cf828e8c)Recommended for both SCIM and SAML
 `Login Name`May differ from email if SSO is used for non-email logins Legacy or custom configurations
 Custom user fields Custom attributes defined per org Advanced attribute mappings
 
