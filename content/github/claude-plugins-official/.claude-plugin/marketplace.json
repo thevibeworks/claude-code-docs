@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "a241f2591e7786a4586afb623c1242ccfc1a6510"
+        "sha": "211e0adbe873fa7efe2152a0d352cc7c86ec4e08"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1773,7 +1773,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "7c3839a19c3fc9a570cedae7b2495f7f642f9f07"
+        "sha": "6d454c6d36481fffb50dfe46f4b8abb6f2de632f"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -2622,7 +2622,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "ea0ad2373fdb687c247aac4f4100dc04154bf687"
+        "sha": "7e7f72eb42e06f79e7bc75f86e9395f4c8232c00"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -2895,7 +2895,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "def21835af3e6f0d86bf8c18acb1aaad7fdc9cd8"
+        "sha": "1d441e5f3ffa6085e88df15fe807cb97dd99b10d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },

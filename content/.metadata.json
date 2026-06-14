@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-06-14T05:23:20.233451Z",
+    "fetch_date": "2026-06-14T17:06:25.406100Z",
     "section": "all"
   },
   "items": [
@@ -10271,8 +10271,8 @@
       "url": "https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts#admin.workspaces.service_accounts",
       "status": "success",
       "path": "en/api/admin/workspaces/service_accounts#admin.workspaces.service_accounts.md",
-      "sha256": "294a34d784ca8d53f0a8a745e12184c44e7a1782813d35c9a8a87c169352feee",
-      "size": 520204
+      "sha256": "a57e6c7ed98325144992fe20e81850385e4611f8b3869ca212f7300fe52398bd",
+      "size": 519696
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/api_keys",
@@ -10404,36 +10404,36 @@
       "url": "https://platform.claude.com/docs/en/api/admin/service_accounts#admin.service_accounts",
       "status": "success",
       "path": "en/api/admin/service_accounts#admin.service_accounts.md",
-      "sha256": "b208c1b8a33d001429db687e9197729e00877f4f8985fa8b1b0d4fc774428ffe",
+      "sha256": "61673a08c0e71733d16a9d330b217179f4512e0892b993d174ce9c91407770b5",
       "size": 519637
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces#admin.service_accounts.workspaces",
       "status": "success",
       "path": "en/api/admin/service_accounts/workspaces#admin.service_accounts.workspaces.md",
-      "sha256": "3bd25abbd94e4ea7b175b48dc04a53b68b2295c8ee98f50fdde18429e079fe11",
+      "sha256": "485b268057f6f64a57bd17f62af4f3816133ad2bbf6b88a58f9bc60b0b97381f",
       "size": 519696
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/federation_issuers#admin.federation_issuers",
       "status": "success",
       "path": "en/api/admin/federation_issuers#admin.federation_issuers.md",
-      "sha256": "84063c5e1a8d41b917216da0a97aa40084f2487bad9a58ba157e1b5f3a987f5b",
+      "sha256": "affed77ca4cf67e0eaacbaa451b7b22bf98d96159f8122852662874d10cb19c8",
       "size": 519647
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/federation_rules#admin.federation_rules",
       "status": "success",
       "path": "en/api/admin/federation_rules#admin.federation_rules.md",
-      "sha256": "b3bda5ea4cd103a293d0b725abadb92ecc68d34013444e58202d9eb68b7cd67d",
+      "sha256": "af60b4cff60ad760f3d0d2b9c33d0342397f44f0579f68987f092d8e8307b46f",
       "size": 519637
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces#admin.federation_rules.workspaces",
       "status": "success",
       "path": "en/api/admin/federation_rules/workspaces#admin.federation_rules.workspaces.md",
-      "sha256": "ab6b381af0adb188fc7cad6d31c33d6e7cf5487f9b0c69aac2a534e30e9dfe4e",
-      "size": 519711
+      "sha256": "1e0742117eb120505cf9fe836abcda1a405197b9e61d29bbca1482a54919f4cb",
+      "size": 519696
     },
     {
       "url": "https://platform.claude.com/docs/en/api/admin/mcp_tunnels",
@@ -13376,144 +13376,144 @@
       "size": 2766
     },
     {
-      "url": "https://www.anthropic.com/news/finance-agents",
+      "url": "https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans",
       "status": "success",
-      "path": "blog/news/finance-agents.md",
-      "sha256": "4bcf3d0f20ef6f13a8b5f967e9d964b0e7758a1916d92a706768db3f750fdc69",
-      "size": 16021
+      "path": "support/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans.md",
+      "sha256": "73b38eec75b85f77f2824702dbef24b20cb3c00150d15863dc7cc031b3e3c06e",
+      "size": 4264
     },
     {
-      "url": "https://www.anthropic.com/news/fine-tune-claude-3-haiku",
+      "url": "https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization",
       "status": "success",
-      "path": "blog/news/fine-tune-claude-3-haiku.md",
-      "sha256": "640588d1d6a5b9639d806fd6b397f9fd669ca2724cb15b05989a01b37ca7549f",
-      "size": 34499
+      "path": "support/13837433-manage-plugins-for-your-organization.md",
+      "sha256": "596ac1000328d21d28503b0839fe298827e05f283c1ea7fd1ec43f242651d56c",
+      "size": 12815
     },
     {
-      "url": "https://www.anthropic.com/news/frontier-model-security",
+      "url": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "status": "success",
-      "path": "blog/news/frontier-model-security.md",
-      "sha256": "6d3e8575822baf9069d056a09a1034ff4b89ad45a40331e1858fedc82be23500",
-      "size": 8489
+      "path": "support/13837440-use-plugins-in-claude.md",
+      "sha256": "c2799b6e71e1673b2cc2ecb4657dffa40a3efcca4b209b3dd1c591ee3a73cfba",
+      "size": 5123
     },
     {
-      "url": "https://www.anthropic.com/news/frontier-threats-red-teaming-for-ai-safety",
+      "url": "https://support.claude.com/en/articles/13851150-install-financial-services-plugins",
       "status": "success",
-      "path": "blog/news/frontier-threats-red-teaming-for-ai-safety.md",
-      "sha256": "101aa119a83638a5f594bcf1adb2f363b6dc822b5fdb7f20c7d79696f54c1abf",
-      "size": 11500
+      "path": "support/13851150-install-financial-services-plugins.md",
+      "sha256": "2e75389cedfd3803a5206af59fc8b9b4e8cd0b80f0fa09c8e142a143aee2bc06",
+      "size": 3085
     },
     {
-      "url": "https://www.anthropic.com/news/golden-gate-claude",
+      "url": "https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork",
       "status": "success",
-      "path": "blog/news/golden-gate-claude.md",
-      "sha256": "893504046e4c54975a61c43b31eaa0523780e799b5d73cd60bda52f740946535",
-      "size": 4838
+      "path": "support/13854387-schedule-recurring-tasks-in-claude-cowork.md",
+      "sha256": "87f202f5db1996ab985e75ba6f70c64a6ff332ae092b131990570c29ca35337d",
+      "size": 2613
     },
     {
-      "url": "https://www.anthropic.com/news/google-vertex-general-availability",
+      "url": "https://support.claude.com/en/articles/13892150-work-across-microsoft-365-apps",
       "status": "success",
-      "path": "blog/news/google-vertex-general-availability.md",
-      "sha256": "7dc4ad1015930fab002c58a9993836c75b6eeae3bc4811a49be633e5c673b6b2",
-      "size": 3268
+      "path": "support/13892150-work-across-microsoft-365-apps.md",
+      "sha256": "a0b85bbd4d47e52f2f9a7205a5b738b81c6fd6cd9733cca3b3e96ba690fff605",
+      "size": 5352
     },
     {
-      "url": "https://www.anthropic.com/news/how-people-use-claude-for-support-advice-and-companionship",
+      "url": "https://support.claude.com/en/articles/13917817-google-workspace-sso-scim-email-mismatch",
       "status": "success",
-      "path": "blog/news/how-people-use-claude-for-support-advice-and-companionship.md",
-      "sha256": "ceaa60c2096a4f294bf306948db293104ec086c5750846494e543bc46aa95452",
-      "size": 23325
+      "path": "support/13917817-google-workspace-sso-scim-email-mismatch.md",
+      "sha256": "184036b4d0bb2e71a6992349f7f827adede0a0b33a2bb26b890bad456ebd8346",
+      "size": 4305
     },
     {
-      "url": "https://www.anthropic.com/news/introducing-claude",
+      "url": "https://support.claude.com/en/articles/13917829-microsoft-entra-id-sso-scim-email-mismatch",
       "status": "success",
-      "path": "blog/news/introducing-claude.md",
-      "sha256": "e6620c3cef2c729477f324296da9d2592d4bed528efef817a490c65f467c4141",
-      "size": 8331
+      "path": "support/13917829-microsoft-entra-id-sso-scim-email-mismatch.md",
+      "sha256": "506f060c902c7363caa3398af1597b7a11c5bccec6893dc52d36eb3f1bde4802",
+      "size": 3925
     },
     {
-      "url": "https://www.anthropic.com/news/introducing-claude-for-education",
+      "url": "https://support.claude.com/en/articles/13917840-okta-sso-scim-email-mismatch",
       "status": "success",
-      "path": "blog/news/introducing-claude-for-education.md",
-      "sha256": "4fe13df838ee553e10c7f80e9e5b01fc1600e2321391ba850786d94cd9be3578",
-      "size": 8615
+      "path": "support/13917840-okta-sso-scim-email-mismatch.md",
+      "sha256": "7a121471468ac991736e0538c1dbadb309ab4f24cea421501a39ad8ae239742d",
+      "size": 3830
     },
     {
-      "url": "https://www.anthropic.com/news/introducing-claude-to-canada",
+      "url": "https://support.claude.com/en/articles/13917861-onelogin-sso-scim-email-mismatch",
       "status": "success",
-      "path": "blog/news/introducing-claude-to-canada.md",
-      "sha256": "9c4e144b6f4a78c3b642fbff7ff1bf5ddac33453fb244c9b8519e5e8f7a1bd3d",
-      "size": 2699
+      "path": "support/13917861-onelogin-sso-scim-email-mismatch.md",
+      "sha256": "40bf4eda747650dbf99c57e66c9f995b50e1534cfb7548e91db5dfb2ca03d352",
+      "size": 4363
     },
     {
-      "url": "https://www.anthropic.com/news/Introducing-code-with-claude",
+      "url": "https://support.claude.com/en/articles/13917875-ping-identity-sso-scim-email-mismatch",
       "status": "success",
-      "path": "blog/news/Introducing-code-with-claude.md",
-      "sha256": "2b71cfa62c298e7c81f51ecfa7dc5a769cf0b24c3aa19545f2a5fbd331afc22a",
-      "size": 2665
+      "path": "support/13917875-ping-identity-sso-scim-email-mismatch.md",
+      "sha256": "bfcb8c3a6bf73330298d87df7dc69021a8f038b3db8f8df933b0e0a5236f2ea1",
+      "size": 4680
     },
     {
-      "url": "https://www.anthropic.com/news/lawrence-livermore-national-laboratory-expands-claude-for-enterprise-to-empower-scientists-and",
+      "url": "https://support.claude.com/en/articles/13917884-google-workspace-sso-setup",
       "status": "success",
-      "path": "blog/news/lawrence-livermore-national-laboratory-expands-claude-for-enterprise-to-empower-scientists-and.md",
-      "sha256": "ad1bf23bca017142174be7745bc7dbb05ef8695ad5f648430cda082095b19caf",
-      "size": 5875
+      "path": "support/13917884-google-workspace-sso-setup.md",
+      "sha256": "daf9ad44d3d1f3444683295ae86fcd94ebf6e3f6e5997dabaf6a38dc724b99a0",
+      "size": 8869
     },
     {
-      "url": "https://www.anthropic.com/news/model-context-protocol",
+      "url": "https://support.claude.com/en/articles/13917889-microsoft-entra-id-sso-setup",
       "status": "success",
-      "path": "blog/news/model-context-protocol.md",
-      "sha256": "457a2d3eb7d3a465af9f1341bec3302377e5ddee5d2b2f406d1864d461b07df8",
-      "size": 5757
+      "path": "support/13917889-microsoft-entra-id-sso-setup.md",
+      "sha256": "179a0319d86d88c1cdeba65efaa458218d3bda6a97a57ce083537d81ba24343a",
+      "size": 9262
     },
     {
-      "url": "https://www.anthropic.com/news/model-safety-bug-bounty",
+      "url": "https://support.claude.com/en/articles/13917894-okta-sso-setup",
       "status": "success",
-      "path": "blog/news/model-safety-bug-bounty.md",
-      "sha256": "d4bb7f7a2f9f709c2574f95f8e7a3f98dbc430b59c04dba66e17146f5401e6a2",
-      "size": 5856
+      "path": "support/13917894-okta-sso-setup.md",
+      "sha256": "ee7b9e22cdbf54be968f0c31b496a98e5c9ed5c0eab2be41e6d4526092c9d4f0",
+      "size": 2351
     },
     {
-      "url": "https://www.anthropic.com/news/offering-expanded-claude-access-across-all-three-branches-of-government",
+      "url": "https://support.claude.com/en/articles/13917899-onelogin-sso-setup",
       "status": "success",
-      "path": "blog/news/offering-expanded-claude-access-across-all-three-branches-of-government.md",
-      "sha256": "78d6e263290b3df5bc942eafcb09f825f76423cf64a7122a33a8f6e257fc052d",
-      "size": 5440
+      "path": "support/13917899-onelogin-sso-setup.md",
+      "sha256": "d0bcdc0361b1eb48acac0fdd8bbdcb1d14309bf5c5a859a514b1f41eaa47f294",
+      "size": 2459
     },
     {
-      "url": "https://www.anthropic.com/news/our-framework-for-developing-safe-and-trustworthy-agents",
+      "url": "https://support.claude.com/en/articles/13917902-ping-identity-sso-setup",
       "status": "success",
-      "path": "blog/news/our-framework-for-developing-safe-and-trustworthy-agents.md",
-      "sha256": "1afa94944b902f61dc489f339ccd0186700620529dc85679e39b4a7580d5427c",
-      "size": 11243
+      "path": "support/13917902-ping-identity-sso-setup.md",
+      "sha256": "06d64f19834f120a278f5df5cdfe854ac14a424cea549a9910c2de064b5750f4",
+      "size": 7562
     },
     {
-      "url": "https://www.anthropic.com/news/releasing-claude-instant-1-2",
+      "url": "https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans",
       "status": "success",
-      "path": "blog/news/releasing-claude-instant-1-2.md",
-      "sha256": "f5c99d047dd703756368233600d77d8fbfb3818f32aa7a10da8be47977adab32",
-      "size": 3175
+      "path": "support/13930452-manage-custom-roles-on-enterprise-plans.md",
+      "sha256": "32ed5ab99ba84b768e5108f274fc421338453c8206e6b7a873ddad43c83667e1",
+      "size": 11761
     },
     {
-      "url": "https://www.anthropic.com/news/servicenow-anthropic-claude",
+      "url": "https://support.claude.com/en/articles/13930458-set-up-role-based-permissions-on-enterprise-plans",
       "status": "success",
-      "path": "blog/news/servicenow-anthropic-claude.md",
-      "sha256": "585c08727071e49eef03608b1b8c64186ff8c9a0ca703241a7e5331427ca9676",
-      "size": 6894
+      "path": "support/13930458-set-up-role-based-permissions-on-enterprise-plans.md",
+      "sha256": "8d37444e9f4e04470238550e66c033907588995cfb8dfad068b47c99e4b0b4a9",
+      "size": 30729
     },
     {
-      "url": "https://www.anthropic.com/news/testing-our-safety-defenses-with-a-new-bug-bounty-program",
+      "url": "https://support.claude.com/en/articles/13945233-use-claude-for-microsoft-365-with-third-party-platforms",
       "status": "success",
-      "path": "blog/news/testing-our-safety-defenses-with-a-new-bug-bounty-program.md",
-      "sha256": "e2423ade1aa1e6fb84993e9e2a13e45b0f4602c29642630c051cecef99cefdd2",
-      "size": 4903
+      "path": "support/13945233-use-claude-for-microsoft-365-with-third-party-platforms.md",
+      "sha256": "fbf7b8813281a635eef848b220dd969e781744c8fa5a1efdab88a987b8319fe1",
+      "size": 19509
     },
     {
-      "url": "https://www.anthropic.com/news/uk-ai-safety-summit",
+      "url": "https://support.claude.com/en/articles/13947068-assign-tasks-from-anywhere-in-claude-cowork",
       "status": "success",
-      "path": "blog/news/uk-ai-safety-summit.md",
-      "sha256": "c864bbfe6312b9d0ced5f3e41861ed030a81604ee73504f67297f8f35c6b5dfd",
-      "size": 8577
+      "path": "support/13947068-assign-tasks-from-anywhere-in-claude-cowork.md",
+      "sha256": "ad743f8e28a5c792516c3b9d6ad8af82d7c735a2eba5d4beae4c901b30e6bf3d",
+      "size": 4702
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/.claude/agents/code-reviewer.md",
@@ -15395,7 +15395,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json",
       "status": "success",
       "path": "github/claude-plugins-official/.claude-plugin/marketplace.json",
-      "sha256": "79d50f90d289c4b55179a2afb379ec0ff415354582cc6579fb97a25c54090935",
+      "sha256": "d33252fe3275e399eb2d825e030b203d17ddf37a9108dbbff866d6f76676d860",
       "size": 126953
     },
     {
