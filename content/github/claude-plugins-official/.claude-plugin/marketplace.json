@@ -518,7 +518,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "4b5796517b62c4aeaac1a0bb6ccdaebeb73475a5"
+        "sha": "9de95825cd0eef06abc819e99591270ce5a77e95"
       },
       "homepage": "https://carta.com"
     },
@@ -804,7 +804,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CodSpeedHQ/codspeed.git",
-        "sha": "41f4db99123434f3e24d0b9caca3e2b65d7ee24d"
+        "sha": "ba5799e38d88632b62e39074238e233bc870f433"
       },
       "homepage": "https://codspeed.io"
     },
@@ -1361,7 +1361,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "583b47b0390e5368193b9de8214cf22ce0cb99f5"
+        "sha": "a241f2591e7786a4586afb623c1242ccfc1a6510"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1773,7 +1773,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "240e2e182329f291eb8b842c0e42ccca7c9fceaf"
+        "sha": "7c3839a19c3fc9a570cedae7b2495f7f642f9f07"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -1816,7 +1816,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/nvsecurity/nightvision-skills.git",
-        "sha": "73a9d846b7428f8e616e891a16053209f2f6f67d"
+        "sha": "a510be06ca7fb2a0b1ffe38d4163f56dbc3b9e93"
       },
       "homepage": "https://github.com/nvsecurity/nightvision-skills"
     },
@@ -1853,7 +1853,7 @@
         "url": "https://github.com/NVIDIA/skills.git",
         "path": "plugins/nvidia-skills",
         "ref": "main",
-        "sha": "26058fed2657b64c3638a4ab731f62fb479201d9"
+        "sha": "5b2a1e80d0e03fc3c9f60e69a727cdfcc9ab8d4c"
       },
       "homepage": "https://github.com/NVIDIA/skills"
     },
@@ -2009,7 +2009,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/PostHog/ai-plugin.git",
-        "sha": "f674efefafeff7152294642f8559906eed885210"
+        "sha": "fd9992ff9f74b97ae8cd4a21e69d07687c5369ca"
       },
       "homepage": "https://posthog.com/docs/model-context-protocol"
     },
@@ -2102,7 +2102,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "0814a0875db7a31bf29e46821668ef1b07f9f696"
+        "sha": "80f1980d126039c762664a3fe660bbad2eb1ec11"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -2154,7 +2154,7 @@
         "url": "https://github.com/railwayapp/railway-skills.git",
         "path": "plugins/railway",
         "ref": "main",
-        "sha": "d096b092f96f9b6a3023c4a38295f431f5aebe0e"
+        "sha": "aa1e055b0f18d13787232b164cfb7416b553bd03"
       },
       "homepage": "https://docs.railway.com/ai/claude-code-plugin"
     },
@@ -2445,7 +2445,7 @@
         "url": "https://github.com/getsentry/cli.git",
         "path": "plugins/sentry-cli",
         "ref": "main",
-        "sha": "f1f603036aecac16048498e32f60d27dffd5a227"
+        "sha": "4fda3dc169b914a8dec53c18d127ccbe67dbbf3e"
       },
       "homepage": "https://sentry.io"
     },
@@ -2622,7 +2622,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "2b60be10f6f838a739b0d4faa5eb3583cc7cec81"
+        "sha": "ea0ad2373fdb687c247aac4f4100dc04154bf687"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -2634,7 +2634,7 @@
         "source": "url",
         "url": "https://github.com/sumup/sumup-skills.git",
         "path": "providers/claude/plugin",
-        "sha": "5b9b2d72c63fefd9038db0a9c571d3d64ff6353c"
+        "sha": "b69ff6f5afcd5934af70529e529c0dd8abe46cbe"
       },
       "homepage": "https://www.sumup.com/"
     },
