@@ -14,8 +14,8 @@ People may experience one or more of the following when attempting to access you
 Okta user profiles contain multiple fields that represent identity. SCIM provisioning (under **Provisioning → To App**) and SAML/OIDC SSO (under **Sign On**) are configured independently.
 
 **Okta attribute****Typical value****Commonly used by**
-`user.login``testuser1` or [`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#0d79687e79787e687f3c4d68756c607d6168236e6260)Default SCIM userName mapping; sometimes NameID
-`user.email`[`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#e490819790ca91978196ca8b8a81a4819c8589948881ca878b89)SAML/OIDC email claim (recommended)
+`user.login``testuser1` or [`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#e99d8c9a9d9c9a8c9bd8a98c91888499858cc78a8684)Default SCIM userName mapping; sometimes NameID
+`user.email`[`[email protected]`](https://support.claude.com/cdn-cgi/l/email-protection#c8bcadbbbce6bdbbadbae6a7a6ad88adb0a9a5b8a4ade6aba7a5)SAML/OIDC email claim (recommended)
 `appuser.email`App-level override of user email Custom app-level attribute mapping
 
 A common mismatch: SCIM uses `user.login` while SAML sends `user.email`. Claude requires an exact string match.
