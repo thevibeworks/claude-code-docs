@@ -35,8 +35,6 @@ The full list of new agents is as follows:
 *   **Statement auditor** reviews financial statements for consistency, completeness, and audit-readiness;
 *   **KYC screener** assembles entity files, reviews source documents, and packages escalations for compliance review.
 
-[Video 3](https://www.youtube.com/watch?v=foxeK2AXfHQ)
-
 There are two ways to put these to work.
 
 As a plugin in Claude Cowork or Claude Code, the template runs alongside the analyst, using the software already on their desktop. Hand the Pitch agent a target list, and you can get back a comps model in Excel, a pitchbook drafted in PowerPoint, and a cover note ready in Outlook.

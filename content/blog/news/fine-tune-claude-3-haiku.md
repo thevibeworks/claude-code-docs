@@ -100,19 +100,19 @@ Connect
     *   [Events](https://www.anthropic.com/events)
     *   [Community](https://www.anthropic.com/community)
 
-*   [Login](https://claude.ai/login)
+*   [Login](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2/login)
 
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 
 [](https://www.anthropic.com/news/fine-tune-claude-3-haiku#)
 
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 
 *   
 Meet Claude       
@@ -205,12 +205,12 @@ Connect
     *   [Events](https://www.anthropic.com/events)
     *   [Community](https://www.anthropic.com/community)
 
-*   [Login](https://claude.ai/login)
+*   [Login](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2/login)
 
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 *    Contact sales [Contact sales](https://www.anthropic.com/contact-sales)Contact sales  
-*    Try Claude [Try Claude](https://claude.ai/)Try Claude  
+*    Try Claude [Try Claude](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2)Try Claude  
 
 1.   Blog [Blog](https://www.anthropic.com/blog) /
 2.   Fine-tune Claude 3 Haiku in Amazon Bedrock 
@@ -485,7 +485,7 @@ Products
 *   Claude Security [Claude Security](https://www.anthropic.com/product/claude-security)Claude Security 
 *   Download app [Download app](https://www.anthropic.com/download)Download app 
 *   Pricing [Pricing](https://www.anthropic.com/pricing)Pricing 
-*   Log in [Log in](https://claude.ai/login)Log in 
+*   Log in [Log in](https://claude.ai/redirect/claudedotcom.v1.cb252c97-3c04-46e1-ad0a-c0b1a577c9a2/login)Log in 
 
 Features
 
