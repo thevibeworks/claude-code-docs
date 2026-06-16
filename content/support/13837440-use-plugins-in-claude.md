@@ -25,13 +25,13 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1781274600&signature=36f76270b88be60cbac6e1088249a5fc5a6302c9b19cd1f9a4f3fa4ac0cd8c10&req=diEnFs1%2BlINeWPMW1HO4zZF3IhTfNPFTxakFVfq5WwwG8PzeBr9uOWb8YKTi%0AjJWI5b201Nq66dyxfFI%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1781274600&signature=36f76270b88be60cbac6e1088249a5fc5a6302c9b19cd1f9a4f3fa4ac0cd8c10&req=diEnFs1%2BlINeWPMW1HO4zZF3IhTfNPFTxakFVfq5WwwG8PzeBr9uOWb8YKTi%0AjJWI5b201Nq66dyxfFI%3D%0A)
+[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1781626500&signature=d3bb4e14821c5ed1f7e071f305d7e1cfa4f395a324c0689228cb15eeacf37cc5&req=diEnFs1%2BlINeWPMW1HO4zZF3IhTbMfNQxakFVfq5Wwzdlzrhnsn8Ez96ITfB%0A3fKm%2FQsHKxTKMsnTztw%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1781626500&signature=d3bb4e14821c5ed1f7e071f305d7e1cfa4f395a324c0689228cb15eeacf37cc5&req=diEnFs1%2BlINeWPMW1HO4zZF3IhTbMfNQxakFVfq5Wwzdlzrhnsn8Ez96ITfB%0A3fKm%2FQsHKxTKMsnTztw%3D%0A)
 
 ## Use skills from plugins
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1781274600&signature=cbd2bfa8f113e39bcbb971caafa295b793cca36f940c7fa415fec3ab80b12276&req=diEiEcp3m4lbXfMW1HO4zf4NBPf%2BhESSmKUxugP2BQsmsLtlku0aPKKiRWLp%0A0tdQ5bf1ZkZoF6f85pI%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1781274600&signature=cbd2bfa8f113e39bcbb971caafa295b793cca36f940c7fa415fec3ab80b12276&req=diEiEcp3m4lbXfMW1HO4zf4NBPf%2BhESSmKUxugP2BQsmsLtlku0aPKKiRWLp%0A0tdQ5bf1ZkZoF6f85pI%3D%0A)
+[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1781626500&signature=55718de1a77bc824f9ec3e2f0ec01f216b23be93ca49843ecc2f624207522dc9&req=diEiEcp3m4lbXfMW1HO4zf4NBPf6gUaRmKUxugP2BQubfTapuSApZqo95z8T%0AClLOPJ022lWptH9dmQA%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1781626500&signature=55718de1a77bc824f9ec3e2f0ec01f216b23be93ca49843ecc2f624207522dc9&req=diEiEcp3m4lbXfMW1HO4zf4NBPf6gUaRmKUxugP2BQubfTapuSApZqo95z8T%0AClLOPJ022lWptH9dmQA%3D%0A)
 
 ## Customize a plugin
 

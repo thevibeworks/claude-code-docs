@@ -156,7 +156,7 @@ Use Remote Control when you're in the middle of local work and want to keep goin
 
 When Remote Control is active, Claude can send push notifications to your phone.
 
-Claude decides when to push. It typically sends one when a long-running task finishes or when it needs a decision from you to continue. You can also request a push in your prompt, for example `notify me when the tests finish`. Beyond the on/off toggle below, there is no per-event configuration.
+Claude decides when to push. It typically sends one when a long-running task finishes or when it needs a decision from you to continue. You can also request a push in your prompt, for example `notify me when the tests finish`. Beyond the two on/off toggles below, there is no per-event configuration.
 
 <Note>
   Mobile push notifications require Claude Code v2.1.110 or later.
@@ -178,7 +178,7 @@ To set up mobile push notifications:
   </Step>
 
   <Step title="Enable push in Claude Code">
-    In your terminal, run `/config` and enable **Push when Claude decides**.
+    In your terminal, run `/config` and enable **Push when Claude decides** for proactive notifications, **Push when actions required** for permission prompts and questions, or both.
   </Step>
 </Steps>
 

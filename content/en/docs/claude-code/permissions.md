@@ -122,6 +122,8 @@ Allow rules accept tool-name globs only after a literal `mcp__<server>__` prefix
 
 A deny or ask rule whose tool name matches no known tool produces a startup warning to catch typos. Tool names containing `_` or `*` are exempt from the check.
 
+The label shown for a tool in the transcript and permission dialog can differ from its canonical name. For example, the tool labeled `Stop Task` in the transcript has the canonical name `TaskStop`. Permission rules and [hook matchers](/en/hooks) match the canonical name only, so a rule written as `Stop Task` does not match. For deny and ask rules, the startup warning above catches the mismatch. Use the canonical names listed in the [tools reference](/en/tools-reference).
+
 ## Tool-specific permission rules
 
 ### Bash
