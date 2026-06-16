@@ -26,7 +26,7 @@ You can view and manage Claude Code's tool permissions with `/permissions`. This
 * **Ask** rules prompt for confirmation whenever Claude Code tries to use the specified tool.
 * **Deny** rules prevent Claude Code from using the specified tool.
 
-Rules are evaluated in order: deny, then ask, then allow. The first match in that order determines the outcome, and rule specificity does not change the order. A matching ask rule prompts even when a more specific allow rule also matches the same call.
+Rules are evaluated in order: deny, then ask, then allow. The first match in that order determines the outcome, and rule specificity does not change the order. A broad deny rule like `Bash(aws *)` blocks every matching call, including calls that also match a narrower allow rule like `Bash(aws s3 ls)`, so a deny rule cannot carry allowlist exceptions. The same precedence applies between ask and allow: a matching ask rule prompts even when a more specific allow rule also matches the same call.
 
 Deny rules behave differently depending on whether they name a tool or scope a pattern within one. A bare tool name like `Bash` removes the tool from Claude's context entirely, so Claude never sees it. A scoped rule like `Bash(rm *)` leaves the tool available and blocks matching calls when Claude attempts them.
 
@@ -121,6 +121,8 @@ Deny and ask rules also accept glob patterns in the tool-name position. The patt
 Allow rules accept tool-name globs only after a literal `mcp__<server>__` prefix. The server segment must be glob-free so the rule names a specific server you configured. `mcp__puppeteer__*` matches every tool from the `puppeteer` server, and `mcp__github__get_*` matches its `get_` tools. An unanchored allow glob such as `"*"`, `"B*"`, or `"mcp__*"` is skipped with a warning and does not auto-approve anything.
 
 A deny or ask rule whose tool name matches no known tool produces a startup warning to catch typos. Tool names containing `_` or `*` are exempt from the check.
+
+The label shown for a tool in the transcript and permission dialog can differ from its canonical name. For example, the tool labeled `Stop Task` in the transcript has the canonical name `TaskStop`. Permission rules and [hook matchers](/en/hooks) match the canonical name only, so a rule written as `Stop Task` does not match. For deny and ask rules, the startup warning above catches the mismatch. Use the canonical names listed in the [tools reference](/en/tools-reference).
 
 ## Tool-specific permission rules
 
