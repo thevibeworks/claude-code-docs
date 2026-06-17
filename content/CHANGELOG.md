@@ -1,5 +1,43 @@
 # Changelog
 
+## 2.1.179
+
+- Fixed mid-stream connection drops: partial responses are now preserved instead of showing a raw error, and the spinner no longer gets stuck at "running tool"
+- Fixed mouse-wheel scrolling in WSL2 under Windows Terminal and VS Code (regression in 2.1.172)
+- Fixed a sandbox `denyRead`/`allowRead` glob over a large directory tree making the Bash tool description enormous and the session unusable on Linux
+- Fixed the feedback survey capturing a single-digit reply as a session rating immediately after a turn completes
+- Fixed the welcome screen stacking multiple promotional banners — at most one promo now shows per session
+- Fixed Ctrl+O not showing the subagent's transcript when viewing a subagent
+- Fixed clicking the prompt input not returning focus from the subagent/footer panel
+- Fixed remote session background tasks appearing stuck as "still running" between turns
+- Improved plugin loading performance in remote sessions
+
+## 2.1.178
+
+- Added `Tool(param:value)` syntax for permission rules to match a tool's input parameters (with `*` wildcard), e.g. `Agent(model:opus)` to block Opus subagents
+- Skills in nested `.claude/skills` directories now load when working on files there; on a name clash, the nested skill appears as `<dir>:<name>` so both stay available
+- Nested `.claude/` directories: the agent, workflow, and output-style closest to the working directory now wins when names collide; project-scope workflow saves now target the closest existing `.claude/workflows/`
+- Improved auto mode: subagent spawns are now evaluated by the classifier before launch, closing a gap where a subagent could request a blocked action without review
+- Improved `/doctor` with consistent flat tree layout across all sections, clearer section status icons, and highlighted command names
+- Improved the skill listing truncation warning to show how many skill descriptions are affected
+- Changed the workflow prompt keyword to use a purple shimmer highlight and trigger only on explicit phrases like "run a workflow" or "workflow:", not on any mention of the word
+- Improved Remote Control error messages: connection failures now show a persistent red "/rc failed" indicator in the footer, and the "not yet enabled" error now explains whether it's a gate, a check failure, stale entitlement, or org policy
+- `/bug` now requires a description before submitting, and no longer uses model-refusal text as the GitHub issue title
+- Fixed a crash (out-of-memory) when the CLI inherits a stale websocket/OAuth file-descriptor environment variable from a parent process
+- Fixed Claude in Chrome silently failing to connect when the OAuth token belongs to a different account than the Claude Code login
+- Fixed nested `.claude/skills` skills with directory-qualified names being blocked by permission prompts in non-interactive runs
+- Fixed several subagent issues: viewing a subagent's transcript now shows tool results and live progress, messages sent while it finishes its turn are no longer dropped, and backgrounding a running subagent (ctrl+b) no longer restarts it from scratch
+- Fixed `claude agents` workers failing with `401 Invalid bearer token` when the daemon was started from a shell with a custom API gateway via `ANTHROPIC_BASE_URL` and `ANTHROPIC_AUTH_TOKEN`
+- Fixed compaction not honoring `--fallback-model`: compaction now falls back to the configured fallback model chain on overload or model-availability errors
+- Fixed model requests continuing to fail with auth errors after credentials were refreshed outside the session, due to a stale cached request configuration
+- Fixed background sessions created with `/bg` or `←←` after a turn finished showing "Working" forever in the agents list
+- Fixed Linux sandbox failing to start when `.claude/skills` or `.claude/hooks` is a symlink
+- Fixed `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1` preventing fresh marketplace installs from cloning
+- Fixed MCP server-level specs (`mcp__server`, `mcp__server__*`, `mcp__*`) in subagent `disallowedTools` being silently ignored
+- Fixed vim mode undo: `u` now steps through NORMAL/VISUAL-mode commands one at a time instead of merging commands in quick succession into a single undo step
+- Fixed statusline links with custom URI schemes (e.g. `vscode://`) not opening when clicked in `claude agents`
+- [VSCode] Fixed pressing Esc to dismiss a CJK IME candidate window canceling the running Claude task
+
 ## 2.1.176
 
 - Session titles are now generated in the language of your conversation (set the `language` setting to pin a specific language)

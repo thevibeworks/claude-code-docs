@@ -23,14 +23,18 @@ If you’re interested in joining Anthropic’s engineering team, visit our [car
 
 ## Related content
 
-### Anthropic appoints KiYoung Choi as Representative Director of Korea ahead of Seoul office opening
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-[Read more](https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea)
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-### Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical "Magnifica humanitas"
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-[Read more](https://www.anthropic.com/news/chris-olah-pope-leo-encyclical)
+### Results from the first Anthropic Public Record
 
-### Widening the conversation on frontier AI
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/widening-conversation-ai)
+### TCS and Anthropic partner to bring Claude to regulated industries
+
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
+
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
