@@ -9,7 +9,7 @@ Claude 3.7 Sonnet shows particularly strong improvements in coding and front-end
 
 ![Image 1: Screen showing Claude Code onboarding](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2F4a4df6b6629f9814aec4eb9323028130f43a8d70-1920x1080.png&w=3840&q=75)
 
-Claude 3.7 Sonnet is now available on all [Claude](https://claude.ai/redirect/website.v1.54e289cf-c024-428a-8a00-09e21dffc0fb/new) plans—including Free, Pro, Team, and Enterprise—as well as the [Claude Developer Platform](https://docs.claude.com/en/docs/about-claude/models), [Amazon Bedrock](https://aws.amazon.com/bedrock/claude/), and [Google Cloud’s Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude). Extended thinking mode is available on all surfaces except the free Claude tier.
+Claude 3.7 Sonnet is now available on all [Claude](https://claude.ai/redirect/website.v1.97cf2ef8-c6b9-4823-ba22-d6a5c3cfb1a8/new) plans—including Free, Pro, Team, and Enterprise—as well as the [Claude Developer Platform](https://docs.claude.com/en/docs/about-claude/models), [Amazon Bedrock](https://aws.amazon.com/bedrock/claude/), and [Google Cloud’s Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-claude). Extended thinking mode is available on all surfaces except the free Claude tier.
 
 In both standard and extended thinking modes, Claude 3.7 Sonnet has the same price as its predecessors: $3 per million input tokens and $15 per million output tokens—which includes thinking tokens.
 
@@ -121,18 +121,18 @@ This results in a score of 70.3% on the subset of n=489 verified tasks which wor
 
 ## Related content
 
-### Introducing Claude Corps
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/claude-corps)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Claude Fable 5 and Claude Mythos 5
+### Results from the first Anthropic Public Record
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-### Introducing the Services Track and Partner Hub of the Claude Partner Network
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-[Read more](https://www.anthropic.com/news/services-track-partner-hub)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)

@@ -5,7 +5,7 @@ URL Source: https://www.anthropic.com/news/claude-2-1
 Markdown Content:
 ![Image 1](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fa03806b9e2428cb5ac0575110aa0918bfcf417c2-2880x1620.png&w=3840&q=75)
 
-Our latest model, Claude 2.1, is now available over API in our Console and is powering our [claude.ai](https://claude.ai/redirect/website.v1.844ce965-701c-46a8-9454-19e64e18ccac) chat experience. Claude 2.1 delivers advancements in key capabilities for enterprises—including an industry-leading 200K token context window, significant reductions in rates of model hallucination, system prompts and our new beta feature: tool use. We are also updating our [pricing](https://www-cdn.anthropic.com/1b1ea2c43d8dd058f6a331a8097e05ea40d626c6/model_pricing_nov2023.pdf) to improve cost efficiency for our customers across models.
+Our latest model, Claude 2.1, is now available over API in our Console and is powering our [claude.ai](https://claude.ai/redirect/website.v1.1c483dd6-555e-4007-98c6-23af50a2b61d) chat experience. Claude 2.1 delivers advancements in key capabilities for enterprises—including an industry-leading 200K token context window, significant reductions in rates of model hallucination, system prompts and our new beta feature: tool use. We are also updating our [pricing](https://www-cdn.anthropic.com/1b1ea2c43d8dd058f6a331a8097e05ea40d626c6/model_pricing_nov2023.pdf) to improve cost efficiency for our customers across models.
 
 **200K Context Window**
 
@@ -49,24 +49,22 @@ We’ve been working to simplify our developer Console experience for Claude API
 
 We’re also introducing [system prompts](https://docs.anthropic.com/claude/docs/how-to-use-system-prompts), which allow users to provide custom instructions to Claude in order to improve performance. System prompts set helpful context that enhances Claude’s ability to take on specified personalities and roles or structure responses in a more customizable, consistent way aligned with user needs.
 
-[Claude 2.1](https://www-cdn.anthropic.com/5c49cc247484cecf107c699baf29250302e5da70/ModelCardClaudev2_with_appendix_v1.pdf)is available now in our API, and is also powering our chat interface at [claude.ai](https://claude.ai/redirect/website.v1.844ce965-701c-46a8-9454-19e64e18ccac) for both the free and Pro tiers. Usage of the 200K token context window is reserved for Claude Pro users, who can now upload larger files than ever before. We can't wait to see the use cases these new features inspire as we work to build the safest and most technically sophisticated AI systems in the industry.
+[Claude 2.1](https://www-cdn.anthropic.com/5c49cc247484cecf107c699baf29250302e5da70/ModelCardClaudev2_with_appendix_v1.pdf)is available now in our API, and is also powering our chat interface at [claude.ai](https://claude.ai/redirect/website.v1.1c483dd6-555e-4007-98c6-23af50a2b61d) for both the free and Pro tiers. Usage of the 200K token context window is reserved for Claude Pro users, who can now upload larger files than ever before. We can't wait to see the use cases these new features inspire as we work to build the safest and most technically sophisticated AI systems in the industry.
 
 ## Related content
 
-### DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-We’re announcing a multi-year global alliance with DXC Technology, one of the world’s largest IT services companies.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/dxc-anthropic-alliance)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Introducing Claude Corps
+### Results from the first Anthropic Public Record
 
-We’re launching Claude Corps, a national fellowship program for people early in their careers who are passionate about extending the benefits of AI to communities across America.
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-[Read more](https://www.anthropic.com/news/claude-corps)
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-### Claude Fable 5 and Claude Mythos 5
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
-
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)

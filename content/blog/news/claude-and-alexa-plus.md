@@ -13,18 +13,18 @@ Alexa+ accesses Claude through Amazon Bedrock. It will start rolling out in the 
 
 ## Related content
 
-### Claude Fable 5 and Claude Mythos 5
+### Statement on the US government directive to suspend access to Fable 5 and Mythos 5
 
-Our next generation of intelligence for the hardest knowledge work and coding problems.
+The US government has issued an export control directive to suspend all access to Fable 5 and Mythos 5.
 
-[Read more](https://www.anthropic.com/news/claude-fable-5-mythos-5)
+[Read more](https://www.anthropic.com/news/fable-mythos-access)
 
-### Introducing the Services Track and Partner Hub of the Claude Partner Network
+### Results from the first Anthropic Public Record
 
-[Read more](https://www.anthropic.com/news/services-track-partner-hub)
+[Read more](https://www.anthropic.com/news/anthropic-public-record)
 
-### What we learned mapping a year’s worth of AI-enabled cyber threats
+### TCS and Anthropic partner to bring Claude to regulated industries
 
-As AI transforms the nature of and methods behind cyberattacks, how well do the techniques and frameworks used by the security community hold up? In a new report, we seek to answer that question.
+We’re announcing a partnership with Tata Consultancy Services (TCS). TCS will provide Claude to 50,000 of its own employees across 56 countries; build Claude-powered products for clients in financial services, healthcare, the public sector, and other regulated industries; and join the Claude Partner Network.
 
-[Read more](https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack)
+[Read more](https://www.anthropic.com/news/tcs-anthropic-partnership)
