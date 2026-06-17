@@ -35,7 +35,7 @@ You can set the advisor model in three ways:
 If any of these sets an advisor model, the advisor is enabled for sessions whose main model [supports it](#choose-an-advisor-model). To stop using it, see [Turn the advisor off](#turn-the-advisor-off).
 
 <Note>
-  To use Fable 5 as the advisor, you need Claude Code v2.1.170 or later and [Fable 5 access](/en/model-config#work-with-fable-5) for your organization. Fable does not appear in the picker that `/advisor` opens, so pass it directly as `/advisor fable`, `--advisor fable`, or `"advisorModel": "fable"`.
+  To use Fable 5 as the advisor, you need Claude Code v2.1.170 or later and [Fable 5 access](/en/model-config#work-with-fable-5) for your organization.
 </Note>
 
 ### Use the `/advisor` command
@@ -79,11 +79,16 @@ The advisor must be at least as capable as the main model. The accepted advisors
 | Opus 4.6 or later                               | Fable, Opus at or above the main model's version | An Opus 4.7 main with an Opus 4.6 advisor is rejected |
 | Fable 5 ({/* min-version: 2.1.170 */}v2.1.170+) | Fable                                            | An Opus or Sonnet advisor is rejected                 |
 
-Fable 5 requires Claude Code v2.1.170 or later and Fable 5 access, whether it acts as the main model or the advisor. The `fable` option does not appear in the `/advisor` picker.
+Fable 5 requires Claude Code v2.1.170 or later and Fable 5 access, whether it acts as the main model or the advisor.
 
 Set the advisor as `opus`, `sonnet`, or `fable`. These aliases resolve to the latest version of each model. You can also pass a full model ID such as `claude-opus-4-8`.
 
-The API enforces the pairing, not Claude Code. Setting a rejected pairing succeeds, then surfaces as a `cannot be used as an advisor when the request model is` error on the next request.
+Subagents inherit the configured advisor and apply the same pairing check against their own model.
+
+Claude Code validates the pairing before sending a request:
+
+* If the advisor is less capable than the main model, the advisor is not attached to the main model's requests. The `/advisor` command output and a notification show this. Subagents whose own model satisfies the pairing may still use the advisor.
+* If the main model or the advisor is a model Claude Code does not recognize, the advisor is not attached.
 
 ### Common model pairings
 
