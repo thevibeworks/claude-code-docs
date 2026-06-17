@@ -53,20 +53,16 @@ The focus of this investigation was on pretrained models. We’re even more exci
 
 ## Related content
 
-### Coding agents in the social sciences
+### Agentic coding and persistent returns to expertise
 
-Results from a survey of 1,260 social scientists about AI and coding agent use.
+[Read more](https://www.anthropic.com/research/claude-code-expertise)
 
-[Read more](https://www.anthropic.com/research/coding-agents-social-sciences)
+### Paving the way for agents in biology
 
-### Project Glasswing: An initial update
+[Read more](https://www.anthropic.com/research/agents-in-biology)
 
-An early update on what we've learned from Project Glasswing.
+### Measuring LLMs’ impact on N-day exploits
 
-[Read more](https://www.anthropic.com/research/glasswing-initial-update)
+In cybersecurity, a large fraction of real-world harm comes from N-days: vulnerabilities that have already been publicly disclosed, but only patched on some devices. In this post, we evaluate how much large language models can accelerate and automate the process of developing N-day exploits.
 
-### 2028: Two scenarios for global AI leadership
-
-Our views on the AI competition between the US and China.
-
-[Read more](https://www.anthropic.com/research/2028-ai-leadership)
+[Read more](https://www.anthropic.com/research/n-days)

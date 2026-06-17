@@ -10,7 +10,7 @@ Markdown Content:
 [](https://www.anthropic.com/)
 
 *   [Research](https://www.anthropic.com/research)
-*   [Economic Futures](https://www.anthropic.com/economic-futures)
+*   [Policy](https://www.anthropic.com/policy)
 *   Commitments
 *   Learn
 *   [News](https://www.anthropic.com/news)
@@ -35,23 +35,19 @@ We aim to offer insight into our vision for addressing mechanistic interpretabil
 
 ## Related content
 
-### Coding agents in the social sciences
+### Agentic coding and persistent returns to expertise
 
-Results from a survey of 1,260 social scientists about AI and coding agent use.
+[Read more](https://www.anthropic.com/research/claude-code-expertise)
 
-[Read more](https://www.anthropic.com/research/coding-agents-social-sciences)
+### Paving the way for agents in biology
 
-### Project Glasswing: An initial update
+[Read more](https://www.anthropic.com/research/agents-in-biology)
 
-An early update on what we've learned from Project Glasswing.
+### Measuring LLMs’ impact on N-day exploits
 
-[Read more](https://www.anthropic.com/research/glasswing-initial-update)
+In cybersecurity, a large fraction of real-world harm comes from N-days: vulnerabilities that have already been publicly disclosed, but only patched on some devices. In this post, we evaluate how much large language models can accelerate and automate the process of developing N-day exploits.
 
-### 2028: Two scenarios for global AI leadership
-
-Our views on the AI competition between the US and China.
-
-[Read more](https://www.anthropic.com/research/2028-ai-leadership)
+[Read more](https://www.anthropic.com/research/n-days)
 
 [](https://www.anthropic.com/)
 
@@ -66,16 +62,14 @@ Our views on the AI competition between the US and China.
 *   [Claude for Slack](https://claude.com/claude-for-slack)
 *   [Claude for Microsoft 365](https://claude.com/claude-for-microsoft-365)
 *   [Skills](https://www.claude.com/skills)
-*   [Max plan](https://claude.com/pricing/max)
-*   [Team plan](https://claude.com/pricing/team)
-*   [Enterprise plan](https://claude.com/pricing/enterprise)
 *   [Download app](https://claude.ai/download)
 *   [Pricing](https://claude.com/pricing)
 *   [Log in to Claude](https://claude.ai/)
 
 ### Models
 
-*   [Mythos Preview](https://www.anthropic.com/glasswing)
+*   [Mythos](https://www.anthropic.com/claude/mythos)
+*   [Fable](https://www.anthropic.com/claude/fable)
 *   [Opus](https://www.anthropic.com/claude/opus)
 *   [Sonnet](https://www.anthropic.com/claude/sonnet)
 *   [Haiku](https://www.anthropic.com/claude/haiku)
@@ -87,6 +81,7 @@ Our views on the AI competition between the US and China.
 *   [Coding](https://claude.com/solutions/coding)
 *   [Customer support](https://claude.com/solutions/customer-support)
 *   [Education](https://claude.com/solutions/education)
+*   [Enterprise](https://claude.com/solutions/enterprise)
 *   [Financial services](https://claude.com/solutions/financial-services)
 *   [Government](https://claude.com/solutions/government)
 *   [Healthcare](https://claude.com/solutions/healthcare)
@@ -95,6 +90,7 @@ Our views on the AI competition between the US and China.
 *   [Nonprofits](https://claude.com/solutions/nonprofits)
 *   [Security](https://claude.com/solutions/security)
 *   [Small business](https://claude.com/solutions/small-business)
+*   [Startups](https://claude.com/programs/startups)
 
 ### Claude Platform
 
@@ -125,7 +121,6 @@ Our views on the AI competition between the US and China.
 *   [Plugins](https://claude.com/plugins)
 *   [Powered by Claude](https://claude.com/partners/powered-by-claude)
 *   [Service partners](https://claude.com/partners/services)
-*   [Startups program](https://claude.com/programs/startups)
 *   [Tutorials](https://claude.com/resources/tutorials)
 *   [Use cases](https://claude.com/resources/use-cases)
 
@@ -139,10 +134,13 @@ Our views on the AI competition between the US and China.
 
 *   [Anthropic](https://www.anthropic.com/company)
 *   [Careers](https://www.anthropic.com/careers)
-*   [Economic Futures](https://www.anthropic.com/economic-index)
+*   [Policy](https://www.anthropic.com/policy)
+*   [Economic Futures](https://www.anthropic.com/economic-futures)
 *   [Research](https://www.anthropic.com/research)
 *   [News](https://www.anthropic.com/news)
 *   [Claude’s Constitution](https://www.anthropic.com/constitution)
+*   [Claude Corps](https://www.anthropic.com/claude-corps)
+*   [Policy on the AI Exponential](https://www.anthropic.com/policy-on-the-ai-exponential)
 *   [Responsible Scaling Policy](https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy)
 *   [Security and compliance](https://trust.anthropic.com/)
 *   [Transparency](https://www.anthropic.com/transparency)

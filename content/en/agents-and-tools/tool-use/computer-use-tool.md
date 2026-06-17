@@ -7,7 +7,7 @@ Claude can interact with computer environments through the computer use tool, wh
 <Note>
 Computer use is in beta and requires a [beta header](/docs/en/api/beta-headers):
 - `"computer-use-2025-11-24"` for Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 4.6, and Claude Opus 4.5
-- `"computer-use-2025-01-24"` for Claude Sonnet 4.5, Claude Haiku 4.5, Claude Opus 4.1 ([deprecated](/docs/en/about-claude/model-deprecations)), Claude Sonnet 4 ([deprecated](/docs/en/about-claude/model-deprecations)), and Claude Opus 4 ([deprecated](/docs/en/about-claude/model-deprecations))
+- `"computer-use-2025-01-24"` for Claude Sonnet 4.5, Claude Haiku 4.5, Claude Opus 4.1 ([deprecated](/docs/en/about-claude/model-deprecations)), Claude Sonnet 4 ([retired, except on Bedrock and Vertex AI](/docs/en/about-claude/model-deprecations)), and Claude Opus 4 ([retired, except on Vertex AI](/docs/en/about-claude/model-deprecations))
 
 Reach out through the [feedback form](https://forms.gle/H6UFuXaaLywri9hz6) to share your feedback on this feature.
 </Note>
@@ -2538,6 +2538,13 @@ If you're also using bash or text editor tools alongside computer use, those too
 ## Next steps
 
 <CardGroup cols={2}>
+  <Card
+    title="Text editor tool"
+    icon="file"
+    href="/docs/en/agents-and-tools/tool-use/text-editor-tool"
+  >
+    Continue to the next tool: view, create, and edit files with Claude
+  </Card>
   <Card
     title="Reference implementation"
     icon="github-logo"

@@ -44,8 +44,10 @@ Clients that support roots **MUST** declare the `roots` capability in
 
 ```json theme={null}
 {
-  "capabilities": {
-    "roots": {}
+  "_meta": {
+    "io.modelcontextprotocol/clientCapabilities": {
+      "roots": {}
+    }
   }
 }
 ```
@@ -57,7 +59,7 @@ Clients that support roots **MUST** declare the `roots` capability in
 To retrieve roots during the processing of a client request, servers send an `InputRequiredResult`
 containing a `roots/list` request:
 
-**Request:**
+**Input request (delivered inside [`InputRequiredResult.inputRequests`](/specification/draft/basic/patterns/mrtr#inputrequests)):**
 
 ```json theme={null}
 {
@@ -65,18 +67,16 @@ containing a `roots/list` request:
 }
 ```
 
-**Response:**
+**Client result (returned inside `inputResponses` on the retried request):**
 
 ```json theme={null}
 {
-  "result": {
-    "roots": [
-      {
-        "uri": "file:///home/user/projects/myproject",
-        "name": "My Project"
-      }
-    ]
-  }
+  "roots": [
+    {
+      "uri": "file:///home/user/projects/myproject",
+      "name": "My Project"
+    }
+  ]
 }
 ```
 
