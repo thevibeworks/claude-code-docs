@@ -556,8 +556,8 @@ The key is that you understand and can stand behind your contribution:
 * **You know why** - You can articulate why the change is needed
 * **You've verified it** - You've tested or validated that it works as intended
 
-You can read more about our stance in
-[our spec contribution guidelines](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/CONTRIBUTING.md#ai-contributions).
+You can read the full policy in
+[AI\_POLICY.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/AI_POLICY.md).
 
 ## Code of Conduct
 

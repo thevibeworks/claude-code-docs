@@ -4,13 +4,9 @@
 
 Lists chat metadata with filtering capabilities for targeted
 compliance review. Results are sorted chronologically (time ascending)
-by created_at, with ties broken by id.
+by the `order_by` key, with ties broken by id.
 
 ### Query Parameters
-
-- `user_ids: array of string`
-
-  Filter to chats created by specific users. **Required**; pass 1–10 user IDs per request. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
 - `after_id: optional string`
 
@@ -42,13 +38,21 @@ by created_at, with ties broken by id.
 
   Maximum results (default: 100, max: 1000)
 
+- `order_by: optional "created_at" or "updated_at"`
+
+  Sort key for results. `created_at` (default) sorts by chat creation time. `updated_at` sorts by last update time and is only supported for org-wide queries (omit user_ids[]). For org-wide queries, any time filter must match the sort key: `created_at.*` filters require `order_by=created_at`, and `updated_at.*` filters require `order_by=updated_at`.
+
+  - `"created_at"`
+
+  - `"updated_at"`
+
 - `organization_ids: optional array of string`
 
   Filter by organization IDs (accepts `org_...` or organization UUID). Enumerate IDs via `GET /v1/compliance/organizations`.
 
 - `project_ids: optional array of string`
 
-  Filter by project IDs (accepts `claude_proj_...`). Enumerate IDs via `GET /v1/compliance/apps/projects`.
+  Filter by project IDs (accepts `claude_proj_...`). Enumerate IDs via `GET /v1/compliance/apps/projects`. Requires user_ids[]; not supported for org-wide queries.
 
 - `updated_at: optional object { gt, gte, lt, lte }`
 
@@ -68,6 +72,10 @@ by created_at, with ties broken by id.
 
     Filter chats updated at or before this time (RFC 3339 format)
 
+- `user_ids: optional array of string`
+
+  Filter to chats created by specific users (max 10 per request). Omit for an org-wide query. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
+
 ### Header Parameters
 
 - `"x-api-key": optional string`
@@ -76,7 +84,7 @@ by created_at, with ties broken by id.
 
 - `data: array of object { id, created_at, deleted_at, 8 more }`
 
-  List of chat metadata sorted chronologically by created_at, tie break by id
+  List of chat metadata sorted chronologically by the request's `order_by` key (default `created_at`), tie break by id
 
   - `id: string`
 
@@ -120,7 +128,7 @@ by created_at, with ties broken by id.
 
   - `user: object { id, email_address }`
 
-    User information for the chat creator
+    User information for compliance responses.
 
     - `id: string`
 
@@ -132,7 +140,7 @@ by created_at, with ties broken by id.
 
 - `first_id: string`
 
-  First chat ID in the current result set. To get the previous page, use this as before_id in your next request
+  Opaque pagination cursor for the first chat in the current result set. Pass as `before_id` on the next request to page backwards. Backward pagination is only supported for per-user queries (`user_ids[]` set); org-wide queries do not accept `before_id`. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 - `has_more: boolean`
 
@@ -140,7 +148,7 @@ by created_at, with ties broken by id.
 
 - `last_id: string`
 
-  Last chat ID in the current result set. To get the next page, use this as after_id in your next request
+  Opaque pagination cursor for the last chat in the current result set. Pass as `after_id` on the next request to page forwards. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 ### Example
 
@@ -171,7 +179,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats \
     }
   ],
   "has_more": false,
-  "first_id": "claude_chat_abc123",
-  "last_id": "claude_chat_abc123"
+  "first_id": "eyJrIjogImNyZWF0ZWRfYXQiLCAidCI6ICIyMDI1LTA2LTA3VDA4OjA5OjEwKzAwOjAwIiwgImlkIjogImFiY2RlZjAxLTIzNDUtNjc4OS1hYmNkLWVmMDEyMzQ1Njc4OSJ9",
+  "last_id": "eyJrIjogImNyZWF0ZWRfYXQiLCAidCI6ICIyMDI1LTA2LTA3VDA4OjA5OjEwKzAwOjAwIiwgImlkIjogImFiY2RlZjAxLTIzNDUtNjc4OS1hYmNkLWVmMDEyMzQ1Njc4OSJ9"
 }
 ```

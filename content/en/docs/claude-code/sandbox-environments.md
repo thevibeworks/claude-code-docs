@@ -8,12 +8,7 @@
 
 Isolating Claude Code limits what a session can read, write, and reach on the network. This matters most when you let Claude work with fewer permission prompts, run it unattended, or point it at code you do not fully trust.
 
-Claude Code can run in several kinds of isolated environments, ranging from a lightweight per-command sandbox to a fully separate virtual machine. This page covers how to:
-
-* [Compare](#compare-sandboxing-approaches) the available isolation approaches by what they isolate, what they require, and how much setup is involved
-* [Choose](#choose-an-approach) the approach that fits your goal and threat model
-* [Get started](#sandboxed-bash-tool) with the approach you picked, from the built-in Bash sandbox to a dedicated virtual machine
-* [Enforce](#enforce-isolation-across-an-organization) isolation for every developer in your organization
+Claude Code can run in several kinds of isolated environments, ranging from a lightweight per-command sandbox to a fully separate virtual machine. This page compares them by what they isolate and what they require, helps you choose one for your threat model, and shows how to enforce that choice across an organization.
 
 <Info>
   For the broader security model, see [Security](/en/security). For Agent SDK deployments, see [Secure deployment](/en/agent-sdk/secure-deployment).

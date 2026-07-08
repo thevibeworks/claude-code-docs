@@ -1316,7 +1316,7 @@ Send a structured list of input messages with text and/or image content, and the
 
 The Messages API can be used for either single queries or stateless multi-turn conversations.
 
-Learn more about the Messages API in our [user guide](https://docs.claude.com/en/docs/initial-setup)
+Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
 ### Parameters
 
@@ -1326,9 +1326,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-  Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+  Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-  Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+  Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
 - `messages: Iterable[BetaMessageParam]`
 
@@ -1375,9 +1375,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
   {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
   ```
 
-  See [input examples](https://docs.claude.com/en/api/messages-examples).
+  See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-  Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -1412,7 +1412,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `"5m"`
 
@@ -2392,19 +2392,17 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         A `fallback` block echoed back from a prior response.
 
-        Accepted in `messages[].content` and never rendered into the prompt,
-        not validated against the request's `fallbacks` chain or top-level
-        `model`, and stripped before the sticky-routing cache key is computed.
+        Accepted in `messages[].content` and not rendered into the prompt; not
+        validated against the request's `fallbacks` chain or top-level `model`.
 
-        Callers should echo the assistant turn verbatim — block included. The
-        block's position is load-bearing for thinking verification: the thinking
-        runs on either side of a fallback hop carry independently-rooted
-        verification hash chains, and this block is the only record of where one
-        chain ends and the next begins. When thinking runs flank the boundary,
-        omitting the block merges the runs into one contiguous span whose hashes
-        cannot verify (the request is rejected), and moving it into the middle of
-        a single run splits that run's chain and is likewise rejected; between
-        non-thinking blocks the block's placement has no verification effect.
+        Echo the assistant turn back verbatim, including this block in its
+        original position. The block marks the boundary between content produced
+        before and after a fallback hop, and the server relies on that boundary
+        to validate the turn: when thinking runs flank the boundary, omitting
+        the block merges them into one span the server cannot validate (the
+        request is rejected), and moving it into the middle of a single run is
+        likewise rejected; between non-thinking blocks the block's placement has
+        no validation effect.
 
         - `from_: BetaFallbackInfoParam`
 
@@ -2416,12 +2414,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+            - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `claude-sonnet-5` - High-performance model for coding and agents
               - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
               - `claude-mythos-5` - Most capable model for cybersecurity and biology research
               - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -2437,11 +2436,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
               - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
               - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
               - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              - `"claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `"claude-fable-5"`
 
@@ -2503,26 +2501,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
                 Exceptional model for specialized complex tasks
 
-              - `"claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `"claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `"claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `"claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `"claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `str`
 
         - `to: BetaFallbackInfoParam`
@@ -2532,6 +2510,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `type: Literal["fallback"]`
 
           - `"fallback"`
+
+        - `trigger: Optional[object]`
+
+          The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
   - `role: Literal["user", "assistant", "system"]`
 
@@ -2807,7 +2789,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Must be ≥1024 and less than `max_tokens`.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       - `type: Literal["enabled"]`
 
@@ -2889,7 +2871,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-  Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+  Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
   - `"auto"`
 
@@ -2915,7 +2897,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   Whether to incrementally stream the response using server-sent events.
 
-  See [streaming](https://docs.claude.com/en/api/messages-streaming) for details.
+  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
   - `false`
 
@@ -2923,7 +2905,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   System prompt.
 
-  A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+  A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
   - `str`
 
@@ -2953,7 +2935,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `class BetaThinkingConfigEnabled: …`
 
@@ -3025,7 +3007,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-  There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+  There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
   Each tool definition includes:
 
@@ -3081,7 +3063,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-  See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+  See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
   - `class BetaTool: …`
 
@@ -3105,13 +3087,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3155,13 +3139,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"bash_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3191,13 +3177,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"bash_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3227,13 +3215,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"code_execution_20250522"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3261,13 +3251,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"code_execution_20250825"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3297,13 +3289,53 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"code_execution_20260120"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20260521: …`
+
+    Code execution tool with REPL state persistence.
+
+    - `name: Literal["code_execution"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"code_execution"`
+
+    - `type: Literal["code_execution_20260521"]`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3339,13 +3371,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"computer_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3379,13 +3413,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"memory_20250818"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3423,13 +3459,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"computer_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3463,13 +3501,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"text_editor_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3507,13 +3547,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"computer_20251124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3551,13 +3593,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"text_editor_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3587,13 +3631,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"text_editor_20250429"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3623,13 +3669,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"text_editor_20250728"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -3663,13 +3711,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"web_search_20250305"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -3733,13 +3783,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"web_fetch_20250910"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -3787,13 +3839,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"web_search_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -3837,13 +3891,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"web_fetch_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -3893,13 +3949,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"web_fetch_20260309"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -3937,6 +3995,134 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `class BetaWebSearchTool20260318: …`
+
+    - `name: Literal["web_search"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_search"`
+
+    - `type: Literal["web_search_20260318"]`
+
+      - `"web_search_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `blocked_domains: Optional[List[str]]`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `user_location: Optional[BetaUserLocation]`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20260318: …`
+
+    - `name: Literal["web_fetch"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_fetch"`
+
+    - `type: Literal["web_fetch_20260318"]`
+
+      - `"web_fetch_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      List of domains to allow fetching from
+
+    - `blocked_domains: Optional[List[str]]`
+
+      List of domains to block fetching from
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `citations: Optional[BetaCitationsConfigParam]`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_content_tokens: Optional[int]`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `use_cache: Optional[bool]`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `class BetaAdvisorTool20260301: …`
 
     - `model: Model`
@@ -3957,13 +4143,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"advisor_20260301"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -4005,13 +4193,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"tool_search_tool_bm25"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -4041,13 +4231,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       - `"tool_search_tool_regex"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -4112,10 +4304,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   Recommended for advanced use cases only.
 
-- `user_profile_id: Optional[str]`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
-
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -4179,6 +4367,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     - `"server-side-fallback-2026-06-01"`
 
     - `"fallback-credit-2026-06-01"`
+
+- `user_profile_id: Optional[str]`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -5012,9 +5204,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -5031,12 +5223,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -5052,11 +5245,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
             - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -5118,31 +5310,31 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
               Exceptional model for specialized complex tasks
 
-            - `"claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `"claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `"claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `"claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `"claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `str`
 
       - `to: BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `trigger: BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+          The policy category that triggered a refusal.
+
+          - `"cyber"`
+
+          - `"bio"`
+
+          - `"frontier_llm"`
+
+          - `"reasoning_extraction"`
+
+        - `type: Literal["refusal"]`
+
+          - `"refusal"`
 
       - `type: Literal["fallback"]`
 
@@ -5269,15 +5461,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Structured information about a refusal.
 
-    - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+    - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `"cyber"`
 
       - `"bio"`
+
+      - `"frontier_llm"`
 
       - `"reasoning_extraction"`
 
@@ -5731,7 +5923,7 @@ for message in client.beta.messages.create(
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-fable-5",
+        "model": "claude-sonnet-5",
         "output_tokens": 0,
         "type": "message"
       }
@@ -5760,7 +5952,7 @@ Count the number of tokens in a Message.
 
 The Token Count API can be used to count the number of tokens in a Message, including tools, images, and documents, without creating it.
 
-Learn more about token counting in our [user guide](https://docs.claude.com/en/docs/build-with-claude/token-counting)
+Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
 ### Parameters
 
@@ -5809,9 +6001,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
   {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
   ```
 
-  See [input examples](https://docs.claude.com/en/api/messages-examples).
+  See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-  Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+  Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
   There is a limit of 100,000 messages in a single request.
 
@@ -5846,7 +6038,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `"5m"`
 
@@ -6826,19 +7018,17 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         A `fallback` block echoed back from a prior response.
 
-        Accepted in `messages[].content` and never rendered into the prompt,
-        not validated against the request's `fallbacks` chain or top-level
-        `model`, and stripped before the sticky-routing cache key is computed.
+        Accepted in `messages[].content` and not rendered into the prompt; not
+        validated against the request's `fallbacks` chain or top-level `model`.
 
-        Callers should echo the assistant turn verbatim — block included. The
-        block's position is load-bearing for thinking verification: the thinking
-        runs on either side of a fallback hop carry independently-rooted
-        verification hash chains, and this block is the only record of where one
-        chain ends and the next begins. When thinking runs flank the boundary,
-        omitting the block merges the runs into one contiguous span whose hashes
-        cannot verify (the request is rejected), and moving it into the middle of
-        a single run splits that run's chain and is likewise rejected; between
-        non-thinking blocks the block's placement has no verification effect.
+        Echo the assistant turn back verbatim, including this block in its
+        original position. The block marks the boundary between content produced
+        before and after a fallback hop, and the server relies on that boundary
+        to validate the turn: when thinking runs flank the boundary, omitting
+        the block merges them into one span the server cannot validate (the
+        request is rejected), and moving it into the middle of a single run is
+        likewise rejected; between non-thinking blocks the block's placement has
+        no validation effect.
 
         - `from_: BetaFallbackInfoParam`
 
@@ -6850,12 +7040,13 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+            - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `claude-sonnet-5` - High-performance model for coding and agents
               - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
               - `claude-mythos-5` - Most capable model for cybersecurity and biology research
               - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -6871,11 +7062,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
               - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
               - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
               - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              - `"claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `"claude-fable-5"`
 
@@ -6937,26 +7127,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
                 Exceptional model for specialized complex tasks
 
-              - `"claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `"claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `"claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `"claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `"claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `str`
 
         - `to: BetaFallbackInfoParam`
@@ -6966,6 +7136,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `type: Literal["fallback"]`
 
           - `"fallback"`
+
+        - `trigger: Optional[object]`
+
+          The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
   - `role: Literal["user", "assistant", "system"]`
 
@@ -7187,7 +7361,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   System prompt.
 
-  A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+  A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
   - `str`
 
@@ -7209,7 +7383,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `class BetaThinkingConfigEnabled: …`
 
@@ -7219,7 +7393,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       Must be ≥1024 and less than `max_tokens`.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     - `type: Literal["enabled"]`
 
@@ -7317,7 +7491,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-  There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+  There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
   Each tool definition includes:
 
@@ -7373,7 +7547,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-  See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+  See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
   - `class BetaTool: …`
 
@@ -7397,13 +7571,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7447,13 +7623,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"bash_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7483,13 +7661,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"bash_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7519,13 +7699,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"code_execution_20250522"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7553,13 +7735,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"code_execution_20250825"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7589,13 +7773,53 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"code_execution_20260120"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20260521: …`
+
+    Code execution tool with REPL state persistence.
+
+    - `name: Literal["code_execution"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"code_execution"`
+
+    - `type: Literal["code_execution_20260521"]`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7631,13 +7855,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"computer_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7671,13 +7897,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"memory_20250818"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7715,13 +7943,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"computer_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7755,13 +7985,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"text_editor_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7799,13 +8031,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"computer_20251124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7843,13 +8077,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"text_editor_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7879,13 +8115,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"text_editor_20250429"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7915,13 +8153,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"text_editor_20250728"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -7955,13 +8195,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"web_search_20250305"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -8025,13 +8267,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"web_fetch_20250910"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -8079,13 +8323,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"web_search_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -8129,13 +8375,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"web_fetch_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -8185,13 +8433,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"web_fetch_20260309"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -8229,6 +8479,134 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `class BetaWebSearchTool20260318: …`
+
+    - `name: Literal["web_search"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_search"`
+
+    - `type: Literal["web_search_20260318"]`
+
+      - `"web_search_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `blocked_domains: Optional[List[str]]`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `user_location: Optional[BetaUserLocation]`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20260318: …`
+
+    - `name: Literal["web_fetch"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_fetch"`
+
+    - `type: Literal["web_fetch_20260318"]`
+
+      - `"web_fetch_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      List of domains to allow fetching from
+
+    - `blocked_domains: Optional[List[str]]`
+
+      List of domains to block fetching from
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `citations: Optional[BetaCitationsConfigParam]`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_content_tokens: Optional[int]`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `use_cache: Optional[bool]`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `class BetaAdvisorTool20260301: …`
 
     - `model: Model`
@@ -8249,13 +8627,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"advisor_20260301"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -8297,13 +8677,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"tool_search_tool_bm25"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -8333,13 +8715,15 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `"tool_search_tool_regex"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -8452,6 +8836,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     - `"fallback-credit-2026-06-01"`
 
+- `user_profile_id: Optional[str]`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
 ### Returns
 
 - `class BetaMessageTokensCount: …`
@@ -8536,12 +8924,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -8557,11 +8946,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -8622,26 +9010,6 @@ print(beta_message_tokens_count.context_management)
       - `"claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `str`
 
@@ -8721,12 +9089,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -8742,11 +9111,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -8808,26 +9176,6 @@ print(beta_message_tokens_count.context_management)
 
         Exceptional model for specialized complex tasks
 
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `str`
 
   - `name: Literal["advisor"]`
@@ -8842,13 +9190,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"advisor_20260301"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -8867,7 +9217,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -9026,7 +9376,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -9303,7 +9653,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -9366,7 +9716,7 @@ print(beta_message_tokens_count.context_management)
     - `5m`: 5 minutes
     - `1h`: 1 hour
 
-    Defaults to `5m`.
+    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
     - `"5m"`
 
@@ -10020,13 +10370,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"code_execution_20250522"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -10045,7 +10397,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -10075,13 +10427,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"code_execution_20250825"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -10100,7 +10454,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -10132,13 +10486,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"code_execution_20260120"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -10157,7 +10513,66 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `defer_loading: Optional[bool]`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `strict: Optional[bool]`
+
+    When true, guarantees schema validation on tool names and inputs
+
+### Beta Code Execution Tool 20260521
+
+- `class BetaCodeExecutionTool20260521: …`
+
+  Code execution tool with REPL state persistence.
+
+  - `name: Literal["code_execution"]`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `"code_execution"`
+
+  - `type: Literal["code_execution_20260521"]`
+
+    - `"code_execution_20260521"`
+
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+    - `"direct"`
+
+    - `"code_execution_20250825"`
+
+    - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
+
+  - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: Literal["ephemeral"]`
+
+      - `"ephemeral"`
+
+    - `ttl: Optional[Literal["5m", "1h"]]`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -10390,7 +10805,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -10589,7 +11004,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -10763,7 +11178,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -11536,9 +11951,9 @@ print(beta_message_tokens_count.context_management)
     Marks the point in `content` where one model's output gives way to the next.
 
     One block appears per hop where a preceding model actually ran this turn and
-    declined. A turn routed directly by the sticky decision has no such boundary
-    and carries no block — the signal for whether a fallback model served the
-    response is the presence of a `fallback_message` entry in
+    declined. A turn where no preceding model ran and declined has no such
+    boundary and carries no block — the signal for whether a fallback model
+    served the response is the presence of a `fallback_message` entry in
     `usage.iterations`, not this block.
 
     The block is treated like a server-tool content block for streaming: it
@@ -11555,12 +11970,13 @@ print(beta_message_tokens_count.context_management)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-mythos-5` - Most capable model for cybersecurity and biology research
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -11576,11 +11992,10 @@ print(beta_message_tokens_count.context_management)
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
           - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
           - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -11642,31 +12057,31 @@ print(beta_message_tokens_count.context_management)
 
             Exceptional model for specialized complex tasks
 
-          - `"claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `"claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `"claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `"claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `"claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `str`
 
     - `to: BetaFallbackInfo`
 
       The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+    - `trigger: BetaFallbackRefusalTrigger`
+
+      What caused the `from` model to hand over at this hop.
+
+      - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+        The policy category that triggered a refusal.
+
+        - `"cyber"`
+
+        - `"bio"`
+
+        - `"frontier_llm"`
+
+        - `"reasoning_extraction"`
+
+      - `type: Literal["refusal"]`
+
+        - `"refusal"`
 
     - `type: Literal["fallback"]`
 
@@ -11703,7 +12118,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -12683,19 +13098,17 @@ print(beta_message_tokens_count.context_management)
 
     A `fallback` block echoed back from a prior response.
 
-    Accepted in `messages[].content` and never rendered into the prompt,
-    not validated against the request's `fallbacks` chain or top-level
-    `model`, and stripped before the sticky-routing cache key is computed.
+    Accepted in `messages[].content` and not rendered into the prompt; not
+    validated against the request's `fallbacks` chain or top-level `model`.
 
-    Callers should echo the assistant turn verbatim — block included. The
-    block's position is load-bearing for thinking verification: the thinking
-    runs on either side of a fallback hop carry independently-rooted
-    verification hash chains, and this block is the only record of where one
-    chain ends and the next begins. When thinking runs flank the boundary,
-    omitting the block merges the runs into one contiguous span whose hashes
-    cannot verify (the request is rejected), and moving it into the middle of
-    a single run splits that run's chain and is likewise rejected; between
-    non-thinking blocks the block's placement has no verification effect.
+    Echo the assistant turn back verbatim, including this block in its
+    original position. The block marks the boundary between content produced
+    before and after a fallback hop, and the server relies on that boundary
+    to validate the turn: when thinking runs flank the boundary, omitting
+    the block merges them into one span the server cannot validate (the
+    request is rejected), and moving it into the middle of a single run is
+    likewise rejected; between non-thinking blocks the block's placement has
+    no validation effect.
 
     - `from_: BetaFallbackInfoParam`
 
@@ -12707,12 +13120,13 @@ print(beta_message_tokens_count.context_management)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-mythos-5` - Most capable model for cybersecurity and biology research
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -12728,11 +13142,10 @@ print(beta_message_tokens_count.context_management)
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
           - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
           - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -12794,26 +13207,6 @@ print(beta_message_tokens_count.context_management)
 
             Exceptional model for specialized complex tasks
 
-          - `"claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `"claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `"claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `"claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `"claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `str`
 
     - `to: BetaFallbackInfoParam`
@@ -12823,6 +13216,10 @@ print(beta_message_tokens_count.context_management)
     - `type: Literal["fallback"]`
 
       - `"fallback"`
+
+    - `trigger: Optional[object]`
+
+      The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
 ### Beta Content Block Source
 
@@ -12859,7 +13256,7 @@ print(beta_message_tokens_count.context_management)
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `"5m"`
 
@@ -13050,7 +13447,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -13553,9 +13950,9 @@ print(beta_message_tokens_count.context_management)
   Marks the point in `content` where one model's output gives way to the next.
 
   One block appears per hop where a preceding model actually ran this turn and
-  declined. A turn routed directly by the sticky decision has no such boundary
-  and carries no block — the signal for whether a fallback model served the
-  response is the presence of a `fallback_message` entry in
+  declined. A turn where no preceding model ran and declined has no such
+  boundary and carries no block — the signal for whether a fallback model
+  served the response is the presence of a `fallback_message` entry in
   `usage.iterations`, not this block.
 
   The block is treated like a server-tool content block for streaming: it
@@ -13572,12 +13969,13 @@ print(beta_message_tokens_count.context_management)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -13593,11 +13991,10 @@ print(beta_message_tokens_count.context_management)
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
         - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
         - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -13659,31 +14056,31 @@ print(beta_message_tokens_count.context_management)
 
           Exceptional model for specialized complex tasks
 
-        - `"claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `"claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `"claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `"claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `"claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `str`
 
   - `to: BetaFallbackInfo`
 
     The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+  - `trigger: BetaFallbackRefusalTrigger`
+
+    What caused the `from` model to hand over at this hop.
+
+    - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+      The policy category that triggered a refusal.
+
+      - `"cyber"`
+
+      - `"bio"`
+
+      - `"frontier_llm"`
+
+      - `"reasoning_extraction"`
+
+    - `type: Literal["refusal"]`
+
+      - `"refusal"`
 
   - `type: Literal["fallback"]`
 
@@ -13695,19 +14092,17 @@ print(beta_message_tokens_count.context_management)
 
   A `fallback` block echoed back from a prior response.
 
-  Accepted in `messages[].content` and never rendered into the prompt,
-  not validated against the request's `fallbacks` chain or top-level
-  `model`, and stripped before the sticky-routing cache key is computed.
+  Accepted in `messages[].content` and not rendered into the prompt; not
+  validated against the request's `fallbacks` chain or top-level `model`.
 
-  Callers should echo the assistant turn verbatim — block included. The
-  block's position is load-bearing for thinking verification: the thinking
-  runs on either side of a fallback hop carry independently-rooted
-  verification hash chains, and this block is the only record of where one
-  chain ends and the next begins. When thinking runs flank the boundary,
-  omitting the block merges the runs into one contiguous span whose hashes
-  cannot verify (the request is rejected), and moving it into the middle of
-  a single run splits that run's chain and is likewise rejected; between
-  non-thinking blocks the block's placement has no verification effect.
+  Echo the assistant turn back verbatim, including this block in its
+  original position. The block marks the boundary between content produced
+  before and after a fallback hop, and the server relies on that boundary
+  to validate the turn: when thinking runs flank the boundary, omitting
+  the block merges them into one span the server cannot validate (the
+  request is rejected), and moving it into the middle of a single run is
+  likewise rejected; between non-thinking blocks the block's placement has
+  no validation effect.
 
   - `from_: BetaFallbackInfoParam`
 
@@ -13719,12 +14114,13 @@ print(beta_message_tokens_count.context_management)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -13740,11 +14136,10 @@ print(beta_message_tokens_count.context_management)
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
         - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
         - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -13806,26 +14201,6 @@ print(beta_message_tokens_count.context_management)
 
           Exceptional model for specialized complex tasks
 
-        - `"claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `"claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `"claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `"claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `"claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `str`
 
   - `to: BetaFallbackInfoParam`
@@ -13835,6 +14210,10 @@ print(beta_message_tokens_count.context_management)
   - `type: Literal["fallback"]`
 
     - `"fallback"`
+
+  - `trigger: Optional[object]`
+
+    The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
 ### Beta Fallback Info
 
@@ -13848,12 +14227,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -13869,11 +14249,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -13934,26 +14313,6 @@ print(beta_message_tokens_count.context_management)
       - `"claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `str`
 
@@ -13969,12 +14328,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -13990,11 +14350,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -14055,26 +14414,6 @@ print(beta_message_tokens_count.context_management)
       - `"claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `str`
 
@@ -14119,12 +14458,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -14140,11 +14480,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -14205,26 +14544,6 @@ print(beta_message_tokens_count.context_management)
       - `"claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `str`
 
@@ -14255,12 +14574,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -14276,11 +14596,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -14341,26 +14660,6 @@ print(beta_message_tokens_count.context_management)
       - `"claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `str`
 
@@ -14428,7 +14727,7 @@ print(beta_message_tokens_count.context_management)
 
         Must be ≥1024 and less than `max_tokens`.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       - `type: Literal["enabled"]`
 
@@ -14461,6 +14760,28 @@ print(beta_message_tokens_count.context_management)
         - `"summarized"`
 
         - `"omitted"`
+
+### Beta Fallback Refusal Trigger
+
+- `class BetaFallbackRefusalTrigger: …`
+
+  The `from` model declined for policy reasons.
+
+  - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+    The policy category that triggered a refusal.
+
+    - `"cyber"`
+
+    - `"bio"`
+
+    - `"frontier_llm"`
+
+    - `"reasoning_extraction"`
+
+  - `type: Literal["refusal"]`
+
+    - `"refusal"`
 
 ### Beta File Document Source
 
@@ -14543,7 +14864,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -14625,12 +14946,13 @@ print(beta_message_tokens_count.context_management)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -14646,11 +14968,10 @@ print(beta_message_tokens_count.context_management)
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
         - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
         - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -14711,26 +15032,6 @@ print(beta_message_tokens_count.context_management)
         - `"claude-opus-4-1-20250805"`
 
           Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `"claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `"claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `"claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `"claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
 
       - `str`
 
@@ -15078,7 +15379,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -15118,7 +15419,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -15156,13 +15457,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"memory_20250818"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -15181,7 +15484,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -16245,9 +16548,9 @@ print(beta_message_tokens_count.context_management)
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -16264,12 +16567,13 @@ print(beta_message_tokens_count.context_management)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -16285,11 +16589,10 @@ print(beta_message_tokens_count.context_management)
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
             - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -16351,31 +16654,31 @@ print(beta_message_tokens_count.context_management)
 
               Exceptional model for specialized complex tasks
 
-            - `"claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `"claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `"claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `"claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `"claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `str`
 
       - `to: BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `trigger: BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+          The policy category that triggered a refusal.
+
+          - `"cyber"`
+
+          - `"bio"`
+
+          - `"frontier_llm"`
+
+          - `"reasoning_extraction"`
+
+        - `type: Literal["refusal"]`
+
+          - `"refusal"`
 
       - `type: Literal["fallback"]`
 
@@ -16502,15 +16805,15 @@ print(beta_message_tokens_count.context_management)
 
     Structured information about a refusal.
 
-    - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+    - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `"cyber"`
 
       - `"bio"`
+
+      - `"frontier_llm"`
 
       - `"reasoning_extraction"`
 
@@ -16925,12 +17228,13 @@ print(beta_message_tokens_count.context_management)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-mythos-5` - Most capable model for cybersecurity and biology research
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -16946,11 +17250,10 @@ print(beta_message_tokens_count.context_management)
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
           - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
           - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -17011,26 +17314,6 @@ print(beta_message_tokens_count.context_management)
           - `"claude-opus-4-1-20250805"`
 
             Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `"claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `"claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `"claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `"claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
 
         - `str`
 
@@ -17223,12 +17506,13 @@ print(beta_message_tokens_count.context_management)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-mythos-5` - Most capable model for cybersecurity and biology research
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -17244,11 +17528,10 @@ print(beta_message_tokens_count.context_management)
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
       - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
       - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-      - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -17310,26 +17593,6 @@ print(beta_message_tokens_count.context_management)
 
         Exceptional model for specialized complex tasks
 
-      - `"claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `"claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `"claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `"claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `"claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `str`
 
   - `output_tokens: int`
@@ -17377,7 +17640,7 @@ print(beta_message_tokens_count.context_management)
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `"5m"`
 
@@ -18357,19 +18620,17 @@ print(beta_message_tokens_count.context_management)
 
         A `fallback` block echoed back from a prior response.
 
-        Accepted in `messages[].content` and never rendered into the prompt,
-        not validated against the request's `fallbacks` chain or top-level
-        `model`, and stripped before the sticky-routing cache key is computed.
+        Accepted in `messages[].content` and not rendered into the prompt; not
+        validated against the request's `fallbacks` chain or top-level `model`.
 
-        Callers should echo the assistant turn verbatim — block included. The
-        block's position is load-bearing for thinking verification: the thinking
-        runs on either side of a fallback hop carry independently-rooted
-        verification hash chains, and this block is the only record of where one
-        chain ends and the next begins. When thinking runs flank the boundary,
-        omitting the block merges the runs into one contiguous span whose hashes
-        cannot verify (the request is rejected), and moving it into the middle of
-        a single run splits that run's chain and is likewise rejected; between
-        non-thinking blocks the block's placement has no verification effect.
+        Echo the assistant turn back verbatim, including this block in its
+        original position. The block marks the boundary between content produced
+        before and after a fallback hop, and the server relies on that boundary
+        to validate the turn: when thinking runs flank the boundary, omitting
+        the block merges them into one span the server cannot validate (the
+        request is rejected), and moving it into the middle of a single run is
+        likewise rejected; between non-thinking blocks the block's placement has
+        no validation effect.
 
         - `from_: BetaFallbackInfoParam`
 
@@ -18381,12 +18642,13 @@ print(beta_message_tokens_count.context_management)
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+            - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `claude-sonnet-5` - High-performance model for coding and agents
               - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
               - `claude-mythos-5` - Most capable model for cybersecurity and biology research
               - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -18402,11 +18664,10 @@ print(beta_message_tokens_count.context_management)
               - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
               - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
               - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              - `"claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `"claude-fable-5"`
 
@@ -18468,26 +18729,6 @@ print(beta_message_tokens_count.context_management)
 
                 Exceptional model for specialized complex tasks
 
-              - `"claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `"claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `"claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `"claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `"claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `str`
 
         - `to: BetaFallbackInfoParam`
@@ -18497,6 +18738,10 @@ print(beta_message_tokens_count.context_management)
         - `type: Literal["fallback"]`
 
           - `"fallback"`
+
+        - `trigger: Optional[object]`
+
+          The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
   - `role: Literal["user", "assistant", "system"]`
 
@@ -18568,7 +18813,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -19882,9 +20127,9 @@ print(beta_message_tokens_count.context_management)
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -19901,12 +20146,13 @@ print(beta_message_tokens_count.context_management)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -19922,11 +20168,10 @@ print(beta_message_tokens_count.context_management)
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
             - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -19988,31 +20233,31 @@ print(beta_message_tokens_count.context_management)
 
               Exceptional model for specialized complex tasks
 
-            - `"claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `"claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `"claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `"claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `"claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `str`
 
       - `to: BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `trigger: BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+          The policy category that triggered a refusal.
+
+          - `"cyber"`
+
+          - `"bio"`
+
+          - `"frontier_llm"`
+
+          - `"reasoning_extraction"`
+
+        - `type: Literal["refusal"]`
+
+          - `"refusal"`
 
       - `type: Literal["fallback"]`
 
@@ -20116,15 +20361,15 @@ print(beta_message_tokens_count.context_management)
 
       Structured information about a refusal.
 
-      - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+      - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `"cyber"`
 
         - `"bio"`
+
+        - `"frontier_llm"`
 
         - `"reasoning_extraction"`
 
@@ -20279,12 +20524,13 @@ print(beta_message_tokens_count.context_management)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -20300,11 +20546,10 @@ print(beta_message_tokens_count.context_management)
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
             - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
             - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -20365,26 +20610,6 @@ print(beta_message_tokens_count.context_management)
             - `"claude-opus-4-1-20250805"`
 
               Exceptional model for specialized complex tasks
-
-            - `"claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `"claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `"claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `"claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `"claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
 
           - `str`
 
@@ -21375,9 +21600,9 @@ print(beta_message_tokens_count.context_management)
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -21394,12 +21619,13 @@ print(beta_message_tokens_count.context_management)
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+            - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `claude-sonnet-5` - High-performance model for coding and agents
               - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
               - `claude-mythos-5` - Most capable model for cybersecurity and biology research
               - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -21415,11 +21641,10 @@ print(beta_message_tokens_count.context_management)
               - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
               - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
               - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              - `"claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `"claude-fable-5"`
 
@@ -21481,31 +21706,31 @@ print(beta_message_tokens_count.context_management)
 
                 Exceptional model for specialized complex tasks
 
-              - `"claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `"claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `"claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `"claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `"claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `str`
 
         - `to: BetaFallbackInfo`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+        - `trigger: BetaFallbackRefusalTrigger`
+
+          What caused the `from` model to hand over at this hop.
+
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+            The policy category that triggered a refusal.
+
+            - `"cyber"`
+
+            - `"bio"`
+
+            - `"frontier_llm"`
+
+            - `"reasoning_extraction"`
+
+          - `type: Literal["refusal"]`
+
+            - `"refusal"`
 
         - `type: Literal["fallback"]`
 
@@ -21632,15 +21857,15 @@ print(beta_message_tokens_count.context_management)
 
       Structured information about a refusal.
 
-      - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+      - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `"cyber"`
 
         - `"bio"`
+
+        - `"frontier_llm"`
 
         - `"reasoning_extraction"`
 
@@ -22843,9 +23068,9 @@ print(beta_message_tokens_count.context_management)
           Marks the point in `content` where one model's output gives way to the next.
 
           One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn routed directly by the sticky decision has no such boundary
-          and carries no block — the signal for whether a fallback model served the
-          response is the presence of a `fallback_message` entry in
+          declined. A turn where no preceding model ran and declined has no such
+          boundary and carries no block — the signal for whether a fallback model
+          served the response is the presence of a `fallback_message` entry in
           `usage.iterations`, not this block.
 
           The block is treated like a server-tool content block for streaming: it
@@ -22862,12 +23087,13 @@ print(beta_message_tokens_count.context_management)
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+              - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                - `claude-sonnet-5` - High-performance model for coding and agents
                 - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                 - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                 - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -22883,11 +23109,10 @@ print(beta_message_tokens_count.context_management)
                 - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                 - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                 - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                - `"claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `"claude-fable-5"`
 
@@ -22949,31 +23174,31 @@ print(beta_message_tokens_count.context_management)
 
                   Exceptional model for specialized complex tasks
 
-                - `"claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `"claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `"claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `"claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `"claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `str`
 
           - `to: BetaFallbackInfo`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+          - `trigger: BetaFallbackRefusalTrigger`
+
+            What caused the `from` model to hand over at this hop.
+
+            - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+              The policy category that triggered a refusal.
+
+              - `"cyber"`
+
+              - `"bio"`
+
+              - `"frontier_llm"`
+
+              - `"reasoning_extraction"`
+
+            - `type: Literal["refusal"]`
+
+              - `"refusal"`
 
           - `type: Literal["fallback"]`
 
@@ -23100,15 +23325,15 @@ print(beta_message_tokens_count.context_management)
 
         Structured information about a refusal.
 
-        - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `"cyber"`
 
           - `"bio"`
+
+          - `"frontier_llm"`
 
           - `"reasoning_extraction"`
 
@@ -23599,9 +23824,9 @@ print(beta_message_tokens_count.context_management)
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -23724,15 +23949,15 @@ print(beta_message_tokens_count.context_management)
 
   Structured information about a refusal.
 
-  - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+  - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-    The policy category that triggered the refusal.
-
-    `null` when the refusal doesn't map to a named category.
+    The policy category that triggered a refusal.
 
     - `"cyber"`
 
     - `"bio"`
+
+    - `"frontier_llm"`
 
     - `"reasoning_extraction"`
 
@@ -23858,7 +24083,7 @@ print(beta_message_tokens_count.context_management)
                 - `5m`: 5 minutes
                 - `1h`: 1 hour
 
-                Defaults to `5m`.
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                 - `"5m"`
 
@@ -24107,7 +24332,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -24266,7 +24491,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -24535,7 +24760,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -24798,7 +25023,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -25371,7 +25596,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -25527,7 +25752,7 @@ print(beta_message_tokens_count.context_management)
 
     Must be ≥1024 and less than `max_tokens`.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `type: Literal["enabled"]`
 
@@ -25549,7 +25774,7 @@ print(beta_message_tokens_count.context_management)
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `class BetaThinkingConfigEnabled: …`
 
@@ -25559,7 +25784,7 @@ print(beta_message_tokens_count.context_management)
 
       Must be ≥1024 and less than `max_tokens`.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     - `type: Literal["enabled"]`
 
@@ -25661,13 +25886,15 @@ print(beta_message_tokens_count.context_management)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -25686,7 +25913,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -25732,13 +25959,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"bash_20241022"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -25757,7 +25986,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -25789,13 +26018,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"bash_20250124"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -25814,7 +26045,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -25976,13 +26207,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"computer_20241022"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26001,7 +26234,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26045,13 +26278,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"computer_20250124"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26070,7 +26305,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26114,13 +26349,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"computer_20251124"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26139,7 +26376,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26202,7 +26439,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26235,7 +26472,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26549,13 +26786,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"tool_search_tool_bm25"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26574,7 +26813,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26606,13 +26845,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"tool_search_tool_regex"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26631,7 +26872,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26740,7 +26981,7 @@ print(beta_message_tokens_count.context_management)
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `"5m"`
 
@@ -26845,7 +27086,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -26871,13 +27112,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"text_editor_20241022"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26896,7 +27139,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26928,13 +27171,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"text_editor_20250124"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -26953,7 +27198,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -26985,13 +27230,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"text_editor_20250429"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27010,7 +27257,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -27042,13 +27289,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"text_editor_20250728"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27067,7 +27316,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -27115,13 +27364,15 @@ print(beta_message_tokens_count.context_management)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27140,7 +27391,7 @@ print(beta_message_tokens_count.context_management)
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `"5m"`
 
@@ -27184,13 +27435,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"bash_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27220,13 +27473,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"bash_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27256,13 +27511,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"code_execution_20250522"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27290,13 +27547,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"code_execution_20250825"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27326,13 +27585,53 @@ print(beta_message_tokens_count.context_management)
 
       - `"code_execution_20260120"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class BetaCodeExecutionTool20260521: …`
+
+    Code execution tool with REPL state persistence.
+
+    - `name: Literal["code_execution"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"code_execution"`
+
+    - `type: Literal["code_execution_20260521"]`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27368,13 +27667,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"computer_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27408,13 +27709,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"memory_20250818"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27452,13 +27755,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"computer_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27492,13 +27797,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"text_editor_20241022"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27536,13 +27843,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"computer_20251124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27580,13 +27889,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"text_editor_20250124"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27616,13 +27927,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"text_editor_20250429"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27652,13 +27965,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"text_editor_20250728"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -27692,13 +28007,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"web_search_20250305"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -27762,13 +28079,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"web_fetch_20250910"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -27818,13 +28137,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"web_search_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -27868,13 +28189,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"web_fetch_20260209"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -27924,13 +28247,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"web_fetch_20260309"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `allowed_domains: Optional[List[str]]`
 
@@ -27968,6 +28293,134 @@ print(beta_message_tokens_count.context_management)
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `class BetaWebSearchTool20260318: …`
+
+    - `name: Literal["web_search"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_search"`
+
+    - `type: Literal["web_search_20260318"]`
+
+      - `"web_search_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `blocked_domains: Optional[List[str]]`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `user_location: Optional[BetaUserLocation]`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class BetaWebFetchTool20260318: …`
+
+    - `name: Literal["web_fetch"]`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `"web_fetch"`
+
+    - `type: Literal["web_fetch_20260318"]`
+
+      - `"web_fetch_20260318"`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `allowed_domains: Optional[List[str]]`
+
+      List of domains to allow fetching from
+
+    - `blocked_domains: Optional[List[str]]`
+
+      List of domains to block fetching from
+
+    - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `citations: Optional[BetaCitationsConfigParam]`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `defer_loading: Optional[bool]`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `max_content_tokens: Optional[int]`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `max_uses: Optional[int]`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `"full"`
+
+      - `"excluded"`
+
+    - `strict: Optional[bool]`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `use_cache: Optional[bool]`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `class BetaAdvisorTool20260301: …`
 
     - `model: Model`
@@ -27976,12 +28429,13 @@ print(beta_message_tokens_count.context_management)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -27997,11 +28451,10 @@ print(beta_message_tokens_count.context_management)
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
         - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
         - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -28063,26 +28516,6 @@ print(beta_message_tokens_count.context_management)
 
           Exceptional model for specialized complex tasks
 
-        - `"claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `"claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `"claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `"claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `"claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `str`
 
     - `name: Literal["advisor"]`
@@ -28097,13 +28530,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"advisor_20260301"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -28145,13 +28580,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"tool_search_tool_bm25"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -28181,13 +28618,15 @@ print(beta_message_tokens_count.context_management)
 
       - `"tool_search_tool_regex"`
 
-    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
       - `"direct"`
 
       - `"code_execution_20250825"`
 
       - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
 
     - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -28311,7 +28750,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -28455,12 +28894,13 @@ print(beta_message_tokens_count.context_management)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-mythos-5` - Most capable model for cybersecurity and biology research
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -28476,11 +28916,10 @@ print(beta_message_tokens_count.context_management)
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
           - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
           - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -28541,26 +28980,6 @@ print(beta_message_tokens_count.context_management)
           - `"claude-opus-4-1-20250805"`
 
             Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `"claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `"claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `"claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `"claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
 
         - `str`
 
@@ -28882,7 +29301,7 @@ print(beta_message_tokens_count.context_management)
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `"5m"`
 
@@ -29104,13 +29523,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"web_fetch_20250910"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -29137,7 +29558,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -29181,13 +29602,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"web_fetch_20260209"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -29214,7 +29637,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -29260,13 +29683,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"web_fetch_20260309"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -29293,7 +29718,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -29316,6 +29741,97 @@ print(beta_message_tokens_count.context_management)
   - `max_uses: Optional[int]`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `strict: Optional[bool]`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `use_cache: Optional[bool]`
+
+    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+### Beta Web Fetch Tool 20260318
+
+- `class BetaWebFetchTool20260318: …`
+
+  - `name: Literal["web_fetch"]`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `"web_fetch"`
+
+  - `type: Literal["web_fetch_20260318"]`
+
+    - `"web_fetch_20260318"`
+
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+    - `"direct"`
+
+    - `"code_execution_20250825"`
+
+    - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
+
+  - `allowed_domains: Optional[List[str]]`
+
+    List of domains to allow fetching from
+
+  - `blocked_domains: Optional[List[str]]`
+
+    List of domains to block fetching from
+
+  - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: Literal["ephemeral"]`
+
+      - `"ephemeral"`
+
+    - `ttl: Optional[Literal["5m", "1h"]]`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `citations: Optional[BetaCitationsConfigParam]`
+
+    Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `enabled: Optional[bool]`
+
+  - `defer_loading: Optional[bool]`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `max_content_tokens: Optional[int]`
+
+    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+  - `max_uses: Optional[int]`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `"full"`
+
+    - `"excluded"`
 
   - `strict: Optional[bool]`
 
@@ -29544,7 +30060,7 @@ print(beta_message_tokens_count.context_management)
                       - `5m`: 5 minutes
                       - `1h`: 1 hour
 
-                      Defaults to `5m`.
+                      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                       - `"5m"`
 
@@ -29916,13 +30432,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"web_search_20250305"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -29949,7 +30467,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -30007,13 +30525,15 @@ print(beta_message_tokens_count.context_management)
 
     - `"web_search_20260209"`
 
-  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
     - `"direct"`
 
     - `"code_execution_20250825"`
 
     - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
 
   - `allowed_domains: Optional[List[str]]`
 
@@ -30040,7 +30560,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -30053,6 +30573,107 @@ print(beta_message_tokens_count.context_management)
   - `max_uses: Optional[int]`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `strict: Optional[bool]`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `user_location: Optional[BetaUserLocation]`
+
+    Parameters for the user's location. Used to provide more relevant search results.
+
+    - `type: Literal["approximate"]`
+
+      - `"approximate"`
+
+    - `city: Optional[str]`
+
+      The city of the user.
+
+    - `country: Optional[str]`
+
+      The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+    - `region: Optional[str]`
+
+      The region of the user.
+
+    - `timezone: Optional[str]`
+
+      The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+### Beta Web Search Tool 20260318
+
+- `class BetaWebSearchTool20260318: …`
+
+  - `name: Literal["web_search"]`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `"web_search"`
+
+  - `type: Literal["web_search_20260318"]`
+
+    - `"web_search_20260318"`
+
+  - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+    - `"direct"`
+
+    - `"code_execution_20250825"`
+
+    - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
+
+  - `allowed_domains: Optional[List[str]]`
+
+    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+  - `blocked_domains: Optional[List[str]]`
+
+    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+  - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: Literal["ephemeral"]`
+
+      - `"ephemeral"`
+
+    - `ttl: Optional[Literal["5m", "1h"]]`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `defer_loading: Optional[bool]`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `max_uses: Optional[int]`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `"full"`
+
+    - `"excluded"`
 
   - `strict: Optional[bool]`
 
@@ -30281,7 +30902,7 @@ print(beta_message_tokens_count.context_management)
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `"5m"`
 
@@ -30405,7 +31026,7 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -30423,7 +31044,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
     Messages API creation parameters for the individual request.
 
-    See the [Messages API reference](https://docs.claude.com/en/api/messages) for full documentation on available parameters.
+    See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
 
     - `max_tokens: int`
 
@@ -30431,9 +31052,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-      Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+      Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-      Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+      Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
     - `messages: Iterable[BetaMessageParam]`
 
@@ -30480,9 +31101,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
       ```
 
-      See [input examples](https://docs.claude.com/en/api/messages-examples).
+      See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-      Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+      Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
       There is a limit of 100,000 messages in a single request.
 
@@ -30517,7 +31138,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                 - `5m`: 5 minutes
                 - `1h`: 1 hour
 
-                Defaults to `5m`.
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                 - `"5m"`
 
@@ -31497,19 +32118,17 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             A `fallback` block echoed back from a prior response.
 
-            Accepted in `messages[].content` and never rendered into the prompt,
-            not validated against the request's `fallbacks` chain or top-level
-            `model`, and stripped before the sticky-routing cache key is computed.
+            Accepted in `messages[].content` and not rendered into the prompt; not
+            validated against the request's `fallbacks` chain or top-level `model`.
 
-            Callers should echo the assistant turn verbatim — block included. The
-            block's position is load-bearing for thinking verification: the thinking
-            runs on either side of a fallback hop carry independently-rooted
-            verification hash chains, and this block is the only record of where one
-            chain ends and the next begins. When thinking runs flank the boundary,
-            omitting the block merges the runs into one contiguous span whose hashes
-            cannot verify (the request is rejected), and moving it into the middle of
-            a single run splits that run's chain and is likewise rejected; between
-            non-thinking blocks the block's placement has no verification effect.
+            Echo the assistant turn back verbatim, including this block in its
+            original position. The block marks the boundary between content produced
+            before and after a fallback hop, and the server relies on that boundary
+            to validate the turn: when thinking runs flank the boundary, omitting
+            the block merges them into one span the server cannot validate (the
+            request is rejected), and moving it into the middle of a single run is
+            likewise rejected; between non-thinking blocks the block's placement has
+            no validation effect.
 
             - `from_: BetaFallbackInfoParam`
 
@@ -31521,12 +32140,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+                - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `claude-sonnet-5` - High-performance model for coding and agents
                   - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                   - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                   - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -31542,11 +32162,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                   - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                   - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  - `"claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `"claude-fable-5"`
 
@@ -31608,26 +32227,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                     Exceptional model for specialized complex tasks
 
-                  - `"claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `str`
 
             - `to: BetaFallbackInfoParam`
@@ -31637,6 +32236,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `type: Literal["fallback"]`
 
               - `"fallback"`
+
+            - `trigger: Optional[object]`
+
+              The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
       - `role: Literal["user", "assistant", "system"]`
 
@@ -31912,7 +32515,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Must be ≥1024 and less than `max_tokens`.
 
-            See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           - `type: Literal["enabled"]`
 
@@ -31994,7 +32597,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-      Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+      Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
       - `"auto"`
 
@@ -32020,13 +32623,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Whether to incrementally stream the response using server-sent events.
 
-      See [streaming](https://docs.claude.com/en/api/messages-streaming) for details.
+      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
     - `system: Optional[Union[str, Iterable[BetaTextBlockParam]]]`
 
       System prompt.
 
-      A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+      A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
       - `str`
 
@@ -32056,7 +32659,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       - `class BetaThinkingConfigEnabled: …`
 
@@ -32128,7 +32731,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-      There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+      There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
       Each tool definition includes:
 
@@ -32184,7 +32787,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-      See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+      See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
       - `class BetaTool: …`
 
@@ -32208,13 +32811,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32258,13 +32863,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"bash_20241022"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32294,13 +32901,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"bash_20250124"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32330,13 +32939,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"code_execution_20250522"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32364,13 +32975,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"code_execution_20250825"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32400,13 +33013,53 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"code_execution_20260120"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+          Create a cache control breakpoint at this content block.
+
+        - `defer_loading: Optional[bool]`
+
+          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+        - `strict: Optional[bool]`
+
+          When true, guarantees schema validation on tool names and inputs
+
+      - `class BetaCodeExecutionTool20260521: …`
+
+        Code execution tool with REPL state persistence.
+
+        - `name: Literal["code_execution"]`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
+
+          - `"code_execution"`
+
+        - `type: Literal["code_execution_20260521"]`
+
+          - `"code_execution_20260521"`
+
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32442,13 +33095,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"computer_20241022"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32482,13 +33137,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"memory_20250818"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32526,13 +33183,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"computer_20250124"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32566,13 +33225,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"text_editor_20241022"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32610,13 +33271,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"computer_20251124"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32654,13 +33317,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"text_editor_20250124"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32690,13 +33355,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"text_editor_20250429"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32726,13 +33393,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"text_editor_20250728"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -32766,13 +33435,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"web_search_20250305"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `allowed_domains: Optional[List[str]]`
 
@@ -32836,13 +33507,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"web_fetch_20250910"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `allowed_domains: Optional[List[str]]`
 
@@ -32890,13 +33563,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"web_search_20260209"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `allowed_domains: Optional[List[str]]`
 
@@ -32940,13 +33615,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"web_fetch_20260209"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `allowed_domains: Optional[List[str]]`
 
@@ -32996,13 +33673,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"web_fetch_20260309"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `allowed_domains: Optional[List[str]]`
 
@@ -33040,6 +33719,134 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+      - `class BetaWebSearchTool20260318: …`
+
+        - `name: Literal["web_search"]`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
+
+          - `"web_search"`
+
+        - `type: Literal["web_search_20260318"]`
+
+          - `"web_search_20260318"`
+
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `allowed_domains: Optional[List[str]]`
+
+          If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+        - `blocked_domains: Optional[List[str]]`
+
+          If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+        - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+          Create a cache control breakpoint at this content block.
+
+        - `defer_loading: Optional[bool]`
+
+          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+        - `max_uses: Optional[int]`
+
+          Maximum number of times the tool can be used in the API request.
+
+        - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+          How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+          - `"full"`
+
+          - `"excluded"`
+
+        - `strict: Optional[bool]`
+
+          When true, guarantees schema validation on tool names and inputs
+
+        - `user_location: Optional[BetaUserLocation]`
+
+          Parameters for the user's location. Used to provide more relevant search results.
+
+      - `class BetaWebFetchTool20260318: …`
+
+        - `name: Literal["web_fetch"]`
+
+          Name of the tool.
+
+          This is how the tool will be called by the model and in `tool_use` blocks.
+
+          - `"web_fetch"`
+
+        - `type: Literal["web_fetch_20260318"]`
+
+          - `"web_fetch_20260318"`
+
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `allowed_domains: Optional[List[str]]`
+
+          List of domains to allow fetching from
+
+        - `blocked_domains: Optional[List[str]]`
+
+          List of domains to block fetching from
+
+        - `cache_control: Optional[BetaCacheControlEphemeral]`
+
+          Create a cache control breakpoint at this content block.
+
+        - `citations: Optional[BetaCitationsConfigParam]`
+
+          Citations configuration for fetched documents. Citations are disabled by default.
+
+        - `defer_loading: Optional[bool]`
+
+          If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+        - `max_content_tokens: Optional[int]`
+
+          Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+        - `max_uses: Optional[int]`
+
+          Maximum number of times the tool can be used in the API request.
+
+        - `response_inclusion: Optional[Literal["full", "excluded"]]`
+
+          How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+          - `"full"`
+
+          - `"excluded"`
+
+        - `strict: Optional[bool]`
+
+          When true, guarantees schema validation on tool names and inputs
+
+        - `use_cache: Optional[bool]`
+
+          Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
       - `class BetaAdvisorTool20260301: …`
 
         - `model: Model`
@@ -33060,13 +33867,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"advisor_20260301"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33108,13 +33917,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"tool_search_tool_bm25"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33144,13 +33955,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `"tool_search_tool_regex"`
 
-        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120"]]]`
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
           - `"direct"`
 
           - `"code_execution_20250825"`
 
           - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
 
         - `cache_control: Optional[BetaCacheControlEphemeral]`
 
@@ -33215,10 +34028,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Recommended for advanced use cases only.
 
-    - `user_profile_id: Optional[str]`
-
-      The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
-
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -33282,6 +34091,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
     - `"server-side-fallback-2026-06-01"`
 
     - `"fallback-credit-2026-06-01"`
+
+- `user_profile_id: Optional[str]`
+
+  The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
 ### Returns
 
@@ -33429,7 +34242,7 @@ print(beta_message_batch.id)
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -33637,7 +34450,7 @@ print(beta_message_batch.id)
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -33863,7 +34676,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -34073,7 +34886,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -34195,7 +35008,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -35117,9 +35930,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             Marks the point in `content` where one model's output gives way to the next.
 
             One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn routed directly by the sticky decision has no such boundary
-            and carries no block — the signal for whether a fallback model served the
-            response is the presence of a `fallback_message` entry in
+            declined. A turn where no preceding model ran and declined has no such
+            boundary and carries no block — the signal for whether a fallback model
+            served the response is the presence of a `fallback_message` entry in
             `usage.iterations`, not this block.
 
             The block is treated like a server-tool content block for streaming: it
@@ -35136,12 +35949,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+                - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `claude-sonnet-5` - High-performance model for coding and agents
                   - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                   - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                   - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -35157,11 +35971,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                   - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                   - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  - `"claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `"claude-fable-5"`
 
@@ -35223,31 +36036,31 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                     Exceptional model for specialized complex tasks
 
-                  - `"claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `str`
 
             - `to: BetaFallbackInfo`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+            - `trigger: BetaFallbackRefusalTrigger`
+
+              What caused the `from` model to hand over at this hop.
+
+              - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+                The policy category that triggered a refusal.
+
+                - `"cyber"`
+
+                - `"bio"`
+
+                - `"frontier_llm"`
+
+                - `"reasoning_extraction"`
+
+              - `type: Literal["refusal"]`
+
+                - `"refusal"`
 
             - `type: Literal["fallback"]`
 
@@ -35374,15 +36187,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Structured information about a refusal.
 
-          - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `"cyber"`
 
             - `"bio"`
+
+            - `"frontier_llm"`
 
             - `"reasoning_extraction"`
 
@@ -36920,9 +37733,9 @@ for batch in client.beta.messages.batches.results(
             Marks the point in `content` where one model's output gives way to the next.
 
             One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn routed directly by the sticky decision has no such boundary
-            and carries no block — the signal for whether a fallback model served the
-            response is the presence of a `fallback_message` entry in
+            declined. A turn where no preceding model ran and declined has no such
+            boundary and carries no block — the signal for whether a fallback model
+            served the response is the presence of a `fallback_message` entry in
             `usage.iterations`, not this block.
 
             The block is treated like a server-tool content block for streaming: it
@@ -36939,12 +37752,13 @@ for batch in client.beta.messages.batches.results(
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+                - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `claude-sonnet-5` - High-performance model for coding and agents
                   - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                   - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                   - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -36960,11 +37774,10 @@ for batch in client.beta.messages.batches.results(
                   - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                   - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                   - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  - `"claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `"claude-fable-5"`
 
@@ -37026,31 +37839,31 @@ for batch in client.beta.messages.batches.results(
 
                     Exceptional model for specialized complex tasks
 
-                  - `"claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `str`
 
             - `to: BetaFallbackInfo`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+            - `trigger: BetaFallbackRefusalTrigger`
+
+              What caused the `from` model to hand over at this hop.
+
+              - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+                The policy category that triggered a refusal.
+
+                - `"cyber"`
+
+                - `"bio"`
+
+                - `"frontier_llm"`
+
+                - `"reasoning_extraction"`
+
+              - `type: Literal["refusal"]`
+
+                - `"refusal"`
 
             - `type: Literal["fallback"]`
 
@@ -37177,15 +37990,15 @@ for batch in client.beta.messages.batches.results(
 
           Structured information about a refusal.
 
-          - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `"cyber"`
 
             - `"bio"`
+
+            - `"frontier_llm"`
 
             - `"reasoning_extraction"`
 
@@ -38516,9 +39329,9 @@ for batch in client.beta.messages.batches.results(
           Marks the point in `content` where one model's output gives way to the next.
 
           One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn routed directly by the sticky decision has no such boundary
-          and carries no block — the signal for whether a fallback model served the
-          response is the presence of a `fallback_message` entry in
+          declined. A turn where no preceding model ran and declined has no such
+          boundary and carries no block — the signal for whether a fallback model
+          served the response is the presence of a `fallback_message` entry in
           `usage.iterations`, not this block.
 
           The block is treated like a server-tool content block for streaming: it
@@ -38535,12 +39348,13 @@ for batch in client.beta.messages.batches.results(
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+              - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                - `claude-sonnet-5` - High-performance model for coding and agents
                 - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                 - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                 - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -38556,11 +39370,10 @@ for batch in client.beta.messages.batches.results(
                 - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                 - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                 - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                - `"claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `"claude-fable-5"`
 
@@ -38622,31 +39435,31 @@ for batch in client.beta.messages.batches.results(
 
                   Exceptional model for specialized complex tasks
 
-                - `"claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `"claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `"claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `"claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `"claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `str`
 
           - `to: BetaFallbackInfo`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+          - `trigger: BetaFallbackRefusalTrigger`
+
+            What caused the `from` model to hand over at this hop.
+
+            - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+              The policy category that triggered a refusal.
+
+              - `"cyber"`
+
+              - `"bio"`
+
+              - `"frontier_llm"`
+
+              - `"reasoning_extraction"`
+
+            - `type: Literal["refusal"]`
+
+              - `"refusal"`
 
           - `type: Literal["fallback"]`
 
@@ -38773,15 +39586,15 @@ for batch in client.beta.messages.batches.results(
 
         Structured information about a refusal.
 
-        - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `"cyber"`
 
           - `"bio"`
+
+          - `"frontier_llm"`
 
           - `"reasoning_extraction"`
 
@@ -40074,9 +40887,9 @@ for batch in client.beta.messages.batches.results(
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -40093,12 +40906,13 @@ for batch in client.beta.messages.batches.results(
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+            - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `claude-sonnet-5` - High-performance model for coding and agents
               - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
               - `claude-mythos-5` - Most capable model for cybersecurity and biology research
               - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -40114,11 +40928,10 @@ for batch in client.beta.messages.batches.results(
               - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
               - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
               - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-              - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              - `"claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `"claude-fable-5"`
 
@@ -40180,31 +40993,31 @@ for batch in client.beta.messages.batches.results(
 
                 Exceptional model for specialized complex tasks
 
-              - `"claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `"claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `"claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `"claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `"claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `str`
 
         - `to: BetaFallbackInfo`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+        - `trigger: BetaFallbackRefusalTrigger`
+
+          What caused the `from` model to hand over at this hop.
+
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+            The policy category that triggered a refusal.
+
+            - `"cyber"`
+
+            - `"bio"`
+
+            - `"frontier_llm"`
+
+            - `"reasoning_extraction"`
+
+          - `type: Literal["refusal"]`
+
+            - `"refusal"`
 
         - `type: Literal["fallback"]`
 
@@ -40331,15 +41144,15 @@ for batch in client.beta.messages.batches.results(
 
       Structured information about a refusal.
 
-      - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+      - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `"cyber"`
 
         - `"bio"`
+
+        - `"frontier_llm"`
 
         - `"reasoning_extraction"`
 
@@ -40714,14 +41527,15 @@ Create Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-4-6`, or a `model_config` object for additional configuration control
 
-  - `Union[Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more], str]`
+  - `Union[Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more], str]`
 
-    - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
       - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -40733,6 +41547,10 @@ Create Agent
       - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -40790,12 +41608,13 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -40828,7 +41647,7 @@ Create Agent
 
 - `mcp_servers: Optional[Iterable[BetaManagedAgentsURLMCPServerParams]]`
 
-  MCP servers this agent connects to. Maximum 20. Names must be unique within the array.
+  MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
   - `name: str`
 
@@ -41192,12 +42011,13 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -41209,6 +42029,10 @@ Create Agent
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -41686,12 +42510,13 @@ List Agents
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -41703,6 +42528,10 @@ List Agents
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -42169,12 +42998,13 @@ Get Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -42186,6 +43016,10 @@ Get Agent
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -42550,7 +43384,7 @@ Update Agent
 
 - `mcp_servers: Optional[Iterable[BetaManagedAgentsURLMCPServerParams]]`
 
-  MCP servers. Full replacement. Omit to preserve; send empty array or null to clear. Names must be unique. Maximum 20.
+  MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
   - `name: str`
 
@@ -42572,14 +43406,15 @@ Update Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-4-6`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
-  - `Union[Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more], str]`
+  - `Union[Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more], str]`
 
-    - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
       - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -42591,6 +43426,10 @@ Update Agent
       - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -42648,12 +43487,13 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -43026,12 +43866,13 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -43043,6 +43884,10 @@ Update Agent
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -43502,12 +44347,13 @@ Archive Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -43519,6 +44365,10 @@ Archive Agent
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -43903,12 +44753,13 @@ print(beta_managed_agents_agent.id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -43920,6 +44771,10 @@ print(beta_managed_agents_agent.id)
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -45021,18 +45876,19 @@ print(beta_managed_agents_agent.id)
 
 ### Beta Managed Agents Model
 
-- `Union[Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more], str]`
+- `Union[Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more], str]`
 
   The model that will power your agent.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+  - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `claude-sonnet-5` - High-performance model for coding and agents
     - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
     - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
     - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -45044,6 +45900,10 @@ print(beta_managed_agents_agent.id)
     - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
     - `claude-sonnet-4-5` - High-performance model for agents and coding
     - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+    - `"claude-sonnet-5"`
+
+      High-performance model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -45103,12 +45963,13 @@ print(beta_managed_agents_agent.id)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
       - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -45120,6 +45981,10 @@ print(beta_managed_agents_agent.id)
       - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -45187,12 +46052,13 @@ print(beta_managed_agents_agent.id)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+    - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `claude-sonnet-5` - High-performance model for coding and agents
       - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
       - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
       - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -45204,6 +46070,10 @@ print(beta_managed_agents_agent.id)
       - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
       - `claude-sonnet-4-5` - High-performance model for agents and coding
       - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+      - `"claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -45361,12 +46231,13 @@ print(beta_managed_agents_agent.id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -45378,6 +46249,10 @@ print(beta_managed_agents_agent.id)
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -45789,12 +46664,13 @@ List Agent Versions
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -45806,6 +46682,10 @@ List Agent Versions
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -48561,6 +49441,10 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -48625,6 +49509,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -48771,6 +49656,10 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -48834,6 +49723,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -48970,6 +49860,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -49034,6 +49928,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -49328,6 +50223,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -49392,6 +50291,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -49534,6 +50434,10 @@ List work items in an environment.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -49600,6 +50504,7 @@ print(page.id)
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -49743,6 +50648,10 @@ Update work item metadata with merge semantics.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -49810,6 +50719,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -50001,6 +50911,10 @@ print(beta_self_hosted_work_queue_stats.depth)
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: Optional[str]`
 
     RFC 3339 timestamp when work execution started
@@ -50118,6 +51032,10 @@ print(beta_self_hosted_work_queue_stats.depth)
     - `metadata: Dict[str, str]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: Optional[str]`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: Optional[str]`
 
@@ -50257,6 +51175,356 @@ Create Session
     - `version: Optional[int]`
 
       The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+  - `class BetaManagedAgentsAgentWithOverridesParams: …`
+
+    Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
+
+    - `id: str`
+
+      The `agent` ID.
+
+    - `type: Literal["agent_with_overrides"]`
+
+      - `"agent_with_overrides"`
+
+    - `mcp_servers: Optional[List[BetaManagedAgentsURLMCPServerParams]]`
+
+      Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
+
+      - `name: str`
+
+        Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
+
+      - `type: Literal["url"]`
+
+        - `"url"`
+
+      - `url: str`
+
+        Endpoint URL for the MCP server.
+
+    - `model: Optional[Model]`
+
+      Replacement model. Accepts the model string, e.g. `claude-opus-4-6`, or a `model_config` object. Omit to use the agent's model.
+
+      - `Union[Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more], str]`
+
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `claude-sonnet-5` - High-performance model for coding and agents
+          - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
+          - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-4-6` - Most intelligent model for building agents and coding
+          - `claude-sonnet-4-6` - Best combination of speed and intelligence
+          - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
+          - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
+          - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
+          - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+          - `claude-sonnet-4-5` - High-performance model for agents and coding
+          - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
+          - `"claude-fable-5"`
+
+            Next generation of intelligence for the hardest knowledge work and coding problems
+
+          - `"claude-opus-4-8"`
+
+            Frontier intelligence for long-running agents and coding
+
+          - `"claude-opus-4-7"`
+
+            Frontier intelligence for long-running agents and coding
+
+          - `"claude-opus-4-6"`
+
+            Most intelligent model for building agents and coding
+
+          - `"claude-sonnet-4-6"`
+
+            Best combination of speed and intelligence
+
+          - `"claude-haiku-4-5"`
+
+            Fastest model with near-frontier intelligence
+
+          - `"claude-haiku-4-5-20251001"`
+
+            Fastest model with near-frontier intelligence
+
+          - `"claude-opus-4-5"`
+
+            Premium model combining maximum intelligence with practical performance
+
+          - `"claude-opus-4-5-20251101"`
+
+            Premium model combining maximum intelligence with practical performance
+
+          - `"claude-sonnet-4-5"`
+
+            High-performance model for agents and coding
+
+          - `"claude-sonnet-4-5-20250929"`
+
+            High-performance model for agents and coding
+
+        - `str`
+
+      - `class BetaManagedAgentsModelConfigParams: …`
+
+        An object that defines additional configuration control over model use
+
+        - `id: BetaManagedAgentsModel`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+
+            The model that will power your agent.
+
+            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `claude-sonnet-5` - High-performance model for coding and agents
+            - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
+            - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-4-6` - Most intelligent model for building agents and coding
+            - `claude-sonnet-4-6` - Best combination of speed and intelligence
+            - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
+            - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
+            - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
+            - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+            - `claude-sonnet-4-5` - High-performance model for agents and coding
+            - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `str`
+
+        - `speed: Optional[Literal["standard", "fast"]]`
+
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
+          - `"standard"`
+
+          - `"fast"`
+
+    - `skills: Optional[List[BetaManagedAgentsSkillParams]]`
+
+      Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
+
+      - `class BetaManagedAgentsAnthropicSkillParams: …`
+
+        An Anthropic-managed skill.
+
+        - `skill_id: str`
+
+          Identifier of the Anthropic skill (e.g., "xlsx").
+
+        - `type: Literal["anthropic"]`
+
+          - `"anthropic"`
+
+        - `version: Optional[str]`
+
+          Version to pin. Defaults to latest if omitted.
+
+      - `class BetaManagedAgentsCustomSkillParams: …`
+
+        A user-created custom skill.
+
+        - `skill_id: str`
+
+          Tagged ID of the custom skill (e.g., "skill_01XJ5...").
+
+        - `type: Literal["custom"]`
+
+          - `"custom"`
+
+        - `version: Optional[str]`
+
+          Version to pin. Defaults to latest if omitted.
+
+    - `system: Optional[str]`
+
+      Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
+
+    - `tools: Optional[List[Tool]]`
+
+      Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
+
+      - `class BetaManagedAgentsAgentToolset20260401Params: …`
+
+        Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
+
+        - `type: Literal["agent_toolset_20260401"]`
+
+          - `"agent_toolset_20260401"`
+
+        - `configs: Optional[List[BetaManagedAgentsAgentToolConfigParams]]`
+
+          Per-tool configuration overrides.
+
+          - `name: Literal["bash", "edit", "read", 5 more]`
+
+            Built-in agent tool identifier.
+
+            - `"bash"`
+
+            - `"edit"`
+
+            - `"read"`
+
+            - `"write"`
+
+            - `"glob"`
+
+            - `"grep"`
+
+            - `"web_fetch"`
+
+            - `"web_search"`
+
+          - `enabled: Optional[bool]`
+
+            Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+          - `permission_policy: Optional[PermissionPolicy]`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+              - `type: Literal["always_allow"]`
+
+                - `"always_allow"`
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+              - `type: Literal["always_ask"]`
+
+                - `"always_ask"`
+
+        - `default_config: Optional[BetaManagedAgentsAgentToolsetDefaultConfigParams]`
+
+          Default configuration for all tools in a toolset.
+
+          - `enabled: Optional[bool]`
+
+            Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
+
+          - `permission_policy: Optional[PermissionPolicy]`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsMCPToolsetParams: …`
+
+        Configuration for tools from an MCP server defined in `mcp_servers`.
+
+        - `mcp_server_name: str`
+
+          Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+
+        - `type: Literal["mcp_toolset"]`
+
+          - `"mcp_toolset"`
+
+        - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
+
+          Per-tool configuration overrides.
+
+          - `name: str`
+
+            Name of the MCP tool to configure. 1-128 characters.
+
+          - `enabled: Optional[bool]`
+
+            Whether this tool is enabled. Overrides the `default_config` setting.
+
+          - `permission_policy: Optional[PermissionPolicy]`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+        - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
+
+          Default configuration for all tools from an MCP server.
+
+          - `enabled: Optional[bool]`
+
+            Whether tools are enabled by default. Defaults to true if not specified.
+
+          - `permission_policy: Optional[PermissionPolicy]`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+      - `class BetaManagedAgentsCustomToolParams: …`
+
+        A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+        - `description: str`
+
+          Description of what the tool does, shown to the agent to help it decide when to use the tool. 1-1024 characters.
+
+        - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+          JSON Schema for custom tool input parameters.
+
+          - `type: Literal["object"]`
+
+            - `"object"`
+
+          - `properties: Optional[Dict[str, object]]`
+
+          - `required: Optional[List[str]]`
+
+        - `name: str`
+
+          Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
+
+        - `type: Literal["custom"]`
+
+          - `"custom"`
+
+    - `version: Optional[int]`
+
+      The specific `agent` version to use. Omit to use the latest version.
 
 - `environment_id: str`
 
@@ -50462,12 +51730,13 @@ Create Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -50479,6 +51748,10 @@ Create Session
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -51166,7 +52439,7 @@ print(beta_managed_agents_session.id)
 
 ## List Sessions
 
-`beta.sessions.list(SessionListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsSession]`
+`beta.sessions.list(SessionListParams**kwargs)  -> SyncBidirectionalPageCursor[BetaManagedAgentsSession]`
 
 **get** `/v1/sessions`
 
@@ -51338,12 +52611,13 @@ List Sessions
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -51355,6 +52629,10 @@ List Sessions
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -52039,7 +53317,8 @@ print(page.id)
       "deployment_id": "deployment_id"
     }
   ],
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo=",
+  "prev_page": "page_MjAyNS0wNS0xM1QwMDowMDowMFo="
 }
 ```
 
@@ -52155,12 +53434,13 @@ Get Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -52172,6 +53452,10 @@ Get Session
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -53164,12 +54448,13 @@ Update Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -53181,6 +54466,10 @@ Update Session
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -54089,12 +55378,13 @@ Archive Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -54106,6 +55396,10 @@ Archive Session
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -54792,6 +56086,18 @@ print(beta_managed_agents_session.id)
 
 ## Domain Types
 
+### Beta Managed Agents Agent Message Preview
+
+- `class BetaManagedAgentsAgentMessagePreview: …`
+
+  - `id: str`
+
+    The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+  - `type: Literal["agent.message"]`
+
+    - `"agent.message"`
+
 ### Beta Managed Agents Agent Params
 
 - `class BetaManagedAgentsAgentParams: …`
@@ -54809,6 +56115,370 @@ print(beta_managed_agents_session.id)
   - `version: Optional[int]`
 
     The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+### Beta Managed Agents Agent Thinking Preview
+
+- `class BetaManagedAgentsAgentThinkingPreview: …`
+
+  - `id: str`
+
+    The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+  - `type: Literal["agent.thinking"]`
+
+    - `"agent.thinking"`
+
+### Beta Managed Agents Agent With Overrides Params
+
+- `class BetaManagedAgentsAgentWithOverridesParams: …`
+
+  Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
+
+  - `id: str`
+
+    The `agent` ID.
+
+  - `type: Literal["agent_with_overrides"]`
+
+    - `"agent_with_overrides"`
+
+  - `mcp_servers: Optional[List[BetaManagedAgentsURLMCPServerParams]]`
+
+    Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
+
+    - `name: str`
+
+      Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
+
+    - `type: Literal["url"]`
+
+      - `"url"`
+
+    - `url: str`
+
+      Endpoint URL for the MCP server.
+
+  - `model: Optional[Model]`
+
+    Replacement model. Accepts the model string, e.g. `claude-opus-4-6`, or a `model_config` object. Omit to use the agent's model.
+
+    - `Union[Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more], str]`
+
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `claude-sonnet-5` - High-performance model for coding and agents
+        - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
+        - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-4-6` - Most intelligent model for building agents and coding
+        - `claude-sonnet-4-6` - Best combination of speed and intelligence
+        - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
+        - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
+        - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
+        - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+        - `claude-sonnet-4-5` - High-performance model for agents and coding
+        - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
+        - `"claude-fable-5"`
+
+          Next generation of intelligence for the hardest knowledge work and coding problems
+
+        - `"claude-opus-4-8"`
+
+          Frontier intelligence for long-running agents and coding
+
+        - `"claude-opus-4-7"`
+
+          Frontier intelligence for long-running agents and coding
+
+        - `"claude-opus-4-6"`
+
+          Most intelligent model for building agents and coding
+
+        - `"claude-sonnet-4-6"`
+
+          Best combination of speed and intelligence
+
+        - `"claude-haiku-4-5"`
+
+          Fastest model with near-frontier intelligence
+
+        - `"claude-haiku-4-5-20251001"`
+
+          Fastest model with near-frontier intelligence
+
+        - `"claude-opus-4-5"`
+
+          Premium model combining maximum intelligence with practical performance
+
+        - `"claude-opus-4-5-20251101"`
+
+          Premium model combining maximum intelligence with practical performance
+
+        - `"claude-sonnet-4-5"`
+
+          High-performance model for agents and coding
+
+        - `"claude-sonnet-4-5-20250929"`
+
+          High-performance model for agents and coding
+
+      - `str`
+
+    - `class BetaManagedAgentsModelConfigParams: …`
+
+      An object that defines additional configuration control over model use
+
+      - `id: BetaManagedAgentsModel`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `claude-sonnet-5` - High-performance model for coding and agents
+          - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
+          - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-4-6` - Most intelligent model for building agents and coding
+          - `claude-sonnet-4-6` - Best combination of speed and intelligence
+          - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
+          - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
+          - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
+          - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+          - `claude-sonnet-4-5` - High-performance model for agents and coding
+          - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `str`
+
+      - `speed: Optional[Literal["standard", "fast"]]`
+
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
+        - `"standard"`
+
+        - `"fast"`
+
+  - `skills: Optional[List[BetaManagedAgentsSkillParams]]`
+
+    Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
+
+    - `class BetaManagedAgentsAnthropicSkillParams: …`
+
+      An Anthropic-managed skill.
+
+      - `skill_id: str`
+
+        Identifier of the Anthropic skill (e.g., "xlsx").
+
+      - `type: Literal["anthropic"]`
+
+        - `"anthropic"`
+
+      - `version: Optional[str]`
+
+        Version to pin. Defaults to latest if omitted.
+
+    - `class BetaManagedAgentsCustomSkillParams: …`
+
+      A user-created custom skill.
+
+      - `skill_id: str`
+
+        Tagged ID of the custom skill (e.g., "skill_01XJ5...").
+
+      - `type: Literal["custom"]`
+
+        - `"custom"`
+
+      - `version: Optional[str]`
+
+        Version to pin. Defaults to latest if omitted.
+
+  - `system: Optional[str]`
+
+    Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
+
+  - `tools: Optional[List[Tool]]`
+
+    Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
+
+    - `class BetaManagedAgentsAgentToolset20260401Params: …`
+
+      Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
+
+      - `type: Literal["agent_toolset_20260401"]`
+
+        - `"agent_toolset_20260401"`
+
+      - `configs: Optional[List[BetaManagedAgentsAgentToolConfigParams]]`
+
+        Per-tool configuration overrides.
+
+        - `name: Literal["bash", "edit", "read", 5 more]`
+
+          Built-in agent tool identifier.
+
+          - `"bash"`
+
+          - `"edit"`
+
+          - `"read"`
+
+          - `"write"`
+
+          - `"glob"`
+
+          - `"grep"`
+
+          - `"web_fetch"`
+
+          - `"web_search"`
+
+        - `enabled: Optional[bool]`
+
+          Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+        - `permission_policy: Optional[PermissionPolicy]`
+
+          Permission policy for tool execution.
+
+          - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+            Tool calls are automatically approved without user confirmation.
+
+            - `type: Literal["always_allow"]`
+
+              - `"always_allow"`
+
+          - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+            Tool calls require user confirmation before execution.
+
+            - `type: Literal["always_ask"]`
+
+              - `"always_ask"`
+
+      - `default_config: Optional[BetaManagedAgentsAgentToolsetDefaultConfigParams]`
+
+        Default configuration for all tools in a toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
+
+        - `permission_policy: Optional[PermissionPolicy]`
+
+          Permission policy for tool execution.
+
+          - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+            Tool calls require user confirmation before execution.
+
+    - `class BetaManagedAgentsMCPToolsetParams: …`
+
+      Configuration for tools from an MCP server defined in `mcp_servers`.
+
+      - `mcp_server_name: str`
+
+        Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+
+      - `type: Literal["mcp_toolset"]`
+
+        - `"mcp_toolset"`
+
+      - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
+
+        Per-tool configuration overrides.
+
+        - `name: str`
+
+          Name of the MCP tool to configure. 1-128 characters.
+
+        - `enabled: Optional[bool]`
+
+          Whether this tool is enabled. Overrides the `default_config` setting.
+
+        - `permission_policy: Optional[PermissionPolicy]`
+
+          Permission policy for tool execution.
+
+          - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+            Tool calls require user confirmation before execution.
+
+      - `default_config: Optional[BetaManagedAgentsMCPToolsetDefaultConfigParams]`
+
+        Default configuration for all tools from an MCP server.
+
+        - `enabled: Optional[bool]`
+
+          Whether tools are enabled by default. Defaults to true if not specified.
+
+        - `permission_policy: Optional[PermissionPolicy]`
+
+          Permission policy for tool execution.
+
+          - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+            Tool calls require user confirmation before execution.
+
+    - `class BetaManagedAgentsCustomToolParams: …`
+
+      A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+      - `description: str`
+
+        Description of what the tool does, shown to the agent to help it decide when to use the tool. 1-1024 characters.
+
+      - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+        JSON Schema for custom tool input parameters.
+
+        - `type: Literal["object"]`
+
+          - `"object"`
+
+        - `properties: Optional[Dict[str, object]]`
+
+        - `required: Optional[List[str]]`
+
+      - `name: str`
+
+        Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
+
+      - `type: Literal["custom"]`
+
+        - `"custom"`
+
+  - `version: Optional[int]`
+
+    The specific `agent` version to use. Omit to use the latest version.
 
 ### Beta Managed Agents Branch Checkout
 
@@ -54859,6 +56529,78 @@ print(beta_managed_agents_session.id)
   - `type: Literal["session_deleted"]`
 
     - `"session_deleted"`
+
+### Beta Managed Agents Delta Content
+
+- `class BetaManagedAgentsDeltaContent: …`
+
+  - `content: BetaManagedAgentsTextBlock`
+
+    Regular text content.
+
+    - `text: str`
+
+      The text content.
+
+    - `type: Literal["text"]`
+
+      - `"text"`
+
+  - `type: Literal["content_delta"]`
+
+    - `"content_delta"`
+
+  - `index: Optional[int]`
+
+    Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+### Beta Managed Agents Delta Event
+
+- `class BetaManagedAgentsDeltaEvent: …`
+
+  An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `delta: BetaManagedAgentsDeltaContent`
+
+    One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+    - `content: BetaManagedAgentsTextBlock`
+
+      Regular text content.
+
+      - `text: str`
+
+        The text content.
+
+      - `type: Literal["text"]`
+
+        - `"text"`
+
+    - `type: Literal["content_delta"]`
+
+      - `"content_delta"`
+
+    - `index: Optional[int]`
+
+      Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+  - `event_id: str`
+
+    The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+  - `type: Literal["event_delta"]`
+
+    - `"event_delta"`
+
+### Beta Managed Agents Delta Type
+
+- `Literal["agent.message", "agent.thinking"]`
+
+  EventDeltaType enum
+
+  - `"agent.message"`
+
+  - `"agent.thinking"`
 
 ### Beta Managed Agents File Resource Params
 
@@ -55114,12 +56856,13 @@ print(beta_managed_agents_session.id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -55131,6 +56874,10 @@ print(beta_managed_agents_session.id)
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -55662,12 +57409,13 @@ print(beta_managed_agents_session.id)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
         - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -55679,6 +57427,10 @@ print(beta_managed_agents_session.id)
         - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+        - `"claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -56186,12 +57938,13 @@ print(beta_managed_agents_session.id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -56203,6 +57956,10 @@ print(beta_managed_agents_session.id)
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -56496,12 +58253,13 @@ print(beta_managed_agents_session.id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -56513,6 +58271,10 @@ print(beta_managed_agents_session.id)
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -56837,6 +58599,64 @@ print(beta_managed_agents_session.id)
   - `output_tokens: Optional[int]`
 
     Total output tokens generated across all turns.
+
+### Beta Managed Agents Start Event
+
+- `class BetaManagedAgentsStartEvent: …`
+
+  Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `event: BetaManagedAgentsStartEventPreview`
+
+    The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+    - `class BetaManagedAgentsAgentMessagePreview: …`
+
+      - `id: str`
+
+        The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+      - `type: Literal["agent.message"]`
+
+        - `"agent.message"`
+
+    - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+      - `id: str`
+
+        The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+      - `type: Literal["agent.thinking"]`
+
+        - `"agent.thinking"`
+
+  - `type: Literal["event_start"]`
+
+    - `"event_start"`
+
+### Beta Managed Agents Start Event Preview
+
+- `BetaManagedAgentsStartEventPreview`
+
+  - `class BetaManagedAgentsAgentMessagePreview: …`
+
+    - `id: str`
+
+      The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+    - `type: Literal["agent.message"]`
+
+      - `"agent.message"`
+
+  - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+    - `id: str`
+
+      The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+    - `type: Literal["agent.thinking"]`
+
+      - `"agent.thinking"`
 
 ### Beta Managed Agents System Content Block
 
@@ -58670,12 +60490,13 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -58687,6 +60508,10 @@ List Events
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -59989,6 +61814,14 @@ Stream Events
 ### Parameters
 
 - `session_id: str`
+
+- `event_deltas: Optional[List[BetaManagedAgentsDeltaType]]`
+
+  When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
+
+  - `"agent.message"`
+
+  - `"agent.thinking"`
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -61516,12 +63349,13 @@ Stream Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -61533,6 +63367,10 @@ Stream Events
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -61827,6 +63665,66 @@ Stream Events
     - `title: Optional[str]`
 
       The session's new title. Present only when the update changed it.
+
+  - `class BetaManagedAgentsStartEvent: …`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `event: BetaManagedAgentsStartEventPreview`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `class BetaManagedAgentsAgentMessagePreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `type: Literal["agent.message"]`
+
+          - `"agent.message"`
+
+      - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `type: Literal["agent.thinking"]`
+
+          - `"agent.thinking"`
+
+    - `type: Literal["event_start"]`
+
+      - `"event_start"`
+
+  - `class BetaManagedAgentsDeltaEvent: …`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `delta: BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `content: BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `type: Literal["content_delta"]`
+
+        - `"content_delta"`
+
+      - `index: Optional[int]`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `event_id: str`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `type: Literal["event_delta"]`
+
+      - `"event_delta"`
 
   - `class BetaManagedAgentsSystemMessageEvent: …`
 
@@ -66045,12 +67943,13 @@ for event in client.beta.sessions.events.stream(
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -66062,6 +67961,10 @@ for event in client.beta.sessions.events.stream(
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -68357,12 +70260,13 @@ for event in client.beta.sessions.events.stream(
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -68374,6 +70278,10 @@ for event in client.beta.sessions.events.stream(
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -68668,6 +70576,66 @@ for event in client.beta.sessions.events.stream(
     - `title: Optional[str]`
 
       The session's new title. Present only when the update changed it.
+
+  - `class BetaManagedAgentsStartEvent: …`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `event: BetaManagedAgentsStartEventPreview`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `class BetaManagedAgentsAgentMessagePreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `type: Literal["agent.message"]`
+
+          - `"agent.message"`
+
+      - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `type: Literal["agent.thinking"]`
+
+          - `"agent.thinking"`
+
+    - `type: Literal["event_start"]`
+
+      - `"event_start"`
+
+  - `class BetaManagedAgentsDeltaEvent: …`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `delta: BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `content: BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `type: Literal["content_delta"]`
+
+        - `"content_delta"`
+
+      - `index: Optional[int]`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `event_id: str`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `type: Literal["event_delta"]`
+
+      - `"event_delta"`
 
   - `class BetaManagedAgentsSystemMessageEvent: …`
 
@@ -71447,12 +73415,13 @@ List Session Threads
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -71464,6 +73433,10 @@ List Session Threads
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -71985,12 +73958,13 @@ Get Session Thread
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -72002,6 +73976,10 @@ Get Session Thread
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -72518,12 +74496,13 @@ Archive Session Thread
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -72535,6 +74514,10 @@ Archive Session Thread
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -72975,12 +74958,13 @@ print(beta_managed_agents_session_thread.id)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
           - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -72992,6 +74976,10 @@ print(beta_managed_agents_session_thread.id)
           - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+          - `"claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -74825,12 +76813,13 @@ print(beta_managed_agents_session_thread.id)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -74842,6 +76831,10 @@ print(beta_managed_agents_session_thread.id)
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -75136,6 +77129,66 @@ print(beta_managed_agents_session_thread.id)
     - `title: Optional[str]`
 
       The session's new title. Present only when the update changed it.
+
+  - `class BetaManagedAgentsStartEvent: …`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `event: BetaManagedAgentsStartEventPreview`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `class BetaManagedAgentsAgentMessagePreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `type: Literal["agent.message"]`
+
+          - `"agent.message"`
+
+      - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `type: Literal["agent.thinking"]`
+
+          - `"agent.thinking"`
+
+    - `type: Literal["event_start"]`
+
+      - `"event_start"`
+
+  - `class BetaManagedAgentsDeltaEvent: …`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `delta: BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `content: BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `type: Literal["content_delta"]`
+
+        - `"content_delta"`
+
+      - `index: Optional[int]`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `event_id: str`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `type: Literal["event_delta"]`
+
+      - `"event_delta"`
 
   - `class BetaManagedAgentsSystemMessageEvent: …`
 
@@ -76715,12 +78768,13 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -76732,6 +78786,10 @@ List Session Thread Events
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -78633,12 +80691,13 @@ Stream Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-fable-5", "claude-opus-4-8", "claude-opus-4-7", 8 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
             - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
@@ -78650,6 +80709,10 @@ Stream Session Thread Events
             - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
+
+            - `"claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -78944,6 +81007,66 @@ Stream Session Thread Events
     - `title: Optional[str]`
 
       The session's new title. Present only when the update changed it.
+
+  - `class BetaManagedAgentsStartEvent: …`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `event: BetaManagedAgentsStartEventPreview`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `class BetaManagedAgentsAgentMessagePreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `type: Literal["agent.message"]`
+
+          - `"agent.message"`
+
+      - `class BetaManagedAgentsAgentThinkingPreview: …`
+
+        - `id: str`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `type: Literal["agent.thinking"]`
+
+          - `"agent.thinking"`
+
+    - `type: Literal["event_start"]`
+
+      - `"event_start"`
+
+  - `class BetaManagedAgentsDeltaEvent: …`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `delta: BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `content: BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `type: Literal["content_delta"]`
+
+        - `"content_delta"`
+
+      - `index: Optional[int]`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `event_id: str`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `type: Literal["event_delta"]`
+
+      - `"event_delta"`
 
   - `class BetaManagedAgentsSystemMessageEvent: …`
 
@@ -80009,31 +82132,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -80049,19 +82170,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -80724,31 +82846,29 @@ print(page.id)
 {
   "data": [
     {
-      "id": "id",
+      "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
       "agent": {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+        "id": "agent_011CZkYpogX7uDKUyvBTophP",
         "type": "agent",
         "version": 1
       },
-      "archived_at": "2019-12-27T18:11:19.117Z",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "description": "description",
-      "environment_id": "environment_id",
+      "archived_at": null,
+      "created_at": "2026-03-15T10:00:00Z",
+      "description": "Compiles yesterday's orders into a report every weekday morning.",
+      "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
       "initial_events": [
         {
           "content": [
             {
-              "text": "Where is my order #1234?",
+              "text": "Compile yesterday's orders into report.md.",
               "type": "text"
             }
           ],
           "type": "user.message"
         }
       ],
-      "metadata": {
-        "foo": "string"
-      },
-      "name": "name",
+      "metadata": {},
+      "name": "Daily order report",
       "paused_reason": {
         "type": "manual"
       },
@@ -80764,23 +82884,24 @@ print(page.id)
         }
       ],
       "schedule": {
-        "expression": "x",
-        "timezone": "x",
+        "expression": "0 9 * * 1-5",
+        "timezone": "America/Los_Angeles",
         "type": "cron",
-        "last_run_at": "2019-12-27T18:11:19.117Z",
+        "last_run_at": "2026-03-16T16:00:09Z",
         "upcoming_runs_at": [
-          "2019-12-27T18:11:19.117Z"
+          "2026-03-17T16:00:00Z",
+          "2026-03-18T16:00:00Z"
         ]
       },
       "status": "active",
       "type": "deployment",
-      "updated_at": "2019-12-27T18:11:19.117Z",
+      "updated_at": "2026-03-15T10:00:00Z",
       "vault_ids": [
-        "string"
+        "vlt_011CZkZDLs7fYzm1hXNPeRjv"
       ]
     }
   ],
-  "next_page": "next_page"
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
 }
 ```
 
@@ -81402,7 +83523,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.retrieve(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment.id)
 ```
@@ -81411,31 +83532,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -81451,19 +83570,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -82454,7 +84574,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.update(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment.id)
 ```
@@ -82463,31 +84583,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -82503,19 +84621,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -83138,7 +85257,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.archive(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment.id)
 ```
@@ -83147,31 +85266,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -83187,19 +85304,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -83548,7 +85666,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment_run = client.beta.deployments.run(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment_run.id)
 ```
@@ -84196,7 +86314,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.pause(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment.id)
 ```
@@ -84205,31 +86323,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -84245,19 +86361,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -84880,7 +86997,7 @@ client = Anthropic(
     api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.unpause(
-    deployment_id="deployment_id",
+    deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
 )
 print(beta_managed_agents_deployment.id)
 ```
@@ -84889,31 +87006,29 @@ print(beta_managed_agents_deployment.id)
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -84929,19 +87044,20 @@ print(beta_managed_agents_deployment.id)
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -89343,6 +91459,18 @@ Create Credential
 
       - `"environment_variable"`
 
+    - `injection_location: Optional[BetaManagedAgentsInjectionLocationParams]`
+
+      Where in the outbound request the secret value may be substituted.
+
+      - `body: Optional[bool]`
+
+        Substitute when the placeholder appears in the request body.
+
+      - `header: Optional[bool]`
+
+        Substitute when the placeholder appears in a request header value.
+
 - `display_name: Optional[str]`
 
   Human-readable name for the credential. Up to 255 characters.
@@ -89512,6 +91640,18 @@ Create Credential
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `networking: Networking`
 
@@ -89796,6 +91936,18 @@ List Credentials
 
       Environment variable credential details. The secret value is never returned.
 
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `networking: Networking`
 
         Outbound hosts the secret value is substituted on.
@@ -90070,6 +92222,18 @@ Get Credential
 
       Environment variable credential details. The secret value is never returned.
 
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `networking: Networking`
 
         Outbound hosts the secret value is substituted on.
@@ -90256,6 +92420,18 @@ Update Credential
     - `type: Literal["environment_variable"]`
 
       - `"environment_variable"`
+
+    - `injection_location: Optional[BetaManagedAgentsInjectionLocationUpdateParams]`
+
+      Updated injection location.
+
+      - `body: Optional[bool]`
+
+        Substitute when the placeholder appears in the request body.
+
+      - `header: Optional[bool]`
+
+        Substitute when the placeholder appears in a request header value.
 
     - `networking: Optional[BetaManagedAgentsCredentialNetworkingParams]`
 
@@ -90454,6 +92630,18 @@ Update Credential
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `networking: Networking`
 
@@ -90840,6 +93028,18 @@ Archive Credential
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `networking: Networking`
 
@@ -91243,6 +93443,18 @@ print(beta_managed_agents_credential_validation.credential_id)
 
       Environment variable credential details. The secret value is never returned.
 
+      - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `body: bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `header: bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `networking: Networking`
 
         Outbound hosts the secret value is substituted on.
@@ -91441,6 +93653,18 @@ print(beta_managed_agents_credential_validation.credential_id)
 
   Environment variable credential details. The secret value is never returned.
 
+  - `injection_location: BetaManagedAgentsInjectionLocationResponse`
+
+    Where in the outbound request the secret value is substituted.
+
+    - `body: bool`
+
+      Whether the placeholder is substituted in the request body.
+
+    - `header: bool`
+
+      Whether the placeholder is substituted in request header values.
+
   - `networking: Networking`
 
     Outbound hosts the secret value is substituted on.
@@ -91515,6 +93739,18 @@ print(beta_managed_agents_credential_validation.credential_id)
 
     - `"environment_variable"`
 
+  - `injection_location: Optional[BetaManagedAgentsInjectionLocationParams]`
+
+    Where in the outbound request the secret value may be substituted.
+
+    - `body: Optional[bool]`
+
+      Substitute when the placeholder appears in the request body.
+
+    - `header: Optional[bool]`
+
+      Substitute when the placeholder appears in a request header value.
+
 ### Beta Managed Agents Environment Variable Update Params
 
 - `class BetaManagedAgentsEnvironmentVariableUpdateParams: …`
@@ -91524,6 +93760,18 @@ print(beta_managed_agents_credential_validation.credential_id)
   - `type: Literal["environment_variable"]`
 
     - `"environment_variable"`
+
+  - `injection_location: Optional[BetaManagedAgentsInjectionLocationUpdateParams]`
+
+    Updated injection location.
+
+    - `body: Optional[bool]`
+
+      Substitute when the placeholder appears in the request body.
+
+    - `header: Optional[bool]`
+
+      Substitute when the placeholder appears in a request header value.
 
   - `networking: Optional[BetaManagedAgentsCredentialNetworkingParams]`
 
@@ -91552,6 +93800,48 @@ print(beta_managed_agents_credential_validation.credential_id)
   - `secret_value: Optional[str]`
 
     Updated secret value.
+
+### Beta Managed Agents Injection Location Params
+
+- `class BetaManagedAgentsInjectionLocationParams: …`
+
+  Where in the outbound request the secret value may be substituted.
+
+  - `body: Optional[bool]`
+
+    Substitute when the placeholder appears in the request body.
+
+  - `header: Optional[bool]`
+
+    Substitute when the placeholder appears in a request header value.
+
+### Beta Managed Agents Injection Location Response
+
+- `class BetaManagedAgentsInjectionLocationResponse: …`
+
+  Where in the outbound request the secret value is substituted.
+
+  - `body: bool`
+
+    Whether the placeholder is substituted in the request body.
+
+  - `header: bool`
+
+    Whether the placeholder is substituted in request header values.
+
+### Beta Managed Agents Injection Location Update Params
+
+- `class BetaManagedAgentsInjectionLocationUpdateParams: …`
+
+  Updated injection location.
+
+  - `body: Optional[bool]`
+
+    Substitute when the placeholder appears in the request body.
+
+  - `header: Optional[bool]`
+
+    Substitute when the placeholder appears in a request header value.
 
 ### Beta Managed Agents Limited Credential Networking Params
 
@@ -98648,9 +100938,291 @@ print(beta_user_profile_enrollment_url.expires_at)
 
     - `"rejected"`
 
+# Tunnels
+
+# Certificates
+
 # Webhooks
 
 ## Domain Types
+
+### Beta Webhook Agent Archived Event Data
+
+- `class BetaWebhookAgentArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["agent.archived"]`
+
+    - `"agent.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Agent Created Event Data
+
+- `class BetaWebhookAgentCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["agent.created"]`
+
+    - `"agent.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Agent Deleted Event Data
+
+- `class BetaWebhookAgentDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["agent.deleted"]`
+
+    - `"agent.deleted"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Agent Updated Event Data
+
+- `class BetaWebhookAgentUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["agent.updated"]`
+
+    - `"agent.updated"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Archived Event Data
+
+- `class BetaWebhookDeploymentArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.archived"]`
+
+    - `"deployment.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Created Event Data
+
+- `class BetaWebhookDeploymentCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.created"]`
+
+    - `"deployment.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Deleted Event Data
+
+- `class BetaWebhookDeploymentDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.deleted"]`
+
+    - `"deployment.deleted"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Paused Event Data
+
+- `class BetaWebhookDeploymentPausedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.paused"]`
+
+    - `"deployment.paused"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Run Failed Event Data
+
+- `class BetaWebhookDeploymentRunFailedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment_run.failed"]`
+
+    - `"deployment_run.failed"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Run Started Event Data
+
+- `class BetaWebhookDeploymentRunStartedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment_run.started"]`
+
+    - `"deployment_run.started"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Run Succeeded Event Data
+
+- `class BetaWebhookDeploymentRunSucceededEventData: …`
+
+  - `id: str`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment_run.succeeded"]`
+
+    - `"deployment_run.succeeded"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Unpaused Event Data
+
+- `class BetaWebhookDeploymentUnpausedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.unpaused"]`
+
+    - `"deployment.unpaused"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Deployment Updated Event Data
+
+- `class BetaWebhookDeploymentUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["deployment.updated"]`
+
+    - `"deployment.updated"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.archived"]`
+
+    - `"environment.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.created"]`
+
+    - `"environment.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: BetaWebhookEnvironmentDeletedEventType`
+
+    - `"environment.deleted"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Deleted Event Type
+
+- `Literal["environment.deleted"]`
+
+  - `"environment.deleted"`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.updated"]`
+
+    - `"environment.updated"`
+
+  - `workspace_id: str`
 
 ### Beta Webhook Event
 
@@ -99002,6 +101574,300 @@ print(beta_user_profile_enrollment_url.expires_at)
 
       - `workspace_id: str`
 
+    - `class BetaWebhookSessionUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.updated"]`
+
+        - `"session.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.created"]`
+
+        - `"agent.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.archived"]`
+
+        - `"agent.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.deleted"]`
+
+        - `"agent.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentPausedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.paused"]`
+
+        - `"deployment.paused"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunFailedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.failed"]`
+
+        - `"deployment_run.failed"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.created"]`
+
+        - `"deployment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.updated"]`
+
+        - `"deployment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentUnpausedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.unpaused"]`
+
+        - `"deployment.unpaused"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.updated"]`
+
+        - `"agent.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.archived"]`
+
+        - `"deployment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunStartedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.started"]`
+
+        - `"deployment_run.started"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.deleted"]`
+
+        - `"deployment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.succeeded"]`
+
+        - `"deployment_run.succeeded"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+        - `"environment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+        - `"environment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+        - `"environment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: BetaWebhookEnvironmentDeletedEventType`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+        - `"memory_store.deleted"`
+
+      - `workspace_id: str`
+
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
@@ -99348,6 +102214,348 @@ print(beta_user_profile_enrollment_url.expires_at)
 
     - `workspace_id: str`
 
+  - `class BetaWebhookSessionUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["session.updated"]`
+
+      - `"session.updated"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookAgentCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["agent.created"]`
+
+      - `"agent.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookAgentArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["agent.archived"]`
+
+      - `"agent.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookAgentDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["agent.deleted"]`
+
+      - `"agent.deleted"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentPausedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.paused"]`
+
+      - `"deployment.paused"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentRunFailedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment_run.failed"]`
+
+      - `"deployment_run.failed"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.created"]`
+
+      - `"deployment.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.updated"]`
+
+      - `"deployment.updated"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentUnpausedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.unpaused"]`
+
+      - `"deployment.unpaused"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookAgentUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["agent.updated"]`
+
+      - `"agent.updated"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.archived"]`
+
+      - `"deployment.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentRunStartedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment_run.started"]`
+
+      - `"deployment_run.started"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment.deleted"]`
+
+      - `"deployment.deleted"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookDeploymentRunSucceededEventData: …`
+
+    - `id: str`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["deployment_run.succeeded"]`
+
+      - `"deployment_run.succeeded"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.created"]`
+
+      - `"environment.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.updated"]`
+
+      - `"environment.updated"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.archived"]`
+
+      - `"environment.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: BetaWebhookEnvironmentDeletedEventType`
+
+      - `"environment.deleted"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.created"]`
+
+      - `"memory_store.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.archived"]`
+
+      - `"memory_store.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.deleted"]`
+
+      - `"memory_store.deleted"`
+
+    - `workspace_id: str`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.archived"]`
+
+    - `"memory_store.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.created"]`
+
+    - `"memory_store.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.deleted"]`
+
+    - `"memory_store.deleted"`
+
+  - `workspace_id: str`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData: …`
@@ -99597,6 +102805,22 @@ print(beta_user_profile_enrollment_url.expires_at)
   - `type: Literal["session.thread_terminated"]`
 
     - `"session.thread_terminated"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Session Updated Event Data
+
+- `class BetaWebhookSessionUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["session.updated"]`
+
+    - `"session.updated"`
 
   - `workspace_id: str`
 
@@ -100075,6 +103299,300 @@ print(beta_user_profile_enrollment_url.expires_at)
       - `vault_id: str`
 
         ID of the vault that owns this credential.
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookSessionUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.updated"]`
+
+        - `"session.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.created"]`
+
+        - `"agent.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.archived"]`
+
+        - `"agent.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.deleted"]`
+
+        - `"agent.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentPausedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.paused"]`
+
+        - `"deployment.paused"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunFailedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.failed"]`
+
+        - `"deployment_run.failed"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.created"]`
+
+        - `"deployment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.updated"]`
+
+        - `"deployment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentUnpausedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.unpaused"]`
+
+        - `"deployment.unpaused"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookAgentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["agent.updated"]`
+
+        - `"agent.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.archived"]`
+
+        - `"deployment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunStartedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.started"]`
+
+        - `"deployment_run.started"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment.deleted"]`
+
+        - `"deployment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData: …`
+
+      - `id: str`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["deployment_run.succeeded"]`
+
+        - `"deployment_run.succeeded"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+        - `"environment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+        - `"environment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+        - `"environment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: BetaWebhookEnvironmentDeletedEventType`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+        - `"memory_store.deleted"`
 
       - `workspace_id: str`
 

@@ -1349,7 +1349,7 @@ Send a structured list of input messages with text and/or image content, and the
 
 The Messages API can be used for either single queries or stateless multi-turn conversations.
 
-Learn more about the Messages API in our [user guide](https://docs.claude.com/en/docs/initial-setup)
+Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
 ### Parameters
 
@@ -1361,9 +1361,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-    Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+    Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-    Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+    Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
   - `Messages param.Field[[]BetaMessageParamResp]`
 
@@ -1410,9 +1410,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -1445,7 +1445,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -2423,19 +2423,17 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
           A `fallback` block echoed back from a prior response.
 
-          Accepted in `messages[].content` and never rendered into the prompt,
-          not validated against the request's `fallbacks` chain or top-level
-          `model`, and stripped before the sticky-routing cache key is computed.
+          Accepted in `messages[].content` and not rendered into the prompt; not
+          validated against the request's `fallbacks` chain or top-level `model`.
 
-          Callers should echo the assistant turn verbatim — block included. The
-          block's position is load-bearing for thinking verification: the thinking
-          runs on either side of a fallback hop carry independently-rooted
-          verification hash chains, and this block is the only record of where one
-          chain ends and the next begins. When thinking runs flank the boundary,
-          omitting the block merges the runs into one contiguous span whose hashes
-          cannot verify (the request is rejected), and moving it into the middle of
-          a single run splits that run's chain and is likewise rejected; between
-          non-thinking blocks the block's placement has no verification effect.
+          Echo the assistant turn back verbatim, including this block in its
+          original position. The block marks the boundary between content produced
+          before and after a fallback hop, and the server relies on that boundary
+          to validate the turn: when thinking runs flank the boundary, omitting
+          the block merges them into one span the server cannot validate (the
+          request is rejected), and moving it into the middle of a single run is
+          likewise rejected; between non-thinking blocks the block's placement has
+          no validation effect.
 
           - `From BetaFallbackInfoParamResp`
 
@@ -2452,6 +2450,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -2513,26 +2515,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
                   Exceptional model for specialized complex tasks
 
-                - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `string`
 
           - `To BetaFallbackInfoParamResp`
@@ -2542,6 +2524,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
           - `Type Fallback`
 
             - `const FallbackFallback Fallback = "fallback"`
+
+          - `Trigger any`
+
+            The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
     - `Role BetaMessageParamRole`
 
@@ -2703,7 +2689,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
           Must be ≥1024 and less than `max_tokens`.
 
-          See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
         - `Type Enabled`
 
@@ -2779,7 +2765,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-    Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+    Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
     - `const BetaMessageNewParamsServiceTierAuto BetaMessageNewParamsServiceTier = "auto"`
 
@@ -2807,7 +2793,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Body param: System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `[]BetaTextBlockParam`
 
@@ -2835,7 +2821,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `ToolChoice param.Field[BetaToolChoiceUnion]`
 
@@ -2847,7 +2833,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -2903,7 +2889,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `type BetaTool struct{…}`
 
@@ -2934,6 +2920,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -2985,6 +2973,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3020,6 +3010,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3057,6 +3049,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3090,6 +3084,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
         - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3126,6 +3122,46 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
 
         - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `type BetaCodeExecutionTool20260521 struct{…}`
+
+      Code execution tool with REPL state persistence.
+
+      - `Name CodeExecution`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+      - `Type CodeExecution20260521`
+
+        - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3169,6 +3205,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3208,6 +3246,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
         - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3253,6 +3293,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3292,6 +3334,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3337,6 +3381,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3381,6 +3427,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3417,6 +3465,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3452,6 +3502,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3492,6 +3544,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
         - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -3563,6 +3617,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -3617,6 +3673,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -3666,6 +3724,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
         - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -3723,6 +3783,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -3759,6 +3821,134 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `type BetaWebSearchTool20260318 struct{…}`
+
+      - `Name WebSearch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebSearchWebSearch WebSearch = "web_search"`
+
+      - `Type WebSearch20260318`
+
+        - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `BlockedDomains []string`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion BetaWebSearchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const BetaWebSearchTool20260318ResponseInclusionFull BetaWebSearchTool20260318ResponseInclusion = "full"`
+
+        - `const BetaWebSearchTool20260318ResponseInclusionExcluded BetaWebSearchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UserLocation BetaUserLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `type BetaWebFetchTool20260318 struct{…}`
+
+      - `Name WebFetch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+      - `Type WebFetch20260318`
+
+        - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        List of domains to allow fetching from
+
+      - `BlockedDomains []string`
+
+        List of domains to block fetching from
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Citations BetaCitationsConfigParamResp`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxContentTokens int64`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion BetaWebFetchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const BetaWebFetchTool20260318ResponseInclusionFull BetaWebFetchTool20260318ResponseInclusion = "full"`
+
+        - `const BetaWebFetchTool20260318ResponseInclusionExcluded BetaWebFetchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UseCache bool`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `type BetaAdvisorTool20260301 struct{…}`
 
       - `Model Model`
@@ -3786,6 +3976,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
 
         - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3835,6 +4027,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3870,6 +4064,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -3934,10 +4130,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Recommended for advanced use cases only.
 
-  - `UserProfileID param.Field[string]`
-
-    Body param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
-
   - `Betas param.Field[[]AnthropicBeta]`
 
     Header param: Optional header to specify the beta version(s) you want to use.
@@ -4001,6 +4193,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -4834,9 +5030,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -4858,6 +5054,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -4919,31 +5119,31 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
               Exceptional model for specialized complex tasks
 
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `string`
 
       - `To BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `Trigger BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `Category BetaFallbackRefusalTriggerCategory`
+
+          The policy category that triggered a refusal.
+
+          - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+          - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+          - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+          - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+        - `Type Refusal`
+
+          - `const RefusalRefusal Refusal = "refusal"`
 
       - `Type Fallback`
 
@@ -5072,13 +5272,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `Category BetaRefusalStopDetailsCategory`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
       - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+      - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
       - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -5548,7 +5748,7 @@ func main() {
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-fable-5",
+        "model": "claude-sonnet-5",
         "output_tokens": 0,
         "type": "message"
       }
@@ -5577,7 +5777,7 @@ Count the number of tokens in a Message.
 
 The Token Count API can be used to count the number of tokens in a Message, including tools, images, and documents, without creating it.
 
-Learn more about token counting in our [user guide](https://docs.claude.com/en/docs/build-with-claude/token-counting)
+Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
 ### Parameters
 
@@ -5628,9 +5828,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -5663,7 +5863,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -6641,19 +6841,17 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
           A `fallback` block echoed back from a prior response.
 
-          Accepted in `messages[].content` and never rendered into the prompt,
-          not validated against the request's `fallbacks` chain or top-level
-          `model`, and stripped before the sticky-routing cache key is computed.
+          Accepted in `messages[].content` and not rendered into the prompt; not
+          validated against the request's `fallbacks` chain or top-level `model`.
 
-          Callers should echo the assistant turn verbatim — block included. The
-          block's position is load-bearing for thinking verification: the thinking
-          runs on either side of a fallback hop carry independently-rooted
-          verification hash chains, and this block is the only record of where one
-          chain ends and the next begins. When thinking runs flank the boundary,
-          omitting the block merges the runs into one contiguous span whose hashes
-          cannot verify (the request is rejected), and moving it into the middle of
-          a single run splits that run's chain and is likewise rejected; between
-          non-thinking blocks the block's placement has no verification effect.
+          Echo the assistant turn back verbatim, including this block in its
+          original position. The block marks the boundary between content produced
+          before and after a fallback hop, and the server relies on that boundary
+          to validate the turn: when thinking runs flank the boundary, omitting
+          the block merges them into one span the server cannot validate (the
+          request is rejected), and moving it into the middle of a single run is
+          likewise rejected; between non-thinking blocks the block's placement has
+          no validation effect.
 
           - `From BetaFallbackInfoParamResp`
 
@@ -6670,6 +6868,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -6731,26 +6933,6 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
                   Exceptional model for specialized complex tasks
 
-                - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `string`
 
           - `To BetaFallbackInfoParamResp`
@@ -6760,6 +6942,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
           - `Type Fallback`
 
             - `const FallbackFallback Fallback = "fallback"`
+
+          - `Trigger any`
+
+            The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
     - `Role BetaMessageParamRole`
 
@@ -6827,7 +7013,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     Body param: System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `string`
 
@@ -6849,7 +7035,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `ToolChoice param.Field[BetaToolChoiceUnion]`
 
@@ -6861,7 +7047,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -6917,7 +7103,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `type BetaTool struct{…}`
 
@@ -6948,6 +7134,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -6999,6 +7187,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7034,6 +7224,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7071,6 +7263,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7104,6 +7298,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
         - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7140,6 +7336,46 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
 
         - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `type BetaCodeExecutionTool20260521 struct{…}`
+
+      Code execution tool with REPL state persistence.
+
+      - `Name CodeExecution`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+      - `Type CodeExecution20260521`
+
+        - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7183,6 +7419,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7222,6 +7460,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
         - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7267,6 +7507,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7306,6 +7548,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7351,6 +7595,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7395,6 +7641,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7431,6 +7679,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7466,6 +7716,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7506,6 +7758,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
         - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -7577,6 +7831,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -7631,6 +7887,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -7680,6 +7938,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
         - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -7737,6 +7997,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -7773,6 +8035,134 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `type BetaWebSearchTool20260318 struct{…}`
+
+      - `Name WebSearch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebSearchWebSearch WebSearch = "web_search"`
+
+      - `Type WebSearch20260318`
+
+        - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `BlockedDomains []string`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion BetaWebSearchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const BetaWebSearchTool20260318ResponseInclusionFull BetaWebSearchTool20260318ResponseInclusion = "full"`
+
+        - `const BetaWebSearchTool20260318ResponseInclusionExcluded BetaWebSearchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UserLocation BetaUserLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `type BetaWebFetchTool20260318 struct{…}`
+
+      - `Name WebFetch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+      - `Type WebFetch20260318`
+
+        - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        List of domains to allow fetching from
+
+      - `BlockedDomains []string`
+
+        List of domains to block fetching from
+
+      - `CacheControl BetaCacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Citations BetaCitationsConfigParamResp`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxContentTokens int64`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion BetaWebFetchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const BetaWebFetchTool20260318ResponseInclusionFull BetaWebFetchTool20260318ResponseInclusion = "full"`
+
+        - `const BetaWebFetchTool20260318ResponseInclusionExcluded BetaWebFetchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UseCache bool`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `type BetaAdvisorTool20260301 struct{…}`
 
       - `Model Model`
@@ -7800,6 +8190,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
 
         - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7849,6 +8241,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+        - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl BetaCacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -7884,6 +8278,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
         - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+        - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl BetaCacheControlEphemeral`
 
@@ -7996,6 +8392,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
 ### Returns
 
 - `type BetaMessageTokensCount struct{…}`
@@ -8102,6 +8502,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8161,26 +8565,6 @@ func main() {
       - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `string`
 
@@ -8266,6 +8650,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -8326,26 +8714,6 @@ func main() {
 
         Exceptional model for specialized complex tasks
 
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `string`
 
   - `Name Advisor`
@@ -8368,6 +8736,8 @@ func main() {
 
     - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -8385,7 +8755,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -8544,7 +8914,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -8821,7 +9191,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -8884,7 +9254,7 @@ func main() {
     - `5m`: 5 minutes
     - `1h`: 1 hour
 
-    Defaults to `5m`.
+    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
     - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -9546,6 +9916,8 @@ func main() {
 
     - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -9563,7 +9935,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -9601,6 +9973,8 @@ func main() {
 
     - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -9618,7 +9992,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -9658,6 +10032,8 @@ func main() {
 
     - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -9675,7 +10051,66 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
+
+      - `const BetaCacheControlEphemeralTTLTTL1h BetaCacheControlEphemeralTTL = "1h"`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+### Beta Code Execution Tool 20260521
+
+- `type BetaCodeExecutionTool20260521 struct{…}`
+
+  Code execution tool with REPL state persistence.
+
+  - `Name CodeExecution`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+  - `Type CodeExecution20260521`
+
+    - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+  - `AllowedCallers []string`
+
+    - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+
+    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+    - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
+  - `CacheControl BetaCacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL BetaCacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -9908,7 +10343,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -10107,7 +10542,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -10281,7 +10716,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -11054,9 +11489,9 @@ func main() {
     Marks the point in `content` where one model's output gives way to the next.
 
     One block appears per hop where a preceding model actually ran this turn and
-    declined. A turn routed directly by the sticky decision has no such boundary
-    and carries no block — the signal for whether a fallback model served the
-    response is the presence of a `fallback_message` entry in
+    declined. A turn where no preceding model ran and declined has no such
+    boundary and carries no block — the signal for whether a fallback model
+    served the response is the presence of a `fallback_message` entry in
     `usage.iterations`, not this block.
 
     The block is treated like a server-tool content block for streaming: it
@@ -11078,6 +11513,10 @@ func main() {
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -11139,31 +11578,31 @@ func main() {
 
             Exceptional model for specialized complex tasks
 
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `string`
 
     - `To BetaFallbackInfo`
 
       The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+    - `Trigger BetaFallbackRefusalTrigger`
+
+      What caused the `from` model to hand over at this hop.
+
+      - `Category BetaFallbackRefusalTriggerCategory`
+
+        The policy category that triggered a refusal.
+
+        - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+        - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+        - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+        - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+      - `Type Refusal`
+
+        - `const RefusalRefusal Refusal = "refusal"`
 
     - `Type Fallback`
 
@@ -11200,7 +11639,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -12178,19 +12617,17 @@ func main() {
 
     A `fallback` block echoed back from a prior response.
 
-    Accepted in `messages[].content` and never rendered into the prompt,
-    not validated against the request's `fallbacks` chain or top-level
-    `model`, and stripped before the sticky-routing cache key is computed.
+    Accepted in `messages[].content` and not rendered into the prompt; not
+    validated against the request's `fallbacks` chain or top-level `model`.
 
-    Callers should echo the assistant turn verbatim — block included. The
-    block's position is load-bearing for thinking verification: the thinking
-    runs on either side of a fallback hop carry independently-rooted
-    verification hash chains, and this block is the only record of where one
-    chain ends and the next begins. When thinking runs flank the boundary,
-    omitting the block merges the runs into one contiguous span whose hashes
-    cannot verify (the request is rejected), and moving it into the middle of
-    a single run splits that run's chain and is likewise rejected; between
-    non-thinking blocks the block's placement has no verification effect.
+    Echo the assistant turn back verbatim, including this block in its
+    original position. The block marks the boundary between content produced
+    before and after a fallback hop, and the server relies on that boundary
+    to validate the turn: when thinking runs flank the boundary, omitting
+    the block merges them into one span the server cannot validate (the
+    request is rejected), and moving it into the middle of a single run is
+    likewise rejected; between non-thinking blocks the block's placement has
+    no validation effect.
 
     - `From BetaFallbackInfoParamResp`
 
@@ -12207,6 +12644,10 @@ func main() {
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -12268,26 +12709,6 @@ func main() {
 
             Exceptional model for specialized complex tasks
 
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `string`
 
     - `To BetaFallbackInfoParamResp`
@@ -12297,6 +12718,10 @@ func main() {
     - `Type Fallback`
 
       - `const FallbackFallback Fallback = "fallback"`
+
+    - `Trigger any`
+
+      The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
 ### Beta Content Block Source
 
@@ -12333,7 +12758,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -12524,7 +12949,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -13027,9 +13452,9 @@ func main() {
   Marks the point in `content` where one model's output gives way to the next.
 
   One block appears per hop where a preceding model actually ran this turn and
-  declined. A turn routed directly by the sticky decision has no such boundary
-  and carries no block — the signal for whether a fallback model served the
-  response is the presence of a `fallback_message` entry in
+  declined. A turn where no preceding model ran and declined has no such
+  boundary and carries no block — the signal for whether a fallback model
+  served the response is the presence of a `fallback_message` entry in
   `usage.iterations`, not this block.
 
   The block is treated like a server-tool content block for streaming: it
@@ -13052,6 +13477,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13112,31 +13541,31 @@ func main() {
 
           Exceptional model for specialized complex tasks
 
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `string`
 
   - `To BetaFallbackInfo`
 
     The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+  - `Trigger BetaFallbackRefusalTrigger`
+
+    What caused the `from` model to hand over at this hop.
+
+    - `Category BetaFallbackRefusalTriggerCategory`
+
+      The policy category that triggered a refusal.
+
+      - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+      - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+      - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+      - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+    - `Type Refusal`
+
+      - `const RefusalRefusal Refusal = "refusal"`
 
   - `Type Fallback`
 
@@ -13148,19 +13577,17 @@ func main() {
 
   A `fallback` block echoed back from a prior response.
 
-  Accepted in `messages[].content` and never rendered into the prompt,
-  not validated against the request's `fallbacks` chain or top-level
-  `model`, and stripped before the sticky-routing cache key is computed.
+  Accepted in `messages[].content` and not rendered into the prompt; not
+  validated against the request's `fallbacks` chain or top-level `model`.
 
-  Callers should echo the assistant turn verbatim — block included. The
-  block's position is load-bearing for thinking verification: the thinking
-  runs on either side of a fallback hop carry independently-rooted
-  verification hash chains, and this block is the only record of where one
-  chain ends and the next begins. When thinking runs flank the boundary,
-  omitting the block merges the runs into one contiguous span whose hashes
-  cannot verify (the request is rejected), and moving it into the middle of
-  a single run splits that run's chain and is likewise rejected; between
-  non-thinking blocks the block's placement has no verification effect.
+  Echo the assistant turn back verbatim, including this block in its
+  original position. The block marks the boundary between content produced
+  before and after a fallback hop, and the server relies on that boundary
+  to validate the turn: when thinking runs flank the boundary, omitting
+  the block merges them into one span the server cannot validate (the
+  request is rejected), and moving it into the middle of a single run is
+  likewise rejected; between non-thinking blocks the block's placement has
+  no validation effect.
 
   - `From BetaFallbackInfoParamResp`
 
@@ -13178,6 +13605,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13238,26 +13669,6 @@ func main() {
 
           Exceptional model for specialized complex tasks
 
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `string`
 
   - `To BetaFallbackInfoParamResp`
@@ -13267,6 +13678,10 @@ func main() {
   - `Type Fallback`
 
     - `const FallbackFallback Fallback = "fallback"`
+
+  - `Trigger any`
+
+    The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
 ### Beta Fallback Info
 
@@ -13285,6 +13700,10 @@ func main() {
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -13345,26 +13764,6 @@ func main() {
       - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `string`
 
@@ -13386,6 +13785,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13445,26 +13848,6 @@ func main() {
       - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `string`
 
@@ -13515,6 +13898,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13574,26 +13961,6 @@ func main() {
       - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `string`
 
@@ -13630,6 +13997,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13689,26 +14060,6 @@ func main() {
       - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
         Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
 
     - `string`
 
@@ -13776,7 +14127,7 @@ func main() {
 
         Must be ≥1024 and less than `max_tokens`.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
       - `Type Enabled`
 
@@ -13809,6 +14160,28 @@ func main() {
         - `const BetaThinkingConfigAdaptiveDisplaySummarized BetaThinkingConfigAdaptiveDisplay = "summarized"`
 
         - `const BetaThinkingConfigAdaptiveDisplayOmitted BetaThinkingConfigAdaptiveDisplay = "omitted"`
+
+### Beta Fallback Refusal Trigger
+
+- `type BetaFallbackRefusalTrigger struct{…}`
+
+  The `from` model declined for policy reasons.
+
+  - `Category BetaFallbackRefusalTriggerCategory`
+
+    The policy category that triggered a refusal.
+
+    - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+    - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+    - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+    - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+  - `Type Refusal`
+
+    - `const RefusalRefusal Refusal = "refusal"`
 
 ### Beta File Document Source
 
@@ -13891,7 +14264,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -13979,6 +14352,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -14038,26 +14415,6 @@ func main() {
         - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
           Exceptional model for specialized complex tasks
-
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
 
       - `string`
 
@@ -14405,7 +14762,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -14445,7 +14802,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -14491,6 +14848,8 @@ func main() {
 
     - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -14508,7 +14867,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -15572,9 +15931,9 @@ func main() {
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -15596,6 +15955,10 @@ func main() {
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -15657,31 +16020,31 @@ func main() {
 
               Exceptional model for specialized complex tasks
 
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `string`
 
       - `To BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `Trigger BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `Category BetaFallbackRefusalTriggerCategory`
+
+          The policy category that triggered a refusal.
+
+          - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+          - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+          - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+          - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+        - `Type Refusal`
+
+          - `const RefusalRefusal Refusal = "refusal"`
 
       - `Type Fallback`
 
@@ -15810,13 +16173,13 @@ func main() {
 
     - `Category BetaRefusalStopDetailsCategory`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
       - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+      - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
       - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -16237,6 +16600,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -16296,26 +16663,6 @@ func main() {
           - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
             Exceptional model for specialized complex tasks
-
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
 
         - `string`
 
@@ -16514,6 +16861,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -16574,26 +16925,6 @@ func main() {
 
         Exceptional model for specialized complex tasks
 
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `string`
 
   - `OutputTokens int64`
@@ -16639,7 +16970,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -17617,19 +17948,17 @@ func main() {
 
         A `fallback` block echoed back from a prior response.
 
-        Accepted in `messages[].content` and never rendered into the prompt,
-        not validated against the request's `fallbacks` chain or top-level
-        `model`, and stripped before the sticky-routing cache key is computed.
+        Accepted in `messages[].content` and not rendered into the prompt; not
+        validated against the request's `fallbacks` chain or top-level `model`.
 
-        Callers should echo the assistant turn verbatim — block included. The
-        block's position is load-bearing for thinking verification: the thinking
-        runs on either side of a fallback hop carry independently-rooted
-        verification hash chains, and this block is the only record of where one
-        chain ends and the next begins. When thinking runs flank the boundary,
-        omitting the block merges the runs into one contiguous span whose hashes
-        cannot verify (the request is rejected), and moving it into the middle of
-        a single run splits that run's chain and is likewise rejected; between
-        non-thinking blocks the block's placement has no verification effect.
+        Echo the assistant turn back verbatim, including this block in its
+        original position. The block marks the boundary between content produced
+        before and after a fallback hop, and the server relies on that boundary
+        to validate the turn: when thinking runs flank the boundary, omitting
+        the block merges them into one span the server cannot validate (the
+        request is rejected), and moving it into the middle of a single run is
+        likewise rejected; between non-thinking blocks the block's placement has
+        no validation effect.
 
         - `From BetaFallbackInfoParamResp`
 
@@ -17646,6 +17975,10 @@ func main() {
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -17707,26 +18040,6 @@ func main() {
 
                 Exceptional model for specialized complex tasks
 
-              - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `string`
 
         - `To BetaFallbackInfoParamResp`
@@ -17736,6 +18049,10 @@ func main() {
         - `Type Fallback`
 
           - `const FallbackFallback Fallback = "fallback"`
+
+        - `Trigger any`
+
+          The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
   - `Role BetaMessageParamRole`
 
@@ -17807,7 +18124,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -19121,9 +19438,9 @@ func main() {
       Marks the point in `content` where one model's output gives way to the next.
 
       One block appears per hop where a preceding model actually ran this turn and
-      declined. A turn routed directly by the sticky decision has no such boundary
-      and carries no block — the signal for whether a fallback model served the
-      response is the presence of a `fallback_message` entry in
+      declined. A turn where no preceding model ran and declined has no such
+      boundary and carries no block — the signal for whether a fallback model
+      served the response is the presence of a `fallback_message` entry in
       `usage.iterations`, not this block.
 
       The block is treated like a server-tool content block for streaming: it
@@ -19145,6 +19462,10 @@ func main() {
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -19206,31 +19527,31 @@ func main() {
 
               Exceptional model for specialized complex tasks
 
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `string`
 
       - `To BetaFallbackInfo`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+      - `Trigger BetaFallbackRefusalTrigger`
+
+        What caused the `from` model to hand over at this hop.
+
+        - `Category BetaFallbackRefusalTriggerCategory`
+
+          The policy category that triggered a refusal.
+
+          - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+          - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+          - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+          - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+        - `Type Refusal`
+
+          - `const RefusalRefusal Refusal = "refusal"`
 
       - `Type Fallback`
 
@@ -19336,13 +19657,13 @@ func main() {
 
       - `Category BetaRefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
         - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+        - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
         - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -19503,6 +19824,10 @@ func main() {
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -19562,26 +19887,6 @@ func main() {
             - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
               Exceptional model for specialized complex tasks
-
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
 
           - `string`
 
@@ -20572,9 +20877,9 @@ func main() {
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -20596,6 +20901,10 @@ func main() {
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -20657,31 +20966,31 @@ func main() {
 
                 Exceptional model for specialized complex tasks
 
-              - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `string`
 
         - `To BetaFallbackInfo`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+        - `Trigger BetaFallbackRefusalTrigger`
+
+          What caused the `from` model to hand over at this hop.
+
+          - `Category BetaFallbackRefusalTriggerCategory`
+
+            The policy category that triggered a refusal.
+
+            - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+            - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+            - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+            - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+          - `Type Refusal`
+
+            - `const RefusalRefusal Refusal = "refusal"`
 
         - `Type Fallback`
 
@@ -20810,13 +21119,13 @@ func main() {
 
       - `Category BetaRefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
         - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+        - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
         - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -22019,9 +22328,9 @@ func main() {
           Marks the point in `content` where one model's output gives way to the next.
 
           One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn routed directly by the sticky decision has no such boundary
-          and carries no block — the signal for whether a fallback model served the
-          response is the presence of a `fallback_message` entry in
+          declined. A turn where no preceding model ran and declined has no such
+          boundary and carries no block — the signal for whether a fallback model
+          served the response is the presence of a `fallback_message` entry in
           `usage.iterations`, not this block.
 
           The block is treated like a server-tool content block for streaming: it
@@ -22043,6 +22352,10 @@ func main() {
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -22104,31 +22417,31 @@ func main() {
 
                   Exceptional model for specialized complex tasks
 
-                - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `string`
 
           - `To BetaFallbackInfo`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+          - `Trigger BetaFallbackRefusalTrigger`
+
+            What caused the `from` model to hand over at this hop.
+
+            - `Category BetaFallbackRefusalTriggerCategory`
+
+              The policy category that triggered a refusal.
+
+              - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+              - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+              - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+              - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+            - `Type Refusal`
+
+              - `const RefusalRefusal Refusal = "refusal"`
 
           - `Type Fallback`
 
@@ -22257,13 +22570,13 @@ func main() {
 
         - `Category BetaRefusalStopDetailsCategory`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
           - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+          - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
           - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -22754,9 +23067,9 @@ func main() {
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -22881,13 +23194,13 @@ func main() {
 
   - `Category BetaRefusalStopDetailsCategory`
 
-    The policy category that triggered the refusal.
-
-    `null` when the refusal doesn't map to a named category.
+    The policy category that triggered a refusal.
 
     - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
     - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+    - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
     - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -23013,7 +23326,7 @@ func main() {
                 - `5m`: 5 minutes
                 - `1h`: 1 hour
 
-                Defaults to `5m`.
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                 - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -23262,7 +23575,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -23421,7 +23734,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -23690,7 +24003,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -23953,7 +24266,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -24526,7 +24839,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -24682,7 +24995,7 @@ func main() {
 
     Must be ≥1024 and less than `max_tokens`.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `Type Enabled`
 
@@ -24704,7 +25017,7 @@ func main() {
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `type BetaThinkingConfigEnabled struct{…}`
 
@@ -24714,7 +25027,7 @@ func main() {
 
       Must be ≥1024 and less than `max_tokens`.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     - `Type Enabled`
 
@@ -24824,6 +25137,8 @@ func main() {
 
     - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -24841,7 +25156,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -24895,6 +25210,8 @@ func main() {
 
     - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -24912,7 +25229,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -24952,6 +25269,8 @@ func main() {
 
     - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -24969,7 +25288,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25139,6 +25458,8 @@ func main() {
 
     - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -25156,7 +25477,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25208,6 +25529,8 @@ func main() {
 
     - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -25225,7 +25548,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25277,6 +25600,8 @@ func main() {
 
     - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -25294,7 +25619,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25357,7 +25682,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25390,7 +25715,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25710,6 +26035,8 @@ func main() {
 
     - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -25727,7 +26054,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25767,6 +26094,8 @@ func main() {
 
     - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -25784,7 +26113,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25893,7 +26222,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -25998,7 +26327,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26032,6 +26361,8 @@ func main() {
 
     - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -26049,7 +26380,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26089,6 +26420,8 @@ func main() {
 
     - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -26106,7 +26439,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26146,6 +26479,8 @@ func main() {
 
     - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -26163,7 +26498,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26203,6 +26538,8 @@ func main() {
 
     - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -26220,7 +26557,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26276,6 +26613,8 @@ func main() {
 
       - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26293,7 +26632,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -26345,6 +26684,8 @@ func main() {
 
       - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26380,6 +26721,8 @@ func main() {
       - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
 
       - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26417,6 +26760,8 @@ func main() {
 
       - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26450,6 +26795,8 @@ func main() {
       - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
       - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26486,6 +26833,46 @@ func main() {
       - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
 
       - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+    - `CacheControl BetaCacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `type BetaCodeExecutionTool20260521 struct{…}`
+
+    Code execution tool with REPL state persistence.
+
+    - `Name CodeExecution`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+    - `Type CodeExecution20260521`
+
+      - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+    - `AllowedCallers []string`
+
+      - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+
+      - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+      - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26529,6 +26916,8 @@ func main() {
 
       - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26568,6 +26957,8 @@ func main() {
       - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
       - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26613,6 +27004,8 @@ func main() {
 
       - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26652,6 +27045,8 @@ func main() {
       - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
 
       - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26697,6 +27092,8 @@ func main() {
 
       - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26741,6 +27138,8 @@ func main() {
 
       - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26777,6 +27176,8 @@ func main() {
 
       - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -26812,6 +27213,8 @@ func main() {
       - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
       - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -26852,6 +27255,8 @@ func main() {
       - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
       - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -26923,6 +27328,8 @@ func main() {
 
       - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -26979,6 +27386,8 @@ func main() {
 
       - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -27028,6 +27437,8 @@ func main() {
       - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
       - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -27085,6 +27496,8 @@ func main() {
 
       - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -27121,6 +27534,134 @@ func main() {
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `type BetaWebSearchTool20260318 struct{…}`
+
+    - `Name WebSearch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebSearchWebSearch WebSearch = "web_search"`
+
+    - `Type WebSearch20260318`
+
+      - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+
+      - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `BlockedDomains []string`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `CacheControl BetaCacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion BetaWebSearchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const BetaWebSearchTool20260318ResponseInclusionFull BetaWebSearchTool20260318ResponseInclusion = "full"`
+
+      - `const BetaWebSearchTool20260318ResponseInclusionExcluded BetaWebSearchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UserLocation BetaUserLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `type BetaWebFetchTool20260318 struct{…}`
+
+    - `Name WebFetch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+    - `Type WebFetch20260318`
+
+      - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+
+      - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      List of domains to allow fetching from
+
+    - `BlockedDomains []string`
+
+      List of domains to block fetching from
+
+    - `CacheControl BetaCacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Citations BetaCitationsConfigParamResp`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxContentTokens int64`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion BetaWebFetchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const BetaWebFetchTool20260318ResponseInclusionFull BetaWebFetchTool20260318ResponseInclusion = "full"`
+
+      - `const BetaWebFetchTool20260318ResponseInclusionExcluded BetaWebFetchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UseCache bool`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `type BetaAdvisorTool20260301 struct{…}`
 
     - `Model Model`
@@ -27134,6 +27675,10 @@ func main() {
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -27195,26 +27740,6 @@ func main() {
 
           Exceptional model for specialized complex tasks
 
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `string`
 
     - `Name Advisor`
@@ -27236,6 +27761,8 @@ func main() {
       - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
 
       - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -27285,6 +27812,8 @@ func main() {
 
       - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+      - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -27320,6 +27849,8 @@ func main() {
       - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
       - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+      - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl BetaCacheControlEphemeral`
 
@@ -27443,7 +27974,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -27593,6 +28124,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -27652,26 +28187,6 @@ func main() {
           - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
             Exceptional model for specialized complex tasks
-
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
 
         - `string`
 
@@ -27993,7 +28508,7 @@ func main() {
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -28223,6 +28738,8 @@ func main() {
 
     - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -28248,7 +28765,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -28300,6 +28817,8 @@ func main() {
 
     - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -28325,7 +28844,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -28379,6 +28898,8 @@ func main() {
 
     - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -28404,7 +28925,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -28427,6 +28948,97 @@ func main() {
   - `MaxUses int64`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `UseCache bool`
+
+    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+### Beta Web Fetch Tool 20260318
+
+- `type BetaWebFetchTool20260318 struct{…}`
+
+  - `Name WebFetch`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+  - `Type WebFetch20260318`
+
+    - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+  - `AllowedCallers []string`
+
+    - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+
+    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+    - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+  - `AllowedDomains []string`
+
+    List of domains to allow fetching from
+
+  - `BlockedDomains []string`
+
+    List of domains to block fetching from
+
+  - `CacheControl BetaCacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL BetaCacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
+
+      - `const BetaCacheControlEphemeralTTLTTL1h BetaCacheControlEphemeralTTL = "1h"`
+
+  - `Citations BetaCitationsConfigParamResp`
+
+    Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `Enabled bool`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `MaxContentTokens int64`
+
+    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+  - `MaxUses int64`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `ResponseInclusion BetaWebFetchTool20260318ResponseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `const BetaWebFetchTool20260318ResponseInclusionFull BetaWebFetchTool20260318ResponseInclusion = "full"`
+
+    - `const BetaWebFetchTool20260318ResponseInclusionExcluded BetaWebFetchTool20260318ResponseInclusion = "excluded"`
 
   - `Strict bool`
 
@@ -28655,7 +29267,7 @@ func main() {
                       - `5m`: 5 minutes
                       - `1h`: 1 hour
 
-                      Defaults to `5m`.
+                      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -29035,6 +29647,8 @@ func main() {
 
     - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -29060,7 +29674,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -29126,6 +29740,8 @@ func main() {
 
     - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+    - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -29151,7 +29767,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -29164,6 +29780,107 @@ func main() {
   - `MaxUses int64`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `UserLocation BetaUserLocation`
+
+    Parameters for the user's location. Used to provide more relevant search results.
+
+    - `Type Approximate`
+
+      - `const ApproximateApproximate Approximate = "approximate"`
+
+    - `City string`
+
+      The city of the user.
+
+    - `Country string`
+
+      The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+    - `Region string`
+
+      The region of the user.
+
+    - `Timezone string`
+
+      The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+### Beta Web Search Tool 20260318
+
+- `type BetaWebSearchTool20260318 struct{…}`
+
+  - `Name WebSearch`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const WebSearchWebSearch WebSearch = "web_search"`
+
+  - `Type WebSearch20260318`
+
+    - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+  - `AllowedCallers []string`
+
+    - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+
+    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+    - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+  - `AllowedDomains []string`
+
+    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+  - `BlockedDomains []string`
+
+    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+  - `CacheControl BetaCacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL BetaCacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
+
+      - `const BetaCacheControlEphemeralTTLTTL1h BetaCacheControlEphemeralTTL = "1h"`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `MaxUses int64`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `ResponseInclusion BetaWebSearchTool20260318ResponseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `const BetaWebSearchTool20260318ResponseInclusionFull BetaWebSearchTool20260318ResponseInclusion = "full"`
+
+    - `const BetaWebSearchTool20260318ResponseInclusionExcluded BetaWebSearchTool20260318ResponseInclusion = "excluded"`
 
   - `Strict bool`
 
@@ -29392,7 +30109,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -29516,7 +30233,7 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -29536,7 +30253,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Messages API creation parameters for the individual request.
 
-      See the [Messages API reference](https://docs.claude.com/en/api/messages) for full documentation on available parameters.
+      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
 
       - `MaxTokens int64`
 
@@ -29544,9 +30261,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-        Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-        Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
       - `Messages []BetaMessageParamResp`
 
@@ -29593,9 +30310,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
         ```
 
-        See [input examples](https://docs.claude.com/en/api/messages-examples).
+        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-        Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
         There is a limit of 100,000 messages in a single request.
 
@@ -29628,7 +30345,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `const BetaCacheControlEphemeralTTLTTL5m BetaCacheControlEphemeralTTL = "5m"`
 
@@ -30606,19 +31323,17 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               A `fallback` block echoed back from a prior response.
 
-              Accepted in `messages[].content` and never rendered into the prompt,
-              not validated against the request's `fallbacks` chain or top-level
-              `model`, and stripped before the sticky-routing cache key is computed.
+              Accepted in `messages[].content` and not rendered into the prompt; not
+              validated against the request's `fallbacks` chain or top-level `model`.
 
-              Callers should echo the assistant turn verbatim — block included. The
-              block's position is load-bearing for thinking verification: the thinking
-              runs on either side of a fallback hop carry independently-rooted
-              verification hash chains, and this block is the only record of where one
-              chain ends and the next begins. When thinking runs flank the boundary,
-              omitting the block merges the runs into one contiguous span whose hashes
-              cannot verify (the request is rejected), and moving it into the middle of
-              a single run splits that run's chain and is likewise rejected; between
-              non-thinking blocks the block's placement has no verification effect.
+              Echo the assistant turn back verbatim, including this block in its
+              original position. The block marks the boundary between content produced
+              before and after a fallback hop, and the server relies on that boundary
+              to validate the turn: when thinking runs flank the boundary, omitting
+              the block merges them into one span the server cannot validate (the
+              request is rejected), and moving it into the middle of a single run is
+              likewise rejected; between non-thinking blocks the block's placement has
+              no validation effect.
 
               - `From BetaFallbackInfoParamResp`
 
@@ -30635,6 +31350,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                     The model that will complete your prompt.
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                      High-performance model for coding and agents
 
                     - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -30696,26 +31415,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                       Exceptional model for specialized complex tasks
 
-                    - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                      Powerful model for complex tasks
-
-                    - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                      Powerful model for complex tasks
-
-                    - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                      High-performance model with extended thinking
-
-                    - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                      High-performance model with extended thinking
-
-                    - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                      Fast and cost-effective model
-
                   - `string`
 
               - `To BetaFallbackInfoParamResp`
@@ -30725,6 +31424,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
               - `Type Fallback`
 
                 - `const FallbackFallback Fallback = "fallback"`
+
+              - `Trigger any`
+
+                The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
         - `Role BetaMessageParamRole`
 
@@ -31000,7 +31703,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               Must be ≥1024 and less than `max_tokens`.
 
-              See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
             - `Type Enabled`
 
@@ -31082,7 +31785,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-        Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
         - `const BetaMessageBatchNewParamsRequestParamsServiceTierAuto BetaMessageBatchNewParamsRequestParamsServiceTier = "auto"`
 
@@ -31108,13 +31811,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Whether to incrementally stream the response using server-sent events.
 
-        See [streaming](https://docs.claude.com/en/api/messages-streaming) for details.
+        See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
       - `System []BetaTextBlockParamResp`
 
         System prompt.
 
-        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
         - `[]BetaTextBlockParam`
 
@@ -31142,7 +31845,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
         - `type BetaThinkingConfigEnabled struct{…}`
 
@@ -31214,7 +31917,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
         Each tool definition includes:
 
@@ -31270,7 +31973,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-        See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
         - `type BetaTool struct{…}`
 
@@ -31301,6 +32004,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaToolAllowedCallerCodeExecution20250825 BetaToolAllowedCaller = "code_execution_20250825"`
 
             - `const BetaToolAllowedCallerCodeExecution20260120 BetaToolAllowedCaller = "code_execution_20260120"`
+
+            - `const BetaToolAllowedCallerCodeExecution20260521 BetaToolAllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31352,6 +32057,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolBash20241022AllowedCallerCodeExecution20260120 BetaToolBash20241022AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolBash20241022AllowedCallerCodeExecution20260521 BetaToolBash20241022AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31387,6 +32094,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaToolBash20250124AllowedCallerCodeExecution20250825 BetaToolBash20250124AllowedCaller = "code_execution_20250825"`
 
             - `const BetaToolBash20250124AllowedCallerCodeExecution20260120 BetaToolBash20250124AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaToolBash20250124AllowedCallerCodeExecution20260521 BetaToolBash20250124AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31424,6 +32133,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaCodeExecutionTool20250522AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31457,6 +32168,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
             - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaCodeExecutionTool20250825AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31493,6 +32206,46 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20250825"`
 
             - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaCodeExecutionTool20260120AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+          - `CacheControl BetaCacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+        - `type BetaCodeExecutionTool20260521 struct{…}`
+
+          Code execution tool with REPL state persistence.
+
+          - `Name CodeExecution`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+          - `Type CodeExecution20260521`
+
+            - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+          - `AllowedCallers []string`
+
+            - `const BetaCodeExecutionTool20260521AllowedCallerDirect BetaCodeExecutionTool20260521AllowedCaller = "direct"`
+
+            - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20250825 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+            - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260120 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaCodeExecutionTool20260521AllowedCallerCodeExecution20260521 BetaCodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31536,6 +32289,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260120 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolComputerUse20241022AllowedCallerCodeExecution20260521 BetaToolComputerUse20241022AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31575,6 +32330,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaMemoryTool20250818AllowedCallerCodeExecution20250825 BetaMemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
             - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260120 BetaMemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaMemoryTool20250818AllowedCallerCodeExecution20260521 BetaMemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31620,6 +32377,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260120 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolComputerUse20250124AllowedCallerCodeExecution20260521 BetaToolComputerUse20250124AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31659,6 +32418,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20250825 BetaToolTextEditor20241022AllowedCaller = "code_execution_20250825"`
 
             - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260120 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaToolTextEditor20241022AllowedCallerCodeExecution20260521 BetaToolTextEditor20241022AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31704,6 +32465,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260120 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolComputerUse20251124AllowedCallerCodeExecution20260521 BetaToolComputerUse20251124AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31748,6 +32511,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260120 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolTextEditor20250124AllowedCallerCodeExecution20260521 BetaToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31784,6 +32549,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260120 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolTextEditor20250429AllowedCallerCodeExecution20260521 BetaToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -31819,6 +32586,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20250825 BetaToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
             - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260120 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaToolTextEditor20250728AllowedCallerCodeExecution20260521 BetaToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -31859,6 +32628,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20250825 BetaWebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
             - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260120 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaWebSearchTool20250305AllowedCallerCodeExecution20260521 BetaWebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
           - `AllowedDomains []string`
 
@@ -31930,6 +32701,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260120 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaWebFetchTool20250910AllowedCallerCodeExecution20260521 BetaWebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             List of domains to allow fetching from
@@ -31984,6 +32757,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260120 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaWebSearchTool20260209AllowedCallerCodeExecution20260521 BetaWebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -32033,6 +32808,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20250825 BetaWebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
             - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260120 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaWebFetchTool20260209AllowedCallerCodeExecution20260521 BetaWebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
           - `AllowedDomains []string`
 
@@ -32090,6 +32867,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260120 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaWebFetchTool20260309AllowedCallerCodeExecution20260521 BetaWebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             List of domains to allow fetching from
@@ -32126,6 +32905,134 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+        - `type BetaWebSearchTool20260318 struct{…}`
+
+          - `Name WebSearch`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const WebSearchWebSearch WebSearch = "web_search"`
+
+          - `Type WebSearch20260318`
+
+            - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+          - `AllowedCallers []string`
+
+            - `const BetaWebSearchTool20260318AllowedCallerDirect BetaWebSearchTool20260318AllowedCaller = "direct"`
+
+            - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20250825 BetaWebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+            - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260120 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaWebSearchTool20260318AllowedCallerCodeExecution20260521 BetaWebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+          - `AllowedDomains []string`
+
+            If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+          - `BlockedDomains []string`
+
+            If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+          - `CacheControl BetaCacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `MaxUses int64`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `ResponseInclusion BetaWebSearchTool20260318ResponseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `const BetaWebSearchTool20260318ResponseInclusionFull BetaWebSearchTool20260318ResponseInclusion = "full"`
+
+            - `const BetaWebSearchTool20260318ResponseInclusionExcluded BetaWebSearchTool20260318ResponseInclusion = "excluded"`
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `UserLocation BetaUserLocation`
+
+            Parameters for the user's location. Used to provide more relevant search results.
+
+        - `type BetaWebFetchTool20260318 struct{…}`
+
+          - `Name WebFetch`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+          - `Type WebFetch20260318`
+
+            - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+          - `AllowedCallers []string`
+
+            - `const BetaWebFetchTool20260318AllowedCallerDirect BetaWebFetchTool20260318AllowedCaller = "direct"`
+
+            - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20250825 BetaWebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+            - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260120 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaWebFetchTool20260318AllowedCallerCodeExecution20260521 BetaWebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+          - `AllowedDomains []string`
+
+            List of domains to allow fetching from
+
+          - `BlockedDomains []string`
+
+            List of domains to block fetching from
+
+          - `CacheControl BetaCacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Citations BetaCitationsConfigParamResp`
+
+            Citations configuration for fetched documents. Citations are disabled by default.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `MaxContentTokens int64`
+
+            Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+          - `MaxUses int64`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `ResponseInclusion BetaWebFetchTool20260318ResponseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `const BetaWebFetchTool20260318ResponseInclusionFull BetaWebFetchTool20260318ResponseInclusion = "full"`
+
+            - `const BetaWebFetchTool20260318ResponseInclusionExcluded BetaWebFetchTool20260318ResponseInclusion = "excluded"`
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `UseCache bool`
+
+            Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
         - `type BetaAdvisorTool20260301 struct{…}`
 
           - `Model Model`
@@ -32153,6 +33060,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20250825 BetaAdvisorTool20260301AllowedCaller = "code_execution_20250825"`
 
             - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260120 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaAdvisorTool20260301AllowedCallerCodeExecution20260521 BetaAdvisorTool20260301AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -32202,6 +33111,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+            - `const BetaToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl BetaCacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -32237,6 +33148,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
             - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+            - `const BetaToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 BetaToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral`
 
@@ -32301,10 +33214,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Recommended for advanced use cases only.
 
-      - `UserProfileID string`
-
-        The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
-
   - `Betas param.Field[[]AnthropicBeta]`
 
     Header param: Optional header to specify the beta version(s) you want to use.
@@ -32368,6 +33277,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
 ### Returns
 
@@ -32531,7 +33444,7 @@ func main() {
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -32757,7 +33670,7 @@ func main() {
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -32998,7 +33911,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -33226,7 +34139,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -33366,7 +34279,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -34290,9 +35203,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             Marks the point in `content` where one model's output gives way to the next.
 
             One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn routed directly by the sticky decision has no such boundary
-            and carries no block — the signal for whether a fallback model served the
-            response is the presence of a `fallback_message` entry in
+            declined. A turn where no preceding model ran and declined has no such
+            boundary and carries no block — the signal for whether a fallback model
+            served the response is the presence of a `fallback_message` entry in
             `usage.iterations`, not this block.
 
             The block is treated like a server-tool content block for streaming: it
@@ -34314,6 +35227,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -34375,31 +35292,31 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                     Exceptional model for specialized complex tasks
 
-                  - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `string`
 
             - `To BetaFallbackInfo`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+            - `Trigger BetaFallbackRefusalTrigger`
+
+              What caused the `from` model to hand over at this hop.
+
+              - `Category BetaFallbackRefusalTriggerCategory`
+
+                The policy category that triggered a refusal.
+
+                - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+                - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+                - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+                - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+              - `Type Refusal`
+
+                - `const RefusalRefusal Refusal = "refusal"`
 
             - `Type Fallback`
 
@@ -34528,13 +35445,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `Category BetaRefusalStopDetailsCategory`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
             - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+            - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
             - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -36091,9 +37008,9 @@ func main() {
             Marks the point in `content` where one model's output gives way to the next.
 
             One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn routed directly by the sticky decision has no such boundary
-            and carries no block — the signal for whether a fallback model served the
-            response is the presence of a `fallback_message` entry in
+            declined. A turn where no preceding model ran and declined has no such
+            boundary and carries no block — the signal for whether a fallback model
+            served the response is the presence of a `fallback_message` entry in
             `usage.iterations`, not this block.
 
             The block is treated like a server-tool content block for streaming: it
@@ -36115,6 +37032,10 @@ func main() {
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -36176,31 +37097,31 @@ func main() {
 
                     Exceptional model for specialized complex tasks
 
-                  - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `string`
 
             - `To BetaFallbackInfo`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+            - `Trigger BetaFallbackRefusalTrigger`
+
+              What caused the `from` model to hand over at this hop.
+
+              - `Category BetaFallbackRefusalTriggerCategory`
+
+                The policy category that triggered a refusal.
+
+                - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+                - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+                - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+                - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+              - `Type Refusal`
+
+                - `const RefusalRefusal Refusal = "refusal"`
 
             - `Type Fallback`
 
@@ -36329,13 +37250,13 @@ func main() {
 
           - `Category BetaRefusalStopDetailsCategory`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
             - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+            - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
             - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -37666,9 +38587,9 @@ func main() {
           Marks the point in `content` where one model's output gives way to the next.
 
           One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn routed directly by the sticky decision has no such boundary
-          and carries no block — the signal for whether a fallback model served the
-          response is the presence of a `fallback_message` entry in
+          declined. A turn where no preceding model ran and declined has no such
+          boundary and carries no block — the signal for whether a fallback model
+          served the response is the presence of a `fallback_message` entry in
           `usage.iterations`, not this block.
 
           The block is treated like a server-tool content block for streaming: it
@@ -37690,6 +38611,10 @@ func main() {
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                  High-performance model for coding and agents
 
                 - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -37751,31 +38676,31 @@ func main() {
 
                   Exceptional model for specialized complex tasks
 
-                - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                  Powerful model for complex tasks
-
-                - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                  High-performance model with extended thinking
-
-                - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                  Fast and cost-effective model
-
               - `string`
 
           - `To BetaFallbackInfo`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+          - `Trigger BetaFallbackRefusalTrigger`
+
+            What caused the `from` model to hand over at this hop.
+
+            - `Category BetaFallbackRefusalTriggerCategory`
+
+              The policy category that triggered a refusal.
+
+              - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+              - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+              - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+              - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+            - `Type Refusal`
+
+              - `const RefusalRefusal Refusal = "refusal"`
 
           - `Type Fallback`
 
@@ -37904,13 +38829,13 @@ func main() {
 
         - `Category BetaRefusalStopDetailsCategory`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
           - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+          - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
           - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -39203,9 +40128,9 @@ func main() {
         Marks the point in `content` where one model's output gives way to the next.
 
         One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn routed directly by the sticky decision has no such boundary
-        and carries no block — the signal for whether a fallback model served the
-        response is the presence of a `fallback_message` entry in
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
         `usage.iterations`, not this block.
 
         The block is treated like a server-tool content block for streaming: it
@@ -39227,6 +40152,10 @@ func main() {
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+                High-performance model for coding and agents
 
               - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -39288,31 +40217,31 @@ func main() {
 
                 Exceptional model for specialized complex tasks
 
-              - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-                Powerful model for complex tasks
-
-              - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-                High-performance model with extended thinking
-
-              - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-                Fast and cost-effective model
-
             - `string`
 
         - `To BetaFallbackInfo`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+        - `Trigger BetaFallbackRefusalTrigger`
+
+          What caused the `from` model to hand over at this hop.
+
+          - `Category BetaFallbackRefusalTriggerCategory`
+
+            The policy category that triggered a refusal.
+
+            - `const BetaFallbackRefusalTriggerCategoryCyber BetaFallbackRefusalTriggerCategory = "cyber"`
+
+            - `const BetaFallbackRefusalTriggerCategoryBio BetaFallbackRefusalTriggerCategory = "bio"`
+
+            - `const BetaFallbackRefusalTriggerCategoryFrontierLLM BetaFallbackRefusalTriggerCategory = "frontier_llm"`
+
+            - `const BetaFallbackRefusalTriggerCategoryReasoningExtraction BetaFallbackRefusalTriggerCategory = "reasoning_extraction"`
+
+          - `Type Refusal`
+
+            - `const RefusalRefusal Refusal = "refusal"`
 
         - `Type Fallback`
 
@@ -39441,13 +40370,13 @@ func main() {
 
       - `Category BetaRefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const BetaRefusalStopDetailsCategoryCyber BetaRefusalStopDetailsCategory = "cyber"`
 
         - `const BetaRefusalStopDetailsCategoryBio BetaRefusalStopDetailsCategory = "bio"`
+
+        - `const BetaRefusalStopDetailsCategoryFrontierLLM BetaRefusalStopDetailsCategory = "frontier_llm"`
 
         - `const BetaRefusalStopDetailsCategoryReasoningExtraction BetaRefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -39840,6 +40769,10 @@ Create Agent
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -39904,7 +40837,7 @@ Create Agent
 
   - `MCPServers param.Field[[]BetaManagedAgentsURLMCPServerParamsResp]`
 
-    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array.
+    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `Name string`
 
@@ -40239,6 +41172,10 @@ Create Agent
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -40738,6 +41675,10 @@ List Agents
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -41224,6 +42165,10 @@ Get Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -41605,7 +42550,7 @@ Update Agent
 
   - `MCPServers param.Field[[]BetaManagedAgentsURLMCPServerParamsResp]`
 
-    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or null to clear. Names must be unique. Maximum 20.
+    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `Name string`
 
@@ -41642,6 +42587,10 @@ Update Agent
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -42018,6 +42967,10 @@ Update Agent
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -42500,6 +43453,10 @@ Archive Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -42904,6 +43861,10 @@ func main() {
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -44017,6 +44978,10 @@ func main() {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+      High-performance model for coding and agents
+
     - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
@@ -44080,6 +45045,10 @@ func main() {
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -44152,6 +45121,10 @@ func main() {
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
 
       - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -44314,6 +45287,10 @@ func main() {
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -44732,6 +45709,10 @@ List Agent Versions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
 
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -47607,6 +48588,10 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -47686,6 +48671,7 @@ func main() {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -47834,6 +48820,10 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -47913,6 +48903,7 @@ func main() {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -48053,6 +49044,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -48132,6 +49127,7 @@ func main() {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -48449,6 +49445,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -48531,6 +49531,7 @@ func main() {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -48675,6 +49676,10 @@ List work items in an environment.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -48756,6 +49761,7 @@ func main() {
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -48903,6 +49909,10 @@ Update work item metadata with merge semantics.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -48987,6 +49997,7 @@ func main() {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -49196,6 +50207,10 @@ func main() {
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `Secret string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `StartedAt string`
 
     RFC 3339 timestamp when work execution started
@@ -49313,6 +50328,10 @@ func main() {
     - `Metadata map[string, string]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `Secret string`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `StartedAt string`
 
@@ -49454,6 +50473,320 @@ Create Session
       - `Version int64`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+    - `type BetaManagedAgentsAgentWithOverridesParamsResp struct{…}`
+
+      Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
+
+      - `ID string`
+
+        The `agent` ID.
+
+      - `Type BetaManagedAgentsAgentWithOverridesParamsType`
+
+        - `const BetaManagedAgentsAgentWithOverridesParamsTypeAgentWithOverrides BetaManagedAgentsAgentWithOverridesParamsType = "agent_with_overrides"`
+
+      - `MCPServers []BetaManagedAgentsURLMCPServerParamsResp`
+
+        Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
+
+        - `Name string`
+
+          Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
+
+        - `Type BetaManagedAgentsURLMCPServerParamsType`
+
+          - `const BetaManagedAgentsURLMCPServerParamsTypeURL BetaManagedAgentsURLMCPServerParamsType = "url"`
+
+        - `URL string`
+
+          Endpoint URL for the MCP server.
+
+      - `Model BetaManagedAgentsModelConfigParamsResp`
+
+        Replacement model. Accepts the model string, e.g. `claude-opus-4-6`, or a `model_config` object. Omit to use the agent's model.
+
+        - `type BetaManagedAgentsModelConfigParamsResp struct{…}`
+
+          An object that defines additional configuration control over model use
+
+          - `ID BetaManagedAgentsModel`
+
+            The model that will power your agent.
+
+            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `type BetaManagedAgentsModel string`
+
+              The model that will power your agent.
+
+              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+                High-performance model for coding and agents
+
+              - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
+
+                Next generation of intelligence for the hardest knowledge work and coding problems
+
+              - `const BetaManagedAgentsModelClaudeOpus4_8 BetaManagedAgentsModel = "claude-opus-4-8"`
+
+                Frontier intelligence for long-running agents and coding
+
+              - `const BetaManagedAgentsModelClaudeOpus4_7 BetaManagedAgentsModel = "claude-opus-4-7"`
+
+                Frontier intelligence for long-running agents and coding
+
+              - `const BetaManagedAgentsModelClaudeOpus4_6 BetaManagedAgentsModel = "claude-opus-4-6"`
+
+                Most intelligent model for building agents and coding
+
+              - `const BetaManagedAgentsModelClaudeSonnet4_6 BetaManagedAgentsModel = "claude-sonnet-4-6"`
+
+                Best combination of speed and intelligence
+
+              - `const BetaManagedAgentsModelClaudeHaiku4_5 BetaManagedAgentsModel = "claude-haiku-4-5"`
+
+                Fastest model with near-frontier intelligence
+
+              - `const BetaManagedAgentsModelClaudeHaiku4_5_20251001 BetaManagedAgentsModel = "claude-haiku-4-5-20251001"`
+
+                Fastest model with near-frontier intelligence
+
+              - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
+
+                Premium model combining maximum intelligence with practical performance
+
+              - `const BetaManagedAgentsModelClaudeOpus4_5_20251101 BetaManagedAgentsModel = "claude-opus-4-5-20251101"`
+
+                Premium model combining maximum intelligence with practical performance
+
+              - `const BetaManagedAgentsModelClaudeSonnet4_5 BetaManagedAgentsModel = "claude-sonnet-4-5"`
+
+                High-performance model for agents and coding
+
+              - `const BetaManagedAgentsModelClaudeSonnet4_5_20250929 BetaManagedAgentsModel = "claude-sonnet-4-5-20250929"`
+
+                High-performance model for agents and coding
+
+            - `string`
+
+          - `Speed BetaManagedAgentsModelConfigParamsSpeed`
+
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `const BetaManagedAgentsModelConfigParamsSpeedStandard BetaManagedAgentsModelConfigParamsSpeed = "standard"`
+
+            - `const BetaManagedAgentsModelConfigParamsSpeedFast BetaManagedAgentsModelConfigParamsSpeed = "fast"`
+
+      - `Skills []BetaManagedAgentsSkillParamsUnionResp`
+
+        Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
+
+        - `type BetaManagedAgentsAnthropicSkillParamsResp struct{…}`
+
+          An Anthropic-managed skill.
+
+          - `SkillID string`
+
+            Identifier of the Anthropic skill (e.g., "xlsx").
+
+          - `Type BetaManagedAgentsAnthropicSkillParamsType`
+
+            - `const BetaManagedAgentsAnthropicSkillParamsTypeAnthropic BetaManagedAgentsAnthropicSkillParamsType = "anthropic"`
+
+          - `Version string`
+
+            Version to pin. Defaults to latest if omitted.
+
+        - `type BetaManagedAgentsCustomSkillParamsResp struct{…}`
+
+          A user-created custom skill.
+
+          - `SkillID string`
+
+            Tagged ID of the custom skill (e.g., "skill_01XJ5...").
+
+          - `Type BetaManagedAgentsCustomSkillParamsType`
+
+            - `const BetaManagedAgentsCustomSkillParamsTypeCustom BetaManagedAgentsCustomSkillParamsType = "custom"`
+
+          - `Version string`
+
+            Version to pin. Defaults to latest if omitted.
+
+      - `System string`
+
+        Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
+
+      - `Tools []BetaManagedAgentsAgentWithOverridesParamsToolUnionResp`
+
+        Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
+
+        - `type BetaManagedAgentsAgentToolset20260401ParamsResp struct{…}`
+
+          Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
+
+          - `Type BetaManagedAgentsAgentToolset20260401ParamsType`
+
+            - `const BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401 BetaManagedAgentsAgentToolset20260401ParamsType = "agent_toolset_20260401"`
+
+          - `Configs []BetaManagedAgentsAgentToolConfigParamsResp`
+
+            Per-tool configuration overrides.
+
+            - `Name BetaManagedAgentsAgentToolConfigParamsName`
+
+              Built-in agent tool identifier.
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameBash BetaManagedAgentsAgentToolConfigParamsName = "bash"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameEdit BetaManagedAgentsAgentToolConfigParamsName = "edit"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameRead BetaManagedAgentsAgentToolConfigParamsName = "read"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameWrite BetaManagedAgentsAgentToolConfigParamsName = "write"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameGlob BetaManagedAgentsAgentToolConfigParamsName = "glob"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameGrep BetaManagedAgentsAgentToolConfigParamsName = "grep"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameWebFetch BetaManagedAgentsAgentToolConfigParamsName = "web_fetch"`
+
+              - `const BetaManagedAgentsAgentToolConfigParamsNameWebSearch BetaManagedAgentsAgentToolConfigParamsName = "web_search"`
+
+            - `Enabled bool`
+
+              Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+            - `PermissionPolicy BetaManagedAgentsAgentToolConfigParamsPermissionPolicyUnionResp`
+
+              Permission policy for tool execution.
+
+              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+                Tool calls are automatically approved without user confirmation.
+
+                - `Type BetaManagedAgentsAlwaysAllowPolicyType`
+
+                  - `const BetaManagedAgentsAlwaysAllowPolicyTypeAlwaysAllow BetaManagedAgentsAlwaysAllowPolicyType = "always_allow"`
+
+              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+                Tool calls require user confirmation before execution.
+
+                - `Type BetaManagedAgentsAlwaysAskPolicyType`
+
+                  - `const BetaManagedAgentsAlwaysAskPolicyTypeAlwaysAsk BetaManagedAgentsAlwaysAskPolicyType = "always_ask"`
+
+          - `DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfigParamsResp`
+
+            Default configuration for all tools in a toolset.
+
+            - `Enabled bool`
+
+              Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
+
+            - `PermissionPolicy BetaManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnionResp`
+
+              Permission policy for tool execution.
+
+              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+                Tool calls require user confirmation before execution.
+
+        - `type BetaManagedAgentsMCPToolsetParamsResp struct{…}`
+
+          Configuration for tools from an MCP server defined in `mcp_servers`.
+
+          - `MCPServerName string`
+
+            Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+
+          - `Type BetaManagedAgentsMCPToolsetParamsType`
+
+            - `const BetaManagedAgentsMCPToolsetParamsTypeMCPToolset BetaManagedAgentsMCPToolsetParamsType = "mcp_toolset"`
+
+          - `Configs []BetaManagedAgentsMCPToolConfigParamsResp`
+
+            Per-tool configuration overrides.
+
+            - `Name string`
+
+              Name of the MCP tool to configure. 1-128 characters.
+
+            - `Enabled bool`
+
+              Whether this tool is enabled. Overrides the `default_config` setting.
+
+            - `PermissionPolicy BetaManagedAgentsMCPToolConfigParamsPermissionPolicyUnionResp`
+
+              Permission policy for tool execution.
+
+              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+                Tool calls require user confirmation before execution.
+
+          - `DefaultConfig BetaManagedAgentsMCPToolsetDefaultConfigParamsResp`
+
+            Default configuration for all tools from an MCP server.
+
+            - `Enabled bool`
+
+              Whether tools are enabled by default. Defaults to true if not specified.
+
+            - `PermissionPolicy BetaManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnionResp`
+
+              Permission policy for tool execution.
+
+              - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+                Tool calls require user confirmation before execution.
+
+        - `type BetaManagedAgentsCustomToolParamsResp struct{…}`
+
+          A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+          - `Description string`
+
+            Description of what the tool does, shown to the agent to help it decide when to use the tool. 1-1024 characters.
+
+          - `InputSchema BetaManagedAgentsCustomToolInputSchema`
+
+            JSON Schema for custom tool input parameters.
+
+            - `Type Object`
+
+              - `const ObjectObject Object = "object"`
+
+            - `Properties map[string, any]`
+
+            - `Required []string`
+
+          - `Name string`
+
+            Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
+
+          - `Type BetaManagedAgentsCustomToolParamsType`
+
+            - `const BetaManagedAgentsCustomToolParamsTypeCustom BetaManagedAgentsCustomToolParamsType = "custom"`
+
+      - `Version int64`
+
+        The specific `agent` version to use. Omit to use the latest version.
 
   - `EnvironmentID param.Field[string]`
 
@@ -49664,6 +50997,10 @@ Create Session
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -50365,7 +51702,7 @@ func main() {
 
 ## List Sessions
 
-`client.Beta.Sessions.List(ctx, params) (*PageCursor[BetaManagedAgentsSession], error)`
+`client.Beta.Sessions.List(ctx, params) (*BidirectionalPageCursor[BetaManagedAgentsSession], error)`
 
 **get** `/v1/sessions`
 
@@ -50544,6 +51881,10 @@ List Sessions
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -51241,7 +52582,8 @@ func main() {
       "deployment_id": "deployment_id"
     }
   ],
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo=",
+  "prev_page": "page_MjAyNS0wNS0xM1QwMDowMDowMFo="
 }
 ```
 
@@ -51364,6 +52706,10 @@ Get Session
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -52199,6 +53545,10 @@ Update Session
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -53149,6 +54499,10 @@ Archive Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -53850,6 +55204,18 @@ func main() {
 
 ## Domain Types
 
+### Beta Managed Agents Agent Message Preview
+
+- `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+  - `ID string`
+
+    The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+  - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+    - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
 ### Beta Managed Agents Agent Params
 
 - `type BetaManagedAgentsAgentParamsResp struct{…}`
@@ -53867,6 +55233,334 @@ func main() {
   - `Version int64`
 
     The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+### Beta Managed Agents Agent Thinking Preview
+
+- `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+  - `ID string`
+
+    The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+  - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+    - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+### Beta Managed Agents Agent With Overrides Params
+
+- `type BetaManagedAgentsAgentWithOverridesParamsResp struct{…}`
+
+  Reference to an `agent` plus optional configuration overrides. Each provided field replaces the agent's value for the caller's use; the agent resource is unchanged.
+
+  - `ID string`
+
+    The `agent` ID.
+
+  - `Type BetaManagedAgentsAgentWithOverridesParamsType`
+
+    - `const BetaManagedAgentsAgentWithOverridesParamsTypeAgentWithOverrides BetaManagedAgentsAgentWithOverridesParamsType = "agent_with_overrides"`
+
+  - `MCPServers []BetaManagedAgentsURLMCPServerParamsResp`
+
+    Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
+
+    - `Name string`
+
+      Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
+
+    - `Type BetaManagedAgentsURLMCPServerParamsType`
+
+      - `const BetaManagedAgentsURLMCPServerParamsTypeURL BetaManagedAgentsURLMCPServerParamsType = "url"`
+
+    - `URL string`
+
+      Endpoint URL for the MCP server.
+
+  - `Model BetaManagedAgentsModelConfigParamsResp`
+
+    Replacement model. Accepts the model string, e.g. `claude-opus-4-6`, or a `model_config` object. Omit to use the agent's model.
+
+    - `type BetaManagedAgentsModelConfigParamsResp struct{…}`
+
+      An object that defines additional configuration control over model use
+
+      - `ID BetaManagedAgentsModel`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `type BetaManagedAgentsModel string`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
+          - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
+
+            Next generation of intelligence for the hardest knowledge work and coding problems
+
+          - `const BetaManagedAgentsModelClaudeOpus4_8 BetaManagedAgentsModel = "claude-opus-4-8"`
+
+            Frontier intelligence for long-running agents and coding
+
+          - `const BetaManagedAgentsModelClaudeOpus4_7 BetaManagedAgentsModel = "claude-opus-4-7"`
+
+            Frontier intelligence for long-running agents and coding
+
+          - `const BetaManagedAgentsModelClaudeOpus4_6 BetaManagedAgentsModel = "claude-opus-4-6"`
+
+            Most intelligent model for building agents and coding
+
+          - `const BetaManagedAgentsModelClaudeSonnet4_6 BetaManagedAgentsModel = "claude-sonnet-4-6"`
+
+            Best combination of speed and intelligence
+
+          - `const BetaManagedAgentsModelClaudeHaiku4_5 BetaManagedAgentsModel = "claude-haiku-4-5"`
+
+            Fastest model with near-frontier intelligence
+
+          - `const BetaManagedAgentsModelClaudeHaiku4_5_20251001 BetaManagedAgentsModel = "claude-haiku-4-5-20251001"`
+
+            Fastest model with near-frontier intelligence
+
+          - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
+
+            Premium model combining maximum intelligence with practical performance
+
+          - `const BetaManagedAgentsModelClaudeOpus4_5_20251101 BetaManagedAgentsModel = "claude-opus-4-5-20251101"`
+
+            Premium model combining maximum intelligence with practical performance
+
+          - `const BetaManagedAgentsModelClaudeSonnet4_5 BetaManagedAgentsModel = "claude-sonnet-4-5"`
+
+            High-performance model for agents and coding
+
+          - `const BetaManagedAgentsModelClaudeSonnet4_5_20250929 BetaManagedAgentsModel = "claude-sonnet-4-5-20250929"`
+
+            High-performance model for agents and coding
+
+        - `string`
+
+      - `Speed BetaManagedAgentsModelConfigParamsSpeed`
+
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
+        - `const BetaManagedAgentsModelConfigParamsSpeedStandard BetaManagedAgentsModelConfigParamsSpeed = "standard"`
+
+        - `const BetaManagedAgentsModelConfigParamsSpeedFast BetaManagedAgentsModelConfigParamsSpeed = "fast"`
+
+  - `Skills []BetaManagedAgentsSkillParamsUnionResp`
+
+    Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
+
+    - `type BetaManagedAgentsAnthropicSkillParamsResp struct{…}`
+
+      An Anthropic-managed skill.
+
+      - `SkillID string`
+
+        Identifier of the Anthropic skill (e.g., "xlsx").
+
+      - `Type BetaManagedAgentsAnthropicSkillParamsType`
+
+        - `const BetaManagedAgentsAnthropicSkillParamsTypeAnthropic BetaManagedAgentsAnthropicSkillParamsType = "anthropic"`
+
+      - `Version string`
+
+        Version to pin. Defaults to latest if omitted.
+
+    - `type BetaManagedAgentsCustomSkillParamsResp struct{…}`
+
+      A user-created custom skill.
+
+      - `SkillID string`
+
+        Tagged ID of the custom skill (e.g., "skill_01XJ5...").
+
+      - `Type BetaManagedAgentsCustomSkillParamsType`
+
+        - `const BetaManagedAgentsCustomSkillParamsTypeCustom BetaManagedAgentsCustomSkillParamsType = "custom"`
+
+      - `Version string`
+
+        Version to pin. Defaults to latest if omitted.
+
+  - `System string`
+
+    Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
+
+  - `Tools []BetaManagedAgentsAgentWithOverridesParamsToolUnionResp`
+
+    Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
+
+    - `type BetaManagedAgentsAgentToolset20260401ParamsResp struct{…}`
+
+      Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
+
+      - `Type BetaManagedAgentsAgentToolset20260401ParamsType`
+
+        - `const BetaManagedAgentsAgentToolset20260401ParamsTypeAgentToolset20260401 BetaManagedAgentsAgentToolset20260401ParamsType = "agent_toolset_20260401"`
+
+      - `Configs []BetaManagedAgentsAgentToolConfigParamsResp`
+
+        Per-tool configuration overrides.
+
+        - `Name BetaManagedAgentsAgentToolConfigParamsName`
+
+          Built-in agent tool identifier.
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameBash BetaManagedAgentsAgentToolConfigParamsName = "bash"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameEdit BetaManagedAgentsAgentToolConfigParamsName = "edit"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameRead BetaManagedAgentsAgentToolConfigParamsName = "read"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameWrite BetaManagedAgentsAgentToolConfigParamsName = "write"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameGlob BetaManagedAgentsAgentToolConfigParamsName = "glob"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameGrep BetaManagedAgentsAgentToolConfigParamsName = "grep"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameWebFetch BetaManagedAgentsAgentToolConfigParamsName = "web_fetch"`
+
+          - `const BetaManagedAgentsAgentToolConfigParamsNameWebSearch BetaManagedAgentsAgentToolConfigParamsName = "web_search"`
+
+        - `Enabled bool`
+
+          Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+        - `PermissionPolicy BetaManagedAgentsAgentToolConfigParamsPermissionPolicyUnionResp`
+
+          Permission policy for tool execution.
+
+          - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+            Tool calls are automatically approved without user confirmation.
+
+            - `Type BetaManagedAgentsAlwaysAllowPolicyType`
+
+              - `const BetaManagedAgentsAlwaysAllowPolicyTypeAlwaysAllow BetaManagedAgentsAlwaysAllowPolicyType = "always_allow"`
+
+          - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+            Tool calls require user confirmation before execution.
+
+            - `Type BetaManagedAgentsAlwaysAskPolicyType`
+
+              - `const BetaManagedAgentsAlwaysAskPolicyTypeAlwaysAsk BetaManagedAgentsAlwaysAskPolicyType = "always_ask"`
+
+      - `DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfigParamsResp`
+
+        Default configuration for all tools in a toolset.
+
+        - `Enabled bool`
+
+          Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
+
+        - `PermissionPolicy BetaManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicyUnionResp`
+
+          Permission policy for tool execution.
+
+          - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+            Tool calls require user confirmation before execution.
+
+    - `type BetaManagedAgentsMCPToolsetParamsResp struct{…}`
+
+      Configuration for tools from an MCP server defined in `mcp_servers`.
+
+      - `MCPServerName string`
+
+        Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
+
+      - `Type BetaManagedAgentsMCPToolsetParamsType`
+
+        - `const BetaManagedAgentsMCPToolsetParamsTypeMCPToolset BetaManagedAgentsMCPToolsetParamsType = "mcp_toolset"`
+
+      - `Configs []BetaManagedAgentsMCPToolConfigParamsResp`
+
+        Per-tool configuration overrides.
+
+        - `Name string`
+
+          Name of the MCP tool to configure. 1-128 characters.
+
+        - `Enabled bool`
+
+          Whether this tool is enabled. Overrides the `default_config` setting.
+
+        - `PermissionPolicy BetaManagedAgentsMCPToolConfigParamsPermissionPolicyUnionResp`
+
+          Permission policy for tool execution.
+
+          - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+            Tool calls require user confirmation before execution.
+
+      - `DefaultConfig BetaManagedAgentsMCPToolsetDefaultConfigParamsResp`
+
+        Default configuration for all tools from an MCP server.
+
+        - `Enabled bool`
+
+          Whether tools are enabled by default. Defaults to true if not specified.
+
+        - `PermissionPolicy BetaManagedAgentsMCPToolsetDefaultConfigParamsPermissionPolicyUnionResp`
+
+          Permission policy for tool execution.
+
+          - `type BetaManagedAgentsAlwaysAllowPolicy struct{…}`
+
+            Tool calls are automatically approved without user confirmation.
+
+          - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
+
+            Tool calls require user confirmation before execution.
+
+    - `type BetaManagedAgentsCustomToolParamsResp struct{…}`
+
+      A custom tool that is executed by the API client rather than the agent. When the agent calls this tool, an `agent.custom_tool_use` event is emitted and the session goes idle, waiting for the client to provide the result via a `user.custom_tool_result` event.
+
+      - `Description string`
+
+        Description of what the tool does, shown to the agent to help it decide when to use the tool. 1-1024 characters.
+
+      - `InputSchema BetaManagedAgentsCustomToolInputSchema`
+
+        JSON Schema for custom tool input parameters.
+
+        - `Type Object`
+
+          - `const ObjectObject Object = "object"`
+
+        - `Properties map[string, any]`
+
+        - `Required []string`
+
+      - `Name string`
+
+        Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
+
+      - `Type BetaManagedAgentsCustomToolParamsType`
+
+        - `const BetaManagedAgentsCustomToolParamsTypeCustom BetaManagedAgentsCustomToolParamsType = "custom"`
+
+  - `Version int64`
+
+    The specific `agent` version to use. Omit to use the latest version.
 
 ### Beta Managed Agents Branch Checkout
 
@@ -53917,6 +55611,78 @@ func main() {
   - `Type BetaManagedAgentsDeletedSessionType`
 
     - `const BetaManagedAgentsDeletedSessionTypeSessionDeleted BetaManagedAgentsDeletedSessionType = "session_deleted"`
+
+### Beta Managed Agents Delta Content
+
+- `type BetaManagedAgentsDeltaContent struct{…}`
+
+  - `Content BetaManagedAgentsTextBlock`
+
+    Regular text content.
+
+    - `Text string`
+
+      The text content.
+
+    - `Type BetaManagedAgentsTextBlockType`
+
+      - `const BetaManagedAgentsTextBlockTypeText BetaManagedAgentsTextBlockType = "text"`
+
+  - `Type BetaManagedAgentsDeltaContentType`
+
+    - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+  - `Index int64`
+
+    Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+### Beta Managed Agents Delta Event
+
+- `type BetaManagedAgentsDeltaEvent struct{…}`
+
+  An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `Delta BetaManagedAgentsDeltaContent`
+
+    One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+    - `Content BetaManagedAgentsTextBlock`
+
+      Regular text content.
+
+      - `Text string`
+
+        The text content.
+
+      - `Type BetaManagedAgentsTextBlockType`
+
+        - `const BetaManagedAgentsTextBlockTypeText BetaManagedAgentsTextBlockType = "text"`
+
+    - `Type BetaManagedAgentsDeltaContentType`
+
+      - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+    - `Index int64`
+
+      Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+  - `EventID string`
+
+    The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+  - `Type BetaManagedAgentsDeltaEventType`
+
+    - `const BetaManagedAgentsDeltaEventTypeEventDelta BetaManagedAgentsDeltaEventType = "event_delta"`
+
+### Beta Managed Agents Delta Type
+
+- `type BetaManagedAgentsDeltaType string`
+
+  EventDeltaType enum
+
+  - `const BetaManagedAgentsDeltaTypeAgentMessage BetaManagedAgentsDeltaType = "agent.message"`
+
+  - `const BetaManagedAgentsDeltaTypeAgentThinking BetaManagedAgentsDeltaType = "agent.thinking"`
 
 ### Beta Managed Agents File Resource Params
 
@@ -54177,6 +55943,10 @@ func main() {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -54714,6 +56484,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -55226,6 +57000,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -55523,6 +57301,10 @@ func main() {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -55847,6 +57629,64 @@ func main() {
   - `OutputTokens int64`
 
     Total output tokens generated across all turns.
+
+### Beta Managed Agents Start Event
+
+- `type BetaManagedAgentsStartEvent struct{…}`
+
+  Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `Event BetaManagedAgentsStartEventPreviewUnion`
+
+    The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+    - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+      - `ID string`
+
+        The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+      - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+        - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+    - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+      - `ID string`
+
+        The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+      - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+        - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+  - `Type BetaManagedAgentsStartEventType`
+
+    - `const BetaManagedAgentsStartEventTypeEventStart BetaManagedAgentsStartEventType = "event_start"`
+
+### Beta Managed Agents Start Event Preview
+
+- `type BetaManagedAgentsStartEventPreviewUnion interface{…}`
+
+  - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+    - `ID string`
+
+      The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+    - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+      - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+  - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+    - `ID string`
+
+      The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+    - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+      - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
 
 ### Beta Managed Agents System Content Block
 
@@ -57688,6 +59528,10 @@ List Events
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -59016,7 +60860,7 @@ func main() {
 
 ## Stream Events
 
-`client.Beta.Sessions.Events.Stream(ctx, sessionID, query) (*BetaManagedAgentsStreamSessionEventsUnion, error)`
+`client.Beta.Sessions.Events.Stream(ctx, sessionID, params) (*BetaManagedAgentsStreamSessionEventsUnion, error)`
 
 **get** `/v1/sessions/{session_id}/events/stream`
 
@@ -59026,11 +60870,19 @@ Stream Events
 
 - `sessionID string`
 
-- `query BetaSessionEventStreamParams`
+- `params BetaSessionEventStreamParams`
+
+  - `EventDeltas param.Field[[]BetaManagedAgentsDeltaType]`
+
+    Query param: When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
+
+    - `const BetaManagedAgentsDeltaTypeAgentMessage BetaManagedAgentsDeltaType = "agent.message"`
+
+    - `const BetaManagedAgentsDeltaTypeAgentThinking BetaManagedAgentsDeltaType = "agent.thinking"`
 
   - `Betas param.Field[[]AnthropicBeta]`
 
-    Optional header to specify the beta version(s) you want to use.
+    Header param: Optional header to specify the beta version(s) you want to use.
 
     - `string`
 
@@ -60560,6 +62412,10 @@ Stream Events
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -60853,6 +62709,66 @@ Stream Events
     - `Title string`
 
       The session's new title. Present only when the update changed it.
+
+  - `type BetaManagedAgentsStartEvent struct{…}`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Event BetaManagedAgentsStartEventPreviewUnion`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+          - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+      - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+          - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+    - `Type BetaManagedAgentsStartEventType`
+
+      - `const BetaManagedAgentsStartEventTypeEventStart BetaManagedAgentsStartEventType = "event_start"`
+
+  - `type BetaManagedAgentsDeltaEvent struct{…}`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Delta BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `Content BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `Type BetaManagedAgentsDeltaContentType`
+
+        - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+      - `Index int64`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `EventID string`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `Type BetaManagedAgentsDeltaEventType`
+
+      - `const BetaManagedAgentsDeltaEventTypeEventDelta BetaManagedAgentsDeltaEventType = "event_delta"`
 
   - `type BetaManagedAgentsSystemMessageEvent struct{…}`
 
@@ -65096,6 +67012,10 @@ func main() {
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -67396,6 +69316,10 @@ func main() {
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -67689,6 +69613,66 @@ func main() {
     - `Title string`
 
       The session's new title. Present only when the update changed it.
+
+  - `type BetaManagedAgentsStartEvent struct{…}`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Event BetaManagedAgentsStartEventPreviewUnion`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+          - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+      - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+          - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+    - `Type BetaManagedAgentsStartEventType`
+
+      - `const BetaManagedAgentsStartEventTypeEventStart BetaManagedAgentsStartEventType = "event_start"`
+
+  - `type BetaManagedAgentsDeltaEvent struct{…}`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Delta BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `Content BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `Type BetaManagedAgentsDeltaContentType`
+
+        - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+      - `Index int64`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `EventID string`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `Type BetaManagedAgentsDeltaEventType`
+
+      - `const BetaManagedAgentsDeltaEventTypeEventDelta BetaManagedAgentsDeltaEventType = "event_delta"`
 
   - `type BetaManagedAgentsSystemMessageEvent struct{…}`
 
@@ -70353,6 +72337,10 @@ List Session Threads
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -70898,6 +72886,10 @@ Get Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -71438,6 +73430,10 @@ Archive Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -71897,6 +73893,10 @@ func main() {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
 
           - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -73736,6 +75736,10 @@ func main() {
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -74029,6 +76033,66 @@ func main() {
     - `Title string`
 
       The session's new title. Present only when the update changed it.
+
+  - `type BetaManagedAgentsStartEvent struct{…}`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Event BetaManagedAgentsStartEventPreviewUnion`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+          - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+      - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+          - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+    - `Type BetaManagedAgentsStartEventType`
+
+      - `const BetaManagedAgentsStartEventTypeEventStart BetaManagedAgentsStartEventType = "event_start"`
+
+  - `type BetaManagedAgentsDeltaEvent struct{…}`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Delta BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `Content BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `Type BetaManagedAgentsDeltaContentType`
+
+        - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+      - `Index int64`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `EventID string`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `Type BetaManagedAgentsDeltaEventType`
+
+      - `const BetaManagedAgentsDeltaEventTypeEventDelta BetaManagedAgentsDeltaEventType = "event_delta"`
 
   - `type BetaManagedAgentsSystemMessageEvent struct{…}`
 
@@ -75617,6 +77681,10 @@ List Session Thread Events
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
 
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -77542,6 +79610,10 @@ Stream Session Thread Events
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -77835,6 +79907,66 @@ Stream Session Thread Events
     - `Title string`
 
       The session's new title. Present only when the update changed it.
+
+  - `type BetaManagedAgentsStartEvent struct{…}`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Event BetaManagedAgentsStartEventPreviewUnion`
+
+      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
+
+      - `type BetaManagedAgentsAgentMessagePreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
+
+        - `Type BetaManagedAgentsAgentMessagePreviewType`
+
+          - `const BetaManagedAgentsAgentMessagePreviewTypeAgentMessage BetaManagedAgentsAgentMessagePreviewType = "agent.message"`
+
+      - `type BetaManagedAgentsAgentThinkingPreview struct{…}`
+
+        - `ID string`
+
+          The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
+
+        - `Type BetaManagedAgentsAgentThinkingPreviewType`
+
+          - `const BetaManagedAgentsAgentThinkingPreviewTypeAgentThinking BetaManagedAgentsAgentThinkingPreviewType = "agent.thinking"`
+
+    - `Type BetaManagedAgentsStartEventType`
+
+      - `const BetaManagedAgentsStartEventTypeEventStart BetaManagedAgentsStartEventType = "event_start"`
+
+  - `type BetaManagedAgentsDeltaEvent struct{…}`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+    - `Delta BetaManagedAgentsDeltaContent`
+
+      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
+
+      - `Content BetaManagedAgentsTextBlock`
+
+        Regular text content.
+
+      - `Type BetaManagedAgentsDeltaContentType`
+
+        - `const BetaManagedAgentsDeltaContentTypeContentDelta BetaManagedAgentsDeltaContentType = "content_delta"`
+
+      - `Index int64`
+
+        Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+    - `EventID string`
+
+      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
+
+    - `Type BetaManagedAgentsDeltaEventType`
+
+      - `const BetaManagedAgentsDeltaEventTypeEventDelta BetaManagedAgentsDeltaEventType = "event_delta"`
 
   - `type BetaManagedAgentsSystemMessageEvent struct{…}`
 
@@ -78926,31 +81058,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -78966,19 +81096,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -79652,31 +81783,29 @@ func main() {
 {
   "data": [
     {
-      "id": "id",
+      "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
       "agent": {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+        "id": "agent_011CZkYpogX7uDKUyvBTophP",
         "type": "agent",
         "version": 1
       },
-      "archived_at": "2019-12-27T18:11:19.117Z",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "description": "description",
-      "environment_id": "environment_id",
+      "archived_at": null,
+      "created_at": "2026-03-15T10:00:00Z",
+      "description": "Compiles yesterday's orders into a report every weekday morning.",
+      "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
       "initial_events": [
         {
           "content": [
             {
-              "text": "Where is my order #1234?",
+              "text": "Compile yesterday's orders into report.md.",
               "type": "text"
             }
           ],
           "type": "user.message"
         }
       ],
-      "metadata": {
-        "foo": "string"
-      },
-      "name": "name",
+      "metadata": {},
+      "name": "Daily order report",
       "paused_reason": {
         "type": "manual"
       },
@@ -79692,23 +81821,24 @@ func main() {
         }
       ],
       "schedule": {
-        "expression": "x",
-        "timezone": "x",
+        "expression": "0 9 * * 1-5",
+        "timezone": "America/Los_Angeles",
         "type": "cron",
-        "last_run_at": "2019-12-27T18:11:19.117Z",
+        "last_run_at": "2026-03-16T16:00:09Z",
         "upcoming_runs_at": [
-          "2019-12-27T18:11:19.117Z"
+          "2026-03-17T16:00:00Z",
+          "2026-03-18T16:00:00Z"
         ]
       },
       "status": "active",
       "type": "deployment",
-      "updated_at": "2019-12-27T18:11:19.117Z",
+      "updated_at": "2026-03-15T10:00:00Z",
       "vault_ids": [
-        "string"
+        "vlt_011CZkZDLs7fYzm1hXNPeRjv"
       ]
     }
   ],
-  "next_page": "next_page"
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
 }
 ```
 
@@ -80341,7 +82471,7 @@ func main() {
   )
   betaManagedAgentsDeployment, err := client.Beta.Deployments.Get(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentGetParams{
 
     },
@@ -80357,31 +82487,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -80397,19 +82525,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -81399,7 +83528,7 @@ func main() {
   )
   betaManagedAgentsDeployment, err := client.Beta.Deployments.Update(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentUpdateParams{
 
     },
@@ -81415,31 +83544,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -81455,19 +83582,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -82101,7 +84229,7 @@ func main() {
   )
   betaManagedAgentsDeployment, err := client.Beta.Deployments.Archive(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentArchiveParams{
 
     },
@@ -82117,31 +84245,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -82157,19 +84283,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -82529,7 +84656,7 @@ func main() {
   )
   betaManagedAgentsDeploymentRun, err := client.Beta.Deployments.Run(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentRunParams{
 
     },
@@ -83195,7 +85322,7 @@ func main() {
   )
   betaManagedAgentsDeployment, err := client.Beta.Deployments.Pause(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentPauseParams{
 
     },
@@ -83211,31 +85338,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -83251,19 +85376,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -83897,7 +86023,7 @@ func main() {
   )
   betaManagedAgentsDeployment, err := client.Beta.Deployments.Unpause(
     context.TODO(),
-    "deployment_id",
+    "depl_011CZkZcDH3vPqd7xnEfwTai",
     anthropic.BetaDeploymentUnpauseParams{
 
     },
@@ -83913,31 +86039,29 @@ func main() {
 
 ```json
 {
-  "id": "id",
+  "id": "depl_011CZkZcDH3vPqd7xnEfwTai",
   "agent": {
-    "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+    "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "type": "agent",
     "version": 1
   },
-  "archived_at": "2019-12-27T18:11:19.117Z",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "environment_id": "environment_id",
+  "archived_at": null,
+  "created_at": "2026-03-15T10:00:00Z",
+  "description": "Compiles yesterday's orders into a report every weekday morning.",
+  "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "initial_events": [
     {
       "content": [
         {
-          "text": "Where is my order #1234?",
+          "text": "Compile yesterday's orders into report.md.",
           "type": "text"
         }
       ],
       "type": "user.message"
     }
   ],
-  "metadata": {
-    "foo": "string"
-  },
-  "name": "name",
+  "metadata": {},
+  "name": "Daily order report",
   "paused_reason": {
     "type": "manual"
   },
@@ -83953,19 +86077,20 @@ func main() {
     }
   ],
   "schedule": {
-    "expression": "x",
-    "timezone": "x",
+    "expression": "0 9 * * 1-5",
+    "timezone": "America/Los_Angeles",
     "type": "cron",
-    "last_run_at": "2019-12-27T18:11:19.117Z",
+    "last_run_at": "2026-03-16T16:00:09Z",
     "upcoming_runs_at": [
-      "2019-12-27T18:11:19.117Z"
+      "2026-03-17T16:00:00Z",
+      "2026-03-18T16:00:00Z"
     ]
   },
   "status": "active",
   "type": "deployment",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
-    "string"
+    "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   ]
 }
 ```
@@ -88499,6 +90624,18 @@ Create Credential
 
         - `const BetaManagedAgentsEnvironmentVariableCreateParamsTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableCreateParamsType = "environment_variable"`
 
+      - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp`
+
+        Where in the outbound request the secret value may be substituted.
+
+        - `Body bool`
+
+          Substitute when the placeholder appears in the request body.
+
+        - `Header bool`
+
+          Substitute when the placeholder appears in a request header value.
+
   - `DisplayName param.Field[string]`
 
     Body param: Human-readable name for the credential. Up to 255 characters.
@@ -88668,6 +90805,18 @@ Create Credential
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
@@ -88971,6 +91120,18 @@ List Credentials
 
       Environment variable credential details. The secret value is never returned.
 
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
         Outbound hosts the secret value is substituted on.
@@ -89264,6 +91425,18 @@ Get Credential
 
       Environment variable credential details. The secret value is never returned.
 
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
         Outbound hosts the secret value is substituted on.
@@ -89470,6 +91643,18 @@ Update Credential
 
         - `const BetaManagedAgentsEnvironmentVariableUpdateParamsTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableUpdateParamsType = "environment_variable"`
 
+      - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParamsResp`
+
+        Updated injection location.
+
+        - `Body bool`
+
+          Substitute when the placeholder appears in the request body.
+
+        - `Header bool`
+
+          Substitute when the placeholder appears in a request header value.
+
       - `Networking BetaManagedAgentsCredentialNetworkingParamsUnionResp`
 
         Updated networking scope. Full replacement.
@@ -89667,6 +91852,18 @@ Update Credential
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
@@ -90091,6 +92288,18 @@ Archive Credential
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
       Environment variable credential details. The secret value is never returned.
+
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
 
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
@@ -90528,6 +92737,18 @@ func main() {
 
       Environment variable credential details. The secret value is never returned.
 
+      - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+        Where in the outbound request the secret value is substituted.
+
+        - `Body bool`
+
+          Whether the placeholder is substituted in the request body.
+
+        - `Header bool`
+
+          Whether the placeholder is substituted in request header values.
+
       - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
         Outbound hosts the secret value is substituted on.
@@ -90726,6 +92947,18 @@ func main() {
 
   Environment variable credential details. The secret value is never returned.
 
+  - `InjectionLocation BetaManagedAgentsInjectionLocationResponse`
+
+    Where in the outbound request the secret value is substituted.
+
+    - `Body bool`
+
+      Whether the placeholder is substituted in the request body.
+
+    - `Header bool`
+
+      Whether the placeholder is substituted in request header values.
+
   - `Networking BetaManagedAgentsEnvironmentVariableAuthResponseNetworkingUnion`
 
     Outbound hosts the secret value is substituted on.
@@ -90800,6 +93033,18 @@ func main() {
 
     - `const BetaManagedAgentsEnvironmentVariableCreateParamsTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableCreateParamsType = "environment_variable"`
 
+  - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp`
+
+    Where in the outbound request the secret value may be substituted.
+
+    - `Body bool`
+
+      Substitute when the placeholder appears in the request body.
+
+    - `Header bool`
+
+      Substitute when the placeholder appears in a request header value.
+
 ### Beta Managed Agents Environment Variable Update Params
 
 - `type BetaManagedAgentsEnvironmentVariableUpdateParamsResp struct{…}`
@@ -90809,6 +93054,18 @@ func main() {
   - `Type BetaManagedAgentsEnvironmentVariableUpdateParamsType`
 
     - `const BetaManagedAgentsEnvironmentVariableUpdateParamsTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableUpdateParamsType = "environment_variable"`
+
+  - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParamsResp`
+
+    Updated injection location.
+
+    - `Body bool`
+
+      Substitute when the placeholder appears in the request body.
+
+    - `Header bool`
+
+      Substitute when the placeholder appears in a request header value.
 
   - `Networking BetaManagedAgentsCredentialNetworkingParamsUnionResp`
 
@@ -90837,6 +93094,48 @@ func main() {
   - `SecretValue string`
 
     Updated secret value.
+
+### Beta Managed Agents Injection Location Params
+
+- `type BetaManagedAgentsInjectionLocationParamsResp struct{…}`
+
+  Where in the outbound request the secret value may be substituted.
+
+  - `Body bool`
+
+    Substitute when the placeholder appears in the request body.
+
+  - `Header bool`
+
+    Substitute when the placeholder appears in a request header value.
+
+### Beta Managed Agents Injection Location Response
+
+- `type BetaManagedAgentsInjectionLocationResponse struct{…}`
+
+  Where in the outbound request the secret value is substituted.
+
+  - `Body bool`
+
+    Whether the placeholder is substituted in the request body.
+
+  - `Header bool`
+
+    Whether the placeholder is substituted in request header values.
+
+### Beta Managed Agents Injection Location Update Params
+
+- `type BetaManagedAgentsInjectionLocationUpdateParamsResp struct{…}`
+
+  Updated injection location.
+
+  - `Body bool`
+
+    Substitute when the placeholder appears in the request body.
+
+  - `Header bool`
+
+    Substitute when the placeholder appears in a request header value.
 
 ### Beta Managed Agents Limited Credential Networking Params
 
@@ -98146,9 +100445,291 @@ func main() {
 
     - `const BetaUserProfileTrustGrantStatusRejected BetaUserProfileTrustGrantStatus = "rejected"`
 
+# Tunnels
+
+# Certificates
+
 # Webhooks
 
 ## Domain Types
+
+### Beta Webhook Agent Archived Event Data
+
+- `type BetaWebhookAgentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentArchived`
+
+    - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Created Event Data
+
+- `type BetaWebhookAgentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentCreated`
+
+    - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Deleted Event Data
+
+- `type BetaWebhookAgentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentDeleted`
+
+    - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Updated Event Data
+
+- `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentUpdated`
+
+    - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Archived Event Data
+
+- `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentArchived`
+
+    - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Created Event Data
+
+- `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentCreated`
+
+    - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Deleted Event Data
+
+- `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentDeleted`
+
+    - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Paused Event Data
+
+- `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentPaused`
+
+    - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Failed Event Data
+
+- `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunFailed`
+
+    - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Started Event Data
+
+- `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunStarted`
+
+    - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Succeeded Event Data
+
+- `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunSucceeded`
+
+    - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Unpaused Event Data
+
+- `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentUnpaused`
+
+    - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Updated Event Data
+
+- `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentUpdated`
+
+    - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentArchived`
+
+    - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Created Event Data
+
+- `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentCreated`
+
+    - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type BetaWebhookEnvironmentDeletedEventType`
+
+    - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Type
+
+- `type BetaWebhookEnvironmentDeletedEventType string`
+
+  - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+### Beta Webhook Environment Updated Event Data
+
+- `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentUpdated`
+
+    - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+  - `WorkspaceID string`
 
 ### Beta Webhook Event
 
@@ -98500,6 +101081,300 @@ func main() {
 
       - `WorkspaceID string`
 
+    - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionUpdated`
+
+        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentCreated`
+
+        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentArchived`
+
+        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentDeleted`
+
+        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentPaused`
+
+        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunFailed`
+
+        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentCreated`
+
+        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUpdated`
+
+        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUnpaused`
+
+        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentUpdated`
+
+        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentArchived`
+
+        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunStarted`
+
+        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentDeleted`
+
+        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunSucceeded`
+
+        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type BetaWebhookEnvironmentDeletedEventType`
+
+        - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+      - `WorkspaceID string`
+
   - `Type Event`
 
     Object type. Always `event` for webhook payloads.
@@ -98846,6 +101721,348 @@ func main() {
 
     - `WorkspaceID string`
 
+  - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the session that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type SessionUpdated`
+
+      - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentCreated`
+
+      - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentArchived`
+
+      - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentDeleted`
+
+      - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentPaused`
+
+      - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunFailed`
+
+      - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentCreated`
+
+      - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentUpdated`
+
+      - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentUnpaused`
+
+      - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentUpdated`
+
+      - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentArchived`
+
+      - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunStarted`
+
+      - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentDeleted`
+
+      - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunSucceeded`
+
+      - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentCreated`
+
+      - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentUpdated`
+
+      - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentArchived`
+
+      - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type BetaWebhookEnvironmentDeletedEventType`
+
+      - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreCreated`
+
+      - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreArchived`
+
+      - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreDeleted`
+
+      - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+    - `WorkspaceID string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreArchived`
+
+    - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreCreated`
+
+    - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreDeleted`
+
+    - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+  - `WorkspaceID string`
+
 ### Beta Webhook Session Archived Event Data
 
 - `type BetaWebhookSessionArchivedEventData struct{…}`
@@ -99095,6 +102312,22 @@ func main() {
   - `Type SessionThreadTerminated`
 
     - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Session Updated Event Data
+
+- `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the session that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type SessionUpdated`
+
+    - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
 
   - `WorkspaceID string`
 
@@ -99573,6 +102806,300 @@ func main() {
       - `VaultID string`
 
         ID of the vault that owns this credential.
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionUpdated`
+
+        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentCreated`
+
+        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentArchived`
+
+        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentDeleted`
+
+        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentPaused`
+
+        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunFailed`
+
+        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentCreated`
+
+        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUpdated`
+
+        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUnpaused`
+
+        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentUpdated`
+
+        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentArchived`
+
+        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunStarted`
+
+        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentDeleted`
+
+        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunSucceeded`
+
+        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type BetaWebhookEnvironmentDeletedEventType`
+
+        - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
 
       - `WorkspaceID string`
 

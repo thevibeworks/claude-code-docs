@@ -9,12 +9,20 @@ Given the broad capabilities of large language models, it should be possible to 
 
 ## Related content
 
-### Paving the way for agents in biology
+### A global workspace in language models
 
-[Read more](https://www.anthropic.com/research/agents-in-biology)
+New interpretability research reveals an emergent mental workspace in Claude that holds internal thoughts that don’t appear in the model’s output.
 
-### Coding agents in the social sciences
+[Read more](https://www.anthropic.com/research/global-workspace)
 
-Results from a survey of 1,260 social scientists about AI and coding agent use.
+### Anthropic Economic Index report: Cadences
 
-[Read more](https://www.anthropic.com/research/coding-agents-social-sciences)
+In our latest Economic Index report, we sample hourly for the first time to ask: When do people come to Claude? What do they produce with it? And how do they perceive AI's impact on their work?
+
+[Read more](https://www.anthropic.com/research/economic-index-june-2026-report)
+
+### Project Fetch: Phase two
+
+We report results from our latest test of whether Claude can help Anthropic employees perform sophisticated robotics tasks. We found that Claude Opus 4.7, operating without human assistance, was about 20 times faster than the fastest human team at all tasks completed by participants less than a year ago.
+
+[Read more](https://www.anthropic.com/research/project-fetch-phase-two)

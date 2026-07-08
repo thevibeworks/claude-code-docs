@@ -11,6 +11,14 @@ language models. Tools enable models to interact with external systems, such as 
 databases, calling APIs, or performing computations. Each tool is uniquely identified by
 a name and includes metadata describing its schema.
 
+<Note>
+  For brevity, the request examples on this page omit the required `_meta`
+  request metadata (`io.modelcontextprotocol/protocolVersion`,
+  `io.modelcontextprotocol/clientInfo`, and
+  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+  these fields; see [`_meta`](/specification/draft/basic/index#meta).
+</Note>
+
 ## User Interaction Model
 
 Tools in MCP are designed to be **model-controlled**, meaning that the language model can
@@ -343,8 +351,10 @@ HTTP header.
 * **MUST** only be applied to parameters with primitive types (integer, string, boolean).
   Parameters with type `number` are not permitted. Integer values **MUST** be within the
   safe range for integers represented using IEEE754 double-precision floating point numbers (−2<sup>53</sup>+1 to 2<sup>53</sup>−1)
-* **MAY** be applied to properties at any nesting depth within the `inputSchema`, not
-  only top-level properties
+* **MUST** only be applied to properties that are *statically reachable* from the schema
+  root, as defined in
+  [Custom Headers from Tool Parameters](/specification/draft/basic/transports/streamable-http#custom-headers-from-tool-parameters),
+  which also defines how header values are extracted from call arguments
 
 Clients using the Streamable HTTP transport **MUST** reject tool definitions where any
 `x-mcp-header` value violates these constraints. Rejection means the client **MUST**
@@ -537,6 +547,7 @@ Example valid response for this tool:
   "jsonrpc": "2.0",
   "id": 5,
   "result": {
+    "resultType": "complete",
     "content": [
       {
         "type": "text",
@@ -585,6 +596,7 @@ Example valid response for a tool with array output:
   "jsonrpc": "2.0",
   "id": 6,
   "result": {
+    "resultType": "complete",
     "content": [
       {
         "type": "text",
@@ -745,6 +757,7 @@ Tools use two error reporting mechanisms:
      "jsonrpc": "2.0",
      "id": 4,
      "result": {
+       "resultType": "complete",
        "content": [
          {
            "type": "text",

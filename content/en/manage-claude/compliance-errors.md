@@ -5,7 +5,7 @@ Every Compliance API error message with cause and fix, organized by HTTP status 
 ---
 
 <Note>
-  To enable the Compliance API, see [Get access to the Compliance API](/docs/en/manage-claude/compliance-api-access).
+  To enable the Compliance API, see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
 </Note>
 
 This page lists the response messages each documented Compliance API endpoint returns, the cause, and the fix.
@@ -25,16 +25,16 @@ Match on `error.type`, not on the message string. Messages are stable enough to 
 
 The following table tells you at a glance whether to retry. Each section that follows shows the verbatim error body and the fix.
 
-| Status                                                  | Retry?                      | When                                                                  |
-| ------------------------------------------------------- | --------------------------- | --------------------------------------------------------------------- |
-| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                           |
-| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                   |
-| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.         |
-| [404 Not Found](#404-not-found)                         | No                          | The resource was deleted or never existed; remove it from your queue. |
+| Status                                                  | Retry?                      | When                                                                                                                           |
+| ------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                    |
+| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                            |
+| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                  |
+| [404 Not Found](#404-not-found)                         | No                          | The resource was deleted or never existed; remove it from your queue.                                                          |
 | [409 Conflict](#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry. |
-| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor. |
-| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.           |
-| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff.                            |
+| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                     |
+| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                    |
+| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff.                                                                                     |
 
 ## 400 Bad Request
 
@@ -44,7 +44,7 @@ The request was syntactically valid but contained a parameter the server rejecte
 
 **Type:** `invalid_request_error`
 
-```text
+```text wrap
 The `created_at.gte` parameter contains an invalid timestamp format. Timestamps must be provided in RFC 3339 format e.g., "2024-03-01T00:00:00Z". Got "2024-01-01".
 ```
 
@@ -56,7 +56,7 @@ The `created_at.gte` parameter contains an invalid timestamp format. Timestamps 
 
 **Type:** `invalid_request_error`
 
-```text
+```text wrap
 The limit parameter must be between 1 and 1000, inclusive. Got 1500.
 ```
 
@@ -68,7 +68,7 @@ The limit parameter must be between 1 and 1000, inclusive. Got 1500.
 
 **Type:** `invalid_request_error`
 
-```text
+```text wrap
 Invalid `after_id`. No activity found for `after_id` "activity_invalid123"
 ```
 
@@ -76,7 +76,7 @@ Invalid `after_id`. No activity found for `after_id` "activity_invalid123"
 
 **Fix:** Treat pagination cursors as opaque strings. Always copy the `first_id` or `last_id` value returned by the previous page; stop when `has_more` is `false`. Do not construct cursors from object IDs.
 
-The directory and project endpoints (users, roles, role permissions, groups, group members, projects, and project attachments) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false`. A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
+The directory and project endpoints (organizations, users, roles, role permissions, groups, group members, projects, and project attachments) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false`. A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
 
 ## 401 Unauthorized
 
@@ -86,13 +86,13 @@ The `x-api-key` header was missing or did not match a known key. A valid key wit
 
 **Type:** `authentication_error`
 
-```text
+```text wrap
 The API key provided is invalid or has been revoked.
 ```
 
 **Cause:** The key in `x-api-key` does not exist, has been deleted, or has been disabled. A missing or empty `x-api-key` header returns the same body, so check both your secret store and the key's revocation status.
 
-**Fix:** Confirm the key value, check that it has not been deleted in claude.ai (Compliance Access Keys) or Claude Console (Admin API keys), and confirm it is enabled. See [Get access to the Compliance API](/docs/en/manage-claude/compliance-api-access).
+**Fix:** Confirm the key value, check that it has not been deleted in claude.ai (Compliance Access Keys) or Claude Console (Admin API keys), and confirm it is enabled. See [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
 
 ## 403 Forbidden
 
@@ -102,14 +102,14 @@ The key in `x-api-key` is valid but does not carry the scope the endpoint requir
 
 **Type:** `permission_error`
 
-```text
+```text wrap
 Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compliance_activities']
 ```
 
 **Cause:** A key without `read:compliance_activities` was used to call `GET /v1/compliance/activities`. There are two common paths to this error:
 
-- A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_activities` scope.
-- A Claude Console Admin API key (`sk-ant-admin01-...`) was created before the Compliance API was enabled for the organization. Keys created before enablement do not carry the scope; see [After enablement: Claude Console organizations](/docs/en/manage-claude/compliance-api-access#after-enablement-claude-console-organizations).
+* A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_activities` scope.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was created before the Compliance API was enabled for the organization. Keys created before enablement do not carry the scope; see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api).
 
 **Fix:** Compliance Access Key scopes are immutable after creation. Create a new key that includes `read:compliance_activities`, or use a Claude Console Admin API key. See [Which key do you need?](/docs/en/manage-claude/compliance-api-access#which-key-do-you-need) for the conditions under which an Admin API key carries this scope.
 
@@ -117,58 +117,55 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compl
 
 **Type:** `permission_error`
 
-```text
+```text wrap
 Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compliance_org_data']
 ```
 
-**Cause:** A key without `read:compliance_org_data` was used to call an organizations, roles, or groups endpoint. There are two common paths to this error:
+**Cause:** A key without `read:compliance_org_data` was used to call an organizations, roles, groups, or effective-settings endpoint. There are two common paths to this error:
 
-- A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_org_data` scope.
-- A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot read organization metadata.
+* A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_org_data` scope.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot read organization metadata.
 
-**Fix:** [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#create-a-compliance-access-key) with `read:compliance_org_data` selected. Admin API keys cannot read organization metadata; the Compliance Access Key is required.
+**Fix:** [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) with `read:compliance_org_data` selected. Admin API keys cannot read organization metadata; the Compliance Access Key is required.
 
-### Insufficient scope: organization settings
+### Retired scope: organization settings
 
 **Type:** `permission_error`
 
-```text
-Missing required scopes. Got: ['read:compliance_org_data'] Needed: ['read:compliance_org_settings']
+```text wrap
+Missing required scopes. Got: ['read:compliance_org_settings'] Needed: ['read:compliance_org_data']
 ```
 
-**Cause:** A key without `read:compliance_org_settings` was used to call `GET /v1/compliance/organizations/{organization_id}/settings`. There are two common paths to this error:
+**Cause:** The `read:compliance_org_settings` scope was retired on June 30, 2026. `GET /v1/compliance/organizations/{organization_id}/settings` now requires `read:compliance_org_data`, the same scope as the other organization endpoints, and the retired scope no longer authorizes anything. A Compliance Access Key that carries only `read:compliance_org_settings` returns this error on every call to the settings endpoint, even though the key worked before the retirement. The retired scope can no longer be selected or granted when creating a key.
 
-- A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_org_settings` scope.
-- A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot read organization settings.
-
-**Fix:** [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#create-a-compliance-access-key) with `read:compliance_org_settings` selected. Admin API keys cannot read organization settings; the Compliance Access Key is required.
+**Fix:** Compliance Access Key scopes are immutable after creation. [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) with `read:compliance_org_data` selected, update your integration to use it, then delete the old key. A key that already carries `read:compliance_org_data` is unaffected by the retirement.
 
 ### Insufficient scope: user data
 
 **Type:** `permission_error`
 
-```text
+```text wrap
 Missing required scopes. Got: ['read:compliance_activities'] Needed: ['read:compliance_user_data']
 ```
 
 **Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, organization users, or group-members endpoint. There are two common paths to this error:
 
-- A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_user_data` scope.
-- A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, user, or group-member endpoints.
+* A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_user_data` scope.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, user, or group-member endpoints.
 
-**Fix:** Use a [Compliance Access Key](/docs/en/manage-claude/compliance-api-access#create-a-compliance-access-key) created in claude.ai with `read:compliance_user_data` selected. If the request really should be Activity Feed only, point the Admin API key at `GET /v1/compliance/activities` instead.
+**Fix:** Use a [Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) created in claude.ai with `read:compliance_user_data` selected. If the request really should be Activity Feed only, point the Admin API key at `GET /v1/compliance/activities` instead.
 
 ### Insufficient scope: delete
 
 **Type:** `permission_error`
 
-```text
+```text wrap
 Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['delete:compliance_user_data']
 ```
 
 **Cause:** A Compliance Access Key without `delete:compliance_user_data` was used to call a `DELETE` endpoint on chats, files, or projects.
 
-**Fix:** [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#create-a-compliance-access-key) with `delete:compliance_user_data` selected. The delete scope is separate from `read:compliance_user_data` so that read-only audit keys cannot delete content.
+**Fix:** [Create a new Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) with `delete:compliance_user_data` selected. The delete scope is separate from `read:compliance_user_data` so that read-only audit keys cannot delete content.
 
 ## 404 Not Found
 
@@ -178,7 +175,7 @@ The endpoint resolved but the resource ID does not exist or has already been del
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 Chat claude_chat_01H5CWunD7RpVJ5bHa8RCkja not found.
 ```
 
@@ -190,7 +187,7 @@ Chat claude_chat_01H5CWunD7RpVJ5bHa8RCkja not found.
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 No file found with provided id, or it has already been deleted.
 ```
 
@@ -202,7 +199,7 @@ No file found with provided id, or it has already been deleted.
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 No project is found with the provided id.
 ```
 
@@ -214,7 +211,7 @@ No project is found with the provided id.
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 No project document found with provided id, or it has already been deleted.
 ```
 
@@ -226,7 +223,7 @@ No project document found with provided id, or it has already been deleted.
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 The "ce86b5f3-7c16-48b3-a9f3-e1d2c4b8a0f1" organization does not exist or the requester is not authorized to access it.
 ```
 
@@ -240,7 +237,7 @@ The organization, role, and group endpoints return a 404 `not_found_error` in th
 
 **Type:** `not_found_error`
 
-```text
+```text wrap
 organization `91012d09-e48b-438e-a489-1bebfd8fa6f9` not found in this organization's hierarchy
 ```
 
@@ -256,13 +253,13 @@ The request is well-formed and authorized but conflicts with the resource's curr
 
 **Type:** `conflict_error`
 
-```text
+```text wrap
 The "claude_proj_01KGp4eZNug9ri4kE35RSppq" project cannot be deleted as it has chats attached to it. Delete or detach all chats, and try deleting the project again.
 ```
 
 **Cause:** `DELETE /v1/compliance/apps/projects/{project_id}` was called on a project that still has chats attached.
 
-**Fix:** List the project's chats with `GET /v1/compliance/apps/chats?user_ids[]={user_id}&project_ids[]={project_id}` (the chat list endpoint requires at least one `user_ids[]` value; enumerate IDs through [List organization users](/docs/en/manage-claude/compliance-org-data#list-organization-users)), delete each one with `DELETE /v1/compliance/apps/chats/{claude_chat_id}`, and then retry the project delete.
+**Fix:** List the project's chats with `GET /v1/compliance/apps/chats?user_ids[]={user_id}&project_ids[]={project_id}` (the `project_ids[]` filter requires at least one `user_ids[]` value; enumerate IDs through [List organization users](/docs/en/manage-claude/compliance-org-data#list-organization-users)), delete each one with `DELETE /v1/compliance/apps/chats/{claude_chat_id}`, and then retry the project delete.
 
 ## 429 Too Many Requests
 
@@ -270,9 +267,9 @@ Requests to the Compliance API are limited to **600 requests per minute per [par
 
 Once your API key authenticates, every Compliance API response includes the standard [rate-limit response headers](/docs/en/api/rate-limits#response-headers) so your client can throttle proactively instead of waiting for a 429:
 
-- `anthropic-ratelimit-requests-limit` is your parent organization's per-minute request budget.
-- `anthropic-ratelimit-requests-remaining` is the budget left in the current window.
-- `anthropic-ratelimit-requests-reset` is the RFC 3339 timestamp when the window resets and the full budget is restored.
+* `anthropic-ratelimit-requests-limit` is your parent organization's per-minute request budget.
+* `anthropic-ratelimit-requests-remaining` is the budget left in the current window.
+* `anthropic-ratelimit-requests-reset` is the RFC 3339 timestamp when the window resets and the full budget is restored.
 
 A 429 response also carries a `retry-after` header with the number of seconds to wait before sending the next request. This value might include a small safety margin beyond `anthropic-ratelimit-requests-reset`; honor `retry-after`.
 
@@ -310,24 +307,13 @@ A 500 without the `x-should-retry: false` header is transient: retry with expone
 
 For service-wide incidents, check [status.anthropic.com](https://status.anthropic.com).
 
-### Maximum response size exceeded
-
-**Type:** `api_error`
-
-```text
-Response exceeds maximum of 1,000 organizations. Contact support for assistance with larger organization lists.
-```
-
-**Cause:** A list endpoint without pagination (notably `GET /v1/compliance/organizations`) would have returned more than its hard cap of 1,000 records.
-
-**Fix:** The organizations endpoint returns the full tree in one call, up to 1,000 linked organizations. If your tree exceeds 1,000, contact Anthropic support for assistance with larger organization lists. If you were polling this endpoint to track organization-membership changes, periodic relisting remains the most reliable approach once the cap is addressed; it catches additions and removals regardless of which side of the parent-child relationship initiated them. The [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) also surfaces membership events through the `org_deletion_requested`, `org_deleted_via_bulk`, `org_parent_join_proposal_created`, and `org_join_proposal_decided` activity types, which you can use to trigger an immediate relist instead of waiting for the next polling interval.
-
 ## Next steps
 
 <CardGroup cols={2}>
   <Card title="Compliance API FAQ" href="/docs/en/manage-claude/compliance-faq">
     Common questions about access, scopes, retention, and integration.
   </Card>
+
   <Card title="Errors" href="/docs/en/api/errors">
     The platform-wide error catalog and retry semantics.
   </Card>

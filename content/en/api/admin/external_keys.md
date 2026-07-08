@@ -8,23 +8,15 @@ Create an external key config owned by the caller's organization.
 
 ### Body Parameters
 
-- `display_name: string`
-
-  Human-friendly display name.
-
-- `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, role_arn, type, region }`
+  - `Aws object { kms_arn, type, region, role_arn }`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
-
-    - `role_arn: string`
-
-      IAM role ARN that Anthropic assumes to access the KMS key.
 
     - `type: "aws"`
 
@@ -33,6 +25,10 @@ Create an external key config owned by the caller's organization.
     - `region: optional string`
 
       AWS region. Derived from kms_arn if omitted.
+
+    - `role_arn: optional string`
+
+      IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
   - `Gcp object { key_name, type }`
 
@@ -66,6 +62,10 @@ Create an external key config owned by the caller's organization.
 
       Azure AD application (client) ID. Omit to use Anthropic's multi-tenant app. Provide only if using a single-tenant app registration in the customer's directory.
 
+- `display_name: optional string`
+
+  Human-friendly display name.
+
 - `geo: optional "us"`
 
   Data residency geo. Only `us` is supported.
@@ -82,25 +82,21 @@ Create an external key config owned by the caller's organization.
 
 - `display_name: string`
 
-  Human-friendly display name.
+  Human-friendly display name. Null if none was set.
 
 - `geo: string`
 
   Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-- `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, role_arn, type, region }`
+  - `Aws object { kms_arn, type, region, role_arn }`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
-
-    - `role_arn: string`
-
-      IAM role ARN that Anthropic assumes to access the KMS key.
 
     - `type: "aws"`
 
@@ -109,6 +105,10 @@ Create an external key config owned by the caller's organization.
     - `region: optional string`
 
       AWS region. Derived from kms_arn if omitted.
+
+    - `role_arn: optional string`
+
+      IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
   - `Gcp object { key_name, type }`
 
@@ -156,10 +156,8 @@ curl https://api.anthropic.com/v1/organizations/external_keys \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN" \
     -d '{
-          "display_name": "x",
           "provider_config": {
             "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
-            "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek",
             "type": "aws"
           }
         }'
@@ -175,9 +173,9 @@ curl https://api.anthropic.com/v1/organizations/external_keys \
   "geo": "us",
   "provider_config": {
     "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
-    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek",
     "type": "aws",
-    "region": "us-east-1"
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
   },
   "type": "external_key",
   "updated_at": "2024-10-30T23:58:27.427722Z"
@@ -215,25 +213,21 @@ Results are ordered by creation time (newest first). Use the
 
   - `display_name: string`
 
-    Human-friendly display name.
+    Human-friendly display name. Null if none was set.
 
   - `geo: string`
 
     Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-  - `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+  - `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
     KMS provider identity and auth coordinates.
 
-    - `Aws object { kms_arn, role_arn, type, region }`
+    - `Aws object { kms_arn, type, region, role_arn }`
 
       - `kms_arn: string`
 
         Full ARN of the AWS KMS key.
-
-      - `role_arn: string`
-
-        IAM role ARN that Anthropic assumes to access the KMS key.
 
       - `type: "aws"`
 
@@ -242,6 +236,10 @@ Results are ordered by creation time (newest first). Use the
       - `region: optional string`
 
         AWS region. Derived from kms_arn if omitted.
+
+      - `role_arn: optional string`
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
     - `Gcp object { key_name, type }`
 
@@ -305,9 +303,9 @@ curl https://api.anthropic.com/v1/organizations/external_keys \
       "geo": "us",
       "provider_config": {
         "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
-        "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek",
         "type": "aws",
-        "region": "us-east-1"
+        "region": "us-east-1",
+        "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
       },
       "type": "external_key",
       "updated_at": "2024-10-30T23:58:27.427722Z"
@@ -339,25 +337,21 @@ Retrieve a single external key config in the caller's organization by ID.
 
 - `display_name: string`
 
-  Human-friendly display name.
+  Human-friendly display name. Null if none was set.
 
 - `geo: string`
 
   Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-- `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, role_arn, type, region }`
+  - `Aws object { kms_arn, type, region, role_arn }`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
-
-    - `role_arn: string`
-
-      IAM role ARN that Anthropic assumes to access the KMS key.
 
     - `type: "aws"`
 
@@ -366,6 +360,10 @@ Retrieve a single external key config in the caller's organization by ID.
     - `region: optional string`
 
       AWS region. Derived from kms_arn if omitted.
+
+    - `role_arn: optional string`
+
+      IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
   - `Gcp object { key_name, type }`
 
@@ -423,9 +421,9 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID \
   "geo": "us",
   "provider_config": {
     "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
-    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek",
     "type": "aws",
-    "region": "us-east-1"
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
   },
   "type": "external_key",
   "updated_at": "2024-10-30T23:58:27.427722Z"
@@ -460,19 +458,15 @@ encrypted data requires the original key identity to decrypt.
 
   - `"us"`
 
-- `provider_config: optional object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: optional object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, role_arn, type, region }`
+  - `Aws object { kms_arn, type, region, role_arn }`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
-
-    - `role_arn: string`
-
-      IAM role ARN that Anthropic assumes to access the KMS key.
 
     - `type: "aws"`
 
@@ -481,6 +475,10 @@ encrypted data requires the original key identity to decrypt.
     - `region: optional string`
 
       AWS region. Derived from kms_arn if omitted.
+
+    - `role_arn: optional string`
+
+      IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
   - `Gcp object { key_name, type }`
 
@@ -524,25 +522,21 @@ encrypted data requires the original key identity to decrypt.
 
 - `display_name: string`
 
-  Human-friendly display name.
+  Human-friendly display name. Null if none was set.
 
 - `geo: string`
 
   Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-- `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, role_arn, type, region }`
+  - `Aws object { kms_arn, type, region, role_arn }`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
-
-    - `role_arn: string`
-
-      IAM role ARN that Anthropic assumes to access the KMS key.
 
     - `type: "aws"`
 
@@ -551,6 +545,10 @@ encrypted data requires the original key identity to decrypt.
     - `region: optional string`
 
       AWS region. Derived from kms_arn if omitted.
+
+    - `role_arn: optional string`
+
+      IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
   - `Gcp object { key_name, type }`
 
@@ -610,9 +608,9 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID \
   "geo": "us",
   "provider_config": {
     "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
-    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek",
     "type": "aws",
-    "region": "us-east-1"
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
   },
   "type": "external_key",
   "updated_at": "2024-10-30T23:58:27.427722Z"
@@ -684,13 +682,13 @@ message if it failed or timed out.
 
   Error message when status is `failure`. Null otherwise.
 
-- `status: "success" or "failure"`
+- `status: "failure" or "success"`
 
   `success` — encrypt/decrypt roundtrip succeeded. `failure` — the roundtrip failed or timed out; see `error`.
 
-  - `"success"`
-
   - `"failure"`
+
+  - `"success"`
 
 - `type: "external_key_validation"`
 
@@ -735,25 +733,21 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
   - `display_name: string`
 
-    Human-friendly display name.
+    Human-friendly display name. Null if none was set.
 
   - `geo: string`
 
     Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-  - `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+  - `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
     KMS provider identity and auth coordinates.
 
-    - `Aws object { kms_arn, role_arn, type, region }`
+    - `Aws object { kms_arn, type, region, role_arn }`
 
       - `kms_arn: string`
 
         Full ARN of the AWS KMS key.
-
-      - `role_arn: string`
-
-        IAM role ARN that Anthropic assumes to access the KMS key.
 
       - `type: "aws"`
 
@@ -762,6 +756,10 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
       - `region: optional string`
 
         AWS region. Derived from kms_arn if omitted.
+
+      - `role_arn: optional string`
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
     - `Gcp object { key_name, type }`
 
@@ -803,89 +801,87 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
 ### External Key List Response
 
-- `ExternalKeyListResponse object { data, next_page }`
+- `ExternalKeyListResponse object { id, created_at, display_name, 4 more }`
 
-  Opaque-cursor page of external keys, ordered by creation time (newest first).
+  CMEK external key config belonging to the caller's organization.
 
-  - `data: array of object { id, created_at, display_name, 4 more }`
+  Configs are organization-scoped. Workspaces attach to a config; once any
+  workspace references it, the provider fields become effectively immutable
+  (existing encrypted data needs the config for decrypt).
 
-    - `id: string`
+  - `id: string`
 
-      Tagged ID of the external key config.
+    Tagged ID of the external key config.
 
-    - `created_at: string`
+  - `created_at: string`
 
-    - `display_name: string`
+  - `display_name: string`
 
-      Human-friendly display name.
+    Human-friendly display name. Null if none was set.
 
-    - `geo: string`
+  - `geo: string`
 
-      Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+    Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-    - `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+  - `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
-      KMS provider identity and auth coordinates.
+    KMS provider identity and auth coordinates.
 
-      - `Aws object { kms_arn, role_arn, type, region }`
+    - `Aws object { kms_arn, type, region, role_arn }`
 
-        - `kms_arn: string`
+      - `kms_arn: string`
 
-          Full ARN of the AWS KMS key.
+        Full ARN of the AWS KMS key.
 
-        - `role_arn: string`
+      - `type: "aws"`
 
-          IAM role ARN that Anthropic assumes to access the KMS key.
+        - `"aws"`
 
-        - `type: "aws"`
+      - `region: optional string`
 
-          - `"aws"`
+        AWS region. Derived from kms_arn if omitted.
 
-        - `region: optional string`
+      - `role_arn: optional string`
 
-          AWS region. Derived from kms_arn if omitted.
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
-      - `Gcp object { key_name, type }`
+    - `Gcp object { key_name, type }`
 
-        - `key_name: string`
+      - `key_name: string`
 
-          Full resource name of the Cloud KMS key.
+        Full resource name of the Cloud KMS key.
 
-        - `type: "gcp"`
+      - `type: "gcp"`
 
-          - `"gcp"`
+        - `"gcp"`
 
-      - `Azure object { key_name, tenant_id, type, 2 more }`
+    - `Azure object { key_name, tenant_id, type, 2 more }`
 
-        - `key_name: string`
+      - `key_name: string`
 
-          Name of the key within the vault.
+        Name of the key within the vault.
 
-        - `tenant_id: string`
+      - `tenant_id: string`
 
-          Azure AD tenant ID.
+        Azure AD tenant ID.
 
-        - `type: "azure"`
+      - `type: "azure"`
 
-          - `"azure"`
+        - `"azure"`
 
-        - `vault_uri: string`
+      - `vault_uri: string`
 
-          Key Vault URI.
+        Key Vault URI.
 
-        - `client_id: optional string`
+      - `client_id: optional string`
 
-          Azure AD application (client) ID. Omit to use Anthropic's multi-tenant app. Provide only if using a single-tenant app registration in the customer's directory.
+        Azure AD application (client) ID. Omit to use Anthropic's multi-tenant app. Provide only if using a single-tenant app registration in the customer's directory.
 
-    - `type: "external_key"`
+  - `type: "external_key"`
 
-      - `"external_key"`
+    - `"external_key"`
 
-    - `updated_at: string`
-
-  - `next_page: string`
-
-    Opaque cursor for the next page, or null if no more results. Pass as `?page=` to fetch the next page.
+  - `updated_at: string`
 
 ### External Key Retrieve Response
 
@@ -905,25 +901,21 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
   - `display_name: string`
 
-    Human-friendly display name.
+    Human-friendly display name. Null if none was set.
 
   - `geo: string`
 
     Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-  - `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+  - `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
     KMS provider identity and auth coordinates.
 
-    - `Aws object { kms_arn, role_arn, type, region }`
+    - `Aws object { kms_arn, type, region, role_arn }`
 
       - `kms_arn: string`
 
         Full ARN of the AWS KMS key.
-
-      - `role_arn: string`
-
-        IAM role ARN that Anthropic assumes to access the KMS key.
 
       - `type: "aws"`
 
@@ -932,6 +924,10 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
       - `region: optional string`
 
         AWS region. Derived from kms_arn if omitted.
+
+      - `role_arn: optional string`
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
     - `Gcp object { key_name, type }`
 
@@ -989,25 +985,21 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
   - `display_name: string`
 
-    Human-friendly display name.
+    Human-friendly display name. Null if none was set.
 
   - `geo: string`
 
     Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-  - `provider_config: object { kms_arn, role_arn, type, region }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+  - `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
 
     KMS provider identity and auth coordinates.
 
-    - `Aws object { kms_arn, role_arn, type, region }`
+    - `Aws object { kms_arn, type, region, role_arn }`
 
       - `kms_arn: string`
 
         Full ARN of the AWS KMS key.
-
-      - `role_arn: string`
-
-        IAM role ARN that Anthropic assumes to access the KMS key.
 
       - `type: "aws"`
 
@@ -1016,6 +1008,10 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
       - `region: optional string`
 
         AWS region. Derived from kms_arn if omitted.
+
+      - `role_arn: optional string`
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
     - `Gcp object { key_name, type }`
 
@@ -1080,13 +1076,13 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
     Error message when status is `failure`. Null otherwise.
 
-  - `status: "success" or "failure"`
+  - `status: "failure" or "success"`
 
     `success` — encrypt/decrypt roundtrip succeeded. `failure` — the roundtrip failed or timed out; see `error`.
 
-    - `"success"`
-
     - `"failure"`
+
+    - `"success"`
 
   - `type: "external_key_validation"`
 

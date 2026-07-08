@@ -1,5 +1,115 @@
 # Changelog
 
+## 0.110.0 (2026-07-02)
+
+Full Changelog: [sdk-v0.109.1...sdk-v0.110.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.109.1...sdk-v0.110.0)
+
+### Features
+
+* **api:** add agent-memory-2026-07-22 beta header ([a470e10](https://github.com/anthropics/anthropic-sdk-typescript/commit/a470e10aaad12078e3e5f2bb9adf6c2652ea9ca0))
+
+## 0.109.1 (2026-07-01)
+
+Full Changelog: [sdk-v0.109.0...sdk-v0.109.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.109.0...sdk-v0.109.1)
+
+### Chores
+
+* **api:** remove some nonfunctional types from the SDKs ([cc4dd4e](https://github.com/anthropics/anthropic-sdk-typescript/commit/cc4dd4e257cc3354f14e263b0d2441ddae71759e))
+
+## 0.109.0 (2026-06-30)
+
+Full Changelog: [sdk-v0.108.0...sdk-v0.109.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.108.0...sdk-v0.109.0)
+
+### Features
+
+* **api:** add support for Managed Agents event delta streaming, agent overrides, reverse pagination, vault credential injection scoping, and agent and deployment webhook events ([7f3211b](https://github.com/anthropics/anthropic-sdk-typescript/commit/7f3211b4886053d25e98b91edc90fedc199ef186))
+
+## 0.108.0 (2026-06-30)
+
+Full Changelog: [sdk-v0.107.0...sdk-v0.108.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.107.0...sdk-v0.108.0)
+
+### Features
+
+* **api:** add support for claude-sonnet-5 ([4588db0](https://github.com/anthropics/anthropic-sdk-typescript/commit/4588db01eccd7529a5d2e99b8e5da3af1acdbbc8))
+
+
+### Bug Fixes
+
+* **agent-toolset:** allow absolute paths that resolve inside workdir ([#112](https://github.com/anthropics/anthropic-sdk-typescript/issues/112)) ([e951fb2](https://github.com/anthropics/anthropic-sdk-typescript/commit/e951fb2ed70f8d6cd0113ae1642a795404e1cc9a))
+
+
+### Chores
+
+* format README.md ([#176](https://github.com/anthropics/anthropic-sdk-typescript/issues/176)) ([98dcff7](https://github.com/anthropics/anthropic-sdk-typescript/commit/98dcff71b632a92e0e1dff19ca4a95439a5fe447))
+
+## 0.107.0 (2026-06-29)
+
+Full Changelog: [sdk-v0.106.0...sdk-v0.107.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.106.0...sdk-v0.107.0)
+
+### Features
+
+* **api:** add support for 20260318 web fetch and support tools ([d7057ea](https://github.com/anthropics/anthropic-sdk-typescript/commit/d7057ea73ba564d1e89cff40c58a85d9375ccbbf))
+
+
+### Bug Fixes
+
+* **agent-toolset:** bound canonicalize symlink hops; resolve glob matches before confinement check ([#142](https://github.com/anthropics/anthropic-sdk-typescript/issues/142)) ([277be80](https://github.com/anthropics/anthropic-sdk-typescript/commit/277be80af68eb088e954c0008dc1aa932375afe2))
+* **types:** restore BatchCreateParams.Request.params dropped by codegen merge ([#165](https://github.com/anthropics/anthropic-sdk-typescript/issues/165)) ([c6b68d2](https://github.com/anthropics/anthropic-sdk-typescript/commit/c6b68d248e037617017fc00f928dbeb9091f917d))
+
+
+### Chores
+
+* **api:** accept user profile ID's when counting tokens ([6cda67e](https://github.com/anthropics/anthropic-sdk-typescript/commit/6cda67e3b9d97505aa24e318cd22e28837760025))
+* **docs:** updates to descriptions and example values ([51a5f81](https://github.com/anthropics/anthropic-sdk-typescript/commit/51a5f8138f8e771a84456628ec9d31b6257d2f3f))
+
+
+### Documentation
+
+* update readme requirements to match anthropic docs ([#146](https://github.com/anthropics/anthropic-sdk-typescript/issues/146)) ([3818412](https://github.com/anthropics/anthropic-sdk-typescript/commit/3818412d371372fa1054b34a7293853fb3bfbef3))
+
+## 0.106.0 (2026-06-24)
+
+Full Changelog: [sdk-v0.105.0...sdk-v0.106.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.105.0...sdk-v0.106.0)
+
+### Features
+
+* **client:** add support for system.message streaming events ([a7c14b7](https://github.com/anthropics/anthropic-sdk-typescript/commit/a7c14b7ffc8295e34d8c159d1374f170d2b87767))
+
+
+### Bug Fixes
+
+* **helpers:** single source for x-stainless-helper, append semantics, and tag the fallback middleware ([#107](https://github.com/anthropics/anthropic-sdk-typescript/issues/107)) ([106bea0](https://github.com/anthropics/anthropic-sdk-typescript/commit/106bea081439ece2cb0170e56b24c5f039af5e16))
+
+
+### Chores
+
+* **api:** add support for new refusal category ([b38fd01](https://github.com/anthropics/anthropic-sdk-typescript/commit/b38fd01d15bcd519aa66cd640a8ad40310ae9d01))
+* **api:** add support for sending User Profile ID in request headers ([198583e](https://github.com/anthropics/anthropic-sdk-typescript/commit/198583e2fc3236f62a85ef7be0bfdfdea2164264))
+
+## 0.105.0 (2026-06-18)
+
+Full Changelog: [sdk-v0.104.2...sdk-v0.105.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.104.2...sdk-v0.105.0)
+
+### Features
+
+* **api:** add support for new code_execution_20260120 tool ([8dc2b54](https://github.com/anthropics/anthropic-sdk-typescript/commit/8dc2b54ee9f19cfc0a8f5cb49d0e1b93f4a4cadd))
+* **stream:** lazily parse partial tool json input ([#99](https://github.com/anthropics/anthropic-sdk-typescript/issues/99)) ([e55ceee](https://github.com/anthropics/anthropic-sdk-typescript/commit/e55ceee5e3053ada96a7fe008b1fd6ebc0e42544))
+
+
+### Chores
+
+* **internal/deps:** bump swc to 1.15.40 ([#97](https://github.com/anthropics/anthropic-sdk-typescript/issues/97)) ([a1d4d75](https://github.com/anthropics/anthropic-sdk-typescript/commit/a1d4d7549251f88100f44b0350f6123c9cbea5ec))
+* **internal:** use are the types wrong directly ([#94](https://github.com/anthropics/anthropic-sdk-typescript/issues/94)) ([3d362af](https://github.com/anthropics/anthropic-sdk-typescript/commit/3d362afd0aade3d18f10e61a5e4809c0bd495768))
+* **tests:** stop using deprecated models ([#98](https://github.com/anthropics/anthropic-sdk-typescript/issues/98)) ([65ae1af](https://github.com/anthropics/anthropic-sdk-typescript/commit/65ae1afee1bb76179c58e1758a48d668e3fcf7b3))
+
+## 0.104.2 (2026-06-15)
+
+Full Changelog: [sdk-v0.104.1...sdk-v0.104.2](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.104.1...sdk-v0.104.2)
+
+### Chores
+
+* **api:** remove retired models from API and SDKs ([a942876](https://github.com/anthropics/anthropic-sdk-typescript/commit/a94287690a383ba34aa0d2ad9e0262eeb9241bd3))
+
 ## 0.104.1 (2026-06-09)
 
 Full Changelog: [sdk-v0.104.0...sdk-v0.104.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/sdk-v0.104.0...sdk-v0.104.1)

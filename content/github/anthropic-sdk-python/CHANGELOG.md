@@ -1,5 +1,111 @@
 # Changelog
 
+## 0.116.0 (2026-07-02)
+
+Full Changelog: [v0.115.1...v0.116.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.115.1...v0.116.0)
+
+### Features
+
+* **api:** add agent-memory-2026-07-22 beta header ([e181d5c](https://github.com/anthropics/anthropic-sdk-python/commit/e181d5c1b233d5b0b313c78b27cf1dd27f620e74))
+
+## 0.115.1 (2026-07-01)
+
+Full Changelog: [v0.115.0...v0.115.1](https://github.com/anthropics/anthropic-sdk-python/compare/v0.115.0...v0.115.1)
+
+### Chores
+
+* **api:** remove some nonfunctional types from the SDKs ([5e7c431](https://github.com/anthropics/anthropic-sdk-python/commit/5e7c431ef31b72b3f1f59902e678316fea14d983))
+
+## 0.115.0 (2026-06-30)
+
+Full Changelog: [v0.114.0...v0.115.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.114.0...v0.115.0)
+
+### Features
+
+* **api:** add support for Managed Agents event delta streaming, agent overrides, reverse pagination, vault credential injection scoping, and agent and deployment webhook events ([8c23f7e](https://github.com/anthropics/anthropic-sdk-python/commit/8c23f7ef103c287362364c12503de85eb31f07fb))
+
+## 0.114.0 (2026-06-30)
+
+Full Changelog: [v0.113.0...v0.114.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.113.0...v0.114.0)
+
+### Features
+
+* **api:** add support for claude-sonnet-5 ([b893033](https://github.com/anthropics/anthropic-sdk-python/commit/b893033b32951e0e2e04afa36a3a7eb016ae4b99))
+
+
+### Bug Fixes
+
+* **agent_toolset:** allow absolute paths that resolve inside workdir ([#121](https://github.com/anthropics/anthropic-sdk-python/issues/121)) ([0105529](https://github.com/anthropics/anthropic-sdk-python/commit/0105529fe15b1f80bbf9c56f4ae684fdfa10e2b3))
+
+## 0.113.0 (2026-06-29)
+
+Full Changelog: [v0.112.0...v0.113.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.112.0...v0.113.0)
+
+### Features
+
+* **api:** add support for 20260318 web fetch and support tools ([88dbfb1](https://github.com/anthropics/anthropic-sdk-python/commit/88dbfb14a2a838eda889469ad7fe07a47618e85f))
+
+
+### Bug Fixes
+
+* async count_tokens missing output_format/output_config merge block ([#162](https://github.com/anthropics/anthropic-sdk-python/issues/162)) ([122c958](https://github.com/anthropics/anthropic-sdk-python/commit/122c95811566bf6f5cbc682ae0a74972ae75a223))
+
+
+### Chores
+
+* **api:** accept user profile ID's when counting tokens ([0b4d17a](https://github.com/anthropics/anthropic-sdk-python/commit/0b4d17a49d39e8224adbee6a97be0e8b1b7ebff5))
+* **docs:** updates to descriptions and example values ([f3ab694](https://github.com/anthropics/anthropic-sdk-python/commit/f3ab694453326a2765623b9aafeb7588ea296325))
+
+## 0.112.0 (2026-06-24)
+
+Full Changelog: [v0.111.0...v0.112.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.111.0...v0.112.0)
+
+### Features
+
+* **client:** add support for system.message streaming events ([2450d59](https://github.com/anthropics/anthropic-sdk-python/commit/2450d595731f9532080bb94eb8a43c0bd5189659))
+
+
+### Bug Fixes
+
+* **memory tool:** create parent directories with the correct permissions ([#135](https://github.com/anthropics/anthropic-sdk-python/issues/135)) ([f2fc2a9](https://github.com/anthropics/anthropic-sdk-python/commit/f2fc2a9e0ad8507e4108e9a6b85d023416c2f14c))
+
+
+### Chores
+
+* **api:** add support for new refusal category ([5ab533e](https://github.com/anthropics/anthropic-sdk-python/commit/5ab533e58ee99bcd2e5071bab91d99caee66aa6a))
+* **api:** add support for sending User Profile ID in request headers ([83319be](https://github.com/anthropics/anthropic-sdk-python/commit/83319bed74f4414d54e0f4237d70b945ed671008))
+
+## 0.111.0 (2026-06-18)
+
+Full Changelog: [v0.110.0...v0.111.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.110.0...v0.111.0)
+
+### Features
+
+* **helpers:** tag refusal-fallback middleware requests with fallback-refusal-middleware ([#96](https://github.com/anthropics/anthropic-sdk-python/issues/96)) ([2f8ac78](https://github.com/anthropics/anthropic-sdk-python/commit/2f8ac789506efc0719b06f1f646c9a98bb25ce7b))
+
+## 0.110.0 (2026-06-18)
+
+Full Changelog: [v0.109.2...v0.110.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.109.2...v0.110.0)
+
+### Features
+
+* **api:** add support for new code_execution_20260120 tool ([5e23212](https://github.com/anthropics/anthropic-sdk-python/commit/5e23212dc0883174c879b97ef8e7e33ead4e8da5))
+
+
+### Bug Fixes
+
+* append x-stainless-helper across header merges instead of clobbering ([#105](https://github.com/anthropics/anthropic-sdk-python/issues/105)) ([922558e](https://github.com/anthropics/anthropic-sdk-python/commit/922558e2ce52e18863dab27bcc04067068827364))
+* **bedrock:** preserve stream event type ([#1682](https://github.com/anthropics/anthropic-sdk-python/issues/1682)) ([b27e343](https://github.com/anthropics/anthropic-sdk-python/commit/b27e3439699174dbc41e34e2d6ef5cb1e2930c18))
+* **helpers:** single source of truth for x-stainless-helper key + closed value vocabulary ([#95](https://github.com/anthropics/anthropic-sdk-python/issues/95)) ([e6f7a56](https://github.com/anthropics/anthropic-sdk-python/commit/e6f7a56bb624f4c946cb15ba7973fd6fe052e10f))
+
+## 0.109.2 (2026-06-15)
+
+Full Changelog: [v0.109.1...v0.109.2](https://github.com/anthropics/anthropic-sdk-python/compare/v0.109.1...v0.109.2)
+
+### Chores
+
+* **api:** remove retired models from API and SDKs ([d4bcfcc](https://github.com/anthropics/anthropic-sdk-python/commit/d4bcfcc257bd0c97d5e75060bd19c97abddd9f49))
+
 ## 0.109.1 (2026-06-09)
 
 Full Changelog: [v0.109.0...v0.109.1](https://github.com/anthropics/anthropic-sdk-python/compare/v0.109.0...v0.109.1)

@@ -85,7 +85,7 @@ We recommend installing skills only from trusted sources. When installing a skil
 
 ## The future of Skills
 
-Agent Skills are [supported today](https://www.anthropic.com/news/skills) across [Claude.ai](http://claude.ai/redirect/website.v1.9e5dc3d2-19b7-401c-bb25-4724e0906ec5), Claude Code, the Claude Agent SDK, and the Claude Developer Platform.
+Agent Skills are [supported today](https://www.anthropic.com/news/skills) across [Claude.ai](http://claude.ai/redirect/website.v1.94106f97-b333-46a9-bf6d-5b6129e2cec5), Claude Code, the Claude Agent SDK, and the Claude Developer Platform.
 
 In the coming weeks, we’ll continue to add features that support the full lifecycle of creating, editing, discovering, sharing, and using Skills. We’re especially excited about the opportunity for Skills to help organizations and individuals share their context and workflows with Claude. We’ll also explore how Skills can complement [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) servers by teaching agents more complex workflows that involve external tools and software.
 

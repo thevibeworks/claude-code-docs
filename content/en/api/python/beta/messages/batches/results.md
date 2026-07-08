@@ -8,7 +8,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -930,9 +930,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             Marks the point in `content` where one model's output gives way to the next.
 
             One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn routed directly by the sticky decision has no such boundary
-            and carries no block — the signal for whether a fallback model served the
-            response is the presence of a `fallback_message` entry in
+            declined. A turn where no preceding model ran and declined has no such
+            boundary and carries no block — the signal for whether a fallback model
+            served the response is the presence of a `fallback_message` entry in
             `usage.iterations`, not this block.
 
             The block is treated like a server-tool content block for streaming: it
@@ -949,12 +949,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Literal["claude-fable-5", "claude-mythos-5", "claude-opus-4-8", 17 more]`
+                - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `claude-sonnet-5` - High-performance model for coding and agents
                   - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
                   - `claude-mythos-5` - Most capable model for cybersecurity and biology research
                   - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
@@ -970,11 +971,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
                   - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
                   - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-opus-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-0` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-sonnet-4-20250514` - Deprecated: Will reach end-of-life on June 15th, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-                  - `claude-3-haiku-20240307` - Deprecated: Will reach end-of-life on April 20th, 2026. Please migrate to claude-haiku-4-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                  - `"claude-sonnet-5"`
+
+                    High-performance model for coding and agents
 
                   - `"claude-fable-5"`
 
@@ -1036,31 +1036,31 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
                     Exceptional model for specialized complex tasks
 
-                  - `"claude-opus-4-0"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-opus-4-20250514"`
-
-                    Powerful model for complex tasks
-
-                  - `"claude-sonnet-4-0"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-sonnet-4-20250514"`
-
-                    High-performance model with extended thinking
-
-                  - `"claude-3-haiku-20240307"`
-
-                    Fast and cost-effective model
-
                 - `str`
 
             - `to: BetaFallbackInfo`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+            - `trigger: BetaFallbackRefusalTrigger`
+
+              What caused the `from` model to hand over at this hop.
+
+              - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+
+                The policy category that triggered a refusal.
+
+                - `"cyber"`
+
+                - `"bio"`
+
+                - `"frontier_llm"`
+
+                - `"reasoning_extraction"`
+
+              - `type: Literal["refusal"]`
+
+                - `"refusal"`
 
             - `type: Literal["fallback"]`
 
@@ -1187,15 +1187,15 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Structured information about a refusal.
 
-          - `category: Optional[Literal["cyber", "bio", "reasoning_extraction"]]`
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `"cyber"`
 
             - `"bio"`
+
+            - `"frontier_llm"`
 
             - `"reasoning_extraction"`
 

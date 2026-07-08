@@ -17,7 +17,7 @@ With the extension, you can review and edit Claude's plans before accepting them
 Before installing, make sure you have:
 
 * VS Code 1.98.0 or higher
-* An Anthropic account: any paid Claude subscription (Pro, Max, Team, or Enterprise) or a Claude Console account works, and no API key is required. You'll [sign in](/en/authentication#log-in-to-claude-code) with this account when you first open the extension. If you access Claude through a third-party provider like Amazon Bedrock or Google Vertex AI, see [Use third-party providers](#use-third-party-providers) for setup instructions.
+* An Anthropic account: any paid Claude subscription (Pro, Max, Team, or Enterprise) or a Claude Console account works, and no API key is required. You'll [sign in](/en/authentication#log-in-to-claude-code) with this account when you first open the extension. If you access Claude through a third-party provider like Amazon Bedrock or Google Cloud's Agent Platform, see [Use third-party providers](#use-third-party-providers) for setup instructions.
 
 <Tip>
   The extension bundles its own copy of the CLI (command-line interface) for the chat panel. To run `claude` in VS Code's integrated terminal, you also need the [standalone CLI install](/en/setup). See [VS Code extension vs. Claude Code CLI](#vs-code-extension-vs-claude-code-cli) for details.
@@ -94,7 +94,10 @@ For more ideas on what you can do with Claude Code, see [Common workflows](/en/c
 
 The prompt box supports several features:
 
-* **Permission modes**: click the mode indicator at the bottom of the prompt box to switch modes. In normal mode, Claude asks permission before each action. In Plan mode, Claude describes what it will do and waits for approval before making changes. VS Code automatically opens the plan as a full markdown document where you can add inline comments to give feedback before Claude begins. In auto-accept mode, Claude makes edits without asking. Set the default in VS Code settings under `claudeCode.initialPermissionMode`.
+* **Permission modes**: click the mode indicator at the bottom of the prompt box to switch modes, or set the default in VS Code settings under `claudeCode.initialPermissionMode`. See [permission modes](/en/permission-modes#switch-permission-modes) for every mode the indicator offers.
+  * **Manual**: Claude asks permission before each action.
+  * **Plan mode**: Claude describes what it will do and waits for approval before making changes. VS Code automatically opens the plan as a full markdown document where you can add inline comments to give feedback before Claude begins.
+  * **Edit automatically**: Claude makes edits without asking.
 * **Command menu**: click `/` or type `/` to open the command menu. Options include attaching files, switching models, toggling extended thinking, viewing plan usage (`/usage`), and starting a [Remote Control](/en/remote-control) session (`/remote-control`). The Customize section provides access to MCP servers, hooks, memory, permissions, and plugins. Items with a terminal icon open in the integrated terminal.
 * **Context indicator**: the prompt box shows how much of Claude's context window you're using. Claude automatically compacts when needed, or you can run `/compact` manually.
 * **Extended thinking**: lets Claude spend more time reasoning through complex problems. Toggle it on via the command menu (`/`). Claude's reasoning appears in the conversation as collapsed blocks: click a block to read it, or press `Ctrl+O` to expand or collapse every thinking block in the session. See [Extended thinking](/en/model-config#extended-thinking) for details.
@@ -315,22 +318,22 @@ The extension has two types of settings:
 
 ### Extension settings
 
-| Setting                             | Default   | Description                                                                                                                                                                                                                   |
-| ----------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `useTerminal`                       | `false`   | Launch Claude in terminal mode instead of graphical panel                                                                                                                                                                     |
-| `initialPermissionMode`             | `default` | Controls approval prompts for new conversations: `default`, `plan`, `acceptEdits`, or `bypassPermissions`. See [permission modes](/en/permission-modes).                                                                      |
-| `preferredLocation`                 | `panel`   | Where Claude opens: `sidebar` (right) or `panel` (new tab)                                                                                                                                                                    |
-| `autosave`                          | `true`    | Auto-save files before Claude reads or writes them                                                                                                                                                                            |
-| `useCtrlEnterToSend`                | `false`   | Use Ctrl/Cmd+Enter instead of Enter to send prompts                                                                                                                                                                           |
-| `enableNewConversationShortcut`     | `false`   | Enable Cmd/Ctrl+N to start a new conversation                                                                                                                                                                                 |
-| `enableReopenClosedSessionShortcut` | `true`    | Use Cmd/Ctrl+Shift+T to reopen the most recently closed Claude session tab. When the last closed tab wasn't a Claude session, the shortcut runs VS Code's normal reopen-closed-editor command instead.                        |
-| `hideOnboarding`                    | `false`   | Hide the onboarding checklist (graduation cap icon)                                                                                                                                                                           |
-| `respectGitIgnore`                  | `true`    | Exclude .gitignore patterns from file searches                                                                                                                                                                                |
-| `usePythonEnvironment`              | `true`    | Activate the workspace's Python environment when running Claude. Requires the Python extension.                                                                                                                               |
-| `environmentVariables`              | `[]`      | Set environment variables for the Claude process. Use Claude Code settings instead for shared config.                                                                                                                         |
-| `disableLoginPrompt`                | `false`   | Skip authentication prompts (for third-party provider setups)                                                                                                                                                                 |
-| `allowDangerouslySkipPermissions`   | `false`   | Adds Bypass permissions to the mode selector. Use it only in sandboxes with no internet access.                                                                                                                               |
-| `claudeProcessWrapper`              | -         | Executable used to launch the Claude process. The bundled binary path is passed as an argument when present. Set this to a separately installed `claude` binary if the extension build doesn't include one for your platform. |
+| Setting                             | Default   | Description                                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useTerminal`                       | `false`   | Launch Claude in terminal mode instead of graphical panel                                                                                                                                                                                                                                                                      |
+| `initialPermissionMode`             | `default` | Controls approval prompts for new conversations: `default`, `plan`, `acceptEdits`, or `bypassPermissions`. {/* min-version: 2.1.200 */}`manual` is an alias for `default` and selects the mode labeled **Manual** in the mode indicator. Requires Claude Code v2.1.200 or later. See [permission modes](/en/permission-modes). |
+| `preferredLocation`                 | `panel`   | Where Claude opens: `sidebar` (right) or `panel` (new tab)                                                                                                                                                                                                                                                                     |
+| `autosave`                          | `true`    | Auto-save files before Claude reads or writes them                                                                                                                                                                                                                                                                             |
+| `useCtrlEnterToSend`                | `false`   | Use Ctrl/Cmd+Enter instead of Enter to send prompts                                                                                                                                                                                                                                                                            |
+| `enableNewConversationShortcut`     | `false`   | Enable Cmd/Ctrl+N to start a new conversation                                                                                                                                                                                                                                                                                  |
+| `enableReopenClosedSessionShortcut` | `true`    | Use Cmd/Ctrl+Shift+T to reopen the most recently closed Claude session tab. When the last closed tab wasn't a Claude session, the shortcut runs VS Code's normal reopen-closed-editor command instead.                                                                                                                         |
+| `hideOnboarding`                    | `false`   | Hide the onboarding checklist (graduation cap icon)                                                                                                                                                                                                                                                                            |
+| `respectGitIgnore`                  | `true`    | Exclude .gitignore patterns from file searches                                                                                                                                                                                                                                                                                 |
+| `usePythonEnvironment`              | `true`    | Activate the workspace's Python environment when running Claude. Requires the Python extension.                                                                                                                                                                                                                                |
+| `environmentVariables`              | `[]`      | Set environment variables for the Claude process. Use Claude Code settings instead for shared config.                                                                                                                                                                                                                          |
+| `disableLoginPrompt`                | `false`   | Skip authentication prompts (for third-party provider setups)                                                                                                                                                                                                                                                                  |
+| `allowDangerouslySkipPermissions`   | `false`   | Adds Bypass permissions to the mode selector. Use it only in sandboxes with no internet access.                                                                                                                                                                                                                                |
+| `claudeProcessWrapper`              | -         | Executable used to launch the Claude process. The bundled binary path is passed as an argument when present. Set this to a separately installed `claude` binary if the extension build doesn't include one for your platform.                                                                                                  |
 
 ## VS Code extension vs. Claude Code CLI
 
@@ -417,7 +420,7 @@ Each worktree maintains independent file state while sharing git history. This p
 
 ## Use third-party providers
 
-By default, Claude Code connects directly to Anthropic's API. If your organization uses Amazon Bedrock, Google Vertex AI, or Microsoft Foundry to access Claude, configure the extension to use your provider instead:
+By default, Claude Code connects directly to Anthropic's API. If your organization uses Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry to access Claude, configure the extension to use your provider instead:
 
 <Steps>
   <Step title="Disable login prompt">
@@ -430,7 +433,7 @@ By default, Claude Code connects directly to Anthropic's API. If your organizati
     Follow the setup guide for your provider:
 
     * [Claude Code on Amazon Bedrock](/en/amazon-bedrock)
-    * [Claude Code on Google Vertex AI](/en/google-vertex-ai)
+    * [Claude Code on Google Cloud's Agent Platform](/en/google-vertex-ai)
     * [Claude Code on Microsoft Foundry](/en/microsoft-foundry)
 
     These guides cover configuring your provider in `~/.claude/settings.json`, which ensures your settings are shared between the VS Code extension and the CLI.
@@ -519,6 +522,8 @@ To uninstall the Claude Code extension:
 1. Open the Extensions view (`Cmd+Shift+X` on Mac or `Ctrl+Shift+X` on Windows/Linux)
 2. Search for "Claude Code"
 3. Click **Uninstall**
+
+Running `claude` in a VS Code integrated terminal reinstalls the extension automatically. To keep it uninstalled, turn off **Auto-install IDE extension** in `/config`, or set [`autoInstallIdeExtension`](/en/settings#global-config-settings) to `false`. You can also set the [`CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL`](/en/env-vars) environment variable to `1`.
 
 To also remove extension data and reset all settings, delete the extension's storage directory for your platform.
 

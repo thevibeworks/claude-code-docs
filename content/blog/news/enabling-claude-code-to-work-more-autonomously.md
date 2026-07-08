@@ -58,14 +58,18 @@ These updates are available now for Claude Code users.
 
 ## Related content
 
-### Anthropic appoints KiYoung Choi as Representative Director of Korea ahead of Seoul office opening
+### Government of Alberta uses Claude to find and fix cybersecurity vulnerabilities across government systems
 
-[Read more](https://www.anthropic.com/news/kiyoung-choi-representative-director-anthropic-korea)
+Since 2025, the Government of Alberta has been using Claude Code with both Opus and Sonnet models to review its systems, find vulnerabilities, and fix them.
 
-### Anthropic co-founder Chris Olah's remarks on Pope Leo XIV's encyclical "Magnifica humanitas"
+[Read more](https://www.anthropic.com/news/alberta-government-claude-cybersecurity)
 
-[Read more](https://www.anthropic.com/news/chris-olah-pope-leo-encyclical)
+### More details on Fable 5’s cyber safeguards and our jailbreak framework
 
-### Widening the conversation on frontier AI
+[Read more](https://www.anthropic.com/news/fable-safeguards-jailbreak-framework)
 
-[Read more](https://www.anthropic.com/news/widening-conversation-ai)
+### Introducing Claude Sonnet 5
+
+Sonnet 5 delivers frontier performance across coding, agents, and professional work at scale.
+
+[Read more](https://www.anthropic.com/news/claude-sonnet-5)

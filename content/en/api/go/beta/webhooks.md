@@ -2,6 +2,284 @@
 
 ## Domain Types
 
+### Beta Webhook Agent Archived Event Data
+
+- `type BetaWebhookAgentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentArchived`
+
+    - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Created Event Data
+
+- `type BetaWebhookAgentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentCreated`
+
+    - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Deleted Event Data
+
+- `type BetaWebhookAgentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentDeleted`
+
+    - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Agent Updated Event Data
+
+- `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the agent that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type AgentUpdated`
+
+    - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Archived Event Data
+
+- `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentArchived`
+
+    - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Created Event Data
+
+- `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentCreated`
+
+    - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Deleted Event Data
+
+- `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentDeleted`
+
+    - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Paused Event Data
+
+- `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentPaused`
+
+    - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Failed Event Data
+
+- `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunFailed`
+
+    - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Started Event Data
+
+- `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunStarted`
+
+    - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Run Succeeded Event Data
+
+- `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment run that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentRunSucceeded`
+
+    - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Unpaused Event Data
+
+- `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentUnpaused`
+
+    - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Deployment Updated Event Data
+
+- `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the deployment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type DeploymentUpdated`
+
+    - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentArchived`
+
+    - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Created Event Data
+
+- `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentCreated`
+
+    - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type BetaWebhookEnvironmentDeletedEventType`
+
+    - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Type
+
+- `type BetaWebhookEnvironmentDeletedEventType string`
+
+  - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+### Beta Webhook Environment Updated Event Data
+
+- `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentUpdated`
+
+    - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+  - `WorkspaceID string`
+
 ### Beta Webhook Event
 
 - `type BetaWebhookEvent struct{…}`
@@ -352,6 +630,300 @@
 
       - `WorkspaceID string`
 
+    - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionUpdated`
+
+        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentCreated`
+
+        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentArchived`
+
+        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentDeleted`
+
+        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentPaused`
+
+        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunFailed`
+
+        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentCreated`
+
+        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUpdated`
+
+        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUnpaused`
+
+        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentUpdated`
+
+        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentArchived`
+
+        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunStarted`
+
+        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentDeleted`
+
+        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunSucceeded`
+
+        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type BetaWebhookEnvironmentDeletedEventType`
+
+        - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+      - `WorkspaceID string`
+
   - `Type Event`
 
     Object type. Always `event` for webhook payloads.
@@ -698,6 +1270,348 @@
 
     - `WorkspaceID string`
 
+  - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the session that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type SessionUpdated`
+
+      - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentCreated`
+
+      - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentArchived`
+
+      - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentDeleted`
+
+      - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentPaused`
+
+      - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunFailed`
+
+      - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentCreated`
+
+      - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentUpdated`
+
+      - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentUnpaused`
+
+      - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the agent that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type AgentUpdated`
+
+      - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentArchived`
+
+      - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunStarted`
+
+      - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentDeleted`
+
+      - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+    - `ID string`
+
+      ID of the deployment run that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type DeploymentRunSucceeded`
+
+      - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentCreated`
+
+      - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentUpdated`
+
+      - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentArchived`
+
+      - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type BetaWebhookEnvironmentDeletedEventType`
+
+      - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreCreated`
+
+      - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreArchived`
+
+      - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreDeleted`
+
+      - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+    - `WorkspaceID string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreArchived`
+
+    - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreCreated`
+
+    - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreDeleted`
+
+    - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+  - `WorkspaceID string`
+
 ### Beta Webhook Session Archived Event Data
 
 - `type BetaWebhookSessionArchivedEventData struct{…}`
@@ -947,6 +1861,22 @@
   - `Type SessionThreadTerminated`
 
     - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Session Updated Event Data
+
+- `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the session that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type SessionUpdated`
+
+    - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
 
   - `WorkspaceID string`
 
@@ -1425,6 +2355,300 @@
       - `VaultID string`
 
         ID of the vault that owns this credential.
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionUpdated`
+
+        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentCreated`
+
+        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentArchived`
+
+        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentDeleted`
+
+        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentPausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentPaused`
+
+        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunFailed`
+
+        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentCreated`
+
+        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUpdated`
+
+        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentUnpausedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentUnpaused`
+
+        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookAgentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the agent that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type AgentUpdated`
+
+        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentArchived`
+
+        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunStarted`
+
+        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentDeleted`
+
+        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
+
+      - `ID string`
+
+        ID of the deployment run that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type DeploymentRunSucceeded`
+
+        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type BetaWebhookEnvironmentDeletedEventType`
+
+        - `const BetaWebhookEnvironmentDeletedEventTypeEnvironmentDeleted BetaWebhookEnvironmentDeletedEventType = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
 
       - `WorkspaceID string`
 

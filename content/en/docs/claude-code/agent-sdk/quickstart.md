@@ -37,10 +37,24 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
     Install the Agent SDK package for your language:
 
     <Tabs>
-      <Tab title="TypeScript">
+      <Tab title="TypeScript (new project)">
+        ```bash theme={null}
+        npm init -y
+        npm pkg set type=module
+        npm install @anthropic-ai/claude-agent-sdk
+        npm install --save-dev tsx
+        ```
+
+        Setting `"type": "module"` in `package.json` lets your agent script use top-level `await`, and [tsx](https://tsx.is) runs TypeScript files directly.
+      </Tab>
+
+      <Tab title="TypeScript (existing project)">
         ```bash theme={null}
         npm install @anthropic-ai/claude-agent-sdk
+        npm install --save-dev tsx
         ```
+
+        [tsx](https://tsx.is) runs TypeScript files directly. If your project uses CommonJS, name your agent script `agent.mts` instead of `agent.ts`. The `.mts` extension makes tsx treat the file as an ES module, so top-level `await` works without converting your whole project to ES modules. Use `agent.mts` in place of `agent.ts` in the create and run steps later in this quickstart.
       </Tab>
 
       <Tab title="Python (uv)">
@@ -81,20 +95,32 @@ Use the Agent SDK to build an AI agent that reads your code, finds bugs, and fix
   </Step>
 
   <Step title="Set your API key">
-    Get an API key from the [Claude Console](https://platform.claude.com/), then create a `.env` file in your project directory:
+    Get an API key from the [Claude Console](https://platform.claude.com/), then set it as an environment variable in the shell where you'll run your agent:
 
-    ```bash theme={null}
-    ANTHROPIC_API_KEY=your-api-key
-    ```
+    <Tabs>
+      <Tab title="macOS / Linux">
+        ```bash theme={null}
+        export ANTHROPIC_API_KEY=your-api-key
+        ```
+      </Tab>
+
+      <Tab title="Windows (PowerShell)">
+        ```powershell theme={null}
+        $env:ANTHROPIC_API_KEY = "your-api-key"
+        ```
+      </Tab>
+    </Tabs>
+
+    The SDK reads the key from the environment of the process that runs your agent; it doesn't load `.env` files automatically. If you keep the key in a `.env` file, load it yourself, for example with the `dotenv` package, before calling the SDK.
 
     The SDK also supports authentication via third-party API providers:
 
     * **Amazon Bedrock**: set `CLAUDE_CODE_USE_BEDROCK=1` environment variable and configure AWS credentials
     * **Claude Platform on AWS**: set `CLAUDE_CODE_USE_ANTHROPIC_AWS=1` and `ANTHROPIC_AWS_WORKSPACE_ID`, then configure AWS credentials
-    * **Google Vertex AI**: set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
+    * **Google Cloud's Agent Platform**: set `CLAUDE_CODE_USE_VERTEX=1` environment variable and configure Google Cloud credentials
     * **Microsoft Azure**: set `CLAUDE_CODE_USE_FOUNDRY=1` environment variable and configure Azure credentials
 
-    See the setup guides for [Bedrock](/en/amazon-bedrock), [Claude Platform on AWS](/en/claude-platform-on-aws), [Vertex AI](/en/google-vertex-ai), or [Azure AI Foundry](/en/microsoft-foundry) for details.
+    See the setup guides for [Amazon Bedrock](/en/amazon-bedrock), [Claude Platform on AWS](/en/claude-platform-on-aws), [Google Cloud's Agent Platform](/en/google-vertex-ai), or [Microsoft Foundry](/en/microsoft-foundry) for details.
 
     <Note>
       Unless previously approved, Anthropic does not allow third party developers to offer claude.ai login or rate limits for their products, including agents built on the Claude Agent SDK. Please use the API key authentication methods described in this document instead.
@@ -125,7 +151,7 @@ This code has two bugs:
 
 ## Build an agent that finds and fixes bugs
 
-Create `agent.py` if you're using the Python SDK, or `agent.ts` for TypeScript:
+Create `agent.py` if you're using the Python SDK, or `agent.ts` for TypeScript. Use `agent.mts` instead if your existing project uses CommonJS:
 
 <CodeGroup>
   ```python Python theme={null}
@@ -208,6 +234,8 @@ Your agent is ready. Run it with the following command:
     ```bash theme={null}
     npx tsx agent.ts
     ```
+
+    If you named your script `agent.mts`, run `npx tsx agent.mts` instead.
   </Tab>
 
   <Tab title="Python (uv)">
@@ -225,7 +253,7 @@ Your agent is ready. Run it with the following command:
   </Tab>
 </Tabs>
 
-After running, check `utils.py`. You'll see defensive code handling empty lists and null users. Your agent autonomously:
+As it works, the agent prints its reasoning and each tool it calls, ending with `Done: success`. After running, check `utils.py`. You'll see defensive code handling empty lists and null users. Your agent autonomously:
 
 1. **Read** `utils.py` to understand the code
 2. **Analyzed** the logic and identified edge cases that would crash
@@ -234,7 +262,7 @@ After running, check `utils.py`. You'll see defensive code handling empty lists 
 This is what makes the Agent SDK different: Claude executes tools directly instead of asking you to implement them.
 
 <Note>
-  If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in your `.env` file or shell environment. See the [full troubleshooting guide](/en/troubleshooting) for more help.
+  If you see "API key not found", make sure you've set the `ANTHROPIC_API_KEY` environment variable in the shell where you run your agent. The SDK doesn't load `.env` files automatically. See the [full troubleshooting guide](/en/troubleshooting) for more help.
 </Note>
 
 ### Try other prompts
@@ -323,27 +351,16 @@ With `Bash` enabled, try: `"Write unit tests for utils.py, run them, and fix any
 
 **Permission modes** control how much human oversight you want:
 
-| Mode                     | Behavior                                                                                                                            | Use case                                 |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| `acceptEdits`            | Auto-approves file edits and common filesystem commands, asks for other actions                                                     | Trusted development workflows            |
-| `dontAsk`                | Denies anything not in `allowedTools`                                                                                               | Locked-down headless agents              |
-| `auto` (TypeScript only) | A model classifier approves or denies each tool call                                                                                | Autonomous agents with safety guardrails |
-| `bypassPermissions`      | Runs every tool without prompting, unless an explicit [`ask` rule](/en/agent-sdk/permissions#how-permissions-are-evaluated) matches | Sandboxed CI, fully trusted environments |
-| `default`                | Requires a `canUseTool` callback to handle approval                                                                                 | Custom approval flows                    |
+| Mode                | Behavior                                                                                                                            | Use case                                  |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| `acceptEdits`       | Auto-approves file edits and common filesystem commands, asks for other actions                                                     | Trusted development workflows             |
+| `plan`              | Runs read-only tools; file edits are never auto-approved and reach your `canUseTool` callback                                       | Scoping a task before approving execution |
+| `dontAsk`           | Denies anything not in `allowedTools`                                                                                               | Locked-down headless agents               |
+| `auto`              | A model classifier approves or denies each tool call                                                                                | Autonomous agents with safety guardrails  |
+| `bypassPermissions` | Runs every tool without prompting, unless an explicit [`ask` rule](/en/agent-sdk/permissions#how-permissions-are-evaluated) matches | Sandboxed CI, fully trusted environments  |
+| `default`           | Requires a `canUseTool` callback to handle approval                                                                                 | Custom approval flows                     |
 
 The example above uses `acceptEdits` mode, which auto-approves file operations so the agent can run without interactive prompts. If you want to prompt users for approval, use `default` mode and provide a [`canUseTool` callback](/en/agent-sdk/user-input) that collects user input. For more control, see [Permissions](/en/agent-sdk/permissions).
-
-## Troubleshooting
-
-### API error `thinking.type.enabled` is not supported for this model
-
-Claude Opus 4.7 replaces `thinking.type.enabled` with `thinking.type.adaptive`. Older Agent SDK versions fail with the following API error when you select `claude-opus-4-7`:
-
-```text theme={null}
-API Error: 400 {"type":"invalid_request_error","message":"\"thinking.type.enabled\" is not supported for this model. Use \"thinking.type.adaptive\" and \"output_config.effort\" to control thinking behavior."}
-```
-
-Upgrade to Agent SDK v0.2.111 or later to use Opus 4.7.
 
 ## Next steps
 

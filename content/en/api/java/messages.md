@@ -10,11 +10,15 @@ Send a structured list of input messages with text and/or image content, and the
 
 The Messages API can be used for either single queries or stateless multi-turn conversations.
 
-Learn more about the Messages API in our [user guide](https://docs.claude.com/en/docs/initial-setup)
+Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
 ### Parameters
 
 - `MessageCreateParams params`
+
+  - `Optional<String> userProfileId`
+
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
   - `long maxTokens`
 
@@ -22,9 +26,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-    Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+    Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-    Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+    Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
   - `List<MessageParam> messages`
 
@@ -71,9 +75,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -108,7 +112,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `TTL_5M("5m")`
 
@@ -970,7 +974,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-    Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+    Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
     - `AUTO("auto")`
 
@@ -988,7 +992,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `String`
 
@@ -1018,7 +1022,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `Optional<ToolChoice> toolChoice`
 
@@ -1030,7 +1034,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -1086,7 +1090,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `class Tool:`
 
@@ -1117,6 +1121,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1168,6 +1174,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1204,6 +1212,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1237,6 +1247,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1274,6 +1286,46 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `class CodeExecutionTool20260521:`
+
+      Code execution tool with REPL state persistence.
+
+      - `JsonValue; name "code_execution"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `CODE_EXECUTION("code_execution")`
+
+      - `JsonValue; type "code_execution_20260521"constant`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1307,6 +1359,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1344,6 +1398,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1380,6 +1436,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1415,6 +1473,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1455,6 +1515,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<List<String>> allowedDomains`
 
@@ -1526,6 +1588,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         List of domains to allow fetching from
@@ -1580,6 +1644,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -1629,6 +1695,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<List<String>> allowedDomains`
 
@@ -1686,6 +1754,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         List of domains to allow fetching from
@@ -1722,6 +1792,134 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `class WebSearchTool20260318:`
+
+      - `JsonValue; name "web_search"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `WEB_SEARCH("web_search")`
+
+      - `JsonValue; type "web_search_20260318"constant`
+
+        - `WEB_SEARCH_20260318("web_search_20260318")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<String>> allowedDomains`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `Optional<List<String>> blockedDomains`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Long> maxUses`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `Optional<ResponseInclusion> responseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `FULL("full")`
+
+        - `EXCLUDED("excluded")`
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `Optional<UserLocation> userLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `class WebFetchTool20260318:`
+
+      - `JsonValue; name "web_fetch"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `WEB_FETCH("web_fetch")`
+
+      - `JsonValue; type "web_fetch_20260318"constant`
+
+        - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<String>> allowedDomains`
+
+        List of domains to allow fetching from
+
+      - `Optional<List<String>> blockedDomains`
+
+        List of domains to block fetching from
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<CitationsConfigParam> citations`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Long> maxContentTokens`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `Optional<Long> maxUses`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `Optional<ResponseInclusion> responseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `FULL("full")`
+
+        - `EXCLUDED("excluded")`
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `Optional<Boolean> useCache`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `class ToolSearchToolBm25_20251119:`
 
       - `JsonValue; name "tool_search_tool_bm25"constant`
@@ -1745,6 +1943,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -1781,6 +1981,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -2499,6 +2701,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+      High-performance model for coding and agents
+
     - `CLAUDE_FABLE_5("claude-fable-5")`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
@@ -2559,26 +2765,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       Exceptional model for specialized complex tasks
 
-    - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-      Powerful model for complex tasks
-
-    - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-      Powerful model for complex tasks
-
-    - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-      High-performance model with extended thinking
-
-    - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-      High-performance model with extended thinking
-
-    - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-      Fast and cost-effective model
-
   - `JsonValue; role "assistant"constant`
 
     Conversational role of the generated message.
@@ -2593,13 +2779,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `Optional<Category> category`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `CYBER("cyber")`
 
       - `BIO("bio")`
+
+      - `FRONTIER_LLM("frontier_llm")`
 
       - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -2835,11 +3021,15 @@ Count the number of tokens in a Message.
 
 The Token Count API can be used to count the number of tokens in a Message, including tools, images, and documents, without creating it.
 
-Learn more about token counting in our [user guide](https://docs.claude.com/en/docs/build-with-claude/token-counting)
+Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
 ### Parameters
 
 - `MessageCountTokensParams params`
+
+  - `Optional<String> userProfileId`
+
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
   - `List<MessageParam> messages`
 
@@ -2886,9 +3076,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -2923,7 +3113,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `TTL_5M("5m")`
 
@@ -3773,7 +3963,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `String`
 
@@ -3795,7 +3985,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `Optional<ToolChoice> toolChoice`
 
@@ -3807,7 +3997,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -3863,7 +4053,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `class Tool:`
 
@@ -3894,6 +4084,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -3945,6 +4137,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -3981,6 +4175,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -4014,6 +4210,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4051,6 +4249,46 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `class CodeExecutionTool20260521:`
+
+      Code execution tool with REPL state persistence.
+
+      - `JsonValue; name "code_execution"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `CODE_EXECUTION("code_execution")`
+
+      - `JsonValue; type "code_execution_20260521"constant`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -4084,6 +4322,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4121,6 +4361,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -4157,6 +4399,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -4192,6 +4436,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4232,6 +4478,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<List<String>> allowedDomains`
 
@@ -4303,6 +4551,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         List of domains to allow fetching from
@@ -4357,6 +4607,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -4406,6 +4658,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<List<String>> allowedDomains`
 
@@ -4463,6 +4717,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
       - `Optional<List<String>> allowedDomains`
 
         List of domains to allow fetching from
@@ -4499,6 +4755,134 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `class WebSearchTool20260318:`
+
+      - `JsonValue; name "web_search"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `WEB_SEARCH("web_search")`
+
+      - `JsonValue; type "web_search_20260318"constant`
+
+        - `WEB_SEARCH_20260318("web_search_20260318")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<String>> allowedDomains`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `Optional<List<String>> blockedDomains`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Long> maxUses`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `Optional<ResponseInclusion> responseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `FULL("full")`
+
+        - `EXCLUDED("excluded")`
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `Optional<UserLocation> userLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `class WebFetchTool20260318:`
+
+      - `JsonValue; name "web_fetch"constant`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `WEB_FETCH("web_fetch")`
+
+      - `JsonValue; type "web_fetch_20260318"constant`
+
+        - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+      - `Optional<List<AllowedCaller>> allowedCallers`
+
+        - `DIRECT("direct")`
+
+        - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+        - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+      - `Optional<List<String>> allowedDomains`
+
+        List of domains to allow fetching from
+
+      - `Optional<List<String>> blockedDomains`
+
+        List of domains to block fetching from
+
+      - `Optional<CacheControlEphemeral> cacheControl`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Optional<CitationsConfigParam> citations`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `Optional<Boolean> deferLoading`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Optional<Long> maxContentTokens`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `Optional<Long> maxUses`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `Optional<ResponseInclusion> responseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `FULL("full")`
+
+        - `EXCLUDED("excluded")`
+
+      - `Optional<Boolean> strict`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `Optional<Boolean> useCache`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `class ToolSearchToolBm25_20251119:`
 
       - `JsonValue; name "tool_search_tool_bm25"constant`
@@ -4522,6 +4906,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4558,6 +4944,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
         - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -4830,7 +5218,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -4907,7 +5295,7 @@ public final class Main {
     - `5m`: 5 minutes
     - `1h`: 1 hour
 
-    Defaults to `5m`.
+    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
     - `TTL_5M("5m")`
 
@@ -5379,6 +5767,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -5396,7 +5786,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -5434,6 +5824,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -5451,7 +5843,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -5491,6 +5883,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -5508,7 +5902,66 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `TTL_5M("5m")`
+
+      - `TTL_1H("1h")`
+
+  - `Optional<Boolean> deferLoading`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `Optional<Boolean> strict`
+
+    When true, guarantees schema validation on tool names and inputs
+
+### Code Execution Tool 20260521
+
+- `class CodeExecutionTool20260521:`
+
+  Code execution tool with REPL state persistence.
+
+  - `JsonValue; name "code_execution"constant`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `CODE_EXECUTION("code_execution")`
+
+  - `JsonValue; type "code_execution_20260521"constant`
+
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+  - `Optional<List<AllowedCaller>> allowedCallers`
+
+    - `DIRECT("direct")`
+
+    - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+    - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+  - `Optional<CacheControlEphemeral> cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+    - `JsonValue; type "ephemeral"constant`
+
+      - `EPHEMERAL("ephemeral")`
+
+    - `Optional<Ttl> ttl`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -5741,7 +6194,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -5913,7 +6366,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -6588,7 +7041,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -7447,7 +7900,7 @@ public final class Main {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `TTL_5M("5m")`
 
@@ -7630,7 +8083,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -7897,7 +8350,7 @@ public final class Main {
                 - `5m`: 5 minutes
                 - `1h`: 1 hour
 
-                Defaults to `5m`.
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                 - `TTL_5M("5m")`
 
@@ -8176,7 +8629,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -8228,6 +8681,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -8245,7 +8700,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -8950,6 +9405,10 @@ public final class Main {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+      High-performance model for coding and agents
+
     - `CLAUDE_FABLE_5("claude-fable-5")`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
@@ -9010,26 +9469,6 @@ public final class Main {
 
       Exceptional model for specialized complex tasks
 
-    - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-      Powerful model for complex tasks
-
-    - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-      Powerful model for complex tasks
-
-    - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-      High-performance model with extended thinking
-
-    - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-      High-performance model with extended thinking
-
-    - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-      Fast and cost-effective model
-
   - `JsonValue; role "assistant"constant`
 
     Conversational role of the generated message.
@@ -9044,13 +9483,13 @@ public final class Main {
 
     - `Optional<Category> category`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `CYBER("cyber")`
 
       - `BIO("bio")`
+
+      - `FRONTIER_LLM("frontier_llm")`
 
       - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -9227,6 +9666,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9244,7 +9685,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -9296,6 +9737,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9332,6 +9775,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9365,6 +9810,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -9402,6 +9849,46 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class CodeExecutionTool20260521:`
+
+    Code execution tool with REPL state persistence.
+
+    - `JsonValue; name "code_execution"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `CODE_EXECUTION("code_execution")`
+
+    - `JsonValue; type "code_execution_20260521"constant`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9435,6 +9922,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -9472,6 +9961,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9508,6 +9999,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -9543,6 +10036,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -9583,6 +10078,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<List<String>> allowedDomains`
 
@@ -9654,6 +10151,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       List of domains to allow fetching from
@@ -9710,6 +10209,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -9759,6 +10260,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<List<String>> allowedDomains`
 
@@ -9816,6 +10319,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       List of domains to allow fetching from
@@ -9852,6 +10357,134 @@ public final class Main {
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `class WebSearchTool20260318:`
+
+    - `JsonValue; name "web_search"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `WEB_SEARCH("web_search")`
+
+    - `JsonValue; type "web_search_20260318"constant`
+
+      - `WEB_SEARCH_20260318("web_search_20260318")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<String>> allowedDomains`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `Optional<List<String>> blockedDomains`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Long> maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `Optional<ResponseInclusion> responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `FULL("full")`
+
+      - `EXCLUDED("excluded")`
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `Optional<UserLocation> userLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class WebFetchTool20260318:`
+
+    - `JsonValue; name "web_fetch"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `WEB_FETCH("web_fetch")`
+
+    - `JsonValue; type "web_fetch_20260318"constant`
+
+      - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<String>> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `Optional<List<String>> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<CitationsConfigParam> citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Long> maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `Optional<Long> maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `Optional<ResponseInclusion> responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `FULL("full")`
+
+      - `EXCLUDED("excluded")`
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `Optional<Boolean> useCache`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `class ToolSearchToolBm25_20251119:`
 
     - `JsonValue; name "tool_search_tool_bm25"constant`
@@ -9875,6 +10508,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -9911,6 +10546,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -10011,7 +10648,7 @@ public final class Main {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `TTL_5M("5m")`
 
@@ -10897,7 +11534,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -11025,6 +11662,10 @@ public final class Main {
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+    High-performance model for coding and agents
+
   - `CLAUDE_FABLE_5("claude-fable-5")`
 
     Next generation of intelligence for the hardest knowledge work and coding problems
@@ -11084,26 +11725,6 @@ public final class Main {
   - `CLAUDE_OPUS_4_1_20250805("claude-opus-4-1-20250805")`
 
     Exceptional model for specialized complex tasks
-
-  - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-    Powerful model for complex tasks
-
-  - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-    Powerful model for complex tasks
-
-  - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-    High-performance model with extended thinking
-
-  - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-    High-performance model with extended thinking
-
-  - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-    Fast and cost-effective model
 
 ### Output Config
 
@@ -12160,13 +12781,13 @@ public final class Main {
 
       - `Optional<Category> category`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `CYBER("cyber")`
 
         - `BIO("bio")`
+
+        - `FRONTIER_LLM("frontier_llm")`
 
         - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -12951,6 +13572,10 @@ public final class Main {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+        High-performance model for coding and agents
+
       - `CLAUDE_FABLE_5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13011,26 +13636,6 @@ public final class Main {
 
         Exceptional model for specialized complex tasks
 
-      - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-        Powerful model for complex tasks
-
-      - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-        Powerful model for complex tasks
-
-      - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-        High-performance model with extended thinking
-
-      - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-        High-performance model with extended thinking
-
-      - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-        Fast and cost-effective model
-
     - `JsonValue; role "assistant"constant`
 
       Conversational role of the generated message.
@@ -13045,13 +13650,13 @@ public final class Main {
 
       - `Optional<Category> category`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `CYBER("cyber")`
 
         - `BIO("bio")`
+
+        - `FRONTIER_LLM("frontier_llm")`
 
         - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -13897,6 +14502,10 @@ public final class Main {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+          High-performance model for coding and agents
+
         - `CLAUDE_FABLE_5("claude-fable-5")`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13957,26 +14566,6 @@ public final class Main {
 
           Exceptional model for specialized complex tasks
 
-        - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-          Fast and cost-effective model
-
       - `JsonValue; role "assistant"constant`
 
         Conversational role of the generated message.
@@ -13991,13 +14580,13 @@ public final class Main {
 
         - `Optional<Category> category`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `CYBER("cyber")`
 
           - `BIO("bio")`
+
+          - `FRONTIER_LLM("frontier_llm")`
 
           - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -14343,13 +14932,13 @@ public final class Main {
 
   - `Optional<Category> category`
 
-    The policy category that triggered the refusal.
-
-    `null` when the refusal doesn't map to a named category.
+    The policy category that triggered a refusal.
 
     - `CYBER("cyber")`
 
     - `BIO("bio")`
+
+    - `FRONTIER_LLM("frontier_llm")`
 
     - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -14392,7 +14981,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -14657,7 +15246,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -14872,7 +15461,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -15445,7 +16034,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -15615,7 +16204,7 @@ public final class Main {
 
     Must be ≥1024 and less than `max_tokens`.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `JsonValue; type "enabled"constant`
 
@@ -15637,7 +16226,7 @@ public final class Main {
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `class ThinkingConfigEnabled:`
 
@@ -15647,7 +16236,7 @@ public final class Main {
 
       Must be ≥1024 and less than `max_tokens`.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     - `JsonValue; type "enabled"constant`
 
@@ -15723,6 +16312,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -15740,7 +16331,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -15794,6 +16385,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -15811,7 +16404,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -15988,7 +16581,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16021,7 +16614,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16327,6 +16920,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -16344,7 +16939,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16384,6 +16979,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -16401,7 +16998,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16510,7 +17107,7 @@ public final class Main {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `TTL_5M("5m")`
 
@@ -16627,7 +17224,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -16661,6 +17258,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -16678,7 +17277,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16718,6 +17317,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -16735,7 +17336,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16775,6 +17376,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<CacheControlEphemeral> cacheControl`
 
     Create a cache control breakpoint at this content block.
@@ -16792,7 +17395,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -16848,6 +17451,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -16865,7 +17470,7 @@ public final class Main {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `TTL_5M("5m")`
 
@@ -16917,6 +17522,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -16953,6 +17560,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -16986,6 +17595,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -17023,6 +17634,46 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `class CodeExecutionTool20260521:`
+
+    Code execution tool with REPL state persistence.
+
+    - `JsonValue; name "code_execution"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `CODE_EXECUTION("code_execution")`
+
+    - `JsonValue; type "code_execution_20260521"constant`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -17056,6 +17707,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -17093,6 +17746,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -17129,6 +17784,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -17164,6 +17821,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -17204,6 +17863,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<List<String>> allowedDomains`
 
@@ -17275,6 +17936,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       List of domains to allow fetching from
@@ -17331,6 +17994,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -17380,6 +18045,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<List<String>> allowedDomains`
 
@@ -17437,6 +18104,8 @@ public final class Main {
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
     - `Optional<List<String>> allowedDomains`
 
       List of domains to allow fetching from
@@ -17473,6 +18142,134 @@ public final class Main {
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `class WebSearchTool20260318:`
+
+    - `JsonValue; name "web_search"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `WEB_SEARCH("web_search")`
+
+    - `JsonValue; type "web_search_20260318"constant`
+
+      - `WEB_SEARCH_20260318("web_search_20260318")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<String>> allowedDomains`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `Optional<List<String>> blockedDomains`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Long> maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `Optional<ResponseInclusion> responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `FULL("full")`
+
+      - `EXCLUDED("excluded")`
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `Optional<UserLocation> userLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `class WebFetchTool20260318:`
+
+    - `JsonValue; name "web_fetch"constant`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `WEB_FETCH("web_fetch")`
+
+    - `JsonValue; type "web_fetch_20260318"constant`
+
+      - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+    - `Optional<List<AllowedCaller>> allowedCallers`
+
+      - `DIRECT("direct")`
+
+      - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+      - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+    - `Optional<List<String>> allowedDomains`
+
+      List of domains to allow fetching from
+
+    - `Optional<List<String>> blockedDomains`
+
+      List of domains to block fetching from
+
+    - `Optional<CacheControlEphemeral> cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Optional<CitationsConfigParam> citations`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `Optional<Boolean> deferLoading`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Optional<Long> maxContentTokens`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `Optional<Long> maxUses`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `Optional<ResponseInclusion> responseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `FULL("full")`
+
+      - `EXCLUDED("excluded")`
+
+    - `Optional<Boolean> strict`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `Optional<Boolean> useCache`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `class ToolSearchToolBm25_20251119:`
 
     - `JsonValue; name "tool_search_tool_bm25"constant`
@@ -17496,6 +18293,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -17532,6 +18331,8 @@ public final class Main {
       - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
       - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -17620,7 +18421,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -17901,7 +18702,7 @@ public final class Main {
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `TTL_5M("5m")`
 
@@ -18115,6 +18916,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<List<String>> allowedDomains`
 
     List of domains to allow fetching from
@@ -18140,7 +18943,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -18192,6 +18995,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<List<String>> allowedDomains`
 
     List of domains to allow fetching from
@@ -18217,7 +19022,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -18271,6 +19076,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<List<String>> allowedDomains`
 
     List of domains to allow fetching from
@@ -18296,7 +19103,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -18319,6 +19126,97 @@ public final class Main {
   - `Optional<Long> maxUses`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Optional<Boolean> strict`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `Optional<Boolean> useCache`
+
+    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+### Web Fetch Tool 20260318
+
+- `class WebFetchTool20260318:`
+
+  - `JsonValue; name "web_fetch"constant`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `WEB_FETCH("web_fetch")`
+
+  - `JsonValue; type "web_fetch_20260318"constant`
+
+    - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+  - `Optional<List<AllowedCaller>> allowedCallers`
+
+    - `DIRECT("direct")`
+
+    - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+    - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+  - `Optional<List<String>> allowedDomains`
+
+    List of domains to allow fetching from
+
+  - `Optional<List<String>> blockedDomains`
+
+    List of domains to block fetching from
+
+  - `Optional<CacheControlEphemeral> cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+    - `JsonValue; type "ephemeral"constant`
+
+      - `EPHEMERAL("ephemeral")`
+
+    - `Optional<Ttl> ttl`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `TTL_5M("5m")`
+
+      - `TTL_1H("1h")`
+
+  - `Optional<CitationsConfigParam> citations`
+
+    Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `Optional<Boolean> enabled`
+
+  - `Optional<Boolean> deferLoading`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `Optional<Long> maxContentTokens`
+
+    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+  - `Optional<Long> maxUses`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `Optional<ResponseInclusion> responseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `FULL("full")`
+
+    - `EXCLUDED("excluded")`
 
   - `Optional<Boolean> strict`
 
@@ -18547,7 +19445,7 @@ public final class Main {
                       - `5m`: 5 minutes
                       - `1h`: 1 hour
 
-                      Defaults to `5m`.
+                      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                       - `TTL_5M("5m")`
 
@@ -18911,6 +19809,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<List<String>> allowedDomains`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -18936,7 +19836,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -19002,6 +19902,8 @@ public final class Main {
 
     - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
   - `Optional<List<String>> allowedDomains`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -19027,7 +19929,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -19040,6 +19942,107 @@ public final class Main {
   - `Optional<Long> maxUses`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Optional<Boolean> strict`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `Optional<UserLocation> userLocation`
+
+    Parameters for the user's location. Used to provide more relevant search results.
+
+    - `JsonValue; type "approximate"constant`
+
+      - `APPROXIMATE("approximate")`
+
+    - `Optional<String> city`
+
+      The city of the user.
+
+    - `Optional<String> country`
+
+      The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+    - `Optional<String> region`
+
+      The region of the user.
+
+    - `Optional<String> timezone`
+
+      The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+### Web Search Tool 20260318
+
+- `class WebSearchTool20260318:`
+
+  - `JsonValue; name "web_search"constant`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `WEB_SEARCH("web_search")`
+
+  - `JsonValue; type "web_search_20260318"constant`
+
+    - `WEB_SEARCH_20260318("web_search_20260318")`
+
+  - `Optional<List<AllowedCaller>> allowedCallers`
+
+    - `DIRECT("direct")`
+
+    - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+    - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+    - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+  - `Optional<List<String>> allowedDomains`
+
+    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+  - `Optional<List<String>> blockedDomains`
+
+    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+  - `Optional<CacheControlEphemeral> cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+    - `JsonValue; type "ephemeral"constant`
+
+      - `EPHEMERAL("ephemeral")`
+
+    - `Optional<Ttl> ttl`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `TTL_5M("5m")`
+
+      - `TTL_1H("1h")`
+
+  - `Optional<Boolean> deferLoading`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `Optional<Long> maxUses`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `Optional<ResponseInclusion> responseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `FULL("full")`
+
+    - `EXCLUDED("excluded")`
 
   - `Optional<Boolean> strict`
 
@@ -19268,7 +20271,7 @@ public final class Main {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `TTL_5M("5m")`
 
@@ -19392,11 +20395,15 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
 - `BatchCreateParams params`
+
+  - `Optional<String> userProfileId`
+
+    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
   - `List<Request> requests`
 
@@ -19412,7 +20419,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Messages API creation parameters for the individual request.
 
-      See the [Messages API reference](https://docs.claude.com/en/api/messages) for full documentation on available parameters.
+      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
 
       - `long maxTokens`
 
@@ -19420,9 +20427,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-        Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-        Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
       - `List<MessageParam> messages`
 
@@ -19469,9 +20476,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
         ```
 
-        See [input examples](https://docs.claude.com/en/api/messages-examples).
+        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-        Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
         There is a limit of 100,000 messages in a single request.
 
@@ -19506,7 +20513,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `TTL_5M("5m")`
 
@@ -20344,6 +21351,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+          High-performance model for coding and agents
+
         - `CLAUDE_FABLE_5("claude-fable-5")`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -20404,26 +21415,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           Exceptional model for specialized complex tasks
 
-        - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-          Fast and cost-effective model
-
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -20480,7 +21471,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-        Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
         - `AUTO("auto")`
 
@@ -20498,13 +21489,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Whether to incrementally stream the response using server-sent events.
 
-        See [streaming](https://docs.claude.com/en/api/messages-streaming) for details.
+        See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
       - `Optional<System> system`
 
         System prompt.
 
-        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
         - `String`
 
@@ -20534,7 +21525,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
         - `class ThinkingConfigEnabled:`
 
@@ -20544,7 +21535,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Must be ≥1024 and less than `max_tokens`.
 
-            See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           - `JsonValue; type "enabled"constant`
 
@@ -20642,7 +21633,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
         Each tool definition includes:
 
@@ -20698,7 +21689,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-        See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
         - `class Tool:`
 
@@ -20729,6 +21720,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -20780,6 +21773,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -20816,6 +21811,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -20849,6 +21846,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -20886,6 +21885,46 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<CacheControlEphemeral> cacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Optional<Boolean> deferLoading`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `Optional<Boolean> strict`
+
+            When true, guarantees schema validation on tool names and inputs
+
+        - `class CodeExecutionTool20260521:`
+
+          Code execution tool with REPL state persistence.
+
+          - `JsonValue; name "code_execution"constant`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `CODE_EXECUTION("code_execution")`
+
+          - `JsonValue; type "code_execution_20260521"constant`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<List<AllowedCaller>> allowedCallers`
+
+            - `DIRECT("direct")`
+
+            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -20919,6 +21958,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -20956,6 +21997,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -20992,6 +22035,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -21027,6 +22072,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21067,6 +22114,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -21138,6 +22187,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<List<String>> allowedDomains`
 
             List of domains to allow fetching from
@@ -21192,6 +22243,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<List<String>> allowedDomains`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -21241,6 +22294,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -21298,6 +22353,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
 
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
           - `Optional<List<String>> allowedDomains`
 
             List of domains to allow fetching from
@@ -21334,6 +22391,134 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+        - `class WebSearchTool20260318:`
+
+          - `JsonValue; name "web_search"constant`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `WEB_SEARCH("web_search")`
+
+          - `JsonValue; type "web_search_20260318"constant`
+
+            - `WEB_SEARCH_20260318("web_search_20260318")`
+
+          - `Optional<List<AllowedCaller>> allowedCallers`
+
+            - `DIRECT("direct")`
+
+            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<List<String>> allowedDomains`
+
+            If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+          - `Optional<List<String>> blockedDomains`
+
+            If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+          - `Optional<CacheControlEphemeral> cacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Optional<Boolean> deferLoading`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `Optional<Long> maxUses`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `Optional<ResponseInclusion> responseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `FULL("full")`
+
+            - `EXCLUDED("excluded")`
+
+          - `Optional<Boolean> strict`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `Optional<UserLocation> userLocation`
+
+            Parameters for the user's location. Used to provide more relevant search results.
+
+        - `class WebFetchTool20260318:`
+
+          - `JsonValue; name "web_fetch"constant`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `WEB_FETCH("web_fetch")`
+
+          - `JsonValue; type "web_fetch_20260318"constant`
+
+            - `WEB_FETCH_20260318("web_fetch_20260318")`
+
+          - `Optional<List<AllowedCaller>> allowedCallers`
+
+            - `DIRECT("direct")`
+
+            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<List<String>> allowedDomains`
+
+            List of domains to allow fetching from
+
+          - `Optional<List<String>> blockedDomains`
+
+            List of domains to block fetching from
+
+          - `Optional<CacheControlEphemeral> cacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Optional<CitationsConfigParam> citations`
+
+            Citations configuration for fetched documents. Citations are disabled by default.
+
+          - `Optional<Boolean> deferLoading`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `Optional<Long> maxContentTokens`
+
+            Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+          - `Optional<Long> maxUses`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `Optional<ResponseInclusion> responseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `FULL("full")`
+
+            - `EXCLUDED("excluded")`
+
+          - `Optional<Boolean> strict`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `Optional<Boolean> useCache`
+
+            Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
         - `class ToolSearchToolBm25_20251119:`
 
           - `JsonValue; name "tool_search_tool_bm25"constant`
@@ -21357,6 +22542,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21393,6 +22580,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `CODE_EXECUTION_20250825("code_execution_20250825")`
 
             - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -21575,7 +22764,7 @@ public final class Main {
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -21727,7 +22916,7 @@ public final class Main {
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -21898,7 +23087,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22052,7 +23241,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22118,7 +23307,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22835,6 +24024,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+            High-performance model for coding and agents
+
           - `CLAUDE_FABLE_5("claude-fable-5")`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -22895,26 +24088,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Exceptional model for specialized complex tasks
 
-          - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-            Powerful model for complex tasks
-
-          - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-            Powerful model for complex tasks
-
-          - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-            High-performance model with extended thinking
-
-          - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-            High-performance model with extended thinking
-
-          - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-            Fast and cost-effective model
-
         - `JsonValue; role "assistant"constant`
 
           Conversational role of the generated message.
@@ -22929,13 +24102,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `Optional<Category> category`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `CYBER("cyber")`
 
             - `BIO("bio")`
+
+            - `FRONTIER_LLM("frontier_llm")`
 
             - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -24123,6 +25296,10 @@ public final class Main {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+            High-performance model for coding and agents
+
           - `CLAUDE_FABLE_5("claude-fable-5")`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -24183,26 +25360,6 @@ public final class Main {
 
             Exceptional model for specialized complex tasks
 
-          - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-            Powerful model for complex tasks
-
-          - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-            Powerful model for complex tasks
-
-          - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-            High-performance model with extended thinking
-
-          - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-            High-performance model with extended thinking
-
-          - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-            Fast and cost-effective model
-
         - `JsonValue; role "assistant"constant`
 
           Conversational role of the generated message.
@@ -24217,13 +25374,13 @@ public final class Main {
 
           - `Optional<Category> category`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `CYBER("cyber")`
 
             - `BIO("bio")`
+
+            - `FRONTIER_LLM("frontier_llm")`
 
             - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -25197,6 +26354,10 @@ public final class Main {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+          High-performance model for coding and agents
+
         - `CLAUDE_FABLE_5("claude-fable-5")`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -25257,26 +26418,6 @@ public final class Main {
 
           Exceptional model for specialized complex tasks
 
-        - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-          Powerful model for complex tasks
-
-        - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-          High-performance model with extended thinking
-
-        - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-          Fast and cost-effective model
-
       - `JsonValue; role "assistant"constant`
 
         Conversational role of the generated message.
@@ -25291,13 +26432,13 @@ public final class Main {
 
         - `Optional<Category> category`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `CYBER("cyber")`
 
           - `BIO("bio")`
+
+          - `FRONTIER_LLM("frontier_llm")`
 
           - `REASONING_EXTRACTION("reasoning_extraction")`
 
@@ -26233,6 +27374,10 @@ public final class Main {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `CLAUDE_SONNET_5("claude-sonnet-5")`
+
+        High-performance model for coding and agents
+
       - `CLAUDE_FABLE_5("claude-fable-5")`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -26293,26 +27438,6 @@ public final class Main {
 
         Exceptional model for specialized complex tasks
 
-      - `CLAUDE_OPUS_4_0("claude-opus-4-0")`
-
-        Powerful model for complex tasks
-
-      - `CLAUDE_OPUS_4_20250514("claude-opus-4-20250514")`
-
-        Powerful model for complex tasks
-
-      - `CLAUDE_SONNET_4_0("claude-sonnet-4-0")`
-
-        High-performance model with extended thinking
-
-      - `CLAUDE_SONNET_4_20250514("claude-sonnet-4-20250514")`
-
-        High-performance model with extended thinking
-
-      - `CLAUDE_3_HAIKU_20240307("claude-3-haiku-20240307")`
-
-        Fast and cost-effective model
-
     - `JsonValue; role "assistant"constant`
 
       Conversational role of the generated message.
@@ -26327,13 +27452,13 @@ public final class Main {
 
       - `Optional<Category> category`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `CYBER("cyber")`
 
         - `BIO("bio")`
+
+        - `FRONTIER_LLM("frontier_llm")`
 
         - `REASONING_EXTRACTION("reasoning_extraction")`
 

@@ -12,37 +12,39 @@ If installation fails or you can't sign in, find your error below. For runtime i
 
 Match the error message or symptom you're seeing to a fix:
 
-| What you see                                                                                | Solution                                                                                                                |
-| :------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
-| `command not found: claude` or `'claude' is not recognized`                                 | [Fix your PATH](#command-not-found-claude-after-installation)                                                           |
-| `syntax error near unexpected token '<'`                                                    | [Install script returns HTML](#install-script-returns-html-instead-of-a-shell-script)                                   |
-| `curl: (22) The requested URL returned error: 403`                                          | [Install script returned 403](#install-script-returns-html-instead-of-a-shell-script)                                   |
-| `curl: (23)` or `curl: (56) Failure writing output to destination`                          | [Check connectivity or use an alternative installer](#curl-56-failure-writing-output-to-destination)                    |
-| `Killed` during install on Linux                                                            | [Add swap space for low-memory servers](#install-killed-on-low-memory-linux-servers)                                    |
-| `TLS connect error` or `SSL/TLS secure channel`                                             | [Update CA certificates](#tls-or-ssl-connection-errors)                                                                 |
-| `Failed to fetch version` or can't reach download server                                    | [Check network and proxy settings](#check-network-connectivity)                                                         |
-| `irm is not recognized` or `&& is not valid`                                                | [Use the right command for your shell](#wrong-install-command-on-windows)                                               |
-| `'bash' is not recognized as the name of a cmdlet`                                          | [Use the Windows installer command](#wrong-install-command-on-windows)                                                  |
-| `Claude Code on Windows requires either Git for Windows (for bash) or PowerShell`           | [Install a shell](#claude-code-on-windows-requires-either-git-for-windows-for-bash-or-powershell)                       |
-| `Claude Code does not support 32-bit Windows`                                               | [Open Windows PowerShell, not the x86 entry](#claude-code-does-not-support-32-bit-windows)                              |
-| `The process cannot access the file ... because it is being used by another process`        | [Clear the downloads folder and retry](#the-process-cannot-access-the-file-during-windows-install)                      |
-| `Error loading shared library`                                                              | [Wrong binary variant for your system](#linux-musl-or-glibc-binary-mismatch)                                            |
-| `Illegal instruction`                                                                       | [Architecture or CPU instruction set mismatch](#illegal-instruction)                                                    |
-| `cannot execute binary file: Exec format error` in WSL                                      | [WSL1 native-binary regression](#exec-format-error-on-wsl1)                                                             |
-| PowerShell installer completes but `claude` is not found or shows an old version            | [Restart your terminal and verify PATH](#verify-your-path)                                                              |
-| `dyld: cannot load`, `dyld: Symbol not found`, or `Abort trap` on macOS                     | [Binary incompatibility](#dyld-cannot-load-on-macos)                                                                    |
-| `Invoke-Expression: Missing argument in parameter list`                                     | [Install script returns HTML](#install-script-returns-html-instead-of-a-shell-script)                                   |
-| `App unavailable in region`                                                                 | Claude Code is not available in your country. See [supported countries](https://www.anthropic.com/supported-countries). |
-| `unable to get local issuer certificate`                                                    | [Configure corporate CA certificates](#tls-or-ssl-connection-errors)                                                    |
-| `OAuth error` or `403 Forbidden`                                                            | [Fix authentication](#login-and-authentication)                                                                         |
-| `Could not load the default credentials` or `Could not load credentials from any providers` | [Bedrock, Vertex, or Foundry credentials](#bedrock-vertex-or-foundry-credentials-not-loading)                           |
-| `ChainedTokenCredential authentication failed` or `CredentialUnavailableError`              | [Bedrock, Vertex, or Foundry credentials](#bedrock-vertex-or-foundry-credentials-not-loading)                           |
-| `API Error: 500`, `529 Overloaded`, `429`, or other 4xx and 5xx errors not listed above     | See the [Error reference](/en/errors)                                                                                   |
+| What you see                                                                                          | Solution                                                                                                                                      |
+| :---------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| `command not found: claude` or `'claude' is not recognized`                                           | [Fix your PATH](#command-not-found-claude-after-installation)                                                                                 |
+| `syntax error near unexpected token '<'`                                                              | [Install script returns HTML](#install-script-returns-html-instead-of-a-shell-script)                                                         |
+| `curl: (22) The requested URL returned error: 403`                                                    | [Install script returned 403](#install-script-returns-html-instead-of-a-shell-script)                                                         |
+| `curl: (23)` or `curl: (56) Failure writing output to destination`                                    | [Check connectivity or use an alternative installer](#curl-56-failure-writing-output-to-destination)                                          |
+| `Killed` during install on Linux, or `Installation was killed before it could finish (exit code 137)` | [Free memory or add swap space](#install-killed-on-low-memory-linux-servers)                                                                  |
+| `TLS connect error` or `SSL/TLS secure channel`                                                       | [Update CA certificates](#tls-or-ssl-connection-errors)                                                                                       |
+| `Failed to fetch version` or can't reach download server                                              | [Check network and proxy settings](#check-network-connectivity)                                                                               |
+| `irm is not recognized` or `&& is not valid`                                                          | [Use the right command for your shell](#wrong-install-command-on-windows)                                                                     |
+| `Cask 'claude-code' is unavailable: No Cask with this name exists`                                    | [Update Homebrew](#homebrew-cask-unavailable-or-outdated)                                                                                     |
+| `'bash' is not recognized as the name of a cmdlet`                                                    | [Use the Windows installer command](#wrong-install-command-on-windows)                                                                        |
+| `A parameter cannot be found that matches parameter name 'fsSL'`                                      | [Use the Windows installer command](#wrong-install-command-on-windows)                                                                        |
+| `Claude Code on Windows requires either Git for Windows (for bash) or PowerShell`                     | [Install a shell](#claude-code-on-windows-requires-either-git-for-windows-for-bash-or-powershell)                                             |
+| `Claude Code does not support 32-bit Windows`                                                         | [Open Windows PowerShell, not the x86 entry](#claude-code-does-not-support-32-bit-windows)                                                    |
+| `The process cannot access the file ... because it is being used by another process`                  | [Clear the downloads folder and retry](#the-process-cannot-access-the-file-during-windows-install)                                            |
+| `Error loading shared library`                                                                        | [Wrong binary variant for your system](#linux-musl-or-glibc-binary-mismatch)                                                                  |
+| `Illegal instruction`                                                                                 | [Architecture or CPU instruction set mismatch](#illegal-instruction)                                                                          |
+| `cannot execute binary file: Exec format error` in WSL                                                | [WSL1 native-binary regression](#exec-format-error-on-wsl1)                                                                                   |
+| PowerShell installer completes but `claude` is not found or shows an old version                      | [Add the install directory to your PATH](#verify-your-path), then open a new terminal                                                         |
+| `dyld: cannot load`, `dyld: Symbol not found`, or `Abort trap` on macOS                               | [Binary incompatibility](#dyld-cannot-load-on-macos)                                                                                          |
+| `Invoke-Expression: Missing argument in parameter list`                                               | [Install script returns HTML](#install-script-returns-html-instead-of-a-shell-script)                                                         |
+| `App unavailable in region`                                                                           | Claude Code is not available in your country. See [supported countries](https://www.anthropic.com/supported-countries).                       |
+| `unable to get local issuer certificate`                                                              | [Configure corporate CA certificates](#tls-or-ssl-connection-errors)                                                                          |
+| `OAuth error` or `403 Forbidden`                                                                      | [Fix authentication](#login-and-authentication)                                                                                               |
+| `Could not load the default credentials` or `Could not load credentials from any providers`           | [Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry credentials](#bedrock-agent-platform-or-foundry-credentials-not-loading) |
+| `ChainedTokenCredential authentication failed` or `CredentialUnavailableError`                        | [Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry credentials](#bedrock-agent-platform-or-foundry-credentials-not-loading) |
+| `API Error: 500`, `529 Overloaded`, `429`, or other 4xx and 5xx errors not listed above               | See the [Error reference](/en/errors)                                                                                                         |
 
 If your issue isn't listed, work through the diagnostic checks below to narrow down the cause.
 
 <Tip>
-  If you'd rather skip the terminal entirely, the [Claude Code Desktop app](/en/desktop-quickstart) lets you install and use Claude Code through a graphical interface. Download it for [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs) or [Windows](https://claude.com/download?utm_source=claude_code\&utm_medium=docs) and start coding without any command-line setup.
+  If you'd rather skip the terminal entirely, the [Claude Code Desktop app](/en/desktop-quickstart) lets you install and use Claude Code through a graphical interface. Download it for [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs), [Windows](https://claude.com/download?utm_source=claude_code\&utm_medium=docs), or [Linux](https://claude.com/download?utm_source=claude_code\&utm_medium=docs) and start coding without any command-line setup.
 </Tip>
 
 ## Run diagnostic checks
@@ -376,6 +378,17 @@ The `curl ... | bash` command downloads the script and pipes it to Bash for exec
    winget install Anthropic.ClaudeCode
    ```
 
+### Homebrew cask unavailable or outdated
+
+Homebrew reports `Error: Cask 'claude-code' is unavailable: No Cask with this name exists` when your local copy of the Homebrew cask index predates the cask's publication. Refresh the index and retry:
+
+```bash theme={null}
+brew update
+brew install --cask claude-code
+```
+
+If Homebrew installs an older Claude Code version than you expect, the same stale index is usually the cause. The `claude-code` cask tracks the stable channel and is typically about one week behind the latest release; for the newest version run `brew install --cask claude-code@latest` instead. See [Configure release channel](/en/setup#configure-release-channel) for the difference between the two casks.
+
 ### TLS or SSL connection errors
 
 Errors like `curl: (35) TLS connect error`, `schannel: next InitializeSecurityContext failed`, or PowerShell's `Could not establish trust relationship for the SSL/TLS secure channel` indicate TLS handshake failures.
@@ -447,7 +460,7 @@ The installer couldn't reach the download server. This typically means `download
 
 ### Wrong install command on Windows
 
-If you see `'irm' is not recognized`, `The token '&&' is not valid`, or `'bash' is not recognized as the name of a cmdlet`, you copied the install command for a different shell or operating system.
+If you see `'irm' is not recognized`, `The token '&&' is not valid`, `A parameter cannot be found that matches parameter name 'fsSL'`, or `'bash' is not recognized as the name of a cmdlet`, you copied the install command for a different shell or operating system.
 
 * **`irm` not recognized**: you're in CMD, not PowerShell. You have two options:
 
@@ -464,6 +477,11 @@ If you see `'irm' is not recognized`, `The token '&&' is not valid`, or `'bash' 
   ```
 
 * **`&&` not valid**: you're in PowerShell but ran the CMD installer command. Use the PowerShell installer:
+  ```powershell theme={null}
+  irm https://claude.ai/install.ps1 | iex
+  ```
+
+* **`A parameter cannot be found that matches parameter name 'fsSL'`**: you ran the macOS/Linux `curl -fsSL ... | bash` installer in Windows PowerShell, where `curl` is an alias for `Invoke-WebRequest` and rejects the `-fsSL` flags. Use the PowerShell installer instead:
   ```powershell theme={null}
   irm https://claude.ai/install.ps1 | iex
   ```
@@ -486,15 +504,18 @@ irm https://claude.ai/install.ps1 | iex
 
 ### Install killed on low-memory Linux servers
 
-If you see `Killed` during installation on a VPS or cloud instance:
+A `Killed` message during install usually means the Linux out-of-memory (OOM) killer terminated the `claude install` step because the system ran out of free memory. This is common on small VPS and cloud instances. The install script reports the cause and exits with code 137:
 
 ```text theme={null}
 Setting up Claude Code...
-Installing Claude Code native build latest...
 bash: line 142: 34803 Killed    "$binary_path" install ${TARGET:+"$TARGET"}
+Installation was killed before it could finish (exit code 137). This usually means the system ran out of memory.
+Claude Code needs roughly 512MB of free memory to install. Free up memory, then run this script again.
 ```
 
-The Linux OOM killer terminated the process because the system ran out of memory. Claude Code requires at least 4 GB of available RAM.
+Before v2.1.200, the script exited with only the shell's bare `Killed` line and no explanation.
+
+Installing needs roughly 512 MB of free memory, and running Claude Code needs more. See the [system requirements](/en/setup#system-requirements).
 
 **Solutions:**
 
@@ -788,17 +809,17 @@ Run `/login` to re-authenticate. If this happens frequently, check that your sys
 
 On macOS, login can also fail when the Keychain is locked or its password is out of sync with your account password, which prevents Claude Code from saving credentials. Run `claude doctor` to check Keychain access. To unlock the Keychain manually, run `security unlock-keychain ~/Library/Keychains/login.keychain-db`. If unlocking doesn't help, open Keychain Access, select the `login` keychain, and choose Edit > Change Password for Keychain "login" to resync it with your account password.
 
-### Bedrock, Vertex, or Foundry credentials not loading
+### Bedrock, Agent Platform, or Foundry credentials not loading
 
-If you configured Claude Code to use a cloud provider and see `Could not load credentials from any providers` on Bedrock, `Could not load the default credentials` on Vertex, or `ChainedTokenCredential authentication failed` on Foundry, your cloud provider CLI is likely not authenticated in the current shell.
+If you configured Claude Code to use a cloud provider and see `Could not load credentials from any providers` on Amazon Bedrock, `Could not load the default credentials` on Google Cloud's Agent Platform, or `ChainedTokenCredential authentication failed` on Microsoft Foundry, your cloud provider CLI is likely not authenticated in the current shell.
 
-For Bedrock, confirm your AWS credentials are valid:
+For Amazon Bedrock, confirm your AWS credentials are valid:
 
 ```bash theme={null}
 aws sts get-caller-identity
 ```
 
-For Vertex AI, confirm `ANTHROPIC_VERTEX_PROJECT_ID` and `CLOUD_ML_REGION` are set in your shell, then set application default credentials:
+For Google Cloud's Agent Platform, confirm `ANTHROPIC_VERTEX_PROJECT_ID` and `CLOUD_ML_REGION` are set in your shell, then set application default credentials:
 
 ```bash theme={null}
 gcloud auth application-default login
@@ -812,7 +833,7 @@ az login
 
 If credentials work in your terminal but not in the VS Code or JetBrains extension, the IDE process likely didn't inherit your shell environment. Set the provider environment variables in the IDE's own settings, or launch the IDE from a terminal where they're already exported.
 
-See [Amazon Bedrock](/en/amazon-bedrock), [Google Vertex AI](/en/google-vertex-ai), or [Microsoft Foundry](/en/microsoft-foundry) for full provider setup.
+See [Amazon Bedrock](/en/amazon-bedrock), [Google Cloud's Agent Platform](/en/google-vertex-ai), or [Microsoft Foundry](/en/microsoft-foundry) for full provider setup.
 
 ## Still stuck
 

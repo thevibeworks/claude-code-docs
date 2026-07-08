@@ -22,6 +22,10 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
+
       - `"claude-fable-5"ClaudeFable5`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -75,6 +79,10 @@ Create Agent
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5"ClaudeSonnet5`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"ClaudeFable5`
 
@@ -138,7 +146,7 @@ Create Agent
 
   - `IReadOnlyList<BetaManagedAgentsUrlMcpServerParams> mcpServers`
 
-    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array.
+    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `required string Name`
 
@@ -461,6 +469,10 @@ Create Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"ClaudeFable5`
 
@@ -934,6 +946,10 @@ List Agents
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `"claude-sonnet-5"ClaudeSonnet5`
+
+          High-performance model for coding and agents
+
         - `"claude-fable-5"ClaudeFable5`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -1397,6 +1413,10 @@ Get Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
+
       - `"claude-fable-5"ClaudeFable5`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -1758,7 +1778,7 @@ Update Agent
 
   - `IReadOnlyList<BetaManagedAgentsUrlMcpServerParams>? mcpServers`
 
-    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or null to clear. Names must be unique. Maximum 20.
+    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `required string Name`
 
@@ -1785,6 +1805,10 @@ Update Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"ClaudeFable5`
 
@@ -1839,6 +1863,10 @@ Update Agent
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5"ClaudeSonnet5`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"ClaudeFable5`
 
@@ -2201,6 +2229,10 @@ Update Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"ClaudeFable5`
 
@@ -2654,6 +2686,10 @@ Archive Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
+
       - `"claude-fable-5"ClaudeFable5`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -3030,6 +3066,10 @@ Console.WriteLine(betaManagedAgentsAgent);
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"ClaudeFable5`
 
@@ -4131,6 +4171,10 @@ Console.WriteLine(betaManagedAgentsAgent);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `"claude-sonnet-5"ClaudeSonnet5`
+
+      High-performance model for coding and agents
+
     - `"claude-fable-5"ClaudeFable5`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
@@ -4194,6 +4238,10 @@ Console.WriteLine(betaManagedAgentsAgent);
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5"ClaudeSonnet5`
+
+      High-performance model for coding and agents
 
     - `"claude-fable-5"ClaudeFable5`
 
@@ -4348,6 +4396,10 @@ Console.WriteLine(betaManagedAgentsAgent);
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5"ClaudeSonnet5`
+
+        High-performance model for coding and agents
 
       - `"claude-fable-5"ClaudeFable5`
 
@@ -4758,6 +4810,10 @@ List Agent Versions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5"ClaudeSonnet5`
+
+          High-performance model for coding and agents
 
         - `"claude-fable-5"ClaudeFable5`
 

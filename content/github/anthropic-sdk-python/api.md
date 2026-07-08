@@ -56,6 +56,7 @@ from anthropic.types import (
     CodeExecutionTool20250522,
     CodeExecutionTool20250825,
     CodeExecutionTool20260120,
+    CodeExecutionTool20260521,
     CodeExecutionToolResultBlock,
     CodeExecutionToolResultBlockContent,
     CodeExecutionToolResultBlockParam,
@@ -166,6 +167,7 @@ from anthropic.types import (
     WebFetchTool20250910,
     WebFetchTool20260209,
     WebFetchTool20260309,
+    WebFetchTool20260318,
     WebFetchToolResultBlock,
     WebFetchToolResultBlockParam,
     WebFetchToolResultErrorBlock,
@@ -175,6 +177,7 @@ from anthropic.types import (
     WebSearchResultBlockParam,
     WebSearchTool20250305,
     WebSearchTool20260209,
+    WebSearchTool20260318,
     WebSearchToolRequestError,
     WebSearchToolResultBlock,
     WebSearchToolResultBlockContent,
@@ -347,6 +350,7 @@ from anthropic.types.beta import (
     BetaCodeExecutionTool20250522,
     BetaCodeExecutionTool20250825,
     BetaCodeExecutionTool20260120,
+    BetaCodeExecutionTool20260521,
     BetaCodeExecutionToolResultBlock,
     BetaCodeExecutionToolResultBlockContent,
     BetaCodeExecutionToolResultBlockParam,
@@ -382,6 +386,7 @@ from anthropic.types.beta import (
     BetaFallbackInfoParam,
     BetaFallbackMessageIterationUsage,
     BetaFallbackParam,
+    BetaFallbackRefusalTrigger,
     BetaFileDocumentSource,
     BetaFileImageSource,
     BetaImageBlockParam,
@@ -503,6 +508,7 @@ from anthropic.types.beta import (
     BetaWebFetchTool20250910,
     BetaWebFetchTool20260209,
     BetaWebFetchTool20260309,
+    BetaWebFetchTool20260318,
     BetaWebFetchToolResultBlock,
     BetaWebFetchToolResultBlockParam,
     BetaWebFetchToolResultErrorBlock,
@@ -512,6 +518,7 @@ from anthropic.types.beta import (
     BetaWebSearchResultBlockParam,
     BetaWebSearchTool20250305,
     BetaWebSearchTool20260209,
+    BetaWebSearchTool20260318,
     BetaWebSearchToolRequestError,
     BetaWebSearchToolResultBlock,
     BetaWebSearchToolResultBlockContent,
@@ -679,11 +686,17 @@ Types:
 
 ```python
 from anthropic.types.beta import (
+    BetaManagedAgentsAgentMessagePreview,
     BetaManagedAgentsAgentParams,
+    BetaManagedAgentsAgentThinkingPreview,
+    BetaManagedAgentsAgentWithOverridesParams,
     BetaManagedAgentsBranchCheckout,
     BetaManagedAgentsCacheCreationUsage,
     BetaManagedAgentsCommitCheckout,
     BetaManagedAgentsDeletedSession,
+    BetaManagedAgentsDeltaContent,
+    BetaManagedAgentsDeltaEvent,
+    BetaManagedAgentsDeltaType,
     BetaManagedAgentsFileResourceParams,
     BetaManagedAgentsGitHubRepositoryResourceParams,
     BetaManagedAgentsMemoryStoreResourceParam,
@@ -698,6 +711,8 @@ from anthropic.types.beta import (
     BetaManagedAgentsSessionStats,
     BetaManagedAgentsSessionUpdatedEvent,
     BetaManagedAgentsSessionUsage,
+    BetaManagedAgentsStartEvent,
+    BetaManagedAgentsStartEventPreview,
     BetaManagedAgentsSystemContentBlock,
     BetaManagedAgentsSystemMessageEvent,
     BetaManagedAgentsUserToolResultEvent,
@@ -709,7 +724,7 @@ Methods:
 - <code title="post /v1/sessions?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">create</a>(\*\*<a href="src/anthropic/types/beta/session_create_params.py">params</a>) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">BetaManagedAgentsSession</a></code>
 - <code title="get /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">retrieve</a>(session_id) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">BetaManagedAgentsSession</a></code>
 - <code title="post /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">update</a>(session_id, \*\*<a href="src/anthropic/types/beta/session_update_params.py">params</a>) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">BetaManagedAgentsSession</a></code>
-- <code title="get /v1/sessions?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">list</a>(\*\*<a href="src/anthropic/types/beta/session_list_params.py">params</a>) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">SyncPageCursor[BetaManagedAgentsSession]</a></code>
+- <code title="get /v1/sessions?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">list</a>(\*\*<a href="src/anthropic/types/beta/session_list_params.py">params</a>) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">SyncBidirectionalPageCursor[BetaManagedAgentsSession]</a></code>
 - <code title="delete /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">delete</a>(session_id) -> <a href="./src/anthropic/types/beta/beta_managed_agents_deleted_session.py">BetaManagedAgentsDeletedSession</a></code>
 - <code title="post /v1/sessions/{session_id}/archive?beta=true">client.beta.sessions.<a href="./src/anthropic/resources/beta/sessions/sessions.py">archive</a>(session_id) -> <a href="./src/anthropic/types/beta/beta_managed_agents_session.py">BetaManagedAgentsSession</a></code>
 
@@ -800,7 +815,7 @@ Methods:
 
 - <code title="get /v1/sessions/{session_id}/events?beta=true">client.beta.sessions.events.<a href="./src/anthropic/resources/beta/sessions/events.py">list</a>(session_id, \*\*<a href="src/anthropic/types/beta/sessions/event_list_params.py">params</a>) -> <a href="./src/anthropic/types/beta/sessions/beta_managed_agents_session_event.py">SyncPageCursor[BetaManagedAgentsSessionEvent]</a></code>
 - <code title="post /v1/sessions/{session_id}/events?beta=true">client.beta.sessions.events.<a href="./src/anthropic/resources/beta/sessions/events.py">send</a>(session_id, \*\*<a href="src/anthropic/types/beta/sessions/event_send_params.py">params</a>) -> <a href="./src/anthropic/types/beta/sessions/beta_managed_agents_send_session_events.py">BetaManagedAgentsSendSessionEvents</a></code>
-- <code title="get /v1/sessions/{session_id}/events/stream?beta=true">client.beta.sessions.events.<a href="./src/anthropic/resources/beta/sessions/events.py">stream</a>(session_id) -> <a href="./src/anthropic/types/beta/sessions/beta_managed_agents_stream_session_events.py">BetaManagedAgentsStreamSessionEvents</a></code>
+- <code title="get /v1/sessions/{session_id}/events/stream?beta=true">client.beta.sessions.events.<a href="./src/anthropic/resources/beta/sessions/events.py">stream</a>(session_id, \*\*<a href="src/anthropic/types/beta/sessions/event_stream_params.py">params</a>) -> <a href="./src/anthropic/types/beta/sessions/beta_managed_agents_stream_session_events.py">BetaManagedAgentsStreamSessionEvents</a></code>
 
 ### Resources
 
@@ -972,6 +987,9 @@ from anthropic.types.beta.vaults import (
     BetaManagedAgentsEnvironmentVariableAuthResponse,
     BetaManagedAgentsEnvironmentVariableCreateParams,
     BetaManagedAgentsEnvironmentVariableUpdateParams,
+    BetaManagedAgentsInjectionLocationParams,
+    BetaManagedAgentsInjectionLocationResponse,
+    BetaManagedAgentsInjectionLocationUpdateParams,
     BetaManagedAgentsLimitedCredentialNetworkingParams,
     BetaManagedAgentsLimitedCredentialNetworkingResponse,
     BetaManagedAgentsMCPOAuthAuthResponse,
@@ -1138,6 +1156,19 @@ Types:
 
 ```python
 from anthropic.types.beta import (
+    BetaWebhookAgentArchivedEventData,
+    BetaWebhookAgentCreatedEventData,
+    BetaWebhookAgentDeletedEventData,
+    BetaWebhookAgentUpdatedEventData,
+    BetaWebhookDeploymentArchivedEventData,
+    BetaWebhookDeploymentCreatedEventData,
+    BetaWebhookDeploymentDeletedEventData,
+    BetaWebhookDeploymentPausedEventData,
+    BetaWebhookDeploymentRunFailedEventData,
+    BetaWebhookDeploymentRunStartedEventData,
+    BetaWebhookDeploymentRunSucceededEventData,
+    BetaWebhookDeploymentUnpausedEventData,
+    BetaWebhookDeploymentUpdatedEventData,
     BetaWebhookEvent,
     BetaWebhookEventData,
     BetaWebhookSessionArchivedEventData,
@@ -1155,6 +1186,7 @@ from anthropic.types.beta import (
     BetaWebhookSessionThreadCreatedEventData,
     BetaWebhookSessionThreadIdledEventData,
     BetaWebhookSessionThreadTerminatedEventData,
+    BetaWebhookSessionUpdatedEventData,
     BetaWebhookVaultArchivedEventData,
     BetaWebhookVaultCreatedEventData,
     BetaWebhookVaultCredentialArchivedEventData,

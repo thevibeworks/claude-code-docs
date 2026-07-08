@@ -62,9 +62,9 @@ style: lint/format
 2. **Dependencies:** Use `uv add <package>` or `uv add --dev <package>`. Never edit pyproject.toml directly.
 
 3. **Models:** Use current Claude models. Check docs.anthropic.com for latest versions.
-   - Sonnet: `claude-sonnet-4-6`
+   - Sonnet: `claude-sonnet-5`
    - Haiku: `claude-haiku-4-5`
-   - Opus: `claude-opus-4-6`
+   - Opus: `claude-opus-4-8`
    - **Never use dated model IDs** (e.g., `claude-sonnet-4-6-20250514`). Always use the non-dated alias.
    - **Bedrock model IDs** follow a different format. Use the base Bedrock model ID from the docs:
      - Opus 4.6: `anthropic.claude-opus-4-6-v1`
@@ -92,6 +92,7 @@ These commands are available in Claude Code and CI:
 
 ```
 capabilities/      # Core Claude capabilities (RAG, classification, etc.)
+evals/             # Model evaluation patterns and benchmarks
 skills/            # Advanced skill-based notebooks
 tool_use/          # Tool use and integration patterns
 multimodal/        # Vision and image processing

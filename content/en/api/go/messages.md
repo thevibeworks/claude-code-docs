@@ -2,7 +2,7 @@
 
 ## Create a Message
 
-`client.Messages.New(ctx, body) (*Message, error)`
+`client.Messages.New(ctx, params) (*Message, error)`
 
 **post** `/v1/messages`
 
@@ -10,25 +10,25 @@ Send a structured list of input messages with text and/or image content, and the
 
 The Messages API can be used for either single queries or stateless multi-turn conversations.
 
-Learn more about the Messages API in our [user guide](https://docs.claude.com/en/docs/initial-setup)
+Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
 ### Parameters
 
-- `body MessageNewParams`
+- `params MessageNewParams`
 
   - `MaxTokens param.Field[int64]`
 
-    The maximum number of tokens to generate before stopping.
+    Body param: The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-    Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+    Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-    Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+    Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
   - `Messages param.Field[[]MessageParamResp]`
 
-    Input messages.
+    Body param: Input messages.
 
     Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -71,9 +71,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -106,7 +106,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -938,35 +938,35 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `Model param.Field[Model]`
 
-    The model that will complete your prompt.
+    Body param: The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
   - `CacheControl param.Field[CacheControlEphemeral]`
 
-    Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
   - `Container param.Field[string]`
 
-    Container identifier for reuse across requests.
+    Body param: Container identifier for reuse across requests.
 
   - `InferenceGeo param.Field[string]`
 
-    Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
+    Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
   - `Metadata param.Field[Metadata]`
 
-    An object describing metadata about the request.
+    Body param: An object describing metadata about the request.
 
   - `OutputConfig param.Field[OutputConfig]`
 
-    Configuration options for the model's output, such as the output format.
+    Body param: Configuration options for the model's output, such as the output format.
 
   - `ServiceTier param.Field[MessageNewParamsServiceTier]`
 
-    Determines whether to use priority capacity (if available) or standard capacity for this request.
+    Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-    Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+    Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
     - `const MessageNewParamsServiceTierAuto MessageNewParamsServiceTier = "auto"`
 
@@ -974,7 +974,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `StopSequences param.Field[[]string]`
 
-    Custom text sequences that will cause the model to stop generating.
+    Body param: Custom text sequences that will cause the model to stop generating.
 
     Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`.
 
@@ -984,9 +984,9 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `System param.Field[[]TextBlockParamResp]`
 
-    System prompt.
+    Body param: System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `[]TextBlockParam`
 
@@ -1002,7 +1002,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `Temperature param.Field[float64]`
 
-    Amount of randomness injected into the response.
+    Body param: Amount of randomness injected into the response.
 
     Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
 
@@ -1010,23 +1010,23 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `Thinking param.Field[ThinkingConfigParamUnionResp]`
 
-    Configuration for enabling Claude's extended thinking.
+    Body param: Configuration for enabling Claude's extended thinking.
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `ToolChoice param.Field[ToolChoiceUnion]`
 
-    How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
   - `Tools param.Field[[]ToolUnion]`
 
-    Definitions of tools that the model may use.
+    Body param: Definitions of tools that the model may use.
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -1082,7 +1082,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `type Tool struct{…}`
 
@@ -1113,6 +1113,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const ToolAllowedCallerCodeExecution20250825 ToolAllowedCaller = "code_execution_20250825"`
 
         - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
+
+        - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -1164,6 +1166,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1200,6 +1204,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+        - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1233,6 +1239,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
         - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+        - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -1270,6 +1278,46 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+        - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `type CodeExecutionTool20260521 struct{…}`
+
+      Code execution tool with REPL state persistence.
+
+      - `Name CodeExecution`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+      - `Type CodeExecution20260521`
+
+        - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+      - `AllowedCallers []string`
+
+        - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1303,6 +1351,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
         - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+        - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -1340,6 +1390,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1376,6 +1428,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1411,6 +1465,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
         - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+        - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -1451,6 +1507,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
         - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+        - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -1522,6 +1580,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+        - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -1576,6 +1636,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+        - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -1625,6 +1687,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
         - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+        - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -1682,6 +1746,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+        - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -1718,6 +1784,134 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `type WebSearchTool20260318 struct{…}`
+
+      - `Name WebSearch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebSearchWebSearch WebSearch = "web_search"`
+
+      - `Type WebSearch20260318`
+
+        - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `BlockedDomains []string`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+        - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UserLocation UserLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `type WebFetchTool20260318 struct{…}`
+
+      - `Name WebFetch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+      - `Type WebFetch20260318`
+
+        - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        List of domains to allow fetching from
+
+      - `BlockedDomains []string`
+
+        List of domains to block fetching from
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Citations CitationsConfigParamResp`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxContentTokens int64`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+        - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UseCache bool`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `type ToolSearchToolBm25_20251119 struct{…}`
 
       - `Name ToolSearchToolBm25`
@@ -1741,6 +1935,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
         - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
 
         - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+
+        - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -1778,6 +1974,8 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -1792,7 +1990,7 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `TopK param.Field[int64]`
 
-    Only sample from the top K options for each subsequent token.
+    Body param: Only sample from the top K options for each subsequent token.
 
     Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
 
@@ -1800,11 +1998,15 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
   - `TopP param.Field[float64]`
 
-    Use nucleus sampling.
+    Body param: Use nucleus sampling.
 
     In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
     Recommended for advanced use cases only.
+
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -2501,6 +2703,10 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -2561,26 +2767,6 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
         Exceptional model for specialized complex tasks
 
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `string`
 
   - `Role Assistant`
@@ -2597,13 +2783,13 @@ Learn more about the Messages API in our [user guide](https://docs.claude.com/en
 
     - `Category RefusalStopDetailsCategory`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
       - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+      - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
       - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -2840,7 +3026,7 @@ func main() {
 
 ## Count tokens in a Message
 
-`client.Messages.CountTokens(ctx, body) (*MessageTokensCount, error)`
+`client.Messages.CountTokens(ctx, params) (*MessageTokensCount, error)`
 
 **post** `/v1/messages/count_tokens`
 
@@ -2848,15 +3034,15 @@ Count the number of tokens in a Message.
 
 The Token Count API can be used to count the number of tokens in a Message, including tools, images, and documents, without creating it.
 
-Learn more about token counting in our [user guide](https://docs.claude.com/en/docs/build-with-claude/token-counting)
+Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
 ### Parameters
 
-- `body MessageCountTokensParams`
+- `params MessageCountTokensParams`
 
   - `Messages param.Field[[]MessageParamResp]`
 
-    Input messages.
+    Body param: Input messages.
 
     Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -2899,9 +3085,9 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
     {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
     ```
 
-    See [input examples](https://docs.claude.com/en/api/messages-examples).
+    See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-    Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+    Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
     There is a limit of 100,000 messages in a single request.
 
@@ -2934,7 +3120,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
               - `5m`: 5 minutes
               - `1h`: 1 hour
 
-              Defaults to `5m`.
+              Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
               - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -3766,23 +3952,23 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   - `Model param.Field[Model]`
 
-    The model that will complete your prompt.
+    Body param: The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
   - `CacheControl param.Field[CacheControlEphemeral]`
 
-    Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
   - `OutputConfig param.Field[OutputConfig]`
 
-    Configuration options for the model's output, such as the output format.
+    Body param: Configuration options for the model's output, such as the output format.
 
   - `System param.Field[MessageCountTokensParamsSystemUnion]`
 
-    System prompt.
+    Body param: System prompt.
 
-    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
     - `string`
 
@@ -3800,23 +3986,23 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
   - `Thinking param.Field[ThinkingConfigParamUnionResp]`
 
-    Configuration for enabling Claude's extended thinking.
+    Body param: Configuration for enabling Claude's extended thinking.
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `ToolChoice param.Field[ToolChoiceUnion]`
 
-    How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
   - `Tools param.Field[[]MessageCountTokensToolUnion]`
 
-    Definitions of tools that the model may use.
+    Body param: Definitions of tools that the model may use.
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+    There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
     Each tool definition includes:
 
@@ -3872,7 +4058,7 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
     Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-    See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+    See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
     - `type Tool struct{…}`
 
@@ -3903,6 +4089,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const ToolAllowedCallerCodeExecution20250825 ToolAllowedCaller = "code_execution_20250825"`
 
         - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
+
+        - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -3954,6 +4142,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -3990,6 +4180,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+        - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -4023,6 +4215,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
         - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+        - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -4060,6 +4254,46 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+        - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+    - `type CodeExecutionTool20260521 struct{…}`
+
+      Code execution tool with REPL state persistence.
+
+      - `Name CodeExecution`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+      - `Type CodeExecution20260521`
+
+        - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+      - `AllowedCallers []string`
+
+        - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+        - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -4093,6 +4327,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
         - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+        - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -4130,6 +4366,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -4166,6 +4404,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -4201,6 +4441,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
         - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+        - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -4241,6 +4483,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
         - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+        - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -4312,6 +4556,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+        - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -4366,6 +4612,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+        - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -4415,6 +4663,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
         - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+        - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
       - `AllowedDomains []string`
 
@@ -4472,6 +4722,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+        - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
       - `AllowedDomains []string`
 
         List of domains to allow fetching from
@@ -4508,6 +4760,134 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+    - `type WebSearchTool20260318 struct{…}`
+
+      - `Name WebSearch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebSearchWebSearch WebSearch = "web_search"`
+
+      - `Type WebSearch20260318`
+
+        - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+      - `BlockedDomains []string`
+
+        If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+        - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UserLocation UserLocation`
+
+        Parameters for the user's location. Used to provide more relevant search results.
+
+    - `type WebFetchTool20260318 struct{…}`
+
+      - `Name WebFetch`
+
+        Name of the tool.
+
+        This is how the tool will be called by the model and in `tool_use` blocks.
+
+        - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+      - `Type WebFetch20260318`
+
+        - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+      - `AllowedCallers []string`
+
+        - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+        - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+      - `AllowedDomains []string`
+
+        List of domains to allow fetching from
+
+      - `BlockedDomains []string`
+
+        List of domains to block fetching from
+
+      - `CacheControl CacheControlEphemeral`
+
+        Create a cache control breakpoint at this content block.
+
+      - `Citations CitationsConfigParamResp`
+
+        Citations configuration for fetched documents. Citations are disabled by default.
+
+      - `DeferLoading bool`
+
+        If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+      - `MaxContentTokens int64`
+
+        Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+      - `MaxUses int64`
+
+        Maximum number of times the tool can be used in the API request.
+
+      - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+        How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+        - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+        - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
+
+      - `Strict bool`
+
+        When true, guarantees schema validation on tool names and inputs
+
+      - `UseCache bool`
+
+        Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
     - `type ToolSearchToolBm25_20251119 struct{…}`
 
       - `Name ToolSearchToolBm25`
@@ -4531,6 +4911,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
         - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
 
         - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+
+        - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
       - `CacheControl CacheControlEphemeral`
 
@@ -4568,6 +4950,8 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
 
         - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
 
+        - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+
       - `CacheControl CacheControlEphemeral`
 
         Create a cache control breakpoint at this content block.
@@ -4579,6 +4963,10 @@ Learn more about token counting in our [user guide](https://docs.claude.com/en/d
       - `Strict bool`
 
         When true, guarantees schema validation on tool names and inputs
+
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -4848,7 +5236,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -4925,7 +5313,7 @@ func main() {
     - `5m`: 5 minutes
     - `1h`: 1 hour
 
-    Defaults to `5m`.
+    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
     - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -5397,6 +5785,8 @@ func main() {
 
     - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+    - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -5414,7 +5804,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -5452,6 +5842,8 @@ func main() {
 
     - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
 
+    - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -5469,7 +5861,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -5509,6 +5901,8 @@ func main() {
 
     - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+    - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -5526,7 +5920,66 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
+
+      - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+### Code Execution Tool 20260521
+
+- `type CodeExecutionTool20260521 struct{…}`
+
+  Code execution tool with REPL state persistence.
+
+  - `Name CodeExecution`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+  - `Type CodeExecution20260521`
+
+    - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+  - `AllowedCallers []string`
+
+    - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+    - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+    - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+    - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
+  - `CacheControl CacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL CacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -5759,7 +6212,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -5931,7 +6384,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -6606,7 +7059,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -7463,7 +7916,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -7646,7 +8099,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -7913,7 +8366,7 @@ func main() {
                 - `5m`: 5 minutes
                 - `1h`: 1 hour
 
-                Defaults to `5m`.
+                Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                 - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -8192,7 +8645,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -8244,6 +8697,8 @@ func main() {
 
     - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
 
+    - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -8261,7 +8716,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -8972,6 +9427,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+        High-performance model for coding and agents
+
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
         Next generation of intelligence for the hardest knowledge work and coding problems
@@ -9032,26 +9491,6 @@ func main() {
 
         Exceptional model for specialized complex tasks
 
-      - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-        Powerful model for complex tasks
-
-      - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-        High-performance model with extended thinking
-
-      - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-        Fast and cost-effective model
-
     - `string`
 
   - `Role Assistant`
@@ -9068,13 +9507,13 @@ func main() {
 
     - `Category RefusalStopDetailsCategory`
 
-      The policy category that triggered the refusal.
-
-      `null` when the refusal doesn't map to a named category.
+      The policy category that triggered a refusal.
 
       - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
       - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+      - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
       - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -9251,6 +9690,8 @@ func main() {
 
       - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
 
+      - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9268,7 +9709,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -9320,6 +9761,8 @@ func main() {
 
       - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9356,6 +9799,8 @@ func main() {
 
       - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+      - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9389,6 +9834,8 @@ func main() {
       - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
       - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+      - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -9426,6 +9873,46 @@ func main() {
 
       - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+      - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `type CodeExecutionTool20260521 struct{…}`
+
+    Code execution tool with REPL state persistence.
+
+    - `Name CodeExecution`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+    - `Type CodeExecution20260521`
+
+      - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+    - `AllowedCallers []string`
+
+      - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9459,6 +9946,8 @@ func main() {
       - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
       - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+      - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -9496,6 +9985,8 @@ func main() {
 
       - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9532,6 +10023,8 @@ func main() {
 
       - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -9567,6 +10060,8 @@ func main() {
       - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
       - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -9607,6 +10102,8 @@ func main() {
       - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
       - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+      - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -9678,6 +10175,8 @@ func main() {
 
       - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+      - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -9734,6 +10233,8 @@ func main() {
 
       - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+      - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -9783,6 +10284,8 @@ func main() {
       - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
       - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+      - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -9840,6 +10343,8 @@ func main() {
 
       - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+      - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -9876,6 +10381,134 @@ func main() {
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `type WebSearchTool20260318 struct{…}`
+
+    - `Name WebSearch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebSearchWebSearch WebSearch = "web_search"`
+
+    - `Type WebSearch20260318`
+
+      - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `BlockedDomains []string`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+      - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UserLocation UserLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `type WebFetchTool20260318 struct{…}`
+
+    - `Name WebFetch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+    - `Type WebFetch20260318`
+
+      - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      List of domains to allow fetching from
+
+    - `BlockedDomains []string`
+
+      List of domains to block fetching from
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Citations CitationsConfigParamResp`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxContentTokens int64`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+      - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UseCache bool`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `type ToolSearchToolBm25_20251119 struct{…}`
 
     - `Name ToolSearchToolBm25`
@@ -9899,6 +10532,8 @@ func main() {
       - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
 
       - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -9935,6 +10570,8 @@ func main() {
       - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
       - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -10033,7 +10670,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -10917,7 +11554,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -11051,6 +11688,10 @@ func main() {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+      High-performance model for coding and agents
+
     - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
       Next generation of intelligence for the hardest knowledge work and coding problems
@@ -11110,26 +11751,6 @@ func main() {
     - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
 
       Exceptional model for specialized complex tasks
-
-    - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-      Powerful model for complex tasks
-
-    - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-      Powerful model for complex tasks
-
-    - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-      High-performance model with extended thinking
-
-    - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-      High-performance model with extended thinking
-
-    - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-      Fast and cost-effective model
 
   - `string`
 
@@ -12188,13 +12809,13 @@ func main() {
 
       - `Category RefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
         - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+        - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
         - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -12985,6 +13606,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13045,26 +13670,6 @@ func main() {
 
           Exceptional model for specialized complex tasks
 
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `string`
 
     - `Role Assistant`
@@ -13081,13 +13686,13 @@ func main() {
 
       - `Category RefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
         - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+        - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
         - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -13939,6 +14544,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -13999,26 +14608,6 @@ func main() {
 
             Exceptional model for specialized complex tasks
 
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `string`
 
       - `Role Assistant`
@@ -14035,13 +14624,13 @@ func main() {
 
         - `Category RefusalStopDetailsCategory`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
           - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+          - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
           - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -14387,13 +14976,13 @@ func main() {
 
   - `Category RefusalStopDetailsCategory`
 
-    The policy category that triggered the refusal.
-
-    `null` when the refusal doesn't map to a named category.
+    The policy category that triggered a refusal.
 
     - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
     - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+    - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
     - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -14436,7 +15025,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -14701,7 +15290,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -14916,7 +15505,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -15489,7 +16078,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -15659,7 +16248,7 @@ func main() {
 
     Must be ≥1024 and less than `max_tokens`.
 
-    See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `Type Enabled`
 
@@ -15681,7 +16270,7 @@ func main() {
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-  See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
   - `type ThinkingConfigEnabled struct{…}`
 
@@ -15691,7 +16280,7 @@ func main() {
 
       Must be ≥1024 and less than `max_tokens`.
 
-      See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
     - `Type Enabled`
 
@@ -15767,6 +16356,8 @@ func main() {
 
     - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
 
+    - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -15784,7 +16375,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -15838,6 +16429,8 @@ func main() {
 
     - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -15855,7 +16448,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16032,7 +16625,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16065,7 +16658,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16369,6 +16962,8 @@ func main() {
 
     - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -16386,7 +16981,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16426,6 +17021,8 @@ func main() {
 
     - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -16443,7 +17040,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16552,7 +17149,7 @@ func main() {
             - `5m`: 5 minutes
             - `1h`: 1 hour
 
-            Defaults to `5m`.
+            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
             - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16669,7 +17266,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16703,6 +17300,8 @@ func main() {
 
     - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -16720,7 +17319,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16760,6 +17359,8 @@ func main() {
 
     - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -16777,7 +17378,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16817,6 +17418,8 @@ func main() {
 
     - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
 
+    - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
+
   - `CacheControl CacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -16834,7 +17437,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16890,6 +17493,8 @@ func main() {
 
       - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
 
+      - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -16907,7 +17512,7 @@ func main() {
         - `5m`: 5 minutes
         - `1h`: 1 hour
 
-        Defaults to `5m`.
+        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
         - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -16959,6 +17564,8 @@ func main() {
 
       - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -16995,6 +17602,8 @@ func main() {
 
       - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+      - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -17028,6 +17637,8 @@ func main() {
       - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
       - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+      - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -17065,6 +17676,46 @@ func main() {
 
       - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+      - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+  - `type CodeExecutionTool20260521 struct{…}`
+
+    Code execution tool with REPL state persistence.
+
+    - `Name CodeExecution`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+    - `Type CodeExecution20260521`
+
+      - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+    - `AllowedCallers []string`
+
+      - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+      - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -17098,6 +17749,8 @@ func main() {
       - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
       - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+      - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -17135,6 +17788,8 @@ func main() {
 
       - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -17171,6 +17826,8 @@ func main() {
 
       - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+      - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
     - `CacheControl CacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -17206,6 +17863,8 @@ func main() {
       - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
       - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -17246,6 +17905,8 @@ func main() {
       - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
       - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+      - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -17317,6 +17978,8 @@ func main() {
 
       - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+      - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -17373,6 +18036,8 @@ func main() {
 
       - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+      - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -17422,6 +18087,8 @@ func main() {
       - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
       - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+      - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
     - `AllowedDomains []string`
 
@@ -17479,6 +18146,8 @@ func main() {
 
       - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+      - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
     - `AllowedDomains []string`
 
       List of domains to allow fetching from
@@ -17515,6 +18184,134 @@ func main() {
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+  - `type WebSearchTool20260318 struct{…}`
+
+    - `Name WebSearch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebSearchWebSearch WebSearch = "web_search"`
+
+    - `Type WebSearch20260318`
+
+      - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+    - `BlockedDomains []string`
+
+      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+      - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UserLocation UserLocation`
+
+      Parameters for the user's location. Used to provide more relevant search results.
+
+  - `type WebFetchTool20260318 struct{…}`
+
+    - `Name WebFetch`
+
+      Name of the tool.
+
+      This is how the tool will be called by the model and in `tool_use` blocks.
+
+      - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+    - `Type WebFetch20260318`
+
+      - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+    - `AllowedCallers []string`
+
+      - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+      - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+    - `AllowedDomains []string`
+
+      List of domains to allow fetching from
+
+    - `BlockedDomains []string`
+
+      List of domains to block fetching from
+
+    - `CacheControl CacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `Citations CitationsConfigParamResp`
+
+      Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `DeferLoading bool`
+
+      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+    - `MaxContentTokens int64`
+
+      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+    - `MaxUses int64`
+
+      Maximum number of times the tool can be used in the API request.
+
+    - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+      - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+      - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
+
+    - `Strict bool`
+
+      When true, guarantees schema validation on tool names and inputs
+
+    - `UseCache bool`
+
+      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
   - `type ToolSearchToolBm25_20251119 struct{…}`
 
     - `Name ToolSearchToolBm25`
@@ -17538,6 +18335,8 @@ func main() {
       - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
 
       - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -17574,6 +18373,8 @@ func main() {
       - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20250825 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20250825"`
 
       - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
+
+      - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
     - `CacheControl CacheControlEphemeral`
 
@@ -17662,7 +18463,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -17943,7 +18744,7 @@ func main() {
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -18157,6 +18958,8 @@ func main() {
 
     - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+    - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -18182,7 +18985,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -18234,6 +19037,8 @@ func main() {
 
     - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
 
+    - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -18259,7 +19064,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -18313,6 +19118,8 @@ func main() {
 
     - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+    - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     List of domains to allow fetching from
@@ -18338,7 +19145,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -18361,6 +19168,97 @@ func main() {
   - `MaxUses int64`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `UseCache bool`
+
+    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
+### Web Fetch Tool 20260318
+
+- `type WebFetchTool20260318 struct{…}`
+
+  - `Name WebFetch`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+  - `Type WebFetch20260318`
+
+    - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+  - `AllowedCallers []string`
+
+    - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+    - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+    - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+    - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+  - `AllowedDomains []string`
+
+    List of domains to allow fetching from
+
+  - `BlockedDomains []string`
+
+    List of domains to block fetching from
+
+  - `CacheControl CacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL CacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
+
+      - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
+
+  - `Citations CitationsConfigParamResp`
+
+    Citations configuration for fetched documents. Citations are disabled by default.
+
+    - `Enabled bool`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `MaxContentTokens int64`
+
+    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+  - `MaxUses int64`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+    - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
 
   - `Strict bool`
 
@@ -18589,7 +19487,7 @@ func main() {
                       - `5m`: 5 minutes
                       - `1h`: 1 hour
 
-                      Defaults to `5m`.
+                      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -18953,6 +19851,8 @@ func main() {
 
     - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
 
+    - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -18978,7 +19878,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -19044,6 +19944,8 @@ func main() {
 
     - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+    - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
   - `AllowedDomains []string`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -19069,7 +19971,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -19082,6 +19984,107 @@ func main() {
   - `MaxUses int64`
 
     Maximum number of times the tool can be used in the API request.
+
+  - `Strict bool`
+
+    When true, guarantees schema validation on tool names and inputs
+
+  - `UserLocation UserLocation`
+
+    Parameters for the user's location. Used to provide more relevant search results.
+
+    - `Type Approximate`
+
+      - `const ApproximateApproximate Approximate = "approximate"`
+
+    - `City string`
+
+      The city of the user.
+
+    - `Country string`
+
+      The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+    - `Region string`
+
+      The region of the user.
+
+    - `Timezone string`
+
+      The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+### Web Search Tool 20260318
+
+- `type WebSearchTool20260318 struct{…}`
+
+  - `Name WebSearch`
+
+    Name of the tool.
+
+    This is how the tool will be called by the model and in `tool_use` blocks.
+
+    - `const WebSearchWebSearch WebSearch = "web_search"`
+
+  - `Type WebSearch20260318`
+
+    - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+  - `AllowedCallers []string`
+
+    - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+    - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+    - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+    - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+  - `AllowedDomains []string`
+
+    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+  - `BlockedDomains []string`
+
+    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+  - `CacheControl CacheControlEphemeral`
+
+    Create a cache control breakpoint at this content block.
+
+    - `Type Ephemeral`
+
+      - `const EphemeralEphemeral Ephemeral = "ephemeral"`
+
+    - `TTL CacheControlEphemeralTTL`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
+
+      - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
+
+  - `DeferLoading bool`
+
+    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+  - `MaxUses int64`
+
+    Maximum number of times the tool can be used in the API request.
+
+  - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+    - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+    - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
 
   - `Strict bool`
 
@@ -19310,7 +20313,7 @@ func main() {
       - `5m`: 5 minutes
       - `1h`: 1 hour
 
-      Defaults to `5m`.
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -19426,7 +20429,7 @@ func main() {
 
 ## Create a Message Batch
 
-`client.Messages.Batches.New(ctx, body) (*MessageBatch, error)`
+`client.Messages.Batches.New(ctx, params) (*MessageBatch, error)`
 
 **post** `/v1/messages/batches`
 
@@ -19434,15 +20437,15 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
-- `body MessageBatchNewParams`
+- `params MessageBatchNewParams`
 
   - `Requests param.Field[[]MessageBatchNewParamsRequest]`
 
-    List of requests for prompt completion. Each is an individual request to create a Message.
+    Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
     - `CustomID string`
 
@@ -19454,7 +20457,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
       Messages API creation parameters for the individual request.
 
-      See the [Messages API reference](https://docs.claude.com/en/api/messages) for full documentation on available parameters.
+      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
 
       - `MaxTokens int64`
 
@@ -19462,9 +20465,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-        Set to `0` to populate the [prompt cache](https://docs.claude.com/en/docs/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
-        Different models have different maximum values for this parameter.  See [models](https://docs.claude.com/en/docs/models-overview) for details.
+        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
 
       - `Messages []MessageParamResp`
 
@@ -19511,9 +20514,9 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
         ```
 
-        See [input examples](https://docs.claude.com/en/api/messages-examples).
+        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
 
-        Note that if you want to include a [system prompt](https://docs.claude.com/en/docs/system-prompts), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
         There is a limit of 100,000 messages in a single request.
 
@@ -19546,7 +20549,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
                   - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
@@ -20388,6 +21391,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -20448,26 +21455,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Exceptional model for specialized complex tasks
 
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `string`
 
       - `CacheControl CacheControlEphemeral`
@@ -20526,7 +21513,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-        Anthropic offers different levels of service for your API requests. See [service-tiers](https://docs.claude.com/en/api/service-tiers) for details.
+        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
         - `const MessageBatchNewParamsRequestParamsServiceTierAuto MessageBatchNewParamsRequestParamsServiceTier = "auto"`
 
@@ -20544,13 +21531,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Whether to incrementally stream the response using server-sent events.
 
-        See [streaming](https://docs.claude.com/en/api/messages-streaming) for details.
+        See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
       - `System []TextBlockParamResp`
 
         System prompt.
 
-        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://docs.claude.com/en/docs/system-prompts).
+        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
         - `[]TextBlockParam`
 
@@ -20578,7 +21565,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
-        See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
         - `type ThinkingConfigEnabled struct{…}`
 
@@ -20588,7 +21575,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Must be ≥1024 and less than `max_tokens`.
 
-            See [extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
           - `Type Enabled`
 
@@ -20686,7 +21673,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview#server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://docs.claude.com/en/docs/agents-and-tools/tool-use/web-search-tool)).
+        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
 
         Each tool definition includes:
 
@@ -20742,7 +21729,7 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
         Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-        See our [guide](https://docs.claude.com/en/docs/tool-use) for more details.
+        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
         - `type Tool struct{…}`
 
@@ -20773,6 +21760,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const ToolAllowedCallerCodeExecution20250825 ToolAllowedCaller = "code_execution_20250825"`
 
             - `const ToolAllowedCallerCodeExecution20260120 ToolAllowedCaller = "code_execution_20260120"`
+
+            - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral`
 
@@ -20824,6 +21813,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const ToolBash20250124AllowedCallerCodeExecution20260120 ToolBash20250124AllowedCaller = "code_execution_20260120"`
 
+            - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -20860,6 +21851,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260120 CodeExecutionTool20250522AllowedCaller = "code_execution_20260120"`
 
+            - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -20893,6 +21886,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const CodeExecutionTool20250825AllowedCallerCodeExecution20250825 CodeExecutionTool20250825AllowedCaller = "code_execution_20250825"`
 
             - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260120 CodeExecutionTool20250825AllowedCaller = "code_execution_20260120"`
+
+            - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral`
 
@@ -20930,6 +21925,46 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260120 CodeExecutionTool20260120AllowedCaller = "code_execution_20260120"`
 
+            - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
+
+          - `CacheControl CacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+        - `type CodeExecutionTool20260521 struct{…}`
+
+          Code execution tool with REPL state persistence.
+
+          - `Name CodeExecution`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
+
+          - `Type CodeExecution20260521`
+
+            - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
+
+          - `AllowedCallers []string`
+
+            - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
+
+            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20250825 CodeExecutionTool20260521AllowedCaller = "code_execution_20250825"`
+
+            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260120 CodeExecutionTool20260521AllowedCaller = "code_execution_20260120"`
+
+            - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -20963,6 +21998,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const MemoryTool20250818AllowedCallerCodeExecution20250825 MemoryTool20250818AllowedCaller = "code_execution_20250825"`
 
             - `const MemoryTool20250818AllowedCallerCodeExecution20260120 MemoryTool20250818AllowedCaller = "code_execution_20260120"`
+
+            - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral`
 
@@ -21000,6 +22037,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const ToolTextEditor20250124AllowedCallerCodeExecution20260120 ToolTextEditor20250124AllowedCaller = "code_execution_20260120"`
 
+            - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -21036,6 +22075,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const ToolTextEditor20250429AllowedCallerCodeExecution20260120 ToolTextEditor20250429AllowedCaller = "code_execution_20260120"`
 
+            - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -21071,6 +22112,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const ToolTextEditor20250728AllowedCallerCodeExecution20250825 ToolTextEditor20250728AllowedCaller = "code_execution_20250825"`
 
             - `const ToolTextEditor20250728AllowedCallerCodeExecution20260120 ToolTextEditor20250728AllowedCaller = "code_execution_20260120"`
+
+            - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral`
 
@@ -21111,6 +22154,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const WebSearchTool20250305AllowedCallerCodeExecution20250825 WebSearchTool20250305AllowedCaller = "code_execution_20250825"`
 
             - `const WebSearchTool20250305AllowedCallerCodeExecution20260120 WebSearchTool20250305AllowedCaller = "code_execution_20260120"`
+
+            - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
           - `AllowedDomains []string`
 
@@ -21182,6 +22227,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const WebFetchTool20250910AllowedCallerCodeExecution20260120 WebFetchTool20250910AllowedCaller = "code_execution_20260120"`
 
+            - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             List of domains to allow fetching from
@@ -21236,6 +22283,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const WebSearchTool20260209AllowedCallerCodeExecution20260120 WebSearchTool20260209AllowedCaller = "code_execution_20260120"`
 
+            - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
@@ -21285,6 +22334,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const WebFetchTool20260209AllowedCallerCodeExecution20250825 WebFetchTool20260209AllowedCaller = "code_execution_20250825"`
 
             - `const WebFetchTool20260209AllowedCallerCodeExecution20260120 WebFetchTool20260209AllowedCaller = "code_execution_20260120"`
+
+            - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
           - `AllowedDomains []string`
 
@@ -21342,6 +22393,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const WebFetchTool20260309AllowedCallerCodeExecution20260120 WebFetchTool20260309AllowedCaller = "code_execution_20260120"`
 
+            - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
+
           - `AllowedDomains []string`
 
             List of domains to allow fetching from
@@ -21378,6 +22431,134 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
+        - `type WebSearchTool20260318 struct{…}`
+
+          - `Name WebSearch`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const WebSearchWebSearch WebSearch = "web_search"`
+
+          - `Type WebSearch20260318`
+
+            - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
+
+          - `AllowedCallers []string`
+
+            - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
+
+            - `const WebSearchTool20260318AllowedCallerCodeExecution20250825 WebSearchTool20260318AllowedCaller = "code_execution_20250825"`
+
+            - `const WebSearchTool20260318AllowedCallerCodeExecution20260120 WebSearchTool20260318AllowedCaller = "code_execution_20260120"`
+
+            - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
+
+          - `AllowedDomains []string`
+
+            If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
+
+          - `BlockedDomains []string`
+
+            If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
+
+          - `CacheControl CacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `MaxUses int64`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `const WebSearchTool20260318ResponseInclusionFull WebSearchTool20260318ResponseInclusion = "full"`
+
+            - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `UserLocation UserLocation`
+
+            Parameters for the user's location. Used to provide more relevant search results.
+
+        - `type WebFetchTool20260318 struct{…}`
+
+          - `Name WebFetch`
+
+            Name of the tool.
+
+            This is how the tool will be called by the model and in `tool_use` blocks.
+
+            - `const WebFetchWebFetch WebFetch = "web_fetch"`
+
+          - `Type WebFetch20260318`
+
+            - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
+
+          - `AllowedCallers []string`
+
+            - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
+
+            - `const WebFetchTool20260318AllowedCallerCodeExecution20250825 WebFetchTool20260318AllowedCaller = "code_execution_20250825"`
+
+            - `const WebFetchTool20260318AllowedCallerCodeExecution20260120 WebFetchTool20260318AllowedCaller = "code_execution_20260120"`
+
+            - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
+
+          - `AllowedDomains []string`
+
+            List of domains to allow fetching from
+
+          - `BlockedDomains []string`
+
+            List of domains to block fetching from
+
+          - `CacheControl CacheControlEphemeral`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Citations CitationsConfigParamResp`
+
+            Citations configuration for fetched documents. Citations are disabled by default.
+
+          - `DeferLoading bool`
+
+            If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
+
+          - `MaxContentTokens int64`
+
+            Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
+
+          - `MaxUses int64`
+
+            Maximum number of times the tool can be used in the API request.
+
+          - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+
+            How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
+
+            - `const WebFetchTool20260318ResponseInclusionFull WebFetchTool20260318ResponseInclusion = "full"`
+
+            - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
+
+          - `Strict bool`
+
+            When true, guarantees schema validation on tool names and inputs
+
+          - `UseCache bool`
+
+            Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
+
         - `type ToolSearchToolBm25_20251119 struct{…}`
 
           - `Name ToolSearchToolBm25`
@@ -21401,6 +22582,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
             - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20250825 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20250825"`
 
             - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260120 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260120"`
+
+            - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl CacheControlEphemeral`
 
@@ -21438,6 +22621,8 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260120 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260120"`
 
+            - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
+
           - `CacheControl CacheControlEphemeral`
 
             Create a cache control breakpoint at this content block.
@@ -21465,6 +22650,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
         In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
         Recommended for advanced use cases only.
+
+  - `UserProfileID param.Field[string]`
+
+    Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
 ### Returns
 
@@ -21628,7 +22817,7 @@ func main() {
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -21782,7 +22971,7 @@ func main() {
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -21959,7 +23148,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22115,7 +23304,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22183,7 +23372,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://docs.claude.com/en/docs/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
 ### Parameters
 
@@ -22904,6 +24093,10 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -22964,26 +24157,6 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
               Exceptional model for specialized complex tasks
 
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `string`
 
         - `Role Assistant`
@@ -23000,13 +24173,13 @@ Learn more about the Message Batches API in our [user guide](https://docs.claude
 
           - `Category RefusalStopDetailsCategory`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
             - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+            - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
             - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -24206,6 +25379,10 @@ func main() {
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+              High-performance model for coding and agents
+
             - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
@@ -24266,26 +25443,6 @@ func main() {
 
               Exceptional model for specialized complex tasks
 
-            - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-              Powerful model for complex tasks
-
-            - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-              High-performance model with extended thinking
-
-            - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-              Fast and cost-effective model
-
           - `string`
 
         - `Role Assistant`
@@ -24302,13 +25459,13 @@ func main() {
 
           - `Category RefusalStopDetailsCategory`
 
-            The policy category that triggered the refusal.
-
-            `null` when the refusal doesn't map to a named category.
+            The policy category that triggered a refusal.
 
             - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
             - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+            - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
             - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -25288,6 +26445,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+            High-performance model for coding and agents
+
           - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
@@ -25348,26 +26509,6 @@ func main() {
 
             Exceptional model for specialized complex tasks
 
-          - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-            Powerful model for complex tasks
-
-          - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-            High-performance model with extended thinking
-
-          - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-            Fast and cost-effective model
-
         - `string`
 
       - `Role Assistant`
@@ -25384,13 +26525,13 @@ func main() {
 
         - `Category RefusalStopDetailsCategory`
 
-          The policy category that triggered the refusal.
-
-          `null` when the refusal doesn't map to a named category.
+          The policy category that triggered a refusal.
 
           - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
           - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+          - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
           - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 
@@ -26332,6 +27473,10 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+
+          High-performance model for coding and agents
+
         - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
@@ -26392,26 +27537,6 @@ func main() {
 
           Exceptional model for specialized complex tasks
 
-        - `const ModelClaudeOpus4_0 Model = "claude-opus-4-0"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeOpus4_20250514 Model = "claude-opus-4-20250514"`
-
-          Powerful model for complex tasks
-
-        - `const ModelClaudeSonnet4_0 Model = "claude-sonnet-4-0"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaudeSonnet4_20250514 Model = "claude-sonnet-4-20250514"`
-
-          High-performance model with extended thinking
-
-        - `const ModelClaude_3_Haiku_20240307 Model = "claude-3-haiku-20240307"`
-
-          Fast and cost-effective model
-
       - `string`
 
     - `Role Assistant`
@@ -26428,13 +27553,13 @@ func main() {
 
       - `Category RefusalStopDetailsCategory`
 
-        The policy category that triggered the refusal.
-
-        `null` when the refusal doesn't map to a named category.
+        The policy category that triggered a refusal.
 
         - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
         - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+        - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
         - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
 

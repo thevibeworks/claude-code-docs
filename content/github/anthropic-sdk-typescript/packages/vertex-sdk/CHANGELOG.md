@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.19.0 (2026-06-30)
+
+Full Changelog: [vertex-sdk-v0.18.0...vertex-sdk-v0.19.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/vertex-sdk-v0.18.0...vertex-sdk-v0.19.0)
+
+### Features
+
+* **vertex:** bump google-auth-library to ^10.2.0 (SDK-91) ([#30](https://github.com/anthropics/anthropic-sdk-typescript/issues/30)) ([eb2d25c](https://github.com/anthropics/anthropic-sdk-typescript/commit/eb2d25cb868c74d0106d460f85f48465e35f83dd))
+
+## 0.18.0 (2026-06-18)
+
+Full Changelog: [vertex-sdk-v0.17.1...vertex-sdk-v0.18.0](https://github.com/anthropics/anthropic-sdk-typescript/compare/vertex-sdk-v0.17.1...vertex-sdk-v0.18.0)
+
+### Features
+
+* **stream:** lazily parse partial tool json input ([#99](https://github.com/anthropics/anthropic-sdk-typescript/issues/99)) ([e55ceee](https://github.com/anthropics/anthropic-sdk-typescript/commit/e55ceee5e3053ada96a7fe008b1fd6ebc0e42544))
+
+
+### Chores
+
+* **tests:** stop using deprecated models ([#98](https://github.com/anthropics/anthropic-sdk-typescript/issues/98)) ([65ae1af](https://github.com/anthropics/anthropic-sdk-typescript/commit/65ae1afee1bb76179c58e1758a48d668e3fcf7b3))
+
 ## 0.17.1 (2026-06-09)
 
 Full Changelog: [vertex-sdk-v0.17.0...vertex-sdk-v0.17.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/vertex-sdk-v0.17.0...vertex-sdk-v0.17.1)

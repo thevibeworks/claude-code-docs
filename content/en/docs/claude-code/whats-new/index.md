@@ -8,6 +8,38 @@
 
 The weekly dev digest highlights the features most likely to change how you work. Each entry includes runnable code, a short demo, and a link to the full docs. For every bug fix and minor improvement, see the [changelog](/en/changelog).
 
+<Update label="Week 26" description="June 22–26, 2026" tags={["v2.1.185–v2.1.193"]}>
+  **`claude mcp login`**: authenticate a configured MCP server from your shell instead of the interactive `/mcp` menu, and clear its stored credentials later with `claude mcp logout`.
+
+  Also this week: **shell mode responds to command output** (`! npm test` gets an explanation without a second prompt); **`/rewind`** can resume a conversation from before `/clear` was run; and **background subagents** now surface permission prompts in the main session instead of auto-denying.
+
+  [Read the Week 26 digest →](/en/whats-new/2026-w26)
+</Update>
+
+<Update label="Week 25" description="June 15–19, 2026" tags={["v2.1.178–v2.1.183"]}>
+  **Artifacts**: turn a session's output into a live, shareable page on claude.ai that updates in place as the session works, now in beta on Team and Enterprise plans.
+
+  Also this week: **deny and ask rules match tool parameters** with `Tool(param:value)`, for example `Agent(model:opus)`; **`/config key=value`** sets any setting from the prompt, in `-p` mode, and from Remote Control; and **auto mode blocks destructive git commands** when you didn't ask to discard local work.
+
+  [Read the Week 25 digest →](/en/whats-new/2026-w25)
+</Update>
+
+<Update label="Week 24" description="June 8–12, 2026" tags={["v2.1.166–v2.1.176"]}>
+  **`/cd`**: move the current session to a new working directory mid-conversation without rebuilding the prompt cache.
+
+  Also this week: **sub-agents can spawn their own sub-agents** (background chains are capped at five levels deep); **`--safe-mode`** starts Claude Code with all customizations disabled for troubleshooting; and **`fallbackModel`** configures up to three fallback models tried in order.
+
+  [Read the Week 24 digest →](/en/whats-new/2026-w24)
+</Update>
+
+<Update label="Week 23" description="June 1–5, 2026" tags={["v2.1.158–v2.1.165"]}>
+  **Auto mode on Amazon Bedrock, Google Cloud's Agent Platform, and Microsoft Foundry**: auto mode is now available on third-party providers for Opus 4.7 and Opus 4.8, replacing permission prompts with background safety checks.
+
+  Also this week: **safer automatic edits** prompt before writing files that can run code in `acceptEdits` mode; **`/plugin list`** prints your installed plugins inline; and **version requirements** let managed deployments require an approved Claude Code version range.
+
+  [Read the Week 23 digest →](/en/whats-new/2026-w23)
+</Update>
+
 <Update label="Week 22" description="May 25–29, 2026" tags={["v2.1.150–v2.1.157"]}>
   **Claude Opus 4.8**: the new default model for Max, Team Premium, Enterprise pay-as-you-go, and Anthropic API accounts, with high effort by default and `/effort xhigh` for the hardest tasks.
 

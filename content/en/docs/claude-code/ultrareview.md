@@ -12,13 +12,13 @@
 
 Ultrareview is a deep code review that runs on Claude Code on the web infrastructure. When you run `/code-review ultra`, Claude Code launches a fleet of reviewer agents in a remote sandbox to find bugs in your branch or pull request.
 
-Compared to a local `/review`, ultrareview offers:
+Compared to a local `/code-review` or `/review`, ultrareview offers:
 
 * **Higher signal**: every reported finding is independently reproduced and verified, so the results focus on real bugs rather than style suggestions
-* **Broader coverage**: many reviewer agents explore the change in parallel, which surfaces issues that a single-pass review can miss
+* **Broader coverage**: a larger fleet of reviewer agents explores the change in parallel, which surfaces issues that a local review can miss
 * **No local resource use**: the review runs entirely in a remote sandbox, so your terminal stays free for other work while it runs
 
-Ultrareview requires authentication with a Claude.ai account because it runs on Claude Code on the web infrastructure. If you are signed in with an API key only, run `/login` and authenticate with Claude.ai first. Ultrareview is not available when using Claude Code with Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Foundry, and it is not available to organizations that have enabled Zero Data Retention.
+Ultrareview requires authentication with a Claude.ai account because it runs on Claude Code on the web infrastructure. If you are signed in with an API key only, run `/login` and authenticate with Claude.ai first. Ultrareview is not available when using Claude Code with Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry, and it is not available to organizations that have enabled Zero Data Retention.
 
 ## Run ultrareview from the CLI
 
@@ -36,10 +36,12 @@ To review a GitHub pull request instead, pass the PR number.
 /code-review ultra 1234
 ```
 
-In PR mode, the remote sandbox clones the pull request directly from the host rather than bundling your local working tree. PR mode works with repositories on `github.com` and on [GitHub Enterprise Server](/en/github-enterprise-server) instances that an admin has connected to Claude Code.
+In PR mode, the remote sandbox clones the pull request directly from the host rather than bundling your local working tree. PR mode works with repositories on `github.com` and on [GitHub Enterprise Server](/en/github-enterprise-server) instances that an Owner has connected to Claude Code.
 
 <Tip>
   If your repository is too large to bundle, Claude Code prompts you to use PR mode instead. Push your branch and open a draft PR, then run `/code-review ultra <PR-number>`.
+
+  If the pull request's diff is too large, Claude Code refuses the review with a scoping hint before any review work runs.
 </Tip>
 
 Before launching, Claude Code shows a confirmation dialog with the review scope (including the file and line count when reviewing a branch), your remaining free runs, and the estimated cost. After you confirm, the review continues in the background and you can keep using your session. The command runs only when you invoke it with `/code-review ultra`; Claude does not start an ultrareview on its own.
@@ -87,19 +89,20 @@ Running `claude ultrareview` requires the same authentication and usage credit c
 
 For automatic reviews on GitHub pull requests, [Code Review](/en/code-review) integrates with your repository directly and posts findings as inline PR comments without a CLI step.
 
-## How ultrareview compares to /review
+## How ultrareview compares to /code-review and /review
 
-Both commands review code, but they target different stages of your workflow.
+All three commands review code, but they target different stages of your workflow.
 
-|          | `/review`                      | `/code-review ultra`                                            |
-| -------- | ------------------------------ | --------------------------------------------------------------- |
-| Runs     | locally in your session        | remotely in a cloud sandbox                                     |
-| Depth    | single-pass review             | multi-agent fleet with independent verification                 |
-| Duration | seconds to a few minutes       | roughly 5 to 10 minutes                                         |
-| Cost     | counts toward normal usage     | free runs, then roughly \$5 to \$20 per review as usage credits |
-| Best for | quick feedback while iterating | pre-merge confidence on substantial changes                     |
+|          | `/code-review`                  | `/review <pr>`                               | `/code-review ultra`                                            |
+| -------- | ------------------------------- | -------------------------------------------- | --------------------------------------------------------------- |
+| Target   | your working diff               | a GitHub pull request                        | your working diff or a pull request                             |
+| Runs     | locally in your session         | locally in your session                      | remotely in a cloud sandbox                                     |
+| Depth    | scales with the effort argument | a single-pass review at the session's effort | multi-agent fleet with independent verification                 |
+| Duration | seconds to a few minutes        | seconds to a few minutes                     | roughly 5 to 10 minutes                                         |
+| Cost     | counts toward normal usage      | counts toward normal usage                   | free runs, then roughly \$5 to \$20 per review as usage credits |
+| Best for | quick feedback while iterating  | reviewing a teammate's PR before approving   | pre-merge confidence on substantial changes                     |
 
-Use `/review` for fast feedback as you work. Use `/code-review ultra` before merging a substantial change when you want a deeper pass that catches issues a single review might miss.
+Use `/code-review` for fast feedback as you work. Use `/review <pr>` to look over a pull request the same way you would before approving it. Use `/code-review ultra` before merging a substantial change when you want a deeper pass that catches issues a local review might miss.
 
 ## Related resources
 

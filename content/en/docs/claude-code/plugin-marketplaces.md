@@ -6,7 +6,7 @@
 
 > Build and host plugin marketplaces to distribute Claude Code extensions across teams and communities.
 
-A **plugin marketplace** is a catalog that lets you distribute plugins to others. Marketplaces provide centralized discovery, version tracking, automatic updates, and support for multiple source types (git repositories, local paths, and more). This guide shows you how to create your own marketplace to share plugins with your team or community.
+A **plugin marketplace** is a catalog that lets you distribute plugins to others. Marketplaces provide centralized discovery, version tracking, automatic updates, and support for multiple source types, including git repositories and local paths. This guide shows you how to create your own marketplace to share plugins with your team or community.
 
 Looking to install plugins from an existing marketplace? See [Discover and install prebuilt plugins](/en/discover-plugins).
 
@@ -14,10 +14,10 @@ Looking to install plugins from an existing marketplace? See [Discover and insta
 
 Creating and distributing a marketplace involves:
 
-1. **Creating plugins**: build one or more plugins with skills, agents, hooks, MCP servers, or LSP servers. This guide assumes you already have plugins to distribute; see [Create plugins](/en/plugins) for details on how to create them.
-2. **Creating a marketplace file**: define a `marketplace.json` that lists your plugins and where to find them (see [Create the marketplace file](#create-the-marketplace-file)).
-3. **Host the marketplace**: push to GitHub, GitLab, or another git host (see [Host and distribute marketplaces](#host-and-distribute-marketplaces)).
-4. **Share with users**: users add your marketplace with `/plugin marketplace add` and install individual plugins (see [Discover and install plugins](/en/discover-plugins)).
+1. **Create plugins**: build one or more plugins with skills, agents, hooks, MCP servers, or LSP servers. This guide assumes you already have plugins to distribute; see [Create plugins](/en/plugins) for details on how to create them.
+2. **Create the marketplace file**: define a `marketplace.json` that lists your plugins and where to find them. See [Create the marketplace file](#create-the-marketplace-file).
+3. **Host the marketplace**: push to GitHub, GitLab, or another git host. See [Host and distribute marketplaces](#host-and-distribute-marketplaces).
+4. **Share with users**: users add your marketplace with `/plugin marketplace add` and install individual plugins. See [Discover and install plugins](/en/discover-plugins).
 
 Once your marketplace is live, you can update it by pushing changes to your repository. Users refresh their local copy with `/plugin marketplace update`.
 
@@ -40,7 +40,6 @@ This example creates a marketplace with one plugin: a `quality-review` skill for
     ```markdown my-marketplace/plugins/quality-review-plugin/skills/quality-review/SKILL.md theme={null}
     ---
     description: Review code for bugs, security, and performance
-    disable-model-invocation: true
     ---
 
     Review the code I've selected or the recent changes for:
@@ -110,7 +109,7 @@ This example creates a marketplace with one plugin: a `quality-review` skill for
 To learn more about what plugins can do, including hooks, agents, MCP servers, and LSP servers, see [Plugins](/en/plugins).
 
 <Note>
-  **How plugins are installed**: When users install a plugin, Claude Code copies the plugin directory to a cache location. This means plugins can't reference files outside their directory using paths like `../shared-utils`, because those files won't be copied.
+  **How plugins are installed**: when users install a plugin, Claude Code copies the plugin directory to a cache location. This means plugins can't reference files outside their directory using paths like `../shared-utils`, because those files won't be copied.
 
   If you need to share files across plugins, use symlinks. See [Plugin caching and file resolution](/en/plugins-reference#plugin-caching-and-file-resolution) for details.
 </Note>
@@ -119,7 +118,7 @@ To learn more about what plugins can do, including hooks, agents, MCP servers, a
 
 Create `.claude-plugin/marketplace.json` in your repository root. This file defines your marketplace's name, owner information, and a list of plugins with their sources.
 
-Each plugin entry needs at minimum a `name` and `source` (where to fetch it from). See the [full schema](#marketplace-schema) below for all available fields.
+Each plugin entry needs at minimum a `name` and a `source` that tells Claude Code where to fetch it from. See the [full schema](#marketplace-schema) below for all available fields.
 
 ```json theme={null}
 {
@@ -173,19 +172,20 @@ Each plugin entry needs at minimum a `name` and `source` (where to fetch it from
 
 ### Optional fields
 
-| Field                                 | Type   | Description                                                                                                                                                                                                                                                        |
-| :------------------------------------ | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `$schema`                             | string | JSON Schema URL for editor autocomplete and validation. Claude Code ignores this field at load time.                                                                                                                                                               |
-| `description`                         | string | Brief marketplace description                                                                                                                                                                                                                                      |
-| `version`                             | string | Marketplace manifest version                                                                                                                                                                                                                                       |
-| `metadata.pluginRoot`                 | string | Base directory prepended to relative plugin source paths (for example, `"./plugins"` lets you write `"source": "formatter"` instead of `"source": "./plugins/formatter"`)                                                                                          |
-| `allowCrossMarketplaceDependenciesOn` | array  | Other marketplaces that plugins in this marketplace may depend on. Dependencies from a marketplace not listed here are blocked at install. See [Depend on a plugin from another marketplace](/en/plugin-dependencies#depend-on-a-plugin-from-another-marketplace). |
+| Field                                 | Type   | Description                                                                                                                                                                                                                                                                                                              |
+| :------------------------------------ | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `$schema`                             | string | JSON Schema URL for editor autocomplete and validation. Claude Code ignores this field at load time.                                                                                                                                                                                                                     |
+| `description`                         | string | Brief marketplace description                                                                                                                                                                                                                                                                                            |
+| `version`                             | string | Marketplace manifest version                                                                                                                                                                                                                                                                                             |
+| `metadata.pluginRoot`                 | string | Base directory prepended to relative plugin source paths (for example, `"./plugins"` lets you write `"source": "formatter"` instead of `"source": "./plugins/formatter"`)                                                                                                                                                |
+| `allowCrossMarketplaceDependenciesOn` | array  | Other marketplaces that plugins in this marketplace may depend on. Dependencies from a marketplace not listed here are blocked at install. See [Depend on a plugin from another marketplace](/en/plugin-dependencies#depend-on-a-plugin-from-another-marketplace).                                                       |
+| `renames`                             | object | {/* min-version: 2.1.193 */}Map from a former plugin `name` to its current name, or to `null` if the plugin was removed. Lets existing users migrate automatically when you rename or remove an entry in `plugins`. See [Rename or remove a plugin](#rename-or-remove-a-plugin). Requires Claude Code v2.1.193 or later. |
 
 `description` and `version` are also accepted under `metadata` for backward compatibility.
 
 ## Plugin entries
 
-Each plugin entry in the `plugins` array describes a plugin and where to find it. You can include any field from the [plugin manifest schema](/en/plugins-reference#plugin-manifest-schema) (like `description`, `version`, `author`, `commands`, `hooks`, etc.), plus these marketplace-specific fields: `source`, `category`, `tags`, and `strict`.
+Each plugin entry in the `plugins` array describes a plugin and where to find it. You can include any field from the [plugin manifest schema](/en/plugins-reference#plugin-manifest-schema), such as `description`, `version`, `author`, `commands`, and `hooks`, plus these marketplace-specific fields: `source`, `category`, `tags`, `strict`, and `relevance`.
 
 ### Required fields
 
@@ -211,6 +211,7 @@ Each plugin entry in the `plugins` array describes a plugin and where to find it
 | `category`       | string  | Plugin category for organization                                                                                                                                                                                                                                                                                                               |
 | `tags`           | array   | Tags for searchability                                                                                                                                                                                                                                                                                                                         |
 | `strict`         | boolean | Controls whether `plugin.json` is the authority for component definitions (default: true). See [Strict mode](#strict-mode) below.                                                                                                                                                                                                              |
+| `relevance`      | object  | {/* min-version: 2.1.152 */}Signals that tell Claude Code when to suggest this plugin to users. Takes effect only for marketplaces an administrator allowlists in managed settings. See [Recommend plugins for your org](/en/plugin-relevance). Requires Claude Code v2.1.152 or later.                                                        |
 | `defaultEnabled` | boolean | {/* min-version: 2.1.154 */}Whether the plugin is enabled after install (default: true). Set to `false` to install the plugin disabled until the user opts in. Takes precedence over the same field in the plugin's `plugin.json`. See [Default enablement](/en/plugins-reference#default-enablement). Requires Claude Code v2.1.154 or later. |
 
 **Component configuration fields:**
@@ -228,7 +229,7 @@ Each plugin entry in the `plugins` array describes a plugin and where to find it
 
 Plugin sources tell Claude Code where to fetch each individual plugin listed in your marketplace. These are set in the `source` field of each plugin entry in `marketplace.json`.
 
-Once a plugin is cloned or copied into the local machine, it is copied into the local versioned plugin cache at `~/.claude/plugins/cache`.
+After Claude Code clones or downloads a plugin to the local machine, it copies the plugin into the local versioned plugin cache at `~/.claude/plugins/cache`.
 
 | Source        | Type                            | Fields                             | Notes                                                                                                                                             |
 | ------------- | ------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -241,13 +242,15 @@ Once a plugin is cloned or copied into the local machine, it is copied into the 
 <Note>
   **Marketplace sources vs plugin sources**: These are different concepts that control different things.
 
-  * **Marketplace source** — where to fetch the `marketplace.json` catalog itself. Set when users run `/plugin marketplace add` or in `extraKnownMarketplaces` settings. Supports `ref` (branch/tag) but not `sha`.
-  * **Plugin source** — where to fetch an individual plugin listed in the marketplace. Set in the `source` field of each plugin entry inside `marketplace.json`. Supports both `ref` (branch/tag) and `sha` (exact commit).
+  * **Marketplace source**: where to fetch the `marketplace.json` catalog itself. Set when users run `/plugin marketplace add` or in `extraKnownMarketplaces` settings. Supports `ref` (branch/tag) but not `sha`.
+  * **Plugin source**: where to fetch an individual plugin listed in the marketplace. Set in the `source` field of each plugin entry inside `marketplace.json`. Supports both `ref` (branch/tag) and `sha` (exact commit).
 
   For example, a marketplace hosted at `acme-corp/plugin-catalog` (marketplace source) can list a plugin fetched from `acme-corp/code-formatter` (plugin source). The marketplace source and plugin source point to different repositories and are pinned independently.
 </Note>
 
-The git-based source types below are `github`, `url`, and `git-subdir`. When both `ref` and `sha` are set on any of them, the `sha` is the effective pin. Claude Code fetches and checks out the pinned commit directly, so installation succeeds even if the branch or tag named by `ref` has since been deleted upstream, as long as the commit is still reachable from the repository.
+The git-based source types below are `github`, `url`, and `git-subdir`. When both `ref` and `sha` are set on any of them, the `sha` is the effective pin. Claude Code fetches and checks out the pinned commit directly.
+
+On most git hosts, including GitHub, GitLab, and Bitbucket, this means installation succeeds even if the branch or tag named by `ref` has since been deleted upstream, as long as the commit is still reachable from the repository. Some servers, such as AWS CodeCommit, don't support fetching commits by SHA. On those servers the `ref` must still exist and the pinned commit must be reachable from it.
 
 ### Relative paths
 
@@ -260,10 +263,10 @@ For plugins in the same repository, use a path starting with `./`:
 }
 ```
 
-Paths resolve relative to the marketplace root, which is the directory containing `.claude-plugin/`. In the example above, `./plugins/my-plugin` points to `<repo>/plugins/my-plugin`, even though `marketplace.json` lives at `<repo>/.claude-plugin/marketplace.json`. Do not use `../` to reference paths outside the marketplace root.
+Paths resolve relative to the marketplace root, which is the directory containing `.claude-plugin/`. In the example above, `./plugins/my-plugin` points to `<repo>/plugins/my-plugin`, even though `marketplace.json` lives at `<repo>/.claude-plugin/marketplace.json`. Don't use `../` to reference paths outside the marketplace root.
 
 <Note>
-  Relative paths only work when users add your marketplace via Git (GitHub, GitLab, or git URL). If users add your marketplace via a direct URL to the `marketplace.json` file, relative paths will not resolve correctly. For URL-based distribution, use GitHub, npm, or git URL sources instead. See [Troubleshooting](#plugins-with-relative-paths-fail-in-url-based-marketplaces) for details.
+  Relative paths resolve against a local copy of the marketplace, so they work when users add your marketplace from a git source or a local directory. If users add your marketplace via a direct URL to the `marketplace.json` file, relative paths won't resolve, because only that file is downloaded. For URL-based distribution, use GitHub, npm, or git URL sources instead. See [Troubleshooting](#plugins-with-relative-paths-fail-in-url-based-marketplaces) for details.
 </Note>
 
 ### GitHub repositories
@@ -469,9 +472,24 @@ This example shows a plugin entry using many of the optional fields, including c
 
 Key things to notice:
 
-* **`commands` and `agents`**: You can specify multiple directories or individual files. Paths are relative to the plugin root.
+* **`commands` and `agents`**: you can specify multiple directories or individual files. Paths are relative to the plugin root.
 * **`${CLAUDE_PLUGIN_ROOT}`**: use this variable in hooks and MCP server configs to reference files within the plugin's installation directory. This is necessary because plugins are copied to a cache location when installed. For dependencies or state that should survive plugin updates, use [`${CLAUDE_PLUGIN_DATA}`](/en/plugins-reference#persistent-data-directory) instead.
-* **`strict: false`**: Since this is set to false, the plugin doesn't need its own `plugin.json`. The marketplace entry defines everything. See [Strict mode](#strict-mode) below.
+* **`strict: false`**: since this is set to false, the plugin doesn't need its own `plugin.json`. The marketplace entry defines everything. See [Strict mode](#strict-mode) below.
+
+By default, a plugin's skills load from the `skills/` directory under its `source`. Paths listed in the `skills` field add to that scan:
+
+```json theme={null}
+"skills": ["./skills/", "./extra-skills/"]
+```
+
+When several plugin entries share one `skills/` folder at the marketplace root (`source: "./"`), list specific subdirectories instead so each entry loads only its own skills:
+
+```json theme={null}
+"source": "./",
+"skills": ["./skills/code-review", "./skills/docs"]
+```
+
+With a marketplace-root `source`, the listed paths are the complete set for that entry, and other directories in the shared `skills/` folder don't load. Listing `./skills/` itself, or the plugin root, keeps the full scan. If none of the listed paths exist, the default scan runs instead.
 
 ### Strict mode
 
@@ -491,13 +509,13 @@ The `strict` field controls whether `plugin.json` is the authority for component
 
 ### Host on GitHub (recommended)
 
-GitHub provides the easiest distribution method:
+GitHub is the recommended way to host and distribute a marketplace:
 
-1. **Create a repository**: Set up a new repository for your marketplace
-2. **Add marketplace file**: Create `.claude-plugin/marketplace.json` with your plugin definitions
-3. **Share with teams**: Users add your marketplace with `/plugin marketplace add owner/repo`
+1. **Create a repository**: set up a new repository for your marketplace
+2. **Add marketplace file**: create `.claude-plugin/marketplace.json` with your plugin definitions
+3. **Share with teams**: users add your marketplace with `/plugin marketplace add owner/repo`
 
-**Benefits**: Built-in version control, issue tracking, and team collaboration features.
+**Benefits**: built-in version control, issue tracking, and team collaboration features.
 
 ### Host on other git services
 
@@ -534,8 +552,8 @@ export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
 Test your marketplace locally before sharing:
 
 ```shell theme={null}
-/plugin marketplace add ./my-local-marketplace
-/plugin install test-plugin@my-local-marketplace
+/plugin marketplace add ./my-marketplace
+/plugin install quality-review-plugin@my-plugins
 ```
 
 For the full range of add commands (GitHub, Git URLs, local paths, remote URLs), see [Add marketplaces](/en/discover-plugins#add-marketplaces).
@@ -578,7 +596,7 @@ For full configuration options, see [Plugin settings](/en/settings#plugin-settin
 
 For container images and CI environments, you can pre-populate a plugins directory at build time so Claude Code starts with marketplaces and plugins already available, without cloning anything at runtime. Set the `CLAUDE_CODE_PLUGIN_SEED_DIR` environment variable to point at this directory.
 
-To layer multiple seed directories, separate paths with `:` on Unix or `;` on Windows. Claude Code searches each directory in order, and the first seed that contains a given marketplace or plugin cache wins.
+To layer multiple seed directories, separate paths with `:` on Unix or `;` on Windows. Claude Code searches each directory in order and uses the first seed that contains a given marketplace or plugin cache.
 
 The seed directory mirrors the structure of `~/.claude/plugins`:
 
@@ -612,14 +630,14 @@ Behavior details:
 
 ### Managed marketplace restrictions
 
-For organizations requiring strict control over plugin sources, administrators can restrict which plugin marketplaces users are allowed to add using the [`strictKnownMarketplaces`](/en/settings#strictknownmarketplaces) setting in managed settings.
+For organizations requiring strict control over plugin sources, administrators can restrict which plugin marketplaces users are allowed to add using the [`strictKnownMarketplaces`](/en/settings#strictknownmarketplaces) setting in managed settings. To also reject the CLI flags that sideload plugins, agents, and MCP servers for a single run, pair it with [`disableSideloadFlags`](/en/settings#available-settings).
 
 When `strictKnownMarketplaces` is configured in managed settings, the restriction behavior depends on the value:
 
 | Value               | Behavior                                                         |
 | ------------------- | ---------------------------------------------------------------- |
 | Undefined (default) | No restrictions. Users can add any marketplace                   |
-| Empty array `[]`    | Complete lockdown. Users cannot add any new marketplaces         |
+| Empty array `[]`    | Complete lockdown. Users can't add any new marketplaces          |
 | List of sources     | Users can only add marketplaces that match the allowlist exactly |
 
 #### Common configurations
@@ -683,7 +701,7 @@ Allow filesystem-based marketplaces from a specific directory using regex patter
 Use `".*"` as the `pathPattern` to allow any filesystem path while still controlling network sources with `hostPattern`.
 
 <Note>
-  `strictKnownMarketplaces` restricts what users can add, but does not register marketplaces on its own. To make allowed marketplaces available automatically without users running `/plugin marketplace add`, pair it with [`extraKnownMarketplaces`](/en/settings#extraknownmarketplaces) in the same `managed-settings.json`. See [Using both together](/en/settings#strictknownmarketplaces).
+  `strictKnownMarketplaces` restricts what users can add, but doesn't register marketplaces on its own. To make allowed marketplaces available automatically without users running `/plugin marketplace add`, pair it with [`extraKnownMarketplaces`](/en/settings#extraknownmarketplaces) in the same `managed-settings.json`. See [Using both together](/en/settings#strictknownmarketplaces).
 </Note>
 
 #### How restrictions work
@@ -697,9 +715,9 @@ The allowlist uses exact matching for most source types. For a marketplace to be
 * For `hostPattern` sources: the marketplace host is matched against the regex pattern
 * For `pathPattern` sources: the marketplace's filesystem path is matched against the regex pattern
 
-Exact matching does not normalize URLs: a trailing slash, `.git` suffix, or `ssh://` versus `https://` form are treated as different values. If your organization's marketplace can be cloned by more than one URL form, prefer a `hostPattern` entry over a literal URL so all forms match.
+Exact matching doesn't normalize URLs: a trailing slash, `.git` suffix, or `ssh://` versus `https://` form are treated as different values. If your organization's marketplace can be cloned by more than one URL form, prefer a `hostPattern` entry over a literal URL so all forms match.
 
-Because `strictKnownMarketplaces` is set in [managed settings](/en/settings#settings-files), individual users and project configurations cannot override these restrictions.
+Because `strictKnownMarketplaces` is set in [managed settings](/en/settings#settings-files), individual users and project configurations can't override these restrictions.
 
 For complete configuration details including all supported source types and comparison with `extraKnownMarketplaces`, see the [strictKnownMarketplaces reference](/en/settings#strictknownmarketplaces).
 
@@ -718,7 +736,7 @@ For the git-based source types `github`, `url`, `git-subdir`, and relative paths
 <Warning>
   Setting `version` pins the plugin. If `plugin.json` declares `"version": "1.0.0"`, pushing new commits without changing that string does nothing for existing users, because Claude Code sees the same version and keeps the cached copy. Bump the field on every release, or omit it to use the commit SHA.
 
-  Avoid setting `version` in both `plugin.json` and the marketplace entry. The `plugin.json` value always wins silently, so a stale manifest version can mask a version you set in `marketplace.json`.
+  Avoid setting `version` in both `plugin.json` and the marketplace entry. Claude Code always uses the `plugin.json` value without warning, so a stale manifest version can mask a version you set in `marketplace.json`.
 </Warning>
 
 #### Set up release channels
@@ -797,7 +815,43 @@ The early-access group receives `latest-tools` instead:
 
 #### Pin dependency versions
 
-A plugin can constrain its dependencies to a semver range so that updates to a dependency do not break the dependent plugin. See [Constrain plugin dependency versions](/en/plugin-dependencies) for the `{plugin-name}--v{version}` git-tag convention, range syntax, and how multiple constraints on the same dependency are combined.
+A plugin can constrain its dependencies to a semver range so that updates to a dependency don't break the dependent plugin. See [Constrain plugin dependency versions](/en/plugin-dependencies) for the `{plugin-name}--v{version}` git-tag convention, range syntax, and how multiple constraints on the same dependency are combined.
+
+### Rename or remove a plugin
+
+A plugin's `name` is its stable identifier. Users reference it in `enabledPlugins`, `pluginConfigs`, and `/plugin install` commands, so changing it breaks every existing install. To change the label shown in the UI without breaking installs, set [`displayName`](#optional-plugin-fields) and keep `name` unchanged.
+
+If you must change a plugin's `name`, or you remove a plugin from the `plugins` array, add a top-level `renames` entry so existing users migrate instead of seeing a `plugin-not-found` error. Automatic migration requires Claude Code v2.1.193 or later. Map each former name to its current name, or to `null` if the plugin no longer exists. The following example renames `formatter` to `code-formatter` and records that `legacy-linter` was removed:
+
+```json theme={null}
+{
+  "name": "acme-tools",
+  "owner": { "name": "Acme" },
+  "plugins": [
+    { "name": "code-formatter", "source": "./plugins/code-formatter" }
+  ],
+  "renames": {
+    "formatter": "code-formatter",
+    "legacy-linter": null
+  }
+}
+```
+
+When a user starts Claude Code with the old name still in their settings, Claude Code follows the `renames` map:
+
+* If the entry points to a new name, Claude Code loads the plugin under its new name and shows a one-line notice such as `Renamed to "code-formatter" in the "acme-tools" marketplace`. It then rewrites the old key to the new key in the user, project, and local settings scopes for both `enabledPlugins` and `pluginConfigs`, so the notice appears once.
+* For a `null` entry, Claude Code drops the old key and the notice reports that the plugin was removed from the marketplace.
+* If the renamed plugin uses a remote source such as `github` or `npm`, Claude Code reports `plugin-cache-miss` after the rename and the user must run `/plugin install` once to fetch it under the new name.
+
+Treat `renames` as append-only history: keep old entries in place even after you expect every user to have migrated. Claude Code follows chains, so if you later rename `code-formatter` to `formatter-pro`, add a second entry rather than editing the first. A user who still has the original `formatter` enabled then resolves through both entries to `formatter-pro`.
+
+Run `claude plugin validate .` after editing the map; it rejects any entry whose chain forms a cycle or doesn't terminate at `null` or a name listed in `plugins`.
+
+<Note>
+  Managed and policy settings are read-only to Claude Code, so plugins enabled there can't be rewritten automatically. The renamed plugin still loads each session, but the rename notice recurs until an administrator updates `enabledPlugins` in the managed settings file to use the new name. The same applies to plugins enabled through other read-only sources such as `--add-dir`.
+</Note>
+
+Earlier versions of Claude Code ignore the `renames` field and report `plugin-not-found` for the old name.
 
 ## Validation and testing
 
@@ -844,6 +898,8 @@ claude plugin marketplace add <source> [options]
 **Arguments:**
 
 * `<source>`: GitHub `owner/repo` shorthand, git URL, remote URL to a `marketplace.json` file, or local directory path. To pin to a branch or tag, append `@ref` to the GitHub shorthand or `#ref` to a git URL
+
+A URL must include its scheme. As of Claude Code v2.1.196, a host typed without one, such as `gitlab.example.com/team/plugins`, is rejected as an invalid `owner/repo` shorthand and the error tells you to add `https://` or use `./` for a local path. Earlier versions misread it as a GitHub repository path and fail at clone time with a GitHub not-found error.
 
 **Options:**
 
@@ -961,7 +1017,15 @@ Both `remove` and `update` fail when run against a seed-managed marketplace, whi
 
 ### Marketplace validation errors
 
-Run `claude plugin validate .` or `/plugin validate .` from your marketplace directory to check for issues. When pointed at a marketplace directory, the validator checks `marketplace.json` only: schema, duplicate plugin names, source path traversal, and version mismatches against each referenced `plugin.json`.
+Run `claude plugin validate .` or `/plugin validate .` from your marketplace directory to check for issues. When pointed at a marketplace directory, the validator checks `marketplace.json` for schema errors, duplicate plugin names, and source path traversal. For each entry whose `source` is a local path, it also validates that plugin's own `plugin.json` and warns when the entry's `version` doesn't match the one in `plugin.json`. Problems found in a plugin's `plugin.json` are prefixed with the entry index, in the form `plugins[2] plugin.json →`.
+
+As of Claude Code v2.1.196, the per-entry pass also:
+
+* includes plugins whose `source` is `.`
+* runs when `marketplace.json` is outside a `.claude-plugin` directory, resolving sources against the file's own directory
+* reports each entry's problems even when another part of the file has schema errors
+
+Earlier versions skip plugins at the marketplace root and only descend from a `.claude-plugin/marketplace.json`.
 
 To validate an individual plugin's `plugin.json` and its skill, agent, command, and hook files, run the command against the plugin directory itself, for example `claude plugin validate ./plugins/my-plugin`. Common errors:
 
@@ -978,7 +1042,7 @@ To validate an individual plugin's `plugin.json` and its skill, agent, command, 
 
 * `Marketplace has no plugins defined`: add at least one plugin to the `plugins` array
 * `No marketplace description provided`: add a top-level `description` to help users understand your marketplace
-* `Plugin name "x" is not kebab-case`: the plugin name contains uppercase letters, spaces, or special characters. Rename to lowercase letters, digits, and hyphens only (for example, `my-plugin`). Claude Code accepts other forms, but the Claude.ai marketplace sync rejects them.
+* `Plugin name "x" is not kebab-case`: the plugin name contains uppercase letters, spaces, or special characters. Rename to lowercase letters, digits, and hyphens only (for example, `my-plugin`). Claude Code accepts other forms, but the claude.ai marketplace sync rejects them.
 
 ### Plugin installation failures
 
@@ -990,7 +1054,7 @@ To validate an individual plugin's `plugin.json` and its skill, agent, command, 
 * Check that plugin directories contain required files
 * For GitHub sources, ensure repositories are public or you have access
 * Test plugin sources manually by cloning/downloading
-* If the source pins both `ref` and `sha`, a deleted upstream branch or tag does not block installation. If the install still fails, confirm the pinned commit still exists in the repository
+* If the source pins both `ref` and `sha`, a deleted upstream branch or tag doesn't block installation on most git hosts, including GitHub, GitLab, and Bitbucket. On servers that don't support fetching commits by SHA, such as AWS CodeCommit, the `ref` must still exist and the pinned commit must be reachable from it. If the install still fails, confirm the pinned commit still exists in the repository
 
 ### Private repository authentication fails
 
@@ -1042,7 +1106,7 @@ export CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS=300000  # 5 minutes
 
 **Symptoms**: Added a marketplace via URL (such as `https://example.com/marketplace.json`), but plugins with relative path sources like `"./plugins/my-plugin"` fail to install with "path not found" errors.
 
-**Cause**: URL-based marketplaces only download the `marketplace.json` file itself. They do not download plugin files from the server. Relative paths in the marketplace entry reference files on the remote server that were not downloaded.
+**Cause**: URL-based marketplaces only download the `marketplace.json` file itself. They don't download plugin files from the server. Relative paths in the marketplace entry reference files on the remote server that were not downloaded.
 
 **Solutions**:
 

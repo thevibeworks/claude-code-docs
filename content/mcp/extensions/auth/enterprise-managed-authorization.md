@@ -8,7 +8,7 @@
 
 The Enterprise-Managed Authorization extension (`io.modelcontextprotocol/enterprise-managed-authorization`) enables organizations to control MCP server access centrally through their existing identity provider (IdP). Instead of each employee authorizing each MCP server individually, the organization's IT or security team manages access policies in one place.
 
-<Card title="Specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/enterprise-managed-authorization.mdx">
+<Card title="Specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx">
   Full technical specification for the Enterprise-Managed Authorization
   extension.
 </Card>
@@ -122,7 +122,7 @@ To require enterprise-managed authorization:
 
 2. **Map IdP claims to permissions** — ID-JAG tokens carry claims (scope and resource information) that your server uses to determine who the employee is and what the employee can access. Define your authorization logic based on these claims.
 
-3. **Handle Account Linking** - ID-JAG tokens will always contain a subject claim and may additionally contain an email claim that can be used to
+3. **Handle Account Linking** - ID-JAG tokens will always contain a subject claim and may additionally contain an email claim that can be used to link the enterprise identity to an existing account in your system. Use the subject claim as the primary stable identifier for the user, and fall back to the email claim for matching against pre-existing accounts that were created before enterprise-managed authorization was configured.
 
 ## Client support
 
@@ -139,7 +139,7 @@ Check the [client matrix](/extensions/client-matrix) for current implementation 
     Source code and reference implementations
   </Card>
 
-  <Card title="Full specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/enterprise-managed-authorization.mdx">
+  <Card title="Full specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx">
     Technical specification with normative requirements
   </Card>
 

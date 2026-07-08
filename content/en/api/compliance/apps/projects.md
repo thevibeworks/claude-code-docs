@@ -39,6 +39,24 @@ are sorted chronologically (time ascending) by created_at.
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
+- `updated_at: optional object { gt, gte, lt, lte }`
+
+  - `gt: optional string`
+
+    Filter projects updated after this time (RFC 3339 format)
+
+  - `gte: optional string`
+
+    Filter projects updated at or after this time (RFC 3339 format)
+
+  - `lt: optional string`
+
+    Filter projects updated before this time (RFC 3339 format)
+
+  - `lte: optional string`
+
+    Filter projects updated at or before this time (RFC 3339 format)
+
 - `user_ids: optional array of string`
 
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
@@ -233,21 +251,21 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
 ```json
 {
-  "id": "id",
-  "attachments_count": 0,
-  "chats_count": 0,
-  "created_at": "2019-12-27T18:11:19.117Z",
+  "id": "claude_proj_01Nm7PqRsTuVwXyZaBcDeFgH",
+  "attachments_count": 3,
+  "chats_count": 14,
+  "created_at": "2025-03-12T18:22:41.123456Z",
   "deleted_at": "2019-12-27T18:11:19.117Z",
-  "description": "description",
-  "instructions": "instructions",
+  "description": "Planning and research for the Q3 launch",
+  "instructions": "Focus on concise, actionable answers.",
   "is_private": true,
-  "name": "name",
-  "organization_id": "organization_id",
-  "organization_uuid": "organization_uuid",
-  "updated_at": "2019-12-27T18:11:19.117Z",
+  "name": "Q3 Product Launch",
+  "organization_id": "org_015eofRkKpogX7uDKUyvBTph",
+  "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+  "updated_at": "2025-03-14T09:05:17.456789Z",
   "user": {
-    "id": "id",
-    "email_address": "email_address"
+    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "email_address": "jane.doe@example.com"
   }
 }
 ```
@@ -487,11 +505,11 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
 ### Returns
 
-- `data: array of object { id, created_at, filename, 2 more }  or object { id, created_at, filename, 2 more }`
+- `data: array of object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
 
   List of attachments sorted chronologically by created_at, tie break by id
 
-  - `ComplianceProjectFileReference object { id, created_at, filename, 2 more }`
+  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
 
     File attachment reference for compliance responses.
 
@@ -507,9 +525,17 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Display name of the file (e.g., 'document.pdf')
 
+    - `md5: string`
+
+      Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
+
     - `mime_type: string`
 
-      MIME type of the file when it was uploaded (e.g., 'application/pdf')
+      MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
+
+    - `size_bytes: number`
+
+      Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
     - `type: "project_file"`
 
@@ -517,7 +543,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       - `"project_file"`
 
-  - `ComplianceProjectDocReference object { id, created_at, filename, 2 more }`
+  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
 
     Project document attachment reference for compliance responses.
 
@@ -544,6 +570,10 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
       Discriminator marking this as a plain text document
 
       - `"project_doc"`
+
+    - `updated_at: string`
+
+      Last-modified timestamp of the document. Reserved for future use — currently always null.
 
 - `has_more: boolean`
 
@@ -569,7 +599,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
       "id": "id",
       "created_at": "2019-12-27T18:11:19.117Z",
       "filename": "filename",
+      "md5": "md5",
       "mime_type": "mime_type",
+      "size_bytes": 0,
       "type": "project_file"
     }
   ],
@@ -582,11 +614,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
 ### Attachment List Response
 
-- `AttachmentListResponse = object { id, created_at, filename, 2 more }  or object { id, created_at, filename, 2 more }`
+- `AttachmentListResponse = object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
 
   File attachment reference for compliance responses.
 
-  - `ComplianceProjectFileReference object { id, created_at, filename, 2 more }`
+  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
 
     File attachment reference for compliance responses.
 
@@ -602,9 +634,17 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       Display name of the file (e.g., 'document.pdf')
 
+    - `md5: string`
+
+      Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
+
     - `mime_type: string`
 
-      MIME type of the file when it was uploaded (e.g., 'application/pdf')
+      MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
+
+    - `size_bytes: number`
+
+      Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
     - `type: "project_file"`
 
@@ -612,7 +652,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       - `"project_file"`
 
-  - `ComplianceProjectDocReference object { id, created_at, filename, 2 more }`
+  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
 
     Project document attachment reference for compliance responses.
 
@@ -639,6 +679,10 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
       Discriminator marking this as a plain text document
 
       - `"project_doc"`
+
+    - `updated_at: string`
+
+      Last-modified timestamp of the document. Reserved for future use — currently always null.
 
 # Collaborators
 
@@ -1022,13 +1066,13 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 
 ```json
 {
-  "id": "id",
-  "content": "content",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "filename": "filename",
+  "id": "claude_proj_doc_01Qr8StUvWxYzAbCdEfGhJjK",
+  "content": "# Design notes\n\n- Item one\n- Item two\n",
+  "created_at": "2025-03-12T18:22:41.123456Z",
+  "filename": "design-notes.txt",
   "user": {
-    "id": "id",
-    "email_address": "email_address"
+    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "email_address": "jane.doe@example.com"
   }
 }
 ```
@@ -1121,8 +1165,8 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
   "mime_type": "text/plain",
   "size_bytes": 0,
   "user": {
-    "id": "id",
-    "email_address": "email_address"
+    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "email_address": "jane.doe@example.com"
   }
 }
 ```

@@ -11,6 +11,14 @@ autocompletion suggestions for the arguments of prompts and resource templates. 
 users are filling in argument values for a specific prompt (identified by name) or
 resource template (identified by URI), servers can provide contextual suggestions.
 
+<Note>
+  For brevity, the request examples on this page omit the required `_meta`
+  request metadata (`io.modelcontextprotocol/protocolVersion`,
+  `io.modelcontextprotocol/clientInfo`, and
+  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+  these fields; see [`_meta`](/specification/draft/basic/index#meta).
+</Note>
+
 ## User Interaction Model
 
 Completion in MCP is designed to support interactive user experiences similar to IDE code
@@ -48,7 +56,6 @@ what is being completed through a reference type:
 {
   "jsonrpc": "2.0",
   "id": 1,
-  "resultType": "complete",
   "method": "completion/complete",
   "params": {
     "ref": {
@@ -70,6 +77,7 @@ what is being completed through a reference type:
   "jsonrpc": "2.0",
   "id": 1,
   "result": {
+    "resultType": "complete",
     "completion": {
       "values": ["python", "pytorch", "pyside"],
       "total": 10,
@@ -113,6 +121,7 @@ For prompts or URI templates with multiple arguments, clients should include pre
   "jsonrpc": "2.0",
   "id": 1,
   "result": {
+    "resultType": "complete",
     "completion": {
       "values": ["flask"],
       "total": 1,
