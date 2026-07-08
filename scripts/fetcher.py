@@ -6,8 +6,9 @@ Sources (see sources.json for the complete registry):
   - platform.claude.com     -> API/platform docs (sitemap + .md suffix)
   - code.claude.com         -> Claude Code + Agent SDK (llms.txt + .md suffix)
   - modelcontextprotocol.io -> MCP spec (sitemap + .md suffix)
-  - anthropic.com           -> Engineering, research, news (jina.ai proxy)
-  - support.claude.com      -> Help articles (jina.ai proxy)
+  - support.claude.com      -> Help articles (sitemap + .md suffix)
+  - anthropic.com blog      -> FROZEN 2026-07 (HTML-only, no .md variant;
+                               the jina.ai proxy path was removed)
   - github.com/anthropics/* -> Repos (raw.githubusercontent.com)
 
 Usage:
@@ -57,12 +58,6 @@ GITHUB_REPOS = [
     ("anthropics/anthropic-sdk-typescript","main",   [".md"]),
 ]
 
-NEWS_KEYWORDS = [
-    "claude", "model", "api", "agent", "mcp", "sdk", "opus", "sonnet",
-    "haiku", "code", "bedrock", "vertex", "foundry", "tool", "safety",
-    "computer-use",
-]
-
 DISCOVER_DOMAINS = [
     ("anthropic.com",           "Main site"),
     ("platform.claude.com",     "API platform docs"),
@@ -89,7 +84,6 @@ class Fetcher:
 
         self.platform_sitemap_url = "https://platform.claude.com/sitemap.xml"
         self.claude_code_llms_url = "https://code.claude.com/docs/llms.txt"
-        self.anthropic_sitemap_url = "https://www.anthropic.com/sitemap.xml"
         self.mcp_sitemap_url = "https://modelcontextprotocol.io/sitemap.xml"
         self.support_sitemap_url = "https://support.claude.com/sitemap.xml"
 
@@ -107,19 +101,10 @@ class Fetcher:
             r.raise_for_status()
             return await r.text()
 
-    async def fetch_bytes(
-        self, session: aiohttp.ClientSession, url: str,
-        headers: Optional[Dict] = None,
-    ) -> bytes:
-        async with session.get(url, headers=headers) as r:
+    async def fetch_bytes(self, session: aiohttp.ClientSession, url: str) -> bytes:
+        async with session.get(url) as r:
             r.raise_for_status()
             return await r.read()
-
-    def _jina_headers(self) -> Optional[Dict]:
-        # Without a key, r.jina.ai rate-limits hard (~95% failures at 10
-        # concurrent). Set JINA_API_KEY to lift blog/support success rates.
-        key = os.environ.get("JINA_API_KEY")
-        return {"Authorization": f"Bearer {key}"} if key else None
 
     def extract_sitemap_urls(self, xml: str, must_contain: str = "") -> List[str]:
         urls = []
@@ -139,26 +124,9 @@ class Fetcher:
             urls.append(match[1:-4])  # strip parens and .md
         return urls
 
-    def filter_blog_urls(self, sitemap_xml: str) -> Dict[str, List[str]]:
-        result = {"engineering": [], "research": [], "news": [], "product": []}
-        for line in sitemap_xml.split("\n"):
-            if "<loc>" not in line:
-                continue
-            url = line.split("<loc>")[1].split("</loc>")[0]
-            if "/engineering/" in url and url != "https://www.anthropic.com/engineering":
-                result["engineering"].append(url)
-            elif "/product/" in url:
-                result["product"].append(url)
-            elif "/news/" in url and url != "https://www.anthropic.com/news":
-                slug = url.rsplit("/", 1)[-1].lower()
-                if any(kw in slug for kw in NEWS_KEYWORDS):
-                    result["news"].append(url)
-            elif "/research/" in url and url != "https://www.anthropic.com/research":
-                if "/research/team/" not in url:
-                    result["research"].append(url)
-        return result
-
     def extract_support_urls(self, sitemap_xml: str) -> List[str]:
+        # Articles serve a .md variant directly (since ~2026-07), so plain
+        # download_doc applies; sitemap covers more articles than llms.txt.
         return [
             url for url in self.extract_sitemap_urls(sitemap_xml)
             if "/en/articles/" in url
@@ -196,55 +164,6 @@ class Fetcher:
                 return {"url": url, "status": "skipped"}
             try:
                 content = await self.fetch_bytes(session, f"{url}.md")
-                output_path.parent.mkdir(parents=True, exist_ok=True)
-                async with aiofiles.open(output_path, "wb") as f:
-                    await f.write(content)
-                self.stats["downloaded"] += 1
-                return {
-                    "url": url, "status": "success",
-                    "path": str(output_path.relative_to(self.output_dir)),
-                    "sha256": hashlib.sha256(content).hexdigest(),
-                    "size": len(content),
-                }
-            except Exception as e:
-                self.stats["failed"] += 1
-                return {"url": url, "status": "failed", "error": str(e)}
-
-    async def download_via_jina(self, session, url, output_subdir, semaphore) -> Dict:
-        async with semaphore:
-            slug = url.split("anthropic.com/")[1] if "anthropic.com" in url else url.rsplit("/", 1)[-1]
-            output_path = self.output_dir / "blog" / f"{slug}.md"
-            if output_subdir:
-                output_path = self.output_dir / output_subdir / f"{slug}.md"
-            if self.incremental and output_path.exists():
-                self.stats["skipped"] += 1
-                return {"url": url, "status": "skipped"}
-            try:
-                content = await self.fetch_bytes(
-                    session, f"https://r.jina.ai/{url}", headers=self._jina_headers())
-                output_path.parent.mkdir(parents=True, exist_ok=True)
-                async with aiofiles.open(output_path, "wb") as f:
-                    await f.write(content)
-                self.stats["downloaded"] += 1
-                return {
-                    "url": url, "status": "success",
-                    "path": str(output_path.relative_to(self.output_dir)),
-                    "sha256": hashlib.sha256(content).hexdigest(),
-                    "size": len(content),
-                }
-            except Exception as e:
-                self.stats["failed"] += 1
-                return {"url": url, "status": "failed", "error": str(e)}
-
-    async def download_support_article(self, session, url, semaphore) -> Dict:
-        async with semaphore:
-            output_path = self.get_output_path(url)
-            if self.incremental and output_path.exists():
-                self.stats["skipped"] += 1
-                return {"url": url, "status": "skipped"}
-            try:
-                content = await self.fetch_bytes(
-                    session, f"https://r.jina.ai/{url}", headers=self._jina_headers())
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
@@ -345,7 +264,6 @@ class Fetcher:
 
             tasks = []
             semaphore = asyncio.Semaphore(self.jobs)
-            jina_semaphore = asyncio.Semaphore(min(self.jobs, 10))
             counts = {}
 
             # -- Platform docs --
@@ -382,20 +300,9 @@ class Fetcher:
                 for url in urls:
                     tasks.append(self.download_doc(session, url, semaphore))
 
-            # -- Blog: engineering, research, news, product --
-            if self.want("blog", "engineering", "research", "news"):
-                print("Source: anthropic.com/sitemap.xml")
-                xml = await self.fetch_text(session, self.anthropic_sitemap_url)
-                blog = self.filter_blog_urls(xml)
-
-                for category, urls in blog.items():
-                    if not self.want("blog", category):
-                        continue
-                    counts[f"blog/{category}"] = len(urls)
-                    print(f"  {len(urls)} {category}")
-                    for url in urls:
-                        tasks.append(self.download_via_jina(
-                            session, url, None, jina_semaphore))
+            # -- Blog (anthropic.com): FROZEN 2026-07 --
+            # HTML-only upstream (no llms.txt / .md variant); the jina.ai
+            # proxy path was removed. content/blog/ stays as a static archive.
 
             # -- Support articles --
             if self.want("support"):
@@ -405,8 +312,7 @@ class Fetcher:
                 counts["support"] = len(urls)
                 print(f"  {len(urls)} articles")
                 for url in urls:
-                    tasks.append(self.download_support_article(
-                        session, url, jina_semaphore))
+                    tasks.append(self.download_doc(session, url, semaphore))
 
             # -- GitHub repos --
             if self.want("github"):
@@ -558,10 +464,8 @@ class Fetcher:
             cc_urls = await self.fetch_claude_code_urls(session)
             mcp_urls = self.extract_sitemap_urls(
                 await self.fetch_text(session, self.mcp_sitemap_url))
-            anthropic_xml = await self.fetch_text(session, self.anthropic_sitemap_url)
-            blog = self.filter_blog_urls(anthropic_xml)
-            support_xml = await self.fetch_text(session, self.support_sitemap_url)
-            support_urls = self.extract_support_urls(support_xml)
+            support_urls = self.extract_support_urls(
+                await self.fetch_text(session, self.support_sitemap_url))
 
         def show_grouped(title, urls, strip_prefix):
             print(f"{title} ({len(urls)})")
@@ -579,16 +483,12 @@ class Fetcher:
         show_grouped("platform.claude.com", platform_urls, "https://platform.claude.com/docs/en/")
         show_grouped("modelcontextprotocol.io", mcp_urls, "https://modelcontextprotocol.io/")
 
-        print(f"anthropic.com blog")
-        print("-" * 50)
-        for cat, urls in blog.items():
-            print(f"  {cat}: {len(urls)}")
-        print()
         print(f"support.claude.com: {len(support_urls)} articles")
+        print("anthropic.com blog: frozen archive (not fetched)")
         print(f"GitHub repos: {len(GITHUB_REPOS)} repos configured")
         print()
 
-        total = len(cc_urls) + len(platform_urls) + len(mcp_urls) + sum(len(v) for v in blog.values()) + len(support_urls)
+        total = len(cc_urls) + len(platform_urls) + len(mcp_urls) + len(support_urls)
         print(f"Total fetchable: {total}+ (excludes GitHub repos)")
 
     # -- Discovery ---------------------------------------------------------
@@ -702,19 +602,18 @@ Sections:
   claude-code   Claude Code + Agent SDK docs (code.claude.com)
   api/platform  API and platform docs (platform.claude.com)
   mcp           MCP protocol spec (modelcontextprotocol.io)
-  blog          All blog content (engineering + research + news + product)
-  engineering   Engineering blog only
-  research      Research posts only
-  news          Filtered news (model releases, Claude updates)
   github        All configured GitHub repos
-  support       Support articles (support.claude.com)
+  support       Support articles (support.claude.com, sitemap + .md)
   all           Everything (default)
+
+Note: content/blog/ (anthropic.com engineering/research/news) is a
+frozen archive as of 2026-07 — the site is HTML-only and the jina.ai
+proxy path was removed.
 
 Examples:
   fetcher.py                               Fetch everything
   fetcher.py --section mcp                 MCP spec only
   fetcher.py --section github              GitHub repos only
-  fetcher.py --section engineering          Engineering blog only
   fetcher.py --tree                         Show all sources
   fetcher.py --discover                     Probe domains for new sources
   fetcher.py --incremental                  Skip existing files
@@ -728,7 +627,6 @@ Examples:
         "--section", "-s",
         choices=[
             "claude-code", "api", "platform", "mcp",
-            "blog", "engineering", "research", "news",
             "github", "support", "all",
         ],
     )
