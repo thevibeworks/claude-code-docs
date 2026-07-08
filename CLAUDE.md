@@ -5,15 +5,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Purpose
 
 Comprehensive archive of everything Anthropic publishes for building with
-Claude. 2,900+ docs from 11 sources, auto-updated every 6 hours.
+Claude. 2,900+ docs from 11 sources; active sources auto-updated four
+times daily (blog archive frozen, see Fetcher).
 
 ## Fetcher
 
 `scripts/fetcher.py` -- single-file multi-source fetcher.
 
 Sources: code.claude.com, platform.claude.com, modelcontextprotocol.io,
-anthropic.com (engineering/research/news), support.claude.com,
-github.com/anthropics/* (10 repos).
+support.claude.com (sitemap + .md), github.com/anthropics/* (10 repos).
+anthropic.com blog (engineering/research/news) is a FROZEN archive as of
+2026-07: the site is HTML-only and the jina.ai proxy path was removed.
 
 ```bash
 uv run scripts/fetcher.py                    # Fetch everything
@@ -22,8 +24,7 @@ uv run scripts/fetcher.py --tree             # Show sources
 uv run scripts/fetcher.py --discover         # Probe for new sources
 ```
 
-Sections: `claude-code`, `api`, `platform`, `mcp`, `blog`, `engineering`,
-`research`, `news`, `github`, `support`, `all`
+Sections: `claude-code`, `api`, `platform`, `mcp`, `github`, `support`, `all`
 
 Source registry: `sources.json`
 Architecture: `REFACTOR.md`
@@ -105,7 +106,7 @@ Use these paths to reference documentation when helping users:
 - `content/mcp/seps/` - Specification Enhancement Proposals
 - `content/mcp/community/` - Governance, working groups
 
-#### Engineering & Research (from anthropic.com)
+#### Engineering & Research (from anthropic.com) — FROZEN archive, not auto-updated
 - `content/blog/engineering/` - "Building Effective Agents", tool use, harness design
 - `content/blog/research/` - Research papers
 - `content/blog/news/` - Model releases, announcements

@@ -45,7 +45,6 @@ jobs:
       - name: Fetch all Anthropic docs
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: uv run scripts/fetcher.py
 
       - name: Setup GitHub CLI and Git
@@ -104,11 +103,9 @@ jobs:
             - `content/en/api/` - API reference (1500+ docs)
             - `content/en/build-with-claude/` - Platform features
             - `content/mcp/` - MCP protocol spec
-            - `content/blog/engineering/` - Anthropic engineering posts
-            - `content/blog/research/` - Research papers
-            - `content/blog/news/` - Model releases, announcements
+            - `content/blog/` - FROZEN archive (anthropic.com is HTML-only; no longer fetched)
             - `content/github/` - GitHub repos (cookbooks, skills, plugins, courses)
-            - `content/support/` - Support articles
+            - `content/support/` - Support articles (sitemap + .md)
 
             ## YOUR WORKFLOW
 

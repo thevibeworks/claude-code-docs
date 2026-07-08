@@ -1,25 +1,58 @@
 {
   "version": "2.0",
-  "updated": "2026-05-28",
+  "updated": "2026-07-08",
   "description": "Complete Anthropic content source registry. Discovered via robots.txt/sitemap/llms.txt probing across all known Anthropic domains, GitHub API enumeration, and package registry checks.",
-
   "domains": {
-    "anthropic.com":           {"robots": true,  "sitemap": true,  "llms_txt": false, "notes": "Main site: news, engineering, research"},
-    "platform.claude.com":     {"robots": true,  "sitemap": true,  "llms_txt": true,  "llms_full": true, "notes": "API/platform docs (1541 en pages)"},
-    "code.claude.com":         {"robots": true,  "sitemap": true,  "llms_txt": true,  "notes": "Claude Code + Agent SDK docs (141 en pages, 9 languages)"},
-    "support.claude.com":      {"robots": true,  "sitemap": true,  "llms_txt": false, "notes": "Help articles (343 en, Intercom-hosted)"},
-    "modelcontextprotocol.io": {"robots": true,  "sitemap": true,  "llms_txt": true,  "notes": "MCP spec + community (203 pages)"},
-    "claude.ai":               {"robots": true,  "sitemap": "cf-blocked", "llms_txt": false, "notes": "Product app, Cloudflare-protected"},
-    "claude.com":              {"robots": true,  "sitemap": "cf-blocked", "llms_txt": false, "notes": "Product landing, redirects to claude.ai"}
+    "anthropic.com": {
+      "robots": true,
+      "sitemap": true,
+      "llms_txt": false,
+      "notes": "Main site: news, engineering, research"
+    },
+    "platform.claude.com": {
+      "robots": true,
+      "sitemap": true,
+      "llms_txt": true,
+      "llms_full": true,
+      "notes": "API/platform docs (1541 en pages)"
+    },
+    "code.claude.com": {
+      "robots": true,
+      "sitemap": true,
+      "llms_txt": true,
+      "notes": "Claude Code + Agent SDK docs (141 en pages, 9 languages)"
+    },
+    "support.claude.com": {
+      "robots": true,
+      "sitemap": true,
+      "llms_txt": true,
+      "notes": "Help articles (Intercom-hosted); llms.txt with direct .md links since ~2026-07"
+    },
+    "modelcontextprotocol.io": {
+      "robots": true,
+      "sitemap": true,
+      "llms_txt": true,
+      "notes": "MCP spec + community (203 pages)"
+    },
+    "claude.ai": {
+      "robots": true,
+      "sitemap": "cf-blocked",
+      "llms_txt": false,
+      "notes": "Product app, Cloudflare-protected"
+    },
+    "claude.com": {
+      "robots": true,
+      "sitemap": "cf-blocked",
+      "llms_txt": false,
+      "notes": "Product landing, redirects to claude.ai"
+    }
   },
-
   "aliases": {
     "console.anthropic.com": "platform.claude.com",
-    "docs.anthropic.com":    "platform.claude.com",
+    "docs.anthropic.com": "platform.claude.com",
     "support.anthropic.com": "support.claude.com",
-    "www.claude.com":        "claude.com"
+    "www.claude.com": "claude.com"
   },
-
   "sources": [
     {
       "name": "platform-docs",
@@ -29,7 +62,10 @@
       "output": "en/",
       "pages": 1541,
       "enabled": true,
-      "section": ["api", "platform"]
+      "section": [
+        "api",
+        "platform"
+      ]
     },
     {
       "name": "claude-code-docs",
@@ -39,7 +75,9 @@
       "output": "en/docs/claude-code/",
       "pages": 141,
       "enabled": true,
-      "section": ["claude-code"],
+      "section": [
+        "claude-code"
+      ],
       "notes": "Sitemap has lastmod timestamps; llms.txt does not"
     },
     {
@@ -50,54 +88,94 @@
       "output": "mcp/",
       "pages": 203,
       "enabled": true,
-      "section": ["mcp"],
+      "section": [
+        "mcp"
+      ],
       "notes": "MCP spec, tutorials, SDK docs, governance, community charters"
     },
     {
       "name": "support-articles",
-      "type": "sitemap-jina",
-      "sitemap": "https://support.claude.com/sitemap.xml",
+      "type": "sitemap-md",
       "filter": "/en/articles/",
       "output": "support/",
       "pages": 343,
       "enabled": true,
-      "section": ["support"],
-      "notes": "Intercom-hosted, needs jina.ai proxy. Multi-language."
+      "section": [
+        "support"
+      ],
+      "notes": "Intercom-hosted; every article serves a .md variant directly (since ~2026-07), fetched sitemap + .md suffix. Previously jina.ai proxy. English-only filter.",
+      "sitemap": "https://support.claude.com/sitemap.xml"
     },
     {
       "name": "engineering-blog",
       "type": "sitemap-jina",
       "sitemap": "https://www.anthropic.com/sitemap.xml",
       "filter": "/engineering/",
-      "exclude_exact": ["https://www.anthropic.com/engineering"],
+      "exclude_exact": [
+        "https://www.anthropic.com/engineering"
+      ],
       "output": "blog/engineering/",
       "pages": 26,
-      "enabled": true,
-      "section": ["blog", "engineering"]
+      "enabled": false,
+      "section": [
+        "blog",
+        "engineering"
+      ],
+      "notes": "FROZEN 2026-07-08: anthropic.com is HTML-only (no llms.txt/.md); jina.ai proxy dependency removed. content/blog/ kept as static archive."
     },
     {
       "name": "research-posts",
       "type": "sitemap-jina",
       "sitemap": "https://www.anthropic.com/sitemap.xml",
       "filter": "/research/",
-      "exclude_exact": ["https://www.anthropic.com/research"],
-      "exclude_pattern": ["/research/team/"],
+      "exclude_exact": [
+        "https://www.anthropic.com/research"
+      ],
+      "exclude_pattern": [
+        "/research/team/"
+      ],
       "output": "blog/research/",
       "pages": 122,
-      "enabled": true,
-      "section": ["blog", "research"]
+      "enabled": false,
+      "section": [
+        "blog",
+        "research"
+      ],
+      "notes": "FROZEN 2026-07-08: anthropic.com is HTML-only (no llms.txt/.md); jina.ai proxy dependency removed. content/blog/ kept as static archive."
     },
     {
       "name": "news-posts",
       "type": "sitemap-jina-filtered",
       "sitemap": "https://www.anthropic.com/sitemap.xml",
       "filter": "/news/",
-      "exclude_exact": ["https://www.anthropic.com/news"],
-      "keywords": ["claude", "model", "api", "agent", "mcp", "sdk", "opus", "sonnet", "haiku", "code", "bedrock", "vertex", "foundry", "tool", "safety"],
+      "exclude_exact": [
+        "https://www.anthropic.com/news"
+      ],
+      "keywords": [
+        "claude",
+        "model",
+        "api",
+        "agent",
+        "mcp",
+        "sdk",
+        "opus",
+        "sonnet",
+        "haiku",
+        "code",
+        "bedrock",
+        "vertex",
+        "foundry",
+        "tool",
+        "safety"
+      ],
       "output": "blog/news/",
       "pages": "~100 (filtered from 217)",
-      "enabled": true,
-      "section": ["blog", "news"]
+      "enabled": false,
+      "section": [
+        "blog",
+        "news"
+      ],
+      "notes": "FROZEN 2026-07-08: anthropic.com is HTML-only (no llms.txt/.md); jina.ai proxy dependency removed. content/blog/ kept as static archive."
     },
     {
       "name": "product-pages",
@@ -106,118 +184,165 @@
       "filter": "/product/",
       "output": "blog/product/",
       "pages": 4,
-      "enabled": true,
-      "section": ["blog"]
+      "enabled": false,
+      "section": [
+        "blog"
+      ],
+      "notes": "FROZEN 2026-07-08: anthropic.com is HTML-only (no llms.txt/.md); jina.ai proxy dependency removed. content/blog/ kept as static archive."
     },
     {
       "name": "github-cookbooks",
       "type": "github-repo",
       "repo": "anthropics/claude-cookbooks",
       "branch": "main",
-      "extensions": [".md", ".ipynb"],
+      "extensions": [
+        ".md",
+        ".ipynb"
+      ],
       "output": "github/cookbooks/",
       "pages": 164,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-skills",
       "type": "github-repo",
       "repo": "anthropics/skills",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/skills/",
       "pages": 90,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-plugins-official",
       "type": "github-repo",
       "repo": "anthropics/claude-plugins-official",
       "branch": "main",
-      "extensions": [".md", ".json"],
+      "extensions": [
+        ".md",
+        ".json"
+      ],
       "output": "github/plugins-official/",
       "pages": 266,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-courses",
       "type": "github-repo",
       "repo": "anthropics/courses",
       "branch": "master",
-      "extensions": [".md", ".ipynb"],
+      "extensions": [
+        ".md",
+        ".ipynb"
+      ],
       "output": "github/courses/",
       "pages": 80,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-quickstarts",
       "type": "github-repo",
       "repo": "anthropics/claude-quickstarts",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/quickstarts/",
       "pages": 17,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-code-action",
       "type": "github-repo",
       "repo": "anthropics/claude-code-action",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/code-action/",
       "pages": 32,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-workshops",
       "type": "github-repo",
       "repo": "anthropics/cwc-workshops",
       "branch": "main",
-      "extensions": [".md", ".ipynb"],
+      "extensions": [
+        ".md",
+        ".ipynb"
+      ],
       "output": "github/workshops/",
       "pages": 36,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-long-running-agents",
       "type": "github-repo",
       "repo": "anthropics/cwc-long-running-agents",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/long-running-agents/",
       "pages": 4,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-sdk-python",
       "type": "github-repo",
       "repo": "anthropics/anthropic-sdk-python",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/sdk-python/",
       "pages": 10,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "github-sdk-typescript",
       "type": "github-repo",
       "repo": "anthropics/anthropic-sdk-typescript",
       "branch": "main",
-      "extensions": [".md"],
+      "extensions": [
+        ".md"
+      ],
       "output": "github/sdk-typescript/",
       "pages": 20,
       "enabled": true,
-      "section": ["github"]
+      "section": [
+        "github"
+      ]
     },
     {
       "name": "npm-claude-code",
@@ -225,7 +350,9 @@
       "package": "@anthropic-ai/claude-code",
       "output": "claude-code-manifest.json",
       "enabled": true,
-      "section": ["meta"]
+      "section": [
+        "meta"
+      ]
     },
     {
       "name": "github-changelog",
@@ -233,7 +360,9 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-code/main/CHANGELOG.md",
       "output": "CHANGELOG.md",
       "enabled": true,
-      "section": ["meta"]
+      "section": [
+        "meta"
+      ]
     }
   ]
 }
