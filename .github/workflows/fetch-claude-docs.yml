@@ -2,7 +2,7 @@ name: Fetch Claude Code Docs
 
 on:
   schedule:
-    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
+    # Four times daily: 01:00, 06:00, 11:00, 16:00 UTC (aligned with hn-digest)
     - cron: "0 1,6,11,16 * * *"
   workflow_dispatch: # Allow manual trigger
 
@@ -45,6 +45,7 @@ jobs:
       - name: Fetch all Anthropic docs
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
         run: uv run scripts/fetcher.py
 
       - name: Setup GitHub CLI and Git
@@ -55,7 +56,11 @@ jobs:
           git config --global user.email "claude-yolo@lroole.com"
 
       - name: Claude handles everything
-        uses: anthropics/claude-code-action@main
+        # Pinned: @main changed claude_args parsing in June 2026 and silently
+        # broke 'Bash(gh pr:*)' (split on the space into two invalid rules)
+        # -> 3 weeks of pushed branches with no PRs. Tool permissions now live
+        # in .claude/settings.json, which survives arg-parsing changes.
+        uses: anthropics/claude-code-action@v1.0.168
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -64,7 +69,6 @@ jobs:
           allowed_bots: "claude-yolo[bot]"
           claude_args: |
             --model claude-sonnet-4-6
-            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(npm:*),Bash(jq:*),Bash(date:*),mcp__barkme__notify
             --mcp-config '{
               "mcpServers": {
                 "barkme": {
@@ -178,13 +182,39 @@ jobs:
             - Highlight the interesting bits
 
             ## BARKME PROTOCOL (nightshift notifications)
-            Always barkme when creating PR (one simple notification):
+            Bark AFTER the PR exists, never before:
+            - Only notify once gh pr create / create-docs-pr.sh returned a real PR URL
             - Title: "📦 Claude Code v{version}"
             - Body: "{key feature}"
-            - URL: Link to PR
+            - URL: the actual PR link (verify it is non-empty before barking)
+
+            If push or PR creation fails: bark a failure alert instead
+            ("🚨 docs pipeline: {step} failed - needs human") and exit non-zero.
+            A notification without a PR behind it is worse than no notification.
 
             Keep it SHORT - day shift will do detailed analysis later.
 
             Remember: You're not a changelog generator. You're a smart filter that understands WHY changes matter to humans using Claude Code.
 
             [>be me >11:45pm Pacific docs checker >Anthropic devs are asleep >catching their fresh updates >day shift will handle the rest]
+
+      # Tripwire: a pushed branch without a PR, or changes left uncommitted,
+      # means the agent step silently failed. Fail loudly instead of lying green.
+      # (June 2026 incident: 31 orphan branches, zero PRs, all runs green.)
+      - name: Verify outcome
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          BRANCH=$(git branch --show-current)
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Workspace has uncommitted changes after agent step"
+            git status --short | head -20
+            exit 1
+          fi
+          if [ "$BRANCH" != "main" ] && [ -n "$BRANCH" ]; then
+            PRS=$(gh pr list --head "$BRANCH" --json number --jq 'length')
+            if [ "$PRS" = "0" ]; then
+              echo "::error::Branch $BRANCH pushed but no PR exists - PR creation silently failed"
+              exit 1
+            fi
+          fi

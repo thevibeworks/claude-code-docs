@@ -107,10 +107,19 @@ class Fetcher:
             r.raise_for_status()
             return await r.text()
 
-    async def fetch_bytes(self, session: aiohttp.ClientSession, url: str) -> bytes:
-        async with session.get(url) as r:
+    async def fetch_bytes(
+        self, session: aiohttp.ClientSession, url: str,
+        headers: Optional[Dict] = None,
+    ) -> bytes:
+        async with session.get(url, headers=headers) as r:
             r.raise_for_status()
             return await r.read()
+
+    def _jina_headers(self) -> Optional[Dict]:
+        # Without a key, r.jina.ai rate-limits hard (~95% failures at 10
+        # concurrent). Set JINA_API_KEY to lift blog/support success rates.
+        key = os.environ.get("JINA_API_KEY")
+        return {"Authorization": f"Bearer {key}"} if key else None
 
     def extract_sitemap_urls(self, xml: str, must_contain: str = "") -> List[str]:
         urls = []
@@ -211,7 +220,8 @@ class Fetcher:
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
             try:
-                content = await self.fetch_bytes(session, f"https://r.jina.ai/{url}")
+                content = await self.fetch_bytes(
+                    session, f"https://r.jina.ai/{url}", headers=self._jina_headers())
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
@@ -233,7 +243,8 @@ class Fetcher:
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
             try:
-                content = await self.fetch_bytes(session, f"https://r.jina.ai/{url}")
+                content = await self.fetch_bytes(
+                    session, f"https://r.jina.ai/{url}", headers=self._jina_headers())
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
@@ -342,8 +353,13 @@ class Fetcher:
                 print("Source: platform.claude.com/sitemap.xml")
                 xml = await self.fetch_text(session, self.platform_sitemap_url)
                 urls = self.extract_sitemap_urls(xml, "/docs/en/")
+                # Terraform provider reference serves no .md variant (404s)
+                terraform = [u for u in urls if "/api/terraform/" in u]
+                urls = [u for u in urls if "/api/terraform/" not in u]
                 counts["platform"] = len(urls)
-                print(f"  {len(urls)} docs")
+                print(f"  {len(urls)} docs"
+                      + (f" ({len(terraform)} terraform pages skipped, no .md)"
+                         if terraform else ""))
                 for url in urls:
                     tasks.append(self.download_doc(session, url, semaphore))
 
@@ -413,8 +429,23 @@ class Fetcher:
             if tasks:
                 results = await tqdm_asyncio.gather(*tasks, desc="Fetching", unit="file")
                 await self._save_metadata(results)
+                self._print_failures(results)
 
         self._print_summary()
+
+    def _print_failures(self, results: List[Dict]):
+        failed = [r for r in results if r.get("status") == "failed"]
+        if not failed:
+            return
+        by_host = defaultdict(int)
+        for r in failed:
+            by_host[r["url"].split("/")[2]] += 1
+        print("\nFailed by host:")
+        for host, n in sorted(by_host.items(), key=lambda kv: -kv[1]):
+            print(f"  {host}: {n}")
+        print("Sample errors:")
+        for r in failed[:3]:
+            print(f"  {r['url']}: {str(r.get('error', ''))[:120]}")
 
     async def _fetch_meta(self, session):
         print("Meta: NPM manifest + CHANGELOG")
@@ -446,6 +477,10 @@ class Fetcher:
                 "section": self.section or "all",
             },
             "items": [r for r in results if r.get("status") == "success"],
+            "failures": [
+                {"url": r["url"], "error": str(r.get("error", ""))[:200]}
+                for r in results if r.get("status") == "failed"
+            ],
             "summary": {
                 "total": self.stats["total"],
                 "downloaded": self.stats["downloaded"],
