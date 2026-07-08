@@ -37,7 +37,7 @@ Cost tracking depends on understanding how the SDK scopes usage data:
 
 The following diagram shows the message stream from a single `query()` call, with token usage reported at each step and the cumulative estimate at the end:
 
-<img src="https://mintcdn.com/claude-code/Dujg43sxTkuhSELI/images/agent-sdk/message-usage-flow.svg?fit=max&auto=format&n=Dujg43sxTkuhSELI&q=85&s=c542f51ff58547ef9c0e57b16d03f33c" alt="Diagram showing a query producing two steps of messages. Step 1 has four assistant messages sharing the same ID and usage (count once), Step 2 has one assistant message with a new ID, and the final result message shows the estimated total_cost_usd." width="760" height="520" data-path="images/agent-sdk/message-usage-flow.svg" />
+<img src="https://mintcdn.com/claude-code/ikqp3_70mqIahteV/images/agent-sdk/message-usage-flow.svg?fit=max&auto=format&n=ikqp3_70mqIahteV&q=85&s=68497aee338e01cc745323af7aea378e" alt="Diagram showing a query producing two steps of messages. Step 1 has four assistant messages sharing the same ID and usage (count once), Step 2 has one assistant message with a new ID, and the final result message shows the estimated total_cost_usd." width="760" height="520" data-path="images/agent-sdk/message-usage-flow.svg" />
 
 <Steps>
   <Step title="Each step produces assistant messages">
@@ -59,10 +59,18 @@ The following examples iterate over the message stream from a `query()` call and
   ```typescript TypeScript theme={null}
   import { query } from "@anthropic-ai/claude-agent-sdk";
 
-  for await (const message of query({ prompt: "Summarize this project" })) {
-    if (message.type === "result") {
-      console.log(`Total cost: $${message.total_cost_usd}`);
+  try {
+    for await (const message of query({ prompt: "Summarize this project" })) {
+      if (message.type === "result") {
+        console.log(`Total cost: $${message.total_cost_usd}`);
+      }
     }
+  } catch (error) {
+    // A single-shot query() throws after yielding an error result. If the
+    // failure was an error result, it still carried total_cost_usd and the
+    // branch above has already run; connection or process failures yield
+    // no result message.
+    console.error(`Session ended with an error: ${error}`);
   }
   ```
 
@@ -72,9 +80,16 @@ The following examples iterate over the message stream from a `query()` call and
 
 
   async def main():
-      async for message in query(prompt="Summarize this project"):
-          if isinstance(message, ResultMessage):
-              print(f"Total cost: ${message.total_cost_usd or 0}")
+      try:
+          async for message in query(prompt="Summarize this project"):
+              if isinstance(message, ResultMessage):
+                  print(f"Total cost: ${message.total_cost_usd or 0}")
+      except Exception as error:
+          # A single-shot query() raises after yielding an error result. If the
+          # failure was an error result, it still carried total_cost_usd and the
+          # branch above has already run; connection or process failures yield
+          # no result message.
+          print(f"Session ended with an error: {error}")
 
 
   asyncio.run(main())
@@ -102,17 +117,23 @@ const seenIds = new Set<string>();
 let totalInputTokens = 0;
 let totalOutputTokens = 0;
 
-for await (const message of query({ prompt: "Summarize this project" })) {
-  if (message.type === "assistant") {
-    const msgId = message.message.id;
+try {
+  for await (const message of query({ prompt: "Summarize this project" })) {
+    if (message.type === "assistant") {
+      const msgId = message.message.id;
 
-    // Parallel tool calls share the same ID, only count once
-    if (!seenIds.has(msgId)) {
-      seenIds.add(msgId);
-      totalInputTokens += message.message.usage.input_tokens;
-      totalOutputTokens += message.message.usage.output_tokens;
+      // Parallel tool calls share the same ID, only count once
+      if (!seenIds.has(msgId)) {
+        seenIds.add(msgId);
+        totalInputTokens += message.message.usage.input_tokens;
+        totalOutputTokens += message.message.usage.output_tokens;
+      }
     }
   }
+} catch (error) {
+  // A single-shot query() throws after yielding an error result, so the
+  // totals below still reflect the steps that ran before the failure.
+  console.error(`Session ended with an error: ${error}`);
 }
 
 console.log(`Steps: ${seenIds.size}`);
@@ -129,16 +150,23 @@ The following example runs a query and prints the cost and token breakdown for e
 ```typescript theme={null}
 import { query } from "@anthropic-ai/claude-agent-sdk";
 
-for await (const message of query({ prompt: "Summarize this project" })) {
-  if (message.type !== "result") continue;
+try {
+  for await (const message of query({ prompt: "Summarize this project" })) {
+    if (message.type !== "result") continue;
 
-  for (const [modelName, usage] of Object.entries(message.modelUsage)) {
-    console.log(`${modelName}: $${usage.costUSD.toFixed(4)}`);
-    console.log(`  Input tokens: ${usage.inputTokens}`);
-    console.log(`  Output tokens: ${usage.outputTokens}`);
-    console.log(`  Cache read: ${usage.cacheReadInputTokens}`);
-    console.log(`  Cache creation: ${usage.cacheCreationInputTokens}`);
+    for (const [modelName, usage] of Object.entries(message.modelUsage)) {
+      console.log(`${modelName}: $${usage.costUSD.toFixed(4)}`);
+      console.log(`  Input tokens: ${usage.inputTokens}`);
+      console.log(`  Output tokens: ${usage.outputTokens}`);
+      console.log(`  Cache read: ${usage.cacheReadInputTokens}`);
+      console.log(`  Cache creation: ${usage.cacheCreationInputTokens}`);
+    }
   }
+} catch (error) {
+  // A single-shot query() throws after yielding an error result. If the
+  // failure was an error result, the per-model breakdown above has already
+  // printed; connection or process failures yield no result message.
+  console.error(`Session ended with an error: ${error}`);
 }
 ```
 
@@ -161,11 +189,19 @@ The following examples run two `query()` calls sequentially, add each call's `to
   ];
 
   for (const prompt of prompts) {
-    for await (const message of query({ prompt })) {
-      if (message.type === "result") {
-        totalSpend += message.total_cost_usd;
-        console.log(`This call: $${message.total_cost_usd}`);
+    try {
+      for await (const message of query({ prompt })) {
+        if (message.type === "result") {
+          totalSpend += message.total_cost_usd;
+          console.log(`This call: $${message.total_cost_usd}`);
+        }
       }
+    } catch (error) {
+      // A single-shot query() throws after yielding an error result. If the
+      // failure was an error result, this call's cost was already counted;
+      // connection or process failures yield no result message. Continue
+      // with the next prompt.
+      console.error(`Call failed: ${error}`);
     }
   }
 
@@ -187,11 +223,18 @@ The following examples run two `query()` calls sequentially, add each call's `to
       ]
 
       for prompt in prompts:
-          async for message in query(prompt=prompt):
-              if isinstance(message, ResultMessage):
-                  cost = message.total_cost_usd or 0
-                  total_spend += cost
-                  print(f"This call: ${cost}")
+          try:
+              async for message in query(prompt=prompt):
+                  if isinstance(message, ResultMessage):
+                      cost = message.total_cost_usd or 0
+                      total_spend += cost
+                      print(f"This call: ${cost}")
+          except Exception as error:
+              # A single-shot query() raises after yielding an error result. If
+              # the failure was an error result, this call's cost was already
+              # counted; connection or process failures yield no result message.
+              # Continue with the next prompt.
+              print(f"Call failed: {error}")
 
       print(f"Total spend: ${total_spend:.4f}")
 
@@ -227,11 +270,11 @@ Track these separately from `input_tokens` to understand caching savings. In Typ
 
 ### Extend the prompt cache TTL to one hour
 
-Cache entries written by the SDK use a 5-minute TTL by default when you authenticate with an API key or run on Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Foundry. If your workload runs many short sessions against the same system prompt and context with gaps longer than 5 minutes between them, the cache expires between sessions and each new session pays full input price.
+Cache entries written by the SDK use a 5-minute TTL by default when you authenticate with an API key or run on Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry. If your workload runs many short sessions against the same system prompt and context with gaps longer than 5 minutes between them, the cache expires between sessions and each new session pays full input price.
 
 To request a 1-hour TTL on cache writes, set the [`ENABLE_PROMPT_CACHING_1H`](/en/env-vars) environment variable. You can export it in your shell or container environment, or pass it through `options.env`.
 
-The following example enables 1-hour TTL for an agent running on Bedrock:
+The following example enables 1-hour TTL for an agent running on Amazon Bedrock:
 
 <CodeGroup>
   ```python Python theme={null}

@@ -19,7 +19,7 @@ ZDR on Claude for Enterprise gives enterprise customers the ability to use Claud
 * [Server-managed settings](/en/server-managed-settings)
 * Audit logs
 
-ZDR for Claude Code on Claude for Enterprise applies only to Anthropic's direct platform. For Claude deployments on Amazon Bedrock, Google Vertex AI, or Microsoft Foundry, refer to those platforms' data retention policies.
+ZDR for Claude Code on Claude for Enterprise applies only to Anthropic's direct platform. For Claude deployments on Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry, refer to those platforms' data retention policies.
 
 ## ZDR scope
 
@@ -49,11 +49,12 @@ ZDR does not extend to the following, even for organizations with ZDR enabled. T
 
 When ZDR is enabled for a Claude Code organization on Claude for Enterprise, certain features that require storing prompts or completions are automatically disabled at the backend level:
 
-| Feature                                                           | Reason                                                                  |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [Claude Code on the Web](/en/claude-code-on-the-web)              | Requires server-side storage of conversation history.                   |
-| [Cloud sessions](/en/desktop#cloud-sessions) from the Desktop app | Requires persistent session data that includes prompts and completions. |
-| Feedback submission (`/feedback`)                                 | Submitting feedback sends conversation data to Anthropic.               |
+| Feature                                                           | Reason                                                                        |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [Claude Code on the Web](/en/claude-code-on-the-web)              | Requires server-side storage of conversation history.                         |
+| [Cloud sessions](/en/desktop#cloud-sessions) from the Desktop app | Requires persistent session data that includes prompts and completions.       |
+| [Artifacts](/en/artifacts)                                        | Requires storing published page content on Anthropic-operated infrastructure. |
+| Feedback submission (`/feedback`)                                 | Submitting feedback sends conversation data to Anthropic.                     |
 
 These features are blocked in the backend regardless of client-side display. If you see a disabled feature in the Claude Code terminal during startup, attempting to use it returns an error indicating the organization's policies do not allow that action.
 

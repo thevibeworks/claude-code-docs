@@ -100,7 +100,7 @@ If your organization has specific infrastructure requirements, compare the optio
       <th>Anthropic Console</th>
       <th>Amazon Bedrock</th>
       <th>Claude Platform on AWS</th>
-      <th>Google Vertex AI</th>
+      <th>Google Cloud's Agent Platform, formerly Vertex AI</th>
       <th>Microsoft Foundry</th>
     </tr>
   </thead>
@@ -188,13 +188,16 @@ If your organization has specific infrastructure requirements, compare the optio
   </tbody>
 </table>
 
+For a feature-by-feature breakdown of what's available on each option, see [Feature availability](/en/feature-availability).
+
 Select a deployment option to view setup instructions:
 
 * [Claude for Teams or Enterprise](/en/authentication#claude-for-teams-or-enterprise)
 * [Anthropic Console](/en/authentication#claude-console-authentication)
+* [Claude apps gateway](/en/claude-apps-gateway), a self-hosted gateway that adds IdP sign-in in front of Amazon Bedrock, Claude Platform on AWS, Google Cloud's Agent Platform, Microsoft Foundry, or the Anthropic API
 * [Amazon Bedrock](/en/amazon-bedrock)
 * [Claude Platform on AWS](/en/claude-platform-on-aws)
-* [Google Vertex AI](/en/google-vertex-ai)
+* [Google Cloud's Agent Platform](/en/google-vertex-ai)
 * [Microsoft Foundry](/en/microsoft-foundry)
 
 ## Configure proxies and gateways
@@ -202,7 +205,7 @@ Select a deployment option to view setup instructions:
 Most organizations can use a cloud provider directly without additional configuration. However, you may need to configure a corporate proxy or LLM gateway if your organization has specific network or management requirements. These are different configurations that can be used together:
 
 * **Corporate proxy**: Routes traffic through an HTTP/HTTPS proxy. Use this if your organization requires all outbound traffic to pass through a proxy server for security monitoring, compliance, or network policy enforcement. Configure with the `HTTPS_PROXY` or `HTTP_PROXY` environment variables. Learn more in [Enterprise network configuration](/en/network-config).
-* **LLM Gateway**: A service that sits between Claude Code and the cloud provider to handle authentication and routing. Use this if you need centralized usage tracking across teams, custom rate limiting or budgets, or centralized authentication management. Configure with the `ANTHROPIC_BASE_URL`, `ANTHROPIC_BEDROCK_BASE_URL`, `ANTHROPIC_AWS_BASE_URL`, or `ANTHROPIC_VERTEX_BASE_URL` environment variables. Learn more in [LLM gateway configuration](/en/llm-gateway).
+* **LLM Gateway**: A service that sits between Claude Code and the cloud provider to handle authentication and routing. Use this if you need centralized usage tracking across teams, custom rate limiting or budgets, or centralized authentication management. Configure with the `ANTHROPIC_BASE_URL`, `ANTHROPIC_BEDROCK_BASE_URL`, `ANTHROPIC_AWS_BASE_URL`, or `ANTHROPIC_VERTEX_BASE_URL` environment variables. Learn more in [LLM gateways](/en/llm-gateway).
 
 The following examples show the environment variables to set in your shell or shell profile (`.bashrc`, `.zshrc`). See [Settings](/en/settings) for other configuration methods.
 
@@ -210,7 +213,7 @@ The following examples show the environment variables to set in your shell or sh
 
 <Tabs>
   <Tab title="Corporate proxy">
-    Route Bedrock traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
+    Route Amazon Bedrock traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
     # Enable Bedrock
@@ -223,7 +226,7 @@ The following examples show the environment variables to set in your shell or sh
   </Tab>
 
   <Tab title="LLM Gateway">
-    Route Bedrock traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
+    Route Amazon Bedrock traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
     # Enable Bedrock
@@ -240,7 +243,7 @@ The following examples show the environment variables to set in your shell or sh
 
 <Tabs>
   <Tab title="Corporate proxy">
-    Route Foundry traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
+    Route Microsoft Foundry traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
     # Enable Microsoft Foundry
@@ -254,7 +257,7 @@ The following examples show the environment variables to set in your shell or sh
   </Tab>
 
   <Tab title="LLM Gateway">
-    Route Foundry traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
+    Route Microsoft Foundry traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
     # Enable Microsoft Foundry
@@ -262,19 +265,19 @@ The following examples show the environment variables to set in your shell or sh
 
     # Configure LLM gateway
     export ANTHROPIC_FOUNDRY_BASE_URL='https://your-llm-gateway.com'
-    export CLAUDE_CODE_SKIP_FOUNDRY_AUTH=1  # If gateway handles Azure auth
+    export ANTHROPIC_FOUNDRY_API_KEY=your-gateway-key  # Sent as x-api-key
     ```
   </Tab>
 </Tabs>
 
-### Google Vertex AI
+### Google Cloud's Agent Platform
 
 <Tabs>
   <Tab title="Corporate proxy">
-    Route Vertex AI traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
+    Route Google Cloud's Agent Platform traffic through your corporate proxy by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
-    # Enable Vertex
+    # Enable Agent Platform
     export CLAUDE_CODE_USE_VERTEX=1
     export CLOUD_ML_REGION=us-east5
     export ANTHROPIC_VERTEX_PROJECT_ID=your-project-id
@@ -285,15 +288,17 @@ The following examples show the environment variables to set in your shell or sh
   </Tab>
 
   <Tab title="LLM Gateway">
-    Route Vertex AI traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
+    Route Google Cloud's Agent Platform traffic through your LLM gateway by setting the following [environment variables](/en/env-vars):
 
     ```bash theme={null}
-    # Enable Vertex
+    # Enable Agent Platform
     export CLAUDE_CODE_USE_VERTEX=1
 
     # Configure LLM gateway
     export ANTHROPIC_VERTEX_BASE_URL='https://your-llm-gateway.com/vertex'
     export CLAUDE_CODE_SKIP_VERTEX_AUTH=1  # If gateway handles GCP auth
+    export ANTHROPIC_VERTEX_PROJECT_ID=your-gcp-project-id
+    export CLOUD_ML_REGION=us-east5
     ```
   </Tab>
 </Tabs>
@@ -323,7 +328,7 @@ Encourage new users to try Claude Code for codebase Q\&A, or on smaller bug fixe
 
 ### Pin model versions for cloud providers
 
-If you deploy through [Bedrock](/en/amazon-bedrock), [Vertex AI](/en/google-vertex-ai), [Foundry](/en/microsoft-foundry), or [Claude Platform on AWS](/en/claude-platform-on-aws), pin specific model versions using `ANTHROPIC_DEFAULT_FABLE_MODEL`, `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, and `ANTHROPIC_DEFAULT_HAIKU_MODEL`. Without pinning, model aliases resolve to Claude Code's built-in default for that provider, which can lag the newest release and may not yet be enabled in your account. Pinning lets you control when your users move to a new model. See [Model configuration](/en/model-config#pin-models-for-third-party-deployments) for what each provider does when the default is unavailable.
+If you deploy through [Amazon Bedrock](/en/amazon-bedrock), [Google Cloud's Agent Platform](/en/google-vertex-ai), [Microsoft Foundry](/en/microsoft-foundry), or [Claude Platform on AWS](/en/claude-platform-on-aws), pin specific model versions using `ANTHROPIC_DEFAULT_FABLE_MODEL`, `ANTHROPIC_DEFAULT_OPUS_MODEL`, `ANTHROPIC_DEFAULT_SONNET_MODEL`, and `ANTHROPIC_DEFAULT_HAIKU_MODEL`. Without pinning, model aliases resolve to Claude Code's built-in default for that provider, which can lag the newest release and may not yet be enabled in your account. Pinning lets you control when your users move to a new model. See [Model configuration](/en/model-config#pin-models-for-third-party-deployments) for what each provider does when the default is unavailable.
 
 ### Configure security policies
 

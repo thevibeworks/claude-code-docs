@@ -91,6 +91,18 @@ There are key caveats to our analysis, owing to the nature of the data. First, o
 
 Still, the interviews surface real insights about people’s feelings around the economics of AI, showing how qualitative data can surface quantitative hypotheses. And the large share of economic-related concerns is a strong signal in itself.
 
+### Citation
+
+```
+@online{massenkoff2026interviewer,
+author = {Maxim Massenkoff and Saffron Huang},
+title = {What 81,000 people told us about the economics of AI},
+date = {2026-04-22},
+year = {2026},
+url = {anthropic.com/research/81k-economics},
+}
+```
+
 ### Appendix
 
 See the final section of the [linked PDF](https://cdn.sanity.io/files/4zrzovbb/website/3a8d990bc90098038eabd77b0d12ff636ed58d50.pdf).
@@ -107,20 +119,20 @@ Additionally, we thank Miriam Chaum, Ankur Rathi, Santi Ruiz, and David Saunders
 
 ## Related content
 
-### Coding agents in the social sciences
+### A global workspace in language models
 
-Results from a survey of 1,260 social scientists about AI and coding agent use.
+New interpretability research reveals an emergent mental workspace in Claude that holds internal thoughts that don’t appear in the model’s output.
 
-[Read more](https://www.anthropic.com/research/coding-agents-social-sciences)
+[Read more](https://www.anthropic.com/research/global-workspace)
 
-### Project Glasswing: An initial update
+### Anthropic Economic Index report: Cadences
 
-An early update on what we've learned from Project Glasswing.
+In our latest Economic Index report, we sample hourly for the first time to ask: When do people come to Claude? What do they produce with it? And how do they perceive AI's impact on their work?
 
-[Read more](https://www.anthropic.com/research/glasswing-initial-update)
+[Read more](https://www.anthropic.com/research/economic-index-june-2026-report)
 
-### 2028: Two scenarios for global AI leadership
+### Project Fetch: Phase two
 
-Our views on the AI competition between the US and China.
+We report results from our latest test of whether Claude can help Anthropic employees perform sophisticated robotics tasks. We found that Claude Opus 4.7, operating without human assistance, was about 20 times faster than the fastest human team at all tasks completed by participants less than a year ago.
 
-[Read more](https://www.anthropic.com/research/2028-ai-leadership)
+[Read more](https://www.anthropic.com/research/project-fetch-phase-two)

@@ -10,14 +10,14 @@ The Compliance API gives Claude Enterprise customers programmatic access to thei
   Two key types unlock the Compliance API. A **Compliance Access Key** (created in claude.ai) reaches every endpoint, and an **Admin API key** (created in Claude Console) reaches the Activity Feed only. See [Which key do you need?](/docs/en/manage-claude/compliance-api-access#which-key-do-you-need) for the full key-type comparison.
 </Note>
 
-The following call returns the most recent activity event in your organization. Any key with the `read:compliance_activities` scope can make it. To create a key and grant it that scope, see [Get access to the Compliance API](/docs/en/manage-claude/compliance-api-access).
+The following call returns the most recent activity event in your organization. Any key with the `read:compliance_activities` scope can make it. To create a key and grant it that scope, see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
 
 <CodeGroup>
-```bash cURL nocheck
-curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/activities?limit=1" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
-```
+  ```bash cURL
+  curl --fail-with-body -sS \
+    "https://api.anthropic.com/v1/compliance/activities?limit=1" \
+    --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+  ```
 </CodeGroup>
 
 A successful response returns a JSON object containing `data` (an array of `Activity` records), `has_more`, `first_id`, and `last_id`:
@@ -48,19 +48,19 @@ A successful response returns a JSON object containing `data` (an array of `Acti
 }
 ```
 
----
+***
 
 ## How the Compliance API works
 
-Every endpoint lives under `/v1/compliance/*` on `https://api.anthropic.com` and authenticates through the `x-api-key` header. To provision a key, see [Get access to the Compliance API](/docs/en/manage-claude/compliance-api-access).
+Every endpoint lives under `/v1/compliance/*` on `https://api.anthropic.com` and authenticates through the `x-api-key` header. To provision a key, see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
 
 The Activity Feed (`GET /v1/compliance/activities`) is available to any key that carries the `read:compliance_activities` scope; see [Query the Activity Feed](/docs/en/manage-claude/compliance-activity-feed) for filters, pagination, and the full `Activity` object. The remaining endpoints require a Compliance Access Key carrying the relevant scope.
 
-A Claude Enterprise tenant has one parent organization (the top-level container that centralizes identity) with linked organizations of two kinds: claude.ai organizations, where users chat and store content, and Claude Console organizations, where users manage Claude API workloads. The directory endpoints (organizations, users, roles, and groups) return data from every linked organization of either kind. The content endpoints (chats, files, projects, and project attachments) serve claude.ai data only.
+A Claude Enterprise tenant has one parent organization (the top-level container that centralizes identity) with linked organizations of two kinds: claude.ai organizations, where users chat and store content, and Claude Console organizations, where users manage Claude API workloads. For a key that covers the parent organization, the directory endpoints (organizations, users, roles, and groups) return data from every linked organization of either kind. The content endpoints (chats, files, projects, and project attachments) serve claude.ai data only.
 
 All `/v1/compliance/*` endpoints share a single rate limit of 600 requests per minute per parent organization; see [429 Too Many Requests](/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
 
----
+***
 
 ## Compliance API versus related features
 
@@ -74,32 +74,39 @@ The audit log export is a separate feature in [claude.ai > Organization settings
 
 Anthropic provides two analytics APIs: the Claude Enterprise Analytics API and the [Claude Code Analytics API](/docs/en/manage-claude/claude-code-analytics-api). Both return aggregated usage and cost figures for IT, FinOps, and platform teams, whereas the Compliance API returns per-event records for security, legal, and compliance teams. The two API families answer different questions, use different keys, and are provisioned separately.
 
----
+***
 
 ## In this section
 
 <CardGroup>
-  <Card href="/docs/en/manage-claude/compliance-api-access" title="Get access to the Compliance API">
-    Request Compliance API access for your organization, then create a Compliance Access Key (with scoped permissions) or an Admin API key, and learn which to use.
+  <Card href="/docs/en/manage-claude/compliance-api-access" title="Set up the Compliance API">
+    Enable the Compliance API for your organization, then create a Compliance Access Key (with scoped permissions) or an Admin API key, and learn which to use.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-activity-feed" title="Query the Activity Feed">
     Retrieve, filter, and paginate the shared Activity Feed. Supported by both key types.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-content-data" title="Retrieve and delete chats, files, and projects">
     Read chat content and attachments, then delete on demand. Compliance Access Key required.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-org-data" title="List organizations, users, roles, groups, and settings">
     Enumerate linked organizations, members, roles, and directory groups, and read each organization's effective settings.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-integration-patterns" title="Design your compliance integration">
     Choose a feed-consumption pattern, plan SIEM correlation, and decide your retention approach.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-errors" title="Handle Compliance API errors">
     Every 400, 401, 403, 404, 409, 429, and 5xx response the Compliance API returns, with the fix for each.
   </Card>
+
   <Card href="/docs/en/api/compliance" title="API reference">
     Endpoint paths, parameters, and response schemas for every Compliance API call.
   </Card>
+
   <Card href="/docs/en/manage-claude/compliance-faq" title="Compliance API FAQ">
     Answers to common key, scope, availability, and integration questions.
   </Card>

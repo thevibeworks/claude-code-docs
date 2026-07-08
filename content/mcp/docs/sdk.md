@@ -21,7 +21,7 @@ Build MCP servers and clients using our official SDKs. SDKs are classified into 
 | <Icon icon="swift" size={24} />   Swift                                                    | [modelcontextprotocol/swift-sdk](https://github.com/modelcontextprotocol/swift-sdk)           | <Badge color="orange" shape="pill">Tier 3</Badge> |
 | <Icon icon="gem" size={24} />   [Ruby](https://ruby.sdk.modelcontextprotocol.io)           | [modelcontextprotocol/ruby-sdk](https://github.com/modelcontextprotocol/ruby-sdk)             | <Badge color="orange" shape="pill">Tier 3</Badge> |
 | <Icon icon="php" size={24} />   [PHP](https://php.sdk.modelcontextprotocol.io)             | [modelcontextprotocol/php-sdk](https://github.com/modelcontextprotocol/php-sdk)               | <Badge color="orange" shape="pill">Tier 3</Badge> |
-| <Icon icon="square-k" size={24} />   [Kotlin](https://kotlin.sdk.modelcontextprotocol.io)  | [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk)         |      <Badge color="gray" shape="pill">TBD</Badge> |
+| <Icon icon="square-k" size={24} />   [Kotlin](https://kotlin.sdk.modelcontextprotocol.io)  | [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk)         | <Badge color="orange" shape="pill">Tier 3</Badge> |
 
 See [SDK Tiering System](/community/sdk-tiers) for details on what each tier means.
 

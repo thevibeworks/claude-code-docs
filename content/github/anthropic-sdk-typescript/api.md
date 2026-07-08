@@ -54,6 +54,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionTool20250522</a></code>
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionTool20250825</a></code>
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionTool20260120</a></code>
+- <code><a href="./src/resources/messages/messages.ts">CodeExecutionTool20260521</a></code>
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionToolResultBlock</a></code>
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionToolResultBlockContent</a></code>
 - <code><a href="./src/resources/messages/messages.ts">CodeExecutionToolResultBlockParam</a></code>
@@ -167,6 +168,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">WebFetchTool20250910</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebFetchTool20260209</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebFetchTool20260309</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WebFetchTool20260318</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebFetchToolResultBlock</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebFetchToolResultBlockParam</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebFetchToolResultErrorBlock</a></code>
@@ -176,6 +178,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">WebSearchResultBlockParam</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebSearchTool20250305</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebSearchTool20260209</a></code>
+- <code><a href="./src/resources/messages/messages.ts">WebSearchTool20260318</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebSearchToolRequestError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebSearchToolResultBlock</a></code>
 - <code><a href="./src/resources/messages/messages.ts">WebSearchToolResultBlockContent</a></code>
@@ -328,6 +331,7 @@ Types:
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionTool20250522</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionTool20250825</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionTool20260120</a></code>
+- <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionTool20260521</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionToolResultBlock</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionToolResultBlockContent</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaCodeExecutionToolResultBlockParam</a></code>
@@ -363,6 +367,7 @@ Types:
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaFallbackInfoParam</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaFallbackMessageIterationUsage</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaFallbackParam</a></code>
+- <code><a href="./src/resources/beta/messages/messages.ts">BetaFallbackRefusalTrigger</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaFileDocumentSource</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaFileImageSource</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaImageBlockParam</a></code>
@@ -485,6 +490,7 @@ Types:
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchTool20250910</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchTool20260209</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchTool20260309</a></code>
+- <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchTool20260318</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchToolResultBlock</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchToolResultBlockParam</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebFetchToolResultErrorBlock</a></code>
@@ -494,6 +500,7 @@ Types:
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchResultBlockParam</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchTool20250305</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchTool20260209</a></code>
+- <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchTool20260318</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchToolRequestError</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchToolResultBlock</a></code>
 - <code><a href="./src/resources/beta/messages/messages.ts">BetaWebSearchToolResultBlockContent</a></code>
@@ -641,11 +648,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsAgentMessagePreview</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsAgentParams</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsAgentThinkingPreview</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsAgentWithOverridesParams</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsBranchCheckout</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsCacheCreationUsage</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsCommitCheckout</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsDeletedSession</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsDeltaContent</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsDeltaEvent</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsDeltaType</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsFileResourceParams</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsGitHubRepositoryResourceParams</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsMemoryStoreResourceParam</a></code>
@@ -660,6 +673,8 @@ Types:
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsSessionStats</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsSessionUpdatedEvent</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsSessionUsage</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsStartEvent</a></code>
+- <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsStartEventPreview</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsSystemContentBlock</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsSystemMessageEvent</a></code>
 - <code><a href="./src/resources/beta/sessions/sessions.ts">BetaManagedAgentsUserToolResultEvent</a></code>
@@ -669,7 +684,7 @@ Methods:
 - <code title="post /v1/sessions?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">create</a>({ ...params }) -> BetaManagedAgentsSession</code>
 - <code title="get /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">retrieve</a>(sessionID, { ...params }) -> BetaManagedAgentsSession</code>
 - <code title="post /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">update</a>(sessionID, { ...params }) -> BetaManagedAgentsSession</code>
-- <code title="get /v1/sessions?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">list</a>({ ...params }) -> BetaManagedAgentsSessionsPageCursor</code>
+- <code title="get /v1/sessions?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">list</a>({ ...params }) -> BetaManagedAgentsSessionsBidirectionalPageCursor</code>
 - <code title="delete /v1/sessions/{session_id}?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">delete</a>(sessionID, { ...params }) -> BetaManagedAgentsDeletedSession</code>
 - <code title="post /v1/sessions/{session_id}/archive?beta=true">client.beta.sessions.<a href="./src/resources/beta/sessions/sessions.ts">archive</a>(sessionID, { ...params }) -> BetaManagedAgentsSession</code>
 
@@ -909,6 +924,9 @@ Types:
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsEnvironmentVariableAuthResponse</a></code>
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsEnvironmentVariableCreateParams</a></code>
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsEnvironmentVariableUpdateParams</a></code>
+- <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsInjectionLocationParams</a></code>
+- <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsInjectionLocationResponse</a></code>
+- <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsInjectionLocationUpdateParams</a></code>
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsLimitedCredentialNetworkingParams</a></code>
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsLimitedCredentialNetworkingResponse</a></code>
 - <code><a href="./src/resources/beta/vaults/credentials.ts">BetaManagedAgentsMCPOAuthAuthResponse</a></code>
@@ -1054,6 +1072,19 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookAgentArchivedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookAgentCreatedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookAgentDeletedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookAgentUpdatedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentArchivedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentCreatedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentDeletedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentPausedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentRunFailedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentRunStartedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentRunSucceededEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentUnpausedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookDeploymentUpdatedEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookEvent</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookSessionArchivedEventData</a></code>
@@ -1071,6 +1102,7 @@ Types:
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookSessionThreadCreatedEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookSessionThreadIdledEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookSessionThreadTerminatedEventData</a></code>
+- <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookSessionUpdatedEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookVaultArchivedEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookVaultCreatedEventData</a></code>
 - <code><a href="./src/resources/beta/webhooks.ts">BetaWebhookVaultCredentialArchivedEventData</a></code>

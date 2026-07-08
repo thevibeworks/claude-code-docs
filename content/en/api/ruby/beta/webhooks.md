@@ -2,6 +2,284 @@
 
 ## Domain Types
 
+### Beta Webhook Agent Archived Event Data
+
+- `class BetaWebhookAgentArchivedEventData`
+
+  - `id: String`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"agent.archived"`
+
+    - `:"agent.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Agent Created Event Data
+
+- `class BetaWebhookAgentCreatedEventData`
+
+  - `id: String`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"agent.created"`
+
+    - `:"agent.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Agent Deleted Event Data
+
+- `class BetaWebhookAgentDeletedEventData`
+
+  - `id: String`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"agent.deleted"`
+
+    - `:"agent.deleted"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Agent Updated Event Data
+
+- `class BetaWebhookAgentUpdatedEventData`
+
+  - `id: String`
+
+    ID of the agent that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"agent.updated"`
+
+    - `:"agent.updated"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Archived Event Data
+
+- `class BetaWebhookDeploymentArchivedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.archived"`
+
+    - `:"deployment.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Created Event Data
+
+- `class BetaWebhookDeploymentCreatedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.created"`
+
+    - `:"deployment.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Deleted Event Data
+
+- `class BetaWebhookDeploymentDeletedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.deleted"`
+
+    - `:"deployment.deleted"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Paused Event Data
+
+- `class BetaWebhookDeploymentPausedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.paused"`
+
+    - `:"deployment.paused"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Run Failed Event Data
+
+- `class BetaWebhookDeploymentRunFailedEventData`
+
+  - `id: String`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment_run.failed"`
+
+    - `:"deployment_run.failed"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Run Started Event Data
+
+- `class BetaWebhookDeploymentRunStartedEventData`
+
+  - `id: String`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment_run.started"`
+
+    - `:"deployment_run.started"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Run Succeeded Event Data
+
+- `class BetaWebhookDeploymentRunSucceededEventData`
+
+  - `id: String`
+
+    ID of the deployment run that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment_run.succeeded"`
+
+    - `:"deployment_run.succeeded"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Unpaused Event Data
+
+- `class BetaWebhookDeploymentUnpausedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.unpaused"`
+
+    - `:"deployment.unpaused"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Deployment Updated Event Data
+
+- `class BetaWebhookDeploymentUpdatedEventData`
+
+  - `id: String`
+
+    ID of the deployment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"deployment.updated"`
+
+    - `:"deployment.updated"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.archived"`
+
+    - `:"environment.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.created"`
+
+    - `:"environment.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: BetaWebhookEnvironmentDeletedEventType`
+
+    - `:"environment.deleted"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Deleted Event Type
+
+- `BetaWebhookEnvironmentDeletedEventType = :"environment.deleted"`
+
+  - `:"environment.deleted"`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.updated"`
+
+    - `:"environment.updated"`
+
+  - `workspace_id: String`
+
 ### Beta Webhook Event
 
 - `class BetaWebhookEvent`
@@ -352,6 +630,300 @@
 
       - `workspace_id: String`
 
+    - `class BetaWebhookSessionUpdatedEventData`
+
+      - `id: String`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"session.updated"`
+
+        - `:"session.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentCreatedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.created"`
+
+        - `:"agent.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentArchivedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.archived"`
+
+        - `:"agent.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentDeletedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.deleted"`
+
+        - `:"agent.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentPausedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.paused"`
+
+        - `:"deployment.paused"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunFailedEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.failed"`
+
+        - `:"deployment_run.failed"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentCreatedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.created"`
+
+        - `:"deployment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.updated"`
+
+        - `:"deployment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentUnpausedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.unpaused"`
+
+        - `:"deployment.unpaused"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.updated"`
+
+        - `:"agent.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentArchivedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.archived"`
+
+        - `:"deployment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunStartedEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.started"`
+
+        - `:"deployment_run.started"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentDeletedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.deleted"`
+
+        - `:"deployment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.succeeded"`
+
+        - `:"deployment_run.succeeded"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.created"`
+
+        - `:"environment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.updated"`
+
+        - `:"environment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.archived"`
+
+        - `:"environment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: BetaWebhookEnvironmentDeletedEventType`
+
+        - `:"environment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.created"`
+
+        - `:"memory_store.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.archived"`
+
+        - `:"memory_store.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.deleted"`
+
+        - `:"memory_store.deleted"`
+
+      - `workspace_id: String`
+
   - `type: :event`
 
     Object type. Always `event` for webhook payloads.
@@ -360,7 +932,7 @@
 
 ### Beta Webhook Event Data
 
-- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 19 more`
+- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 40 more`
 
   - `class BetaWebhookSessionCreatedEventData`
 
@@ -698,6 +1270,348 @@
 
     - `workspace_id: String`
 
+  - `class BetaWebhookSessionUpdatedEventData`
+
+    - `id: String`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"session.updated"`
+
+      - `:"session.updated"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookAgentCreatedEventData`
+
+    - `id: String`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"agent.created"`
+
+      - `:"agent.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookAgentArchivedEventData`
+
+    - `id: String`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"agent.archived"`
+
+      - `:"agent.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookAgentDeletedEventData`
+
+    - `id: String`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"agent.deleted"`
+
+      - `:"agent.deleted"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentPausedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.paused"`
+
+      - `:"deployment.paused"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentRunFailedEventData`
+
+    - `id: String`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment_run.failed"`
+
+      - `:"deployment_run.failed"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentCreatedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.created"`
+
+      - `:"deployment.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentUpdatedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.updated"`
+
+      - `:"deployment.updated"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentUnpausedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.unpaused"`
+
+      - `:"deployment.unpaused"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookAgentUpdatedEventData`
+
+    - `id: String`
+
+      ID of the agent that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"agent.updated"`
+
+      - `:"agent.updated"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentArchivedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.archived"`
+
+      - `:"deployment.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentRunStartedEventData`
+
+    - `id: String`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment_run.started"`
+
+      - `:"deployment_run.started"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentDeletedEventData`
+
+    - `id: String`
+
+      ID of the deployment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment.deleted"`
+
+      - `:"deployment.deleted"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookDeploymentRunSucceededEventData`
+
+    - `id: String`
+
+      ID of the deployment run that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"deployment_run.succeeded"`
+
+      - `:"deployment_run.succeeded"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentCreatedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.created"`
+
+      - `:"environment.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.updated"`
+
+      - `:"environment.updated"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentArchivedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.archived"`
+
+      - `:"environment.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentDeletedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: BetaWebhookEnvironmentDeletedEventType`
+
+      - `:"environment.deleted"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.created"`
+
+      - `:"memory_store.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.archived"`
+
+      - `:"memory_store.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.deleted"`
+
+      - `:"memory_store.deleted"`
+
+    - `workspace_id: String`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.archived"`
+
+    - `:"memory_store.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.created"`
+
+    - `:"memory_store.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.deleted"`
+
+    - `:"memory_store.deleted"`
+
+  - `workspace_id: String`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData`
@@ -947,6 +1861,22 @@
   - `type: :"session.thread_terminated"`
 
     - `:"session.thread_terminated"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Session Updated Event Data
+
+- `class BetaWebhookSessionUpdatedEventData`
+
+  - `id: String`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"session.updated"`
+
+    - `:"session.updated"`
 
   - `workspace_id: String`
 
@@ -1425,6 +2355,300 @@
       - `vault_id: String`
 
         ID of the vault that owns this credential.
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookSessionUpdatedEventData`
+
+      - `id: String`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"session.updated"`
+
+        - `:"session.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentCreatedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.created"`
+
+        - `:"agent.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentArchivedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.archived"`
+
+        - `:"agent.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentDeletedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.deleted"`
+
+        - `:"agent.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentPausedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.paused"`
+
+        - `:"deployment.paused"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunFailedEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.failed"`
+
+        - `:"deployment_run.failed"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentCreatedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.created"`
+
+        - `:"deployment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.updated"`
+
+        - `:"deployment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentUnpausedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.unpaused"`
+
+        - `:"deployment.unpaused"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookAgentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the agent that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"agent.updated"`
+
+        - `:"agent.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentArchivedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.archived"`
+
+        - `:"deployment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunStartedEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.started"`
+
+        - `:"deployment_run.started"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentDeletedEventData`
+
+      - `id: String`
+
+        ID of the deployment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment.deleted"`
+
+        - `:"deployment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookDeploymentRunSucceededEventData`
+
+      - `id: String`
+
+        ID of the deployment run that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"deployment_run.succeeded"`
+
+        - `:"deployment_run.succeeded"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.created"`
+
+        - `:"environment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.updated"`
+
+        - `:"environment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.archived"`
+
+        - `:"environment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: BetaWebhookEnvironmentDeletedEventType`
+
+        - `:"environment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.created"`
+
+        - `:"memory_store.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.archived"`
+
+        - `:"memory_store.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.deleted"`
+
+        - `:"memory_store.deleted"`
 
       - `workspace_id: String`
 

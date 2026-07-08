@@ -62,16 +62,18 @@ curl https://api.anthropic.com/v1/models/claude-opus-4-8 \
 | Claude Opus 4.8   | `claude-opus-4-8`   | —                             | 1M             | 128K       | Active |
 | Claude Opus 4.7   | `claude-opus-4-7`   | —                             | 1M             | 128K       | Active |
 | Claude Opus 4.6   | `claude-opus-4-6`   | —                             | 1M             | 128K       | Active |
-| Claude Sonnet 4.6 | `claude-sonnet-4-6` | -                             | 1M             | 64K        | Active |
+| Claude Sonnet 5 | `claude-sonnet-5` | —                         | 1M             | 128K       | Active |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` | -                             | 1M             | 128K       | Active |
 | Claude Haiku 4.5  | `claude-haiku-4-5`  | `claude-haiku-4-5-20251001`   | 200K           | 64K        | Active |
 
 ### Model Descriptions
-- **Claude Fable 5** — Anthropic's most capable widely released model, for the most demanding reasoning and long-horizon agentic work. Same API surface as Opus 4.7/4.8 with one new breaking change: an explicit `thinking: {type: "disabled"}` returns a 400 — omit the `thinking` parameter instead (thinking is always on, returned in protected/encrypted form). New tokenizer (~30% more tokens than Opus-tier for the same content). Safety classifiers may return `stop_reason: "refusal"`. No assistant prefill. Requires 30-day data retention (not available under ZDR). $10/$50 per MTok; 1M context window (default), 128K max output. See `shared/model-migration.md` → Migrating to Claude Fable 5.
+- **Claude Fable 5** — Anthropic's most capable widely released model, for the most demanding reasoning and long-horizon agentic work. Same API surface as Opus 4.7/4.8 with one new breaking change: an explicit `thinking: {type: "disabled"}` returns a 400 — omit the `thinking` parameter instead (thinking is always on; the raw chain of thought is never returned — summaries via `display: "summarized"`). Same tokenizer as Opus 4.8 (token counts roughly unchanged vs Opus 4.7/4.8). Safety classifiers may return `stop_reason: "refusal"`. No assistant prefill. Requires 30-day data retention (not available under ZDR). $10/$50 per MTok; 1M context window (default), 128K max output. See `shared/model-migration.md` → Migrating to Claude Fable 5.
 - **Claude Mythos 5** — Same capabilities, pricing, limits, and API behavior as Claude Fable 5; only the model ID differs. Available exclusively through Project Glasswing, where it joins (and succeeds) the invitation-only Claude Mythos Preview (`claude-mythos-preview`). Use it only when the org participates in Project Glasswing; otherwise use claude-fable-5.
 - **Claude Opus 4.8** — The most capable Opus-tier model — highly autonomous, state-of-the-art on long-horizon agentic work, knowledge work, and memory; clearer, warmer writing. Same API surface as Opus 4.7 (adaptive thinking only; sampling parameters and `budget_tokens` removed). 1M context window at standard API pricing (no long-context premium). See `shared/model-migration.md` → Migrating to Opus 4.8 — a 4.7 → 4.8 move is a model-ID swap plus prompt re-tuning, no new breaking changes.
 - **Claude Opus 4.7** — Previous-generation Opus. Highly autonomous; strong on long-horizon agentic work, knowledge work, vision, and memory. Adaptive thinking only; sampling parameters and `budget_tokens` removed. 1M context window. See `shared/model-migration.md` → Migrating to Opus 4.7.
 - **Claude Opus 4.6** — Older Opus. Supports adaptive thinking (recommended), 128K max output tokens (requires streaming for large outputs). 1M context window.
-- **Claude Sonnet 4.6** — Our best combination of speed and intelligence. Supports adaptive thinking (recommended). 1M context window. 64K max output tokens.
+- **Claude Sonnet 5** — The best combination of speed and intelligence in the Sonnet tier; near-Opus quality on coding and agentic work. Adaptive thinking on by default (omitting `thinking` runs adaptive); manual `budget_tokens` removed; non-default sampling parameters rejected. `effort` supports `low`/`medium`/`high`/`xhigh`/`max`. New tokenizer (~30% more tokens for the same text vs Sonnet 4.6). High-resolution vision (2576px). 1M context window, 128K max output. See `shared/model-migration.md` → Migrating to Claude Sonnet 5.
+- **Claude Sonnet 4.6** — Previous-generation Sonnet. Supports adaptive thinking (recommended). 1M context window. 128K max output tokens.
 - **Claude Haiku 4.5** — Fastest and most cost-effective model for simple tasks.
 
 ## Legacy Models (still active)
@@ -120,12 +122,13 @@ When a user asks for a model by name, use this table to find the correct model I
 | "opus 4.5"                                | `claude-opus-4-5`              |
 | "opus 4.1"                                | `claude-opus-4-1` (deprecated, retires 2026-08-05 — suggest `claude-opus-4-8`) |
 | "opus 4", "opus 4.0"                      | `claude-opus-4-0` (deprecated — suggest `claude-opus-4-8`) |
-| "sonnet", "balanced"                      | `claude-sonnet-4-6`            |
+| "sonnet", "balanced"                      | `claude-sonnet-5`           |
+| "sonnet 5"                                | `claude-sonnet-5`           |
 | "sonnet 4.6"                              | `claude-sonnet-4-6`            |
 | "sonnet 4.5"                              | `claude-sonnet-4-5`            |
-| "sonnet 4", "sonnet 4.0"                  | `claude-sonnet-4-0` (deprecated — suggest `claude-sonnet-4-6`) |
-| "sonnet 3.7"                              | Retired — suggest `claude-sonnet-4-6` |
-| "sonnet 3.5"                              | Retired — suggest `claude-sonnet-4-6` |
+| "sonnet 4", "sonnet 4.0"                  | `claude-sonnet-4-0` (deprecated — suggest `claude-sonnet-5`) |
+| "sonnet 3.7"                              | Retired — suggest `claude-sonnet-5` |
+| "sonnet 3.5"                              | Retired — suggest `claude-sonnet-5` |
 | "haiku", "fast", "cheap"                  | `claude-haiku-4-5`             |
 | "haiku 4.5"                               | `claude-haiku-4-5`             |
 | "haiku 3.5"                               | Retired — suggest `claude-haiku-4-5` |

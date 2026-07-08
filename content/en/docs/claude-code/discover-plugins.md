@@ -99,16 +99,16 @@ The `security-guidance` plugin reviews each change Claude makes for common vulne
 Plugins that add skills and agents for common development tasks:
 
 * **commit-commands**: Git commit workflows including commit, push, and PR creation
-* **pr-review-toolkit**: Specialized agents for reviewing pull requests
-* **agent-sdk-dev**: Tools for building with the Claude Agent SDK
-* **plugin-dev**: Toolkit for creating your own plugins
+* **pr-review-toolkit**: specialized agents for reviewing pull requests
+* **agent-sdk-dev**: tools for building with the Claude Agent SDK
+* **plugin-dev**: toolkit for creating your own plugins
 
 ### Output styles
 
 Customize how Claude responds:
 
-* **explanatory-output-style**: Educational insights about implementation choices
-* **learning-output-style**: Interactive learning mode for skill building
+* **explanatory-output-style**: educational insights about implementation choices
+* **learning-output-style**: interactive learning mode for skill building
 
 ## Community marketplace
 
@@ -142,7 +142,7 @@ Anthropic also maintains a [demo plugins marketplace](https://github.com/anthrop
   </Step>
 
   <Step title="Browse available plugins">
-    Run `/plugin` to open the plugin manager. This opens a tabbed interface with four tabs you can cycle through using **Tab** (or **Shift+Tab** to go backward):
+    Run `/plugin` to open the plugin manager. This opens a tabbed interface with four tabs you can cycle through using **Tab**, or **Shift+Tab** to go backward:
 
     * **Discover**: browse available plugins from all your marketplaces
     * **Installed**: view and manage your installed plugins
@@ -165,7 +165,7 @@ Anthropic also maintains a [demo plugins marketplace](https://github.com/anthrop
     * **Project scope**: install for all collaborators on this repository
     * **Local scope**: install for yourself in this repository only
 
-    For example, select **commit-commands** (a plugin that adds git workflow skills) and install it to your user scope.
+    For example, select **commit-commands**, a plugin that adds git workflow skills, and install it to your user scope.
 
     You can also install directly from the command line:
 
@@ -201,14 +201,14 @@ Use the `/plugin marketplace add` command to add marketplaces from different sou
   **Shortcuts**: You can use `/plugin market` instead of `/plugin marketplace`, and `rm` instead of `remove`.
 </Tip>
 
-* **GitHub repositories**: `owner/repo` format (for example, `anthropics/claude-code`)
-* **Git URLs**: any git repository URL (GitLab, Bitbucket, self-hosted)
+* **GitHub repositories**: `owner/repo` format, for example `anthropics/claude-code`
+* **Git URLs**: any git repository URL, including GitLab, Bitbucket, and self-hosted servers
 * **Local paths**: directories or direct paths to `marketplace.json` files
 * **Remote URLs**: direct URLs to hosted `marketplace.json` files
 
 ### Add from GitHub
 
-Add a GitHub repository that contains a `.claude-plugin/marketplace.json` file using the `owner/repo` format—where `owner` is the GitHub username or organization and `repo` is the repository name.
+Add a GitHub repository that contains a `.claude-plugin/marketplace.json` file using the `owner/repo` format, where `owner` is the GitHub username or organization and `repo` is the repository name.
 
 For example, `anthropics/claude-code` refers to the `claude-code` repository owned by `anthropics`:
 
@@ -219,6 +219,8 @@ For example, `anthropics/claude-code` refers to the `claude-code` repository own
 ### Add from other Git hosts
 
 Add any git repository by providing the full URL. This works with any Git host, including GitLab, Bitbucket, and self-hosted servers. Include the `.git` suffix so Claude Code clones the repository rather than treating the URL as a direct link to a hosted `marketplace.json` file.
+
+Include the `https://` prefix as well. Claude Code v2.1.196 and later reject a host typed without it, such as `gitlab.com/company/plugins.git`, as an invalid GitHub `owner/repo` shorthand, and the error tells you to add the prefix. Earlier versions misread it as a GitHub repository path and fail at clone time.
 
 Using HTTPS:
 
@@ -266,22 +268,24 @@ Add a remote `marketplace.json` file via URL:
 
 ## Install plugins
 
-Once you've added marketplaces, you can install plugins directly (installs to user scope by default):
+Once you've added marketplaces, you can install plugins directly:
 
 ```shell theme={null}
 /plugin install plugin-name@marketplace-name
 ```
 
-To choose a different [installation scope](/en/settings#configuration-scopes), use the interactive UI: run `/plugin`, go to the **Discover** tab, and press **Enter** on a plugin. You'll see options for:
+The command opens that plugin's details, where you choose an [installation scope](/en/settings#configuration-scopes). You see the same choices when you run `/plugin`, go to the **Discover** tab, and press **Enter** on a plugin:
 
 * **User scope** (default): install for yourself across all projects
-* **Project scope**: install for all collaborators on this repository (adds to `.claude/settings.json`)
-* **Local scope**: install for yourself in this repository only (not shared with collaborators)
+* **Project scope**: install for all collaborators on this repository, which adds the plugin to `.claude/settings.json`
+* **Local scope**: install for yourself in this repository only, not shared with collaborators
 
-You may also see plugins with **managed** scope—these are installed by administrators via [managed settings](/en/settings#settings-files) and cannot be modified.
+To install without an interactive step, use the [`claude plugin install`](/en/plugins-reference#plugin-install) shell command, which installs to user scope unless you pass `--scope`.
+
+You may also see plugins with **managed** scope. These are installed by administrators via [managed settings](/en/settings#settings-files) and can't be modified.
 
 <Warning>
-  Make sure you trust a plugin before installing it. Anthropic does not control what MCP servers, files, or other software are included in plugins and cannot verify that they work as intended. Check each plugin's homepage for more information.
+  Make sure you trust a plugin before installing it. Anthropic doesn't control what MCP servers, files, or other software are included in plugins and can't verify that they work as intended. Check each plugin's homepage for more information.
 </Warning>
 
 ## Manage installed plugins
@@ -295,6 +299,10 @@ From the list you can:
 * press Enter to open a plugin's detail view and enable, disable, or uninstall it
 
 The detail view shows the components the plugin contributes: commands, skills, agents, hooks, MCP servers, and LSP servers. The same inventory is available from the command line with `claude plugin details`.
+
+In Claude Code v2.1.187 and later, the Installed tab adds a **Not used recently** group for marketplace plugins you installed yourself but haven't invoked in at least two weeks, over a span of at least 10 sessions, and the detail view shows a **Last used** line for each plugin. Use these to find plugins that you no longer use but that are still adding startup and context cost, then disable or uninstall them.
+
+Plugins that your organization manages or that you load with `--plugin-dir` are never listed as unused, and plugins that contribute an LSP server, theme, output style, monitor, or workflow are also never listed, since those deliver value without an invocation to track. The group and the **Last used** line are both hidden when your organization restricts marketplaces with [`strictKnownMarketplaces`](/en/settings#strictknownmarketplaces).
 
 When you install a plugin that declares dependencies, the install output lists which dependencies were auto-installed alongside it.
 
@@ -319,6 +327,10 @@ Re-enable a disabled plugin:
 ```shell theme={null}
 /plugin enable plugin-name@marketplace-name
 ```
+
+In these identifiers, `plugin-name` is the plugin's `name` in the [marketplace entry](/en/plugin-marketplaces#plugin-entries), which can differ from the `name` in the plugin's own `plugin.json`.
+
+As of Claude Code v2.1.195, **Enable** and **Disable** in the `/plugin` interface work for plugins whose two names differ, and `/plugin enable` and `/plugin disable` accept either name. When you disable such a plugin in an earlier version, Claude Code reports `already disabled` and leaves it enabled.
 
 Completely remove a plugin:
 
@@ -414,6 +426,8 @@ This is useful when you want to manage Claude Code updates manually but still re
 
 Team admins can set up automatic marketplace installation for projects by adding marketplace configuration to `.claude/settings.json`. When team members trust the repository folder, Claude Code prompts them to install these marketplaces and plugins.
 
+As of Claude Code v2.1.195, this install step applies on every path that loads plugins. A plugin that only the project's `.claude/settings.json` enables, and that comes from an external source such as a GitHub repository or npm package, doesn't load until the team member installs it. Until then, Claude Code reports the plugin as not installed and shows the `claude plugin install` command to run.
+
 Add `extraKnownMarketplaces` to your project's `.claude/settings.json`:
 
 ```json theme={null}
@@ -441,19 +455,19 @@ Plugins and marketplaces are highly trusted components that can execute arbitrar
 
 If you see "unknown command" or the `/plugin` command doesn't appear:
 
-1. **Check your version**: Run `claude --version` to see what's installed.
+1. **Check your version**: run `claude --version` to see what's installed.
 2. **Update Claude Code**:
-   * **Homebrew**: `brew upgrade claude-code` (or `brew upgrade claude-code@latest` if you installed that cask)
+   * **Homebrew**: `brew upgrade claude-code`, or `brew upgrade claude-code@latest` if you installed that cask
    * **npm**: `npm install -g @anthropic-ai/claude-code@latest`
-   * **Native installer**: Re-run the install command from [Setup](/en/setup)
-3. **Restart Claude Code**: After updating, restart your terminal and run `claude` again.
+   * **Native installer**: re-run the install command from [Setup](/en/setup)
+3. **Restart Claude Code**: after updating, restart your terminal and run `claude` again.
 
 ### Common issues
 
-* **Marketplace not loading**: Verify the URL is accessible and that `.claude-plugin/marketplace.json` exists at the path
-* **Plugin installation failures**: Check that plugin source URLs are accessible and repositories are public (or you have access)
-* **Files not found after installation**: Plugins are copied to a cache, so paths referencing files outside the plugin directory won't work
-* **Plugin skills not appearing**: Clear the cache with `rm -rf ~/.claude/plugins/cache`, restart Claude Code, and reinstall the plugin.
+* **Marketplace not loading**: verify the URL is accessible and that `.claude-plugin/marketplace.json` exists at the path
+* **Plugin installation failures**: check that plugin source URLs are accessible and that repositories are public, or that you have access to them
+* **Files not found after installation**: plugins are copied to a cache, so paths referencing files outside the plugin directory won't work
+* **Plugin skills not appearing**: clear the cache with `rm -rf ~/.claude/plugins/cache`, restart Claude Code, and reinstall the plugin.
 
 For detailed troubleshooting with solutions, see [Troubleshooting](/en/plugin-marketplaces#troubleshooting) in the marketplace guide. For debugging tools, see [Debugging and development tools](/en/plugins-reference#debugging-and-development-tools).
 
@@ -465,6 +479,6 @@ For detailed troubleshooting with solutions, see [Troubleshooting](/en/plugin-ma
 
 ## Next steps
 
-* **Build your own plugins**: See [Plugins](/en/plugins) to create skills, agents, and hooks
-* **Create a marketplace**: See [Create a plugin marketplace](/en/plugin-marketplaces) to distribute plugins to your team or community
-* **Technical reference**: See [Plugins reference](/en/plugins-reference) for complete specifications
+* **Build your own plugins**: see [Plugins](/en/plugins) to create skills, agents, and hooks
+* **Create a marketplace**: see [Create a plugin marketplace](/en/plugin-marketplaces) to distribute plugins to your team or community
+* **Technical reference**: see [Plugins reference](/en/plugins-reference) for complete specifications

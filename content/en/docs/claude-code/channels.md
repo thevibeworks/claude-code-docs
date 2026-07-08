@@ -7,7 +7,7 @@
 > Use channels to push messages, alerts, and webhooks into your Claude Code session from an MCP server. Forward CI results, chat messages, and monitoring events so Claude can react while you're away.
 
 <Note>
-  Channels are in [research preview](#research-preview) and require Claude Code v2.1.80 or later. They require Anthropic authentication through claude.ai or a Console API key, and are not available on Amazon Bedrock, Google Vertex AI, or Microsoft Foundry. Team and Enterprise organizations must [explicitly enable them](#enterprise-controls).
+  Channels are in [research preview](#research-preview) and require Claude Code v2.1.80 or later. They require Anthropic authentication through claude.ai or a Console API key, and are not available on Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry. Team and Enterprise organizations must [explicitly enable them](#enterprise-controls).
 </Note>
 
 A channel is an MCP server that pushes events into your running Claude Code session, so Claude can react to things that happen while you're not at the terminal. Channels can be two-way: Claude reads the event and replies back through the same channel, like a chat bridge. Events only arrive while the session is open, so for an always-on setup you run Claude in a background process or persistent terminal.
@@ -18,15 +18,7 @@ You install a channel as a plugin and configure it with your own credentials. Te
 
 When Claude replies through a channel, you see the inbound message in your terminal but not the reply text. The terminal shows the tool call and a confirmation (like "sent"), and the actual reply appears on the other platform.
 
-This page covers:
-
-* [Supported channels](#supported-channels): Telegram, Discord, and iMessage setup
-* [Install and run a channel](#quickstart) with fakechat, a localhost demo
-* [Who can push messages](#security): sender allowlists and how you pair
-* [Enable channels for your organization](#enterprise-controls) if you manage a Team, Enterprise, or Console org
-* [How channels compare](#how-channels-compare) to web sessions, Slack, MCP, and Remote Control
-
-To build your own channel, see the [Channels reference](/en/channels-reference).
+If you manage a Team, Enterprise, or Console organization, see [Enable channels for your organization](#enterprise-controls). To build your own channel, see the [Channels reference](/en/channels-reference).
 
 ## Supported channels
 
@@ -292,7 +284,7 @@ The allowlist also gates [permission relay](/en/channels-reference#relay-permiss
 
 Admins control availability through two [managed settings](/en/settings) that users cannot override. The default depends on how you authenticate:
 
-* **claude.ai Team and Enterprise**: channels are blocked until an admin enables them.
+* **claude.ai Team and Enterprise**: channels are blocked until an Owner enables them.
 * **Anthropic Console with API key authentication**: channels are permitted by default. You only need this setting if your organization deploys managed settings.
 
 In all cases, no channel runs until a user opts it in for the session with `--channels`.
@@ -306,7 +298,7 @@ Pro and Max users without an organization skip these checks entirely: channels a
 
 ### Enable channels for your organization
 
-Admins can enable channels from [**claude.ai → Admin settings → Claude Code → Channels**](https://claude.ai/admin-settings/claude-code), or by setting `channelsEnabled` to `true` in managed settings.
+Enable channels for your organization from [**claude.ai → Admin settings → Claude Code → Channels**](https://claude.ai/admin-settings/claude-code), which requires the Owner role, or by setting `channelsEnabled` to `true` in managed settings.
 
 Once enabled, users in your organization can use `--channels` to opt channel servers into individual sessions. If the setting is disabled or unset, the MCP server still connects and its tools work, but channel messages won't arrive. A startup warning tells the user to have an admin enable the setting.
 
