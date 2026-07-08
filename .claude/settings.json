@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr:*)",
+      "Bash(git:*)",
+      "Bash(npm:*)",
+      "Bash(jq:*)",
+      "Bash(date:*)",
+      "Bash(./scripts/create-docs-pr.sh:*)",
+      "mcp__barkme__notify"
+    ]
+  }
+}

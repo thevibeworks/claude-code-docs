@@ -15,8 +15,11 @@ dist/
 # Claude Code
 .claude-trace/
 
-# Local development
-.claude/
+# Local development (root only; keep settings.json tracked: CI reads tool
+# permissions from it via settingSources=project. Note: content/github/**
+# mirrors still ship .claude/ dirs we currently do not archive.)
+/.claude/*
+!/.claude/settings.json
 worktree/
 WIP/
 references/
