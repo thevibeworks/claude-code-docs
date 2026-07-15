@@ -18,6 +18,8 @@
       "Bash(uv run scripts/fetcher.py:*)",
       "Bash(./scripts/create-docs-pr.sh:*)",
       "Edit(.decision/**)",
+      "Write(.decision/**)",
+      "Bash(mkdir:*)",
       "mcp__barkme__notify"
     ]
   }
