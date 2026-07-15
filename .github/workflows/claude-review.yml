@@ -67,7 +67,11 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        uses: anthropics/claude-code-action@main
+        # Pinned like fetch-claude-docs.yml: @main's claude_args parsing split
+        # '--allowedTools Bash(gh pr:*)' on whitespace, silently denying
+        # 'gh pr merge' - auto-merge was dead. Tool permissions live in
+        # .claude/settings.json (settingSources=project), not in claude_args.
+        uses: anthropics/claude-code-action@v1.0.168
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -76,7 +80,6 @@ jobs:
           allowed_bots: "claude-yolo[bot],github-actions[bot]"
           claude_args: |
             --model claude-sonnet-4-6
-            --allowedTools Bash(gh pr:*),Bash(git:*),Bash(gh issue:*),Bash(gh release:*),Bash(npm:*),Bash(ls:*),Bash(cat:*),Bash(grep:*),Bash(uv run scripts/fetcher.py:*),Bash(jq:*),mcp__barkme__notify
             --mcp-config '{
               "mcpServers": {
                 "barkme": {
