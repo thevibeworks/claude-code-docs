@@ -67,10 +67,12 @@ jobs:
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
           !contains(github.event.pull_request.title, '[WIP]')
-        # Pinned like fetch-claude-docs.yml: @main's claude_args parsing split
-        # '--allowedTools Bash(gh pr:*)' on whitespace, silently denying
-        # 'gh pr merge' - auto-merge was dead. Tool permissions live in
-        # .claude/settings.json (settingSources=project), not in claude_args.
+        # This action's headless SDK mode does NOT honor the .claude/settings.json
+        # permission allowlist (proven across 5 fetch-workflow runs, July 2026):
+        # gh pr merge, Write, mkdir were all denied despite matching rules. The
+        # review agent's whole job is to merge/comment/label on THIS repo's PRs,
+        # so it runs with permissions skipped. Scope is bounded by the workflow
+        # token's repo permissions, not by the (ignored) allowlist.
         uses: anthropics/claude-code-action@v1.0.168
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -80,6 +82,7 @@ jobs:
           allowed_bots: "claude-yolo[bot],github-actions[bot]"
           claude_args: |
             --model claude-sonnet-4-6
+            --dangerously-skip-permissions
             --mcp-config '{
               "mcpServers": {
                 "barkme": {
