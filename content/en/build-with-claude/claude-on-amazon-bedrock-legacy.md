@@ -1,4 +1,4 @@
-# Claude on Amazon Bedrock (legacy)
+# Claude on Amazon Bedrock (Opus 4.6 and earlier)
 
 The legacy Amazon Bedrock integration for Claude models, using InvokeModel and Converse APIs with ARN-versioned model identifiers.
 
@@ -54,14 +54,14 @@ Anthropic's [client SDKs](/docs/en/cli-sdks-libraries/overview) support Bedrock.
   <Tab title="Java">
     <CodeGroup>
       ```groovy Gradle
-      implementation("com.anthropic:anthropic-java-bedrock:2.47.1")
+      implementation("com.anthropic:anthropic-java-bedrock:2.48.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java-bedrock</artifactId>
-          <version>2.47.1</version>
+          <version>2.48.0</version>
       </dependency>
       ```
 
@@ -128,6 +128,14 @@ Go to the [AWS Console > Bedrock > Model Access](https://console.aws.amazon.com/
 
 Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](/docs/en/about-claude/model-deprecations). Lifecycle dates on partner-operated platforms are set by the partner and can differ from the Claude API schedule. For the current retirement date of any model on Amazon Bedrock, see [Amazon Bedrock's model lifecycle page](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html).
 
+AWS offers newer Claude models through [cross-region inference](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) rather than on-demand throughput. For these models, a request that passes the base model ID fails with an HTTP 400 error like the following:
+
+```text wrap
+Invocation of model ID anthropic.claude-sonnet-4-5-20250929-v1:0 with on-demand throughput isn't supported. Retry your request with the ID or ARN of an inference profile that contains this model.
+```
+
+To invoke these models, pass an inference profile instead of the base model ID. The inference profile ID is the base model ID with a prefix from a column marked "Yes" in the following table, for example us.anthropic.claude-sonnet-4-5-20250929-v1:0. You can also pass the full inference profile ARN, in the form `arn:aws:bedrock:{region}:{account-id}:inference-profile/{inference-profile-id}`. For AWS's authoritative list of available inference profiles, see [Supported Regions and models for inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html). For how the prefixes affect routing and pricing, see the [Global vs regional endpoints](#global-vs-regional-endpoints) section.
+
 | Model                        | Base Bedrock model ID                     | `global` | `us` | `eu` | `jp` | `apac` |
 | ---------------------------- | ----------------------------------------- | -------- | ---- | ---- | ---- | ------ |
 | Claude Opus 4.6              | anthropic.claude-opus-4-6-v1              | Yes      | Yes  | Yes  | Yes  | Yes    |
@@ -140,8 +148,6 @@ Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](/docs/
 | Claude Opus 4 Retired.       | anthropic.claude-opus-4-20250514-v1:0     | No       | No   | No   | No   | No     |
 | Claude Haiku 4.5             | anthropic.claude-haiku-4-5-20251001-v1:0  | Yes      | Yes  | Yes  | No   | No     |
 | Claude Haiku 3.5 Deprecated. | anthropic.claude-3-5-haiku-20241022-v1:0  | No       | Yes  | No   | No   | No     |
-
-For more information about regional vs global model IDs, see the [Global vs regional endpoints](#global-vs-regional-endpoints) section.
 
 ### List available models
 
@@ -348,15 +354,12 @@ The following examples show how to generate text from Claude on Bedrock:
     awsRegion: "us-west-2"
   });
 
-  async function main() {
-    const message = await client.messages.create({
-      model: "global.anthropic.claude-opus-4-6-v1",
-      max_tokens: 256,
-      messages: [{ role: "user", content: "Hello, world" }]
-    });
-    console.log(message);
-  }
-  main().catch(console.error);
+  const message = await client.messages.create({
+    model: "global.anthropic.claude-opus-4-6-v1",
+    max_tokens: 256,
+    messages: [{ role: "user", content: "Hello, world" }]
+  });
+  console.log(message);
   ```
 
   ```csharp C#

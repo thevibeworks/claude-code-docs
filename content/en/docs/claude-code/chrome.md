@@ -32,7 +32,7 @@ Before using Claude Code with Chrome, you need:
 
 * [Google Chrome](https://www.google.com/chrome/) or [Microsoft Edge](https://www.microsoft.com/edge) browser
 * [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) version 1.0.36 or higher, available in the Chrome Web Store for both browsers
-* [Claude Code](/en/quickstart#step-1-install-claude-code) version 2.0.73 or higher
+* [Claude Code](/en/quickstart#step-1-install-claude-code)
 * A direct Anthropic plan (Pro, Max, Team, or Enterprise)
 
 <Note>
@@ -59,6 +59,8 @@ Before using Claude Code with Chrome, you need:
     Go to code.claude.com/docs, click on the search box,
     type "hooks", and tell me what results appear
     ```
+
+    The first browser action asks for permission to use the `claude-in-chrome` skill. Approve it and Claude opens a new tab and starts the task.
   </Step>
 </Steps>
 
@@ -91,7 +93,7 @@ As of v2.1.199, an otherwise read-only call that sets a state-changing input fla
 
 ## Example workflows
 
-These examples show common ways to combine browser actions with coding tasks. Run `/mcp` and select `claude-in-chrome` to see the full list of available browser tools.
+These examples show common ways to combine browser actions with coding tasks. Run `/mcp`, select `claude-in-chrome`, then select **View tools** to see the full list of available browser tools.
 
 ### Test a local web application
 

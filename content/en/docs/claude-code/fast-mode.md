@@ -18,10 +18,6 @@ Fast mode is not a different model. It uses Claude Opus with a different API con
   Fast mode for Opus 4.7 is deprecated as of June 25, 2026, and will be removed on July 24, 2026. After removal, fast mode requests on Opus 4.7 return an error and do not fall back to standard Opus 4.7. Migrate to Opus 4.8 to keep the speedup.
 </Warning>
 
-<Note>
-  Fast mode requires Claude Code v2.1.36 or later. Check your version with `claude --version`.
-</Note>
-
 What to know:
 
 * Use `/fast` to toggle on fast mode in the Claude Code CLI. Fast mode is not supported in the VS Code extension.
@@ -36,7 +32,7 @@ Toggle fast mode in either of these ways:
 * Type `/fast` and press Tab to toggle on or off
 * Set `"fastMode": true` in your [user settings file](/en/settings)
 
-By default, fast mode persists across sessions. Administrators can configure fast mode to reset each session. See [require per-session opt-in](#require-per-session-opt-in) for details.
+By default, fast mode you turn on in an interactive session persists across sessions. {/* min-version: 2.1.205 */}In [non-interactive mode](/en/headless), with the `-p` flag, `/fast` works only in a session launched with fast mode in its [`--settings`](/en/cli-reference#cli-flags) value, for example `claude -p --settings '{"fastMode": true}'`; the toggle then applies to that session only and isn't saved as your default, and in any other non-interactive session the command reports that fast mode isn't available. You can configure fast mode to reset each session. See [require per-session opt-in](#require-per-session-opt-in) for details.
 
 For the best cost efficiency, enable fast mode at the start of a session rather than switching mid-conversation. See [understand the cost tradeoff](#understand-the-cost-tradeoff) for details.
 
@@ -48,6 +44,8 @@ When you enable fast mode:
 * Run `/fast` again at any time to check whether fast mode is on or off
 
 When you disable fast mode with `/fast` again, you remain on Opus. The model does not revert to your previous model. To switch to a different model, use `/model`.
+
+Switching to a model that doesn't support fast mode turns fast mode off. {/* min-version: 2.1.208 */}Switching back to a supported Opus model turns it on again when your saved fast mode preference is on, the same preference a new session starts from by default. With [per-session opt-in](#require-per-session-opt-in) configured, switching back doesn't turn fast mode on again; run `/fast` to re-enable it. Fast mode never turns on for a session whose saved preference is off, and the `↯` icon and `Fast mode ON` confirmation appear whenever it activates. Before v2.1.208, fast mode stayed off after you switched back until you ran `/fast` again.
 
 Opus 4.8 is the fast mode default in Claude Code v2.1.154 and later. On v2.1.142 through v2.1.153, fast mode defaults to Opus 4.7.
 
@@ -117,7 +115,7 @@ Another option to disable fast mode entirely is to set `CLAUDE_CODE_DISABLE_FAST
 
 ### Require per-session opt-in
 
-By default, fast mode persists across sessions: if a user enables fast mode, it stays on in future sessions. Administrators on [Team](https://claude.com/pricing?utm_source=claude_code\&utm_medium=docs\&utm_content=fast_mode_teams#team-&-enterprise) or [Enterprise](https://anthropic.com/contact-sales?utm_source=claude_code\&utm_medium=docs\&utm_content=fast_mode_enterprise) plans can prevent this by setting `fastModePerSessionOptIn` to `true` in [managed settings](/en/settings#settings-files) or [server-managed settings](/en/server-managed-settings). This causes each session to start with fast mode off, requiring users to explicitly enable it with `/fast`.
+By default, fast mode a user turns on in an interactive session persists across sessions: it stays on in future sessions. To change this, set `fastModePerSessionOptIn` to `true` in any [settings file](/en/settings#settings-files), which causes each session to start with fast mode off and requires users to explicitly enable it with `/fast`. Owners on [Team](https://claude.com/pricing?utm_source=claude_code\&utm_medium=docs\&utm_content=fast_mode_teams#team-&-enterprise) or [Enterprise](https://anthropic.com/contact-sales?utm_source=claude_code\&utm_medium=docs\&utm_content=fast_mode_enterprise) plans can deploy it organization-wide through [server-managed settings](/en/server-managed-settings).
 
 ```json theme={null}
 {

@@ -136,19 +136,19 @@ The process involves configuring Claude Desktop to automatically start the Files
   <Step title="Restart Claude Desktop">
     After saving the configuration file, completely quit Claude Desktop and restart it. The application needs to restart to load the new configuration and start the MCP server.
 
-    Upon successful restart, you'll see an MCP server indicator <img src="https://mintcdn.com/mcp/2BMHnlNW5OqOohXZ/images/claude-desktop-mcp-slider.svg?fit=max&auto=format&n=2BMHnlNW5OqOohXZ&q=85&s=f82a0459a6a233d9b15e63455af275b5" style={{display: 'inline', margin: 0, height: '1.3em'}} width="24" height="24" data-path="images/claude-desktop-mcp-slider.svg" /> in the bottom-right corner of the conversation input box:
+    Upon successful restart, click the "Add files, connectors, and more /" indicator <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-add-files-connectors-and-more.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=53acf21f6807dd5323b70b84b5d98d8a" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-add-files-connectors-and-more.png" /> in the bottom-left corner of the conversation input box:
 
     <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-slider.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=f80a38b720fc0519079bae26e2aae312" alt="Claude Desktop interface showing MCP server indicator" width="1414" height="410" data-path="images/quickstart-slider.png" />
+      <img src="https://mintcdn.com/mcp/akpggzunDlIcY2im/images/quickstart-slider.png?fit=max&auto=format&n=akpggzunDlIcY2im&q=85&s=a1ebd4259cff2a7472171885f2edc035" alt="Claude Desktop interface showing MCP server indicator" width="1414" height="410" data-path="images/quickstart-slider.png" />
     </Frame>
 
-    Click on this indicator to view the available tools provided by the Filesystem Server:
+    Click on this indicator, then move the mouse over "Connectors" and click "Manage connectors". Select "filesystem" from the connector list to view the Filesystem Server's available tools:
 
     <Frame style={{ textAlign: "center" }}>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-tools.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=18f045f27f31f40896d3710ce9a4a0a0" width="400" alt="Available filesystem tools in Claude Desktop" data-path="images/quickstart-tools.png" />
+      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-tools.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=212a63d76daba170d52db0d2f6f582be" width="400" alt="Available filesystem tools in Claude Desktop" data-path="images/quickstart-tools.png" />
     </Frame>
 
-    If the server indicator doesn't appear, refer to the [Troubleshooting](#troubleshooting) section for debugging steps.
+    If the Filesystem Server doesn't connect, refer to the [Troubleshooting](#troubleshooting) section for debugging steps.
   </Step>
 </Steps>
 

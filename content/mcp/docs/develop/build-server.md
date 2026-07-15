@@ -2867,7 +2867,7 @@ This tutorial will primarily focus on tools.
 
 ### Test with commands
 
-Let's make sure Claude for Desktop is picking up the two tools we've exposed in our `weather` server. You can do this by looking for the "Add files, connectors, and more /" <img src="https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/claude-add-files-connectors-and-more.png?fit=max&auto=format&n=zNouQwo2h8cbxlDS&q=85&s=eb7ecdd7bb5698946f0c6a25284fd988" style={{display: 'inline', margin: 0, height: '1.3em'}} width="33" height="33" data-path="images/claude-add-files-connectors-and-more.png" /> icon:
+Let's make sure Claude for Desktop is picking up the two tools we've exposed in our `weather` server. You can do this by looking for the "Add files, connectors, and more /" <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-add-files-connectors-and-more.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=53acf21f6807dd5323b70b84b5d98d8a" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-add-files-connectors-and-more.png" /> icon:
 
 <Frame>
   <img src="https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/visual-indicator-mcp-tools.png?fit=max&auto=format&n=zNouQwo2h8cbxlDS&q=85&s=1bf23a2cfc5f6dd3dac1c7574cceebc9" width="684" height="133" data-path="images/visual-indicator-mcp-tools.png" />

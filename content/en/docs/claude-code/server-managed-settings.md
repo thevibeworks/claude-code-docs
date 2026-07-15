@@ -20,7 +20,6 @@ To use server-managed settings, you need:
 
 * Claude for Teams or Claude for Enterprise plan
 * The Owner or Primary Owner role in your Claude organization, to view and edit the configuration
-* Claude Code version 2.1.38 or later for Claude for Teams, or version 2.1.30 or later for Claude for Enterprise
 * Network access to `api.anthropic.com`
 
 ## Choose between server-managed and endpoint-managed settings
@@ -217,7 +216,7 @@ Certain settings that could pose security risks require explicit user approval b
 When these settings are present, users see a security dialog explaining what is being configured. Users must approve to proceed. If a user rejects the settings, Claude Code exits.
 
 <Note>
-  In non-interactive mode with the `-p` flag, Claude Code skips security dialogs and applies settings without user approval.
+  A non-interactive run, such as `claude -p` or an Agent SDK session, can't show the dialog. When the delivered settings would require approval, Claude Code applies them for that run only: it doesn't record them as approved or write them to the [local cache](#fetch-and-caching-behavior), and the next interactive session shows the dialog. Until a user approves in an interactive session, each non-interactive run fetches the settings again at startup. Before v2.1.207, a non-interactive run saved the settings as approved, so later interactive sessions never showed the dialog for them.
 </Note>
 
 ## Platform availability
@@ -231,6 +230,10 @@ Server-managed settings are not available when using third-party model providers
 * Microsoft Foundry
 * [Claude Platform on AWS](/en/claude-platform-on-aws)
 * Custom API endpoints via `ANTHROPIC_BASE_URL` or third-party [LLM gateways](/en/llm-gateway)
+
+If you export a `CLAUDE_CODE_USE_*` provider variable or a non-default `ANTHROPIC_BASE_URL` in your shell, Claude Code skips the settings fetch for your sessions. You can't clear the export with a server-managed `env` block, because the block arrives through the fetch that the export prevents. An [endpoint-managed settings](/en/settings#settings-files) `env` block doesn't restore the fetch either: Claude Code checks eligibility before it applies managed `env` blocks, so the override changes the session's provider selection but the fetch stays skipped.
+
+To restore server-managed delivery, remove the export from your shell, or set the variable to `""` in your user settings `env` block, which applies before the eligibility check. To enforce policy without relying on users to change their shells, deliver the settings through the endpoint-managed channel instead.
 
 For Amazon Bedrock, Google Cloud's Agent Platform, and Microsoft Foundry deployments, a self-hosted [Claude apps gateway](/en/claude-apps-gateway) provides the equivalent remote managed-settings delivery: gateway-signed-in clients fetch managed settings from the gateway instead of `api.anthropic.com`. The failure semantics differ at startup: a gateway client that can't reach the gateway exits with an error instead of falling back to cached settings, while the hourly background refresh is fail-open on both channels.
 

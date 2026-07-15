@@ -1,8 +1,5 @@
-Title: Model availability in Claude for Government
+# Model availability in Claude for Government
 
-URL Source: https://support.claude.com/en/articles/14503794-model-availability-in-claude-for-government
-
-Markdown Content:
 Claude is a family of state-of-the-art large language models developed by Anthropic. This guide introduces the models available for customers using Claude for Government. For the most up to date information about the model’s general capabilities, please visit our **[Model Overview page](https://platform.claude.com/docs/en/about-claude/models/overview)**.
 
 ## How model availability differs in Claude for Government
@@ -12,6 +9,8 @@ Claude for Government routes all inference through Google Cloud Vertex AI's FedR
 ### New models arrive shortly after commercial launch
 
 New models are typically available in Claude for Government the same day or within one to two days of their commercial release. The gating factor is Vertex availability—once a model is serving on Vertex, Anthropic completes the Claude for Government and the models become available to users.
+
+**Note:** There is **no separate FedRAMP audit per model**. Vertex's authorization is infrastructure-level, not per-model. Once the Claude for Government environment is authorized, new models inherit that authorization automatically. Your agency does not need to re-engage Anthropic's FedRAMP process when a new model ships.
 
 ### Opus access is gated by seat tier
 
@@ -36,9 +35,3 @@ Unlike Enterprise, Claude for Government restricts Opus-class models to certain 
 Agencies don't take any action to receive new models—they show up in the model picker once enabled. Anthropic announces availability through your public sector account contact and in release notes.
 
 If your agency policy requires advance notice or opt-in before new models reach users, contact your Anthropic public sector representative to discuss configuration options.
-
-* * *
-
-Related Articles
-
-[How to get support for Claude for Government](https://support.claude.com/en/articles/13047024-how-to-get-support-for-claude-for-government)[Public Sector FAQs](https://support.claude.com/en/articles/13756069-public-sector-faqs)[Use Claude for Microsoft 365 with third-party platforms](https://support.claude.com/en/articles/13945233-use-claude-for-microsoft-365-with-third-party-platforms)[Get started with Claude for Government](https://support.claude.com/en/articles/14503590-get-started-with-claude-for-government)[Set up SCIM in Claude for Government](https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government)

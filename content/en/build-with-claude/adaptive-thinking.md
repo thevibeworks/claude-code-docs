@@ -750,13 +750,13 @@ Adaptive thinking's triggering behavior is promptable. If Claude is thinking mor
 ```text wrap
 Extended thinking adds latency and should only be used when it
 will meaningfully improve answer quality, typically for problems
-that require multi-step reasoning. When in doubt, respond directly.
+that require multistep reasoning. When in doubt, respond directly.
 ```
 
 To encourage thinking instead, use a phrase like:
 
 ```text wrap
-This task involves multi-step reasoning. Think carefully before responding.
+This task involves multistep reasoning. Think carefully before responding.
 ```
 
 Steering effectiveness can be sensitive to exact wording. If one phrasing doesn't produce the behavior you want, try a more direct variant.
@@ -850,10 +850,10 @@ Full thinking content is encrypted and returned in the `signature` field. This f
 
 Here are some important considerations on thinking encryption:
 
-* When [streaming responses](/docs/en/build-with-claude/extended-thinking#streaming-thinking), the signature is added via a `signature_delta` inside a `content_block_delta` event just before the `content_block_stop` event.
+* When [streaming responses](/docs/en/build-with-claude/extended-thinking#streaming-thinking), the signature is added through a `signature_delta` inside a `content_block_delta` event just before the `content_block_stop` event.
 * `signature` values are significantly longer in Claude 4 models than in previous models.
 * The `signature` field is an opaque field and should not be interpreted or parsed.
-* `signature` values are compatible across platforms (Claude APIs, [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock), and [Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai)). Values generated on one platform will be compatible with another.
+* `signature` values are compatible across platforms (Claude APIs, [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock), and [Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai)). Values generated on one platform are compatible with another.
 
 ### Thinking output on Claude Fable 5 and Claude Mythos 5
 

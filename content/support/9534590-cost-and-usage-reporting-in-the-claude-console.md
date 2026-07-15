@@ -1,15 +1,16 @@
-Title: Cost and Usage Reporting in the Claude Console
+# Cost and Usage Reporting in the Claude Console
 
-URL Source: https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-the-claude-console
+**Note:** Usage and Cost reporting is visible to the following user roles: **Developer, Billing, and Admin**. See [Claude Console Roles and Permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions) for more information.
 
-Markdown Content:
 The Claude Console provides detailed cost and usage reporting to help you effectively manage your API usage and associated costs. This guide walks you through these features and how to use them.
 
 ## Accessing Cost and Usage Reports
 
 Users with access to these reports can click into them on the left navigation menu on the Console:
 
-[![Image 1](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780567200&signature=d88e99d0ec3b704aa7d6c80ee1c620070193ca6a23cde2669b4f219d92008c3c&req=dSUvEs97mYNeXvMW1HO4zYCWiSQdh8GYuqqBX2puyxQ3%2B6%2FvzRNwH1Wjo9dO%0AYWUam8SoOxgelGddnts%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1780567200&signature=d88e99d0ec3b704aa7d6c80ee1c620070193ca6a23cde2669b4f219d92008c3c&req=dSUvEs97mYNeXvMW1HO4zYCWiSQdh8GYuqqBX2puyxQ3%2B6%2FvzRNwH1Wjo9dO%0AYWUam8SoOxgelGddnts%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1784143800&amp;signature=2ef588d7f4687f3f451a4003080ed8b137ab5d6730635a335748ff72d32f9af4&amp;req=dSUvEs97mYNeXvMW1HO4zYCWiSAZhcWSuqqBX2puyxTq8RMB5MvRpGe6C1gn%0AwtMCrrRplKU6oJTeM0I%3D%0A)
+
+---
 
 ## Usage Reporting
 
@@ -17,19 +18,47 @@ The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown 
 
 ### Key Features
 
+- **Detailed Breakdown**: View usage data by model, date/time, and API key. Click into the bars on the bar chart for hour and minute granularity.
+
+- **Flexible Filtering**: Use selectors to choose specific models, months, or API keys
+
+- **Visual Representation**: A chart with input and output token counts.
+
+- **Usage Statistics**: See total input and output tokens for your selected filters.
+
+- **Rate-Limited Requests:** Review your requests that were blocked due to hitting rate limits.
+
+- **Rate Limit Use:** Visualizations of input and output tokens per minute compared with the overall ITPM or OTPM rate limit.
+
+- **CSV Export**: Download your usage data for further analysis or reporting.
+
 ### How to Use
 
-[![Image 2](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780567200&signature=c1caecfcb705c25415606bd32b2dcf545eab1fa3dfab8da5148bd8c71e4c6d52&req=dSUvEs94mYJdWPMW1HO4zQwER3MvJ4hkqMITUZbanFDo7B7ktiUm%2FbPiNhLp%0AXKk%2FcTVqRXQg1OwS7fM%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1780567200&signature=c1caecfcb705c25415606bd32b2dcf545eab1fa3dfab8da5148bd8c71e4c6d52&req=dSUvEs94mYJdWPMW1HO4zQwER3MvJ4hkqMITUZbanFDo7B7ktiUm%2FbPiNhLp%0AXKk%2FcTVqRXQg1OwS7fM%3D%0A)
+1. Select the Workspace you want to view (or choose "All Workspaces").
 
-[![Image 3](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780567200&signature=344161349ae8357488a5a37404c5413e832a9c1cf8f7479259c5af12b7bb37a5&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtI4FZu21D6pckxWMb7wZI5k4uJvaNPRwTu%0AmoyypgLdeWkESwuVflY%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1780567200&signature=344161349ae8357488a5a37404c5413e832a9c1cf8f7479259c5af12b7bb37a5&req=dSUvEs93noJXX%2FMW1HO4zRxEwWtI4FZu21D6pckxWMb7wZI5k4uJvaNPRwTu%0AmoyypgLdeWkESwuVflY%3D%0A)
+2. Select the model you want to view (or choose "All Models").
+
+3. Choose the month you're interested in (or narrow to a specific month/day).
+
+4. Select an API key (or view data for all keys).
+
+5. The chart and statistics will update based on your selections.
+
+6. Use the export button to download a CSV of the displayed data.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1784143800&amp;signature=1b61dbe9953ee3d10d14c86f55d0d1a4a536dd9a2fc517d8a5be5b5db217b28d&amp;req=dSUvEs94mYJdWPMW1HO4zQwER3crJYxuqMITUZbanFB3dcA%2FM63qdOzDbfAJ%0A7kSeCSjdu%2B%2BN5WQlIyI%3D%0A)
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1784143800&amp;signature=49828c17524a63519dc02b1eed9223aab7145cb1fe133ca88aa0a8a409b721e6&amp;req=dSUvEs93noJXX%2FMW1HO4zRxEwW9M4lJk21D6pckxWMYRjWOAf6EDcskX2GvX%0ARGPpHJ9dR8izA1odKms%3D%0A)
 
 ### Rate Limit Use
 
 The Usage page also includes a separate section displaying rate limit use per-model for input and output tokens. You can click the dropdown in the upper left corner of this section to change the model and view related rate limit metrics. These visualizations can be used to determine when you’re hitting peak use for your organization, which specific rate limits need to be increased, and how you can increase your caching rate.
 
-**Rate Limit Use + Caching - Input Tokens:**This chart displays the hourly maximum number of uncached input tokens per minute (ITPM) alongside your cache rate (i.e. the percentage of input tokens read from the cache) and your current ITPM rate limit.
+**Rate Limit Use + Caching - Input Tokens:** This chart displays the hourly maximum number of uncached input tokens per minute (ITPM) alongside your cache rate (i.e. the percentage of input tokens read from the cache) and your current ITPM rate limit.
 
-**Rate Limit Use - Output Tokens:**This chart displays the hourly maximum number of output tokens per minute (OTPM) alongside your current OTPM rate limit.
+**Rate Limit Use - Output Tokens:** This chart displays the hourly maximum number of output tokens per minute (OTPM) alongside your current OTPM rate limit.
+
+---
 
 ## Cost Reporting
 
@@ -37,12 +66,28 @@ The [Cost page](https://platform.claude.com/cost) helps you understand your spen
 
 ### Key Features
 
+- **Model-Specific Data**: View costs for individual models or all models combined.
+
+- **Monthly Breakdown**: See costs for specific months.
+
+- **Daily Cost Chart**: Visualize your spending over time.
+
+- **Total Cost Statistics**: Get an overview of your total spending for the selected period, including web search and code execution costs.
+
+- **CSV Export**: Download cost data for your records for further analysis.
+
 ### How to Use
 
-[![Image 4](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780567200&signature=e484b79be9d29300056dc068360d89bf9bc7ea74a1d3c20f72b3555538f8b027&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zGVddjCyIF5nuUsbz2fOP4vsBue39%2FsMuq%0AiRmDW0J1lagp2TCO%2FqU%3D%0A)](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1780567200&signature=e484b79be9d29300056dc068360d89bf9bc7ea74a1d3c20f72b3555538f8b027&req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5zGVddjCyIF5nuUsbz2fOP4vsBue39%2FsMuq%0AiRmDW0J1lagp2TCO%2FqU%3D%0A)
+1. Choose the Workspace you want to view costs for (or select "All Workspaces").
 
-* * *
+2. Choose the model you want to view costs for (or select "All Models").
 
-Related Articles
+3. Select the month you're interested in.
 
-[Creating and managing Workspaces in the Claude Console](https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces-in-the-claude-console)[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-usage-credits-for-paid-claude-plans)[Get started with the Claude Enterprise Analytics API](https://support.claude.com/en/articles/13694757-get-started-with-the-claude-enterprise-analytics-api)[Claude Enterprise Analytics API reference guide](https://support.claude.com/en/articles/13703965-claude-enterprise-analytics-api-reference-guide)[Models, usage, and limits in Claude Code](https://support.claude.com/en/articles/14552983-models-usage-and-limits-in-claude-code)
+4. You can see the chart, token cost, and tool use costs, which will update based on your selections.
+
+5. Use the export button to download a CSV of the cost data.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1784143800&amp;signature=dc7bef329f60ca2f532286be16743597ae361ae9d83270bf41432b0a7f763c9a&amp;req=dSUvEs95lIVfWPMW1HO4zUR%2Bh5jCV9NpCyIF5nuUsbza7Sp7OyW7xIAmdb3Y%0A0x3cC2bGo2%2B50uko%2BIc%3D%0A)
+
+**Note**: Currently, it's not possible to break down usage or cost by individual users.

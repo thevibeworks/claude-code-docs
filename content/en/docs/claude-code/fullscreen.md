@@ -7,7 +7,7 @@
 > Enable a smoother, flicker-free rendering mode with mouse support and stable memory usage in long conversations.
 
 <Note>
-  Fullscreen rendering is an opt-in [research preview](#research-preview) and requires Claude Code v2.1.89 or later. Run `/tui fullscreen` to switch in your current conversation, or set `CLAUDE_CODE_NO_FLICKER=1` on versions before v2.1.110. Behavior may change based on feedback.
+  Fullscreen rendering is an opt-in [research preview](#research-preview). Run `/tui fullscreen` to switch in your current conversation, or set `CLAUDE_CODE_NO_FLICKER=1` on versions before v2.1.110. Behavior may change based on feedback.
 </Note>
 
 Fullscreen rendering is an alternative rendering path for the Claude Code CLI that eliminates flicker, keeps memory usage flat in long conversations, and adds mouse support. It draws the interface on the terminal's alternate screen buffer, like `vim` or `htop`, and only renders messages that are currently visible. This reduces the amount of data sent to your terminal on each update.
@@ -21,6 +21,8 @@ The difference is most noticeable in terminal emulators where rendering throughp
 ## Enable fullscreen rendering
 
 Run `/tui fullscreen` inside any Claude Code conversation. The CLI saves the [`tui` setting](/en/settings#available-settings) and relaunches into fullscreen with your conversation intact, so you can switch mid-session without losing context. Run `/tui default` to switch back to the classic renderer, or `/tui` with no argument to print which renderer is active.
+
+The relaunched session keeps the conversation as it appears on screen. If you ran [`/rewind`](/en/checkpointing#rewind-and-summarize) earlier in the session, the relaunch resumes from the rewound point rather than the longer transcript saved on disk. Before v2.1.207, switching renderers after a rewind restored the conversation the rewind had removed.
 
 You can also set the `CLAUDE_CODE_NO_FLICKER` environment variable before starting Claude Code:
 
@@ -51,6 +53,7 @@ Fullscreen rendering captures mouse events and handles them inside Claude Code:
 * **Click in the prompt input** to position your cursor anywhere in the text you're typing.
 * **Click a suggestion in the `/` command or `@` file list** to accept it. Hovering highlights the row under your cursor.
 * **Click an option in a select menu** to choose it. This covers permission prompts, `/model`, `/config`, and other dialogs that show a list of options. Hovering shows a pointer on the row under your cursor. {/* min-version: 2.1.187 */}Requires Claude Code v2.1.187 or later.
+* **Click an option in a multi-select menu** to toggle it, and click the submit button to confirm your choices. Clicking a free-text row, such as the `Other` row in a multiple-choice question, focuses its input field so you can type an answer. {/* min-version: 2.1.208 */}Requires Claude Code v2.1.208 or later.
 * **Click a collapsed tool result** to expand it and see the full output. Click again to collapse. The tool call and its result expand together. Only messages that have more to show are clickable.
 * **Hold `Cmd` on macOS, or `Ctrl` on Linux and Windows, and click a URL or file path** to open it. File paths in tool output, like the ones printed after an Edit or Write, open in your default application. Plain `http://` and `https://` URLs open in your browser. {/* min-version: 2.1.181 */}As of v2.1.181, a plain click without holding `Cmd` or `Ctrl` no longer opens links, matching native terminal behavior. Some macOS terminals forward `Cmd`+click to the running app instead of opening the link themselves, and the terminal mouse protocol has no way to encode the `Cmd` key, so Claude Code receives it as a plain click. In Ghostty, and {/* min-version: 2.1.198 */}as of v2.1.198 in Warp on macOS, Claude Code detects this and lets a plain click on a link open it, and holding `Cmd` still works. In the VS Code integrated terminal and similar xterm.js-based terminals, Claude Code defers to the terminal's own link handler, which uses the same gesture.
 * **Click and drag** to select text anywhere in the conversation. Double-click selects a word, matching iTerm2's word boundaries so a file path selects as one unit. {/* min-version: 2.1.198 */}As of v2.1.198, double-clicking a URL selects the whole URL, including the scheme. Triple-click selects the line.
@@ -73,13 +76,23 @@ Fullscreen rendering handles scrolling inside the app. Use these shortcuts to na
 | `Ctrl+End`      | Jump to the latest message and re-enable auto-follow |
 | Mouse wheel     | Scroll a few lines at a time                         |
 
-On keyboards without dedicated `PgUp`, `PgDn`, `Home`, or `End` keys, like MacBook keyboards, hold `Fn` with the arrow keys: `Fn+↑` sends `PgUp`, `Fn+↓` sends `PgDn`, `Fn+←` sends `Home`, and `Fn+→` sends `End`. That makes `Ctrl+Fn+→` the jump-to-bottom shortcut. If that feels awkward, scroll to the bottom with the mouse wheel to resume following, or rebind `scroll:bottom` to something reachable.
+On keyboards without dedicated `PgUp`, `PgDn`, `Home`, or `End` keys, like MacBook keyboards, hold `Fn` with the arrow keys: `Fn+↑` sends `PgUp`, `Fn+↓` sends `PgDn`, `Fn+←` sends `Home`, and `Fn+→` sends `End`. `Ctrl+Fn+→` doesn't reach Claude Code on macOS, so a MacBook keyboard has no working jump-to-bottom chord by default. Instead, use one of these options:
+
+* Click the [jump-to-bottom button](#auto-follow).
+* Scroll to the bottom with the mouse wheel to resume following.
+* Rebind `scroll:bottom` to a chord your keyboard can send.
 
 These actions are rebindable. See [Scroll actions](/en/keybindings#scroll-actions) for the full list of action names, including half-page and full-page variants that have no default binding.
 
 ### Auto-follow
 
-Scrolling up pauses auto-follow so new output doesn't pull you back to the bottom. Press `Ctrl+End` or scroll to the bottom to resume following.
+Scrolling up pauses auto-follow so new output doesn't pull you back to the bottom. A `Jump to bottom` button floats over the bottom edge of the transcript while you're scrolled up, and shows a count such as `3 new messages` when new output arrives. Click it, press `Ctrl+End`, or scroll to the bottom to resume following.
+
+While auto-follow is paused, the view also stays where you scrolled it when a response finishes streaming. Before v2.1.207, the view could jump above the start of the answer when a long response finished streaming.
+
+The button's keyboard hint reflects what your keyboard can send. On macOS it suggests clicking, or `Fn+↓` to scroll, because `Ctrl+End` doesn't reach Claude Code from a Mac keyboard. Rebind [`scroll:bottom`](/en/keybindings#scroll-actions) and the button shows your chord on every platform. Before v2.1.206, the button suggested `Ctrl+End` on macOS.
+
+On a terminal too narrow for the full label, the button shortens the hint instead of wrapping onto the transcript row underneath. Before v2.1.206, a long label could wrap over the transcript.
 
 To turn auto-follow off entirely so the view stays where you leave it, open `/config` and set Auto-scroll to off. With auto-scroll disabled, the view never jumps to the bottom on its own. Permission prompts and other dialogs that need a response still scroll into view regardless of this setting.
 
@@ -192,6 +205,29 @@ With mouse capture disabled, keyboard scrolling with `PgUp`, `PgDn`, `Ctrl+Home`
 To keep wheel scrolling but turn off click, drag, and hover handling, set `CLAUDE_CODE_DISABLE_MOUSE_CLICKS=1` instead. Requires Claude Code v2.1.195 or later. `CLAUDE_CODE_DISABLE_MOUSE` takes precedence when both variables are set.
 
 With clicks disabled, Claude Code still captures the mouse, so the wheel and touchpad scroll the conversation but left clicks do nothing inside Claude Code. You still need to hold your terminal's key for native click-and-drag selection. Right-click and middle-click paste continue to work on terminals that support them.
+
+## Troubleshooting
+
+### Stale or misplaced text on screen
+
+Fullscreen rendering sends only the cells that changed between frames. Some terminals, most commonly Windows Terminal and other ConPTY-backed hosts, coalesce these positioned writes incorrectly and leave fragments of earlier output on screen until you resize the window.
+
+Set [`CLAUDE_CODE_ALT_SCREEN_FULL_REPAINT=1`](/en/env-vars) to repaint every cell on every frame instead of sending incremental updates.
+
+On Windows PowerShell:
+
+```powershell theme={null}
+$env:CLAUDE_CODE_ALT_SCREEN_FULL_REPAINT = "1"
+claude
+```
+
+On macOS or Linux:
+
+```bash theme={null}
+CLAUDE_CODE_ALT_SCREEN_FULL_REPAINT=1 claude
+```
+
+On Windows, Claude Code already enables full repaint automatically for background sessions and [agent view](/en/agent-view), so you only need to set the variable for an interactive fullscreen session you launched directly.
 
 ## Research preview
 

@@ -122,6 +122,8 @@ claude -p "Extract the main function names from auth.py" \
   --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}},"required":["functions"]}'
 ```
 
+If the value isn't a valid JSON Schema, `claude` exits with `Error: --json-schema is not a valid JSON Schema` followed by the validator's diagnostic. Claude Code accepts schemas that use the `format` keyword, such as `"format": "email"`, but treats `format` as an annotation and doesn't enforce it. Before v2.1.205, Claude Code silently ignored an invalid schema and returned unstructured text, and treated any schema containing `format` as invalid.
+
 <Tip>
   Use a tool like [jq](https://jqlang.github.io/jq/) to parse the response and extract specific fields:
 
@@ -145,6 +147,8 @@ Use `--output-format stream-json` with `--verbose` and `--include-partial-messag
 claude -p "Explain recursion" --output-format stream-json --verbose --include-partial-messages
 ```
 
+The last line of the stream is a `result` message with the final response text, cost, and session metadata. {/* min-version: 2.1.208 */}Before v2.1.208, piping a large response could truncate the final line and omit the `result` message.
+
 The following example uses [jq](https://jqlang.github.io/jq/) to filter for text deltas and display just the streaming text. The `-r` flag outputs raw strings (no quotes) and `-j` joins without newlines so tokens stream continuously:
 
 ```bash theme={null}
@@ -166,7 +170,14 @@ When an API request fails with a retryable error, Claude Code emits a `system/ap
 | `uuid`           | string          | unique event identifier                                                                                                                                                                                |
 | `session_id`     | string          | session the event belongs to                                                                                                                                                                           |
 
-The `system/init` event reports session metadata including the model, tools, MCP servers, and loaded plugins. It is the first event in the stream unless [`CLAUDE_CODE_SYNC_PLUGIN_INSTALL`](/en/env-vars) is set, in which case `plugin_install` events precede it. Use the plugin fields to fail CI when a plugin did not load:
+The `system/init` event reports session metadata including the model, tools, MCP servers, and loaded plugins. It is the first event in the stream unless startup events precede it:
+
+* `plugin_install` events, when [`CLAUDE_CODE_SYNC_PLUGIN_INSTALL`](/en/env-vars) is set.
+* {/* min-version: 2.1.204 */}[`hook_started`, `hook_progress`, and `hook_response` events](/en/agent-sdk/typescript#sdkhookstartedmessage), while a configured [`SessionStart`](/en/hooks#sessionstart) or [`Setup`](/en/hooks#setup) hook runs. These stream as the hook produces them. Claude Code v2.1.169 through v2.1.203 delivered them in one batch after the hook completed, still ahead of `system/init`; v2.1.204 restored live delivery.
+
+The event also carries an optional `capabilities` array of strings naming the protocol behaviors this Claude Code version implements, such as `interrupt_receipt_v1`. Check it to feature-detect instead of comparing version strings, and ignore values you don't recognize. The field requires Claude Code v2.1.205 or later and is absent from earlier versions. See [`SDKSystemMessage`](/en/agent-sdk/typescript#sdksystemmessage) for the capability list.
+
+Use the plugin fields to fail CI when a plugin did not load:
 
 | Field           | Type  | Description                                                                                                                                                                                                                                                                                  |
 | --------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -214,7 +225,7 @@ claude -p "Look at my staged changes and create an appropriate commit" \
 The `--allowedTools` flag uses [permission rule syntax](/en/settings#permission-rule-syntax). The trailing ` *` enables prefix matching, so `Bash(git diff *)` allows any command starting with `git diff`. The space before `*` is important: without it, `Bash(git diff*)` would also match `git diff-index`.
 
 <Note>
-  User-invoked [skills](/en/skills) and custom commands work in `-p` mode: include `/skill-name` in the prompt string and Claude Code expands it before running. Built-in commands that open an interactive dialog, such as `/login`, are not available in `-p` mode. {/* min-version: 2.1.181 */}To change a setting from a `-p` invocation, pass `key=value` to `/config`, for example `/config thinking=false`.
+  User-invoked [skills](/en/skills) and custom commands work in `-p` mode: include `/skill-name` in the prompt string and Claude Code expands it before running. Built-in commands that only run in the terminal interface, such as `/login`, aren't available in `-p` mode. {/* min-version: 2.1.205 */}`/model`, `/effort`, `/fast`, `/color`, and `/rename` accept the value as an argument, for example `/model sonnet`, and `/mcp` with no argument prints a text summary of server status; these forms require Claude Code v2.1.205 or later and follow each command's [availability notes](/en/commands#all-commands). {/* min-version: 2.1.181 */}To change a setting from a `-p` invocation, pass `key=value` to `/config`, for example `/config thinking=false`.
 </Note>
 
 ### Customize the system prompt

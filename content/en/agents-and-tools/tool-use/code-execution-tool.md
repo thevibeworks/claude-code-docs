@@ -65,7 +65,7 @@ Code execution is available on:
 Code execution is not currently available on Amazon Bedrock or Google Cloud.
 
 <Note>
-  For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry only. It is not available for Mythos Preview on Amazon Bedrock, Google Cloud, or Claude Platform on AWS.
+  For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry only. It is not available for Mythos Preview on Amazon Bedrock, Claude Platform on AWS, or Google Cloud.
 </Note>
 
 ## Quick start
@@ -278,7 +278,7 @@ If you want Claude to run code for a borderline request, ask explicitly (for exa
 To analyze your own data files (such as CSV, Excel, or images), upload them through the Files API and reference them in your request:
 
 <Note>
-  Using the Files API with Code Execution requires the Files API beta header: `"anthropic-beta": "files-api-2025-04-14"`
+  Using the Files API with code execution requires the Files API beta header: `"anthropic-beta": "files-api-2025-04-14"`
 </Note>
 
 The Python environment can process various file types uploaded through the Files API, including:
@@ -1437,7 +1437,7 @@ Containers expire 30 days after creation. After about five minutes of inactivity
 
 ## Using code execution with other execution tools
 
-When you provide code execution alongside client-provided tools that also run code (such as a [Bash tool](/docs/en/agents-and-tools/tool-use/bash-tool) or custom REPL), Claude is operating in a multi-computer environment. The code execution tool runs in Anthropic's sandboxed container, while your client-provided tools run in a separate environment that you control. Claude can sometimes confuse these environments, attempting to use the wrong tool or assuming state is shared between them.
+When you provide code execution alongside client-provided tools that also run code (such as a [Bash tool](/docs/en/agents-and-tools/tool-use/bash-tool) or custom REPL), Claude is operating in a multicomputer environment. The code execution tool runs in Anthropic's sandboxed container, while your client-provided tools run in a separate environment that you control. Claude can sometimes confuse these environments, attempting to use the wrong tool or assuming state is shared between them.
 
 To avoid this, add instructions to your system prompt that clarify the distinction:
 
@@ -1485,7 +1485,7 @@ When used without these tools, code execution is billed by execution time, track
 * Execution time has a minimum of 5 minutes
 * Each organization receives **1,550 free hours** of usage per month
 * Additional usage beyond 1,550 hours is billed at **$0.05 per hour, per container**
-* If files are included in the request, execution time is billed even if the tool is not invoked, due to files being preloaded onto the container
+* If files are included in the request, execution time is billed even if the tool is not invoked, because files are preloaded onto the container
 
 Code execution usage is tracked in the response:
 

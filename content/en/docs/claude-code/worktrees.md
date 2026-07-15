@@ -34,9 +34,15 @@ claude --worktree
 
 You can also ask Claude to "work in a worktree" during a session, and it will create one with the [`EnterWorktree`](/en/tools-reference) tool. Once in a worktree, Claude can switch directly to another one under `.claude/worktrees/` by calling `EnterWorktree` with the target path. The previous worktree stays on disk untouched.
 
+Entering a path outside the repository's `.claude/worktrees/` directory asks for your approval first, because it moves the session's working directory, write access, and project configuration such as `CLAUDE.md` and settings to that location. An `EnterWorktree` [permission rule](/en/permissions) or choosing "don't ask again" doesn't suppress this prompt; only `bypassPermissions` mode skips it. Before v2.1.206, Claude could enter any existing worktree path without asking.
+
 {/* min-version: 2.1.198 */}As of v2.1.198, entering or exiting a worktree also relocates the session transcript to that directory's project storage, the same way [`/cd`](/en/commands) does, so `/desktop` and `--resume` find the session there afterward. Worktrees created by a [`WorktreeCreate` hook](#non-git-version-control) are excluded and keep the transcript at the launch directory.
 
+Worktrees work with [sandboxing](/en/sandboxing#filesystem-isolation) enabled: the sandbox allows writes to the main repository's shared `.git` directory so commands such as `git commit` can update refs and the index from inside a linked worktree.
+
 Before using `--worktree` interactively in a directory for the first time, accept the workspace trust dialog by running `claude` once in that directory. If trust has not yet been accepted, `--worktree` exits with an error and prompts you to run `claude` in the directory first. Non-interactive runs with `-p` skip the [trust check](/en/security), so `claude -p --worktree` proceeds without it.
+
+If Claude Code can't enter the worktree directory at startup, for example because a [`WorktreeCreate` hook](/en/hooks#worktreecreate) printed something other than the directory it created, or because the directory was deleted after it was set up, Claude Code prints an error naming the path and exits with code 1. Before v2.1.205, this crashed the session, and with `-p` it stalled for about 30 seconds before exiting with code 0.
 
 {/* min-version: 2.1.200 */}Plugins installed at [project scope](/en/plugins-reference#plugin-installation-scopes) from the main checkout also load in worktrees of the same repository, so you don't need to reinstall them per worktree. This applies whether you create the worktree with `--worktree` or with `git worktree add`. Requires Claude Code v2.1.200 or later.
 
@@ -46,7 +52,11 @@ Before using `--worktree` interactively in a directory for the first time, accep
 
 ### Choose the base branch
 
-Worktrees branch from your repository's default branch, `origin/HEAD`, so they start from a clean tree matching the remote. If no remote is configured or the fetch fails, the worktree falls back to your current local `HEAD`. To always branch from local `HEAD` instead, set `worktree.baseRef` to `"head"` in [settings](/en/settings#worktree-settings). Setting `baseRef` to `"head"` makes new worktrees carry your unpushed commits and feature-branch state, which is useful when isolating subagents that need to operate on in-progress work. The setting accepts only `"fresh"` or `"head"`, not arbitrary git refs:
+Worktrees branch from your repository's default branch, `origin/HEAD`, so they start from a clean tree matching the remote. When nothing has fetched the repository in the last 24 hours, Claude Code refreshes `origin/HEAD` with a fetch of the default branch, capped at five seconds, and uses the locally cached ref if the fetch fails. If no remote is configured, or `origin/HEAD` isn't cached locally and can't be fetched, the worktree falls back to your current local `HEAD`.
+
+The refresh requires Claude Code v2.1.208 or later; before that, a fresh worktree used whatever `origin/HEAD` was already cached locally.
+
+To always branch from local `HEAD` instead, set `worktree.baseRef` to `"head"` in [settings](/en/settings#worktree-settings). Setting `baseRef` to `"head"` makes new worktrees carry your unpushed commits and feature-branch state, which is useful when isolating subagents that need to operate on in-progress work. When the session runs inside a linked worktree, `"head"` resolves to that worktree's `HEAD`, not the main checkout's. The setting accepts only `"fresh"` or `"head"`, not arbitrary git refs:
 
 ```json theme={null}
 {
@@ -63,6 +73,18 @@ claude --worktree "#1234"
 ```
 
 For full control over how worktrees are created, configure a [`WorktreeCreate` hook](/en/hooks#worktreecreate), which replaces the default `git worktree` logic entirely.
+
+### Reuse a worktree name
+
+Reusing a worktree name whose directory already exists resumes that worktree.
+
+A resumed worktree resets to the [current base](#choose-the-base-branch) instead of resuming at its old tip when all of the following hold:
+
+* It has no uncommitted changes or untracked files.
+* It is still on the branch Claude Code created for it.
+* It never committed, or its pull request was merged and its remote branch deleted.
+
+Before v2.1.208, a reused name always resumed the old worktree at its old tip.
 
 ## Copy gitignored files into worktrees
 
@@ -97,6 +119,8 @@ When you exit a worktree session, cleanup depends on whether you made changes:
 Worktrees that Claude created for subagents and [background sessions](/en/agent-view#how-file-edits-are-isolated) are removed automatically once they are older than your [`cleanupPeriodDays`](/en/settings#available-settings) setting, provided they have no uncommitted changes, no untracked files, and no unpushed commits. Worktrees you create with `--worktree` are never removed by this sweep.
 
 While an agent is running, Claude runs `git worktree lock` on its worktree so that concurrent cleanup cannot remove it. The lock is released when the agent finishes. To clean up a worktree that the sweep keeps, run `git worktree remove`, adding `--force` if the worktree has uncommitted changes or untracked files.
+
+On Windows, before removing a worktree, Claude Code removes any NTFS junction or directory symlink at any depth inside it as a link entry, so removing the worktree doesn't delete the files a link points to. Before v2.1.205, Claude Code removed only top-level links as link entries, and removing a worktree with a junction nested in a subdirectory could delete the contents of the directory the link pointed to outside the worktree.
 
 ## Manage worktrees manually
 

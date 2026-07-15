@@ -1,8 +1,5 @@
-Title: Troubleshoot Claude Code installation and authentication
+# Troubleshoot Claude Code installation and authentication
 
-URL Source: https://support.claude.com/en/articles/14552646-troubleshoot-claude-code-installation-and-authentication
-
-Markdown Content:
 These ten issues account for the large majority of installation and authentication support tickets related to Claude Code. Each entry includes the most reliable fix.
 
 ## 1. **claude: command not found** right after installing.
@@ -35,7 +32,7 @@ This usually means the localhost callback is blocked, which is common over remot
 
 ## 8. "Not authenticated" even though you set `ANTHROPIC_API_KEY`.
 
-There are three common causes: the key was exported in a different shell (run `echo``$ANTHROPIC_API_KEY` to check), Claude Code has not yet been told to trust this key (it prompts once on first use; until you approve, `ANTHROPIC_API_KEY` takes precedence over any OAuth session only after that approval), or the key is a Console key but your organization requires SSO login instead.
+There are three common causes: the key was exported in a different shell (run `echo` `$ANTHROPIC_API_KEY` to check), Claude Code has not yet been told to trust this key (it prompts once on first use; until you approve, `ANTHROPIC_API_KEY` takes precedence over any OAuth session only after that approval), or the key is a Console key but your organization requires SSO login instead.
 
 ## 9. Bedrock / Vertex: "Could not load credentials."
 
@@ -48,9 +45,3 @@ Your account exists but does not have access to the model Claude Code is request
 ## Still stuck?
 
 Run `claude doctor` from your normal shell (not from inside a Claude session). It prints a diagnostic report you can attach to a support ticket. For the full list of known issues, see the **[troubleshooting guide](https://code.claude.com/docs/en/troubleshooting)**.
-
-* * *
-
-Related Articles
-
-[Claude Code model configuration](https://support.claude.com/en/articles/11940350-claude-code-model-configuration)[Your first day in Claude Code](https://support.claude.com/en/articles/14552382-your-first-day-in-claude-code)[Claude Code cheatsheet](https://support.claude.com/en/articles/14553413-claude-code-cheatsheet)[Claude Code user FAQ](https://support.claude.com/en/articles/14554922-claude-code-user-faq)[Claude Code communications kit](https://support.claude.com/en/articles/14555877-claude-code-communications-kit)

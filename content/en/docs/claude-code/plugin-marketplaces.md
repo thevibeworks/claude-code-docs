@@ -160,7 +160,9 @@ Each plugin entry needs at minimum a `name` and a `source` that tells Claude Cod
 | `plugins` | array  | List of available plugins                                                                                                                                                                                                                                                                                                                                                                                                             | See below      |
 
 <Note>
-  **Reserved names**: The following marketplace names are reserved for official Anthropic use and cannot be used by third-party marketplaces: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-official`, `claude-plugins-community`, `claude-community`, `anthropic-marketplace`, `anthropic-plugins`, `agent-skills`, `anthropic-agent-skills`, `knowledge-work-plugins`, `life-sciences`, `claude-for-legal`, `claude-for-financial-services`, `financial-services-plugins`. Names that impersonate official marketplaces, such as `official-claude-plugins` or `anthropic-tools-v2`, are also blocked.
+  **Reserved names**: the following marketplace names are reserved for official Anthropic use and can't be used by third-party marketplaces: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-official`, `claude-plugins-community`, `claude-community`, `anthropic-marketplace`, `anthropic-plugins`, `agent-skills`, `anthropic-agent-skills`, `knowledge-work-plugins`, `life-sciences`, `claude-for-legal`, `claude-for-financial-services`, `financial-services-plugins`, `first-party-plugins`, `healthcare`. Names that impersonate official marketplaces, such as `official-claude-plugins` or `anthropic-plugins-v2`, are also blocked. Reserving these names prevents a third-party marketplace from presenting itself as an Anthropic-published source.
+
+  Claude Code re-checks reserved names every time it loads a marketplace, not only when you add one. A marketplace that was registered under one of these names before the name became reserved stops loading and reports that it is [registered from an untrusted source](/en/errors#marketplace-is-registered-from-an-untrusted-source). Remove that marketplace and re-add it from the official Anthropic source. A third-party marketplace affected by a newly reserved name loads again as soon as you re-add it under a different name. Before v2.1.205, `first-party-plugins` and `healthcare` weren't reserved, and a marketplace already registered under a reserved name kept loading.
 </Note>
 
 ### Owner fields
@@ -473,7 +475,9 @@ This example shows a plugin entry using many of the optional fields, including c
 Key things to notice:
 
 * **`commands` and `agents`**: you can specify multiple directories or individual files. Paths are relative to the plugin root.
-* **`${CLAUDE_PLUGIN_ROOT}`**: use this variable in hooks and MCP server configs to reference files within the plugin's installation directory. This is necessary because plugins are copied to a cache location when installed. For dependencies or state that should survive plugin updates, use [`${CLAUDE_PLUGIN_DATA}`](/en/plugins-reference#persistent-data-directory) instead.
+* **`${CLAUDE_PLUGIN_ROOT}`**: use this variable in hook commands and MCP server configs to reference files within the plugin's installation directory. This is necessary because plugins are copied to a cache location when installed.
+  * See the [substitution table](/en/plugins-reference#environment-variables) for which config fields substitute it per server type
+  * For dependencies or state that should survive plugin updates, use [`${CLAUDE_PLUGIN_DATA}`](/en/plugins-reference#persistent-data-directory) instead
 * **`strict: false`**: since this is set to false, the plugin doesn't need its own `plugin.json`. The marketplace entry defines everything. See [Strict mode](#strict-mode) below.
 
 By default, a plugin's skills load from the `skills/` directory under its `source`. Paths listed in the `skills` field add to that scan:
@@ -527,24 +531,37 @@ Any git hosting service works, such as GitLab, Bitbucket, and self-hosted server
 
 ### Private repositories
 
-Claude Code supports installing plugins from private repositories. For manual installation and updates, Claude Code uses your existing git credential helpers, so HTTPS access via `gh auth login`, macOS Keychain, or `git-credential-store` works the same as in your terminal. SSH access works as long as the host is already in your `known_hosts` file and the key is loaded in `ssh-agent`, since Claude Code suppresses interactive SSH prompts for the host fingerprint and key passphrase.
+Claude Code supports installing plugins from private repositories. For manual installation and updates, Claude Code uses your existing git credential helpers, so HTTPS access via `gh auth login`, macOS Keychain, or `git-credential-store` works the same as in your terminal. SSH access works as long as the host is already in your `known_hosts` file and the key is loaded in `ssh-agent`, since Claude Code suppresses interactive SSH prompts for the host fingerprint and key passphrase. GitHub `owner/repo` shorthand sources clone over SSH by default; set [`CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`](/en/env-vars#variables) to clone them over HTTPS instead.
 
-Background auto-updates run at startup without credential helpers, since interactive prompts would block Claude Code from starting. To enable auto-updates for private marketplaces, set the appropriate authentication token in your environment:
+Background auto-updates work differently. By default, the background refresh disables git credential helpers for its `git pull`, so the pull can't authenticate to private repositories over HTTPS even when a helper is configured. SSH remotes aren't affected: a key loaded in `ssh-agent` authenticates background pulls the same way as manual operations. When the background pull fails, Claude Code falls back to re-cloning the marketplace from scratch. The re-clone does use your stored git credentials, but it can [time out on large repositories](#git-operations-time-out), so private-marketplace auto-updates may fail intermittently.
 
-| Provider  | Environment variables        | Notes                                     |
-| :-------- | :--------------------------- | :---------------------------------------- |
-| GitHub    | `GITHUB_TOKEN` or `GH_TOKEN` | Personal access token or GitHub App token |
-| GitLab    | `GITLAB_TOKEN` or `GL_TOKEN` | Personal access token or project token    |
-| Bitbucket | `BITBUCKET_TOKEN`            | App password or repository access token   |
+Two settings make private marketplaces behave predictably:
 
-Set the token in your shell configuration (for example, `.bashrc`, `.zshrc`) or pass it when running Claude Code:
+* Set `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1` to keep the existing clone when the background pull fails, instead of deleting and re-cloning. Your plugins keep working from the last synced state, and manual updates with `/plugin marketplace update` still pull with your credentials.
+* Configure a git credential helper, for example with `gh auth setup-git` for GitHub, so the re-clone fallback can authenticate without prompting.
+
+Setting a provider token such as `GITHUB_TOKEN` in your environment doesn't by itself enable background authentication. Tokens take effect only through a configured credential helper, for example the `gh` CLI's helper, which reads `GH_TOKEN` and `GITHUB_TOKEN`.
+
+To make the background pull itself authenticate over HTTPS, configure a global git URL rewrite. The rewrite embeds a token in the remote URL, so it takes effect even though the background pull disables credential helpers, and a successful pull skips the re-clone fallback. The following example rewrites the marketplace repository's URL to include an access token:
 
 ```bash theme={null}
-export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+git config --global url."https://x-access-token:YOUR_TOKEN@github.com/acme-corp/plugins".insteadOf "https://github.com/acme-corp/plugins"
 ```
 
+Scope the rewrite to the marketplace repository or organization path. A rewrite whose base is only the host applies to every fetch and push to that host on the machine and overrides your normal credentials, including pushes to your own repositories.
+
+Each provider expects a different username in the rewritten URL, and the same path scoping applies to every provider. For self-hosted servers, replace the hostname with your server's hostname:
+
+| Provider  | Rewritten URL form                                                |
+| :-------- | :---------------------------------------------------------------- |
+| GitHub    | `https://x-access-token:YOUR_TOKEN@github.com/acme-corp/plugins`  |
+| GitLab    | `https://oauth2:YOUR_TOKEN@gitlab.com/acme-corp/plugins`          |
+| Bitbucket | `https://x-token-auth:YOUR_TOKEN@bitbucket.org/acme-corp/plugins` |
+
+The rewrite stores the token in plaintext in your gitconfig, so use a token with read-only access to the marketplace repository.
+
 <Note>
-  For CI/CD environments, configure the token as a secret environment variable. GitHub Actions automatically provides `GITHUB_TOKEN` for repositories in the same organization.
+  In CI/CD environments, configure a git credential helper before installing plugins from private repositories. On GitHub Actions, export a token with read access to the marketplace repository as `GH_TOKEN`, then run `gh auth setup-git`. The default workflow token can only access the workflow's own repository, so a private marketplace in another repository needs a personal access token or app token. A global URL rewrite configured in the pipeline also authenticates the background pull directly.
 </Note>
 
 ### Test locally before distribution
@@ -630,7 +647,7 @@ Behavior details:
 
 ### Managed marketplace restrictions
 
-For organizations requiring strict control over plugin sources, administrators can restrict which plugin marketplaces users are allowed to add using the [`strictKnownMarketplaces`](/en/settings#strictknownmarketplaces) setting in managed settings. To also reject the CLI flags that sideload plugins, agents, and MCP servers for a single run, pair it with [`disableSideloadFlags`](/en/settings#available-settings).
+For organizations requiring strict control over plugin sources, administrators can restrict which plugin marketplaces users are allowed to add using the [`strictKnownMarketplaces`](/en/settings#strictknownmarketplaces) setting in managed settings. To also reject the CLI flags that sideload plugins, agents, and MCP servers for a single run, pair it with [`disableSideloadFlags`](/en/settings#available-settings). To allowlist which marketplaces' plugins can appear as contextual install suggestions, set [`pluginSuggestionMarketplaces`](/en/settings#available-settings).
 
 When `strictKnownMarketplaces` is configured in managed settings, the restriction behavior depends on the value:
 
@@ -990,7 +1007,7 @@ claude plugin marketplace remove <name> [options]
 
 ### Plugin marketplace update
 
-Refresh marketplaces from their sources to retrieve new plugins and version changes.
+Refresh marketplaces from their sources to retrieve new plugins and version changes. A marketplace added with a branch or tag `ref` updates to the latest commit of that ref, not the repository's default branch.
 
 ```bash theme={null}
 claude plugin marketplace update [name]
@@ -1070,19 +1087,20 @@ For manual installation and updates:
 
 For background auto-updates:
 
-* Set the appropriate token in your environment: `echo $GITHUB_TOKEN`
-* Check that the token has the required permissions (read access to the repository)
-* For GitHub, ensure the token has the `repo` scope for private repositories
-* For GitLab, ensure the token has at least `read_repository` scope
-* Verify the token hasn't expired
+* By default, background refreshes disable git credential helpers for the pull, so the pull can't authenticate over HTTPS. SSH remotes with a key loaded in `ssh-agent` still authenticate. A failed pull triggers a re-clone from scratch, which uses your stored credentials but may time out on large repositories
+* Set `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1` to keep the existing clone when the background pull fails
+* Configure a git credential helper, for example `gh auth setup-git`, so the re-clone fallback can authenticate
+* If the re-clone times out on a large repository, increase the limit with [`CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS`](#git-operations-time-out)
+* Configure a [git URL rewrite](#private-repositories) scoped to the marketplace repository so the background pull authenticates directly
+* Or update private marketplaces manually with `/plugin marketplace update <name>`, which uses your credentials
 
 ### Marketplace updates fail in offline environments
 
-**Symptoms**: Marketplace `git pull` fails and Claude Code wipes the existing cache, causing plugins to become unavailable.
+**Symptoms**: Marketplace `git pull` fails in the background and Claude Code repeatedly attempts a re-clone that can't succeed.
 
-**Cause**: By default, when a `git pull` fails, Claude Code removes the stale clone and attempts to re-clone. In offline or airgapped environments, re-cloning fails the same way, leaving the marketplace directory empty.
+**Cause**: By default, when a `git pull` fails, Claude Code attempts a re-clone from scratch. In offline or airgapped environments, re-cloning fails the same way, and the restore of the previous cache afterward is best-effort. The refresh runs in the background after startup, so it doesn't delay startup, but each session repeats the failed attempts and each git operation can wait out the [120-second timeout](#git-operations-time-out).
 
-**Solution**: Set `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1` to keep the existing cache when the pull fails instead of wiping it:
+**Solution**: Set `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1` to skip the re-clone attempt and keep using the existing cache when the pull fails:
 
 ```bash theme={null}
 export CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE=1

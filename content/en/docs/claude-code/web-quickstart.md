@@ -38,15 +38,15 @@ The session doesn't close when the branch is pushed. PR creation and further edi
 
 Claude Code behaves the same everywhere. What changes is where code executes and whether your local config is available. The Desktop app offers both local and cloud sessions, so its answers below depend on which you choose:
 
-|                                              | On the web                                                                                                     | Remote Control               | Terminal CLI           | Desktop app                 |
-| :------------------------------------------- | :------------------------------------------------------------------------------------------------------------- | :--------------------------- | :--------------------- | :-------------------------- |
-| **Code runs on**                             | Anthropic cloud VM                                                                                             | Your machine                 | Your machine           | Your machine or cloud VM    |
-| **You chat from**                            | claude.ai or mobile app                                                                                        | claude.ai or mobile app      | Your terminal          | The Desktop UI              |
-| **Uses your local config**                   | No, repo only                                                                                                  | Yes                          | Yes                    | Yes for local, no for cloud |
-| **Requires GitHub**                          | Yes, or [bundle a local repo](/en/claude-code-on-the-web#send-local-repositories-without-github) via `--cloud` | No                           | No                     | Only for cloud sessions     |
-| **Keeps running if you disconnect**          | Yes                                                                                                            | While terminal stays open    | No                     | Depends on session type     |
-| **[Permission modes](/en/permission-modes)** | Accept edits, Plan, Auto                                                                                       | Ask, Auto accept edits, Plan | All modes              | Depends on session type     |
-| **Network access**                           | Configurable per environment                                                                                   | Your machine's network       | Your machine's network | Depends on session type     |
+|                                              | On the web                                                                                                     | Remote Control             | Terminal CLI           | Desktop app                 |
+| :------------------------------------------- | :------------------------------------------------------------------------------------------------------------- | :------------------------- | :--------------------- | :-------------------------- |
+| **Code runs on**                             | Anthropic cloud VM                                                                                             | Your machine               | Your machine           | Your machine or cloud VM    |
+| **You chat from**                            | claude.ai or mobile app                                                                                        | claude.ai or mobile app    | Your terminal          | The Desktop UI              |
+| **Uses your local config**                   | No, repo only                                                                                                  | Yes                        | Yes                    | Yes for local, no for cloud |
+| **Requires GitHub**                          | Yes, or [bundle a local repo](/en/claude-code-on-the-web#send-local-repositories-without-github) via `--cloud` | No                         | No                     | Only for cloud sessions     |
+| **Keeps running if you disconnect**          | Yes                                                                                                            | While terminal stays open  | No                     | Depends on session type     |
+| **[Permission modes](/en/permission-modes)** | Accept edits, Plan, Auto                                                                                       | Manual, Accept edits, Plan | All modes              | Depends on session type     |
+| **Network access**                           | Configurable per environment                                                                                   | Your machine's network     | Your machine's network | Depends on session type     |
 
 See the [terminal quickstart](/en/quickstart), [Desktop app](/en/desktop), or [Remote Control](/en/remote-control) docs to set those up.
 
@@ -119,7 +119,7 @@ With GitHub connected and an environment created, you're ready to submit tasks.
   </Step>
 
   <Step title="Choose a permission mode">
-    The mode dropdown next to the input defaults to **Accept edits**, where Claude makes changes and pushes a branch without stopping for approval. Switch to **Plan mode** if you want Claude to propose an approach and wait for your go-ahead before editing files. Cloud sessions don't offer Ask permissions or Bypass permissions. See [Permission modes](/en/permission-modes) for the full list.
+    The mode dropdown next to the input defaults to **Accept edits**, where Claude makes changes and pushes a branch without stopping for approval. Switch to **Plan** if you want Claude to propose an approach and wait for you to approve it before editing files. Cloud sessions don't offer Manual or Bypass permissions. See the [full list of permission modes](/en/permission-modes#available-modes) for what each one allows.
   </Step>
 
   <Step title="Describe the task and submit">
@@ -190,7 +190,7 @@ Enterprise organizations may need an Owner to enable Claude Code on the web. Con
 
 `/web-setup` runs inside the Claude Code CLI, not your shell. Launch `claude` first, then type `/web-setup` at the prompt.
 
-If you typed it inside Claude Code and the command menu shows `No commands match "/web-setup"`, or submitting it returns `Unknown command: /web-setup`, the command is hidden because a requirement isn't met. The cause is usually that your CLI is older than v2.1.80 or you're authenticated with an API key or third-party provider instead of a claude.ai subscription. Run `claude update`, then `/login` to sign in with your claude.ai account.
+If you typed it inside Claude Code and the command menu shows `No commands match "/web-setup"`, or submitting it returns `Unknown command: /web-setup`, the command is hidden because a requirement isn't met. The cause is usually that you're authenticated with an API key or third-party provider instead of a claude.ai subscription. Run `/login` to sign in with your claude.ai account.
 
 ### "Could not create a cloud environment" or "No cloud environment available" when using `--cloud` or ultraplan
 

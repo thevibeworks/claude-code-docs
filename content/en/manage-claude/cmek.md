@@ -30,13 +30,8 @@ Anthropic calls your key management service from its standard public IP range. I
 ## Prerequisites
 
 * Cloud Admin access in the account, project, or subscription that will host the encryption key.
-
 * An admin role in your Anthropic organization: an Organization Admin role in the Claude Console on Claude Platform, or an Owner or Primary Owner role on Claude Enterprise.
-
-* The data retention configuration required for your product:
-
-  * **Claude Platform:** [Zero data retention (ZDR)](/docs/en/manage-claude/api-and-data-retention) turned off for your organization. Organizations with a ZDR arrangement can instead turn on 30-day data retention for at least one workspace; see [Model-specific data retention requirements](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). You can attach a key only to a workspace with data retention enabled.
-  * **Claude Enterprise:** ZDR turned off for your organization.
+* Data retention configuration: CMEK is allowed with [Zero data retention (ZDR)](/docs/en/manage-claude/api-and-data-retention) for both Claude Platform and Claude Enterprise.
 
 ## Availability and regions
 
@@ -104,7 +99,7 @@ These features remain available, but their data is not encrypted under your key.
 
 * Claude Code Desktop, Claude Code on the web, and Claude in Slack. Anthropic recommends disabling any of these that are not appropriate for your use case in the admin console.
 * Beta and research preview features may not be covered by CMEK and can break in CMEK organizations, for example Claude Security and Claude Design.
-* On-demand data export under Settings > Privacy.
+* On-demand data export under **Settings** > **Privacy**.
 
 On both products, account data for users in your organization (such as names, email addresses, and profile pictures) is not encrypted under your key.
 

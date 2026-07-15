@@ -1,17 +1,20 @@
-Title: Use research on Claude
+# Use research on Claude
 
-URL Source: https://support.claude.com/en/articles/11088861-use-research-on-claude
+Research is available for users with paid Claude plans (Pro, Max, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
 
-Markdown Content:
 Research transforms how Claude finds and analyzes information. Claude operates agentically, conducting multiple searches that build on each other while determining exactly what to investigate next. It explores different angles of your question automatically and works through open questions systematically.
 
 With research, Claude delivers thorough answers in minutes, complete with easy-to-check citations so you can trust Claude's findings.
+
+**Important:**  You must have **[web search](https://support.claude.com/en/articles/10684626)** turned on for research to function.
 
 ## How to enable or disable research
 
 Click the “+” button on the bottom left of your chat interface, then "Research." A blue indicator will appear on the bottom of the chat window. Click the indicator again to disable research.
 
 ## Use research
+
+Once research is turned on, you can ask Claude a question. Claude will kick off the research process across your internal context (such as **[Gmail, Google Calendar, and Google Docs when connected](https://support.claude.com/en/articles/10166901-use-google-workspace-connectors)**) and the web.
 
 To see an example of using Claude's Research feature to plan a team offsite, watch the video here: **[Using Research](https://claude.com/resources/tutorials/using-research)**.
 
@@ -30,9 +33,3 @@ To see an overview of Claude's research capabilities with the Google Workspace i
 ### Does research count against usage limits differently than normal conversations?
 
 Research is subject to the same limits as standard Claude conversations. However, research sessions can use up your limits faster due to Claude retrieving multiple sources and providing comprehensive responses.
-
-* * *
-
-Related Articles
-
-[When should I use web search, extended thinking, and research?](https://support.claude.com/en/articles/11095361-when-should-i-use-web-search-extended-thinking-and-research)[FAQs on Using Claude for Education at Your University](https://support.claude.com/en/articles/11139144-faqs-on-using-claude-for-education-at-your-university)[Use Claude in Slack](https://support.claude.com/en/articles/12461605-use-claude-in-slack)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)[What is Claude Tag?](https://support.claude.com/en/articles/15594475-what-is-claude-tag)

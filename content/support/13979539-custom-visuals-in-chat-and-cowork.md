@@ -1,16 +1,8 @@
-Title: Custom visuals in chat and Cowork
-
-URL Source: https://support.claude.com/en/articles/13979539-custom-visuals-in-chat-and-cowork
-
-Markdown Content:
-1.   [All Collections](https://support.claude.com/en/)
-2.   [Claude](https://support.claude.com/en/collections/4078531-claude)
-3.   [Features and capabilities](https://support.claude.com/en/collections/18031719-features-and-capabilities)
-4.   Custom visuals in chat and Cowork
-
-April 22, 2026
+# Custom visuals in chat and Cowork
 
 Claude can generate custom diagrams, charts, and interactive visuals directly in your conversation. When a visual would explain something better than text, Claude builds one from scratch—shaped to your specific question, rendered inline as part of the response.
+
+**Note:** Custom visuals are currently in beta and available to all Claude users on web and desktop, in both chat and Cowork.
 
 ## How it works
 
@@ -20,9 +12,21 @@ Once a visual appears, you can interact with it—click buttons, adjust sliders,
 
 Here are a few examples of what Claude might generate:
 
+- “Show me how this process works” → Claude shows you by creating a flowchart.
+
+- Upload a CSV and ask “What does the data show?”→ Claude generates an interactive chart.
+
+- “Help me decide between two different options” → Claude outputs a side-by-side comparison.
+
+- “Visualize this system or concept” → Claude builds a diagram alongside its explanation.
+
 ### Custom visuals in Cowork
 
 Custom visuals work the same way in Cowork sessions, except for a couple of differences:
+
+- **No sharing.** Cowork sessions run locally, so visuals don't render for others via a share link.
+
+- **No click-to-follow-up.** In chat, clicking inside a visual sends a follow-up prompt to Claude (for example, "drill into Q3"). That shortcut isn't available in Cowork yet, but you can still ask follow-up questions by typing them.
 
 ## Keep a visual
 
@@ -30,18 +34,38 @@ Custom visuals are ephemeral by default. They live inline as part of Claude's re
 
 However, if you do want to keep a visual, you have a few options:
 
+- **Copy as image** — grab a static snapshot for notes, slides, or a quick paste.
+
+- **Download** — save the visual as an .svg or .html file.
+
+- **Save as artifact** — convert it into an artifact you can keep, publish, and iterate on over time.
+
 This is the main practical difference from artifacts: artifacts are persistent and shareable from the start, while custom visuals help you think in the moment and only stick around if you choose to keep them. If you want to build something persistent—a tool, an app, a document to share—ask Claude to create an artifact instead. For more information, see **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them)**
 
 ## How are custom visuals built?
 
 Custom visuals aren’t photos or illustrations. Claude builds them using HTML—the same building blocks as web pages—so they’re interactive and specific to your question rather than static images.
 
+---
+
 ## Limitations
+
+- Custom visuals are available in chats on Claude web and desktop apps only. They don’t render on Claude for iOS or Claude for Android.
+
+- If you share a chat, the visual renders for the recipient on web and desktop only and they must be logged in to view.
+
+- Visuals aren't saved automatically. To keep one, use one of the options described above.
+
+- This feature is in beta. Visual quality and complexity will vary, and Claude may not always choose to generate a visual when you expect one.
+
+---
 
 ## Tips
 
-* * *
+- **Ask for what you want.** If Claude gives a text output when you’d prefer a visual, try rephrasing—“show me a diagram of how this works” or “chart this for me.”
 
-Related Articles
+- **Smarter is better.** Opus performs the best at visualization tasks, so if you’re going for something complex, we’d recommend choosing a more intelligent model.
 
-[Can Claude produce images?](https://support.claude.com/en/articles/9002504-can-claude-produce-images)[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)[Visual and interactive content](https://support.claude.com/en/articles/13641943-visual-and-interactive-content)[Use live artifacts in Claude Cowork](https://support.claude.com/en/articles/14729249-use-live-artifacts-in-claude-cowork)[Use analytics chat to ask Claude about usage](https://support.claude.com/en/articles/14729354-use-analytics-chat-to-ask-claude-about-usage)
+- **Personalize your visuals.** If you tell Claude “make all my visualizations pink”, Claude will remember.
+
+- **Iterate in the conversation.** You can ask Claude to adjust a visual the same way you’d ask it to revise text—“make the chart show monthly instead of yearly” or “add a third option to the comparison.”

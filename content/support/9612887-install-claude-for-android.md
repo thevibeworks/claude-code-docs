@@ -1,21 +1,19 @@
-Title: Install Claude for Android
+# Install Claude for Android
 
-URL Source: https://support.claude.com/en/articles/9612887-install-claude-for-android
+## Install the Claude for Android app
 
-Markdown Content:
-1.   [All Collections](https://support.claude.com/en/)
-2.   [Claude Mobile apps](https://support.claude.com/en/collections/9387080-claude-mobile-apps)
-3.   [Claude for Android](https://support.claude.com/en/collections/9879004-claude-for-android)
-4.   Install Claude for Android
+You can install the Claude app onto your device by navigating to the Play Store and searching for "Claude by Anthropic," or by navigating directly to our **[Play Store listing](https://play.google.com/store/apps/details?id=com.anthropic.claude)**. Click on “Install” from the app listing to prompt your download.
 
-Updated over 2 weeks ago
+## Why can’t I find Claude for Android in the Play Store?
 
-You can install the Claude app onto your device by navigating to the Play Store and searching for “Claude by Anthropic”, or by navigating directly to our [Play Store listing](https://play.google.com/store/apps/details?id=com.anthropic.claude). Click on “Install” from the app listing to prompt your download.
+If you’re unable to locate Claude for Android in your Play Store, you may be located in an **[unsupported region](https://support.claude.com/en/articles/8461763)**, using an unsupported device, or using an unsupported version of Android.
 
-* * *
+## What versions of Android are supported?
 
-Related Articles
+We currently support Android 8.0 Oreo and above.
 
-[Install Claude for iOS](https://support.claude.com/en/articles/9266462-install-claude-for-ios)[Use Claude with Android apps](https://support.claude.com/en/articles/11869629-use-claude-with-android-apps)[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)[Use Claude for Word](https://support.claude.com/en/articles/14465370-use-claude-for-word)[Use Claude for Outlook](https://support.claude.com/en/articles/14855664-use-claude-for-outlook)
+## Uninstall the Claude for Android app
 
-Did this answer your question?
+To uninstall the Claude app from your Android device, hold down on the app from your screen until you see the menu options. Click on "App Info." From the next series of options, select "Uninstall."
+
+Note that if you have an active paid subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: **[Cancel your Pro or Max subscription on Claude for Android](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_916bc20742)**.

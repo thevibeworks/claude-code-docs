@@ -4,7 +4,7 @@
 
 # Connect Claude Code to an LLM gateway
 
-> Point Claude Code at your organization's LLM gateway. Check whether your admin already configured it, or set the base URL and credential yourself for the CLI, VS Code, GitHub Actions, and the Agent SDK, then verify the connection and fix gateway errors.
+> Point Claude Code at your organization's LLM gateway. Check whether your admin already configured it, or set the base URL and credential yourself, then verify the connection and fix gateway errors.
 
 An [LLM gateway](/en/llm-gateway) is a proxy your organization runs between Claude Code and the model provider. When your organization uses one, Claude Code authenticates to the gateway with a credential your organization issues instead of your personal claude.ai login.
 
@@ -51,7 +51,7 @@ The sections below cover the configuration in order:
 * [Set the credential variable](#set-the-credential-variable) and [set the base URL](#set-the-base-url-and-credential): the two variables every gateway connection needs
 * [Verify the connection](#verify-the-connection): confirm it works before persisting anything
 * [Configure each surface](#configure-each-surface): if you are using a surface besides the Claude Code CLI, such as VS Code, see how to configure it with your gateway credentials
-* [Additional configuration](#additional-configuration): variables some gateways need beyond the base URL and credential, such as a custom header, a credential helper, model discovery, or a provider-format base URL. Set these only if your administrator named them
+* [Additional configuration](#additional-configuration): variables some gateways need beyond the base URL and credential, such as a custom header, a credential helper, model discovery, a provider-format base URL, or turning off traffic outside the gateway path. Set these only if your administrator named them or your network restricts egress
 
 ### Set the credential variable
 
@@ -183,7 +183,12 @@ Set the gateway variables for the [VS Code extension](/en/vs-code) in `claudeCod
 
 ### Desktop app
 
-The desktop app reads gateway routing from an [administrator-distributed configuration](https://claude.com/docs/cowork/3p/gateway), not from `ANTHROPIC_BASE_URL` or `settings.json`. If your organization has distributed it, the desktop app routes through the gateway with no setup on your part; if not, use the terminal CLI or VS Code extension for gateway sessions. Administrators distribute the configuration as described in the [organization rollout](/en/llm-gateway-rollout#distribute-through-managed-settings).
+The desktop app reads gateway routing from its [third-party inference configuration](https://claude.com/docs/third-party/claude-desktop/gateway), not from `ANTHROPIC_BASE_URL` or `settings.json`. That configuration can come from your organization or from a form in the app itself:
+
+* **Distributed by an administrator**: if your organization has [deployed the configuration](/en/llm-gateway-rollout#distribute-through-managed-settings), the desktop app routes through the gateway with no setup on your part
+* **Configured locally**: for devices without an administrator-distributed configuration, open Help → Troubleshooting → Enable Developer Mode, which restarts the app with a Developer menu. Then open Developer → Configure Third-Party Inference and enter your gateway base URL. An administrator-distributed configuration takes precedence and makes this form read-only
+
+With the gateway configuration active, the desktop app runs sessions on your local machine only: the environment picker doesn't offer SSH sessions or Anthropic-hosted cloud environments, and [Remote Control](/en/remote-control) is unavailable. To use Claude Code on a remote host through the gateway, run the CLI on that host with [`ANTHROPIC_BASE_URL` and the gateway credential](#set-the-base-url-and-credential) set there.
 
 If the desktop app shows `Gateway was unreachable`, the app couldn't reach the configured base URL at startup; check the URL and network path with the [curl test above](#verify-the-connection).
 
@@ -255,14 +260,14 @@ The [Agent SDK](/en/agent-sdk/overview) has no gateway-specific options; it pass
 
 [Remote Control](/en/remote-control) and [voice dictation](/en/voice-dictation) both rely on a claude.ai identity: Remote Control to pair a live session with your account, and voice dictation to reach the claude.ai transcription endpoint. They are unavailable while `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, or an `apiKeyHelper` is active. {/* min-version: 2.1.196 */}As of v2.1.196, Remote Control is also disabled while `ANTHROPIC_BASE_URL` points at a non-Anthropic host, so signing in with claude.ai isn't enough on its own.
 
-To restore either feature, log in with claude.ai and unset the gateway variables it checks. `/doctor` names the credential variable to unset.
+To restore either feature, log in with claude.ai and unset the gateway variables that feature checks. The Remote Control section of `claude doctor` names the credential variable to unset.
 
 * Voice dictation: unset the gateway credential
 * Remote Control: unset the gateway credential and `ANTHROPIC_BASE_URL`
 
 ## Additional configuration
 
-These settings cover cases beyond the base URL and credential. Set them only if your administrator's instructions or the [troubleshooting table](#troubleshoot-gateway-errors) call for one.
+These settings cover cases beyond the base URL and credential. Set them only if your administrator's instructions, your network's egress rules, or the [troubleshooting table](#troubleshoot-gateway-errors) call for one.
 
 ### Send additional headers
 
@@ -349,13 +354,41 @@ Claude Code caches the helper's output for five minutes by default and re-runs i
 
 The helper's value is sent in both the `Authorization` and `x-api-key` headers, so it works whichever header your gateway reads.
 
+### Turn off traffic outside the gateway path
+
+The gateway carries model requests, but Claude Code also sends nonessential background traffic outside the gateway path, to Anthropic and to third-party services such as GitHub: version checks, telemetry, error reports, release notes, and similar requests. On a network that only allows egress to the gateway, these requests fail and can appear as blocked connections in your egress monitoring.
+
+To turn that traffic off, set `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` alongside the gateway variables, in the same shell exports or settings-file `env` block:
+
+<Tabs>
+  <Tab title="Bash or Zsh">
+    ```bash theme={null}
+    export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
+    ```
+  </Tab>
+
+  <Tab title="PowerShell">
+    ```powershell theme={null}
+    $env:CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1"
+    ```
+  </Tab>
+</Tabs>
+
+Setting the variable has these effects and limits:
+
+* It disables auto-updates, so plan for another update path, such as your package manager or managed distribution.
+* It suppresses the [fast mode](/en/fast-mode) availability check. Unless a previous check already enabled fast mode on the machine, `/fast` reports that fast mode is unavailable.
+* It turns off [gateway model discovery](#add-gateway-models-to-the-model-picker), even though discovery queries the gateway itself. Previously discovered models stay available from the local cache, but the list isn't refreshed.
+* The WebFetch tool's [domain safety check](/en/data-usage#webfetch-domain-safety-check) isn't affected and still calls `api.anthropic.com`. Turn it off separately with `skipWebFetchPreflight: true` in [settings](/en/settings) if your network blocks that host.
+* For each telemetry stream and the variable that controls it, see [telemetry services](/en/data-usage#telemetry-services).
+
 ### Route to a cloud provider through a gateway
 
 These configurations point Claude Code at a gateway through a provider-specific base URL variable in place of `ANTHROPIC_BASE_URL`. Amazon Bedrock and Google Cloud's Agent Platform gateways accept those providers' native request formats; Microsoft Foundry and Claude Platform on AWS gateways accept the Anthropic Messages format and differ only in which base URL variable reaches them.
 
 Use one only if your gateway team specifically named Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry, or the Claude Platform on AWS. If the [verification request](#verify-the-connection) above returned JSON, you can skip this section.
 
-Set the block for the provider your gateway team named. The skip-auth variables tell Claude Code not to sign requests with provider credentials, since the gateway holds those. If the gateway needs its own token, add `ANTHROPIC_AUTH_TOKEN` after the block, except for Microsoft Foundry, which uses `ANTHROPIC_FOUNDRY_API_KEY` as shown.
+Set the block for the provider your gateway team named. The skip-auth variables tell Claude Code not to sign requests with provider credentials, since the gateway holds those. If the gateway needs its own token, add `ANTHROPIC_AUTH_TOKEN` after the block, except for Microsoft Foundry, which uses `ANTHROPIC_FOUNDRY_API_KEY` as shown. {/* min-version: 2.1.203 */}A Microsoft Foundry gateway that expects a bearer token can use [`ANTHROPIC_FOUNDRY_AUTH_TOKEN`](/en/env-vars) instead; it takes precedence over `ANTHROPIC_FOUNDRY_API_KEY` when both are set. `ANTHROPIC_FOUNDRY_AUTH_TOKEN` requires Claude Code v2.1.203 or later.
 
 #### Amazon Bedrock
 
@@ -403,7 +436,9 @@ Set the block for the provider your gateway team named. The skip-auth variables 
 
 #### Microsoft Foundry
 
-Put the gateway's credential in `ANTHROPIC_FOUNDRY_API_KEY`; it is sent to the gateway as the `x-api-key` header. `CLAUDE_CODE_SKIP_FOUNDRY_AUTH` doesn't apply here: without an API key, the Microsoft Foundry client fails every request before it leaves the machine.
+Put the gateway's credential in `ANTHROPIC_FOUNDRY_API_KEY`; it is sent to the gateway as the `x-api-key` header. {/* min-version: 2.1.203 */}A gateway that expects a bearer token can take [`ANTHROPIC_FOUNDRY_AUTH_TOKEN`](/en/env-vars) instead. Claude Code sends that value as the `Authorization: Bearer` header, and it takes precedence over `ANTHROPIC_FOUNDRY_API_KEY` when both are set. Requires Claude Code v2.1.203 or later.
+
+For a gateway that injects its own `Authorization` header, set `CLAUDE_CODE_SKIP_FOUNDRY_AUTH=1` and leave both credential variables unset. Claude Code then sends requests without an Azure credential and preserves the `Authorization` header you supply, for example through `ANTHROPIC_CUSTOM_HEADERS`. {/* min-version: 2.1.203 */}Before v2.1.203, `CLAUDE_CODE_SKIP_FOUNDRY_AUTH` without an API key left the Microsoft Foundry client unable to send requests.
 
 <Tabs>
   <Tab title="Bash or Zsh">
@@ -455,6 +490,7 @@ These are the most common errors when running Claude Code through a gateway, wit
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | A startup warning naming two credential sources and ending in `auth may not work as expected`. Older versions show `Auth conflict: Both a token (SOURCE) and an API key (SOURCE) are set` instead. | A gateway credential and a saved login are both active; the variable is used for requests, but the stale login can cause unexpected auth behavior                                                                                                                                           | Unset the variable to use the saved login, or run `/logout` to use the gateway credential                                                                                                                                                                                                                                                                                                |
 | `401` errors naming an invalid or unrecognized token                                                                                                                                               | The credential isn't one the gateway issued, or it's in a header the gateway doesn't read                                                                                                                                                                                                   | Confirm the variable matches your credential kind in the [credential table](#set-the-credential-variable), and regenerate the key at the gateway if it was revoked                                                                                                                                                                                                                       |
+| `Your apiKeyHelper script is failing`                                                                                                                                                              | The command in the [`apiKeyHelper`](/en/settings#available-settings) setting exited with an error, timed out, or printed nothing, so requests carry a placeholder key                                                                                                                       | Run the command directly to see why it fails, and re-authenticate with your credential provider if it reports an expired session; see [the error reference](/en/errors#your-apikeyhelper-script-is-failing)                                                                                                                                                                              |
 | `Unable to connect to API (ConnectionRefused)`, or `(ECONNREFUSED)` from npm installs, often after a silent pause while Claude Code [retries with backoff](/en/errors#automatic-retries)           | Nothing answered at the base URL: the address is wrong, or a VPN or firewall blocks the path to the gateway                                                                                                                                                                                 | Run the [curl test above](#verify-the-connection), which fails immediately with the same cause, and confirm the URL and network path with your gateway team                                                                                                                                                                                                                              |
 | `API returned an empty or malformed response (HTTP 200)`                                                                                                                                           | The gateway or an intermediate proxy returned a non-API response, often an HTML error or login page                                                                                                                                                                                         | Test with the [curl request above](#verify-the-connection); fix the gateway route that returns non-JSON                                                                                                                                                                                                                                                                                  |
 | `400` errors naming `context_management`, `Extra inputs are not permitted`, or other unrecognized fields                                                                                           | The gateway forwards requests to an upstream that rejects fields Claude Code sends to Anthropic-format endpoints                                                                                                                                                                            | Set `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1`, which suppresses most pre-release fields; see [feature pass-through](/en/llm-gateway-protocol#feature-pass-through). Some betas aren't gated by this flag; for those, set the matching `CLAUDE_CODE_USE_*` provider variable so Claude Code sends only what that provider accepts                                                        |
