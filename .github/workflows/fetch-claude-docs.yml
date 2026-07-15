@@ -66,8 +66,6 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: "claude-yolo[bot]"
-          # TEMPORARY: expose agent transcript to diagnose permission denials
-          show_full_output: true
           claude_args: |
             --model claude-sonnet-4-6
             --mcp-config '{
@@ -122,14 +120,12 @@ jobs:
 
             ## DECISION CRITERIA (based on WHY it matters)
 
-            IGNORE (noise; do not commit/PR):
-            - Only blog/research content changed with no other files
-            - Only github/ repo content changed with no other files
-            - Only .metadata.json changed
+            This repo is an archive: EVERY fetched change gets committed.
+            main is push-protected (branch ruleset, no bypass), so all
+            changes travel through a PR - even minor ones. What varies is
+            whether humans hear about it:
 
-            If the diff contains only low-signal changes: do nothing, exit 0.
-
-            **CREATE PR** (WHY: humans need to know):
+            **PR + leave open for day shift** (WHY: humans need to know):
             - Version updates in content/claude-code-manifest.json
             - New features documented in claude-code or agent-sdk docs
             - CHANGELOG additions
@@ -137,30 +133,34 @@ jobs:
             - Breaking changes
             - Security-related updates
             - New MCP spec versions
-            - New engineering blog posts (high signal)
 
-            **COMMIT DIRECTLY** (WHY: not worth human attention):
-            - Typo fixes < 5 lines
-            - Timestamp updates
-            - Metadata changes
-            - Formatting tweaks
-            - Dead link fixes
-            - Minor doc wording changes
+            **PR + self-merge immediately** (WHY: archive freshness, zero human value):
+            - Only github/ mirror or support/ content changed
+            - Only .metadata.json / timestamps changed
+            - Typo fixes, formatting tweaks, dead links, minor wording
+
+            If `git status` is completely clean: nothing to do, exit 0.
 
             ## HOW TO HANDLE
 
-            **For meaningful changes (PR needed)**:
-            ```bash
-            PR_URL=$(./scripts/create-docs-pr.sh "{key feature}" "{why it matters}" "{version}")
-            # Barkme notification with PR URL
-            ```
+            IMPORTANT - invoke the PR script as ONE single line: no
+            backslash line-continuations, no $( ) command-substitution
+            wrapper. The permission allowlist matches command prefixes,
+            and a multi-line command is silently DENIED (this exact
+            failure stalled the pipeline in July 2026).
 
-            **For minor changes (direct commit)**:
+            **For meaningful changes (PR for day shift)**:
             ```bash
-            git add .
-            git commit -m "docs: {what} (minor)"
-            git push
+            ./scripts/create-docs-pr.sh "{key feature}" "{why it matters}" "{version}"
             ```
+            The script prints the PR URL on its last line. Then barkme.
+
+            **For minor changes (PR + immediate self-merge)**:
+            ```bash
+            ./scripts/create-docs-pr.sh "{what} (minor)" "{one-line why}" "{version}"
+            gh pr merge {pr-url} --rebase
+            ```
+            No barkme for minor self-merges.
 
             ## OUTPUT STYLE
             - Focus on WHY changes matter, not WHAT changed
@@ -211,7 +211,9 @@ jobs:
             exit 1
           fi
           if [ "$BRANCH" != "main" ] && [ -n "$BRANCH" ]; then
-            PRS=$(gh pr list --head "$BRANCH" --json number --jq 'length')
+            # --state all: minor PRs are self-merged (and their branch
+            # auto-deleted) before this step runs - that is success, not failure
+            PRS=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
             if [ "$PRS" = "0" ]; then
               echo "::error::Branch $BRANCH pushed but no PR exists - PR creation silently failed"
               exit 1

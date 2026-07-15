@@ -2,10 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(gh pr:*)",
+      "Bash(gh issue:*)",
+      "Bash(gh release:*)",
       "Bash(git:*)",
       "Bash(npm:*)",
       "Bash(jq:*)",
       "Bash(date:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(echo:*)",
+      "Bash(uv run scripts/fetcher.py:*)",
       "Bash(./scripts/create-docs-pr.sh:*)",
       "mcp__barkme__notify"
     ]

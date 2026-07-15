@@ -16,10 +16,12 @@ dist/
 .claude-trace/
 
 # Local development (root only; keep settings.json tracked: CI reads tool
-# permissions from it via settingSources=project. Note: content/github/**
-# mirrors still ship .claude/ dirs we currently do not archive.)
+# permissions from it via settingSources=project.)
 /.claude/*
 !/.claude/settings.json
+# github mirrors ship .claude/ dirs we do not archive; left untracked they
+# dirty the CI workspace every run and trip the Verify outcome step
+content/github/**/.claude/
 worktree/
 WIP/
 references/
