@@ -54,17 +54,17 @@ jobs:
           git config --global user.name "claude-yolo[bot]"
           git config --global user.email "claude-yolo@lroole.com"
 
-      # The agent ONLY decides; it runs no publish side effects. Three
-      # allowlist-based designs failed the same way (July 2026): agent-composed
-      # commands with free-text args keep failing Bash prefix permission
-      # matching (multi-line, quoting, injection heuristics) and get silently
-      # denied. So: agent reads diffs and writes decision files; the
-      # deterministic Publish step below does branch/commit/PR/merge/notify.
+      # The agent ONLY decides; it runs no publish side effects. Five permission
+      # allowlist designs failed the same way (July 2026): in this action's
+      # headless SDK mode the .claude/settings.json allowlist is simply not
+      # honored - even Write(.decision/**), mkdir, tee were all denied. So the
+      # agent runs with permissions skipped, which is safe BECAUSE its blast
+      # radius is nil: it reads git and writes a gitignored scratch dir, nothing
+      # else. Every real side effect (branch/commit/push/PR/merge/notify) lives
+      # in the deterministic Publish step below - plain bash, no agent.
       - name: Claude decides
         # Pinned: @main changed claude_args parsing in June 2026 and silently
-        # broke 'Bash(gh pr:*)' (split on the space into two invalid rules)
-        # -> 3 weeks of pushed branches with no PRs. Tool permissions live
-        # in .claude/settings.json, which survives arg-parsing changes.
+        # broke 'Bash(gh pr:*)' -> 3 weeks of pushed branches with no PRs.
         uses: anthropics/claude-code-action@v1.0.168
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -75,6 +75,7 @@ jobs:
           show_full_output: true
           claude_args: |
             --model claude-sonnet-4-6
+            --dangerously-skip-permissions
           prompt: |
             You're an AI agent responsible for evaluating Anthropic documentation updates. Think like a news editor - you decide what's worth publishing.
 
