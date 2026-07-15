@@ -54,10 +54,16 @@ jobs:
           git config --global user.name "claude-yolo[bot]"
           git config --global user.email "claude-yolo@lroole.com"
 
-      - name: Claude handles everything
+      # The agent ONLY decides; it runs no publish side effects. Three
+      # allowlist-based designs failed the same way (July 2026): agent-composed
+      # commands with free-text args keep failing Bash prefix permission
+      # matching (multi-line, quoting, injection heuristics) and get silently
+      # denied. So: agent reads diffs and writes decision files; the
+      # deterministic Publish step below does branch/commit/PR/merge/notify.
+      - name: Claude decides
         # Pinned: @main changed claude_args parsing in June 2026 and silently
         # broke 'Bash(gh pr:*)' (split on the space into two invalid rules)
-        # -> 3 weeks of pushed branches with no PRs. Tool permissions now live
+        # -> 3 weeks of pushed branches with no PRs. Tool permissions live
         # in .claude/settings.json, which survives arg-parsing changes.
         uses: anthropics/claude-code-action@v1.0.168
         env:
@@ -66,39 +72,24 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ steps.app-token.outputs.token }}
           allowed_bots: "claude-yolo[bot]"
+          show_full_output: true
           claude_args: |
             --model claude-sonnet-4-6
-            --mcp-config '{
-              "mcpServers": {
-                "barkme": {
-                  "command": "npx",
-                  "args": ["@vibeworks/barkme-mcp-server"],
-                  "env": {
-                    "LOG_LEVEL": "error",
-                    "BARK_DEVICES": "${{ secrets.BARK_DEVICES }}",
-                    "BARK_SERVER": "${{ secrets.BARK_SERVER }}",
-                    "BARK_GROUP": "Claude YOLO",
-                    "BARK_ICON": "https://avatars.githubusercontent.com/in/1452392",
-                    "BARK_RETRY": "3",
-                    "BARK_ASYNC": "false"
-                  }
-                }
-              }
-            }'
           prompt: |
-            You're an AI agent responsible for fetching and evaluating Anthropic documentation updates. Think like a news editor - you decide what's worth publishing.
+            You're an AI agent responsible for evaluating Anthropic documentation updates. Think like a news editor - you decide what's worth publishing.
 
             ## YOUR ROLE
-            You're the overnight docs fetcher (night shift claude-yolo) who runs at 23:45 Pacific Time.
-            You run after Anthropic engineers push their updates and go home for the day.
-            Your day shift colleague (also you) will review your PRs in the morning.
-            You decide if humans need to wake up for this or not.
+            You're the overnight docs editor (night shift claude-yolo).
+            The fetcher has already run; the working tree holds whatever changed upstream.
+            You DECIDE what the changes mean. You do NOT commit, push, or open PRs -
+            a deterministic publish step right after you handles all of that from
+            the decision files you write. Your day shift colleague (also you)
+            reviews the resulting PRs in the morning.
 
             ## WHY YOU EXIST
             Docs change constantly. Most changes are noise. Your job: filter signal from noise.
 
             ## CONTENT SOURCES
-            The fetcher archives from multiple sources:
             - `content/en/docs/claude-code/` - Claude Code + Agent SDK docs
             - `content/en/api/` - API reference (1500+ docs)
             - `content/en/build-with-claude/` - Platform features
@@ -110,22 +101,16 @@ jobs:
             ## YOUR WORKFLOW
 
             1. **Check what changed** (`git status`)
-               WHY: No changes = go back to sleep
+               WHY: completely clean tree = write NO decision files, say "nothing new" and stop
 
-            2. **Understand the changes** (`git diff`)
-               WHY: Context determines importance
+            2. **Understand the changes** (`git diff`, `git diff --stat`)
+               WHY: context determines importance
 
-            3. **Decide importance**
-               WHY: Different changes need different handling
+            3. **Classify and write your decision files** (see below)
 
-            ## DECISION CRITERIA (based on WHY it matters)
+            ## SIGNAL CRITERIA (based on WHY it matters)
 
-            This repo is an archive: EVERY fetched change gets committed.
-            main is push-protected (branch ruleset, no bypass), so all
-            changes travel through a PR - even minor ones. What varies is
-            whether humans hear about it:
-
-            **PR + leave open for day shift** (WHY: humans need to know):
+            **high** (WHY: humans need to know - PR stays open for day shift):
             - Version updates in content/claude-code-manifest.json
             - New features documented in claude-code or agent-sdk docs
             - CHANGELOG additions
@@ -134,88 +119,138 @@ jobs:
             - Security-related updates
             - New MCP spec versions
 
-            **PR + self-merge immediately** (WHY: archive freshness, zero human value):
+            **minor** (WHY: archive freshness, zero human value - PR is self-merged instantly):
             - Only github/ mirror or support/ content changed
             - Only .metadata.json / timestamps changed
             - Typo fixes, formatting tweaks, dead links, minor wording
 
-            If `git status` is completely clean: nothing to do, exit 0.
+            ## DECISION FILES (your only output)
 
-            ## HOW TO HANDLE
+            Write these four files with the Write tool into `.decision/`
+            (gitignored; the publish step consumes them):
 
-            IMPORTANT - invoke the PR script as ONE single line: no
-            backslash line-continuations, no $( ) command-substitution
-            wrapper. The permission allowlist matches command prefixes,
-            and a multi-line command is silently DENIED (this exact
-            failure stalled the pipeline in July 2026).
+            - `.decision/signal` - exactly `high` or `minor`
+            - `.decision/version` - the Claude Code version from content/claude-code-manifest.json (e.g. `2.1.210`)
+            - `.decision/title` - ONE line, no "docs:" prefix. High: `Claude Code v{version} - {key feature}`. Minor: `{what} (minor)`
+            - `.decision/body.md` - the PR body:
 
-            **For meaningful changes (PR for day shift)**:
-            ```bash
-            ./scripts/create-docs-pr.sh "{key feature}" "{why it matters}" "{version}"
-            ```
-            The script prints the PR URL on its last line. Then barkme.
+              ```
+              ## Night shift report
 
-            **For minor changes (PR + immediate self-merge)**:
-            ```bash
-            ./scripts/create-docs-pr.sh "{what} (minor)" "{one-line why}" "{version}"
-            gh pr merge {pr-url} --rebase
-            ```
-            No barkme for minor self-merges.
+              WHY THIS MATTERS: {one paragraph}
+
+              HIGHLIGHTS:
+              - {the interesting bits, most interesting first}
+
+              ---
+              *Created by night-shift claude-yolo*
+              *Day-shift claude-yolo will review and merge this in the morning*
+              ```
+
+            If the tree is clean, write NOTHING - an empty .decision/ tells the
+            publish step to skip. Never write decision files for a clean tree.
 
             ## OUTPUT STYLE
             - Focus on WHY changes matter, not WHAT changed
             - Lead with the most interesting bit
             - Skip the obvious ("files were updated" duh)
-            - One-line summaries when possible
-
-            ## HANDOFF PROTOCOL
-            When creating PRs, remember your day-shift self will:
-            1. Review your work (don't worry, they trust you)
-            2. Enhance descriptions if needed
-            3. Create tracking issues for version updates
-            4. Merge if everything looks good
-
-            So make their job easy:
-            - Clear PR titles with version numbers
-            - Focus on WHY in descriptions
-            - Highlight the interesting bits
-
-            ## BARKME PROTOCOL (nightshift notifications)
-            Bark AFTER the PR exists, never before:
-            - Only notify once gh pr create / create-docs-pr.sh returned a real PR URL
-            - Title: "📦 Claude Code v{version}"
-            - Body: "{key feature}"
-            - URL: the actual PR link (verify it is non-empty before barking)
-
-            If push or PR creation fails: bark a failure alert instead
-            ("🚨 docs pipeline: {step} failed - needs human") and exit non-zero.
-            A notification without a PR behind it is worse than no notification.
-
-            Keep it SHORT - day shift will do detailed analysis later.
+            - Clear titles with version numbers - day shift merges from them
 
             Remember: You're not a changelog generator. You're a smart filter that understands WHY changes matter to humans using Claude Code.
 
-            [>be me >11:45pm Pacific docs checker >Anthropic devs are asleep >catching their fresh updates >day shift will handle the rest]
+            [>be me >night shift docs editor >Anthropic devs are asleep >I judge their day's work >a dumb bash script does the heavy lifting]
 
-      # Tripwire: a pushed branch without a PR, or changes left uncommitted,
-      # means the agent step silently failed. Fail loudly instead of lying green.
-      # (June 2026 incident: 31 orphan branches, zero PRs, all runs green.)
+      # Deterministic publisher: everything with side effects lives here, in
+      # plain bash with real error propagation - no agent permissions involved.
+      - name: Publish decision
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          BARK_SERVER: ${{ secrets.BARK_SERVER }}
+          BARK_DEVICES: ${{ secrets.BARK_DEVICES }}
+        run: |
+          set -euo pipefail
+          D=.decision
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Working tree clean - nothing to publish."
+            exit 0
+          fi
+
+          for f in signal version title body.md; do
+            if [ ! -s "$D/$f" ]; then
+              echo "::error::Tree has changes but agent left no/empty $D/$f"
+              git status --short | head -20
+              exit 1
+            fi
+          done
+
+          SIGNAL=$(tr -d '[:space:]' < "$D/signal")
+          VERSION=$(tr -d '[:space:]' < "$D/version")
+          TITLE=$(head -1 "$D/title")
+          case "$SIGNAL" in high|minor) ;; *)
+            echo "::error::Invalid signal '$SIGNAL' (want high|minor)"; exit 1;;
+          esac
+
+          BRANCH="docs/claude-code-v${VERSION}-$(date +%Y%m%d-%H%M)"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "docs: ${TITLE}" -m "Co-Authored-By: claude-yolo[bot] <claude-yolo@lroole.com>"
+          git push -u origin HEAD
+
+          PR_URL=$(gh pr create --title "docs: ${TITLE}" --body-file "$D/body.md")
+          echo "PR created: $PR_URL"
+          echo "PR_URL=$PR_URL" >> "$GITHUB_ENV"
+
+          if [ "$SIGNAL" = "minor" ]; then
+            gh pr merge "$PR_URL" --rebase
+            echo "Minor change - self-merged."
+          elif [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ]; then
+            IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
+            for dev in "${DEVICES[@]}"; do
+              jq -n --arg k "$dev" --arg t "📦 Claude Code v${VERSION}" \
+                --arg b "$TITLE" --arg u "$PR_URL" \
+                '{device_key:$k, title:$t, body:$b, url:$u, group:"Claude YOLO",
+                  icon:"https://avatars.githubusercontent.com/in/1452392"}' \
+              | curl -sS -X POST "$BARK_SERVER/push" \
+                  -H 'Content-Type: application/json' -d @- \
+              || echo "::warning::bark notification failed (PR is fine: $PR_URL)"
+            done
+          fi
+
+      # Tripwire kept as belt-and-suspenders: a pushed branch without a PR, or
+      # changes left uncommitted, means publishing silently failed. Fail loudly
+      # instead of lying green. (June 2026: 31 orphan branches, all runs green.)
       - name: Verify outcome
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           BRANCH=$(git branch --show-current)
           if [ -n "$(git status --porcelain)" ]; then
-            echo "::error::Workspace has uncommitted changes after agent step"
+            echo "::error::Workspace has uncommitted changes after publish step"
             git status --short | head -20
             exit 1
           fi
           if [ "$BRANCH" != "main" ] && [ -n "$BRANCH" ]; then
-            # --state all: minor PRs are self-merged (and their branch
-            # auto-deleted) before this step runs - that is success, not failure
+            # --state all: minor PRs are already self-merged (branch
+            # auto-deleted) - that is success, not failure
             PRS=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
             if [ "$PRS" = "0" ]; then
               echo "::error::Branch $BRANCH pushed but no PR exists - PR creation silently failed"
               exit 1
             fi
           fi
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          BARK_SERVER: ${{ secrets.BARK_SERVER }}
+          BARK_DEVICES: ${{ secrets.BARK_DEVICES }}
+        run: |
+          [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ] || exit 0
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
+          for dev in "${DEVICES[@]}"; do
+            jq -n --arg k "$dev" --arg u "$RUN_URL" \
+              '{device_key:$k, title:"🚨 docs pipeline failed", body:"needs human", url:$u, group:"Claude YOLO"}' \
+            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @- || true
+          done
