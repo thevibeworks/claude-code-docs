@@ -22,6 +22,8 @@ dist/
 # github mirrors ship .claude/ dirs we do not archive; left untracked they
 # dirty the CI workspace every run and trip the Verify outcome step
 content/github/**/.claude/
+# night-shift agent decision files, consumed by the Publish step in CI
+.decision/
 worktree/
 WIP/
 references/
