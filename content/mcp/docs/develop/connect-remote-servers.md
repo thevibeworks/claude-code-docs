@@ -31,13 +31,20 @@ The process of connecting Claude to a remote MCP server involves adding a Custom
 
 <Steps>
   <Step title="Navigate to Connector Settings">
-    Open Claude in your browser and navigate to the settings page. You can access this by clicking on your profile icon and selecting "Settings" from the dropdown menu. Once in settings, locate and click on the "Connectors" section in the sidebar.
+    Open Claude Desktop or Claude in your browser, then navigate to the settings page:
 
-    This will display your currently configured connectors and provide options to add new ones.
+    * **Desktop**: Either use the keyboard shortcut `Ctrl+Comma` or click the top-left menu icon <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-desktop-hamburger-menu-icon.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=66e498f668362c79f829a07b5ce863c8" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-desktop-hamburger-menu-icon.png" />, hover over "File", and select "Settings"
+    * **Browser**: Either use the keyboard shortcut `⌘⇧,` (*macOS*) or click on your profile icon, and select "Settings" from the menu
+
+    Once you're in the settings page, click "Connectors" in the sidebar. This displays your currently configured connectors and provides options for adding new ones.
   </Step>
 
   <Step title="Add a Custom Connector">
-    In the Connectors section, scroll to the bottom where you'll find the "Add custom connector" button. Click this button to begin the connection process.
+    In the Connectors section, click the "Add" button at the top-right of the window, then select "Add custom connector" from the dropdown. This begins the connection process. To follow along, copy/paste the URL below:
+
+    ```text Example Remote Server theme={null}
+    https://example-server.modelcontextprotocol.io/mcp
+    ```
 
     <Frame>
       <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/1-add-connector.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=b5ae9b23164875bbaa3aff4c178cdc64" alt="Add custom connector button in Claude settings" width="1038" height="809" data-path="images/quickstart-remote/1-add-connector.png" />
@@ -63,16 +70,16 @@ The process of connecting Claude to a remote MCP server involves adding a Custom
   </Step>
 
   <Step title="Access Resources and Prompts">
-    After successful connection, the remote server's resources and prompts become available in your Claude conversations. You can access these by clicking the paperclip icon in the message input area, which opens the attachment menu.
+    After successful connection, the remote server’s resources and prompts become available in your Claude conversations. You can access these by clicking the "Add files, connectors, and more /" indicator <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-add-files-connectors-and-more.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=53acf21f6807dd5323b70b84b5d98d8a" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-add-files-connectors-and-more.png" /> in the bottom-left corner of the message input area. Then hover over "Connectors", move the cursor over "Add to Example Remote Server", where hovering displays the attachment menu.
 
     <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/4-select-resources-menu.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=ecc6234b0fe5625e24cc2b02b7893c67" alt="Attachment menu showing available resources" width="735" height="666" data-path="images/quickstart-remote/4-select-resources-menu.png" />
+      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/4-select-resources-menu.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=e5fa85174f8acbadbd709bac66f42d5c" alt="Attachment menu showing available resources" width="735" height="378" data-path="images/quickstart-remote/4-select-resources-menu.png" />
     </Frame>
 
-    The menu displays all available resources and prompts from your connected servers. Select the items you want to include in your conversation. These resources provide Claude with context and information from your external tools.
+    The menu displays all available resources and prompts from your connected server. Select the items you want to include in your conversation. These resources provide Claude with context and information from your external tools.
 
     <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/5-select-prompts-resources.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=30c522540c7ff5abd8617d20b329eca2" alt="Selecting specific resources and prompts from the menu" width="648" height="920" data-path="images/quickstart-remote/5-select-prompts-resources.png" />
+      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/5-select-prompts-resources.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=68722669d9e18252756885c703e4f221" alt="Selecting specific resources and prompts from the menu" width="648" height="529" data-path="images/quickstart-remote/5-select-prompts-resources.png" />
     </Frame>
   </Step>
 
@@ -80,7 +87,7 @@ The process of connecting Claude to a remote MCP server involves adding a Custom
     Remote MCP servers often expose multiple tools with varying capabilities. You can control which tools Claude is allowed to use by configuring permissions in the connector settings. This ensures Claude only performs actions you've explicitly authorized.
 
     <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/6-configure-tools.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=1e55fd2f7da85150bfcf9dfbd7a31f44" alt="Tool permission configuration interface" width="604" height="745" data-path="images/quickstart-remote/6-configure-tools.png" />
+      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/6-configure-tools.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=5cfd8b2c5d06e7e3699eac24c68d090e" alt="Tool permission configuration interface" width="604" height="745" data-path="images/quickstart-remote/6-configure-tools.png" />
     </Frame>
 
     Navigate back to the Connectors settings and click on your connected server. Here you can enable or disable specific tools, set usage limits, and configure other security parameters according to your needs.

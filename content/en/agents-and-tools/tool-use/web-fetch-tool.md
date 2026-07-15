@@ -4,6 +4,10 @@ Fetch and read content from specific URLs to augment Claude's context with live 
 
 ---
 
+<Note>
+  This feature is eligible for [Zero Data Retention (ZDR)](/docs/en/build-with-claude/api-and-data-retention). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
+</Note>
+
 The web fetch tool allows Claude to retrieve full content from specified web pages and PDF documents.
 
 The latest web fetch tool version (`web_fetch_20260318`) supports **dynamic filtering** with Claude Fable 5, Claude Opus 4.8, Claude Mythos 5, [Claude Mythos Preview](https://anthropic.com/glasswing), Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6. Claude can write and execute code to filter fetched content before it reaches the context window, keeping only relevant information and discarding the rest. This reduces token consumption while maintaining response quality. `web_fetch_20260318` also adds [response inclusion](#response-inclusion) control for agentic workflows. The previous versions (`web_fetch_20260309` for dynamic filtering and [cache bypass](#cache-bypass), `web_fetch_20260209` for dynamic filtering only, `web_fetch_20250910` for basic fetch) remain available.
@@ -40,7 +44,7 @@ Web fetch is a [server tool](/docs/en/agents-and-tools/tool-use/server-tools): t
 
 When you add the web fetch tool to your API request:
 
-1. Claude decides when to fetch content based on the prompt and available URLs.
+1. Claude determines when to fetch content based on the prompt and available URLs.
 2. The API retrieves the full text content from the specified URL.
 3. For PDFs, the API returns the content as base64-encoded data and processes it like a directly attached PDF document.
 4. Claude analyzes the fetched content and provides a response with optional citations.
@@ -642,7 +646,7 @@ For security reasons, the web fetch tool can only fetch URLs that have previousl
 * URLs in client-side tool results
 * URLs from previous web search or web fetch results
 
-The tool cannot fetch arbitrary URLs that Claude generates or URLs from container-based server tools (Code Execution, Bash, etc.).
+The tool cannot fetch arbitrary URLs that Claude generates or URLs from container-based server tools (such as Code Execution and Bash).
 
 ## Combined search and fetch
 

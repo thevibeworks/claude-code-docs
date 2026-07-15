@@ -98,21 +98,21 @@ First, create a Claude resource in Azure:
 
 1. Navigate to the [Microsoft Foundry portal](https://ai.azure.com/)
 2. Create a new resource, noting your resource name
-3. Create deployments for the Claude models:
+3. Create deployments for the Claude models, noting the deployment name you give each; you'll set these names as the model variables in step 4:
    * Claude Opus
    * Claude Sonnet
    * Claude Haiku
 
 ### 2. Configure Azure credentials
 
-Claude Code supports two authentication methods for Microsoft Foundry. Choose the method that best fits your security requirements.
+Claude Code supports three authentication methods for Microsoft Foundry. Choose the method that best fits your security requirements.
 
 **Option A: API key authentication**
 
 1. Navigate to your resource in the Microsoft Foundry portal
 2. Go to the **Endpoints and keys** section
 3. Copy **API Key**
-4. Set the environment variable:
+4. Set the environment variable, replacing `your-azure-api-key` with the key you copied:
 
 ```bash theme={null}
 export ANTHROPIC_FOUNDRY_API_KEY=your-azure-api-key
@@ -120,7 +120,7 @@ export ANTHROPIC_FOUNDRY_API_KEY=your-azure-api-key
 
 **Option B: Microsoft Entra ID authentication**
 
-When `ANTHROPIC_FOUNDRY_API_KEY` is not set, Claude Code automatically uses the Azure SDK [default credential chain](https://learn.microsoft.com/en-us/azure/developer/javascript/sdk/authentication/credential-chains#defaultazurecredential-overview).
+When neither `ANTHROPIC_FOUNDRY_API_KEY` nor `ANTHROPIC_FOUNDRY_AUTH_TOKEN` is set, Claude Code automatically uses the Azure SDK [default credential chain](https://learn.microsoft.com/en-us/azure/developer/javascript/sdk/authentication/credential-chains#defaultazurecredential-overview).
 This supports a variety of methods for authenticating local and remote workloads.
 
 On local environments, you commonly may use the Azure CLI:
@@ -128,6 +128,18 @@ On local environments, you commonly may use the Azure CLI:
 ```bash theme={null}
 az login
 ```
+
+**Option C: Bearer token authentication**
+
+{/* min-version: 2.1.203 */}Claude Code sends the value of `ANTHROPIC_FOUNDRY_AUTH_TOKEN` on every request as the `Authorization: Bearer` header. Use this option when another process, such as a host application or a sign-in script, has already obtained an access token for you. Requires Claude Code v2.1.203 or later.
+
+Set the variable to a bearer token that Microsoft Entra ID issued for your resource:
+
+```bash theme={null}
+export ANTHROPIC_FOUNDRY_AUTH_TOKEN=your-entra-access-token
+```
+
+`ANTHROPIC_FOUNDRY_AUTH_TOKEN` takes precedence over `ANTHROPIC_FOUNDRY_API_KEY` and over the default credential chain.
 
 <Note>
   When using Microsoft Foundry, the `/logout` command is unavailable since authentication is handled through Azure credentials.
@@ -183,6 +195,8 @@ claude
 
 Claude Code reads `CLAUDE_CODE_USE_FOUNDRY` and the other Microsoft Foundry variables from the environment and connects to your Azure resource on the first prompt. Unlike Amazon Bedrock and Google Cloud's Agent Platform, Microsoft Foundry has no interactive setup wizard, so the environment variables in steps 3 and 4 are the only configuration path.
 
+To verify your setup, run `/status` inside Claude Code. The API provider line shows `Microsoft Foundry`, along with the resource name or base URL you configured.
+
 ## Azure RBAC configuration
 
 The `Azure AI User` and `Cognitive Services User` default roles include all required permissions for invoking Claude models.
@@ -208,6 +222,10 @@ For details, see [Microsoft Foundry RBAC documentation](https://learn.microsoft.
 If you receive an error "Failed to get token from azureADTokenProvider: ChainedTokenCredential authentication failed":
 
 * Configure Entra ID on the environment, or set `ANTHROPIC_FOUNDRY_API_KEY`.
+
+If requests fail with repeated connection errors on the first prompt:
+
+* Check that `ANTHROPIC_FOUNDRY_RESOURCE` is set to your actual resource name rather than a placeholder. Claude Code builds the endpoint URL from this value, so an incorrect name points at a host that doesn't exist.
 
 ## Additional resources
 

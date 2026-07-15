@@ -1,5 +1,7 @@
 # Admin API
 
+Manage organization members, workspaces, invites, and API keys programmatically with the Admin API, using an Admin API key or an `org:admin` OAuth token.
+
 ---
 
 <Tip>
@@ -11,8 +13,15 @@ The [Admin API](/docs/en/api/admin) allows you to programmatically manage your o
 <Check>
   **The Admin API requires special access**
 
-  The Admin API accepts two credentials: an Admin API key (starting with `sk-ant-admin...`) sent in the `x-api-key` header or an OAuth bearer token with the `org:admin` scope sent in the `authorization: Bearer` header. Only organization members with the admin role can provision Admin API keys, and only members with the admin, owner, or primary owner role can obtain `org:admin` tokens. See [Create an Admin API key](/docs/en/manage-claude/admin-api-keys).
+  The Admin API accepts two credentials:
+
+  * An **Admin API key** (starting with `sk-ant-admin...`) sent in the `x-api-key` header. Only organization members with the admin role can provision one. See [Create an Admin API key](/docs/en/manage-claude/admin-api-keys).
+  * An **OAuth bearer token** with the `org:admin` scope sent in the `authorization: Bearer` header. Only members with the admin, owner, or primary owner role can obtain one. See [Obtain an OAuth bearer token](#oauth-bearer-token).
 </Check>
+
+<Note>
+  **Claude Enterprise:** Claude Enterprise (claude.ai) organizations use the Admin API too, with a scoped API key created in claude.ai. Of the endpoints on this page, only members and invites are available to them (in beta), alongside Claude-Enterprise-only endpoints: groups and custom-role reads (beta), and [spend limits](/docs/en/manage-claude/spend-limits-api). See [User management](/docs/en/manage-claude/user-management) for Claude Enterprise.
+</Note>
 
 <Note>
   **Claude Platform on AWS:** Most of the Admin API is not available on Claude Platform on AWS. Workspace endpoints (create, get, list, update, and archive on `/v1/organizations/workspaces`) are available. Other endpoints including organization members, workspace members, invites, API keys, usage reports, cost reports, and rate limit reports are not available. See [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) for details.
@@ -20,9 +29,20 @@ The [Admin API](/docs/en/api/admin) allows you to programmatically manage your o
 
 ## Authentication
 
-Authenticate with either credential. To create an Admin API key for your organization type, see [Create an Admin API key](/docs/en/manage-claude/admin-api-keys). The following examples call the [organization info endpoint](#accessing-organization-info) both ways:
+Authenticate with either credential. An Admin API key covers most endpoints; the service-account, federation-issuer, and federation-rule endpoints accept only an `org:admin` OAuth token. The following examples call the [organization info endpoint](#accessing-organization-info) both ways.
 
-**OAuth bearer:**
+### OAuth bearer token
+
+Log in with the [`ant` CLI](/docs/en/cli-sdks-libraries/cli/quickstart) under a dedicated profile, requesting the `org:admin` scope (see [Admin access](/docs/en/cli-sdks-libraries/cli/authentication#admin-access)), then export the bearer token. A dedicated profile keeps your routine commands from running with elevated access:
+
+```bash CLI
+ant auth login --profile admin --scope "org:admin"
+export ANTHROPIC_OAUTH_TOKEN=$(ant auth print-credentials --profile admin --access-token)
+```
+
+Interactive tokens are short-lived; if requests start returning 401, re-run the `export` command, which refreshes the token automatically.
+
+Call the Admin API with the exported token:
 
 ```bash cURL
 curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/me" \
@@ -30,9 +50,13 @@ curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/me" \
   --header "authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-An `org:admin` token grants access to the whole organization, regardless of the workspace the underlying profile or federation rule is bound to. To obtain one, see the prerequisites in [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api#prerequisites).
+An `org:admin` token grants access to the whole organization, regardless of the workspace the underlying profile or [federation rule](#federation-rules) is bound to.
 
-**Admin API key:**
+For CI and other non-interactive workloads, mint the token with Workload Identity Federation instead of logging in interactively. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api#workload-ci-and-automation).
+
+### Admin API key
+
+To create an Admin API key for your organization type, see [Create an Admin API key](/docs/en/manage-claude/admin-api-keys).
 
 ```bash cURL
 curl --fail-with-body -sS "https://api.anthropic.com/v1/organizations/me" \
@@ -172,7 +196,7 @@ Manage [user access to specific workspaces](/docs/en/api/admin-api/workspace_mem
 
 ### API keys
 
-Monitor and manage [API keys](/docs/en/api/admin-api/apikeys/get-api-key):
+Monitor and manage [API keys](/docs/en/api/admin/api_keys/list). Each key in the response includes its `expires_at` timestamp (`null` for keys without an [expiration](/docs/en/manage-claude/authentication#key-expiration)):
 
 <CodeGroup>
   ```bash cURL
@@ -253,7 +277,7 @@ To effectively use the Admin API:
 * Implement proper error handling for failed operations
 * Regularly audit member roles and permissions
 * Clean up unused workspaces and expired invites
-* Monitor API key usage and rotate keys periodically
+* Monitor API key usage, audit each key's [`expires_at`](/docs/en/manage-claude/authentication#key-expiration), and rotate keys periodically
 
 ## FAQ
 
@@ -267,7 +291,7 @@ To effectively use the Admin API:
   </Accordion>
 
   <Accordion title="What happens to API keys when removing a user?">
-    API keys persist in their current state as they are scoped to the Organization, not to individual users.
+    API keys persist in their current state as they are scoped to the organization, not to individual users.
   </Accordion>
 
   <Accordion title="Can organization admins be removed through the API?">

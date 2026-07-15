@@ -21,7 +21,7 @@ Other Debian-based distributions that meet these requirements may work but aren'
 
 ## Install
 
-Install from Anthropic's apt repository so that updates arrive through your system's regular package updates.
+Install from Anthropic's apt repository so that updates arrive through your system's regular package updates. Open a terminal and run the commands in each step.
 
 <Steps>
   <Step title="Add Anthropic's apt repository">
@@ -53,7 +53,7 @@ Install from Anthropic's apt repository so that updates arrive through your syst
   <Step title="Launch and sign in">
     Launch **Claude** from your application launcher, or run `claude-desktop` from a terminal, and sign in with your Anthropic account.
 
-    The Linux app signs in the same way as on macOS and Windows: with a claude.ai subscription, or through your organization's SSO. Desktop doesn't accept a Claude Console API key directly; use the [CLI](/en/quickstart) for API-key authentication. For enterprise deployments that route Desktop to Google Cloud's Agent Platform or an LLM gateway, see the [enterprise configuration guide](https://support.claude.com/en/articles/12622667-enterprise-configuration) and [network configuration](/en/network-config).
+    The Linux app signs in the same way as on macOS and Windows: with a claude.ai subscription, or through your organization's SSO. Desktop doesn't accept a Claude Console API key directly; use the [CLI](/en/quickstart) for API-key authentication. For enterprise deployments that route Desktop to Google Cloud's Agent Platform or an LLM gateway, see [Claude Desktop on 3P](https://claude.com/docs/third-party/claude-desktop/overview) and [network configuration](/en/network-config).
   </Step>
 </Steps>
 
@@ -69,7 +69,15 @@ Install from Anthropic's apt repository so that updates arrive through your syst
 
 ### Install from a downloaded file
 
-If you can't use the apt repository, first download the `.deb` package for your architecture, x64 or arm64, from [claude.com/download](https://claude.com/download). Then open the downloaded file with your software installer, or install it with apt from the directory that contains the downloaded file:
+If you can't install through the apt repository, download the `.deb` package directly from the repository's package pool. This command looks up the newest package for your architecture in the repository index, then downloads it to the current directory:
+
+```bash theme={null}
+curl -fLO "https://downloads.claude.ai/claude-desktop/apt/stable/$(curl -s "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-$(dpkg --print-architecture)/Packages" | grep '^Filename: pool/main/c/claude-desktop/claude-desktop_' | sort -V | tail -n 1 | cut -d' ' -f2)"
+```
+
+If the command fails with `Remote file name has no length`, the lookup returned no package path. This can mean the repository index couldn't be fetched, for example when your network blocks `downloads.claude.ai`, or that no package exists for your architecture. Confirm that your network can reach `downloads.claude.ai` and that `dpkg --print-architecture` prints `amd64` or `arm64`; the repository doesn't publish packages for other architectures.
+
+Then open the downloaded file with your software installer, such as GNOME Software, or install it with apt from the directory that contains the downloaded file:
 
 ```bash theme={null}
 sudo apt install ./claude-desktop_*.deb
@@ -77,7 +85,7 @@ sudo apt install ./claude-desktop_*.deb
 
 If apt reports `E: Unsupported file ./claude-desktop_*.deb given on commandline`, the pattern didn't match a `.deb` file in the current directory. Confirm the download completed, then run the command again from the directory that contains the file.
 
-A `.deb` installed this way doesn't receive updates. To get updates through apt, add the repository as shown above, or uncomment the `deb` line in the placeholder entry the package writes to `/etc/apt/sources.list.d/claude-desktop.list`.
+A `.deb` installed this way doesn't receive updates. To get updates through apt, register the repository from the [Add Anthropic's apt repository](#install) step. The package also writes a commented-out repository entry to `/etc/apt/sources.list.d/claude-desktop.list`; uncommenting its `deb` line is equivalent.
 
 ## Update
 
@@ -100,6 +108,18 @@ This removes the signing key along with the app, so if you added the repository 
 ```bash theme={null}
 sudo rm /etc/apt/sources.list.d/claude-desktop.list
 ```
+
+## Troubleshoot
+
+### Unable to locate package claude-desktop
+
+If `sudo apt install claude-desktop` fails with `E: Unable to locate package claude-desktop`, apt didn't find the repository you added. Check the following:
+
+* Confirm the repository entry was written. `cat /etc/apt/sources.list.d/claude-desktop.list` should show the `deb` line from the [Add Anthropic's apt repository](#install) step. If the file is empty or missing, run that step again.
+* Confirm your architecture is supported. `dpkg --print-architecture` should print `amd64` or `arm64`. The repository doesn't publish packages for other architectures.
+* Run `sudo apt update` again and check its output for errors related to `downloads.claude.ai`. A network or key error there means the repository was added but couldn't be reached or verified.
+
+If the repository is in place and reachable and the package is still not found, [install from a downloaded file](#install-from-a-downloaded-file) instead.
 
 ## What's not in the Linux beta yet
 

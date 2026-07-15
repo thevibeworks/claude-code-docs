@@ -463,7 +463,9 @@ For HTTP and SSE servers, pass authentication headers directly in the server con
 
 ### OAuth2 authentication
 
-The [MCP specification supports OAuth 2.1](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization) for authorization. The SDK doesn't handle OAuth flows automatically, but you can pass access tokens via headers after completing the OAuth flow in your application:
+The [MCP specification supports OAuth 2.1](https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization) for authorization. The SDK doesn't open a browser or run an interactive OAuth flow. When a configured server returns an authorization challenge and no stored token is available, the agent run continues without that server's tools, and the server is reported with status `needs-auth` in the `mcp_servers` array of the [system init message](/en/agent-sdk/typescript#sdksystemmessage). Check that array at startup if your agent depends on a specific server being connected.
+
+To supply credentials, complete the OAuth flow in your own application and pass the resulting access token in the server's `headers`:
 
 <CodeGroup>
   ```typescript TypeScript theme={null}
@@ -779,10 +781,15 @@ MCP server connections time out after 30 seconds by default. If your server take
 * Pre-warming the server before starting your agent
 * Checking server logs for slow initialization causes
 
+### Tool output exceeds maximum allowed tokens
+
+The SDK applies the same MCP output limit as Claude Code. When a tool result is larger than 25,000 tokens, the full output is saved to a file and the tool result is replaced with an error message that names the file path, so the agent can read the output back in portions. Raise the limit with the [`MAX_MCP_OUTPUT_TOKENS`](/en/env-vars) environment variable. See [MCP output limits and warnings](/en/mcp#mcp-output-limits-and-warnings) for the full behavior, including how a server can declare a higher per-tool limit.
+
 ## Related resources
 
 * **[Custom tools guide](/en/agent-sdk/custom-tools)**: Build your own MCP server that runs in-process with your SDK application
 * **[Permissions](/en/agent-sdk/permissions)**: Control which MCP tools your agent can use with `allowedTools` and `disallowedTools`
+* **[MCP output limits and warnings](/en/mcp#mcp-output-limits-and-warnings)**: How the SDK handles tool results that exceed `MAX_MCP_OUTPUT_TOKENS`, including the persist-to-disk fallback and the `anthropic/maxResultSizeChars` per-tool annotation
 * **[TypeScript SDK reference](/en/agent-sdk/typescript)**: Full API reference including MCP configuration options
 * **[Python SDK reference](/en/agent-sdk/python)**: Full API reference including MCP configuration options
 * **[MCP server directory](https://github.com/modelcontextprotocol/servers)**: Browse available MCP servers for databases, APIs, and more

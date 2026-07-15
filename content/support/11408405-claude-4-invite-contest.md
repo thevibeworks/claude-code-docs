@@ -1,31 +1,96 @@
-Title: Claude 4 Invite Contest
+# Claude 4 Invite Contest
 
-URL Source: https://support.claude.com/en/articles/11408405-claude-4-invite-contest
-
-Markdown Content:
 The Claude 4 Invite Contest is a chance to win four months of Max plan for Claude by inviting friends and family to try Claude 4, our newest and most powerful AI model.
 
 ## What are the rewards?
 
 Selected participants who successfully refer new users are entered into a drawing to win:
 
+- **Four months of Max plan** for Claude apps (valued at $400)
+
+- For current Max plan users: you’ll receive a $100 off coupon applied for four months.
+
+  - Max 5x users: You will receive four months of Max plan, completely free.
+
+  - Max 20x users: You will receive a $100 off coupon that will be applied for four months. You will still be responsible for $100/month if you want to remain on the 20x usage level.
+
+- For iOS users: You'll need to cancel your App Store subscription first so we can apply the free month credits.
+
 ## Claude 4 Overview
 
 Claude 4 represents our most capable AI model yet, designed to help you do your best work and solve complex problems with unprecedented intelligence. With Claude 4, you can:
 
+- Access advanced reasoning capabilities.
+
+- Handle more complex tasks and conversations.
+
+- Enjoy improved performance across all use cases.
+
+- Experience our newest features and capabilities.
+
 With the Max plan, you get the complete experience of Claude. The Max plan gives you two powerful AI products in one subscription (Claude app and Claude Code), our highest individual usage limits, and priority access to the most advanced features.
 
+See [Introducing the Max Plan](https://www.anthropic.com/news/max-plan) to learn more about this paid plan.
+
 ## How does the contest work?
+
+1. **Get your unique referral link**: Find it in the in-app banner on desktop or mobile, located in the bottom left corner.
+
+2. **Share your link with friends and family**.
+
+3. **Earn entries**: You receive one entry for each new user who:
+
+  - Signs up with Claude using your link.
+
+  - Sends at least one message to Claude.
+
+  - Entries accumulate for the entire 10-day duration of the contest. Maximum of 100 entries per use.
+
+4. **Win rewards**: The more successful referrals you have, the better your chances of receiving four months of Max plan access.
 
 We’ll select 10 winners daily for 10 days.
 
 ## Official Rules
+
+For complete details about the contest, including eligibility requirements and rules of play, please review the [Claude 4 Invite Sweepstakes Official Rules](https://support.anthropic.com/en/articles/11140763-claude-4-invite-sweepstakes-official-rules).
 
 ## Frequently Asked Questions
 
 ### Who can participate in this contest?
 
 Existing Claude users, who are at least 18 years of age and located in one of the following countries or regions:
+
+- United States (excluding Florida, New York, and Rhode Island)
+
+- Argentina
+
+- Austria
+
+- Barbados
+
+- Bermuda
+
+- France
+
+- Germany
+
+- Ireland
+
+- Japan
+
+- Latvia
+
+- New Zealand
+
+- Serbia
+
+- South Africa
+
+- South Korea
+
+- Switzerland
+
+- United Kingdom
 
 ### How do I receive the free four months of Max plan for Claude?
 
@@ -50,9 +115,3 @@ If you're selected as a winner and are already subscribed to the Max plan, we’
 ### If I win, what will happen to my subscription at the end of the four months?
 
 After the four months expire, you will be put back into the original subscription or plan you started on before winning.
-
-* * *
-
-Related Articles
-
-[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)[Choose a Claude plan](https://support.claude.com/en/articles/11049762-choose-a-claude-plan)[Claude 4 Invite Sweepstakes Official Rules](https://support.claude.com/en/articles/11140763-claude-4-invite-sweepstakes-official-rules)[How to gift a Claude subscription](https://support.claude.com/en/articles/12938627-how-to-gift-a-claude-subscription)[Use the Claude Agent SDK with your Claude plan](https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan)

@@ -1,0 +1,86 @@
+# Access audit logs
+
+Audit logs are available for Enterprise organizations only.
+
+Organization Owners and Primary Owners can export data within **[Organization settings > Data and Privacy](https://claude.ai/admin-settings/data-privacy-controls)** and clicking the "Export logs" button. Upon triggering this export, all audit logs for the organization within the past 180 days will be aggregated. The Owner who requested the export will receive an email containing a download link, which is active for 24 hours. Note that there may be a delay between triggering the export and receiving the email as logs are aggregated.
+
+Please note that title and content of chats and projects are not available to be exported in audit logs (only their unique identifiers will be exported). However, chat inputs/outputs will be exportable by Primary Owners via **[data exports](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)**.
+
+**Note:** You can’t export data using the "Export logs" button if your organization uses customer-managed encryption keys on an Enterprise plan. Audit log events are available in the Compliance API. For more information, refer to **[Access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
+
+## Log Structure
+
+Audit logs consist of the following columns:
+
+| **Column Name**  | **Type**           | **Description**                                                                                                                   |
+| ---------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| created\_at      | datetime           | When the log was written                                                                                                          |
+| actor\_info      | dict[str, Any]     | Information on the actor, if available                                                                                            |
+| event            | AuditEventType     | Type of event.                                                                                                                    |
+| event\_info<br>  | dict[str, Any]<br> | Other relevant information for a given event type.                                                                                |
+| entity\_info     | dict[str, Any]     | Entity affected by the operation, if relevant. In general, the entity represents what is affected by the event.                   |
+| ip\_address      | str \| None        | IP Address corresponding to the event, if available.                                                                              |
+| device\_id       | str \| None        | Device ID corresponding to the event, if available.                                                                               |
+| user\_agent      | str \| None        | User Agent header corresponding to the event, if available. Contains information detailing the program used to execute the event. |
+| client\_platform | str \| None        | Client Platform corresponding to the event, if available. Corresponds to mobile platforms, either iOS or Android.                 |
+
+## Entities
+
+The entities that can be affected by events. Entity info follows this structure:
+
+| **Field Name** | **Field Type**         | **Notes**                                      |
+| -------------- | ---------------------- | ---------------------------------------------- |
+| type           | AuditEntityType        | Type of the entity.                            |
+| uuid           | str                    | UUID for the entity.                           |
+| name           | str \| None            | Name for the entity, when available            |
+| metadata       | dict[str, Any] \| None | Metadata related to the entity, when available |
+
+| **AuditEntityType**     | **Metadata**                                                                                                        | **Description**                                                   |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| account                 | email\_address: email address on the account                                                                        | User accounts.                                                    |
+| invite                  | role: Role the invite is for                                                                                        | Invite to join a team/organization                                |
+| chat\_project           | is\_private: The visibility of the project                                                                          | Project consisting of chats                                       |
+| chat\_project\_document | project\_uuid: UUID of the project this document is related to                                                      | Document in the knowledge base of a chat project                  |
+| chat\_conversation      | project\_uuid: UUID of the project this conversation is a part of, if relevant                                      | Chat conversation with Claude. Can be in a project or standalone. |
+| file                    | n/a                                                                                                                 | File uploaded to Claude                                           |
+| sso\_connection         | connection\_type: Type of SSO connection<br>state: Connection state<br>domains: Domain(s) related to SSO connection | SSO connection                                                    |
+
+## Recorded Events
+
+| **Event**                                  | **Description**                                                 | **Event Info**                                                                                                                                    | **Entity Type**         | **Date added** |
+| ------------------------------------------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | -------------- |
+| user\_verified\_phone\_code                | User verified using the sent phone code.                        | phone\_number: The phone number used<br>channel: SMS or Call                                                                                      | n/a                     | 2024-09-04     |
+| user\_signed\_out                          | User signed out from their account.                             |                                                                                                                                                   | n/a                     | 2024-09-04     |
+| user\_signed\_in\_sso                      | User signed in via SSO.                                         | domain: The relevant SSO domain                                                                                                                   | n/a                     | 2024-09-04     |
+| user\_signed\_in\_google                   | User signed in via Google.                                      | email\_address: The email address used.                                                                                                           | n/a                     | 2024-09-04     |
+| user\_signed\_in\_apple                    | User signed in via Apple.                                       | email\_address: The email address used.                                                                                                           | n/a                     | 2024-09-04     |
+| user\_sent\_phone\_code                    | User sent a phone code.                                         | phone\_number: The phone number used<br>channel: SMS or Call                                                                                      | n/a                     | 2024-09-04     |
+| user\_requested\_magic\_link               | User requested a magic link.                                    | email\_address: The email address the link is sent to.<br>is\_successful: Whether the request is successful or not.                               | n/a                     | 2024-09-04     |
+| user\_name\_changed                        | User changed the name on their account.                         | old\_name: The previous name.<br>new\_name: The new name.                                                                                         | n/a                     | 2024-09-04     |
+| user\_attempted\_magic\_link\_verification | User attempted to verify using a magic link                     | email\_address: The email address the link is sent to.<br>is\_successful: Whether the verification is successful or not.                          | n/a                     | 2024-09-04     |
+| project\_visibility\_changed               | The visibility of a project has been changed by a user.         | updated\_privacy: The new privacy/visibility of the project.                                                                                      | chat\_project           | 2024-09-04     |
+| project\_renamed                           | A project has been renamed by a user.                           |                                                                                                                                                   | chat\_project           | 2024-09-04     |
+| project\_document\_deleted                 | A document has been deleted from a project’s knowledge base.    |                                                                                                                                                   | chat\_project\_document | 2024-09-04     |
+| project\_document\_created                 | A document has been added to a project’s knowledge base.        |                                                                                                                                                   | chat\_project\_document | 2024-09-04     |
+| project\_deleted                           | A project has been deleted by a user.                           |                                                                                                                                                   | chat\_project           | 2024-09-04     |
+| project\_created                           | A project has been created by a user.                           |                                                                                                                                                   | chat\_project           | 2024-09-04     |
+| org\_user\_invite\_sent                    | An invite was sent to the user to join the organization.        |                                                                                                                                                   | chat\_project           | 2024-09-04     |
+| org\_user\_invite\_rejected                | A previously sent invite to a user was rejected.                | invited\_role: Role that the invitation was for.                                                                                                  | invite                  | 2024-09-04     |
+| org\_user\_invite\_re\_sent                | An invite was re-sent to the user to join the organization.     | invited\_email\_address: Email address invite is sent to.<br>invited\_role: Role the invite is for.<br>invite\_uuid: UUID for the created invite. | account                 | 2024-09-04     |
+| org\_user\_invite\_deleted                 | A previously sent invite to a user was deleted.                 | invited\_email\_address: Email address invite is sent to.<br>invited\_role: Role the invite is for.                                               | invite                  | 2024-09-04     |
+| org\_user\_invite\_accepted                | A previously sent invite to a user was accepted.                | invited\_role: Role the invite is for.                                                                                                            | invite                  | 2024-09-04     |
+| org\_user\_deleted                         | A user was deleted from the organization.                       |                                                                                                                                                   | account                 | 2024-09-04     |
+| org\_sso\_toggled                          | SSO connections for the organization have been toggled.         | sso\_enforced: Whether SSO is enforced or not.                                                                                                    |                         | 2024-09-04     |
+| org\_sso\_connection\_deleted              | A previously existing SSO connection has been deleted.          |                                                                                                                                                   | sso\_connection         | 2024-09-10     |
+| org\_sso\_connection\_deactivated          | A previously existing SSO connection has been deactivated.      |                                                                                                                                                   | sso\_connection         | 2024-09-10     |
+| org\_sso\_connection\_activated            | A new SSO connection has been activated.                        |                                                                                                                                                   | sso\_connection         | 2024-09-10     |
+| org\_sso\_add\_initiated                   | An attempt to add SSO for this organization has been initiated. |                                                                                                                                                   | n/a                     | 2024-09-04     |
+| org\_jit\_toggled                          | JIT for the organization has been toggled.                      | jit\_provisioning\_enabled: Whether this feature is enabled.                                                                                      | n/a                     | 2024-09-04     |
+| org\_domain\_verified                      | Domain capture was verified for this organization.              | domain: Domain that has been verified.                                                                                                            | n/a                     | 2024-09-04     |
+| org\_domain\_add\_initiated                | Domain capture was initiated for this organization.             |                                                                                                                                                   | n/a                     | 2024-09-04     |
+| org\_data\_export\_started                 | Organization data export started.                               | export\_type: All organization data.<br>initiated\_by\_anthropic: Did Anthropic start the export (yes/no)?                                        | n/a                     | 07/15/2025     |
+| org\_data\_export\_completed               | Organization data export completed.                             | export\_type: All organization data.<br>initiated\_by\_anthropic: Did Anthropic start the export (yes/no)?                                        | n/a                     | 07/15/2025     |
+| file\_uploaded                             | A file has been uploaded.                                       |                                                                                                                                                   | file                    | 2024-09-04     |
+| conversation\_renamed                      | A conversation has been renamed.                                | new\_name: New name for the conversation.                                                                                                         | chat\_conversation      | 2024-09-04     |
+| conversation\_deleted                      | A conversation has been deleted.                                |                                                                                                                                                   | chat\_conversation      | 2024-09-04     |
+| conversation\_created                      | A conversation has been created.                                |                                                                                                                                                   | chat\_conversation      | 2024-09-04     |

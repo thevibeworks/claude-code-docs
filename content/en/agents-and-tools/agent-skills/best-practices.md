@@ -469,7 +469,7 @@ Organize findings by theme. Include:
 Check that every claim references the correct source document. If citations are incomplete, return to Step 3.
 ````
 
-This example shows how workflows apply to analysis tasks that don't require code. The checklist pattern works for any complex, multi-step process.
+This example shows how workflows apply to analysis tasks that don't require code. The checklist pattern works for any complex, multistep process.
 
 **Example 2: PDF form filling workflow** (for Skills with code):
 
@@ -514,7 +514,7 @@ Run: `python scripts/verify_output.py output.pdf`
 If verification fails, return to Step 2.
 ````
 
-Clear steps prevent Claude from skipping critical validation. The checklist helps both Claude and you track progress through multi-step workflows.
+Clear steps prevent Claude from skipping critical validation. The checklist helps both Claude and you track progress through multistep workflows.
 
 ### Implement feedback loops
 
@@ -1036,7 +1036,7 @@ Skills run in a code execution environment with filesystem access, bash commands
 
 1. **Metadata pre-loaded:** At startup, the name and description from all Skills' YAML frontmatter are loaded into the system prompt
 2. **Files read on-demand:** Claude uses bash Read tools to access SKILL.md and other files from the filesystem when needed
-3. **Scripts executed efficiently:** Utility scripts can be executed via bash without loading their full contents into context. Only the script's output consumes tokens
+3. **Scripts executed efficiently:** Utility scripts can be executed through bash without loading their full contents into context. Only the script's output consumes tokens
 4. **No context penalty for large files:** Reference files, data, or documentation don't consume context tokens until actually read
 
 * **File paths matter:** Claude navigates your skill directory like a filesystem. Use forward slashes (`reference/guide.md`), not backslashes

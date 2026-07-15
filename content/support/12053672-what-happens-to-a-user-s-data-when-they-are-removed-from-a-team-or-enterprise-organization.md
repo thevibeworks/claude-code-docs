@@ -1,8 +1,5 @@
-Title: What happens to a user's data when they are removed from a Team or Enterprise organization?
+# What happens to a user's data when they are removed from a Team or Enterprise organization?
 
-URL Source: https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s-data-when-they-are-removed-from-a-team-or-enterprise-organization
-
-Markdown Content:
 This article explains what happens to projects and chats when a member is removed from your Team or Enterprise plan organization.
 
 ## Deleting individual accounts within an organization
@@ -36,9 +33,3 @@ Note that the removed user’s data will still be included in any **[data export
 If a team member is removed and later added back to the same organization using the same email address, previous chats and projects will be restored. The Primary Owner can also always export the member's project data and chats (note that customer data retention settings may impact this).
 
 To learn more about Anthropic’s data retention periods see **[here](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**.
-
-* * *
-
-Related Articles
-
-[What are projects?](https://support.claude.com/en/articles/9517075-what-are-projects)[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198-configure-custom-data-retention-controls-for-enterprise-plans)[Export your organization's data](https://support.claude.com/en/articles/13346720-export-your-organization-s-data)[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)[Migrate your organization from Team to Enterprise](https://support.claude.com/en/articles/13779868-migrate-your-organization-from-team-to-enterprise)

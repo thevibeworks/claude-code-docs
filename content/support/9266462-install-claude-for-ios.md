@@ -1,8 +1,5 @@
-Title: Install Claude for iOS
+# Install Claude for iOS
 
-URL Source: https://support.claude.com/en/articles/9266462-install-claude-for-ios
-
-Markdown Content:
 ## How do I install the Claude for iOS app?
 
 You can install the Claude app onto your iOS device by navigating to the App Store and searching for “Claude by Anthropic”, or by navigating directly to our [App Store listing](https://apps.apple.com/us/app/claude/id6473753684). Click on “Get” from the app listing to prompt your download.
@@ -20,9 +17,3 @@ We currently support iOS version 17.0 and above.
 To uninstall the Claude for iOS from your device, hold down on the app from your home screen until you see the menu options. Click on “Remove App.” From the next series of options, select “Delete App.”
 
 Note that if you have an active paid Claude subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: [How do I cancel my paid Claude subscription?](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)
-
-* * *
-
-Related Articles
-
-[How do I cancel my paid Claude subscription?](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)[How can I cancel my Claude Pro subscription on the Claude app for iOS?](https://support.claude.com/en/articles/9264804-how-can-i-cancel-my-claude-pro-subscription-on-the-claude-app-for-ios)[Install Claude for Android](https://support.claude.com/en/articles/9612887-install-claude-for-android)[How can I uninstall Claude for Android?](https://support.claude.com/en/articles/9612889-how-can-i-uninstall-claude-for-android)[Log in to your Claude account](https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account)

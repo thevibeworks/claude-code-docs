@@ -7,7 +7,7 @@ Upload files and mount them in your sandbox for reading and processing.
 You can provide files to your agent by uploading them through the Files API and mounting them in the session's sandbox.
 
 <Note>
-  All Managed Agents API requests require the `managed-agents-2026-04-01` beta header. The SDK sets the beta header automatically.
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Uploading files
@@ -547,8 +547,7 @@ Use the [Files API](/docs/en/build-with-claude/files) to list files scoped to a 
   ```bash CLI
   # List files associated with a session
   ant beta:files list --scope-id sesn_abc123 \
-    --beta files-api-2025-04-14 \
-    --beta managed-agents-2026-04-01
+    --beta files-api-2025-04-14,managed-agents-2026-04-01
 
   # Download a file
   ant beta:files download --file-id "$FILE_ID" --output output.txt
@@ -560,8 +559,8 @@ Use the [Files API](/docs/en/build-with-claude/files) to list files scoped to a 
       scope_id="sesn_abc123",
       betas=["managed-agents-2026-04-01"],
   )
-  for f in files:
-      print(f.id, f.filename)
+  for file in files:
+      print(file.id, file.filename)
 
   # Download a file
   content = client.beta.files.download(files.data[0].id)
@@ -574,8 +573,8 @@ Use the [Files API](/docs/en/build-with-claude/files) to list files scoped to a 
     scope_id: "sesn_abc123",
     betas: ["managed-agents-2026-04-01"]
   });
-  for (const f of files.data) {
-    console.log(f.id, f.filename);
+  for (const file of files.data) {
+    console.log(file.id, file.filename);
   }
 
   // Download a file

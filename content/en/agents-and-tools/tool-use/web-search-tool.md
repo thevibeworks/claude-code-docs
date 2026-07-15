@@ -4,6 +4,10 @@ Give Claude access to current web content with cited sources, optional dynamic f
 
 ---
 
+<Note>
+  This feature is eligible for [Zero Data Retention (ZDR)](/docs/en/build-with-claude/api-and-data-retention). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
+</Note>
+
 The web search tool gives Claude direct access to real-time web content, allowing it to answer questions with up-to-date information beyond its knowledge cutoff. The response includes citations for sources drawn from search results.
 
 With `web_search_20260209` and later versions, Claude can write and run code that filters the search results before they reach the context window (**dynamic filtering**), keeping only relevant information. Dynamic filtering is available with Claude Fable 5, Claude Opus 4.8, Claude Mythos 5, [Claude Mythos Preview](https://anthropic.com/glasswing), Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6.
@@ -67,23 +71,23 @@ The following examples use `web_search_20260318`:
 <CodeGroup>
   ```bash cURL
   curl https://api.anthropic.com/v1/messages \
-      --header "x-api-key: $ANTHROPIC_API_KEY" \
-      --header "anthropic-version: 2023-06-01" \
-      --header "content-type: application/json" \
-      --data '{
-          "model": "claude-opus-4-8",
-          "max_tokens": 4096,
-          "messages": [
-              {
-                  "role": "user",
-                  "content": "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio."
-              }
-          ],
-          "tools": [{
-              "type": "web_search_20260318",
-              "name": "web_search"
-          }]
-      }'
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "model": "claude-opus-4-8",
+      "max_tokens": 4096,
+      "messages": [
+        {
+          "role": "user",
+          "content": "Search for the current prices of AAPL and GOOGL, then calculate which has a better P/E ratio."
+        }
+      ],
+      "tools": [{
+        "type": "web_search_20260318",
+        "name": "web_search"
+      }]
+    }'
   ```
 
   ```bash CLI
@@ -434,7 +438,7 @@ All web search tool versions accept `allowed_callers`, which controls whether Cl
 
 The `max_uses` parameter limits the number of searches performed. If Claude attempts more searches than allowed, the `web_search_tool_result` is an error with the `max_uses_exceeded` error code.
 
-Simple factual queries typically use 1–3 searches; comparative or multi-entity research can use 10 or more. For latency-sensitive lookups, `max_uses: 3` bounds cost while rarely truncating. For research agents, set `max_uses` to 15–20 or omit it entirely.
+Simple factual queries typically use 1–3 searches; comparative or multientity research can use 10 or more. For latency-sensitive lookups, `max_uses: 3` bounds cost while rarely truncating. For research agents, set `max_uses` to 15–20 or omit it entirely.
 
 ### Domain filtering
 
@@ -564,7 +568,7 @@ Citations are always enabled for web search, and each `web_search_result_locatio
 The web search citation fields `cited_text`, `title`, and `url` do not count toward input or output token usage.
 
 <Note>
-  When displaying API outputs directly to end users, citations must be included to the original source. If you are making modifications to API outputs, including by reprocessing and/or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
+  When displaying API outputs directly to end users, citations must be included to the original source. If you are making modifications to API outputs, including by reprocessing or combining them with your own material before displaying them to end users, display citations as appropriate based on consultation with your legal team.
 </Note>
 
 ### Errors
@@ -607,7 +611,7 @@ For caching tool definitions across turns, see [Tool use with prompt caching](/d
 
 ## Streaming
 
-With streaming enabled, you'll receive search events as part of the stream. There will be a pause while the search executes:
+With streaming enabled, you'll receive search events as part of the stream. There will be a pause while the search runs:
 
 ```sse Output
 event: message_start

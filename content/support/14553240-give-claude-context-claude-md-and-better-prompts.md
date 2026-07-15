@@ -1,9 +1,8 @@
-Title: Give Claude context: CLAUDE.md and better prompts
+# Give Claude context: CLAUDE.md and better prompts
 
-URL Source: https://support.claude.com/en/articles/14553240-give-claude-context-claude-md-and-better-prompts
-
-Markdown Content:
 Claude Code works well out of the box, but it becomes noticeably more effective once it knows your project's conventions and once you adopt a few prompting habits. This guide covers both.
+
+---
 
 ## Part 1 — CLAUDE.md: your project's memory
 
@@ -17,10 +16,11 @@ You do not need to reference it in prompts or attach it manually. If the file ex
 
 Claude looks in a few places and merges what it finds, from broad to specific:
 
-**Location****Scope****Good for**
-`~/.claude/CLAUDE.md`Every project on your machine Personal preferences (for example, "I use pnpm, not npm" or "always suggest tests").
-`<repo-root>/CLAUDE.md`This project Architecture, conventions, and commands. **This is the main one.**
-`<subdir>/CLAUDE.md`That subdirectory (loaded on demand when Claude reads files in that directory, not at session start)Module-specific rules (for example, different conventions in `frontend/` vs `api/`).
+| **Location**            | **Scope**                                                                                            | **Good for**                                                                         |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `~/.claude/CLAUDE.md`   | Every project on your machine                                                                        | Personal preferences (for example, "I use pnpm, not npm" or "always suggest tests"). |
+| `<repo-root>/CLAUDE.md` | This project                                                                                         | Architecture, conventions, and commands. **This is the main one.**                   |
+| `<subdir>/CLAUDE.md`    | That subdirectory (loaded on demand when Claude reads files in that directory, not at session start) | Module-specific rules (for example, different conventions in `frontend/` vs `api/`). |
 
 Most teams only need the project-root file. Commit it to git so the whole team benefits.
 
@@ -42,13 +42,41 @@ Aim for a file that is short and signal-dense — under roughly 200 lines. Every
 
 **Worth including:**
 
+- **Commands** — how to build, test, lint, and run locally. Claude will execute these, so accuracy matters.
+
+- **Conventions** — naming, error handling, file layout, and "we use X, not Y" decisions.
+
+- **Architecture in three sentences** — what the major pieces are and how they communicate.
+
+- **Hard constraints** — for example, "never write to the production database from tests," "all API routes need auth middleware," or "do not edit `generated/`."
+
+- **Known gotchas** — the issues every new engineer trips on.
+
 **Not worth including:**
+
+- Full API documentation (Claude can read the code directly).
+
+- Changelogs or history.
+
+- Anything that is already obvious from the file tree.
+
+- Aspirational rules the team does not actually follow.
 
 ### How often to update it
 
 Treat it like a living onboarding doc, not a spec.
 
+- **After `/init`** — review once to clean up the generated draft.
+
+- **When Claude gets something wrong twice** — that is the signal a rule is missing. Add one line to address it.
+
+- **When conventions change** — for example, a new framework, test runner, or set of lint rules.
+
+- **Quarterly skim** — delete anything stale, since outdated instructions are worse than none.
+
 You can also add to it mid-session: open `/memory` to edit the file directly, or just ask Claude to "remember" a rule and it will append it to the right `CLAUDE.md` for you.
+
+---
 
 ## Part 2 — Prompting habits that pay off in Claude Code
 
@@ -56,7 +84,7 @@ These are not generic prompt-engineering tips; they are the habits that matter m
 
 ### 1. State the outcome, not the steps
 
-Claude can explore the codebase itself. Tell it _what_ you want and _why_, and let it figure out _where_.
+Claude can explore the codebase itself. Tell it *what* you want and *why*, and let it figure out *where*.
 
 ❌ "Open `userService.ts`, find the `validate` function, add a null check on line 42."
 
@@ -70,7 +98,7 @@ Paste the full stack trace rather than summarizing it. The exact filename, line 
 
 For anything touching more than a couple of files, press **Shift+Tab** twice to cycle into plan mode (the first press enters acceptEdits) and ask:
 
-_"Plan how you'd add rate limiting to the public API. Don't change anything yet."_
+*"Plan how you'd add rate limiting to the public API. Don't change anything yet."*
 
 Review the plan, adjust it in conversation, then switch modes and say "do step 1." This catches misunderstandings before they turn into a twelve-file diff.
 
@@ -88,19 +116,16 @@ Long sessions accumulate noise. When you switch from "fix the login bug" to "ref
 
 ### 7. Correct it like a colleague, not a search engine
 
-If the first answer is off, you do not need to rephrase the whole request. Simply say what is wrong — for example, _"That changes the public API; keep the signature the same."_ Claude will keep everything else and adjust only that point.
+If the first answer is off, you do not need to rephrase the whole request. Simply say what is wrong — for example, *"That changes the public API; keep the signature the same."* Claude will keep everything else and adjust only that point.
+
+---
 
 ## Quick reference
 
-**Want to…****Do this**
-Generate a starting `CLAUDE.md``/init`
-See what memory Claude is using`/memory`
-Add a rule mid-session Open `/memory`, or ask Claude to "remember" the rule
-Start fresh but keep project memory`/clear`
-Reference a specific file in a prompt`@path/to/file`
-
-* * *
-
-Related Articles
-
-[Your first day in Claude Code](https://support.claude.com/en/articles/14552382-your-first-day-in-claude-code)[Claude Code cheatsheet](https://support.claude.com/en/articles/14553413-claude-code-cheatsheet)[Claude Code: Common developer use cases](https://support.claude.com/en/articles/14553517-claude-code-common-developer-use-cases)[Claude Code user FAQ](https://support.claude.com/en/articles/14554922-claude-code-user-faq)[Claude Code communications kit](https://support.claude.com/en/articles/14555877-claude-code-communications-kit)
+| **Want to…**                          | **Do this**                                          |
+| ------------------------------------- | ---------------------------------------------------- |
+| Generate a starting `CLAUDE.md`       | `/init`                                              |
+| See what memory Claude is using       | `/memory`                                            |
+| Add a rule mid-session                | Open `/memory`, or ask Claude to "remember" the rule |
+| Start fresh but keep project memory   | `/clear`                                             |
+| Reference a specific file in a prompt | `@path/to/file`                                      |

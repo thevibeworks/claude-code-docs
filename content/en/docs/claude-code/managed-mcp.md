@@ -119,7 +119,7 @@ Claude Code reads this setting only from admin-controlled policy tiers: server-m
 
 ## Policy-based control with allowlists and denylists
 
-Allowlists and denylists filter which configured servers are allowed to load. They aren't a registry: a server still has to be added by a user, a plugin, or `managed-mcp.json` before the allowlist or denylist applies to it. To deploy servers to users, use [`managed-mcp.json`](#exclusive-control-with-managed-mcp-json).
+Allowlists and denylists filter which configured servers are allowed to load. They aren't a registry: a server still has to be added by a user, a plugin, or `managed-mcp.json` before the allowlist or denylist applies to it. To deploy servers to users, use [`managed-mcp.json`](#exclusive-control-with-managed-mcp-json). Both lists also filter servers passed with the [`--mcp-config` CLI flag](/en/cli-reference#cli-flags); `--strict-mcp-config` limits which configuration files load and doesn't bypass either list.
 
 To make the allowlist authoritative, set `allowedMcpServers` and `allowManagedMcpServersOnly: true` together in a [managed settings source](/en/admin-setup#decide-how-settings-reach-devices), such as server-managed settings or a deployed `managed-settings.json` file. [Restrict the allowlist to managed settings only](#restrict-the-allowlist-to-managed-settings-only) shows the configuration. Without `allowManagedMcpServersOnly`, allowlists from every settings source merge, including a user's own `~/.claude/settings.json`, so a user can broaden what your allowlist permits. Denylists merge from every source regardless.
 
@@ -143,6 +143,8 @@ Leaving `allowedMcpServers` unset is different from setting it to an empty array
 | :------------------ | :------------------ | :----------------- | :---------------------------- |
 | `allowedMcpServers` | All servers allowed | No servers allowed | Only matching servers allowed |
 | `deniedMcpServers`  | No servers blocked  | No servers blocked | Matching servers blocked      |
+
+See [Invalid entries in managed settings](/en/settings#invalid-entries-in-managed-settings) for what happens when an entry fails schema validation.
 
 <Warning>
   A `serverName` entry, in either list, is not a security control. The name is the label a user assigns when running `claude mcp add` or editing a config file, not the underlying server, so a user can call any server `github`. For claude.ai connectors the name is the display name returned by claude.ai, which can change. To enforce which servers actually run, add `serverCommand` or `serverUrl` entries.
@@ -168,9 +170,10 @@ Before loading a server, including one from `managed-mcp.json`, Claude Code runs
 | Remote (HTTP or SSE) | A `serverUrl` entry. A `serverName` match counts only when the allowlist contains no `serverUrl` entries         |
 | Stdio                | A `serverCommand` entry. A `serverName` match counts only when the allowlist contains no `serverCommand` entries |
 
-Two matching rules apply inside those checks:
+Three matching rules apply inside those checks:
 
 * **Commands match exactly.** Every argument, in order. `["npx", "-y", "server"]` does not match `["npx", "server"]` or `["npx", "-y", "server", "--flag"]`.
+* **`serverCommand` and `serverUrl` values expand before matching.** Both the policy entry and the server's configured value go through the same [`${VAR}` and `${VAR:-default}` expansion](/en/mcp#environment-variable-expansion-in-mcp-json) as `.mcp.json`, so an entry written as `["${HOME}/bin/server"]` matches a server config that uses either the same reference or the expanded path. On Windows, reference an environment variable that is set there, such as `${USERPROFILE}` instead of `${HOME}`. `serverName` values match literally and never expand.
 * **URLs support `*` wildcards** anywhere in the pattern, including the scheme. Hostname matching is case-insensitive and ignores a trailing FQDN dot, so `https://Mcp.Example.com/*` matches `https://mcp.example.com/api`. Paths stay case-sensitive.
 
 | Pattern                     | Allows                                                                 |
@@ -180,6 +183,8 @@ Two matching rules apply inside those checks:
 | `https://*.example.com/*`   | Any subdomain of `example.com`                                         |
 | `http://localhost:*/*`      | Any port on localhost                                                  |
 | `*://mcp.example.com/*`     | Any scheme to a specific domain                                        |
+
+Because `${VAR}` expansion reads Claude Code's own process environment, a `serverCommand` or `serverUrl` policy entry that references a variable expands to whatever value a user sets. Use literal URLs and commands for entries you rely on for enforcement.
 
 ### Example configuration
 
