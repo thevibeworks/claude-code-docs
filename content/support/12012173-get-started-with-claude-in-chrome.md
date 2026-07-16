@@ -34,7 +34,7 @@ Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1784205900&amp;signature=0cf7dc0475602b81ebd9e76389d573caaf60e6cc5eed56b5d4d736cad9022156&amp;req=dSguFM93m4RfW%2FMW1HO4zdOezI9e6LZwhnw73Y7ib%2Bd2%2FYX0czMlYlxFPA8x%0Av1bKFKqz5aGNUDabMeE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1784268000&amp;signature=8e58503256aa7120090cea46980a4a4cf461054489477481b2bf99f7ee56fc79&amp;req=dSguFM93m4RfW%2FMW3nq%2BgQs3tL6H8bokmyPTGBj6f56L61Hee6iluKHhWrpv%0AgX11THGeh2%2FFbq7JhTIWZj3d8g4%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
@@ -131,6 +131,10 @@ Claude can manage multiple browser tabs simultaneously. Drag tabs into Claude's 
 ### Enhanced site navigation
 
 Claude has built-in knowledge of how to navigate popular platforms including Slack, Google Calendar, Gmail, Google Docs, and GitHub. Simple commands like "schedule a meeting" or "update the doc" work without detailed step-by-step instructions. We're continuously expanding Claude's site-specific capabilities.
+
+### Sign in with 1Password
+
+When a task requires signing in, Claude can request the login from 1Password instead of stopping at the login page. You approve each request with biometrics, and 1Password fills the credential directly so Claude never sees your password or one-time code. 1Password for Claude is in beta on macOS. Learn more in **[Get started with 1Password for Claude](https://support.claude.com/en/articles/15936181)**.
 
 ### Background workflows
 

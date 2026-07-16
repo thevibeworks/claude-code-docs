@@ -10,7 +10,7 @@
 
   - Refer to this article for more information: **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated)**
 
-- Team plans require a minimum of five members and are not intended for individual use.
+- Team plans require a minimum of two members and are not intended for individual use.
 
 ## Create a new Team organization
 

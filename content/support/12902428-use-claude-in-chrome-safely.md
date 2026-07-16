@@ -90,6 +90,8 @@ When you open the Claude side panel, Claude takes screenshots of your active bro
 
 - Gathering or scraping facial images
 
+**Note:** With 1Password for Claude, Claude can complete tasks that require signing in without handling the credential itself. 1Password fills the login directly, and your passwords and one-time codes never enter Claude's context. See **[Get started with 1Password for Claude](https://support.claude.com/en/articles/15936181)**.
+
 ### Recommendations
 
 - Use a separate browser profile without access to sensitive accounts (such as banking, healthcare, government).
