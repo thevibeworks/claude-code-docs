@@ -20,7 +20,7 @@ Claude in Chrome uses a multi-layered permission system to give you control over
 
 Choose “Ask before acting” to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1784143800&amp;signature=a6ddf44dbc23a56f003faeeab0cc458343046027d4d5cdfb3e1ebee47f869123&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcZM%2BIG%2FgN0ADj5oqFDeTlzMNbcHTBhbUn11%0AJMlulHDK0RrHAt7qDvc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1784176200&amp;signature=257846706bdb1cdd1510ce592af01377d11705e02c823e38416bd7b3ed7aa007&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcZM%2B4S1gN0ADj5oqFDejH2FsgiKZdkw7dVh%0AMTT0ogtxbT1eM5YAYrc%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -40,7 +40,7 @@ Claude can make mistakes, so use this mode for work that’s easy to undo. You c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **Permission required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1784143800&amp;signature=758cd1b5ad5f402565e79d48997c0c8373bb8556f4a88ba3e5b6db454e34abdb&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8Iqp3d3JCxYSFHKWIj%2FHEVu3R1aM%2BMfn66a%0Ahgi98GTaBrorv3crmVs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1784176200&amp;signature=fc8b237fe178c965af983469b31c358861ca4db6ebebd89f0290de4e115bcedc&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8IqpHJ9JCxYSFHKWIjtTfOxmryFXJSmYWQw%0AkfOdWOizEPNAkdvamt4%3D%0A)
 
 ### Permission options
 

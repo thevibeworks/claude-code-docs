@@ -574,7 +574,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "1db768d1c965a2ac56b049ee0d9ea7ae12c9c2b1"
+        "sha": "3c8a5d9ff75ec95a8418978a2a2bbce076f9a010"
       },
       "homepage": "https://carta.com"
     },
@@ -606,7 +606,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "7285fefdc9384b40ecbb87ab97d0c257ea3af043"
+        "sha": "1db768d1c965a2ac56b049ee0d9ea7ae12c9c2b1"
       },
       "homepage": "https://carta.com"
     },
@@ -927,7 +927,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/get-convex/convex-backend-skill.git",
-        "sha": "67e8e750da9eba62f5e81d087d1d5b6e1cd12c7c"
+        "sha": "b11a1bf5ea62bd173af8f60813916393f1179da8"
       },
       "homepage": "https://github.com/get-convex/convex-backend-skill",
       "keywords": [
@@ -958,7 +958,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "82740a4fcb55d46de6d1ce321bb8c403cab28f81"
+        "sha": "1695c44890b775f4d03176a0d3e055cf83d475aa"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -1137,7 +1137,7 @@
         "url": "https://github.com/microsoft/Dataverse-skills.git",
         "path": ".github/plugins/dataverse",
         "ref": "main",
-        "sha": "9b23d74ea15a4a638ea7b28daf004b0ef3226602"
+        "sha": "2e651c7226dbe57a7c364e475f1849a99576e99a"
       },
       "homepage": "https://github.com/microsoft/Dataverse-skills"
     },
@@ -1545,7 +1545,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/huggingface/skills.git",
-        "sha": "52d324945107f68d06d561743cf26194bdbf9cf8"
+        "sha": "9c8c3e1c96111298bffff71b7ac363524742b76f"
       },
       "homepage": "https://github.com/huggingface/skills.git"
     },
@@ -1573,7 +1573,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "c8d13af9b299cf227a83867747fbb166c94c83d5"
+        "sha": "c2764e088830b0d82fb71fcc23ae7667f0ee63e5"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2589,7 +2589,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "31626fd25e2c1194b3934c5ff91e38a9f8f7f906"
+        "sha": "7db78669853c2443c0bc841061e7ceb9f16d16cb"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -2617,7 +2617,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/resend/resend-skills.git",
-        "sha": "cad68a4e55cebe6e5ee613d9cf987a6b9ea19317"
+        "sha": "8a977503dc13160b1d2463471a62a689f2a5767b"
       },
       "homepage": "https://resend.com"
     },
@@ -2964,7 +2964,7 @@
         "url": "https://github.com/Snowflake-Labs/snowflake-ai-kit.git",
         "path": "plugins/cortex-code",
         "ref": "main",
-        "sha": "0c2d99fb09586c6d779f29498f57cfc759d19a71"
+        "sha": "863337295c0829493fdc95464e3127120bc4c46b"
       },
       "homepage": "https://docs.snowflake.com/en/user-guide/cortex-code"
     },
@@ -2978,7 +2978,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SonarSource/sonarqube-agent-plugins.git",
-        "sha": "feb8d7844766cc9d5f04938497ec5e1a9542c30b"
+        "sha": "824e4f39a45ed83e15eba615138773aa487e930a"
       },
       "homepage": "https://www.sonarsource.com"
     },
@@ -3371,7 +3371,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "afe99e49d0f2a8b87fe83278dedb5fcee993ca48"
+        "sha": "7fd67c8c8a47a631b88a81a8c074bb761edb1a8a"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3492,7 +3492,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "b8471e0cfc9dcbb831773263f77c6df1c5ec3870"
+        "sha": "02636d5bbe0cbcc8d1392203dfba9c60595a2e93"
       },
       "homepage": "https://langfuse.com"
     },
