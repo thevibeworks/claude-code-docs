@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Last Published: Thu Jul 16 2026 16:25:37 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="websitemain.claude.com" data-wf-page="69309a14a0016339f07e9a97" data-wf-site="6889473510b50328dbb70ae6" data-wf-intellimize-customer-id="117902971" lang="en-US" data-wf-collection="69309a14a0016339f07e9a7f" data-wf-item-slug="claude-for-nonprofits-partnership-success-guide-for-admins"><head><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>Claude for nonprofits partnership success guide for admins | Claude by Anthropic</title><link rel="alternate" hrefLang="x-default" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><link rel="alternate" hrefLang="en-US" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" property="og:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." property="og:description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" name="twitter:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="tPMMBQMBzgZlNmCBal5cMPAx3nhO2iyM4rT9nxuRcdk" name="google-site-verification"/><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/css/claude-brand.shared.ffc361636.min.css" rel="stylesheet" type="text/css" integrity="sha384-/8NhY2EPkSij7JGKgCn+hCVJ+C9wuqatC4iqfl2lhnF3aLA9YjFVDy/tf9i4KdxF" crossorigin="anonymous"/><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/689f4a9aff1f63fde75cf733_favicon.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c33859cc6cd903686c66a2_apple-touch-icon.png" rel="apple-touch-icon"/><link href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins" rel="canonical"/><style>.anti-flicker, .anti-flicker * {visibility: hidden !important; opacity: 0 !important;}</style><style>[data-wf-hidden-variation], [data-wf-hidden-variation] * {
+<!DOCTYPE html><!-- Last Published: Fri Jul 17 2026 16:39:45 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="websitemain.claude.com" data-wf-page="69309a14a0016339f07e9a97" data-wf-site="6889473510b50328dbb70ae6" data-wf-intellimize-customer-id="117902971" lang="en-US" data-wf-collection="69309a14a0016339f07e9a7f" data-wf-item-slug="claude-for-nonprofits-partnership-success-guide-for-admins"><head><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>Claude for nonprofits partnership success guide for admins | Claude by Anthropic</title><link rel="alternate" hrefLang="x-default" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><link rel="alternate" hrefLang="en-US" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" property="og:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." property="og:description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" name="twitter:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="tPMMBQMBzgZlNmCBal5cMPAx3nhO2iyM4rT9nxuRcdk" name="google-site-verification"/><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/css/claude-brand.shared.ffc361636.min.css" rel="stylesheet" type="text/css" integrity="sha384-/8NhY2EPkSij7JGKgCn+hCVJ+C9wuqatC4iqfl2lhnF3aLA9YjFVDy/tf9i4KdxF" crossorigin="anonymous"/><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/689f4a9aff1f63fde75cf733_favicon.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c33859cc6cd903686c66a2_apple-touch-icon.png" rel="apple-touch-icon"/><link href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins" rel="canonical"/><style>.anti-flicker, .anti-flicker * {visibility: hidden !important; opacity: 0 !important;}</style><style>[data-wf-hidden-variation], [data-wf-hidden-variation] * {
         display: none !important;
       }</style><!-- Additional meta -->
 <meta property="og:site_name" content="Claude" />
@@ -2962,7 +2962,51 @@ document.addEventListener('DOMContentLoaded', function() {
    * - Artifact toggle & metadata animations
    *
    * Dependencies: GSAP, SplitText, ScrollTrigger, jQuery
+   *
+   * ---------------------------------------------------------------------------
+   * SEO NOTE (read before changing the scroll-triggered blocks below)
+   *
+   * Two problems were found via GSC URL Inspection on /product/tag:
+   *
+   *   1. SplitText's default element is <div>, which is flow content and is
+   *      invalid inside <h1>/<h2>. Fixed with `tag: 'span'` (phrasing content,
+   *      renders identically since words are inline-block).
+   *
+   *   2. `from()` tweens have immediateRender: true, so their start state
+   *      (autoAlpha: 0 => opacity: 0; visibility: hidden) was written to the DOM
+   *      at timeline-construction time. Crawlers execute JS but never scroll, so
+   *      the ScrollTrigger never advanced and their render captured every
+   *      heading and body paragraph as visibility: hidden.
+   *
+   * The important, non-obvious part: Googlebot renders with a VERY TALL viewport
+   * (this is how it triggers lazy-loaded images below the fold). So *nothing* is
+   * below the fold for it, and any "only do this when it's in the viewport"
+   * laziness collapses — every ScrollTrigger fires onEnter at load, while
+   * onLeave (which actually plays the animation) never fires without a scroll.
+   *
+   * Therefore the gate below is NOT viewport-based and NOT bot detection. It is:
+   *   "if this element is already at/past its play line AND the user has not
+   *    scrolled at all, the animation will never be triggered by arrival — so
+   *    play it now rather than leaving it hidden forever."
+   *
+   * Every client is judged by the same rule. It also fixes real user cases:
+   * deep links to mid-page anchors, restored scroll on refresh, and very tall
+   * displays where content starts above the play line.
+   *
+   * When testing, render at a TALL viewport (e.g. 1200x5000) — a normal browser
+   * window will not reproduce the crawler's behaviour.
+   * ---------------------------------------------------------------------------
    */
+
+  // FAILSAFE: the global head CSS hides [data-prevent-flicker='true'] behind
+  // html:not(.gsap-not-found), but nothing ever set that class — so a failed
+  // GSAP CDN load would leave hero/content permanently hidden for JS-enabled
+  // clients (including Googlebot). The <noscript> fallback doesn't cover that
+  // case. This runs after the GSAP <script> tags (they load synchronously
+  // before this footer code), so a missing global here means the load failed.
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof SplitText === 'undefined') {
+    document.documentElement.classList.add('gsap-not-found');
+  }
 
   function isValidSameOriginUrl(urlString) {
     if (!urlString || typeof urlString !== 'string') {
@@ -2990,6 +3034,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  /**
+   * Shared scroll-state flag.
+   *
+   * Set once, on the first scroll event of the page's life. Used by the
+   * scroll-triggered blocks to distinguish "this element is about to arrive"
+   * (normal user scrolling) from "this element was already past its play line
+   * on load and will never arrive" (tall viewport, deep link, restored scroll).
+   */
+  const claudeScrollState = { userHasScrolled: false };
+  window.addEventListener(
+    'scroll',
+    () => {
+      claudeScrollState.userHasScrolled = true;
+    },
+    { once: true, passive: true },
+  );
+
   document.addEventListener('DOMContentLoaded', () => {
     // PRE-INITIALIZE SplitText BEFORE any animations run
     // This prevents layout thrashing during animation frames
@@ -3006,6 +3067,9 @@ document.addEventListener('DOMContentLoaded', function() {
         split = SplitText.create(targetElement, {
           type: 'words',
           wordsClass: 'word',
+          // <div> is flow content and is invalid inside <h1>/<h2>.
+          // <span> is phrasing content and renders identically (inline-block).
+          tag: 'span',
         });
         // Set initial state immediately (batch DOM writes)
         if (split.words && split.words.length > 0) {
@@ -3020,6 +3084,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.offsetHeight;
 
     // HERO ANIMATION FUNCTION - uses pre-split text (no DOM modification)
+    // NOTE: the hero always animates on page load regardless of scrolling, so it
+    // resolves to opacity: 1 for crawlers too. No gate needed here.
     function animateHero() {
       heroData.forEach(({ hero, text, cta, visual, split }) => {
         const heroTl = gsap.timeline();
@@ -3181,55 +3247,101 @@ document.addEventListener('DOMContentLoaded', function() {
       const heading = header.querySelector('[data-animate-header-heading]');
       const text = header.querySelector('[data-animate-header-text]');
       const cta = header.querySelector('[data-animate-header-cta]');
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: header,
-          start: 'top bottom',
-          end: 'top 80%',
-          toggleActions: 'none play none reset',
+
+      let tl = null;
+
+      // Builds the timeline on first call. Creating the from() tweens here is
+      // what writes the hidden start state to the DOM, so this must not run
+      // until we are ready to either play it or hand it to a scrolling user.
+      function buildTimeline() {
+        if (tl) return tl;
+
+        tl = gsap.timeline({ paused: true });
+
+        // Animate heading with split text
+        if (heading && heading.children.length > 0) {
+          const split = SplitText.create(heading.children, {
+            type: 'words',
+            wordsClass: 'word',
+            tag: 'span', // valid inside <h2>; see SEO NOTE at top
+          });
+          if (split.words && split.words.length > 0) {
+            tl.from(split.words, {
+              autoAlpha: 0,
+              duration: 1,
+              ease: 'power2.out',
+              stagger: { amount: 0.2 },
+            });
+          }
+        }
+        // Animate text
+        if (text) {
+          tl.from(
+            text,
+            {
+              autoAlpha: 0,
+              y: 10,
+              duration: 0.75,
+              ease: 'power2.out',
+            },
+            '<+30%',
+          );
+        }
+        // Animate CTA
+        if (cta) {
+          tl.from(
+            cta,
+            {
+              autoAlpha: 0,
+              y: 10,
+              duration: 0.75,
+              ease: 'power2.out',
+            },
+            '<+25%',
+          );
+        }
+
+        return tl;
+      }
+
+      ScrollTrigger.create({
+        trigger: header,
+        start: 'top bottom',
+        end: 'top 80%',
+
+        onEnter: () => {
+          const t = buildTimeline();
+
+          // Is this element already at/past the point where it would play
+          // ("top 80%"), on a page nobody has scrolled? Then arrival will never
+          // happen and onLeave will never fire. Play it now instead of leaving
+          // it hidden. See SEO NOTE at top — this is geometry, not bot sniffing.
+          //
+          // For a normal user scrolling down, onEnter fires exactly when
+          // rect.top === innerHeight, which is never <= innerHeight * 0.8, so
+          // this branch is skipped and behaviour is unchanged.
+          // progress(1) (not play()) — a synchronous jump to the end state.
+          // Google's renderer can snapshot the page without ever ticking an
+          // animation frame, so a play()ed tween can be captured stuck at
+          // opacity:0. progress(1) needs no frames. Also gate on the full
+          // viewport height (not * 0.8) so nothing in the first paint can be
+          // left hidden with no scroll to rescue it.
+          if (!claudeScrollState.userHasScrolled && header.getBoundingClientRect().top <= window.innerHeight) {
+            t.progress(1);
+          }
+        },
+
+        // Normal path: plays when the header's top hits 80% of the viewport,
+        // matching the original toggleActions: 'none play none reset'.
+        onLeave: () => {
+          buildTimeline().play();
+        },
+
+        // Mirrors the original 'reset' on leave-back.
+        onLeaveBack: () => {
+          if (tl) tl.pause(0);
         },
       });
-      // Animate heading with split text
-      if (heading && heading.children.length > 0) {
-        const split = SplitText.create(heading.children, {
-          type: 'words',
-          wordsClass: 'word',
-        });
-        if (split.words && split.words.length > 0) {
-          tl.from(split.words, {
-            autoAlpha: 0,
-            duration: 1,
-            ease: 'power2.out',
-            stagger: { amount: 0.2 },
-          });
-        }
-      }
-      // Animate text
-      if (text) {
-        tl.from(
-          text,
-          {
-            autoAlpha: 0,
-            y: 10,
-            duration: 0.75,
-            ease: 'power2.out',
-          },
-          '<+30%',
-        );
-      }
-      // Animate CTA
-      if (cta) {
-        tl.from(
-          cta,
-          {
-            autoAlpha: 0,
-            y: 10,
-            duration: 0.75,
-            ease: 'power2.out',
-          },
-          '<+25%',
-        );
-      }
     });
   });
 
@@ -3248,21 +3360,43 @@ document.addEventListener('DOMContentLoaded', function() {
       // NodeList is always truthy, so check length instead
       if (cards.length === 0) return;
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: cardWrap,
-          start: 'top bottom',
-          end: 'top 70%',
-          toggleActions: 'none play none none',
-        },
-      });
+      let tl = null;
 
-      tl.from(cards, {
-        autoAlpha: 0,
-        y: 20,
-        duration: 0.75,
-        stagger: { each: 0.1 },
-        ease: 'power2.out',
+      function buildTimeline() {
+        if (tl) return tl;
+
+        tl = gsap.timeline({ paused: true });
+
+        tl.from(cards, {
+          autoAlpha: 0,
+          y: 20,
+          duration: 0.75,
+          stagger: { each: 0.1 },
+          ease: 'power2.out',
+        });
+
+        return tl;
+      }
+
+      ScrollTrigger.create({
+        trigger: cardWrap,
+        start: 'top bottom',
+        end: 'top 70%',
+
+        onEnter: () => {
+          const t = buildTimeline();
+          // Same geometry gate as the headings, matching this block's end
+          // position ("top 70%").
+          // Same reasoning as the headings gate: synchronous jump, full
+          // viewport height. See comment there.
+          if (!claudeScrollState.userHasScrolled && cardWrap.getBoundingClientRect().top <= window.innerHeight) {
+            t.progress(1);
+          }
+        },
+
+        onLeave: () => {
+          buildTimeline().play();
+        },
       });
     });
   });
@@ -3274,6 +3408,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const TOGGLE_ENABLED = true; // Set to false to disable toggle functionality
 
     // Initially hide all artifact_metadata elements for animation
+    // NOTE: known outstanding issue — this hides content via CSS at load and only
+    // reveals it via IntersectionObserver. Opacity-only (no visibility: hidden),
+    // so it is a weaker signal than the heading problem was, but it is the same
+    // shape of defect. Left as-is for now; see recap doc.
     const style = document.createElement('style');
     style.textContent = `.artifact_metadata { opacity: 0; transform: translateY(32px); }`;
     document.head.appendChild(style);
