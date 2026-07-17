@@ -1,6 +1,8 @@
 # How do I use the Workbench?
 
-We are refreshing Workbench with an improved experience. The new experience enables developers to try out Claude models and API features directly in the Claude Console. It is the new default, and no longer supports saving prompt history or evaluating prompts. If you’re using the legacy version, see the section below, **[How do I use Workbench (legacy)?](#h_b659fc7faa)**
+We’ve recently updated Workbench. The new Workbench enables developers to try out Claude models and API features directly in the Claude Console, but no longer supports saving prompt history or evaluating prompts.
+
+**Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026**. If you're still using the legacy version, see the section below, **[How do I use Workbench (legacy)?](#h_b659fc7faa)**, and if there are prompts, completions, or evals you wish to retain, **consider exporting your data before August 17, 2026.**
 
 ## What is Workbench?
 
@@ -62,17 +64,19 @@ Code examples in our documentation include an "Open in Workbench" option, which 
 
 ## How do I use Workbench (legacy)?
 
+**Note: Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026.** After this date, Workbench (legacy) and any saved prompts, prompt versions, and evals stored in it will no longer be accessible. Use the Export option to download your data before then.
+
 Workbench (legacy) allows you to create and test prompts within your Claude Console account. You can enter your prompt into the "Human" dialogue box and click "Run" to test Claude's output. Click on the + icon in the upper left to create a new prompt, or click on the bulleted list icon to see prompts you've tested in the past:
 
-![](https://downloads.intercomcdn.com/i/o/888021849/31a22a0dc4d1fc4b605cc8ee/Screenshot+2023-11-19+at+4.21.51+PM.png?expires=1784223000&amp;signature=11f20e15d6a414247ebe8d5c3034be68cf0cd77ed5977d25582c56d6e9f25924&amp;req=fCgvFst%2FlYVWFb4f3HP0gKWhcDkO0UZbOkmmaOsi7IClQebxkgdWoPJAXc39%0AoOhyrstNDp%2BYuDCg%2BQ%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888021849/31a22a0dc4d1fc4b605cc8ee/Screenshot+2023-11-19+at+4.21.51+PM.png?expires=1784332800&amp;signature=3b50b4b2d665e5c3def9e9a4352f75e25eef3135ff5409d6d4c9b14adf201b8e&amp;req=fCgvFst%2FlYVWFb4V1XW4gSYiA2H9ldDZ%2BHqz%2FV0Y5iVnBHnAlgGOUX9Gtjie%0AlQX5vbC2VcIMqLdaUKT%2F7IJ%2FyA%3D%3D%0A)
 
 Workbench (legacy) also allows you to configure several settings when prompting Claude. You can click on the slider icon to review your model settings. This allows you to select the model, temperature, and max tokens to sample:
 
-![](https://downloads.intercomcdn.com/i/o/888023061/61e26396355f6f6cd506d7e4/Screenshot+2023-11-19+at+4.09.28+PM.png?expires=1784223000&amp;signature=f9fdb2b935e2d0f3ec2ff60afcca9988eb1339bd8ada1ecc56df3be3e8c8d336&amp;req=fCgvFst9nYdeFb4f3HP0gN55XdDSOoS3DUq7%2BRvcmSMsUbUx2bnIsOcvPtJC%0AkZOqUF7i85MHXzE98Q%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888023061/61e26396355f6f6cd506d7e4/Screenshot+2023-11-19+at+4.09.28+PM.png?expires=1784332800&amp;signature=1701953b0cb7eab5777777b547e950725d1615d3b414d66033eea48731ea6deb&amp;req=fCgvFst9nYdeFb4V1XW4gXaAWZ%2B01m%2Bv0xz3Y5tyiFASPWOzL6I5ifNDtTaB%0AoT0aSO2r%2Fv6CaP0ewpQ%2BwIkaFg%3D%3D%0A)
 
 After crafting your prompt, click on the "Get code" button to generate a sample using our Python and Typescript SDKs:
 
-![](https://downloads.intercomcdn.com/i/o/888023545/b12afe07f16f079daff7587d/Screenshot+2023-11-19+at+4.28.27+PM.png?expires=1784223000&amp;signature=b7a9c9fada56382d1468f64b3eee1254e426510a68d4543f0415ff571c176412&amp;req=fCgvFst9mIVaFb4f3HP0gEZTsDqc4eTrRWixPJbjiQcjkQaIzQBeRqjBKNlY%0AKeZzXpImYy8mix2IAw%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888023545/b12afe07f16f079daff7587d/Screenshot+2023-11-19+at+4.28.27+PM.png?expires=1784332800&amp;signature=51fa1cb2a2e3a9a913602d462b6d0ec3055b38889fee6aebf09aa36e51816f59&amp;req=fCgvFst9mIVaFb4V1XW4gWbuATkqPegWAkUpDhf3BP0vb%2ByZHEVZoKPKZFt%2F%0ALLxqrSO8aTQ32DgXRBsG6PjsPw%3D%3D%0A)
 
 ## How can I access my previous work and prompt history in Workbench (legacy)?
 
@@ -84,13 +88,31 @@ You can access your previous Workbench prompts on your Console account by follow
 
 3. Click the "List prompts" button on the upper left corner of the page, next to the "+" button to create a new prompt:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1945992985/45a8969fb6cec956bd44fb5c4ba7/CleanShot+2026-01-15+at+12_07_22%402x.png?expires=1784223000&amp;signature=da4c4e43fee10749b152a3d65859d6457d4d7880579ffae7ea1a03b85317db2e&amp;req=dSkjE8B3n4hXXPMW1HO4zQQ9sFULNXC4TyGSpkcb8MVAjgywdS2HFgpS7%2F9j%0A9UpCjGasu%2BqvyklmINE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1945992985/45a8969fb6cec956bd44fb5c4ba7/CleanShot+2026-01-15+at+12_07_22%402x.png?expires=1784332800&amp;signature=793dcc2aafb37c9804885fdf1e86c0586349a7938ff3c53daccb245cebb450e6&amp;req=dSkjE8B3n4hXXPMW3nq%2BgYkBpVIdIfUyDogIkoCF9jHgRHXMlt7w58vYiQJV%0AiAAyBDwNPn0rFrZvxenxRWVV51s%3D%0A)
 
 4. A list of your previously-saved prompts will appear.
 
 5. You can use the search bar at the top of the prompt list if you're looking for something specific.
 
 **Important:** When you run a prompt on Workbench (legacy), Claude's response is not saved by default. You need to manually add responses from Claude to your current prompt on the Workbench by clicking "Add to Conversation" at the bottom of the output. If you aren't seeing something in your history that you were expecting, it's possible that it wasn't added to the conversation.
+
+## How do I export my data from Workbench (legacy)?
+
+1. Open **[Workbench (legacy)](https://platform.claude.com/workbench)** in the Claude Console.
+
+2. In the banner at the top of the page, select "Export data."
+
+3. In the **Export Workbench data** dialog, choose what to include alongside your prompts:
+
+  - **Model completions** — saved responses from past runs
+
+  - **Uploaded files** — images and PDFs attached to your prompts
+​
+​**Note:** Including either may significantly increase the export size.
+
+4. Select "Export." Your data is packaged as JSON, and we'll email you a download link when it's ready.
+
+Export your data before **August 17, 2026**. It will not be accessible after Workbench (legacy) is retired.
 
 ---
 
@@ -108,15 +130,15 @@ We’re refreshing Workbench to be a simpler, stateless way to try Claude models
 
 ### Will Workbench (legacy) keep working for me right now?
 
-Yes, it keeps working until further notice. You'll see a banner in Workbench pointing to the legacy version if you choose to use it, and you'll get notice of any deprecation plans whether anything changes for your account.
+**Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026.** If you used Workbench (legacy) prior to **June 16, 2026**, you'll continue to have access until the retirement date and will see a banner in Workbench linking to the legacy version so you can export your data. Accounts that started using Workbench on or after June 16, 2026 do not have access to Workbench (legacy). After August 17, 2026, Workbench (legacy) will no longer be available to anyone.
 
 ### What happens to my saved prompts and evals?
 
-They stay in Workbench (legacy) for now. Use the Export option in Workbench (legacy) to download them before then. The refreshed Workbench doesn't include saved prompts or evals, so keep your exported copies in your own tools, such as the repository where your application code lives.
+They remain in Workbench (legacy) until it is retired on August 17, 2026. Use the Export option in Workbench (legacy) to download them before that date. The refreshed Workbench doesn't include saved prompts or evals, so keep your exported copies in your own tools, such as the repository where your application code lives.
 
 ### How do I get access to my existing data from Workbench (legacy)?
 
-Your saved prompts and completions are still available in Workbench (legacy) today. You'll see an Export option in Workbench (legacy) that lets you download your saved prompts, prompt revisions, and completions.
+Your saved prompts and completions are available in Workbench (legacy) until August 17, 2026. You'll see an Export option in Workbench (legacy) that lets you download your saved prompts, prompt revisions, and completions. Export your data before the retirement date, as it will not be accessible afterward.
 
 ### Can I import my Workbench (legacy) data into refreshed Workbench?
 

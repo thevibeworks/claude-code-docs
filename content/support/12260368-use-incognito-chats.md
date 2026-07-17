@@ -20,7 +20,7 @@ Incognito chats are temporary conversations that aren't saved to your chat histo
 
   - Starting an incognito chat won’t use Claude’s existing memory.
 
-  - Incognito chats will not be included in future memory summaries.
+  - Incognito chats will not be included in future memory entries.
 
 - Incognito chats aren't included in **[your monthly recap](https://support.claude.com/en/articles/15672559)**.
 
@@ -30,7 +30,7 @@ Incognito chats are temporary conversations that aren't saved to your chat histo
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719768744/c7a2fa56cf284e48472f3b9c4dbf/030563f8-9f97-4891-a749-9ae95968a063?expires=1784223000&amp;signature=b01483f9e0448715979e23bdf35614f1204a3aa1c19e842a93a3ed4973fc8c64&amp;req=dScmH854lYZbXfMW1HO4zeUcuwa%2FbOaLDCAt3Cx%2FSO1IUZjbfFrMd8WfOvBL%0AUepvAtH0x%2BsA%2BS%2B6trE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719768744/c7a2fa56cf284e48472f3b9c4dbf/030563f8-9f97-4891-a749-9ae95968a063?expires=1784262600&amp;signature=09397ff73e5f1210bf9149a1ef530ee122dad69575e5aad1351b909b969e270a&amp;req=dScmH854lYZbXfMW1HO4zeUcuwa%2FaOeNDCAt3Cx%2FSO2QqbD4YkpRF%2FncjUtE%0A1Nhsg7%2Fo2nzE%2B58TzRY%3D%0A)
 
 1. Click the ghost icon to enable incognito mode.
 

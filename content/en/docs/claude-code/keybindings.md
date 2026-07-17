@@ -77,7 +77,7 @@ Actions available in the `Global` context:
 | Action                 | Default   | Description                                                                                                  |
 | :--------------------- | :-------- | :----------------------------------------------------------------------------------------------------------- |
 | `app:interrupt`        | Ctrl+C    | Cancel current operation                                                                                     |
-| `app:exit`             | Ctrl+D    | Exit Claude Code                                                                                             |
+| `app:exit`             | Ctrl+D    | Exit Claude Code. Press twice within 800ms to confirm                                                        |
 | `app:redraw`           | (unbound) | Force terminal redraw                                                                                        |
 | `app:toggleTodos`      | Ctrl+T    | Toggle visibility of Claude's to-do checklist. This is not the [`/tasks`](/en/commands) background-task view |
 | `app:toggleTranscript` | Ctrl+O    | Toggle verbose transcript                                                                                    |
@@ -159,6 +159,8 @@ Actions available in the `Transcript` context:
 | `transcript:toggleShowAll` | Ctrl+E            | Toggle show all content |
 | `transcript:exit`          | q, Ctrl+C, Escape | Exit transcript view    |
 
+`transcript:toggleShowAll` applies in the default renderer only; in [fullscreen rendering](/en/fullscreen), the transcript viewer doesn't offer a show-all toggle.
+
 ### History search actions
 
 Actions available in the `HistorySearch` context:
@@ -170,6 +172,8 @@ Actions available in the `HistorySearch` context:
 | `historySearch:cancel`     | Ctrl+C      | Cancel search                             |
 | `historySearch:execute`    | Enter       | Execute selected command                  |
 | `historySearch:cycleScope` | Ctrl+S      | Cycle scope: session, project, everywhere |
+
+The `historySearch:next`, `historySearch:accept`, `historySearch:cancel`, and `historySearch:execute` defaults apply to the inline history search in the default renderer, which always searches prompts from all projects. `historySearch:cycleScope` takes effect only in [fullscreen rendering](/en/fullscreen), where `Ctrl+R` opens a search dialog instead and `Ctrl+S` cycles its scope. The dialog's other keys are fixed and can't be rebound: `Enter` or `Tab` places the highlighted match in the prompt input and `Esc` cancels.
 
 ### Task actions
 

@@ -8,19 +8,21 @@ This guide explains how to control what Claude can access and do when using Clau
 
 ## Permission modes
 
-Claude in Chrome uses a multi-layered permission system to give you control over what Claude can access and do. In the extension side panel or in Claude Desktop, you'll see a drop-down menu on the chat input. Click this to choose between two permission modes:
+Claude in Chrome uses a multi-layered permission system to give you control over what Claude can access and do. In the extension side panel or in Claude Desktop, you'll see a drop-down menu on the chat input. Click this to choose between three permission modes:
 
-- **Ask before acting:** Claude pauses so you can approve every action.
+- **Manually approve (Manual)**, formerly "Ask before acting." Claude pauses and asks for approval before each action. You review each request and choose Allow or Deny.
 
-- **Act without asking:** Claude runs on its own and pauses to ask if anything looks unsafe, allowing you to initiate longer running tasks.
+- **Automatically approve (Auto)**. Claude keeps working and reviews each action for safety, automatically blocking anything it determines to be unsafe and pausing to ask you when needed.
+
+- **Skip all approvals (Skip)**, formerly "Act without asking**.”** Claude doesn't pause to ask and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
 
 ---
 
-## Ask before acting
+## Manually approve
 
-Choose “Ask before acting” to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
+Choose "Manually approve" to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1784223000&amp;signature=6848211cab368de9b42b2f8492a79e7530fb76d7fdbb216b23766f3e93fee4f9&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcZP%2FoG3gN0ADj5oqFCYl%2Bk5ZJ7lrBWIdZyY%0As2xyb7fU%2BR6fBov58PU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1784332800&amp;signature=0844fe587ed34cc4fcef644fe1ffd3b5f12d2cbf47fa1c9e8f941757a12a9e66&amp;req=dSgjFcp8nYZdXvMW3nq%2BgWGE%2FNAKNged%2FdvFBtvjxAkEXjmN3Hcwtfusg9Y1%0A90Cx%2B6FOk%2BZeEr1Iod8b1B28n4Q%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -28,11 +30,19 @@ Claude clarifies which sites it’s planning to access and the actions it will t
 
 ---
 
-## Act without asking
+## Automatically approve
 
-When you choose **Act without asking**, Claude runs on its own and only pauses if an action looks unsafe. Claude checks each action for risky behavior and prompt injection before it runs, completes the actions it assesses as lower-risk, and pauses to ask if anything looks unsafe. You'll see far fewer prompts than before but the safety checks run in the background on every action.
+When you choose "Automatically approve," Claude keeps working without stopping to ask about every step. Instead, Claude reviews each action for safety (such as checking for data exfiltration or prompt injection) and automatically blocks anything it determines to be unsafe. When an action is blocked, Claude looks for a safer way to finish the task or pauses and asks you directly. If Claude keeps running into blocks, it switches back to asking for your permission for each step.
 
-Claude can make mistakes, so use this mode for work that’s easy to undo. You can switch back to "Ask before acting" anytime.
+We tested Claude's safety check extensively before releasing it, including working with outside security experts who tried to sneak dangerous actions past it. It gives you the speed of letting Claude work without interruptions, with a layer of protection that "Skip all approvals" doesn't have: every action still gets reviewed before it happens. *Of course, no defense is perfect and no mode replaces your judgment. For work with real consequences—money, messages sent as you, important files—stay close and review what Claude does or consider switching back to "Manually approve."*
+
+You'll see fewer prompts than in "Manually approve," but the safety checks still run in the background. Because Claude does this extra checking for you, **auto mode consumes more of your usage limit than the other modes**.
+
+---
+
+## Skip all approvals
+
+When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
 
 ---
 
@@ -40,7 +50,7 @@ Claude can make mistakes, so use this mode for work that’s easy to undo. You c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **Permission required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1784223000&amp;signature=4cde13e99589ff14b2e7debdab64e902d39885a9e99fd63cbbb6761d92ca6060&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8IpoXd%2FJCxYSFHKWIgygssNtXeuKSOdne%2BK%0AANKubsE%2FU12m8s9W%2Bu8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1784332800&amp;signature=ab296b58808d5cc6ca8e3afefce4624a7c25de1f978622d003af20dc18324059&amp;req=dSgjEct8n4lYXPMW3nq%2BgRbwH4XDesEXa9OVUMdjB4KXwPGgRjRrZPUsbsSJ%0AkiTV1fbqaahT6ZfvWXNKvIDp0Ts%3D%0A)
 
 ### Permission options
 
