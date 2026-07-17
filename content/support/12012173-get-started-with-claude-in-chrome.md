@@ -2,7 +2,7 @@
 
 Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
 
-Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. You can launch Claude in Chrome tasks from the side panel or through Claude Cowork or Claude Code.
+Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. You can launch Claude in Chrome tasks from the side panel in your Chrome browser, or through Claude Cowork or Claude Code.
 
 **Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is now enhanced with our safety classifiers but is still risky. Please review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
 
@@ -34,7 +34,7 @@ Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1784268000&amp;signature=8e58503256aa7120090cea46980a4a4cf461054489477481b2bf99f7ee56fc79&amp;req=dSguFM93m4RfW%2FMW3nq%2BgQs3tL6H8bokmyPTGBj6f56L61Hee6iluKHhWrpv%0AgX11THGeh2%2FFbq7JhTIWZj3d8g4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1784332800&amp;signature=a294ec3d4a0b81d92340f01b1b88243210fc001690afa4a4d1c90b875e090039&amp;req=dSguFM93m4RfW%2FMW3nq%2BgQs3tL6H8bshkSvTGBj6f56ABq%2BEEHfAAkSnOr7j%0AJVRSpwjxkaIPIsIdRI77BPR4UV4%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
