@@ -150,6 +150,8 @@ jobs:
             When reviewing PRs from your night shift (fetch-docs workflow):
             1. Quick review - night shift already did the analysis
             2. If version changed: create tracking issue in thevibeworks/claude-code-yolo
+               - FIRST check for duplicates: `gh issue list --repo thevibeworks/claude-code-yolo --search "Claude Code v{version}" --state all --limit 5`
+               - Only create if NO existing issue for this version exists (title starts with "Claude Code v{version}")
                - Title: "Claude Code v{old} → v{new}: {most interesting feature}"
                - Body: WHY users should care + link to this PR
                - Assign to @lroolle
