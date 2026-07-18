@@ -227,6 +227,24 @@ A tool call to an MCP server that sends no response and no progress notification
 
 Set the [`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`](/en/env-vars) environment variable in milliseconds to change the idle window, or set it to `0` to disable the check.
 
+These timeouts bound how long a call can run, not always how long it blocks the session: on Claude Code v2.1.212 or later, a main-conversation call that runs past two minutes moves to a background task first. See [Automatic backgrounding of long tool calls](#automatic-backgrounding-of-long-tool-calls).
+
+### Automatic backgrounding of long tool calls
+
+An MCP tool call in the main conversation that is still running after two minutes moves to a background task instead of blocking the session. Claude receives the task ID immediately and keeps working, and the result arrives as a task notification when the call settles. Automatic backgrounding requires Claude Code v2.1.212 or later.
+
+The task appears in [`/tasks`](/en/commands#all-commands), where you can also stop it, and it doesn't survive exiting the session. The per-call limits still apply while the call runs in the background: the wall-clock limit set by the per-server `timeout` or [`MCP_TOOL_TIMEOUT`](/en/env-vars), and the idle timeout set by [`CLAUDE_CODE_MCP_TOOL_IDLE_TIMEOUT`](/en/env-vars).
+
+Set the [`CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS`](/en/env-vars) environment variable in milliseconds to change the threshold, or set it to `0` to turn automatic backgrounding off. Setting `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` to `1` also turns it off, along with all other background task features.
+
+Some calls never move to the background:
+
+* Calls from [subagents](/en/sub-agents); Claude Code backgrounds only main-conversation calls
+* Calls to IDE servers
+* Calls in [non-interactive mode](/en/headless), unless `CLAUDE_AUTO_BACKGROUND_TASKS` is set to `1`, since a one-shot run can end before the result arrives
+
+A call waiting on an open [elicitation dialog](#respond-to-mcp-elicitation-requests) isn't backgrounded while the dialog is open; the server is blocked on your input, not slow, so Claude Code defers the move until the dialog closes.
+
 ### Plugin-provided MCP servers
 
 [Plugins](/en/plugins) can bundle MCP servers, automatically providing tools and integrations when the plugin is enabled. Plugin MCP servers work identically to user-configured servers.
@@ -859,7 +877,7 @@ If you've logged into Claude Code with a [claude.ai](https://claude.ai) account,
 
 From v2.1.161, connectors you have never signed in to are collapsed behind a `Show unused connectors` row at the end of the claude.ai section, so an organization-provisioned list doesn't fill the panel. Select the row to expand them. A connector you signed in to before stays visible even when it currently needs re-authentication.
 
-Connectors from claude.ai are fetched only when your active [authentication method](/en/authentication#authentication-precedence) is your claude.ai subscription. They aren't loaded when `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper`, or a third-party provider such as Amazon Bedrock or Google Cloud's Agent Platform is active, even if you previously ran `/login`.
+Connectors from claude.ai are fetched only when your active [authentication method](/en/authentication#authentication-precedence) is a claude.ai subscription login. They aren't loaded when `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper`, or a third-party provider such as Amazon Bedrock or Google Cloud's Agent Platform is active, even if you previously ran `/login`. They also aren't loaded when `CLAUDE_CODE_OAUTH_TOKEN` holds a token from [`claude setup-token`](/en/authentication#generate-a-long-lived-token), which can only make model requests.
 
 If `/mcp` doesn't list a connector you added, run `/status` to confirm which authentication method is active, unset that environment variable or remove the `apiKeyHelper` setting, then run `/login` to select your claude.ai account.
 

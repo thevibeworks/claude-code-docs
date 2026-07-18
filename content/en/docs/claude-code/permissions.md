@@ -430,7 +430,11 @@ Use both for defense-in-depth:
 * Filesystem restrictions in the sandbox combine the [`sandbox.filesystem`](/en/sandboxing) settings with Read and Edit deny rules; both are merged into the final sandbox boundary
 * Network restrictions combine WebFetch permission rules with the sandbox's `allowedDomains` and `deniedDomains` lists
 
-When sandboxing is enabled with `autoAllowBashIfSandboxed: true`, which is the default, sandboxed Bash commands run without prompting even if your permissions include a bare `Bash` ask rule, or the [equivalent `Bash(*)` form](#match-all-uses-of-a-tool): the sandbox boundary substitutes for that whole-tool prompt. These checks still apply:
+When you enable sandboxing and leave `autoAllowBashIfSandboxed` at its default of `true`, sandboxed Bash commands run without prompting even if your permissions include a bare `Bash` ask rule, or the [equivalent `Bash(*)` form](#match-all-uses-of-a-tool): the sandbox boundary substitutes for that whole-tool prompt.
+
+In [plan mode](/en/permission-modes#analyze-before-you-edit-with-plan-mode), Claude Code skips this substitution. Without an ask rule, the built-in read-only commands still run without prompting, and any other shell command prompts for approval while you are still planning. With a bare `Bash` ask rule, every Bash command prompts, including sandboxed read-only commands, the same as outside sandboxing. Before v2.1.212, the substitution applied in plan mode as well.
+
+These checks still apply:
 
 * Content-scoped ask rules like `Bash(git push *)` still force a prompt
 * Explicit deny rules still apply
@@ -484,7 +488,7 @@ If a tool is denied at any level, no other level can allow it. For example, a ma
 
 The same holds across settings scopes: if user settings allow a permission and project settings deny it, the deny rule blocks it. The reverse is also true: a user-level deny blocks a project-level allow, because deny rules from any scope are evaluated before allow rules.
 
-Embedding hosts can supply additional managed policy via the SDK `managedSettings` option when [`parentSettingsBehavior`](/en/settings#settings-precedence) is set to `"merge"`; embedder values can tighten policy but not loosen it.
+Embedding hosts can supply additional managed policy via the SDK `managedSettings` option, including permission allow rules unless the admin sets the `allowManaged*Only` locks; [Deliver policy to Claude Desktop sessions](/en/claude-apps-gateway#deliver-policy-to-claude-desktop-sessions) covers when embedder policy applies at all.
 
 ## Project allow rules and workspace trust
 
