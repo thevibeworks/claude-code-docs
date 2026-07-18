@@ -1596,7 +1596,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "4a2c9eeedb17cb5f76582612281cbe5f1413e851"
+        "sha": "7f761709569dcc1d8a46c132e629d85fbe68dcb2"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -3072,7 +3072,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "61df6113574127536db39738c4aa6fc15d3e2298"
+        "sha": "c29cd23cfd27830bf10961d58646a9fd127fa6df"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
