@@ -286,7 +286,7 @@
         "source": "url",
         "url": "https://github.com/BrainBlend-AI/atomic-agents.git",
         "path": "claude-plugin/atomic-agents",
-        "sha": "7fb0741f52ae7312b6e00bf1ad2c80aab4a2709e"
+        "sha": "b15ca449a81278b1c92666bdf9a2e57a817dcacd"
       },
       "homepage": "https://github.com/BrainBlend-AI/atomic-agents",
       "tags": [
@@ -367,7 +367,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-core",
         "ref": "main",
-        "sha": "77dc9d04f7ca56c14514eabcf8773644681f378a"
+        "sha": "36f16570de2015c0f0ce94ba9e391bd703c9ffb7"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -1596,7 +1596,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "7f761709569dcc1d8a46c132e629d85fbe68dcb2"
+        "sha": "d7933aa5fa94243aba9540341529341bf9413b09"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2677,7 +2677,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/rilldata/agent-skills.git",
-        "sha": "6dffeeee8617aceb796edb744e3c52a7c0ee88ac"
+        "sha": "6e5df00631875bc9f1119d5f08194596ad02e8f1"
       },
       "homepage": "https://docs.rilldata.com/developers/build/ai-configuration"
     },
@@ -3405,7 +3405,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "e08711cc8d56d23e229b1ec68a88cec6d2c08042"
+        "sha": "9ad4cec50ae58a5f0b00d960f75029a18e58429d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
