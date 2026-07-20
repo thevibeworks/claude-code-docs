@@ -8,11 +8,11 @@ Owners and Primary Owners of Team plans with monthly subscriptions can switch fr
 
 3. Or from /upgrade, click the “Switch to Annual plan” button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690325734/d47f714680d78408d6022d06b8d1/image.png?expires=1784592000&amp;signature=a714a6c028115ef7c13a4082412200defb955d7c6ae6dc08d8ee971349c1542f&amp;req=dSYuFsp8mIZcXfMW3Hu4gZzas%2FXtvTpbn2rRiVwqPzYZkVNi9lgQglCgk5yn%0Ajg%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690325734/d47f714680d78408d6022d06b8d1/image.png?expires=1784646000&amp;signature=35a0349877a68b82739849f0c7c31399a1dd4dbcfd9391835dba6b5583c4112c&amp;req=dSYuFsp8mIZcXfMW3Hu4gZzas%2FXtvTlWm2rRiVwqPzbqqP2mbVNgNcenwhcW%0ATw%3D%3D%0A)
 
 4. The confirmation screen will display the total cost for your upgrade from monthly to annual billing:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690326039/3a91cdc5fff57d188a18ecc6273f/image.png?expires=1784592000&amp;signature=b2c4e3e1dd6bb1b203f9a064271e46cfe7ad3244d4c5b596a7a3abd76aba2813&amp;req=dSYuFsp8m4FcUPMW3Hu4gbNj%2Bk78WAjoie5vzcg6znX6dD8dOREP82KpDG76%0AWg%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690326039/3a91cdc5fff57d188a18ecc6273f/image.png?expires=1784646000&amp;signature=e80711e919cd138ee850763522ef295ca376ddf6907a9c3701b94cf18fcf4940&amp;req=dSYuFsp8m4FcUPMW3Hu4gbNj%2Bk78WAvlje5vzcg6znURW5M1Ip6Q%2Bpn2cjCj%0Aow%3D%3D%0A)
 
 5. Click “Confirm subscription.”
 
