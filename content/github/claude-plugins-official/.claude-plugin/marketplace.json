@@ -477,7 +477,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/base44/skills.git",
-        "sha": "58a183b6e912fe8ae2827c603d485a37b7d00e1b"
+        "sha": "876f080f34efcc17fc606774feccecd6b61f44a7"
       },
       "homepage": "https://docs.base44.com"
     },
@@ -565,7 +565,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/buildkite/skills.git",
-        "sha": "48619b1b5187209d74b333a215d63a2c7088f614"
+        "sha": "369d93ebb0d6f9112615b7b8693f98f6fc241e5e"
       },
       "homepage": "https://buildkite.com"
     },
@@ -613,7 +613,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "4f46ba0181f4d07b45b7fd8e51208c9699afd566"
+        "sha": "62e9f9a00ba06ab54f9f8896fb8becdbfd6dd46a"
       },
       "homepage": "https://carta.com"
     },
@@ -750,7 +750,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
-        "sha": "0b64ebd82240c14639c55c6f800bcad4626e3224"
+        "sha": "4c60200bf523342b68d5935b53f4dd0acb53e6b8"
       },
       "homepage": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
     },
@@ -1306,7 +1306,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "8d72763f53c4fe11ed3ae0441b921bda821d2a74"
+        "sha": "8bd359f8a44d2446de12f1fe6e6316daf043056e"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1596,7 +1596,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "458df4c41294655f76e551100a9b634114209bb9"
+        "sha": "735128a61a152267a00b99defbd290f489482cbc"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2473,7 +2473,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "fb1b3a8edc9fb5c4d289ab23f614f7f8d268be7e"
+        "sha": "ec86ff6b8e978b7461a4cb195241cf9fa4fe5e9c"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2511,7 +2511,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "d1af526ebe6db70b5cf957a62b7cfdfd85f362e1"
+        "sha": "e043b7314279f3ff6623c5f0c95c4471cdf0c5f8"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -2842,7 +2842,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "20f6b5714e9cbd9919622e2bd1211ec956e48e59"
+        "sha": "65c088d14b2078e5409470838a93adb37528874e"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -3405,7 +3405,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "0e8455f3e8a18262fc819efdca10dde915589515"
+        "sha": "b9934f834685e8fb5d47df02dee22e6cc69cc53d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
