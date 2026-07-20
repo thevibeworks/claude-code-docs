@@ -22,7 +22,7 @@ Voice mode transforms how you interact with Claude by:
 
 2. Tap the sound wave symbol in the lower right corner of the chat window to activate voice mode:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042358620/1bf2311353615c1c494da1312a17/124b93a8-0a9b-4c84-9d1f-ede6ca3498dd?expires=1784523600&amp;signature=722465715fa737d9682f5c29d5ed7bd87c4f48df8a2d15bcc33d51ced53db2d2&amp;req=diAjFMp7lYddWfMW1HO4zZyGrsp3uVQWF6uXnTLMvvB6AtRHXRqZMyrIKrqm%0AHQWK%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042358620/1bf2311353615c1c494da1312a17/124b93a8-0a9b-4c84-9d1f-ede6ca3498dd?expires=1784538000&amp;signature=70e7b3b8775947f7fb558518f7aee24d29bc065e945d019f64109c91132beef1&amp;req=diAjFMp7lYddWfMW1HO4zZyGrsp3uF8QF6uXnTLMvvC%2BwPMpJ0YnHiRdssbI%0AS7og%0A)
 
 3. Start talking and see your prompt automatically populate in the chat input.
 
@@ -30,7 +30,7 @@ Voice mode transforms how you interact with Claude by:
 
 5. Claude will remain in voice mode until you click the “Stop” button in the lower right corner of the chat window:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352060/162f9e61f7fbeb689201dfc1cac1/6a7fafb2-31df-43be-a43f-0059d735e3c4?expires=1784523600&amp;signature=0600f9f5ae297435d82135d3397119d7d15a989b3aa6132929edfdd2e82ee162&amp;req=diAjFMp7n4FZWfMW1HO4zU6VRfnPSr9vxNdRzYWrfF68MiBloyfiP5DTpshO%0AbnIuXxnnycjC3kQKZ4A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352060/162f9e61f7fbeb689201dfc1cac1/6a7fafb2-31df-43be-a43f-0059d735e3c4?expires=1784538000&amp;signature=a7e21f74007501bbb6849b76d531dbf12cfc0a698e901a2fa8b47185b8ddc10d&amp;req=diAjFMp7n4FZWfMW1HO4zU6VRfnPS7RpxNdRzYWrfF5qnxnRmC3NQfT6Q6tj%0A0KPZlWNkL7DAN8LQQsc%3D%0A)
 
 ### On mobile (iOS and Android)
 
@@ -38,7 +38,7 @@ Voice mode transforms how you interact with Claude by:
 
 2. Tap the voice mode icon (sound wave symbol next to the microphone icon) in the text input field:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042359690/68879db64559ecf87991f73ce058/671ff972-9e08-4686-bc04-955dab4b2de3?expires=1784523600&amp;signature=50a1d23cebab8a88e701145864c236bef8fa4d929afb86dc891ba47e2567b296&amp;req=diAjFMp7lIdWWfMW1HO4zQTUIfB%2FkttID%2FRXAPlQ7La%2Frf29K4QJZPLVizMz%0A0Wim%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042359690/68879db64559ecf87991f73ce058/671ff972-9e08-4686-bc04-955dab4b2de3?expires=1784538000&amp;signature=7ab230c6512a88f32fb2e09bd2bcb054ef96f3b01676b81ea2d8c70b7bfd4354&amp;req=diAjFMp7lIdWWfMW1HO4zQTUIfB%2Fk9BOD%2FRXAPlQ7LYsLNjV1aPfz8iUBQLF%0A3faJ%0A)
 
 3. Choose a voice to personalize your experience.
 
@@ -76,7 +76,7 @@ To change the voice later:
 
 - **On mobile:** Click the settings button in the bottom left corner while chatting with Claude in voice mode, then tap your preferred voice and pace:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352063/25eca25bcfd573ecab30dd53158c/074454a6-fa5a-4c49-8b19-02d434b4ca50?expires=1784523600&amp;signature=f9112e44aaf6f6db6e1d590feec8bedd606396b8617f95e6670505b31fc0fbaf&amp;req=diAjFMp7n4FZWvMW1HO4zZ3%2FGG6QYlMMy8OQfYsvK3wZy%2FFsg1SkXcyefNjs%0A%2FKjnbjvI%2BaoHW%2F9QHJw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352063/25eca25bcfd573ecab30dd53158c/074454a6-fa5a-4c49-8b19-02d434b4ca50?expires=1784538000&amp;signature=7ce4e364f33459bf5f9431b51cdf6783823797297fb5efe452451699a751fd21&amp;req=diAjFMp7n4FZWvMW1HO4zZ3%2FGG6QY1gKy8OQfYsvK3yKCssOQ1nInE9G89gx%0AwfZQmZDIMKT6YA7bDsM%3D%0A)
 
 ## Switch between text and voice
 
