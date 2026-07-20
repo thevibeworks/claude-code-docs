@@ -224,7 +224,7 @@ Permission requirements vary by feature:
 
 For features requiring permissions (like location or calendar access), Claude will request permission contextually with clear explanations of why the access is needed. You’ll be prompted to approve the action with three options: Allow once, Always allow, or Don't allow.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1784523600&amp;signature=8455a6b3274d1fad0ef9330f798dd42d9d8a5af4f65cb440e5c9b1b2bb3edf6c&amp;req=dScnEcp7nIdeXfMW1HO4zQe5GluK2SbyS5x65TIld%2FBbCyK59gLyORdBUnVJ%0Ann4rpreNhERaGYNsfAU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1784538000&amp;signature=2160100dd8206ff8feb1e25dc572926445e4e76273e14df7a3939f3d8092ed77&amp;req=dScnEcp7nIdeXfMW1HO4zQe5GluK2C30S5x65TIld%2FC%2BnS1K3SGAIGhEqM0G%0A%2BdOab3pIkps3a4MWams%3D%0A)
 
 These permissions can be managed at any time in your device settings by going to Settings > Apps > Claude > Permissions. Click into each permission listed under **Allowed** and **Not allowed** to make changes. You can toggle between “Allow only while using the app” or “Ask every time” to change Claude’s access, or remove permissions by choosing “Don’t allow.” Claude will only request permissions if needed for specific features, and you can always choose to decline while still using other capabilities.
 

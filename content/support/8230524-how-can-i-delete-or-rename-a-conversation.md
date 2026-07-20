@@ -12,7 +12,7 @@ To delete or rename an individual conversation:
 
 3. Select either "Delete" or "Rename" from the options that appear:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1621955348/4844057e0f0847b580b95bc01625/Screenshot+2025-07-15+at+11_43_18%E2%80%AFAM.png?expires=1784523600&amp;signature=f1b273d2aee62c34d10159fc23614842e4a481602219815ea642afce3d8af563&amp;req=dSYlF8B7mIJbUfMW1HO4zVBo5Ofyb4Nct5RK2C3E1Tc1jyH7fhQmIy5Oe3d%2F%0AswfrwIsTnmtMC%2BnIGWg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1621955348/4844057e0f0847b580b95bc01625/Screenshot+2025-07-15+at+11_43_18%E2%80%AFAM.png?expires=1784538000&amp;signature=8787dc6839037cde913890a26f2b4d7d45919587dc0fb7460ca3fb5e13ce1058&amp;req=dSYlF8B7mIJbUfMW1HO4zVBo5Ofybohat5RK2C3E1Tc8GZlxZB4XU0st2mD%2B%0AF1DCSKfzGC0UKgkA3ZM%3D%0A)
 
 ## Deleting conversations in bulk
 
