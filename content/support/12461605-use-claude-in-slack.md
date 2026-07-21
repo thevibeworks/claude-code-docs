@@ -28,7 +28,7 @@ Claude in Slack gives you AI assistance right where your team collaborates. This
 
 6. Access previous conversations by clicking the clock icon.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755150661/a1a13c73bda421f6ee906650cfc9/22907223-e523-4a93-a6d2-3199a8368991?expires=1784637900&amp;signature=61cb4ccb65bf690a01e2fa881f25e8750afd7fb593b469c182cd824248639e86&amp;req=dSciE8h7nYdZWPMW1HO4zXK26hVI6zYXVfOC%2FRy97LXxYFhNrXGFkpIuaybH%0Ajb8f3j%2FNbq9Jf5TlhMw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755150661/a1a13c73bda421f6ee906650cfc9/22907223-e523-4a93-a6d2-3199a8368991?expires=1784655000&amp;signature=0bacfe8284483bbf3b70ef83f82238761b1d03c06b33e351eec6aa540f260d93&amp;req=dSciE8h7nYdZWPMW1HO4zXK26hVI7TQeVfOC%2FRy97LVivRA%2Bhsl8jJonD8GR%0A16HXiiKjqUdbr8rgSg0%3D%0A)
 
 ## Mention @Claude in a thread or channel
 
