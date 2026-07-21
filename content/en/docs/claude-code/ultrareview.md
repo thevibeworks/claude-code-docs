@@ -30,6 +30,8 @@ Start a review from any git repository in the Claude Code CLI.
 
 Without arguments, ultrareview reviews the diff between your current branch and the default branch, including any uncommitted and staged changes in your working tree. Claude Code bundles the repository state and uploads it to a remote sandbox for the review. To compare against a different base, such as on a repository whose integration branch is `develop` or `trunk`, pass the branch name instead: `/code-review ultra develop`. {/* min-version: 2.1.212 */}A base branch that exists only on `origin` is fetched, and a name with a typo gets a closest-branch suggestion. Both behaviors require Claude Code v2.1.212 or later.
 
+If your branch shares no merge base with the base branch, for example when the two histories are unrelated, Claude Code offers to review every tracked file in the repository instead. The whole-repository fallback requires a full clone and applies the same size limits as a branch review. Before v2.1.214, `/code-review ultra` refused to run without a merge base.
+
 To review a GitHub pull request instead, pass the PR number.
 
 ```text theme={null}
@@ -38,7 +40,7 @@ To review a GitHub pull request instead, pass the PR number.
 
 The command also accepts `#1234`, `PR 1234`, and pasted PR URLs. A pasted URL must point to the repository in your current directory. Before v2.1.212, the command accepted only the bare number and rejected other forms with a not-a-branch error.
 
-In PR mode, the remote sandbox clones the pull request directly from the host rather than bundling your local working tree. PR mode works with repositories on `github.com` and on [GitHub Enterprise Server](/en/github-enterprise-server) instances that an Owner has connected to Claude Code.
+In PR mode, the remote sandbox clones the pull request directly from the host rather than bundling your local working tree. PR mode works with repositories on `github.com` and on [GitHub Enterprise Server](/docs/en/github-enterprise-server) instances that an Owner has connected to Claude Code.
 
 <Tip>
   If your repository is too large to bundle, Claude Code prompts you to use PR mode instead. Push your branch and open a draft PR, then run `/code-review ultra <PR-number>`.
@@ -87,7 +89,7 @@ claude ultrareview 1234
 claude ultrareview origin/main
 ```
 
-Without arguments, the subcommand reviews the diff between your current branch and the default branch. Pass a PR number to review a pull request, or pass a base branch to review the diff against that branch instead. Invoking the subcommand counts as consent for the billing and terms prompt that the interactive command shows.
+Without arguments, the subcommand reviews the diff between your current branch and the default branch, with the same [whole-repository fallback](#run-ultrareview-from-the-cli) as `/code-review ultra` when no merge base exists. Pass a PR number to review a pull request, or pass a base branch to review the diff against that branch instead. Invoking the subcommand counts as consent for the whole-repository fallback and for the billing and terms prompt that the interactive command shows, so the run starts without waiting for input.
 
 If the base branch you pass exists on `origin` but not in your local clone, Claude Code fetches it and continues. If the name matches no branch, the error message suggests the closest branch name. Before v2.1.212, both cases failed with a not-a-branch error.
 
@@ -100,7 +102,7 @@ Progress messages and the live session URL go to stderr so stdout stays parseabl
 
 Running `claude ultrareview` requires the same authentication and usage credit configuration as `/code-review ultra`. The subcommand exits with code 0 when the review completes with or without findings, code 1 when the review fails to launch, the cloud session errors, or the timeout elapses, and code 130 when interrupted with Ctrl-C. The remote review keeps running if you interrupt the subcommand; follow the session URL printed to stderr to watch it in the browser.
 
-For automatic reviews on GitHub pull requests, [Code Review](/en/code-review) integrates with your repository directly and posts findings as inline PR comments without a CLI step.
+For automatic reviews on GitHub pull requests, [Code Review](/docs/en/code-review) integrates with your repository directly and posts findings as inline PR comments without a CLI step.
 
 ## How ultrareview compares to /code-review and /review
 
@@ -119,6 +121,6 @@ Use `/code-review` for fast feedback as you work. Use `/review <pr>` to look ove
 
 ## Related resources
 
-* [Claude Code on the web](/en/claude-code-on-the-web): learn how cloud sessions and cloud sandboxes work
-* [Plan complex changes with ultraplan](/en/ultraplan): the planning counterpart to ultrareview for upfront design work
-* [Manage costs effectively](/en/costs): track usage and set spending limits
+* [Claude Code on the web](/docs/en/claude-code-on-the-web): learn how cloud sessions and cloud sandboxes work
+* [Plan complex changes with ultraplan](/docs/en/ultraplan): the planning counterpart to ultrareview for upfront design work
+* [Manage costs effectively](/docs/en/costs): track usage and set spending limits

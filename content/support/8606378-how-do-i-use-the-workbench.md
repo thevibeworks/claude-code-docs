@@ -68,15 +68,15 @@ Code examples in our documentation include an "Open in Workbench" option, which 
 
 Workbench (legacy) allows you to create and test prompts within your Claude Console account. You can enter your prompt into the "Human" dialogue box and click "Run" to test Claude's output. Click on the + icon in the upper left to create a new prompt, or click on the bulleted list icon to see prompts you've tested in the past:
 
-![](https://downloads.intercomcdn.com/i/o/888021849/31a22a0dc4d1fc4b605cc8ee/Screenshot+2023-11-19+at+4.21.51+PM.png?expires=1784569500&amp;signature=56614ef85d1d81a966a6ddc6ee7cb5ec8bb9f4faedfb830c3eef2eba8638b7d4&amp;req=fCgvFst%2FlYVWFb4f3HP0gKWhcD4K20NbOkmmaOsi7IBhKtLdCQagpLAFkn%2Fb%0Ay9Yau7aLd8wkrVxfVQ%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888021849/31a22a0dc4d1fc4b605cc8ee/Screenshot+2023-11-19+at+4.21.51+PM.png?expires=1784609100&amp;signature=66371ce53aaf62fd1f468a2319868b559803ee729217ff8a8eab6b6674e133b1&amp;req=fCgvFst%2FlYVWFb4f3HP0gKWhcD0M20dbOkmmaOsi7IDinSHhRv2hUjx%2FIYK6%0Ay2CSh0zTnQCgAsCX0A%3D%3D%0A)
 
 Workbench (legacy) also allows you to configure several settings when prompting Claude. You can click on the slider icon to review your model settings. This allows you to select the model, temperature, and max tokens to sample:
 
-![](https://downloads.intercomcdn.com/i/o/888023061/61e26396355f6f6cd506d7e4/Screenshot+2023-11-19+at+4.09.28+PM.png?expires=1784569500&amp;signature=0b8a16ecebe00ed734d3e6f969e6ef5ce26124b4ec6aa947fbcc265519de919d&amp;req=fCgvFst9nYdeFb4f3HP0gN55XdfWMIG3DUq7%2BRvcmSNsHze2gbrZSpgixiU8%0Aux2k6BNHEJ6avMxJJg%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888023061/61e26396355f6f6cd506d7e4/Screenshot+2023-11-19+at+4.09.28+PM.png?expires=1784609100&amp;signature=0e71fb17509756232fc73a9b5e807f09301c0eff80eefa6262c497f589bab828&amp;req=fCgvFst9nYdeFb4f3HP0gN55XdTQMIW3DUq7%2BRvcmSOR7m2tfyWaoclsJp9Q%0AfIxix%2BUvLRxc9JUE4w%3D%3D%0A)
 
 After crafting your prompt, click on the "Get code" button to generate a sample using our Python and Typescript SDKs:
 
-![](https://downloads.intercomcdn.com/i/o/888023545/b12afe07f16f079daff7587d/Screenshot+2023-11-19+at+4.28.27+PM.png?expires=1784569500&amp;signature=f803eb4d2833806c90083d74bef804e781ec59d9213b69dbc0a4e4dbb19a6a85&amp;req=fCgvFst9mIVaFb4f3HP0gEZTsD2Y6%2BHrRWixPJbjiQcMFFwSlZ%2Fng5O0W3E%2F%0AS8JaIoch1zz1EC2Tmg%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/888023545/b12afe07f16f079daff7587d/Screenshot+2023-11-19+at+4.28.27+PM.png?expires=1784609100&amp;signature=3be48ae37e8afa646a31911c30bb2d3807dd7c60c1aa0175db6fd44a38105ab3&amp;req=fCgvFst9mIVaFb4f3HP0gEZTsD6e6%2BXrRWixPJbjiQdnfbjchCGsaw6d6DRn%0A6lURgoOl7A8RAPTh5w%3D%3D%0A)
 
 ## How can I access my previous work and prompt history in Workbench (legacy)?
 
@@ -88,7 +88,7 @@ You can access your previous Workbench prompts on your Console account by follow
 
 3. Click the "List prompts" button on the upper left corner of the page, next to the "+" button to create a new prompt:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1945992985/45a8969fb6cec956bd44fb5c4ba7/CleanShot+2026-01-15+at+12_07_22%402x.png?expires=1784569500&amp;signature=315c87fcfd9358d82035cc6d18f4e49509f44a6b0f327227b080693ef0ecfc92&amp;req=dSkjE8B3n4hXXPMW1HO4zQQ9sFUMMXq9TyGSpkcb8MU9y0uv0tHb4Ys7%2FcRS%0AON9PCzK1%2BAhK18wmqbs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1945992985/45a8969fb6cec956bd44fb5c4ba7/CleanShot+2026-01-15+at+12_07_22%402x.png?expires=1784609100&amp;signature=b84a43b2854678d1c645f50141fb6df56d9372a481f1e84e95e68b1bc8c69b07&amp;req=dSkjE8B3n4hXXPMW1HO4zQQ9sFUPN3q5TyGSpkcb8MUhyiiTjVIrWuMW2PH%2B%0AG0uC%2FKG1BESO%2BKMfzFQ%3D%0A)
 
 4. A list of your previously-saved prompts will appear.
 

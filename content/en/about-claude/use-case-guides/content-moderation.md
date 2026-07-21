@@ -6,7 +6,13 @@ Content moderation is a critical aspect of maintaining a safe, respectful, and p
 
 > Visit the [content moderation cookbook](https://platform.claude.com/cookbook/misc-building-moderation-filter) to see an example content moderation implementation using Claude.
 
-<Tip>This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to the [guardrails guide](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations).</Tip>
+<Tip>
+  This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to the 
+
+  [guardrails guide](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
+
+  .
+</Tip>
 
 ## Before building with Claude
 
@@ -14,33 +20,47 @@ Content moderation is a critical aspect of maintaining a safe, respectful, and p
 
 Here are some key indicators that you should use an LLM like Claude instead of a traditional ML or rules-based approach for content moderation:
 
-<section title="You want a cost-effective and rapid implementation">
-Traditional ML methods require significant engineering resources, ML expertise, and infrastructure costs. Human moderation systems incur even higher costs. With Claude, you can have a sophisticated moderation system up and running in a fraction of the time for a fraction of the price.
-</section>
-<section title="You desire both semantic understanding and quick decisions">
-Traditional ML approaches, such as bag-of-words models or simple pattern matching, often struggle to understand the tone, intent, and context of the content. While human moderation systems excel at understanding semantic meaning, they require time for content to be reviewed. Claude bridges the gap by combining semantic understanding with the ability to deliver moderation decisions quickly.
-</section>
-<section title="You need consistent policy decisions">
-By leveraging its advanced reasoning capabilities, Claude can interpret and apply complex moderation guidelines uniformly. This consistency helps ensure fair treatment of all content, reducing the risk of inconsistent or biased moderation decisions that can undermine user trust.
-</section>
-<section title="Your moderation policies are likely to change or evolve over time">
-Once a traditional ML approach has been established, changing it is a laborious and data-intensive undertaking. On the other hand, as your product or customer needs evolve, Claude can easily adapt to changes or additions to moderation policies without extensive relabeling of training data.
-</section>
-<section title="You require interpretable reasoning for your moderation decisions">
-If you wish to provide users or regulators with clear explanations behind moderation decisions, Claude can generate detailed and coherent justifications. This transparency is important for building trust and ensuring accountability in content moderation practices.
-</section>
-<section title="You need multilingual support without maintaining separate models">
-Traditional ML approaches typically require separate models or extensive translation processes for each supported language. Human moderation requires hiring a workforce fluent in each supported language. Claude’s multilingual capabilities allow it to classify tickets in various languages without the need for separate models or extensive translation processes, streamlining moderation for global customer bases.
-</section>
-<section title="You require multimodal support">
-Claude's multimodal capabilities allow it to analyze and interpret content across both text and images. This makes it a versatile tool for comprehensive content moderation in environments where different media types need to be evaluated together.
-</section>
+<AccordionGroup>
+  <Accordion title="You want a cost-effective and rapid implementation">
+    Traditional ML methods require significant engineering resources, ML expertise, and infrastructure costs. Human moderation systems incur even higher costs. With Claude, you can have a sophisticated moderation system operational in significantly less time and at a much lower cost.
+  </Accordion>
 
-<Note>Anthropic has trained all Claude models to be honest, helpful, and harmless. This may result in Claude moderating content deemed particularly dangerous (in line with the [Acceptable Use Policy](https://www.anthropic.com/legal/aup)), regardless of the prompt used. For example, an adult website that wants to allow users to post explicit sexual content may find that Claude still flags explicit content as requiring moderation, even if they specify in their prompt not to moderate explicit sexual content. Consider reviewing the AUP in advance of building a moderation solution.</Note>
+  <Accordion title="You want both semantic understanding and quick decisions">
+    Traditional ML approaches, such as bag-of-words models or simple pattern matching, often struggle to understand the tone, intent, and context of the content. While human moderation systems excel at understanding semantic meaning, they require time for content to be reviewed. Claude addresses both needs by combining semantic understanding with the ability to deliver moderation decisions quickly.
+  </Accordion>
+
+  <Accordion title="You need consistent policy decisions">
+    By leveraging its advanced reasoning capabilities, Claude can interpret and apply complex moderation guidelines uniformly. This consistency helps ensure fair treatment of all content, reducing the risk of inconsistent or biased moderation decisions that can undermine user trust.
+  </Accordion>
+
+  <Accordion title="Your moderation policies are likely to change or evolve over time">
+    Once a traditional ML approach has been established, changing it is a laborious and data-intensive undertaking. On the other hand, as your product or customer needs evolve, Claude can easily adapt to changes or additions to moderation policies without extensive relabeling of training data.
+  </Accordion>
+
+  <Accordion title="You require interpretable reasoning for your moderation decisions">
+    If you want to provide users or regulators with clear explanations behind moderation decisions, Claude can generate detailed and coherent justifications. This transparency is important for building trust and ensuring accountability in content moderation practices.
+  </Accordion>
+
+  <Accordion title="You need multilingual support without maintaining separate models">
+    Traditional ML approaches typically require separate models or extensive translation processes for each supported language. Human moderation requires hiring a workforce fluent in each supported language. Claude’s multilingual capabilities allow it to classify tickets in various languages without the need for separate models or extensive translation processes, streamlining moderation for global customer bases.
+  </Accordion>
+
+  <Accordion title="You require multimodal support">
+    Claude's multimodal capabilities allow it to analyze and interpret content across both text and images. This makes it a versatile tool for comprehensive content moderation in environments where different media types need to be evaluated together.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Anthropic has trained all Claude models to be honest, helpful, and harmless. This may result in Claude moderating content deemed particularly dangerous (in line with the 
+
+  [Acceptable Use Policy](https://www.anthropic.com/legal/aup)
+
+  ), regardless of the prompt used. For example, an adult website that wants to allow users to post explicit sexual content may find that Claude still flags explicit content as requiring moderation, even if they specify in their prompt not to moderate explicit sexual content. Consider reviewing the AUP in advance of building a moderation solution.
+</Note>
 
 ### Generate examples of content to moderate
-Before developing a content moderation solution, first create examples of content that should be flagged and content that should not be flagged. Ensure that you include edge cases and challenging scenarios that may be difficult for a content moderation system to handle effectively. Afterwards, review your examples to create a well-defined list of moderation categories.
-For instance, the examples generated by a social media platform might include the following:
+
+Before developing a content moderation solution, first create examples of content that should be flagged and content that should not be flagged. Ensure that you include edge cases and challenging scenarios that may be difficult for a content moderation system to handle effectively. Afterward, review your examples to create a well-defined list of moderation categories. For instance, the examples generated by a social media platform might include the following:
 
 ```python
 allowed_user_comments = [
@@ -77,44 +97,58 @@ unsafe_categories = [
 
 Effectively moderating these examples requires a nuanced understanding of language. In the comment, `This movie was great, I really enjoyed it. The main actor really killed it!`, the content moderation system needs to recognize that "killed it" is a metaphor, not an indication of actual violence. Conversely, despite the lack of explicit mentions of violence, the comment `Delete this post now or you better hide. I am coming after you and your family.` should be flagged by the content moderation system.
 
-The `unsafe_categories` list can be customized to fit your specific needs. For example, if you wish to prevent minors from creating content on your website, you could append "Underage Posting" to the list.
+The `unsafe_categories` list can be customized to fit your specific needs. For example, if you want to prevent minors from creating content on your website, you could append "Underage Posting" to the list.
 
-___
+***
 
 ## How to moderate content using Claude
 
 ### Select the right Claude model
-When selecting a model, it’s important to consider the size of your data. If costs are a concern, a smaller model like Claude Haiku 4.5 is an excellent choice due to its cost-effectiveness. Below is an estimate of the cost to moderate text for a social media platform that receives one billion posts per month:
+
+When selecting a model, it’s important to consider the size of your data. If costs are a concern, a smaller model such as Claude Haiku 4.5 is an excellent choice because of its cost-effectiveness. The following is an estimate of the cost to moderate text for a social media platform that receives one billion posts per month:
 
 * **Content size**
-    * Posts per month: 1bn
-    * Characters per post: 100
-    * Total characters: 100bn
+
+  * Posts per month: 1B
+  * Characters per post: 100
+  * Total characters: 100B
 
 * **Estimated tokens**
-    * Input tokens: 28.6bn (assuming 1 token per 3.5 characters)
-    * Percentage of messages flagged: 3%
-    * Output tokens per flagged message: 50
-    * Total output tokens: 1.5bn
+
+  * Input tokens: 28.6B (assuming 1 token per 3.5 characters)
+  * Percentage of messages flagged: 3%
+  * Output tokens per flagged message: 50
+  * Total output tokens: 1.5B
 
 * **Claude Haiku 4.5 estimated cost**
-    * Input token cost: 28,600 MTok * \$1.00/MTok = \$28,600 USD
-    * Output token cost: 1,500 MTok * \$5.00/MTok = \$7,500 USD
-    * Monthly cost: \$28,600 + \$7,500 = \$36,100 USD
 
-* **Claude Opus 4.7 estimated cost**
-    * Input token cost: 28,600 MTok * \$5.00/MTok = \$143,000 USD
-    * Output token cost: 1,500 MTok * \$25.00/MTok = \$37,500 USD
-    * Monthly cost: \$143,000 + \$37,500 = \$180,500 USD
+  * Input token cost: 28,600 MTok \* $1.00/MTok = $28,600 USD
+  * Output token cost: 1,500 MTok \* $5.00/MTok = $7,500 USD
+  * Monthly cost: $28,600 + $7,500 = $36,100 USD
 
-<Tip>Actual costs may differ from these estimates. These estimates are based on the prompt highlighted in the section on [batch processing](#consider-batch-processing). Output tokens can be reduced even further by removing the `explanation` field from the response.</Tip>
+* **Claude Opus 4.8 estimated cost**
+
+  * Input token cost: 28,600 MTok \* $5.00/MTok = $143,000 USD
+  * Output token cost: 1,500 MTok \* $25.00/MTok = $37,500 USD
+  * Monthly cost: $143,000 + $37,500 = $180,500 USD
+
+<Tip>
+  Actual costs may differ from these estimates. These estimates are based on the prompt highlighted in the section on 
+
+  [batch processing](#consider-batch-processing)
+
+  . Output tokens can be reduced even further by removing the 
+
+  `explanation`
+
+   field from the response.
+</Tip>
 
 ### Build a strong prompt
 
-In order to use Claude for content moderation, Claude must understand the moderation requirements of your application. Let’s start by writing a prompt that allows you to define your moderation needs:
+To use Claude for content moderation, Claude must understand the moderation requirements of your application. Start by writing a prompt that allows you to define your moderation needs:
 
-```python Python nocheck hidelines={1}
-import anthropic
+```python Python
 import json
 
 # Initialize the Anthropic client
@@ -182,7 +216,7 @@ for comment in user_comments:
 
 In this example, the `moderate_message` function contains an assessment prompt that includes the unsafe content categories and the message to evaluate. The prompt asks Claude to assess whether the message should be moderated, based on the unsafe categories defined above.
 
-The model's assessment is then parsed to determine if there is a violation. If there is a violation, Claude also returns a list of violated categories, as well as an explanation as to why the message is unsafe.
+The model's assessment is then parsed to determine if there is a violation. If there is a violation, Claude also returns a list of violated categories and an explanation as to why the message is unsafe.
 
 ### Evaluate your prompt
 
@@ -190,8 +224,7 @@ Content moderation is a classification problem. Thus, you can use the same techn
 
 One additional consideration is that instead of treating content moderation as a binary classification problem, you may instead create multiple categories to represent various risk levels. Creating multiple risk levels allows you to adjust the aggressiveness of your moderation. For example, you might want to automatically block user queries that are deemed high risk, while users with many medium risk queries are flagged for human review.
 
-```python Python nocheck hidelines={1}
-import anthropic
+```python Python
 import json
 
 # Initialize the Anthropic client
@@ -267,19 +300,19 @@ This code implements an `assess_risk_level` function that uses Claude to evaluat
 
 Within the function, a prompt is generated for Claude, including the message to be assessed, the unsafe categories, and specific instructions for evaluating the risk level. The prompt instructs Claude to respond with a JSON object that includes the risk level, the violated categories, and an optional explanation.
 
-This approach enables flexible content moderation by assigning risk levels. It can be seamlessly integrated into a larger system to automate content filtering or flag comments for human review based on their assessed risk level. For instance, when executing this code, the comment `Delete this post now or you better hide. I am coming after you and your family.` is identified as high risk due to its dangerous threat. Conversely, the comment `Stay away from the 5G cellphones!! They are using 5G to control you.` is categorized as medium risk.
+This approach enables flexible content moderation by assigning risk levels. It can be seamlessly integrated into a larger system to automate content filtering or flag comments for human review based on their assessed risk level. For instance, when running this code, the comment `Delete this post now or you better hide. I am coming after you and your family.` is identified as high risk because of its dangerous threat. Conversely, the comment `Stay away from the 5G cellphones!! They are using 5G to control you.` is categorized as medium risk.
 
 ### Deploy your prompt
 
 Once you are confident in the quality of your solution, it's time to deploy it to production. Here are some best practices to follow when using content moderation in production:
 
-1. **Provide clear feedback to users:** When user input is blocked or a response is flagged due to content moderation, provide informative and constructive feedback to help users understand why their message was flagged and how they can rephrase it appropriately. In the earlier coding examples, this is done through the `explanation` field in the Claude response.
+1. **Provide clear feedback to users:** When user input is blocked or a response is flagged because of content moderation, provide informative and constructive feedback to help users understand why their message was flagged and how they can rephrase it appropriately. In the earlier coding examples, this is done through the `explanation` field in the Claude response.
 
 2. **Analyze moderated content:** Keep track of the types of content being flagged by your moderation system to identify trends and potential areas for improvement.
 
 3. **Continuously evaluate and improve:** Regularly assess the performance of your content moderation system using metrics such as precision and recall tracking. Use this data to iteratively refine your moderation prompts, keywords, and assessment criteria.
 
-___
+***
 
 ## Improve performance
 
@@ -289,8 +322,7 @@ In complex scenarios, it may be helpful to consider additional strategies to imp
 
 In addition to listing the unsafe categories in the prompt, further improvements can be made by providing definitions and phrases related to each category.
 
-```python Python nocheck hidelines={1}
-import anthropic
+```python Python
 import json
 
 # Initialize the Anthropic client
@@ -387,8 +419,7 @@ Notably, the definition for the `Specialized Advice` category now specifies the 
 
 To reduce costs in situations where real-time moderation isn't necessary, consider moderating messages in batches. Include multiple messages within the prompt's context, and ask Claude to assess which messages should be moderated.
 
-```python Python nocheck hidelines={1}
-import anthropic
+```python Python
 import json
 
 # Initialize the Anthropic client
@@ -457,14 +488,13 @@ Explanation: {violation["explanation"]}
 """)
 ```
 
-In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call.
-Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its id, which corresponds to the message's position in the input list.
-Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](/docs/en/about-claude/models/overview#latest-models-comparison).
+In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call. Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its `id`, which corresponds to the message's position in the input list. Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](/docs/en/about-claude/models/overview#latest-models-comparison).
 
 <CardGroup cols={2}>
   <Card title="Content moderation cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-moderation-filter">
     View a fully implemented code-based example of how to use Claude for content moderation.
   </Card>
+
   <Card title="Guardrails guide" icon="link" href="/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">
     Explore the guardrails guide for techniques to moderate interactions with Claude.
   </Card>
