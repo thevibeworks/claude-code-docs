@@ -10,28 +10,35 @@ This guide walks through how to leverage Claude's advanced natural language proc
 
 ### Decide whether to use Claude for legal summarization
 
-Here are some key indicators that you should employ an LLM like Claude to summarize legal documents:
+Here are some key indicators that you should employ an LLM such as Claude to summarize legal documents:
 
-<section title="You want to review a high volume of documents efficiently and affordably">
-Large-scale document review can be time-consuming and expensive when done manually. Claude can process and summarize vast amounts of legal documents rapidly, significantly reducing the time and cost associated with document review. This capability is particularly valuable for tasks like due diligence, contract analysis, or litigation discovery, where efficiency is crucial.
-</section>
-<section title="You require automated extraction of key metadata">
-Claude can efficiently extract and categorize important metadata from legal documents, such as parties involved, dates, contract terms, or specific clauses. This automated extraction can help organize information, making it easier to search, analyze, and manage large document sets. It's especially useful for contract management, compliance checks, or creating searchable databases of legal information. 
-</section>
-<section title="You want to generate clear, concise, and standardized summaries">
-Claude can generate structured summaries that follow predetermined formats, making it easier for legal professionals to quickly grasp the key points of various documents. These standardized summaries can improve readability, facilitate comparison between documents, and enhance overall comprehension, especially when dealing with complex legal language or technical jargon.
-</section>
-<section title="You need precise citations for your summaries">
-When creating legal summaries, proper attribution and citation are crucial to ensure credibility and compliance with legal standards. Claude can be prompted to include accurate citations for all referenced legal points, making it easier for legal professionals to review and verify the summarized information.
-</section>
-<section title="You want to streamline and expedite your legal research process">
-Claude can assist in legal research by quickly analyzing large volumes of case law, statutes, and legal commentary. It can identify relevant precedents, extract key legal principles, and summarize complex legal arguments. This capability can significantly speed up the research process, allowing legal professionals to focus on higher-level analysis and strategy development.
-</section>
+<AccordionGroup>
+  <Accordion title="You want to review a high volume of documents efficiently and affordably">
+    Large-scale document review can be time-consuming and expensive when done manually. Claude can process and summarize vast amounts of legal documents rapidly, significantly reducing the time and cost associated with document review. This capability is particularly valuable for tasks like due diligence, contract analysis, or litigation discovery, where efficiency is crucial.
+  </Accordion>
+
+  <Accordion title="You require automated extraction of key metadata">
+    Claude can efficiently extract and categorize important metadata from legal documents, such as parties involved, dates, contract terms, or specific clauses. This automated extraction can help organize information, making it easier to search, analyze, and manage large document sets. It's especially useful for contract management, compliance checks, or creating searchable databases of legal information. 
+  </Accordion>
+
+  <Accordion title="You want to generate clear, concise, and standardized summaries">
+    Claude can generate structured summaries that follow predetermined formats, making it easier for legal professionals to quickly grasp the key points of various documents. These standardized summaries can improve readability, facilitate comparison between documents, and enhance overall comprehension, especially when dealing with complex legal language or technical jargon.
+  </Accordion>
+
+  <Accordion title="You need precise citations for your summaries">
+    When creating legal summaries, proper attribution and citation are crucial to ensure credibility and compliance with legal standards. Claude can be prompted to include accurate citations for all referenced legal points, making it easier for legal professionals to review and verify the summarized information.
+  </Accordion>
+
+  <Accordion title="You want to streamline and expedite your legal research process">
+    Claude can assist in legal research by quickly analyzing large volumes of case law, statutes, and legal commentary. It can identify relevant precedents, extract key legal principles, and summarize complex legal arguments. This capability can significantly speed up the research process, allowing legal professionals to focus on higher-level analysis and strategy development.
+  </Accordion>
+</AccordionGroup>
 
 ### Determine the details you want the summarization to extract
+
 There is no single correct summary for any given document. Without clear direction, it can be difficult for Claude to determine which details to include. To achieve optimal results, identify the specific information you want to include in the summary.
 
-For instance, when summarizing a sublease agreement, you might wish to extract the following key points:
+For instance, when summarizing a sublease agreement, you might want to extract the following key points:
 
 ```python
 details_to_extract = [
@@ -46,68 +53,85 @@ details_to_extract = [
 
 ### Establish success criteria
 
-Evaluating the quality of summaries is a notoriously challenging task. Unlike many other natural language processing tasks, evaluation of summaries often lacks clear-cut, objective metrics. The process can be highly subjective, with different readers valuing different aspects of a summary. Here are criteria you may wish to consider when assessing how well Claude performs legal summarization.
+Evaluating the quality of summaries is a notoriously challenging task. Unlike many other natural language processing tasks, evaluation of summaries often lacks clear-cut, objective metrics. The process can be highly subjective, with different readers valuing different aspects of a summary. Here are criteria you may want to consider when assessing how well Claude performs legal summarization.
 
-<section title="Factual correctness">
-The summary should accurately represent the facts, legal concepts, and key points in the document.
-</section>
-<section title="Legal precision">
-Terminology and references to statutes, case law, or regulations must be correct and aligned with legal standards.
-</section>
-<section title="Conciseness">
- The summary should condense the legal document to its essential points without losing important details.
-</section>
-<section title="Consistency">
-If summarizing multiple documents, the LLM should maintain a consistent structure and approach to each summary.
-</section>
-<section title="Readability">
-The text should be clear and easy to understand. If the audience is not legal experts, the summarization should not include legal jargon that could confuse the audience.
-</section>
-<section title="Bias and fairness">
-The summary should present an unbiased and fair depiction of the legal arguments and positions.
-</section>
+<AccordionGroup>
+  <Accordion title="Factual correctness">
+    The summary should accurately represent the facts, legal concepts, and key points in the document.
+  </Accordion>
+
+  <Accordion title="Legal precision">
+    Terminology and references to statutes, case law, or regulations must be correct and aligned with legal standards.
+  </Accordion>
+
+  <Accordion title="Conciseness">
+     The summary should condense the legal document to its essential points without losing important details.
+  </Accordion>
+
+  <Accordion title="Consistency">
+    If summarizing multiple documents, the LLM should maintain a consistent structure and approach to each summary.
+  </Accordion>
+
+  <Accordion title="Readability">
+    The text should be clear and easy to understand. If the audience is not legal experts, the summarization should not include legal jargon that could confuse the audience.
+  </Accordion>
+
+  <Accordion title="Bias and fairness">
+    The summary should present an unbiased and fair depiction of the legal arguments and positions.
+  </Accordion>
+</AccordionGroup>
 
 See the guide on [establishing success criteria](/docs/en/test-and-evaluate/develop-tests) for more information.
 
----
+***
 
 ## How to summarize legal documents using Claude
 
 ### Select the right Claude model
 
-Model accuracy is extremely important when summarizing legal documents. Claude Opus 4.7 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model like Claude Haiku 4.5.
+Model accuracy is extremely important when summarizing legal documents. Claude Opus 4.8 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model such as Claude Haiku 4.5.
 
 To help estimate these costs, the following is a comparison of the cost to summarize 1,000 sublease agreements using both Opus and Haiku:
 
 * **Content size**
-    * Number of agreements: 1,000
-    * Characters per agreement: 300,000
-    * Total characters: 300M
+
+  * Number of agreements: 1,000
+  * Characters per agreement: 300,000
+  * Total characters: 300M
 
 * **Estimated tokens**
-    * Input tokens: 86M (assuming 1 token per 3.5 characters)
-    * Output tokens per summary: 350
-    * Total output tokens: 350,000
 
-* **Claude Opus 4.7 estimated cost**
-    * Input token cost: 86 MTok * \$5.00/MTok = \$430.00 USD
-    * Output token cost: 0.35 MTok * \$25.00/MTok = \$8.75 USD
-    * Total cost: \$430.00 + \$8.75 = \$438.75 USD
+  * Input tokens: 86M (assuming 1 token per 3.5 characters)
+  * Output tokens per summary: 350
+  * Total output tokens: 350,000
+
+* **Claude Opus 4.8 estimated cost**
+
+  * Input token cost: 86 MTok \* $5.00/MTok = $430.00 USD
+  * Output token cost: 0.35 MTok \* $25.00/MTok = $8.75 USD
+  * Total cost: $430.00 + $8.75 = $438.75 USD
 
 * **Claude Haiku 4.5 estimated cost**
-    * Input token cost: 86 MTok * \$1.00/MTok = \$86.00 USD
-    * Output token cost: 0.35 MTok * \$5.00/MTok = \$1.75 USD
-    * Total cost: \$86.00 + \$1.75 = \$87.75 USD
 
-<Tip>Actual costs may differ from these estimates. These estimates are based on the example highlighted in the section on [prompting](#build-a-strong-prompt).</Tip>
+  * Input token cost: 86 MTok \* $1.00/MTok = $86.00 USD
+  * Output token cost: 0.35 MTok \* $5.00/MTok = $1.75 USD
+  * Total cost: $86.00 + $1.75 = $87.75 USD
+
+<Tip>
+  Actual costs may differ from these estimates. These estimates are based on the example highlighted in the 
+
+  [Build a strong prompt](#build-a-strong-prompt)
+
+   section.
+</Tip>
 
 ### Transform documents into a format that Claude can process
 
 Before you begin summarizing documents, you need to prepare your data. This involves extracting text from PDFs, cleaning the text, and ensuring it's ready to be processed by Claude.
 
-Here is a demonstration of this process on a sample pdf:
+Here is a demonstration of this process on a sample PDF:
 
-```python nocheck
+```python
 from io import BytesIO
 import re
 
@@ -129,7 +153,7 @@ def get_llm_text(pdf_file):
 
 
 # Create the full URL from the GitHub repository
-url = "https://raw.githubusercontent.com/anthropics/anthropic-cookbook/main/skills/summarization/data/Sample Sublease Agreement.pdf"
+url = "https://raw.githubusercontent.com/anthropics/claude-cookbooks/main/capabilities/summarization/data/Sample Sublease Agreement.pdf"
 url = url.replace(" ", "%20")
 
 # Download the PDF file into memory
@@ -142,25 +166,23 @@ document_text = get_llm_text(pdf_file)
 print(document_text[:50000])
 ```
 
-In this example, you first download a pdf of a sample sublease agreement used in the [summarization cookbook](https://platform.claude.com/cookbook/capabilities-summarization-guide). This agreement was sourced from a publicly available sublease agreement from the [sec.gov website](https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm).
+In this example, you first download a PDF of a sample sublease agreement used in the [summarization cookbook](https://platform.claude.com/cookbook/capabilities-summarization-guide). This agreement was sourced from a publicly available sublease agreement from the [sec.gov website](https://www.sec.gov/Archives/edgar/data/1045425/000119312507044370/dex1032.htm).
 
-The example uses the pypdf library to extract the contents of the pdf and convert it to text. The text data is then cleaned by removing page numbers and extra whitespace.
+The example uses the pypdf library to extract the contents of the PDF and convert it to text. The text data is then cleaned by removing page numbers and extra whitespace.
 
 ### Build a strong prompt
 
-Claude can adapt to various summarization styles. You can change the details of the prompt to guide Claude to be more or less verbose, include more or less technical terminology, or provide a higher or lower level summary of the context at hand.
+Claude can adapt to various summarization styles. You can change the details of the prompt to guide Claude to be more or less verbose, include more or less technical terminology, or provide a higher- or lower-level summary of the context at hand.
 
 Here’s an example of how to create a prompt that ensures the generated summaries follow a consistent structure when analyzing sublease agreements:
 
-```python Python nocheck hidelines={1..2}
-import anthropic
-
+```python Python
 # Initialize the Anthropic client
 client = anthropic.Anthropic()
 
 
 def summarize_document(
-    text, details_to_extract, model="claude-opus-4-7", max_tokens=1000
+    text, details_to_extract, model="claude-opus-4-8", max_tokens=1000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)
@@ -207,23 +229,33 @@ Because the code outputs each section of the summary within tags, each section c
 
 ### Evaluate your prompt
 
-Prompting often requires testing and optimization for it to be production ready. To determine the readiness of your solution, evaluate the quality of your summaries using a systematic process combining quantitative and qualitative methods. Creating a [strong empirical evaluation](/docs/en/test-and-evaluate/develop-tests#building-evals-and-test-cases) based on your defined success criteria allows you to optimize your prompts. Here are some metrics you may wish to include within your empirical evaluation:
+Prompting often requires testing and optimization for it to be production ready. To determine the readiness of your solution, evaluate the quality of your summaries using a systematic process combining quantitative and qualitative methods. Creating a [strong empirical evaluation](/docs/en/test-and-evaluate/develop-tests#building-evals-and-test-cases) based on your defined success criteria allows you to optimize your prompts. Here are some metrics you may want to include within your empirical evaluation:
 
-<section title="ROUGE scores">
-This measures the overlap between the generated summary and an expert-created reference summary. This metric primarily focuses on recall and is useful for evaluating content coverage.
-</section>
-<section title="BLEU scores">
-While originally developed for machine translation, this metric can be adapted for summarization tasks. BLEU scores measure the precision of n-gram matches between the generated summary and reference summaries. A higher score indicates that the generated summary contains similar phrases and terminology to the reference summary. 
-</section>
-<section title="Contextual embedding similarity">
-This metric involves creating vector representations (embeddings) of both the generated and reference summaries. The similarity between these embeddings is then calculated, often using cosine similarity. Higher similarity scores indicate that the generated summary captures the semantic meaning and context of the reference summary, even if the exact wording differs.
-</section>
-<section title="LLM-based grading">
-This method involves using an LLM such as Claude to evaluate the quality of generated summaries against a scoring rubric. The rubric can be tailored to your specific needs, assessing key factors like accuracy, completeness, and coherence. For guidance on implementing LLM-based grading, view these [tips](/docs/en/test-and-evaluate/develop-tests#tips-for-llm-based-grading).
-</section>
-<section title="Human evaluation">
-In addition to creating the reference summaries, legal experts can also evaluate the quality of the generated summaries. While this is expensive and time-consuming at scale, this is often done on a few summaries as a sanity check before deploying to production.
-</section>
+<AccordionGroup>
+  <Accordion title="ROUGE scores">
+    This measures the overlap between the generated summary and an expert-created reference summary. This metric primarily focuses on recall and is useful for evaluating content coverage.
+  </Accordion>
+
+  <Accordion title="BLEU scores">
+    Although originally developed for machine translation, this metric can be adapted for summarization tasks. BLEU scores measure the precision of n-gram matches between the generated summary and reference summaries. A higher score indicates that the generated summary contains similar phrases and terminology to the reference summary. 
+  </Accordion>
+
+  <Accordion title="Contextual embedding similarity">
+    This metric involves creating vector representations (embeddings) of both the generated and reference summaries. The similarity between these embeddings is then calculated, often using cosine similarity. Higher similarity scores indicate that the generated summary captures the semantic meaning and context of the reference summary, even if the exact wording differs.
+  </Accordion>
+
+  <Accordion title="LLM-based grading">
+    This method involves using an LLM such as Claude to evaluate the quality of generated summaries against a scoring rubric. The rubric can be tailored to your specific needs, assessing key factors such as accuracy, completeness, and coherence. For implementation guidance, see 
+
+    [Tips for LLM-based grading](/docs/en/test-and-evaluate/develop-tests#tips-for-llm-based-grading)
+
+    .
+  </Accordion>
+
+  <Accordion title="Human evaluation">
+    In addition to creating the reference summaries, legal experts can also evaluate the quality of the generated summaries. Although this is expensive and time-consuming at scale, this is often done on a few summaries as a validation check before deploying to production.
+  </Accordion>
+</AccordionGroup>
 
 ### Deploy your prompt
 
@@ -231,11 +263,11 @@ Here are some additional considerations to keep in mind as you deploy your solut
 
 1. **Ensure no liability:** Understand the legal implications of errors in the summaries, which could lead to legal liability for your organization or clients. Provide disclaimers or legal notices clarifying that the summaries are generated by AI and should be reviewed by legal professionals.
 
-2. **Handle diverse document types:** This guide discusses how to extract text from PDFs. In the real-world, documents may come in a variety of formats (PDFs, Word documents, text files, etc.). Ensure your data extraction pipeline can convert all of the file formats you expect to receive.
+2. **Handle diverse document types:** This guide discusses how to extract text from PDFs. In the real-world, documents may come in a variety of formats (such as PDFs, Word documents, and text files). Ensure your data extraction pipeline can convert all of the file formats you expect to receive.
 
 3. **Parallelize API calls to Claude:** Long documents with a large number of tokens may require up to a minute for Claude to generate a summary. For large document collections, you may want to send API calls to Claude in parallel so that the summaries can be completed in a reasonable timeframe. Refer to Anthropic’s [rate limits](/docs/en/api/rate-limits#rate-limits) to determine the maximum amount of API calls that can be performed in parallel.
 
----
+***
 
 ## Improve performance
 
@@ -243,13 +275,11 @@ In complex scenarios, it may be helpful to consider additional strategies to imp
 
 ### Perform meta-summarization to summarize long documents
 
-Legal summarization often involves handling long documents or many related documents at once, such that you surpass Claude’s context window. You can use a chunking method known as meta-summarization in order to handle this use case. This technique involves breaking down documents into smaller, manageable chunks and then processing each chunk separately. You can then combine the summaries of each chunk to create a meta-summary of the entire document.
+Legal summarization often involves handling long documents or many related documents at once, such that you surpass Claude’s context window. You can use a chunking method known as meta-summarization to handle this use case. This technique involves breaking down documents into smaller, manageable chunks and then processing each chunk separately. You can then combine the summaries of each chunk to create a meta-summary of the entire document.
 
 Here's an example of how to perform meta-summarization:
 
-```python Python nocheck hidelines={1..2}
-import anthropic
-
+```python Python
 # Initialize the Anthropic client
 client = anthropic.Anthropic()
 
@@ -259,7 +289,7 @@ def chunk_text(text, chunk_size=20000):
 
 
 def summarize_long_document(
-    text, details_to_extract, model="claude-opus-4-7", max_tokens=1000
+    text, details_to_extract, model="claude-opus-4-8", max_tokens=1000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)
@@ -314,7 +344,7 @@ The `summarize_long_document` function builds upon the earlier `summarize_docume
 
 The code achieves this by applying the `summarize_document` function to each chunk of 20,000 characters within the original document. The individual summaries are then combined, and a final summary is created from these chunk summaries.
 
-Note that the `summarize_long_document` function isn't strictly necessary for the example pdf, as the entire document fits within Claude's context window. However, it becomes essential for documents exceeding Claude's context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
+Note that the `summarize_long_document` function isn't strictly necessary for the example PDF, as the entire document fits within Claude's context window. However, it becomes essential for documents exceeding Claude's context window or when summarizing multiple related documents together. Regardless, this meta-summarization technique often captures additional important details in the final summary that were missed in the earlier single-summary approach.
 
 ### Use summary indexed documents to explore a large collection of documents
 
@@ -328,16 +358,23 @@ Another advanced technique to improve Claude's ability to generate summaries is 
 
 2. **Curate a dataset:** Once you've identified these issues, compile a dataset of these problematic examples. This dataset should include the original legal documents alongside your corrected summaries, ensuring that Claude learns the desired behavior.
 
-3. **Perform fine-tuning:** Fine-tuning involves retraining the model on your curated dataset to adjust its weights and parameters. This retraining helps Claude better understand the specific requirements of your legal domain, improving its ability to summarize documents according to your standards.
+3. **Perform fine-tuning:** Fine-tuning involves retraining the model on your curated dataset to adjust its weights and parameters. This retraining helps Claude better adapt to the specific requirements of your legal domain, improving its ability to summarize documents according to your standards.
 
 4. **Iterative improvement:** Fine-tuning is not a one-time process. As Claude continues to generate summaries, you can iteratively add new examples where it has underperformed, further refining its capabilities. Over time, this continuous feedback loop will result in a model that is highly specialized for your legal summarization tasks.
 
-<Tip>Fine-tuning is currently only available via Amazon Bedrock. Additional details are available in the [AWS launch blog](https://aws.amazon.com/blogs/machine-learning/fine-tune-anthropics-claude-3-haiku-in-amazon-bedrock-to-boost-model-accuracy-and-quality/).</Tip>
+<Tip>
+  Fine-tuning is currently only available through Amazon Bedrock. Additional details are available in the 
+
+  [AWS launch blog](https://aws.amazon.com/blogs/machine-learning/fine-tune-anthropics-claude-3-haiku-in-amazon-bedrock-to-boost-model-accuracy-and-quality/)
+
+  .
+</Tip>
 
 <CardGroup cols={2}>
   <Card title="Summarization cookbook" icon="link" href="https://platform.claude.com/cookbook/capabilities-summarization-guide">
     View a fully implemented code-based example of how to use Claude to summarize contracts.
   </Card>
+
   <Card title="Citations cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-using-citations">
     Explore the Citations cookbook recipe for guidance on how to ensure accuracy and explainability of information.
   </Card>

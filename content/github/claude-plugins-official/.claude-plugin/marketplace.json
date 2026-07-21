@@ -173,7 +173,7 @@
         "url": "https://github.com/amd/skills.git",
         "path": "skills",
         "ref": "main",
-        "sha": "7ef8dd99ffd6d82208f1a0ae211a782ec2edee82"
+        "sha": "228980933abd97a8aa4a2656c8ea3ae9e8b590c7"
       },
       "strict": false,
       "skills": [
@@ -207,7 +207,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/apolloio/apollo-mcp-plugin.git",
-        "sha": "d0676ea9bba52b0f97d810dade775de059ccd2bd"
+        "sha": "2adde980e45f421b7e9383d92870455627936bce"
       },
       "homepage": "https://www.apollo.io/"
     },
@@ -253,7 +253,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "5432198caa8ef9ec33218124bcd44016db2d31bf"
+        "sha": "87d780cd5dc85a25c7ceb1f1720031fa4e48f781"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -306,7 +306,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "0d426960256fe7e54e05495fab64208e1924f23b"
+        "sha": "de929462cae879bab1c880fc4b9ad3645bf8588b"
       },
       "homepage": "https://auth0.com"
     },
@@ -367,7 +367,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-core",
         "ref": "main",
-        "sha": "36f16570de2015c0f0ce94ba9e391bd703c9ffb7"
+        "sha": "eb96852087e2b2757b67d358d6d38c17c5c28205"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -477,7 +477,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/base44/skills.git",
-        "sha": "876f080f34efcc17fc606774feccecd6b61f44a7"
+        "sha": "40e548021670ed409d3bae15601726cf652d846f"
       },
       "homepage": "https://docs.base44.com"
     },
@@ -597,7 +597,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "4f46ba0181f4d07b45b7fd8e51208c9699afd566"
+        "sha": "a007723c7149acab9f9357eaa74b98635bb63934"
       },
       "homepage": "https://carta.com"
     },
@@ -629,7 +629,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "70c61a2abbc976280e102edbc696cdb84da6a7f1"
+        "sha": "f2c2cbb11ed4dfabf88c59d61827b4b1aefb0611"
       },
       "homepage": "https://carta.com"
     },
@@ -656,7 +656,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "76fd2424984827802867672fcc8d0e0036f4a3af"
+        "sha": "dcbaf495183a34d9bb0e3d9e8f3e566de6b425f8"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -885,7 +885,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/coderabbitai/skills.git",
-        "sha": "2fd091d9582deccf19929e21f934921d0e8f686e"
+        "sha": "c61c4908d36dda6fb08a343cc8b19c59fbb47de3"
       },
       "homepage": "https://github.com/coderabbitai/skills"
     },
@@ -899,7 +899,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CodSpeedHQ/codspeed.git",
-        "sha": "5c27231b94437287b71ab505faba533d06e0cb24"
+        "sha": "26fb4b598f08faee386a8fa4212b8350c33dc013"
       },
       "homepage": "https://codspeed.io"
     },
@@ -1027,7 +1027,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "8a0a41996dd5de9b7ef0f624347584d76c1fe48d"
+        "sha": "d7d95883b2e65290c6c08bf4404696afae4b26be"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1038,7 +1038,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "5432198caa8ef9ec33218124bcd44016db2d31bf"
+        "sha": "87d780cd5dc85a25c7ceb1f1720031fa4e48f781"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -1062,7 +1062,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "5432198caa8ef9ec33218124bcd44016db2d31bf"
+        "sha": "87d780cd5dc85a25c7ceb1f1720031fa4e48f781"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -1175,7 +1175,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "58c9ef78a4634ba119c7d2cc145f5cf9aeb24524"
+        "sha": "6bb1881c8caaae3a0348ad9040d506df7332be80"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1492,7 +1492,7 @@
         "url": "https://github.com/grafana/ai-marketplace.git",
         "path": "plugins/grafana-cloud-mcp",
         "ref": "main",
-        "sha": "a5c72f2d74c640e9675eb0249526447968535015"
+        "sha": "12be5634a492f73c189d466c5449d09b853ad7a4"
       },
       "homepage": "https://grafana.com"
     },
@@ -1582,7 +1582,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/hunter-io/claude-plugin.git",
-        "sha": "d2bab5bc4879abf88e7e8fc11891375c217fecfc"
+        "sha": "2a89a5ec3821eb0a4c2eb3412729b154f2ac8ebb"
       },
       "homepage": "https://hunter.io"
     },
@@ -1596,7 +1596,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "735128a61a152267a00b99defbd290f489482cbc"
+        "sha": "911b332bb2131f1b3fc4abbea563bf0c70d165c4"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2147,6 +2147,20 @@
       "homepage": "https://github.com/oracle/netsuite-suitecloud-sdk"
     },
     {
+      "name": "newrelic",
+      "description": "New Relic observability intelligence for Claude Code. Investigate APM performance, analyze cloud costs, debug Kubernetes, write NRQL queries, and respond to alerts — all from your terminal using New Relic telemetry data.",
+      "author": {
+        "name": "New Relic"
+      },
+      "category": "monitoring",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/newrelic/claude-code-plugin.git",
+        "sha": "f8e5f8b62139072a22153ec92de1c0cc1af2f56a"
+      },
+      "homepage": "https://newrelic.com"
+    },
+    {
       "name": "nightvision",
       "description": "Skills for working with NightVision, a DAST and API Discovery platform that finds exploitable vulnerabilities in web applications and REST APIs",
       "source": {
@@ -2391,7 +2405,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/PostHog/ai-plugin.git",
-        "sha": "936b2d2c38f78a36c563f68da8df4a5f2c0c008f"
+        "sha": "4bdfca8c6d58b8c9a303374f5f93485b8d9281fa"
       },
       "homepage": "https://posthog.com/docs/model-context-protocol"
     },
@@ -2511,7 +2525,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "e043b7314279f3ff6623c5f0c95c4471cdf0c5f8"
+        "sha": "240854b3068b6a9cd1ebf75ab008b5758071052b"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -2592,7 +2606,7 @@
     },
     {
       "name": "receipts",
-      "description": "Generate a personal Claude Code impact report from your local ~/.claude/projects transcripts, cross-referenced against your local git history — what you shipped, which projects it went to, and each project's share of your usage — for justifying usage to a manager or a self-review. Reads your session transcripts and runs read-only git commands in the projects they mention; mining is local and only a small aggregate summary (counts and project names) is sent to write the report, which is saved to your home directory and published nowhere.",
+      "description": "A personal Claude Code impact report for justifying your usage to a manager or a self-review: what you shipped, which projects it went to, and each project's share of your usage. Reads your ~/.claude/projects transcripts and runs read-only git locally; only counts and project names are sent to write it up, and the report stays on your machine.",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -2842,7 +2856,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "65c088d14b2078e5409470838a93adb37528874e"
+        "sha": "006c41c8c0962c1cf83e0a6416598595b8833ae0"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -2858,7 +2872,7 @@
         "url": "https://github.com/spotify/save-to-spotify.git",
         "path": "plugin",
         "ref": "main",
-        "sha": "ce79a3d38b932b351530e204ec856419f9ba64b6"
+        "sha": "9d05c8cd8c8559552f84e27fe30f46b7693ce69a"
       },
       "homepage": "https://github.com/spotify/save-to-spotify"
     },
@@ -2882,7 +2896,7 @@
         "source": "git-subdir",
         "url": "https://github.com/semgrep/mcp-marketplace.git",
         "path": "plugin",
-        "sha": "63fac121296f3f102651de6beb7c15649c8b11d3"
+        "sha": "7ae38e4bec51877cec71fcacc5857d746fb8b468"
       },
       "homepage": "https://github.com/semgrep/mcp-marketplace.git"
     },
@@ -3059,7 +3073,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/ads-claude-plugin.git",
-        "sha": "aedf7ed87312891ef2e357c02b9c22fcca8907b4"
+        "sha": "6f0b741c8dabb92492a74e6e6893f81e1b94b038"
       },
       "homepage": "https://github.com/spotify/ads-claude-plugin"
     },
@@ -3095,7 +3109,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/supabase-community/supabase-plugin.git",
-        "sha": "3b3184501844df3d2e0accac129fdcae73f4bf95"
+        "sha": "5d74232687a0a82184ecd4266ea07372edb43f4b"
       },
       "homepage": "https://github.com/supabase-community/supabase-plugin"
     },
@@ -3405,7 +3419,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "b9934f834685e8fb5d47df02dee22e6cc69cc53d"
+        "sha": "5d7b1e90215fc5be8b62980f185f235e4d3bfb39"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3526,7 +3540,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "21033b441816025d52e9cff940aeb61680618ea3"
+        "sha": "abe69fac6b0e0df94605dc5ae162da4726d0fb78"
       },
       "homepage": "https://langfuse.com"
     },

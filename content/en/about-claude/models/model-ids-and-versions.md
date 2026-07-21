@@ -14,29 +14,31 @@ Claude model IDs follow a versioned naming scheme.
 
 Starting with the Claude 4.6 generation, model IDs use a dateless format:
 
-```text
-claude-{name}-{major}-{minor}
+```text wrap
+claude-{name}-{major}[-{minor}]
 ```
 
-For example: `claude-sonnet-4-6`, `claude-opus-4-6`, and `claude-opus-4-7`
+Major-version releases such as Claude Sonnet 5 omit the minor segment.
+
+For example: `claude-sonnet-4-6`, `claude-sonnet-5`, `claude-opus-4-6`, `claude-opus-4-7`, and `claude-opus-4-8`
 
 On Amazon Bedrock, the corresponding format is:
 
-```text
-anthropic.claude-{name}-{major}-{minor}
+```text wrap
+anthropic.claude-{name}-{major}[-{minor}]
 ```
 
-For example: `anthropic.claude-sonnet-4-6`, `anthropic.claude-opus-4-7`
+For example: `anthropic.claude-sonnet-4-6`, `anthropic.claude-sonnet-5`, `anthropic.claude-opus-4-7`, `anthropic.claude-opus-4-8`
 
 Claude Opus 4.6 is the last Bedrock model ID to include the `-v1` suffix (`anthropic.claude-opus-4-6-v1`). Anthropic dropped the suffix starting with Claude Sonnet 4.6.
 
-On Google Cloud Vertex AI, the format matches the Claude API.
+On Google Cloud, the format matches the Claude API.
 
 ### Before the 4.6 generation
 
 Models before the 4.6 generation include a snapshot date in the ID:
 
-```text
+```text wrap
 claude-{name}-{major}-{minor}-{YYYYMMDD}
 ```
 
@@ -44,15 +46,15 @@ For example: `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`
 
 On Amazon Bedrock, these use the format:
 
-```text
+```text wrap
 anthropic.claude-{name}-{major}-{minor}-{YYYYMMDD}-v1:0
 ```
 
 For example: `anthropic.claude-sonnet-4-5-20250929-v1:0`
 
-On Google Cloud Vertex AI, the date is separated with `@`:
+On Google Cloud, the date is separated with `@`:
 
-```text
+```text wrap
 claude-{name}-{major}-{minor}@{YYYYMMDD}
 ```
 
@@ -78,4 +80,4 @@ Occasionally, infrastructure updates produce minor differences in observable beh
 
 ## Current model IDs
 
-For the full list of current model IDs and their Amazon Bedrock and Google Cloud Vertex AI equivalents, see [Models overview](/docs/en/about-claude/models/overview).
+For the full list of current model IDs and their Amazon Bedrock and Google Cloud equivalents, see [Models overview](/docs/en/about-claude/models/overview).
