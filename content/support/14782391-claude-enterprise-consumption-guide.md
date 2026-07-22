@@ -205,6 +205,20 @@ A few ways you can use Org Preferences to manage consumption and usage patterns:
 
 The Analytics page within the user menu (**claude.ai/analytics**) is the fastest way to get a read on your org. It shows weekly active users, seat utilization, top connectors, total spend (MTD/QTD/YTD), spend by model, and a top-10 users-by-spend leaderboard. Product-specific views for Claude.ai, Claude Code, and Cowork break down activity for each surface. **[Learn more](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
 
+### Skills analytics and per-skill ROI
+
+Each skill represents a repeatable workflow—prepping a sales call, reviewing a contract—so its cost can be weighed directly against what that workflow is worth. The Skills view in Analytics shows users, cost per use, and total uses for every skill in your org, filterable by group ("what skills is my legal team using?") or product surface.
+
+To run an ROI analysis:
+
+1. Export the skills table to CSV from the Skills view.
+
+2. Assign a value per run to each skill—a rough estimate of what the completed task is worth, such as the employee time it replaces (e.g., "prepping a sales call is worth ~$20 to us").
+
+3. Compute in your spreadsheet: (value per run − cost per use) × total uses gives the net value each skill has generated.
+
+The calculation currently happens outside the product, but the CSV export makes it a quick spreadsheet exercise. Even rough estimates tell a compelling story: a call-prep skill costing $0.90 per run against $20 of value returns 20x on every use.
+
 ### Spend report CSV export
 
 If you need a one-off detailed breakdown, you can export a per-user, per-model spend report as a CSV from **Analytics → All Activity → Spend → Export Spend**. Choose MTD, last month, last 90 days, or a custom range up to 90 days back. The CSV includes user email, user ID, account UUID, product, model, request count, prompt and completion tokens, and net and gross spend in USD.

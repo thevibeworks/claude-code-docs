@@ -110,7 +110,7 @@ You can toggle the skill off again at any time, or delete it from your list enti
 
 ### Install a skill from your organization's directory
 
-1. In Cowork, click **Customize** in the left sidebar, then click [placeholder: the "+" button] to open the directory.
+1. In Cowork, click **Customize** in the left sidebar, then click the "+" button to open the directory.
 
 2. Click the **Skills** tab.
 
@@ -164,7 +164,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1784655000&amp;signature=64b43b71420751d4a02120e93bbc57b47cdf7a18be36d9f271cc8c924dfa7c9b&amp;req=diEnE8p3nINYWvMW1HO4zSOgDy8ux%2BOtH%2BdCnFXB0ujBR4zDQ05nd3f4vm9O%0AEb%2BZ%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1784786400&amp;signature=b7bbd00b49fb2f37c27c10301d84be6fabd3cb3e4c48018beac7c3f2807f56f4&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bphGZEwlUT2ztkCRgKGGXUAo5S8iCkzAIr%0ARktMi3ZUaTZVUC0VXnj0OR6XK40%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 

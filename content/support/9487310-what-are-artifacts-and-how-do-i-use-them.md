@@ -66,7 +66,7 @@ You can access all your artifacts through the dedicated **[Artifacts](https://cl
 
 - View all your creations in one organized location
 
-- Create new artifacts from scratch or by customizing existing ones
+- Create new artifacts from scratch
 
 - Manage and organize your artifact collection
 
@@ -100,9 +100,11 @@ In the lower right corner of the artifact window, you can:
 
 - View the underlying code of any artifact
 
-- Copy content to your clipboard
+- Copy content to your clipboard, including the code behind an artifact
 
 - Download files to use outside the conversation
+
+Copying the code is also how you build on an artifact someone else published. Learn more about **[building on a published artifact](https://support.claude.com/en/articles/9547008-publish-and-share-artifacts#h_eb779b5c95)**.
 
 ### Multiple artifacts
 

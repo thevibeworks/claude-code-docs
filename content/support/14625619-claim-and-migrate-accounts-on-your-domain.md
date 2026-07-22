@@ -56,7 +56,7 @@ The migration deadline is a single org-wide date, not a rolling per-user timer. 
 
 During this window, each person on the domain can sign in and choose how to migrate:
 
-- **Merge and join:** Bring existing conversations, projects, memory, and files into a new account within your Enterprise workspace.
+- **Merge and join:** Bring existing chats, projects, files, and memory into a new account within your Enterprise workspace. See the full list: **[What moves when you migrate](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
 
 - **Join fresh:** Start with a clean Enterprise account.
 

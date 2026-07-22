@@ -39,6 +39,8 @@ claude
   The default export intervals are 60 seconds for metrics and 5 seconds for logs. During setup, you may want to use shorter intervals for debugging purposes. Remember to reset these for production use.
 </Note>
 
+To verify a setup that exports metrics, check your backend for the `claude_code.session.count` metric, which Claude Code emits when a session starts. To verify a logs-only setup, submit a prompt and check for the `claude_code.user_prompt` event. If nothing arrives, run `claude --debug` and check the debug log for OTel export errors.
+
 For full configuration options, see the [OpenTelemetry specification](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/exporter.md#configuration-options).
 
 ## Administrator configuration
@@ -276,11 +278,11 @@ For enterprise environments that require dynamic authentication, you can configu
 
 #### Settings configuration
 
-Add to your `.claude/settings.json`:
+Add to your `.claude/settings.json`, replacing the path with your own script:
 
 ```json theme={null}
 {
-  "otelHeadersHelper": "/bin/generate_opentelemetry_headers.sh"
+  "otelHeadersHelper": "/path/to/generate-otel-headers.sh"
 }
 ```
 
@@ -352,30 +354,43 @@ Each custom key becomes a label on every metric series, so high-cardinality valu
 
 ### Example configurations
 
-Set these environment variables before running `claude`. Each block shows a complete configuration for a different exporter or deployment scenario:
+Set these environment variables before running `claude`. Each scenario below shows a complete configuration, and each variable is described under [Common configuration variables](#common-configuration-variables).
+
+For console debugging with a 1-second export interval:
 
 ```bash theme={null}
-# Console debugging (1-second intervals)
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=console
 export OTEL_METRIC_EXPORT_INTERVAL=1000
+```
 
-# OTLP/gRPC
+For OTLP over gRPC:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+```
 
-# Prometheus
+For Prometheus, scraped from `http://localhost:9464/metrics`:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=prometheus
+```
 
-# Multiple exporters
+To send metrics to multiple exporters:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=console,otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+```
 
-# Different endpoints/backends for metrics and logs
+To send metrics and logs to different endpoints or backends:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
 export OTEL_LOGS_EXPORTER=otlp
@@ -383,14 +398,20 @@ export OTEL_EXPORTER_OTLP_METRICS_PROTOCOL=http/protobuf
 export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://metrics.example.com:4318
 export OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://logs.example.com:4317
+```
 
-# Metrics only (no events/logs)
+To export metrics only, without events or logs:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+```
 
-# Events/logs only (no metrics)
+To export events and logs only, without metrics:
+
+```bash theme={null}
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_LOGS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
@@ -427,18 +448,18 @@ Events additionally include the following attributes. These are never attached t
 
 ### Metrics
 
-Claude Code exports the following metrics:
+Claude Code exports the following metrics. The Unit column shows the OpenTelemetry unit string attached to each metric; count metrics carry none.
 
 | Metric Name                           | Description                                     | Unit   |
 | ------------------------------------- | ----------------------------------------------- | ------ |
-| `claude_code.session.count`           | Count of CLI sessions started                   | count  |
-| `claude_code.lines_of_code.count`     | Count of lines of code modified                 | count  |
-| `claude_code.pull_request.count`      | Number of pull requests created                 | count  |
-| `claude_code.commit.count`            | Number of git commits created                   | count  |
+| `claude_code.session.count`           | Count of CLI sessions started                   | none   |
+| `claude_code.lines_of_code.count`     | Count of lines of code modified                 | none   |
+| `claude_code.pull_request.count`      | Number of pull requests created                 | none   |
+| `claude_code.commit.count`            | Number of git commits created                   | none   |
 | `claude_code.cost.usage`              | Cost of the Claude Code session                 | USD    |
 | `claude_code.token.usage`             | Number of tokens used                           | tokens |
-| `claude_code.code_edit_tool.decision` | Count of code editing tool permission decisions | count  |
-| `claude_code.active_time.total`       | Total active time in seconds                    | s      |
+| `claude_code.code_edit_tool.decision` | Count of code editing tool permission decisions | none   |
+| `claude_code.active_time.total`       | Total active time                               | s      |
 
 {/* min-version: 2.1.216 */}When `prometheus` is the only exporter listed in `OTEL_METRICS_EXPORTER`, Claude Code omits the `USD`, `tokens`, and `s` units from the exported metrics so the scrape stays valid Prometheus text format. Metric names don't change, and configurations that combine exporters, such as `otlp,prometheus`, keep the units. Before v2.1.216, the Prometheus scrape included OpenMetrics-only `# UNIT` lines that some scrapers rejected.
 
@@ -621,8 +642,7 @@ Logged when a tool completes execution. Not emitted if the tool call was rejecte
 * `tool_result_size_bytes`: Size of the tool result in bytes
 * `mcp_server_scope`: MCP server scope identifier (for MCP tools)
 * `tool_parameters` (when `OTEL_LOG_TOOL_DETAILS=1`): JSON string containing tool-specific parameters. For Claude Desktop's built-in servers, in sessions Claude Desktop owns, the `mcp_server_name`/`mcp_tool_name` pair is included even with the flag off, the same host-authored exception as the [Tool decision event](#tool-decision-event), {/* min-version: 2.1.214 */}requiring Claude Code v2.1.214 or later. The parameters vary by tool:
-  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `dangerouslyDisableSandbox`, and `git_commit_id` (the commit SHA, when a `git commit` command succeeds)
-  * For WorkspaceBash tool: includes `bash_command`, `full_command`, `timeout`
+  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `dangerouslyDisableSandbox`, and `git_commit_id` (the commit SHA, when a `git commit` command succeeds). The desktop app's workspace bash tool also reports `tool_name` as `Bash`, but includes only `bash_command`, `full_command`, and `timeout`
   * For MCP tools: includes `mcp_server_name`, `mcp_tool_name`
   * For Skill tool: includes `skill_name`
   * For Agent tool or legacy Task tool: includes `subagent_type`
@@ -642,6 +662,7 @@ Logged for each API request to Claude.
 * `event.sequence`: monotonically increasing counter for ordering events within a session
 * `model`: Model used (for example, "claude-sonnet-5")
 * `cost_usd`: Estimated cost in USD
+* `cost_usd_micros`: Estimated cost in millionths of a US dollar, emitted as an integer
 * `duration_ms`: Request duration in milliseconds
 * `input_tokens`: Number of input tokens
 * `output_tokens`: Number of output tokens
@@ -769,8 +790,7 @@ Logged when a tool permission decision is made (accept/reject).
   * `"user_reject"`: Emitted when the user chose "No" when prompted. In the interactive CLI this is emitted only for that choice itself; calls that match a deny rule in the user's personal settings emit `"config"` instead. In Agent SDK or non-interactive `-p` sessions, calls that match a deny rule in personal settings emit `"user_reject"`. Treated as a reject.
 * `tool_parameters` (when `OTEL_LOG_TOOL_DETAILS=1`): JSON string containing tool-specific parameters. Same shape as the [Tool result event](#tool-result-event), minus post-execution fields such as `git_commit_id`. Values may differ from `tool_result` for an accepted call if the permission decision rewrites the tool input via `updatedInput`. Use this attribute to see which command was rejected when `decision` is `"reject"`.
   * For `"sdk_host_builtin_mcp"` tools: `mcp_server_name` and `mcp_tool_name` are included even when `OTEL_LOG_TOOL_DETAILS` is off, because the host application defines these names; without them, a rejected call to one of these built-in servers would be unattributable on the default stream. For user-configured MCP servers, the event's `tool_name` is always the literal `"mcp_tool"`, and the server and tool names appear only in `tool_parameters` with the flag on; argument content requires the flag everywhere. {/* min-version: 2.1.214 */}Requires Claude Code v2.1.214 or later
-  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `dangerouslyDisableSandbox`
-  * For WorkspaceBash tool: includes `bash_command`, `full_command`, `timeout`
+  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `dangerouslyDisableSandbox`. The desktop app's workspace bash tool also reports `tool_name` as `Bash`, but includes only `bash_command`, `full_command`, and `timeout`
   * For MCP tools: includes `mcp_server_name`, `mcp_tool_name`
   * For Skill tool: includes `skill_name`
   * For Agent tool or legacy Task tool: includes `subagent_type`
