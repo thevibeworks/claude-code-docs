@@ -14,15 +14,7 @@ You’ll receive an email and an in-product notification letting you know that y
 
 ### Merge and join
 
-Bring your existing data into a new account within your organization’s Enterprise workspace. The following data transfers to your new account:
-
-- Conversations (including starred conversations and artifacts)
-
-- Projects
-
-- Files
-
-- Memory
+Bring your existing data into a new account within your organization's Enterprise workspace. Some things don't move. Most importantly, custom skills and your connected apps stay behind. For the full list of what does and doesn’t move to your new account, see **[What moves when you migrate](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
 
 After the merge, your personal account is deactivated. **This can’t be undone**—once you merge, your data lives in your Enterprise account and your personal account no longer exists.
 
