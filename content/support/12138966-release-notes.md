@@ -18,7 +18,7 @@ Memory on Claude now works as a set of individual, categorized entries that Clau
 
 **A new way to reflect with Claude**
 
-Your monthly recap is a new feature at **Settings > Reflect** that shows you the topics you spent time on, your most active day and peak hour, and observations about how you work with Claude. It's in beta on Free, Pro, and Max plans on the web and Claude Desktop, and requires memory to be on. Alongside it, **Settings > Time and focus** lets you set optional break reminders and quiet hours. For more information, refer to **[See your monthly recap](https://support.claude.com/en/articles/15672559)** and[**Set break reminders and quiet hours**](https://support.claude.com/en/articles/15672868).
+Your monthly recap is a new feature at **Settings > Reflect** that shows you the topics you spent time on, your most active day and peak hour, and observations about how you work with Claude. It's in beta on Free, Pro, and Max plans on the web and Claude Desktop, and requires memory to be on. Alongside it, **Settings > Time and focus** lets you set optional break reminders and quiet hours. For more information, refer to **[See your monthly recap](https://support.claude.com/en/articles/15672559)** and **[Set break reminders and quiet hours](https://support.claude.com/en/articles/15672868)**.
 
 ### July 7, 2026
 
@@ -125,7 +125,7 @@ Our latest model, Claude Opus 4.7, is now generally available. Opus 4.7 shows im
 
 Claude Cowork is now generally available on macOS and Windows through the Claude Desktop app. With this, we’re expanding Claude Cowork with new capabilities:
 
-- **Claude Cowork in the Analytics API.** For more information, see **[Claude Enterprise Analytics API: Access engagement and adoption data](https://support.claude.com/en/articles/13694757-access-engagement-and-adoption-data-with-the-analytics-api)**.
+- **Claude Cowork in the Analytics API.** For more information, see **[Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
 
 - **Usage analytics for Claude Cowork.** For more information, see **[View usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
 

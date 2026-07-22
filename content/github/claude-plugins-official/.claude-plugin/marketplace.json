@@ -612,7 +612,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/buildkite/skills.git",
-        "sha": "e854e111766e9494d742fe6836d5b6ecefd10b68"
+        "sha": "5bbd53d496b9dd5cd7b3e0a2d8345daa333c3f4e"
       },
       "homepage": "https://buildkite.com"
     },
@@ -814,6 +814,17 @@
       "source": "./plugins/claude-md-management",
       "category": "productivity",
       "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-md-management"
+    },
+    {
+      "name": "claude-security",
+      "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose.",
+      "author": {
+        "name": "Anthropic",
+        "email": "support@anthropic.com"
+      },
+      "source": "./plugins/claude-security",
+      "category": "security",
+      "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/claude-security"
     },
     {
       "name": "clickhouse",
@@ -1264,7 +1275,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "1388d4fffdc9024c47d2b9ab1d5d8488414bbfad"
+        "sha": "f2ba3f37f1929a0f9d0071fcbcffa18d2cb38b1e"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1713,7 +1724,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "4b6bb8ffa9bbf6f433ea8d1d8c892363e67e825f"
+        "sha": "84e4eafacdaf96e8d137ba745af750448c5de0de"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1784,7 +1795,7 @@
         "source": "github",
         "repo": "jfrog/claude-plugin",
         "commit": "259c8e718266c16e99b4f30ae9b1ed0f9f00d98d",
-        "sha": "11177f6698405976ee0eecbbfb4857ed9657f19f"
+        "sha": "d899b227a9e425d60b5a224c7ee2c7c6c7a5f977"
       },
       "homepage": "https://jfrog.com"
     },
@@ -2128,7 +2139,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "50b7c34335d6b765dc26c24a3d1e630da49d76e3"
+        "sha": "3384f7f29e267d2756aac4cfa4b48f7fc9171462"
       },
       "homepage": "https://mergify.com"
     },
@@ -2634,7 +2645,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "97f67e13e353a9370b208c7b259dbe7c3768a80b"
+        "sha": "b567c09ec8ab35cc6517cfdbe701a2f12fde195f"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2712,7 +2723,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/quarkusio/quarkus-agent-mcp.git",
-        "sha": "fc71cc709e3262e603c3413cdc243ba78cbd6b5f"
+        "sha": "21f2bf222e57efa6a289d6fa95c9be8445a73fbd"
       },
       "homepage": "https://quarkus.io"
     },
@@ -2972,7 +2983,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "98cd40f91ba943df42382e5216af9f6f17a1c215"
+        "sha": "96cdbdc7aa3cd7d28bd14488adcad6e900465a3c"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3004,7 +3015,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "1a42cfc38a2f12cb2be2a98c6604074446b1639e"
+        "sha": "01eb1f659126d47364045595bcabfd2072ab83a2"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -3221,7 +3232,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/ads-claude-plugin.git",
-        "sha": "9407475a5cd2a3986c48a58020fd47e23f9735e5"
+        "sha": "1421ab69a67f8b0d48d96cdbe277a4a1a92b8d10"
       },
       "homepage": "https://github.com/spotify/ads-claude-plugin"
     },
@@ -3266,7 +3277,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "a3267712f2268975e4ecc5912634d900ae4cb8e6"
+        "sha": "cc67124fa6ed230cda567e598dc9b06e17e23f40"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3439,7 +3450,7 @@
         "url": "https://github.com/SAP/ui-theme-designer-plugins-for-coding-agents.git",
         "path": "plugins/ui-theme-designer",
         "ref": "main",
-        "sha": "6c0910f8b5ef0689090752ed242a713e4f5877f9"
+        "sha": "9dc9e34bb8ac45ab597e8c1e4b54dc42dc0ecf26"
       },
       "homepage": "https://github.com/SAP/ui-theme-designer-plugins-for-coding-agents"
     },
@@ -3576,7 +3587,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/explorium-ai/vibeprospecting-plugin.git",
-        "sha": "1eb655845e2b30a5478747803f364286d60c6332"
+        "sha": "804bab5e0500d7a0f8613a83a3cfe5b79e6a31c3"
       },
       "homepage": "https://www.vibeprospecting.ai/product/claude-plugin"
     },
@@ -3604,7 +3615,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/windsor-ai/claude-windsor-ai-plugin.git",
-        "sha": "248a6994b15b410cc025b105bb4ed5558e9b1af9"
+        "sha": "8a4fed5425bd43f6f57f4543d7acfc0593616846"
       },
       "homepage": "https://windsor.ai"
     },

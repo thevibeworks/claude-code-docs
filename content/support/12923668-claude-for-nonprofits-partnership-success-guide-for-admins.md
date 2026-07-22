@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- Last Published: Tue Jul 21 2026 18:23:05 GMT+0000 (Coordinated Universal Time) --><!--$-->
+<!DOCTYPE html><!-- Last Published: Wed Jul 22 2026 15:43:58 GMT+0000 (Coordinated Universal Time) --><!--$-->
 <html data-wf-domain="websitemain.claude.com" data-wf-page="69309a14a0016339f07e9a97" data-wf-site="6889473510b50328dbb70ae6" data-wf-intellimize-customer-id="117902971" lang="en-US" data-wf-collection="69309a14a0016339f07e9a7f" data-wf-item-slug="claude-for-nonprofits-partnership-success-guide-for-admins"><!--$--><head><meta charset="utf-8"/><!--$--><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><!--/$--><title>Claude for nonprofits partnership success guide for admins | Claude by Anthropic</title><link rel="alternate" hrefLang="x-default" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><link rel="alternate" hrefLang="en-US" href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" property="og:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." property="og:description"/><meta content="Claude for nonprofits partnership success guide for admins | Claude by Anthropic" name="twitter:title"/><meta content="A phased implementation framework to help nonprofit admins launch, scale, and sustain Claude adoption across their organization." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="tPMMBQMBzgZlNmCBal5cMPAx3nhO2iyM4rT9nxuRcdk" name="google-site-verification"/><!--$--><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/css/claude-brand.shared.ffc361636.min.css" rel="stylesheet" type="text/css" integrity="sha384-/8NhY2EPkSij7JGKgCn+hCVJ+C9wuqatC4iqfl2lhnF3aLA9YjFVDy/tf9i4KdxF" crossorigin="anonymous"/><!--/$--><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><!--$--><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/689f4a9aff1f63fde75cf733_favicon.png" rel="shortcut icon" type="image/x-icon"/><!--/$--><!--$--><link href="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c33859cc6cd903686c66a2_apple-touch-icon.png" rel="apple-touch-icon"/><!--/$--><!--$--><link href="https://claude.com/resources/tutorials/claude-for-nonprofits-partnership-success-guide-for-admins" rel="canonical"/><!--/$--><style>.anti-flicker, .anti-flicker * {visibility: hidden !important; opacity: 0 !important;}</style><style>[data-wf-hidden-variation], [data-wf-hidden-variation] * {
         display: none !important;
       }</style><!-- Additional meta -->
@@ -2922,34 +2922,12 @@ document.addEventListener('DOMContentLoaded', function() {
         /* fail silently, default text stays */
       });
   })();
-</script></div></section></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6889473510b50328dbb70ae6" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/js/claude-brand.0bac9fa5.d54d5e4dee708bad.js" type="text/javascript" integrity="sha384-6WoTuYdN1BH99H4vO/E4/osoOeYa1DLwOvTlqDQCh1ODOQAQcljvpZhi54TmN+Nd" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/TextPlugin.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/Flip.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/Draggable.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/InertiaPlugin.min.js" type="text/javascript"></script><script type="text/javascript">gsap.registerPlugin(ScrollTrigger,SplitText,TextPlugin,Flip,Draggable,InertiaPlugin);</script><!-- Directly loaded external custom scripts -->
-<script src="https://cdn.amplitude.com/libs/session-replay-browser-1.29.8-min.js.gz"></script>
-<script src="https://claude.com/shared/webflow-privacy-banner.js"></script>
-<script src="https://claude.com/shared/webflow-custom-tracking.js"></script>
-
-<!-- Swiper JS for Slider component -->
+</script></div></section></div><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=6889473510b50328dbb70ae6" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/js/claude-brand.0bac9fa5.d54d5e4dee708bad.js" type="text/javascript" integrity="sha384-6WoTuYdN1BH99H4vO/E4/osoOeYa1DLwOvTlqDQCh1ODOQAQcljvpZhi54TmN+Nd" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/TextPlugin.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/Flip.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/Draggable.min.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/gsap/3.15.0/InertiaPlugin.min.js" type="text/javascript"></script><script type="text/javascript">gsap.registerPlugin(ScrollTrigger,SplitText,TextPlugin,Flip,Draggable,InertiaPlugin);</script><!-- Swiper JS for Slider component -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <!-- Lottie libraries -->
 <script type="module" src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-
-<!-- Conditionally load external custom scripts
-<script>
-  (function() {
-    const productionDomains = ['claude.com', 'www.claude.com'];
-    const isProduction = productionDomains.includes(window.location.hostname);
-    const env = isProduction ? '' : '?env=staging';
-
-    if (isProduction) {
-      document.write('<script src="https://cdn.amplitude.com/libs/session-replay-browser-1.29.8-min.js.gz"><\/script>');
-    }
-
-    document.write('<script src="https://claude.com/shared/webflow-privacy-banner.js' + env + '"><\/script>');
-    document.write('<script src="https://claude.com/shared/webflow-custom-tracking.js' + env + '"><\/script>');
-
-  })();
-</script> -->
 
 <script>
   /**
@@ -3732,7 +3710,30 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
-</script><script>
+</script>
+
+<!-- Directly loaded external custom scripts -->
+<!-- <script src="https://cdn.amplitude.com/libs/session-replay-browser-1.29.8-min.js.gz"></script> -->
+<script src="https://claude.com/shared/webflow-privacy-banner.js"></script>
+<script src="https://claude.com/shared/webflow-custom-tracking.js"></script>
+
+<!-- Conditionally load external custom scripts
+<script>
+  (function() {
+    const productionDomains = ['claude.com', 'www.claude.com'];
+    const isProduction = productionDomains.includes(window.location.hostname);
+    const env = isProduction ? '' : '?env=staging';
+
+	/*
+    if (isProduction) {
+      document.write('<script src="https://cdn.amplitude.com/libs/session-replay-browser-1.29.8-min.js.gz"><\/script>');
+    }*/
+
+    document.write('<script src="https://claude.com/shared/webflow-privacy-banner.js' + env + '"><\/script>');
+    document.write('<script src="https://claude.com/shared/webflow-custom-tracking.js' + env + '"><\/script>');
+
+  })();
+</script> --><script>
   document.addEventListener('DOMContentLoaded', function() {
     const contentElement = document.querySelector('[data-readtime="content"]');
     const minutesElement = document.querySelector('[data-readtime="minutes"]');
