@@ -18,6 +18,62 @@ Skills can be as simple as a few lines of instructions or as complex as multi-fi
 
 ---
 
+## Record a skill
+
+Recording a skill is available on Pro, Max, and Team plans, in Cowork in Claude for Mac. It isn't available in chat, on Windows, or on Free and Enterprise plans.
+
+Instead of writing a skill by hand, you can record yourself doing a task and let Claude build the skill from what it observes. You send Claude a video of your screen, clicks, typing, and voice, and Claude proposes a skill for you to review before you save it.
+
+### Before you record
+
+1. Update to the latest version of Claude for Mac.
+
+2. Grant the macOS permissions Claude asks for the first time you record: **Accessibility** for mouse and keyboard tracking, and **Screen recording** for screen visibility. macOS may ask you to restart Claude.
+
+3. Close any files, apps, or conversations you don't want captured.
+
+**Warning:** Don't type passwords or secrets, or display sensitive information or private conversations while recording. Everything on your screen is captured for the length of the session, along with anything you say.
+
+### Record your workflow
+
+1. Open Cowork in Claude for Mac.
+
+2. Start a recording one of two ways:
+
+  1. Click the "+" button in the composer, then select "Record a skill."
+
+  2. Go to **[Customize > Skills](https://claude.ai/customize/skills)**, click "Add," then select "Record your screen."
+
+3. Click "Start recording." To narrate as you work, leave the microphone on. Use the microphone control to mute it or choose a different input.
+
+4. Do the task the way you normally would. The capture bar shows that recording is in progress and counts the steps it's captured.
+
+5. Click "Done" when you're finished, or "Discard" to throw the recording away without creating anything.
+
+A recording can run for about 10 minutes. A countdown appears in the capture bar when you have about a minute left. When it reaches zero, recording stops and everything you've captured up to that point is sent to Claude, the same as if you'd clicked "Done."
+
+**Tip:** Talk through what you're doing while you record. Narration gives Claude context it can't get from your screen alone, like why you skip a step or how you choose between two options.
+
+### What happens after you click Done
+
+Claude starts a Cowork task and reviews the recording, then proposes a skill. Depending on what it finds, you'll see one of two things:
+
+- **A new skill,** marked **NEW** on the proposal card. Click "Save" to keep it, or "Dismiss" to discard the proposal.
+
+- **An update to an existing skill.** If the recording overlaps a skill you already have, Claude proposes changes to that skill instead. The card shows which skill the proposal is based on. Click "Update" to apply the changes, or "Dismiss" to discard them.
+
+Expand **Content** on the proposal card to read the skill before you decide.
+
+Skills you save from a recording appear in **[Customize > Skills](https://claude.ai/customize/skills)** and work like any other skill. You can edit them, share them, and delete them on the same terms.
+
+### What's kept from a recording
+
+The video and audio from your recording aren't retained. After you send your recording to Claude, Claude reviews the recording to build the skill. What's saved afterward is a set of screenshots from the session, which you can view by expanding the **Recorded demonstration** step in the task.
+
+Because those screenshots live in the Cowork task, deleting the task removes them. See **[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork)** for how task deletion and retention work.
+
+---
+
 ## Create a skill.md file
 
 Every skill consists of a directory containing at minimum a skill.md file, which is the core of the skill. This file must start with a YAML frontmatter to hold name and description fields, which are required metadata. It can also contain additional metadata, instructions for Claude or reference files, executable scripts, or tools.
