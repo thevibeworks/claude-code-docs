@@ -1,6 +1,6 @@
 # Get started with custom connectors using remote MCP
 
-Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on Free, Pro, Max, Team, and Enterprise plans. Free users are limited to one custom connector. This feature is currently in beta.
+Custom connectors using remote MCP are available on Claude, Cowork, and Claude Desktop for users on Free, Pro, Max, Team, and Enterprise plans. Free users are limited to one custom connector.
 
 ## What are custom connectors?
 
@@ -12,9 +12,9 @@ You can:
 
 - Build your own remote MCP servers to connect with any tool.
 
-**⚠️ Security and Privacy with Custom Connectors (beta)**
+**Security and privacy with custom connectors**
 
-Be aware that custom connectors allow you to connect Claude to services that have not been verified by Anthropic, and allow Claude to access and take action in these services. For more guidance, review the **[Security and privacy considerations](#h_9088ccdf4d)** section below.
+Custom connectors allow you to connect Claude to services that haven't been verified by Anthropic. Once connected, Claude can access those services and take action in them. For more guidance, review the **[Security and privacy considerations](#h_b79c05dfcd)** section below.
 
 ## What are remote MCP servers?
 
@@ -172,7 +172,7 @@ You can interact with these connectors directly — filtering data, checking off
 
 ### Using Claude with Research
 
-**Note:** **[Advanced Research](https://claude.com/blog/integrations)** is not currently able to invoke tools from local MCP servers.
+**Note: [Advanced Research](https://claude.com/blog/integrations)** is not currently able to invoke tools from local MCP servers.
 
 Research allows Claude to deeply investigate queries by searching through hundreds of internal and external sources. During the research process, Claude can invoke tools from your connectors automatically without further approval.
 
