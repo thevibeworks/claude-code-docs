@@ -46,6 +46,8 @@ Both paths move the same content for each person.
 
 - Claude Code cloud sessions (web, scheduled tasks, and mobile)
 
+- Claude Design systems and projects
+
 ### Before you migrate
 
 1. Export any custom skills you want to keep.
@@ -118,7 +120,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1784810700&amp;signature=41ef1b3ac2825c914794b7a798c8a0aaf2d39a2569384ad0ba6231e5a64a0ae3&amp;req=diMmFMh3noJbXvMW1HO4zXhPndQ%2ByR9mufhmlOXMdYb71rJe%2BCRMVW8AZN4U%0AvSR7kiE16NuKBtV3swI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1784980800&amp;signature=60dd26570ec852f287947ea441dc00725b00f80543b7871f8db89cf436e515e8&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01U6E4GA%2BRl6PawEbkBcMal7lXa29fQpgQy%0AQMuNxSYRF5bjFF01396GbN7Drc4%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 
