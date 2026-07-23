@@ -8,4 +8,4 @@
 
 3. Select from Light, System, or Dark under **Color mode**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922579101/ede30d38dca693c59f9c15d79e69/CleanShot+2026-01-08+at+15_45_20%402x.png?expires=1784796300&amp;signature=c85b3d9734842ab25964454fe81307312a6a0eb4b1243399050453663200de7c&amp;req=dSklFMx5lIBfWPMW1HO4zRpFC8wDRBR1O9Kw38RlAYKQnOAjf84Y745853Gl%0AhbaTcvOURT%2BZTL%2Bj39s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922579101/ede30d38dca693c59f9c15d79e69/CleanShot+2026-01-08+at+15_45_20%402x.png?expires=1784810700&amp;signature=94afb1c8f18bc3f1e24a4923ca71a5a6610332f23859f111fe874476c8be096b&amp;req=dSklFMx5lIBfWPMW1HO4zRpFC8wMTBJxO9Kw38RlAYKUsCB%2FrEj%2BdHcqhWSI%0AYu8XrR67AX0s%2B7kQNFY%3D%0A)
