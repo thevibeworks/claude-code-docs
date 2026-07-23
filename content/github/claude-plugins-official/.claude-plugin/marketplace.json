@@ -323,7 +323,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "7e9ce869824c34a871500de216f8e75344195edb"
+        "sha": "e295fd64597c164c31921705b530baadaf60dd87"
       },
       "homepage": "https://auth0.com"
     },
@@ -690,7 +690,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "a6c97d0e25b6c559adb905dd4a6d11ce478aec86"
+        "sha": "de2bc306ba03c3f1fa3b6262ec5b63cc97480f68"
       },
       "homepage": "https://carta.com"
     },
@@ -1724,7 +1724,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "c39f3cf924bb5109bfc0b36f3d7b99a4cb397322"
+        "sha": "7a294f19562928036dae20d5e73c2637d1e19060"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -3015,7 +3015,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "01eb1f659126d47364045595bcabfd2072ab83a2"
+        "sha": "dd1bd4673c3d90a66f7a64a3f1ed91fb8c91d12c"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -3066,7 +3066,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/getsentry/plugin-claude.git",
-        "sha": "003aaa8a1867ac52959ce9b49e7ebd8305a0ceaf"
+        "sha": "8ed4f25563d90806e8a50c7fb78170ede9ca2f5e"
       },
       "homepage": "https://github.com/getsentry/plugin-claude"
     },
@@ -3277,7 +3277,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "cc67124fa6ed230cda567e598dc9b06e17e23f40"
+        "sha": "1b71f4bcc916dcabda8816964091ab23664c84df"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3626,7 +3626,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "f3e0af79941465142790e4b972c5d4a856dbbc2e"
+        "sha": "1f45b5dfc8431fa523fb055824f86742af259373"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3666,7 +3666,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/youdotcom-oss/agent-skills.git",
-        "sha": "4712250ae8e5ce3095cad3b43b62b33608888863"
+        "sha": "b390ddb6d0b6c0ec650ce1991eb0c601075476da"
       },
       "homepage": "https://you.com"
     },
