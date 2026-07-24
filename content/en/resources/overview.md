@@ -7,6 +7,10 @@ Model cards, learning resources, and documentation formats optimized for AI inge
 ## Model cards
 
 <CardGroup cols={3}>
+  <Card title="Claude Opus 5 System Card" icon="file" href="https://www.anthropic.com/claude-opus-5-system-card">
+    Detailed documentation of Claude Opus 5.
+  </Card>
+
   <Card title="Claude Sonnet 5 System Card" icon="file" href="https://www.anthropic.com/claude-sonnet-5-system-card">
     Detailed documentation of Claude Sonnet 5.
   </Card>

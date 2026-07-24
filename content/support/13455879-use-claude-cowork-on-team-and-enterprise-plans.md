@@ -14,23 +14,47 @@ Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
   - **Windows users:** Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
 
+- **Web**, at claude.ai
+
+- **Claude Mobile**, in the latest version of Claude for iOS and Claude for Android
+
+Starting August 3, 2026, Claude Cowork is in beta on web and mobile for Team and Enterprise plans. On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
+
 ---
+
+## Where Cowork runs
+
+During the beta, Cowork sessions can run in two places:
+
+- **Sessions in the cloud (beta starting August 3, 2026):** Running Cowork in the cloud lets members run tasks on Anthropic's infrastructure instead of their own machines. This means work continues across desktop, web, and mobile and scheduled tasks run when the laptop closes and no device is online.
+
+- **Local sessions:** Claude's work runs on the user’s computer, with code in an isolated virtual machine.
 
 ## Admin controls
 
 Claude Cowork is on by default, but organization owners can manually disable it.
 
-**How to enable or disable Cowork:**
+### Enable or disable Cowork
 
 1. Log in to your Team or Enterprise organization as an Owner or Primary Owner.
 
-2. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
+2. Navigate to **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**.
 
-3. Locate the **Cowork** toggle.
+3. Locate the **Enable for your organization** toggle under **Cowork**.
 
 4. Toggle off to disable Cowork for all users in your organization.
 
+This toggle controls whether Cowork is available at all. Whether sessions can run in the cloud is a separate control.
+
 **Note:** This is an organization-wide setting. On Enterprise plans, you can use groups and custom roles to enable Cowork for specific teams. See **[Access controls](#h_8465b1b558)** below.
+
+### **Enable or disable sessions in the cloud**
+
+For Team and Enterprise plans, there's a separate organization-wide toggle in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)** under "Run Cowork in the cloud."
+
+- **Team plans:** on by default. An owner can turn it off any time from the "Run Cowork in the cloud" toggle.
+
+- **Enterprise plans:** off by default. An owner turns on "Run Cowork in the cloud," then grants the Cowork in the cloud capability to a group with custom roles. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
 ### Connector tool approvals
 
@@ -58,7 +82,7 @@ For details on what members can do with plugins, see **[Use plugins in Cowork](h
 
 Projects in Cowork let users organize tasks into dedicated workspaces with their own files, links, instructions, and memory. Projects are available to all Cowork users. There are no separate admin controls for projects, so owners cannot restrict project creation at the organization level at this time.
 
-Project data (tasks and memory) is stored locally on each user's computer, consistent with how other Cowork data is handled. For full details, see **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork).**
+Projects are available wherever members use Cowork. Projects tied to a local folder support Cowork sessions on desktop only. For local sessions, project data is stored on the user's computer; for sessions in the cloud, projects are saved with the member's Claude account. For full details, see **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork).**
 
 ---
 
@@ -90,15 +114,17 @@ Team and Enterprise owners can stream Cowork events to your SIEM and observabili
 
 You can also refer to **[Monitoring](https://claude.com/docs/cowork/monitoring)** in our Claude Docs for more information.
 
-Cowork activity is **not captured** in the Compliance API at this time.
+Cowork via mobile and web is captured in the Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
 
 ### Local conversation storage
 
-Cowork stores conversation history locally on users' computers. This data is not subject to Anthropic's standard **[data retention policies](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** and cannot be centrally managed or exported by admins.
+For local sessions, Cowork stores conversation history locally on users' computers. This data is not subject to Anthropic's standard **[data retention policies](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** and cannot be centrally managed or exported by admins.
+​
+For sessions in the cloud, your sessions and files are saved to your Claude account.
 
 ### Access controls
 
-The Cowork toggle is organization-wide—either all members have access or none do. On Enterprise plans, admins who need per-team control can use **[groups and custom roles](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)** to selectively enable Cowork for specific users or teams. Team plans don't have access to these controls, so Cowork remains all-or-nothing.
+The Cowork toggle is organization-wide—either all members have access or none do. On Enterprise plans, admins who need per-team control can use **[groups and custom roles](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)** to selectively enable Cowork or grant the "Run Cowork in the cloud" capability to specific users or teams. Team plans don't have access to these controls, so Cowork remains all-or-nothing.
 
 Within Cowork, admins have more granular control over plugins. You can set per-plugin installation preferences to control which plugins are auto-installed, available for self-service, or hidden from your organization's catalog. On Enterprise plans, these preferences can also be customized per group. See **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)** for details.
 
