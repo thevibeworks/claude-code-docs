@@ -18,7 +18,7 @@ Team and Enterprise plan admins can enable this organization-wide by following t
 
 2. Find the **Claude Design** toggle under **Anthropic Labs** and switch it on.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1784827800&amp;signature=0a0e4c0af3fdc72e2576eeedad21a4d1e5b3aa2cd188757a5bb46f3779f2855b&amp;req=diIvH8t6nYFdXPMW1HO4zahp3eYAG%2BEtDIPtKBLQ9H9%2B6cr%2BzVNCnZx9kRz4%0ASc%2B9LfeUCUaJQMCTNys%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1784980800&amp;signature=25f950cb52a497686fb33b50ae9a4e0071a8d9339c71391947ef63b2c6b4dacc&amp;req=diIvH8t6nYFdXPMW3nq%2BgfN19eUWkgqeL6SUW1g04y7e7B7wooY4z0nLQaQq%0Awq3UKNjDbzq841rC%2B%2F9r%2FHcS%2FCs%3D%0A)
 
 ---
 
@@ -162,9 +162,11 @@ We have more tutorials available here:
 
 ## Monitor usage
 
-Claude Design doesn’t support audit logs or usage tracking yet.
+Track Claude Design adoption from the analytics dashboard. Navigate to **[Analytics > Claude Design](https://claude.ai/analytics/claude-design)** to view daily, weekly, and monthly active users for your organization. Claude Design is also available as a product filter on the Overview tab. Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
 
-We recommend tracking adoption qualitatively during your rollout—check in with each group as they onboard, collect feedback, and sample a few projects periodically to assess design system compliance.
+Claude Design doesn't support audit logs yet.
+
+We also recommend supplementing analytics with qualitative check-ins during your rollout: gather feedback from each group as they onboard, and sample a few projects periodically to assess design system compliance.
 
 ## Data handling and privacy
 
@@ -220,7 +222,7 @@ If you haven't assigned the **Claude Design Admin** permission to anyone, any me
 
 ### Can I restrict Claude Design to specific departments?
 
-Yes. Use the RBAC controls to grant access to specific groups or departments rather than enabling it org-wide.
+Yes. Enterprise plans can use custom roles to grant access to specific groups or departments rather than enabling it for the whole organization.
 
 ### How many users can we onboard at once?
 

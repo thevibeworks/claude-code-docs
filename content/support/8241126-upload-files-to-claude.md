@@ -72,6 +72,8 @@ Files can be uploaded to individual chats or uploaded to a project's **Files** s
 
 - **Image dimensions:** Up to 8000x8000 pixels
 
+- **Number of pages:** PDFs are limited to 1000 pages
+
 ### Project files
 
 - **File size:** 30MB per file
@@ -86,7 +88,7 @@ Files can be uploaded to individual chats or uploaded to a project's **Files** s
 
 ## PDF processing
 
-Claude models can analyze both text and visual elements (like images, charts, and graphics) in PDFs that are under 100 pages. Claude will only process text from PDFs over 1000 pages.
+Claude analyzes both text and visual elements (like images, charts, and graphics) in PDFs of 100 pages or fewer. For PDFs from 101 to 1000 pages, Claude processes text only and doesn't analyze visual elements. You can't upload PDFs over 1000 pages. If you try, you'll see an "Uploaded file is too large" error.
 
 ---
 

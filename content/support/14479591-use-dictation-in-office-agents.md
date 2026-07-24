@@ -4,6 +4,8 @@ Dictation lets you speak your prompts instead of typing them when using Office a
 
 Dictation is available for organizations that sign in with Claude directly. It isn't available when Office agents is configured with third-party authentication such as a gateway, Vertex AI, or Bedrock. See below for more information.
 
+**Note:** Dictation is different from voice mode. Dictation turns your speech into text so you can send a written prompt, and Claude replies in text. Voice mode is a full spoken conversation—you talk to Claude and Claude talks back, and it can use your connected tools. Learn more about **[voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.
+
 ## How it works
 
 When you click the microphone, Office agents streams your audio to Anthropic's transcription service, the same infrastructure that powers dictation in the Claude apps. The transcribed text appears in the composer in real time. Click the microphone again to stop, or press Enter to stop and send in one step.

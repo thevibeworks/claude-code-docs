@@ -70,9 +70,7 @@ This will share the project and knowledge base with the member, but your chats w
 
 ### Add members in bulk
 
-You can add multiple users at once by copying and pasting a list of email addresses into the **Invite by email** field after clicking “Share”:
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370992/bf398ea46d3f66fe8212d09606e4/ec04a13f-4d56-43cd-9f23-0cb5933af75b?expires=1784916000&amp;signature=eaa6bc880aeca6ab0ceec283357aa0eb889ac5dd0adc156ae72735e8ad95dce3&amp;req=dScjFsp5nYhWW%2FMW3nq%2BgXqiaM3KpXwBS7aaSmlgFeDg%2BSRZ1nWHjU1Jvs3o%0AzX3nCTls7I7s%2BuIH4IlO26Vnm1U%3D%0A)
+You can add multiple users at once by copying and pasting a list of email addresses into the **Add people or groups** field after clicking “Share."
 
 ### Share a project with a group
 
@@ -111,13 +109,13 @@ A few things to know:
 When someone shares a project with you, you'll receive an email notification letting you know about the new shared project and your permission level.
 ​
 
-### “Shared with me” tab
+### “Shared with you” tab
 
-Projects that have been shared with you will appear in a "Shared with you" tab on your [Projects section](https://claude.ai/projects?category=shared_with_me), making it easy to find and access collaborative work.
+Projects that have been shared with you will appear in a "Shared with you" tab on your **[Projects section](https://claude.ai/projects?category=shared_with_me)**, making it easy to find and access collaborative work.
 
 ### What happens when archiving a shared project?
 
-When a project is archived, all sharing permissions are reset to private and previous sharing context is wiped for security.
+Archiving a project doesn't reset its sharing permissions or remove members. All members, permission levels, and project knowledge are preserved, and everything is restored exactly as it was when you unarchive the project. To revoke someone's access, remove them in the project's sharing settings before or after archiving.
 
 ## Share and unshare chats
 
