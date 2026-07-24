@@ -131,7 +131,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/alloydb.git",
-        "sha": "8ac1efeaf074f4d581c3b9b1512d02f5b18626c5"
+        "sha": "3ce1fe143644c31c0ffeb904b31634f8cea06e0c"
       },
       "homepage": "https://cloud.google.com/alloydb"
     },
@@ -731,7 +731,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "73a53af07b543f95902364add2f16a137ce849b1"
+        "sha": "e2c19fed80fccd6cadd3b4e45151ac661420e90a"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -2659,7 +2659,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "b567c09ec8ab35cc6517cfdbe701a2f12fde195f"
+        "sha": "6cb1aff3458fcc180ca343dca0fa25d460d7cab0"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2997,7 +2997,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "606f7710da23278f15f9a9d102b160bbab17962c"
+        "sha": "a57c4b5496674f539ebc89e78a315166ee8f454b"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3291,7 +3291,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "1b71f4bcc916dcabda8816964091ab23664c84df"
+        "sha": "84c364c683c58ba8dfbc003d812e6a35f4c97b47"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3325,7 +3325,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/obra/superpowers.git",
-        "sha": "d884ae04edebef577e82ff7c4e143debd0bbec99"
+        "sha": "3dcbd5c4b48e02263fbf4a3c01e3fe4f81d584d9"
       },
       "homepage": "https://github.com/obra/superpowers.git"
     },
