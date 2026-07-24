@@ -40,8 +40,6 @@ Claude can help you:
 
 When Claude determines that using one of these features would be helpful, it will automatically suggest it. You'll see a card or prompt within your conversation that lets you review and take action with Claude’s help.
 
-**Note:** Most functionality described below is not compatible with our voice mode beta feature at this time. For more information, see **[Use voice mode](https://support.claude.com/en/articles/11101966-)**.
-
 ### Send texts and emails with Messages and Mail
 
 1. Ask Claude to help draft a message or email (for example: "Help me write a text to my team about tomorrow's meeting").

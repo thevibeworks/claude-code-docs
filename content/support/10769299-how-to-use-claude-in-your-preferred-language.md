@@ -39,3 +39,7 @@ Claude is available in multiple languages on web and desktop applications.
 4. The interface will update automatically.
 
 **Note:**  Even if you've changed your language settings, you can still chat with Claude in any language. Claude will converse with you in the language you use.
+
+## Voice mode languages
+
+Voice mode has its own language setting, separate from your display language. To change the language Claude speaks and listens to in voice mode, go to **[Settings > General](http://claude.ai/settings/general)**, then find **Voice > Language** and choose a language. Learn more in **[Use voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.

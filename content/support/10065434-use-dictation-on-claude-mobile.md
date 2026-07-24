@@ -1,8 +1,10 @@
 # Use dictation on Claude Mobile
 
-Dictation is available to all Claude users (Free, Pro, Max, Team, and Enterprise plans).
+Dictation is available to all Claude users (Free, Pro, Max, Team, and Enterprise plans). Support for languages other than English is in beta.
 
 Dictation allows you to speak your prompts instead of typing them when using Claude for iOS or Android.
+
+**Note:** Dictation is different from voice mode. Dictation turns your speech into text so you can send a written prompt, and Claude replies in text. Voice mode is a full spoken conversation—you talk to Claude and Claude talks back, and it can use your connected tools. Learn more about **[voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.
 
 ## Get started with dictation
 
