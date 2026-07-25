@@ -1166,7 +1166,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "3e89ba0527440893bcd085aa69fd1943c9e2c576"
+        "sha": "c6607d437af4721e9e3fd4c1ed17929a493e879f"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1205,7 +1205,7 @@
         "url": "https://github.com/databricks/databricks-agent-skills.git",
         "path": "plugins/databricks/claude",
         "ref": "main",
-        "sha": "3d79814688e28765db0153eddcf6ec74972c75b4"
+        "sha": "fe11006e356b6d995bb4aa359d428c61908914d3"
       },
       "homepage": "https://developers.databricks.com/"
     },
@@ -1500,7 +1500,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/firestore-native.git",
-        "sha": "081f1addde0ca821e0f761a8c4b1f96a12fa452c"
+        "sha": "dfe84c0d5711f2ada600ae2731ae274eee4703bb"
       },
       "homepage": "https://github.com/gemini-cli-extensions/firestore-native"
     },
@@ -1710,7 +1710,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/huggingface/skills.git",
-        "sha": "28525c599a24af10eff5900513261e6dc6631543"
+        "sha": "87f9ee5b670a630b022809a8742606c6da21812c"
       },
       "homepage": "https://github.com/huggingface/skills.git"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "e7f9918d21f9fa57f1799c7b3ba38963cfcb52f1"
+        "sha": "1f9a8f0985008d67ea805141043af9428ff4f55e"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2235,7 +2235,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mlflow/skills.git",
-        "sha": "c33bb3d303a2c6113bbaed6dbfe756e88e80f1df"
+        "sha": "c8228eef0da8d18ac34aa632e1276ce7da985363"
       },
       "homepage": "https://mlflow.org/"
     },
@@ -2277,7 +2277,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "6ca24e462031daf8268471b2bc6bcce1516847da"
+        "sha": "7de230f8ed6781fd1bc5f766c40be4d39ae4d0b0"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -2659,7 +2659,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "6cb1aff3458fcc180ca343dca0fa25d460d7cab0"
+        "sha": "6add4dc7ecde63a059103cf2a65444d04db25cc4"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2810,7 +2810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "7db78669853c2443c0bc841061e7ceb9f16d16cb"
+        "sha": "6c1d6747e049645156995e1b163bc7d7a0dc0d7f"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
