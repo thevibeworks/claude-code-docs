@@ -323,7 +323,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "e295fd64597c164c31921705b530baadaf60dd87"
+        "sha": "e6ffc31f1a77047b96e8075c8834aca8db4ca6fa"
       },
       "homepage": "https://auth0.com"
     },
@@ -690,7 +690,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "0ee7645485815d49458449b44047cf431a71f456"
+        "sha": "5236d61b427f4f67ff14c66108bc38edd19c67b3"
       },
       "homepage": "https://carta.com"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "1f9a8f0985008d67ea805141043af9428ff4f55e"
+        "sha": "f9f00b0efc2d1006967d5b2e0009ea3c3f6ed2e6"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2810,7 +2810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "6c1d6747e049645156995e1b163bc7d7a0dc0d7f"
+        "sha": "1bf231715bb54b8bc5e6d8e3134138b82d9df141"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
