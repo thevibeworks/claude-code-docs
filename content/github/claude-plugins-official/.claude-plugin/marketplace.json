@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "f9f00b0efc2d1006967d5b2e0009ea3c3f6ed2e6"
+        "sha": "a06973064a8e1c7b2cb6410101f7b11a955458a1"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2810,7 +2810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "1bf231715bb54b8bc5e6d8e3134138b82d9df141"
+        "sha": "d9480ec64ca9311898f970936d0ce4866413f160"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },

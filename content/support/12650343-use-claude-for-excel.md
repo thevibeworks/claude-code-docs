@@ -330,7 +330,7 @@ Users can approve all of Claude’s actions via a confirmation pop-up that appea
 
 - System information: REGISTER.ID, RTD, INFO
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1849431310/ffc870a5114b4178fcd74b5cccf8/Screenshot+2025-11-25+at+11_30_10%E2%80%AFAM.png?expires=1785069000&amp;signature=296933898e72537aba6c972450814633999b76c0ef5f90694965853e0b7e453f&amp;req=dSgjH819nIJeWfMW1HO4zYWKaOdrJNNyqAsRdssXCyDhRLvfIc5ONLgdtRnA%0Ak0kbtAn2l7vZv44Qmdk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1849431310/ffc870a5114b4178fcd74b5cccf8/Screenshot+2025-11-25+at+11_30_10%E2%80%AFAM.png?expires=1785086100&amp;signature=302d0b3b389237b600daede81d3dd637448c613d6ed420c238f2c41ec67197e8&amp;req=dSgjH819nIJeWfMW1HO4zYWKaOdrKtxzqAsRdssXCyBTsh7Ll9mDHSlDzL3m%0AxwPhtqmmdy2b4meR2Bc%3D%0A)
 
 While we continue to develop our offerings and improve safety measures to reduce these risks, users should exercise caution when using Claude for Excel and should not use it with spreadsheets from external, untrusted sources.
 
