@@ -66,7 +66,7 @@ Create roles that delegate parts of administration without granting the Owner ro
 
 4. For each team or department, decide which features they need access to.
 
-![Image of the Organization settings page in Claude, with a box around the People section which contains three options: Members, Groups, and Roles.](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484535492/d17b343f54f754bb3af73fe880a9/Org+settings+-+People.png?expires=1785086100&amp;signature=910dafe60d563758f2a612390ab3a2578fe66fd45cbd7bd0e76e826dc37b10eb&amp;req=diQvEsx9mIVWW%2FMW1HO4zVA%2FMt%2BQJ4urvDbmWeIt%2FcRGym1DgzBJEMAj4P07%0AY069CS5Zt9X5ZhEF1zI%3D%0A)
+![Image of the Organization settings page in Claude, with a box around the People section which contains three options: Members, Groups, and Roles.](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484535492/d17b343f54f754bb3af73fe880a9/Org+settings+-+People.png?expires=1785128400&amp;signature=e215d6005cdc310f736889afd1c96788f54677057b33ea7a179a6e9e1395467b&amp;req=diQvEsx9mIVWW%2FMW1HO4zVA%2FMt%2BRLYWuvDbmWeIt%2FcTANUuWH53AG1IT3Sf4%0A56SVkrOt%2FFgjh1RTgeI%3D%0A)
 
 Remember: any feature you want to control per-group must be **enabled** at the organization level. If a feature is toggled off at the organization level, no custom role can grant access to it.
 
@@ -84,7 +84,7 @@ Create your custom roles before enabling any features or migrating members. This
 
 3. Name the role and toggle the appropriate capabilities on the **Capabilities** tab, or choose "All capabilities" or "All generally available" to grant everything at once:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2539844315/2e98adc9b24a95bf64b7ef759c94/a0c6bd31-327c-48b8-9ece-1b985eafccec?expires=1785086100&amp;signature=7abd9f45a7dc2468d9596ee5fb4de7f39165551d2df4ca726875d3d34c0a57e4&amp;req=diUkH8F6mYJeXPMW1HO4zfzK2Oba7t87Jsssa0E%2FK2Z3vmIP56jKLj66fD9W%0A2Y%2B2%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2539844315/2e98adc9b24a95bf64b7ef759c94/a0c6bd31-327c-48b8-9ece-1b985eafccec?expires=1785128400&amp;signature=417c9f14ec922e615b572ab4c36d94ab8391e5b15fbeffe756b741f30310b1c7&amp;req=diUkH8F6mYJeXPMW1HO4zfzK2Obb5NE%2BJsssa0E%2FK2Y7CnRWnol9S4PY%2Bev0%0AVQLF%0A)
 
 4. On the **Permissions** tab, set admin permissions for the role. See **Step 3**.
 
@@ -114,7 +114,7 @@ Set admin permissions on each role to delegate access to admin settings, like bi
 
 3. Select the **Permissions** tab, between **Capabilities** and **Connectors**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484538453/66f52673b2d1fc7b0d4b48ed4ff6/fbf992ce-c4a1-402e-80cd-0c8449f916bd?expires=1785086100&amp;signature=b34d4bfbe7afa85d19547398ce4fed8ff9c2f2757e8a4f2e16e7b97a79a83cb3&amp;req=diQvEsx9lYVaWvMW1HO4za6MibenVESGJQR8u%2B9qQFk4HO%2Bv0kJrCD4QYwPw%0Au25JUsEwpDlJv%2BOb7ko%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484538453/66f52673b2d1fc7b0d4b48ed4ff6/fbf992ce-c4a1-402e-80cd-0c8449f916bd?expires=1785128400&amp;signature=fd0ece12b408c2a82ed5d3c9b8eeede2026d350dbcfe9160d0140ee1000a361c&amp;req=diQvEsx9lYVaWvMW1HO4za6MibemXkqDJQR8u%2B9qQFnN7m6p%2FbHDpp0fa%2BsI%0AK6VEZjgG0CSRRM40yTU%3D%0A)
 
 ### **Set admin permissions**
 
@@ -154,7 +154,7 @@ Set connector permissions on each role to control which connectors, and which to
 
 The default settings for new roles are permissive. When creating or modifying a role, confirm the settings on each tab to avoid granting unintended permissions.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484539079/2325428311fffccd6951d5f2dc46/e4326a16-d44b-4e5d-9ecd-5c3dbbc7651a?expires=1785086100&amp;signature=8020c6553960ec366d3f7428b5bb2250bf1d0dd179d2b19ec18e38e9e1f7822c&amp;req=diQvEsx9lIFYUPMW1HO4zZGDXFyjAPBzHNJQDqL6ZaDord4NjCUXNmTZUEZu%0AnG3wV1C1jWSMlRTZy64%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484539079/2325428311fffccd6951d5f2dc46/e4326a16-d44b-4e5d-9ecd-5c3dbbc7651a?expires=1785128400&amp;signature=37684828ec25c843db4e2256e4a62f3f3169ae1df3dc2628805da6aab49a9a59&amp;req=diQvEsx9lIFYUPMW1HO4zZGDXFyiCv52HNJQDqL6ZaDMZ%2FnfwrYZBM0tIEmp%0AzubkiJK%2FGSQ2XwVI5wY%3D%0A)
 
 ### Set connector-level permissions
 
@@ -170,7 +170,7 @@ The **Connectors** tab lists an **All connectors** row at the top, followed by e
 
 Choosing “Always allow,” “Needs approval,” or “Blocked” applies that level to every tool on the connector. The **All connectors** row works the same way one level up: it sets a baseline for every connector at once, including any connector you add later. Use it to set a role’s default, then override individual connectors.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484540660/36fd30e963d7881bbff5b85bdf32/cc91e30c-af8c-4271-bff4-b34393d6122e?expires=1785086100&amp;signature=13efae96211b50cd303895b230940cb7ecedf78afe2c97fc453428def6bf2bb9&amp;req=diQvEsx6nYdZWfMW1HO4za3dLAOH1IAp%2B48W%2BGCIbmfrZzZT%2BNcyml8B8e1t%0APhyqmw%2FxHFrxT1P%2FUKk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484540660/36fd30e963d7881bbff5b85bdf32/cc91e30c-af8c-4271-bff4-b34393d6122e?expires=1785128400&amp;signature=1965d7a2a036798fae348ab017d88e77ce0164806c903de6e224a8b7dd6724a8&amp;req=diQvEsx6nYdZWfMW1HO4za3dLAOG3o4s%2B48W%2BGCIbmc3G%2FHlIN%2FlX%2FRLulSM%0ABihNNUPdzLIcq3gBbFY%3D%0A)
 
 ### Set per-tool permissions
 
@@ -178,7 +178,7 @@ Set a connector to **Custom** to reveal its tools as individual rows. Each tool 
 
 Per-tool permissions let a role reach part of a connector. For example, with Jira set to **Custom**, its `search_issues` tool set to “Needs approval,” and every other Jira tool set to “Blocked,” members with the role can search Jira but nothing else. Claude only sees the tools you’ve granted, so asking it to create a ticket returns “I don’t have a tool for that” rather than an error.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484553274/3c0781dc9c7704a7b67d4858b88b/Screenshot+2026-06-17+at+4_28_45%E2%80%AFPM.png?expires=1785086100&amp;signature=f5d25da3d2411c1a4562c8409047deafc3268d59f9fb431fbde2d309f2acf7e2&amp;req=diQvEsx7noNYXfMW1HO4zXcI%2BoJADNli1VjQ9K3ENRvBFyqPwtFldQBvh96A%0AmAzZNIoBVU1%2BRtZmROc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484553274/3c0781dc9c7704a7b67d4858b88b/Screenshot+2026-06-17+at+4_28_45%E2%80%AFPM.png?expires=1785128400&amp;signature=375972eb1fbe1ad4a7904d79ff298cd82a5f752e5ef076ae31e5bf9a1b844963&amp;req=diQvEsx7noNYXfMW1HO4zXcI%2BoJBBtdn1VjQ9K3ENRs0czyjf%2B%2FhEiwRgGCV%0ABwP9o%2BunjyzBSEAwD5Q%3D%0A)
 
 ### Review cross-role conflicts
 
@@ -186,7 +186,7 @@ Because connector permissions are additive across roles, blocking a connector in
 
 If you have unsaved edits when you open a linked role, you’re asked to discard them first.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484556183/b644bbfba5350ae2a460117f23e3/Screenshot+2026-06-17+at+4_31_03%E2%80%AFPM.png?expires=1785086100&amp;signature=f4264494bd63341fad55cb99021d090ec7fd573c8ee1a159c823e74d1872cdfa&amp;req=diQvEsx7m4BXWvMW1HO4zX8ytugF6dLWGc8KkqwXsZ6XwUYHOohO67iBtXj0%0ASSsJ5cSTmQ87ZvGixmk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484556183/b644bbfba5350ae2a460117f23e3/Screenshot+2026-06-17+at+4_31_03%E2%80%AFPM.png?expires=1785128400&amp;signature=e1ce48b41bc2c713a1efa7edc677d1f244f3a5f3a6d14c6c77291c0223e57d69&amp;req=diQvEsx7m4BXWvMW1HO4zX8ytugE49zTGc8KkqwXsZ6iT9kU5%2FGzaCxfXroG%0ALFCIZxhuLT93aJPTTlI%3D%0A)
 
 ### Verify enforcement
 
@@ -236,13 +236,13 @@ Verify model access after you've migrated members to "Custom" roles. See **Step 
 
 4. Assign each group to the custom roles you created in step 2.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260371973/b503c99ef71d8a89b7aff606511b/b1afd593-3b23-4fa9-8b9b-ee6beaf74fd7?expires=1785086100&amp;signature=9eb3cef2eb28de27190fe03e3f9375c0916c8488bf5b00241dc1c08d679884ef&amp;req=diIhFsp5nIhYWvMW1HO4zdMu8WV2Eg9rKwlCydrbfL4g1KF%2BBoO2oEeB5IvB%0AWWqvkXlvAXyIepFADmo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260371973/b503c99ef71d8a89b7aff606511b/b1afd593-3b23-4fa9-8b9b-ee6beaf74fd7?expires=1785128400&amp;signature=8d6d799430967fb1dba82f79da55f2d3ce650e337368d86f1cef2c74a02e7f26&amp;req=diIhFsp5nIhYWvMW1HO4zdMu8WV3GAFuKwlCydrbfL59Pzb9I8GbOVYhV6nh%0A%2BnYu9Tn7kQCkVoqk4AI%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260372813/83ccc4784bdfc8600101bc42ec4b/6e7456ac-9887-4e04-b757-3972110fbdce?expires=1785086100&amp;signature=e7e5ad20cad23c80c18ddf43d4e63ce06af421206a1d7bf9886879877f714565&amp;req=diIhFsp5n4leWvMW1HO4zQetnyZXbKn5czQdKdGFNsfBBKk7txtFFLYgjKLr%0AH61UbfvFUUZ443a7FAE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260372813/83ccc4784bdfc8600101bc42ec4b/6e7456ac-9887-4e04-b757-3972110fbdce?expires=1785128400&amp;signature=bf4b99867e155f649d1a1c86220dc4ed4c5155574471a718d4f4bcbdf0e632ac&amp;req=diIhFsp5n4leWvMW1HO4zQetnyZWZqf8czQdKdGFNsdPwdsRj95YHRqgMCOB%0AcLpTXJRw4%2F0VDFcQthU%3D%0A)
 
 If you use SCIM directory sync, you can sync groups from your identity provider instead of creating them manually. For details on SCIM group sync, see **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260374677/5f9d8febb8ae25153a94d0b827b9/c8314b27-96c1-4743-ae8b-25e511181837?expires=1785086100&amp;signature=f6da2d397b1fd53d60c3d2a20578344cc6299bc5d9d697d5ccd16eb9f54fb097&amp;req=diIhFsp5mYdYXvMW1HO4zXzl64p14D2bKYkQn0Dd8NUOXEKrQm16lAiIzAmv%0A3LEiDeVXcsU2m389Tg0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260374677/5f9d8febb8ae25153a94d0b827b9/c8314b27-96c1-4743-ae8b-25e511181837?expires=1785128400&amp;signature=619ac7c1cb07248b85c8d3035343aa92a2afce77b6a37222a992fef798ee5542&amp;req=diIhFsp5mYdYXvMW1HO4zXzl64p06jOeKYkQn0Dd8NWjbZMbmXCmGNKnqzBM%0AhwIa0SzgKkwO%2BRLskgk%3D%0A)
 
 **Multiple organizations under the same parent organization:** Groups are managed at the parent organization level and propagate to all child organizations. You may see members from other organizations listed in a group—this doesn't mean they have access to your organization. Custom roles assigned to a group only grant capabilities to members who are part of your specific organization.
 
@@ -284,7 +284,7 @@ Use this path only if your organization already enabled group mappings for role 
 
 3. Save your changes. Members in those IdP groups are migrated to "Custom" roles on the next sync.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2434934020/d154818947d8d84ebf1aec8d5462/image.png?expires=1785086100&amp;signature=380abcbcafb22ff765efb8c5807f73037a56a595cae51a73e30585cfb45dcac2&amp;req=diQkEsB9mYFdWfMW1HO4zQyCmErjQUNpSnpHYy0fFQv82VZYTUHFo5982Eqp%0Aff9YEHv6dkWBdkW%2F3DQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2434934020/d154818947d8d84ebf1aec8d5462/image.png?expires=1785128400&amp;signature=e91b6e860251062780f17d49d704a0bd0a82af3aa916d8bc33d26d38408f030c&amp;req=diQkEsB9mYFdWfMW1HO4zQyCmEriS01sSnpHYy0fFQvbLi1XfGsl44LJ%2BIya%0AQ%2BdhngwZSaNQJv4FPUg%3D%0A)
 
 Members in IdP groups mapped to "Custom" roles follow the permissions of the custom roles assigned to their groups in Claude. Members in IdP groups mapped to User follow the organization-level capability settings. If a member is in groups across both mappings, "Custom" roles take precedence.
 
@@ -300,11 +300,11 @@ Use this path if your organization hasn’t enabled group mappings.
 
 3. Use the bulk assignment tool in the Members table to change the selected members' role to "Custom."
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260377969/ba3b7ba08518f0a50e2a84f82655/bdf1aea3-2fe7-4f3c-868b-cc35ae8b7d1d?expires=1785086100&amp;signature=0bcadaa2c70a3f195ca090f3524c028b446038be3b70be1c8e4807110a4beca9&amp;req=diIhFsp5mohZUPMW1HO4zYFuwIQijc%2BNlPaXg%2F0URImSfDJ%2Bv9tQPEtgnUHb%0ATrf5DQFO2mPsYO%2BdI1I%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260377969/ba3b7ba08518f0a50e2a84f82655/bdf1aea3-2fe7-4f3c-868b-cc35ae8b7d1d?expires=1785128400&amp;signature=e498ae5c8cd4ff0a8a0cf871e945d14b34ba4b4ddf9a6a9b860725245d17decf&amp;req=diIhFsp5mohZUPMW1HO4zYFuwIQjh8GIlPaXg%2F0URIkCTRRJtqdcGKQweImB%0Aj%2BcbWvcUswivTvvf3%2BY%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260378309/abe25b6478c721a2f965b35361b7/beff124a-0a44-4f7f-97f8-391ce6e8c55b?expires=1785086100&amp;signature=41379feee415ef1166a8fff88e0d7ff4ce5483e2371caf056fd867452368fa21&amp;req=diIhFsp5lYJfUPMW1HO4zRgyEF3cW%2B%2FXZ8KPhClFzQmtqxiH5FKSHq9edIr6%0Asr6Aa2dm5naX3Fof%2FdY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260378309/abe25b6478c721a2f965b35361b7/beff124a-0a44-4f7f-97f8-391ce6e8c55b?expires=1785128400&amp;signature=4aa12636c0a64f2843738ff95c26e8f888c9afeca4d95f55d3770eb127ca0f68&amp;req=diIhFsp5lYJfUPMW1HO4zRgyEF3dUeHSZ8KPhClFzQlNakqFETJATCIXj7IU%0AltwDMBJ2L%2F7dcAKyIFg%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484560173/7abf3438fa3d65afa03c4a99d4d4/Screenshot+2026-06-17+at+4_34_49%E2%80%AFPM.png?expires=1785086100&amp;signature=3e987abb0cf46e92b166c98b32cff5dc59a8d2b8767e1ebacb9cbdcf5a527a5d&amp;req=diQvEsx4nYBYWvMW1HO4zUXuwkt8I4VRiQnXWL6R1K%2F3R9SdGfoMTkyG8lR8%0AYFzSsDdk7mW4WBVojos%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484560173/7abf3438fa3d65afa03c4a99d4d4/Screenshot+2026-06-17+at+4_34_49%E2%80%AFPM.png?expires=1785128400&amp;signature=14e5fe9f965ba70ff1a02857324fa5a5373803464e989d71e73b31b6d4a54e17&amp;req=diQvEsx4nYBYWvMW1HO4zUXuwkt9KYtUiQnXWL6R1K9kdCzUTIPjNChVDYAD%0AIXIStSYTAHgMSqTqTdc%3D%0A)
 
 We recommend migrating a pilot group first—one team or department—and verifying their access is correct before expanding to the rest of the organization.
 
@@ -340,9 +340,9 @@ Enabling a feature at the organization level doesn't mean everyone gets it—cus
 
 Navigate to the “Usage” page to assign a per-user monthly spend limit to any group.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386576/377ac052069ff5a35b3023f50d12/dface609-9d85-4ee1-8ed3-bfe019a2bd0a?expires=1785086100&amp;signature=df36d705d842b7fa93f26bc62f03d1f7b5000f27067aaa87129c265341d00c2d&amp;req=diIhFsp2m4RYX%2FMW1HO4zfvdi5KfTQCLBMkPcsY1DF5g2igP%2FHs8pcVZFwT%2F%0A5H%2FYlU6G%2FCgAsaUWnqk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386576/377ac052069ff5a35b3023f50d12/dface609-9d85-4ee1-8ed3-bfe019a2bd0a?expires=1785128400&amp;signature=d3a00693b66295c479f59b8dd2fcff5d09b8172834c1b569b8f33a83fadab2ce&amp;req=diIhFsp2m4RYX%2FMW1HO4zfvdi5KeRw6OBMkPcsY1DF7RiLwiX3SQCKrz05zm%0APhUABJXbV1ebRd6ZTAM%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386575/b9798bb7a2ab92024fa4d97f2ff4/7b2327e1-ab3f-41e5-8be0-77c0f35a4015?expires=1785086100&amp;signature=068bdc0086c88904bdd93ee82a939bca5a88e97b333fe2a721814ff3e8d18cab&amp;req=diIhFsp2m4RYXPMW1HO4zW55wNSZyFcwJuVz%2B3EZKJ4M2NcaV8XGkMgZk3yP%0AC72HjfmViZBOL9s9twY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386575/b9798bb7a2ab92024fa4d97f2ff4/7b2327e1-ab3f-41e5-8be0-77c0f35a4015?expires=1785128400&amp;signature=a6e63ed501893dc66faec572d65241f629b39f2512e9e119cf79dbbe3e995e94&amp;req=diIhFsp2m4RYXPMW1HO4zW55wNSYwlk1JuVz%2B3EZKJ5QDOSthTdN7Orl2JH1%0AjqU6V4vdzGFU1XsgRdo%3D%0A)
 
 Note the following precedence rules:
 
