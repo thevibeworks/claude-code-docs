@@ -24,7 +24,7 @@ Web search expands Claude's knowledge with real-time data, helping you make bett
 
 An Owner or Primary Owner must first enable web search for the entire workspace. This can be found in **[Admin settings > Capabilities](https://claude.ai/admin-settings/capabilities)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2032032614/ad907328c4d9a26ee4bd9ca27a52/CleanShot+2026-02-05+at+09_01_42%402x.png?expires=1785128400&amp;signature=5f4202453867675b95213cb2f71969776f5e5b893528d2724cecf82cd3fa609a&amp;req=diAkFMl9n4deXfMW1HO4zetvyre7GsZUUJIbgsqS2%2BO5qazSbjzY5BlPgZvu%0A6oqM2EjhOTWFt7qcuAk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2032032614/ad907328c4d9a26ee4bd9ca27a52/CleanShot+2026-02-05+at+09_01_42%402x.png?expires=1785146400&amp;signature=272b751d0d1db2d4edca35af1a557f66b2cff1a9cbd0580a2390453c092b58cd&amp;req=diAkFMl9n4deXfMW1HO4zetvyre7HMhUUJIbgsqS2%2BM%2FhgF7CBAXYSLTIhJu%0ANIhv5hDSsOGsAjbLhaw%3D%0A)
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
 
