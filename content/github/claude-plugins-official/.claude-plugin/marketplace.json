@@ -674,7 +674,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "62e9f9a00ba06ab54f9f8896fb8becdbfd6dd46a"
+        "sha": "f57875b3efe079460cd586856facfcb99f177d6b"
       },
       "homepage": "https://carta.com"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "a06973064a8e1c7b2cb6410101f7b11a955458a1"
+        "sha": "2dddb4c463b0f577c556c3d0f913154fba05cad9"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2810,7 +2810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "d9480ec64ca9311898f970936d0ce4866413f160"
+        "sha": "499787644f798a89d3cf8655977389c32d1fae02"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3640,7 +3640,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "3cff9cb02ca5bd0c562a425d8e8790a3c81129c2"
+        "sha": "87c6b285ab0f5754d7f1741a75384fdfe623be4d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
