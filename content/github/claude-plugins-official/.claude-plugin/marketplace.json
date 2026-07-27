@@ -1289,7 +1289,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "6cf2e02d5e2f357683b5bcd177d808a755a2a49f"
+        "sha": "9001e6b20bff35062bd516377c38c0b6a4736b91"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "2dddb4c463b0f577c556c3d0f913154fba05cad9"
+        "sha": "3a0590925cd2724c49d6c9dba0440361f78f2d0c"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2153,7 +2153,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "3384f7f29e267d2756aac4cfa4b48f7fc9171462"
+        "sha": "ddd08aa29e04e11ed565367a1e8b4bdf3142cdc5"
       },
       "homepage": "https://mergify.com"
     },
@@ -2810,7 +2810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "499787644f798a89d3cf8655977389c32d1fae02"
+        "sha": "0a09b96a2baaa52fa73d865f759a2665c7895c49"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3640,7 +3640,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "87c6b285ab0f5754d7f1741a75384fdfe623be4d"
+        "sha": "6f402cef4485974a14b423bec2717a223a152a0a"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3719,7 +3719,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zoom/zoom-plugin.git",
-        "sha": "1f86a61604c39f853df901767059256250191c43"
+        "sha": "317077a5dbffc8713abe49403192e765669ba753"
       },
       "homepage": "https://developers.zoom.us/"
     },
