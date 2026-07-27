@@ -22,7 +22,7 @@ Claude in Chrome uses a multi-layered permission system to give you control over
 
 Choose "Manually approve" to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1785160800&amp;signature=2860c3a4623a7bbf2c2bf544339ca33851174fcb6ff4a5a01825d5ed7c59e1f2&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcdM%2BoK%2FgN0ADj5oqFBB3bAuFvhnTk3aOj9%2B%0AdbAgERGt42kBK%2BBTj3I%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1785175200&amp;signature=dc7f8d321a017e943dfab1c207fe6605af6ef94b8a3d8c5b63109b0396ba5eaa&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcdM%2B4e1gN0ADj5oqFA1TXcolS57lmxlUjaB%0AWS7HN0lvKAUGN%2F9DRnc%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -50,7 +50,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **Permission required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1785160800&amp;signature=ee20b803c787d3b3c3fd3883bc35cf9374f437c377b367794f5f1db12e83c66d&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8MqpXR3JCxYSFHKWIh4lcfcGeHopPAzeqIX%0AQRSeT6%2FCQr%2BTa9q0GQU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1785175200&amp;signature=75d582dbbc9bd2bce6eb3c00119e9afc33c5a36c9d95569561f72a7bd681fe47&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8MqpHF9JCxYSFHKWIj8OkUNCHMPpyHa%2FYKS%0AcemSvrZKIrQ9oJnkHEA%3D%0A)
 
 ### Permission options
 
