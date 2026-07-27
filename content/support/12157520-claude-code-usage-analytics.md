@@ -50,7 +50,7 @@ The **Usage** tab displays the following metrics for your organization. Data on 
 
 - **Top commands**: The Claude Code commands used most often across your organization.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1717579277/46c512f4b3ed05c359cecd78ed5c/e0ce2c19-39e2-411f-9a1f-cb1d46439a42?expires=1785146400&amp;signature=2ca094829d0ee2e7d397af62a3120c5a260b5ebe6375acc76685b30e1a0313d7&amp;req=dScmEcx5lINYXvMW1HO4zfiEP6NRi3%2FKCX9h5MbdDjNRnPWrYaOEM%2FTbc6Aj%0AFnw2MJaOM%2FwngPnPaKk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1717579277/46c512f4b3ed05c359cecd78ed5c/e0ce2c19-39e2-411f-9a1f-cb1d46439a42?expires=1785160800&amp;signature=8d272464623f368e3e455040bbc27ab42a6bfe8068b5a0186242f02938fb684a&amp;req=dScmEcx5lINYXvMW1HO4zfiEP6NRiXnGCX9h5MbdDjMOkH8KkojXFMZgsxqj%0AKOMmFPyyaY2%2BeGcOeXE%3D%0A)
 
 ### User-level metrics
 
