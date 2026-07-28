@@ -291,7 +291,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/atlassian/atlassian-mcp-server.git",
-        "sha": "f22e7075136a62baa7c10200a64884f83bf3ebe1"
+        "sha": "94a30436435fb526a29f820f5f46250870eb75a0"
       },
       "homepage": "https://github.com/atlassian/atlassian-mcp-server"
     },
@@ -497,7 +497,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-sql-database-container.git",
-        "sha": "c64639ce9d03731180560ccca214695892a72fe4"
+        "sha": "a8c1c3ad3ae9b7a21cbc98c07c4963fbcd4cc18c"
       },
       "homepage": "https://github.com/microsoft/azure-sql-database-container"
     },
@@ -658,7 +658,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "0ee7645485815d49458449b44047cf431a71f456"
+        "sha": "35c258475c5c618be5161b0eafe6f8d170206a8d"
       },
       "homepage": "https://carta.com"
     },
@@ -731,7 +731,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "e2c19fed80fccd6cadd3b4e45151ac661420e90a"
+        "sha": "dd2661c764c82da28e352030ec7fe56998471ed4"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -864,7 +864,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/agent-skills.git",
-        "sha": "65ce71fce803014afb69279535c82c72dc55d9ba"
+        "sha": "6e5458d59b82f6f027bccb258a7be3c6cefe5e08"
       },
       "homepage": "https://clickhouse.com"
     },
@@ -999,7 +999,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CodSpeedHQ/codspeed.git",
-        "sha": "26fb4b598f08faee386a8fa4212b8350c33dc013"
+        "sha": "aebdbbc63c1a001728c11287fb05d62dc94652be"
       },
       "homepage": "https://codspeed.io"
     },
@@ -1024,7 +1024,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/confidence-ai-plugins.git",
-        "sha": "a6e3760e5c274dd273e6e4677235422f98f01f4a"
+        "sha": "56c0ea762accb4fa3d941df8c1205ae96c36e19d"
       },
       "homepage": "https://confidence.spotify.com"
     },
@@ -1166,7 +1166,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "c6607d437af4721e9e3fd4c1ed17929a493e879f"
+        "sha": "cc9c6719f6847a647e0b932896e3e520d15e53fe"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1289,7 +1289,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "9001e6b20bff35062bd516377c38c0b6a4736b91"
+        "sha": "bc296f8ad2eeba763796fc3ec099b7893ef1cdf8"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "3a0590925cd2724c49d6c9dba0440361f78f2d0c"
+        "sha": "4b75eb1f2560e9fa8b8adb459c59b9832a852d3b"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2090,6 +2090,20 @@
       "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/math-olympiad"
     },
     {
+      "name": "mattpocock-skills",
+      "description": "Matt Pocock's agent skills for real engineering — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
+      "author": {
+        "name": "Matt Pocock"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/mattpocock/skills.git",
+        "sha": "ed37663cc5fbef691ddfecd080dff42f7e7e350d"
+      },
+      "homepage": "https://github.com/mattpocock/skills"
+    },
+    {
       "name": "mcp-apps",
       "description": "Skills for creating MCP Apps with the MCP Apps SDK",
       "author": {
@@ -2288,7 +2302,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/netlify/context-and-tools.git",
-        "sha": "b4ac277e6795f90e6a1d163c001c0d7667ff9143"
+        "sha": "a0a9492f59492d8edfd588ea3378b0b1960508a4"
       },
       "homepage": "https://github.com/netlify/context-and-tools"
     },
@@ -2375,7 +2389,7 @@
         "url": "https://github.com/NVIDIA/skills.git",
         "path": "plugins/nvidia-skills",
         "ref": "main",
-        "sha": "ab94cb3e51d0dcbaffbfb88cbd3e42cae9795dc2"
+        "sha": "2787f1c0be0bcf33a2419e7cf9bbdbe12be30987"
       },
       "homepage": "https://github.com/NVIDIA/skills"
     },
@@ -2437,7 +2451,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/oracledb.git",
-        "sha": "d3472b1baef254e15f53e569a77f5d88b2b93f87"
+        "sha": "f0102543104deb4e34e6609bd1e753e5b8a1a566"
       },
       "homepage": "https://github.com/gemini-cli-extensions/oracledb"
     },
@@ -2453,7 +2467,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "9d7a8708d9f9d13f91895263f90f583568239828"
+        "sha": "2cbd0a260d470d22143ba0c0478d992f16c0bd12"
       },
       "homepage": "https://output.ai"
     },
@@ -2467,6 +2481,20 @@
         "sha": "761cba75bd50fd561405c3b173ecf36084432089"
       },
       "homepage": "https://github.com/PagerDuty/claude-code-plugins"
+    },
+    {
+      "name": "paypal",
+      "description": "PayPal development plugin for Claude — integrate payments, subscriptions, invoices, disputes, and more using PayPal's APIs and MCP server",
+      "author": {
+        "name": "PayPal"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/paypal/AI-Toolkit.git",
+        "sha": "c93cbfe5b0b16ef920670ce7d6afabdf7e79c7a3"
+      },
+      "homepage": "https://developer.paypal.com/"
     },
     {
       "name": "php-lsp",
@@ -2577,7 +2605,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/PostHog/ai-plugin.git",
-        "sha": "00579b8a86d9caecbda117b1b3999858f785c3dd"
+        "sha": "257a7d595004236b90429b848cc6da21fe143167"
       },
       "homepage": "https://posthog.com/docs/model-context-protocol"
     },
@@ -2810,7 +2838,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "0a09b96a2baaa52fa73d865f759a2665c7895c49"
+        "sha": "d1fc794569e6fa4fc0ee19d5283ff1039fd89919"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -2997,7 +3025,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "85fde118d01675c9b5d68e612e7bb5ef46aacf91"
+        "sha": "6fdd7f9a7d6f082135f25eff5a77252694648cfa"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3138,6 +3166,22 @@
       "homepage": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/session-report"
     },
     {
+      "name": "shippo",
+      "description": "Shippo connects you to USPS, UPS, FedEx, DHL, and 40+ carriers, so you can handle a shipment end to end right inside Claude. Compare live rates and pick the cheapest or best option, buy and print labels (domestic and international, with customs declarations), validate and standardize addresses, and track packages across carriers. Just ask in plain language: rate-shop a parcel, buy the right label, check a delivery status, or confirm an address before you ship. Whether you run a store or just need to send a package, Shippo turns a pile of carrier accounts into one simple conversation.",
+      "author": {
+        "name": "Shippo"
+      },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/goshippo/ai.git",
+        "path": "providers/claude/plugin",
+        "ref": "main",
+        "sha": "15cbb6364fbcfd465a134f5972da9179436d0787"
+      },
+      "homepage": "https://docs.goshippo.com"
+    },
+    {
       "name": "shopify-ai-toolkit",
       "description": "Shopify's AI Toolkit provides 18 development skills for building on the Shopify platform, covering documentation search, API schema access, GraphQL and Liquid code validation, Hydrogen storefronts, Polaris UI extensions, store management via CLI, and onboarding guidance for both developers and merchants.",
       "author": {
@@ -3147,7 +3191,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Shopify/Shopify-AI-Toolkit.git",
-        "sha": "556811e94dd45c795abe5c0b1bf6b5a4b098149d"
+        "sha": "0e06bc35611e505e372de7f8cdf265e6d6dbc311"
       },
       "homepage": "https://shopify.dev"
     },
@@ -3246,7 +3290,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/ads-claude-plugin.git",
-        "sha": "6e5878ea67b35a6893e94853553ff330bca93987"
+        "sha": "e1f809ec3a287e41c8421301fa7fa69bc4b0e9fb"
       },
       "homepage": "https://github.com/spotify/ads-claude-plugin"
     },
@@ -3640,7 +3684,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "6f402cef4485974a14b423bec2717a223a152a0a"
+        "sha": "9e3b2d557b3f2bfaf49b34fdb32ef3d6c2fc9722"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3747,7 +3791,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zscaler/zscaler-mcp-server.git",
-        "sha": "70e67db347441caa31f94da8f904389064db0664"
+        "sha": "1872e3bdad259457f9261801841b4a8d3f4a6074"
       },
       "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     },
@@ -3761,7 +3805,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "13a79944c3c16cde049bb39576102cd768baa06b"
+        "sha": "93d828270359da1618c97bd1e812fb6fc11646c4"
       },
       "homepage": "https://langfuse.com"
     },
