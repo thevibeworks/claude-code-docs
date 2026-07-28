@@ -37,7 +37,7 @@ Yes, custom metadata under `_meta.io.modelcontextprotocol.registry/publisher-pro
 
 ### What if I need to report a spam or malicious server?
 
-1. Report it as abuse to the underlying package registry (e.g. NPM, PyPi, DockerHub, etc.); and
+1. Report it as abuse to the underlying package registry (e.g. NPM, PyPI, DockerHub, etc.); and
 2. Raise a GitHub issue on the registry repo with a title beginning `Abuse report: `
 
 ### What if I need to report a security vulnerability in the registry itself?

@@ -150,19 +150,24 @@ To consume task-augmented responses, your client must:
 
 <Steps>
   <Step title="Declare support">
-    Include the extension in per-request capabilities:
+    Include the extension in its per-request capabilities:
 
-    ```json theme={null}
+    ```jsonc theme={null}
     {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "...",
       "params": {
+        // Other fields...
         "_meta": {
+          // Other fields...
           "io.modelcontextprotocol/clientCapabilities": {
             "extensions": {
-              "io.modelcontextprotocol/tasks": {}
-            }
-          }
-        }
-      }
+              "io.modelcontextprotocol/tasks": {},
+            },
+          },
+        },
+      },
     }
     ```
   </Step>
@@ -196,13 +201,18 @@ To return tasks from your server:
   <Step title="Advertise support">
     Include the extension in your `server/discover` capabilities:
 
-    ```json theme={null}
+    ```jsonc theme={null}
     {
-      "capabilities": {
-        "extensions": {
-          "io.modelcontextprotocol/tasks": {}
-        }
-      }
+      "jsonrpc": "2.0",
+      "id": 1,
+      "result": {
+        // Other fields...
+        "capabilities": {
+          "extensions": {
+            "io.modelcontextprotocol/tasks": {},
+          },
+        },
+      },
     }
     ```
   </Step>
@@ -248,4 +258,4 @@ clients. Task support requires explicit opt-in from both client and server.
 
 ## Specification
 
-The Tasks extension is specified in the [experimental-ext-tasks repository](https://github.com/modelcontextprotocol/experimental-ext-tasks). It uses the standard MCP [extension negotiation](/extensions/overview#negotiation) mechanism: clients and servers declare support in the `extensions` field of their capabilities during initialization.
+The Tasks extension is specified in the [experimental-ext-tasks repository](https://github.com/modelcontextprotocol/experimental-ext-tasks). It uses the standard MCP [extension negotiation](/extensions/overview#negotiation) mechanism: clients declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` they send in each request's `_meta`, and servers advertise theirs in the capabilities returned by [`server/discover`](/specification/draft/server/discover).

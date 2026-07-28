@@ -10,7 +10,7 @@ export const CHECK = () => <span className="flex justify-center">
     <Icon icon="check" iconType="solid" size={18} className="text-green-500" />
   </span>;
 
-This matrix shows which MCP clients support each [official extension](/extensions/overview). Extensions are always opt-in — a client only uses an extension if both client and server declare support during the [initialization handshake](/extensions/overview#negotiation).
+This matrix shows which MCP clients support each [official extension](/extensions/overview). Extensions are always opt-in: a client only uses an extension if both client and server declare support in the `extensions` field of their [capabilities](/extensions/overview#negotiation).
 
 <Note>
   This list is maintained by the community. If you notice any inaccuracies or would like to add or update information, please [submit a pull request](https://github.com/modelcontextprotocol/modelcontextprotocol/pulls).
@@ -49,7 +49,7 @@ This matrix shows which MCP clients support each [official extension](/extension
 If you're building an MCP client and want to implement extension support:
 
 1. Review the extension specification (e.g., in the [ext-auth](https://github.com/modelcontextprotocol/ext-auth) or [ext-apps](https://github.com/modelcontextprotocol/ext-apps) repository)
-2. Declare support in the `extensions` field of your `initialize` capabilities
+2. Declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` your client sends in each request's `_meta`, and read the server's `extensions` from its [`server/discover`](/specification/draft/server/discover) response
 3. Implement the extension's protocol requirements
 4. Submit a pull request to update this matrix
 
