@@ -658,7 +658,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "7e2e42fc2131c7d6000547bc3c99a3e78692ce56"
+        "sha": "87d5ef76df973327673fb891fdc7c796ad39f5a3"
       },
       "homepage": "https://carta.com"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "4f344c50b0c70e74a791e3613c3a285531e1862f"
+        "sha": "0d42d655255e7ad75d48b6f3ee9900739a24e6e0"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1809,7 +1809,7 @@
         "source": "github",
         "repo": "jfrog/claude-plugin",
         "commit": "259c8e718266c16e99b4f30ae9b1ed0f9f00d98d",
-        "sha": "5d6ba1501367d47872d141299bf9611285ad2127"
+        "sha": "8aa1671dfc29fa10041ff74a5afb419acde19645"
       },
       "homepage": "https://jfrog.com"
     },
@@ -2725,7 +2725,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "50d3590744b9ee26bd7a3c95e84b82ab9c572e45"
+        "sha": "b522300eab8936b3ded889a64b174ed6d7e4f783"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -3057,7 +3057,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "0bc8ea10139be06d08cdb3a8157d34128858ff0e"
+        "sha": "8e646ba68b704720814d6f2ee76052a6b69729d7"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -3335,7 +3335,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "84c364c683c58ba8dfbc003d812e6a35f4c97b47"
+        "sha": "150d4d4ac00b28220b1a31044d21e5970d701dee"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3684,7 +3684,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "6fd2e431ea3411688ed3eff2fc99cbab78d61820"
+        "sha": "dcf56d36ef44e68579ba8d3dad6600f55fa509f0"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
