@@ -65,7 +65,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SalesforceAIResearch/agentforce-adlc.git",
-        "sha": "2e735ab70a33d83aeea5ce10b6d61a99a978dc68"
+        "sha": "d16d14ac7f817336e21bf9392cf51b6cac6194d8"
       },
       "homepage": "https://github.com/SalesforceAIResearch/agentforce-adlc"
     },
@@ -497,7 +497,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-sql-database-container.git",
-        "sha": "6b74515eee884606297b332661ff227f0d312360"
+        "sha": "fe30e022677a9aeda2212fafad78ef1a813b132b"
       },
       "homepage": "https://github.com/microsoft/azure-sql-database-container"
     },
@@ -1095,7 +1095,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "17b4abb6d42f84342a51adca8a5289b36e0f1198"
+        "sha": "3daf570c1e6ac2da5aa087ed635e995eccc4bccc"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -1205,7 +1205,7 @@
         "url": "https://github.com/databricks/databricks-agent-skills.git",
         "path": "plugins/databricks/claude",
         "ref": "main",
-        "sha": "d5bde7ba51c1ba9392f89e7ee2fd45c16f90007d"
+        "sha": "76d4fdc72d18607df158d4153dbf45fed155d0c4"
       },
       "homepage": "https://developers.databricks.com/"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "cef3b86c95cb257be7c61ac3bdc4dd6dc9692e11"
+        "sha": "5244dde5f10c221221924985aa4651d89fb7c98a"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2074,7 +2074,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mapbox/mapbox-agent-skills.git",
-        "sha": "75ac667cae24c7ad7bdbbac55ac0a64d2df1543e"
+        "sha": "f5ae7dee38bafad844d8e15a867273ef75918652"
       },
       "homepage": "https://www.mapbox.com"
     },
@@ -3335,7 +3335,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "150d4d4ac00b28220b1a31044d21e5970d701dee"
+        "sha": "3adce6293895305828948781d91cb86a9b324e50"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
