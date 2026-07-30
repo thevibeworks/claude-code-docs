@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1785384900&amp;signature=d8ef9cb09f4a4bac9af9f977d8aa5bef1380c3eac0e580b41d5b9da8afadae52&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhDeO%2FFcxakFVfq5WwzWc%2B73gW906KCxqXAe%0ACkCN%2By%2BuIU0eObU2QEo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1785400200&amp;signature=33bf688b3449386a293812b460e99181a3a7cf0b23e17b998028ccd2b6380441&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhDZM%2FVXxakFVfq5WwxaXmfn6jr%2FFiE0C2PP%0Ap%2BFgfSr8ZgogQg2v1Rw%3D%0A)
 
 ---
 
@@ -48,7 +48,7 @@ You can also upload a custom plugin file if you built one yourself or received o
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1785384900&amp;signature=011b12d0e5f704e59ca8d0a24b0a18f6174c4d41408541f963b745882d11ac61&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPP%2Fi0SdmKUxugP2BQtb%2BlHgSSVr5tFB9f0K%0An%2BsLhW%2BAM%2BGnErRvEeg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1785400200&amp;signature=b78aaefe2a518fbfe5e9d8e8a244086f26534060827df4a40ee5035c7d27e132&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPP4g0CWmKUxugP2BQsQL0ATpjtUSWTU0r6X%0AcPuRW3BG1BDASs5bW%2BY%3D%0A)
 
 ---
 
