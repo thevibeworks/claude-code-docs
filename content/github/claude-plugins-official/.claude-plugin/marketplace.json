@@ -75,7 +75,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/endorlabs/ai-plugins.git",
-        "sha": "a6737fcf72336399e212e45cd25a250c2df3b7b4"
+        "sha": "3fb6880b0f5de7a0530947dfd070087bc613079e"
       },
       "homepage": "https://www.endorlabs.com"
     },
@@ -497,7 +497,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-sql-database-container.git",
-        "sha": "fe30e022677a9aeda2212fafad78ef1a813b132b"
+        "sha": "eb6ab7ee1839564a3edc36c1e7bb754f3c8f1bf1"
       },
       "homepage": "https://github.com/microsoft/azure-sql-database-container"
     },
@@ -1095,7 +1095,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CrowdStrike/foundry-skills.git",
-        "sha": "98bd0f823dd928e0c15afbd549b92d3333dfade6"
+        "sha": "fc5035118f77bd670bfba8303b627640d8a6095e"
       },
       "homepage": "https://github.com/CrowdStrike/foundry-skills"
     },
@@ -1141,7 +1141,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "b2fd265c1fb26acb29ac18f57c30daff342c18c3"
+        "sha": "c4b2bbc0385d402f65fe1b0b1263247b6ad87595"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "fa564547dceeceea7181e14d1bdec35922771ae6"
+        "sha": "a3c8f897f2cdb4231521a752d6b320c8edb77a45"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2167,7 +2167,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "6f616f5e214bbae9f6645e3c5a45432b62ed9d76"
+        "sha": "0b69f0c159febfe3a2a6de86da8844f23603130a"
       },
       "homepage": "https://mergify.com"
     },
@@ -2492,7 +2492,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/paypal/AI-Toolkit.git",
-        "sha": "a8e5aef84bf7006054a17ad98f8c5114e92358ad"
+        "sha": "a3a19c1ff237b53023b17c1e129ae4a7a0e24c21"
       },
       "homepage": "https://developer.paypal.com/"
     },
@@ -2687,7 +2687,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "6add4dc7ecde63a059103cf2a65444d04db25cc4"
+        "sha": "1f17e04ca7f048d46e9f14da71bdafd86f1e299b"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -2838,7 +2838,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "64cea0cc4c0bbb2c192fc7a559187b43337ebf67"
+        "sha": "70926c3a6ac51ec1957f726e2926e26ec0a16df5"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3025,7 +3025,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "46f4026ecdb7c52a1fc5b8eac48cd65adb1f9d6d"
+        "sha": "537912f38cfd6e554a6bad8e048cbff9e8f7742b"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3335,7 +3335,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "3adce6293895305828948781d91cb86a9b324e50"
+        "sha": "2ecd560bd426075690686536200174785c94f2b5"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
