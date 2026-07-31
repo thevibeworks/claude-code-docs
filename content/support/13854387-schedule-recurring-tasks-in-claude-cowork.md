@@ -52,7 +52,7 @@ There are two ways to create a scheduled task:
 
 6. You can explicitly confirm you want to schedule the task when prompted by Claude by clicking “Schedule":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1785473100&amp;signature=507ea5d6efd3edbfb31fda0500ea200cda38f6b2cd5d86bb9e76fba5ee51d847&amp;req=diEnEsl2mIJWUPMW1HO4zeLJBkDg%2BOmGPx%2FSrZI7l8zppRxcgR0s5B8h1gLj%0AOrc3%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1785488400&amp;signature=6ab455ffbd67c890fd892d9b59494095c58cd5395840067f87d75f359259566c&amp;req=diEnEsl2mIJWUPMW1HO4zeLJBkDg9%2BKDPx%2FSrZI7l8zzwXwo9uvUmPMseA46%0AnC7y%0A)
 
 7. Claude will create and schedule your task, and it will be added to the **Scheduled tasks** page.
 
