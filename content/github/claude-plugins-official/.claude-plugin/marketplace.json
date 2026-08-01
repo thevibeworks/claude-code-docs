@@ -1205,7 +1205,7 @@
         "url": "https://github.com/databricks/databricks-agent-skills.git",
         "path": "plugins/databricks/claude",
         "ref": "main",
-        "sha": "76d4fdc72d18607df158d4153dbf45fed155d0c4"
+        "sha": "50ccd08dfce2001aebc95c784f0bf89f3f268fdf"
       },
       "homepage": "https://developers.databricks.com/"
     },
@@ -1396,7 +1396,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/exa-labs/exa-mcp-server.git",
-        "sha": "b4076055af28698d944b50deade80e541b7788ea"
+        "sha": "cc81fda07dea47c636a511cf632a46b564470615"
       },
       "homepage": "https://exa.ai/docs/reference/exa-mcp"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "89e970fbd77a4241f55cf3aba41d81dced8e9372"
+        "sha": "343c02518889f46ee3962256b19ac4189264907d"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2687,7 +2687,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "1f17e04ca7f048d46e9f14da71bdafd86f1e299b"
+        "sha": "1aeed6d5583484c854c457d68f03a7459f1897c8"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
