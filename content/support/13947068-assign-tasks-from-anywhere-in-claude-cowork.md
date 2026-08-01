@@ -48,11 +48,11 @@ Follow these steps to get started:
 
 5. You’ll land on a page describing the functionality. Click “Get started”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1785587400&amp;signature=205d6b40ba2c16b4b4890664bd6a8f52d2226047cf20ef2310f3b32319061669&amp;req=diEhH8B7mYFXX%2FMW1HO4zSZP0peOHQn7B32drIe5EDlgfFHoUSXFKlGCq10E%0ASCPi%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1785604500&amp;signature=4f01178ee927ae3d307e7b8325ed0d5d8ad5107bded504045fbf16dfbaddb342&amp;req=diEhH8B7mYFXX%2FMW1HO4zSZP0peNFQr6B32drIe5EDlST5Lj%2BNyP%2F7igtNkT%0A7ifF%0A)
 
 6. On the next screen, you can give Claude access to your files and keep your computer awake by toggling those on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1785587400&amp;signature=730b23d2d9a3edb56b5691bbbe64725123244a8bb9c0b150720ad8eab24232f6&amp;req=diEhH8B7mIFXW%2FMW1HO4zaZWs9%2BdVQYaepuGRb1rD3IwvJP%2BdrUJJfPfSvd8%0AssIr%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1785604500&amp;signature=85619c03a213a410bb88a07b84a2665230c992e7f4cfe3eef13d843f491c2b39&amp;req=diEhH8B7mIFXW%2FMW1HO4zaZWs9%2BeXQUbepuGRb1rD3Kj7CBFE19CqSqUi%2BrQ%0A8aF0%0A)
 
 7. Click “Finish setup.”
 
