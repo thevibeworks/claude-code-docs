@@ -38,12 +38,12 @@ To unshare a chat:
 
 Users on free, Pro, or Max plans can review a log of shared chats by navigating to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. Find the **Privacy settings** section and click “Manage” next to **Shared chats:**
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1921669913/7cc7be48cfc7a18f9f469d6cd83c/CleanShot+2026-01-08+at+10_20_43%402x.png?expires=1785672900&amp;signature=a4e5920997efda2ebed1a90ed219e6889f1b845f66092bdb8b58b1e16a1217b1&amp;req=dSklF894lIheWvMW1HO4zWn5HzYbZUdic9cNIYuX0GHgYuayEkw1l3EdU3Nk%0AnfUWTAsKw7tVZARn3Oc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1921669913/7cc7be48cfc7a18f9f469d6cd83c/CleanShot+2026-01-08+at+10_20_43%402x.png?expires=1785690900&amp;signature=eebd4ddd2580c803e9fde3fd454739f14a230257970f710a0c3c8828173ddfa9&amp;req=dSklF894lIheWvMW1HO4zWn5HzYba0Vic9cNIYuX0GH1ReekpVTxmnxLSy1g%0AZ6k%2FN0j64qVut7TDubM%3D%0A)
 
 This will open a **Shared chats** modal listing the title, date shared, and link to each chat, allowing you to easily review and access all your previously-shared content. From here, you also have the option to click “Unshare” next to each listed chat to revoke access to the last snapshot you shared:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243810/e6fe1d262597446c7fe21dff9f10/AD_4nXdW-GhByF8uKV7fCq9lTbkVB91FglSL6TSyXAOUk_MLcTV9YsEMBMkm9rgm1oXqv0k3sJh1JhlzZP6tHVkKbDJJ71pDRRtM3aVNG64MDuKDIzgmknh-XDZdNa7biTsTdwGoPr5GRg?expires=1785672900&amp;signature=77bb61ec73543f25b4e1d9fdc1a8d7ca7394968f2a0fbe3c3ffc3d580b3feeac&amp;req=dSYlEst6noleWfMW1HO4ze44eCJnkxA3guvTv9woD7brqDHsb6VtSAad3aF9%0AQeYxBtTa8117pmE7T98%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243810/e6fe1d262597446c7fe21dff9f10/AD_4nXdW-GhByF8uKV7fCq9lTbkVB91FglSL6TSyXAOUk_MLcTV9YsEMBMkm9rgm1oXqv0k3sJh1JhlzZP6tHVkKbDJJ71pDRRtM3aVNG64MDuKDIzgmknh-XDZdNa7biTsTdwGoPr5GRg?expires=1785690900&amp;signature=7dcd9361044adc5246d5422bf669494d45d29b128fcebc93eb33ccb01febd8b9&amp;req=dSYlEst6noleWfMW1HO4ze44eCJnnRI3guvTv9woD7aAdZlWpyuIklbrgPyL%0AKhAKMGGxnNyxJilfqcs%3D%0A)
 
 If you don’t have any shared chat snapshots, the **Shared chats** modal will show “No shared content found”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243808/b025db8e598f0c88fb16d83d48d5/AD_4nXeUwCKnmFzzrjMHhfr5By4zk5pJlkEn3wbJ8-aNfu13Yl99IjBywpqPx9G07QRzpH1EwRY7uG7Q9m9fib98Gql1cIV7XwUCTzEgBNu79Ey8tCOS5CEVmwveIcEOxJ4fonBhe3g9MA?expires=1785672900&amp;signature=54dc542ede6150c9687c1f6e652c22e9f3ce4582b5f7e6202bc7718c77cabdea&amp;req=dSYlEst6nolfUfMW1HO4zdaFncByhou4DeZsm0Gz1Hu6O%2BDQIKu74BLyOi8I%0AnFuU9mUizWDvdIWY%2BDQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243808/b025db8e598f0c88fb16d83d48d5/AD_4nXeUwCKnmFzzrjMHhfr5By4zk5pJlkEn3wbJ8-aNfu13Yl99IjBywpqPx9G07QRzpH1EwRY7uG7Q9m9fib98Gql1cIV7XwUCTzEgBNu79Ey8tCOS5CEVmwveIcEOxJ4fonBhe3g9MA?expires=1785690900&amp;signature=5144a75fb0f75d5d6c8cc37c5838a96afecb34ce9214b6a32b4d43994f4886f8&amp;req=dSYlEst6nolfUfMW1HO4zdaFncByiIm4DeZsm0Gz1HsgreK3B5TUK2lpe9C%2B%0AiuKeVWSCrrH%2F4PE%2F3R4%3D%0A)
