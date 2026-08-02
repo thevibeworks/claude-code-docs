@@ -75,7 +75,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/endorlabs/ai-plugins.git",
-        "sha": "e5376ac490db06f53016615088fdd9d64d6a1836"
+        "sha": "adc5aa4a357cbfdc666fd3771e799ec58cae1871"
       },
       "homepage": "https://www.endorlabs.com"
     },
@@ -1396,7 +1396,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/exa-labs/exa-mcp-server.git",
-        "sha": "cc81fda07dea47c636a511cf632a46b564470615"
+        "sha": "a664592b5dd7c5598b70158c771dcc5c2a4fb2c1"
       },
       "homepage": "https://exa.ai/docs/reference/exa-mcp"
     },
@@ -1420,7 +1420,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "b1ec56fc67ab61528f80652ae7cd5b8c94f88e2c"
+        "sha": "db6dcfa12a77ff7561455d8e1c690978f2a9e9cd"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "343c02518889f46ee3962256b19ac4189264907d"
+        "sha": "74fadf69c464c0e0658bd7a6b740986fc3aceba8"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2291,7 +2291,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "f2de1d4d39ed652fec5e4d141ed7a558e0aafcc2"
+        "sha": "173654ff6b7de7686cb56e80524ba41f4b003d23"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -2626,7 +2626,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Postman-Devrel/postman-claude-code-plugin.git",
-        "sha": "e4c75c7cc1227973f998420b49eba62b338cd835"
+        "sha": "7610b9cf7a714f65204a760ea3e57dc5178b1aba"
       },
       "homepage": "https://learning.postman.com/docs/developer/postman-mcp-server/"
     },
@@ -2838,7 +2838,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "ce992a10ca94993592ed55af34e08b43fd15bb35"
+        "sha": "830c224c1e759cdf997e0842b714d6b6b36d76ef"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
