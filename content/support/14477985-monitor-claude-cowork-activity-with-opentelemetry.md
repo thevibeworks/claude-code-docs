@@ -2,7 +2,7 @@
 
 This article explains how to use OpenTelemetry (OTel) to monitor Claude Cowork activity across your organization. With OTel, your security and operations teams can stream Cowork events into the observability tools you already use to track usage, investigate incidents, and analyze performance.
 
-OpenTelemetry monitoring for Claude Cowork is available on Team and Enterprise plans. It requires Claude Desktop version 1.1.4173 or later.
+OpenTelemetry monitoring for Claude Cowork is available on Team and Enterprise plans. It covers Cowork sessions that run in the cloud (on desktop, web, and mobile) as well as local desktop sessions. Monitoring sessions in the cloud requires Claude Desktop version 1.22209.3 or later, and monitoring local desktop sessions requires Claude Desktop version 1.1.4173 or later.
 
 ---
 
@@ -52,7 +52,7 @@ You can route events to multiple destinations at once by configuring your collec
 
 To configure Cowork to export events to your collector:
 
-1. Open Claude Desktop and navigate to **Organization settings > Cowork**.
+1. Go to **Organization settings > Cowork**.
 
 2. Enter your **OTLP endpoint** (your OpenTelemetry collector URL).
 
@@ -82,4 +82,4 @@ A few things to be aware of before you turn on OpenTelemetry export:
 
 ## Joining OpenTelemetry data with the Compliance API
 
-While Cowork activity is **not captured** in the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)** at this time, each Cowork OTel event includes a shared user account identifier you can use to correlate events with records from the Compliance API. This lets you build a unified view that combines real-time telemetry from OTel with longer-term records from Compliance API queries.
+The Compliance API now covers Cowork on web and mobile alongside Claude chats, giving you one audit trail with every session attributable to an individual user. Organizations already using OpenTelemetry can run both in parallel, and OTel coverage now includes Cowork on web and mobile too. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.

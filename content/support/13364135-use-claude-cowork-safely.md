@@ -1,10 +1,10 @@
 # Use Claude Cowork safely
 
-Cowork sessions run remotely on Anthropic's servers (in beta), and Claude reaches your files, browser, and apps through the Claude Desktop app. These capabilities come with risks worth understanding. This article covers what we've built to keep you safe, what you should watch for, and how to protect yourself when using Cowork.
+Cowork sessions run in the cloud on Anthropic's servers (in beta), and Claude reaches your files, browser, and apps through the Claude Desktop app. These capabilities come with risks worth understanding. This article covers what we've built to keep you safe, what you should watch for, and how to protect yourself when using Cowork.
 
-Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on desktop, web, and mobile. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
+Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on desktop, web, mobile. For where to find it on each surface and what's available where, see **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
 
-Claude Cowork is in beta on web and mobile, and rolling out over the next several weeks starting with the Max plan, with more plans to follow.
+Claude Cowork is in beta on web and mobile for Max, Team, and Enterprise plans, and will be rolling out to Pro plans over the next several weeks.
 
 ---
 
@@ -24,9 +24,9 @@ Write tools inherently carry more risk as they can result in undesired actions. 
 
 ### Where your task runs
 
-Cowork tasks run remotely: Claude's work runs in an isolated, temporary environment on Anthropic's servers. The environment is created for that one session, can't reach your home or company network, and is removed when the session ends. When a task needs a local file or your browser, Claude reaches your computer through the Claude Desktop app, and only for the folders you've connected. If the desktop app is offline, the session can't reach your computer. Because sessions run on Anthropic's servers, the work Claude does there, including any local files it opens through the desktop app, is processed on Anthropic's servers rather than staying on your computer.
+Cowork tasks run in the cloud: Claude's work runs in an isolated, temporary environment on Anthropic's servers. The environment is created for that one session, can't reach your home or company network, and is removed when the session ends. When a task needs a local file or your browser, Claude reaches your computer through the Claude Desktop app, and only for the folders you've connected. If the desktop app is offline, the session can't reach your computer. Because sessions run on Anthropic's servers, the work Claude does there, including any local files it opens through the desktop app, is processed on Anthropic's servers rather than staying on your computer.
 
-Isolation limits where Claude's code runs. It doesn't limit what Claude reads or does. Depending on the access you've granted, Claude in a remote session can still browse the web, read email and documents through your connected apps, work in folders you've connected, and take actions through those same channels. Each of those is a path for untrusted content to reach Claude, and for Claude's actions to reach the real world. That's why the guidance in this article focuses on what Claude can read and what Claude is allowed to do, not on where the session runs.
+Isolation limits where Claude's code runs. It doesn't limit what Claude reads or does. Depending on the access you've granted, Claude in a cloud session can still browse the web, read email and documents through your connected apps, work in folders you've connected, and take actions through those same channels. Each of those is a path for untrusted content to reach Claude, and for Claude's actions to reach the real world. That's why the guidance in this article focuses on what Claude can read and what Claude is allowed to do, not on where the session runs.
 
 When Claude is allowed to read content outside your trust boundary—the set of sources you consider safe and under your control, such as your personal files or your company communications—it may encounter content that has been deliberately crafted by an external attacker to manipulate Claude's behavior. This type of attack is called **prompt injection**.
 
@@ -50,7 +50,9 @@ For prompt injection attacks to be successful, two things must be true at the sa
 
 **Important:** Cowork has access to Claude in Chrome; we strongly advise against using Claude in Chrome to manage or take actions involving sensitive information. See **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely#h_044f6a88a7)** for more information about the potential risks.
 
-Cowork activity is **not captured** in the Compliance API at this time. Team and Enterprise owners can stream Cowork events to your SIEM and observability tools through OpenTelemetry. For setup, supported events, and security considerations, see **[Monitor Cowork activity with OpenTelemetry](https://support.claude.com/en/articles/14477985-monitor-cowork-activity-with-opentelemetry)**.
+Cowork via mobile and web is captured in Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
+
+Team and Enterprise owners can also stream Cowork events to your SIEM and observability tools through OpenTelemetry. For setup, supported events, and security considerations, see **[Monitor Cowork activity with OpenTelemetry](https://support.claude.com/en/articles/14477985-monitor-cowork-activity-with-opentelemetry)**.
 
 ---
 
@@ -60,7 +62,7 @@ We've implemented multiple layers of protection:
 
 - **Model training:** We use reinforcement learning to train Claude to recognize and refuse malicious instructions—even when they appear authoritative or urgent.
 
-- **Isolated remote execution:** Claude's work runs in an isolated, temporary environment on Anthropic's servers, separate from your computer and unable to reach your network. Each session gets its own environment, which is removed when the session ends. Isolation protects your computer and network from the code Claude runs; it doesn't change what Claude can read or do through the access you've granted.
+- **Isolated cloud execution:** Claude's work runs in an isolated, temporary environment on Anthropic's servers, separate from your computer and unable to reach your network. Each session gets its own environment, which is removed when the session ends. Isolation protects your computer and network from the code Claude runs; it doesn't change what Claude can read or do through the access you've granted.
 
 - **Content classifiers:** We scan all untrusted content entering Claude's context and flag potential injections before they can affect behavior.
 
@@ -86,7 +88,7 @@ Cowork executes code and commands on your behalf. While we surface what Claude i
 
 **3. Be cautious with scheduled tasks**
 
-Scheduled tasks run remotely, which means Claude can work when you're away from your computer entirely and not watching. Because you can't monitor these tasks in real time, take extra care when setting them up:
+Scheduled tasks run in the cloud, which means Claude can work when you're away from your computer entirely and not watching. Because you can't monitor these tasks in real time, take extra care when setting them up:
 
 - **Start simple.** Begin with low-risk tasks like generating summaries or compiling information before automating anything more complex.
 
@@ -144,11 +146,11 @@ For more on plugins, see **[Use plugins in Claude](https://support.claude.com/en
 
 When using the Claude for Excel and Claude for PowerPoint add-ins with Cowork, Claude can read, edit, and pass context between these applications. For example, Claude might analyze data in Excel and move a chart into a presentation—without you explicitly directing that transfer. Be aware that data from one application may flow into another during a Cowork session, and avoid working with sensitive information in these add-ins while Cowork is active.
 
-**9. Understand what remote sessions can reach on your computer**
+**9. Understand what sessions** **in the cloud** **can reach on your computer**
 
-On web and mobile, your tasks run remotely and work with the files and connectors saved to your Claude account, not the files on your computer. A remote session reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Each local file or tool a session uses is checked against those permissions before it runs.
+On web and mobile, your tasks run in the cloud and work with the files and connectors saved to your Claude account, not the files on your computer. A session in the cloud reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Each local file or tool a session uses is checked against those permissions before it runs.
 
-If your organization manages your computer, note that connecting local folders makes them reachable from a remote session. Review what access you've granted, and consider whether that level of access is appropriate.
+If your organization manages your computer, note that connecting local folders makes them reachable from a session in the cloud. Review what access you've granted, and consider whether that level of access is appropriate.
 
 **10. Report suspicious behavior immediately**
 
