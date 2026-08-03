@@ -850,7 +850,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ClickHouse/clickhouse-claude-code-plugin.git",
-        "sha": "4c60200bf523342b68d5935b53f4dd0acb53e6b8"
+        "sha": "fcce1175a863f0833875ad696373ac9f2a408e6e"
       },
       "homepage": "https://github.com/ClickHouse/clickhouse-claude-code-plugin"
     },
@@ -1081,7 +1081,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/crowdsecurity/crowdsec-skill.git",
-        "sha": "8238c7991edf22592d1c5acb9170fb3f6c400323"
+        "sha": "2aa905ef2cfc025b6bb2d8085c9568910a09680a"
       },
       "homepage": "https://www.crowdsec.net"
     },
@@ -1141,7 +1141,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "5096fb5305dbc9ca4e43c14b543a142541ca6db0"
+        "sha": "2e5cec4ffb22e7d654b0a65f3906468302644d0a"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1289,7 +1289,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "6b1ffe1e090b5559549c2bad8f46445208d8a8dc"
+        "sha": "abce857e53da949570cc6ecf631a8baec9af6e4e"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "67ffafb11c18cd599b856c411c614cf329377d22"
+        "sha": "3cf268e1e54b9f1868442a37b7bfafecc0e2355f"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1809,7 +1809,7 @@
         "source": "github",
         "repo": "jfrog/claude-plugin",
         "commit": "259c8e718266c16e99b4f30ae9b1ed0f9f00d98d",
-        "sha": "fc235ef18207df0318799846a2cd36fe415b1492"
+        "sha": "f2088f746d2b3ef05c1b53b41221c1cbb8bb4b47"
       },
       "homepage": "https://jfrog.com"
     },
@@ -2167,7 +2167,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "90d51dfa05ac1efffc87a25c006d186f89411c55"
+        "sha": "9d8e9b98093c731203a06dfbb31ffdd9583cd6fd"
       },
       "homepage": "https://mergify.com"
     },
@@ -2838,7 +2838,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "a515f546af8a5d05b7284bbd321bcd989f092b9f"
+        "sha": "6239a62c03f869c919e2fcded67a227e40600c03"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3025,7 +3025,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "537912f38cfd6e554a6bad8e048cbff9e8f7742b"
+        "sha": "9d96f9c63e3522184355e304ae50625fa7f1dbf6"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3684,7 +3684,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "078b84601a3d0cd493aa128c4066f12b4309fd89"
+        "sha": "d33b1f64cec5301e295c555f4b83d5a4753a8bdc"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
