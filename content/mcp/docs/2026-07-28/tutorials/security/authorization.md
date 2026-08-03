@@ -938,6 +938,8 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
     To set up authorization in your MCP server using the MCP C# SDK, you can lean on the standard ASP.NET Core builder pattern. Instead of using the introspection endpoint provided by Keycloak, we will use built-in ASP.NET Core capabilities for token validation.
 
+    In the root of your server folder, create two files, `Program.cs` and `ProtectedMcpServer.csproj`, and a `Tools` folder. Fill `Program.cs` with:
+
     ```csharp theme={null}
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
@@ -999,9 +1001,9 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     {
         options.ResourceMetadata = new()
         {
-            Resource = new Uri(serverUrl),
-            ResourceDocumentation = new Uri("https://docs.example.com/api/math"),
-            AuthorizationServers = { new Uri(authorizationServerUrl) },
+            Resource = serverUrl,
+            ResourceDocumentation = "https://docs.example.com/api/math",
+            AuthorizationServers = { authorizationServerUrl },
             ScopesSupported = ["mcp:tools"]
         };
     });
@@ -1027,6 +1029,63 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     Console.WriteLine("Press Ctrl+C to stop the server");
 
     app.Run(serverUrl);
+    ```
+
+    Fill `ProtectedMcpServer.csproj` with:
+
+    ```xml theme={null}
+    <Project Sdk="Microsoft.NET.Sdk.Web">
+
+      <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <!-- Identifier for the local secret store, not a secret itself. -->
+        <UserSecretsId>local-authorization-mcp-server</UserSecretsId>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.18" />
+        <PackageReference Include="ModelContextProtocol" Version="2.0.0" />
+        <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.0.0" />
+      </ItemGroup>
+
+    </Project>
+    ```
+
+    In the `Tools` folder, create `MathTools.cs` and fill it with:
+
+    ```csharp theme={null}
+    using System.ComponentModel;
+    using ModelContextProtocol.Server;
+
+    namespace ProtectedMcpServer.Tools;
+
+    [McpServerToolType]
+    public sealed class MathTools
+    {
+        [McpServerTool, Description("Add two numbers together.")]
+        public Task<double> Add(
+            [Description("First operand")] double a,
+            [Description("Second operand")] double b)
+        {
+            return Task.FromResult(a + b);
+        }
+
+        [McpServerTool, Description("Multiply two numbers together.")]
+        public Task<double> Multiply(
+            [Description("First operand")] double a,
+            [Description("Second operand")] double b)
+        {
+            return Task.FromResult(a * b);
+        }
+    }
+    ```
+
+    Then from the server's root, run:
+
+    ```bash theme={null}
+    dotnet run
     ```
 
     For more details, see the [C# SDK documentation](https://github.com/modelcontextprotocol/csharp-sdk).

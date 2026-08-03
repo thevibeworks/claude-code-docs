@@ -2,7 +2,7 @@
 
 When you first create a Claude account, you’ll be asked to enter your phone number from a **[supported location](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)** to receive a verification code via text message:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893173143/de034a2e7d9a6ae1f703cf867afd/image.png?expires=1785690900&amp;signature=0d1f06e0e5bad4fce080bc493bf47b77864a144cfc760f1a13509d6b35cde167&amp;req=dSguFch5noBbWvMW1HO4zVIf8JVl1SpzoTnI%2BoMZk7dPfDmAYw902ipT6hbF%0ARL6FNXJggy1H3ZJy%2FRk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893173143/de034a2e7d9a6ae1f703cf867afd/image.png?expires=1785732300&amp;signature=c1eaba35a509cf15ba2e8af9e751619b6cee18c5fa140feb5fc435ca75cc15b0&amp;req=dSguFch5noBbWvMW1HO4zVIf8JVk3yh5oTnI%2BoMZk7fZjndIKB3iblaCbQji%0AfGUwJNzwqPNZqJ88sl8%3D%0A)
 
 Once you receive the text message with the code, type it into the box and click “Verify code.” This will complete the verification and account creation process and allow you to start chatting with Claude.
 
