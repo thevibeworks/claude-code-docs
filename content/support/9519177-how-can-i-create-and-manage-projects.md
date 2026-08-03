@@ -104,19 +104,19 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1785690900&amp;signature=e976b4e48db2fe21fdbcd6dac4d954d259f2f390d2c25839bd7c6add478e6a10&amp;req=dScvEsh3nYNbUfMW1HO4zQABaWRqQ6AcBSXNVFXQ%2FVGX%2BDzweoDzVV6uFuZt%0A1BMzAhIejLvMU0N1Tlw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1785732300&amp;signature=f904484e12e2e4d0f37b703adac15c42595037dc624e9fc164c4fa560041b869&amp;req=dScvEsh3nYNbUfMW1HO4zQABaWRrSaIWBSXNVFXQ%2FVH%2FYFrYloPcBojnofLv%0AimzR9%2FoMl%2FGsl7ORVJ4%3D%0A)
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1785690900&amp;signature=09bfb8b2b1ac674e9caf13613d9957a5cd42f7816b44717b79f1e6173ee59c46&amp;req=dScvEsh3nYhaWPMW1HO4zSMECiW2wgkIgYbpTjViBxC7eUrlSchvpVIKrtdG%0AGqx9IUj6Oj%2BAxqIRgXg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1785732300&amp;signature=47bbe56ef5082ce25be84d7018e2a444cbc7fe8eebf269b4c9774314f9ce677f&amp;req=dScvEsh3nYhaWPMW1HO4zSMECiW3yAsCgYbpTjViBxB789raQ8WAOUpgZxnQ%0AQMbWEDmjyoU9kivF464%3D%0A)
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1785690900&amp;signature=39350b1246a7c121dd90892e43a9507182ba80574eb10947989ebcf09c47bff8&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DuPIqB0UDS2r1%2FGRlqOTHIdtSiDx64njxh%2B%2Bg%0A58LfDprIIQVpE9AnM1Y%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1785732300&amp;signature=da5891521586238f136b58c12cc2f3e033346f5556a7355d1226eebfabf8484d&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DuPIrDUcJS2r1%2FGRlqOTOa3QeC3MI3Gqy9jsR%0AKHJ6qrDvS0WAvgqrWWM%3D%0A)
 
 You can move chats into projects in bulk from **[Your chat history page](https://claude.ai/recents)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185685/bb960063204592db277a4ba62d8d/ebbf5c69-da79-4e56-9d87-f2a97a22fe67?expires=1785690900&amp;signature=1f3bdc5222f7d42c7dd1af763bb15f2ddfd3dd627b6507ef1b0b8d0bddaef00e&amp;req=dScvEsh2mIdXXPMW1HO4zbParUlP4PqquQSB0Ebsw9cpyENJp2XK1x0QpBLe%0AkXie7vduHYN%2F09lSXT8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185685/bb960063204592db277a4ba62d8d/ebbf5c69-da79-4e56-9d87-f2a97a22fe67?expires=1785732300&amp;signature=8339678fe08141bb23c74fa6d9fe777c9d0e04dc2e5635a7011266181bc89f41&amp;req=dScvEsh2mIdXXPMW1HO4zbParUlO6viguQSB0Ebsw9eCJvjpHtoHXLdKOTdx%0Aa0HYmcPeQ4de3AfDkOE%3D%0A)
 
 Select the chats you want to move, then click the icon next to the number of selected chats to move them into your project.
 

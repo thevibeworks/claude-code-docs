@@ -1289,7 +1289,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "0abedb84c7db59873125e3c8e66199fa874c4878"
+        "sha": "6b1ffe1e090b5559549c2bad8f46445208d8a8dc"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1738,7 +1738,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "74fadf69c464c0e0658bd7a6b740986fc3aceba8"
+        "sha": "67ffafb11c18cd599b856c411c614cf329377d22"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1809,7 +1809,7 @@
         "source": "github",
         "repo": "jfrog/claude-plugin",
         "commit": "259c8e718266c16e99b4f30ae9b1ed0f9f00d98d",
-        "sha": "8aa1671dfc29fa10041ff74a5afb419acde19645"
+        "sha": "fc235ef18207df0318799846a2cd36fe415b1492"
       },
       "homepage": "https://jfrog.com"
     },
@@ -2737,7 +2737,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qodo-ai/qodo-skills.git",
-        "sha": "ad848afd32eff172ce9073d9b1b1efe462ea0af2"
+        "sha": "5c6306797ad2c9831546f9bbd6360d2515bf5c26"
       },
       "homepage": "https://github.com/qodo-ai/qodo-skills.git"
     },
@@ -2838,7 +2838,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "830c224c1e759cdf997e0842b714d6b6b36d76ef"
+        "sha": "a515f546af8a5d05b7284bbd321bcd989f092b9f"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3684,7 +3684,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "6b3317c56f5a9f5bdf51120b88f26e0de0e2b27a"
+        "sha": "078b84601a3d0cd493aa128c4066f12b4309fd89"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },

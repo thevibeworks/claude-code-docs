@@ -4,141 +4,145 @@
 
 # MCP Inspector
 
-> In-depth guide to using the MCP Inspector for testing and debugging Model Context Protocol servers
+> Interactive developer tooling for testing and debugging MCP servers, in the browser, on the command line, and in the terminal
 
-The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is an interactive developer tool for testing and debugging MCP servers. While the [Debugging Guide](/docs/draft/tools/debugging) covers the Inspector as part of the overall debugging toolkit, this document provides a detailed exploration of the Inspector's features and capabilities.
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the reference developer tool for testing and debugging [MCP servers](/docs/draft/learn/server-concepts). It ships as a single package, `@modelcontextprotocol/inspector`, providing **three clients behind one binary**:
 
-## Getting started
+| Client  | Invocation                                  | What it's for                                                                     |
+| ------- | ------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Web** | `npx @modelcontextprotocol/inspector`       | A full graphical inspector in the browser. The default, and the richest surface.  |
+| **CLI** | `npx @modelcontextprotocol/inspector --cli` | A scriptable, machine-readable client for CI, shell pipelines, and coding agents. |
+| **TUI** | `npx @modelcontextprotocol/inspector --tui` | An interactive terminal UI, for when a browser isn't available or wanted.         |
 
-### Installation and basic usage
+All three are built on the same shared core, so a connection behaves identically across them: the same transports, the same configuration files, the same OAuth state on disk, and the same [protocol-era](/docs/draft/tools/inspector/protocol-eras) negotiation (legacy vs. modern 2026-07-28).
 
-The Inspector runs directly through `npx` without requiring installation:
+<Frame caption="The MCP Inspector web client, connected to a server, with the monitoring sidebar pinned so protocol traffic stays visible while you work.">
+  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-monitor-sidebar.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=eef6e546b9831b3d169e26bba8c54ce3" width="3840" height="2160" data-path="images/inspector/web-monitor-sidebar.png" />
+</Frame>
 
-```bash theme={null}
-npx @modelcontextprotocol/inspector <command>
-```
+## Quickstart
 
-```bash theme={null}
-npx @modelcontextprotocol/inspector <command> <arg1> <arg2>
-```
+The Inspector requires **Node 22.19.0 or newer** and runs directly through `npx`. No installation is required:
 
-#### Inspecting servers from npm or PyPI
+<Tabs>
+  <Tab title="Web">
+    ```bash theme={null}
+    # Launch the web UI and connect to a local stdio server
+    npx @modelcontextprotocol/inspector node path/to/server/index.js
 
-A common way to start server packages from [npm](https://npmjs.com) or [PyPI](https://pypi.org).
+    # Or launch with no target and add servers from the UI
+    npx @modelcontextprotocol/inspector
+    ```
+
+    The command prints a URL containing a one-time session token; open it in your browser. See [Web client](/docs/draft/tools/inspector/web).
+  </Tab>
+
+  <Tab title="CLI">
+    ```bash theme={null}
+    # List a server's tools and exit
+    npx @modelcontextprotocol/inspector --cli node path/to/server/index.js --method tools/list
+
+    # Call a tool and pipe the result into jq
+    npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transport http \
+      --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
+    ```
+
+    See [CLI client](/docs/draft/tools/inspector/cli).
+  </Tab>
+
+  <Tab title="TUI">
+    ```bash theme={null}
+    npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
+    ```
+
+    See [TUI client](/docs/draft/tools/inspector/tui).
+  </Tab>
+</Tabs>
+
+### Inspecting published servers
+
+Pass the command that launches the server as the Inspector's arguments, or point it at a remote server with `--server-url`:
 
 <Tabs>
   <Tab title="npm package">
     ```bash theme={null}
-    npx -y @modelcontextprotocol/inspector npx <package-name> <args>
-    # For example
-    npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem /Users/username/Desktop
+    npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem ~/Desktop
     ```
   </Tab>
 
   <Tab title="PyPI package">
     ```bash theme={null}
-    npx @modelcontextprotocol/inspector uvx <package-name> <args>
-    # For example
     npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
     ```
   </Tab>
-</Tabs>
 
-#### Inspecting locally developed servers
-
-To inspect servers locally developed or downloaded as a repository, the most common
-way is:
-
-<Tabs>
-  <Tab title="TypeScript">
+  <Tab title="Remote HTTP server">
     ```bash theme={null}
-    npx @modelcontextprotocol/inspector node path/to/server/index.js args...
-    ```
-  </Tab>
-
-  <Tab title="Python">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector \
-      uv \
-      --directory path/to/server \
-      run \
-      package-name \
-      args...
+    npx @modelcontextprotocol/inspector --server-url https://api.example.com/mcp --transport http
     ```
   </Tab>
 </Tabs>
 
-Please carefully read any attached README for the most accurate instructions.
+Always read a server's own README first, since every server requires different commands and arguments.
 
-## Feature overview
+## Launcher flags vs. client flags
 
-<Frame caption="The MCP Inspector interface">
-  <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/mcp-inspector.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=83b12e2a457c96ef4ad17c7357236290" width="2888" height="1761" data-path="images/mcp-inspector.png" />
-</Frame>
+`mcp-inspector`, the binary that `npx @modelcontextprotocol/inspector` runs, is a thin launcher. It owns only two things:
 
-The Inspector provides several features for interacting with your MCP server:
+1. **The mode flag:** `--web` (default), `--cli`, or `--tui`. At most one; passing two errors with `Specify at most one of --web, --cli, or --tui.`
+2. **`-h` / `--help`.**
 
-### Server connection pane
+Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--method`, the OAuth flags) is defined by the *client*, not the launcher, and the clients do not all define the same set. The [Configuration and flags](/docs/draft/tools/inspector/configuration) page is organized that way, by owner.
 
-* Allows selecting the [transport](/specification/latest/basic/transports) for connecting to the server
-* For local servers, supports customizing the command-line arguments and environment
+<Note>
+  Mode flags are recognized only at the front of the command line: the first token that isn't `--web` / `--cli` / `--tui` ends launcher parsing, and everything after it is forwarded to the client unchanged. That's what lets a literal `--cli` appear later as one of your server's own arguments:
 
-### Resources tab
+  ```bash theme={null}
+  mcp-inspector --cli node server.js --cli   # mode is CLI; the trailing --cli goes to server.js
+  ```
+</Note>
 
-* Lists all available resources
-* Shows resource metadata (MIME types, descriptions)
-* Allows resource content inspection
-* Supports subscription testing
+<Note>
+  `--help` behaves differently with and without a mode flag. Bare `mcp-inspector   --help` prints the launcher's help and exits. With a mode flag it is
+  forwarded, so `mcp-inspector --cli --help` prints the CLI's full flag
+  reference instead.
+</Note>
 
-### Prompts tab
-
-* Displays available prompt templates
-* Shows prompt arguments and descriptions
-* Enables prompt testing with custom arguments
-* Previews generated messages
-
-### Tools tab
-
-* Lists available tools
-* Shows tool schemas and descriptions
-* Enables tool testing with custom inputs
-* Displays tool execution results
-
-### Notifications pane
-
-* Presents all logs recorded from the server
-* Shows notifications received from the server
-
-## Best practices
-
-### Development workflow
-
-1. Start Development
-   * Launch Inspector with your server
-   * Verify basic connectivity
-   * Check capability negotiation
-
-2. Iterative testing
-   * Make server changes
-   * Rebuild the server
-   * Reconnect the Inspector
-   * Test affected features
-   * Monitor messages
-
-3. Test edge cases
-   * Invalid inputs
-   * Missing prompt arguments
-   * Concurrent operations
-   * Verify error handling and error responses
-
-## Next steps
+## Where to go next
 
 <CardGroup cols={2}>
-  <Card title="Inspector Repository" icon="github" href="https://github.com/modelcontextprotocol/inspector">
-    Check out the MCP Inspector source code
+  <Card title="Web client" icon="browser" href="/docs/draft/tools/inspector/web">
+    A tab-by-tab walkthrough of the graphical inspector.
   </Card>
 
-  <Card title="Debugging Guide" icon="bug" href="/docs/draft/tools/debugging">
-    Learn about broader debugging strategies
+  <Card title="CLI client" icon="terminal" href="/docs/draft/tools/inspector/cli">
+    Method reference, output formats, exit codes, and CI recipes.
+  </Card>
+
+  <Card title="TUI client" icon="table-columns" href="/docs/draft/tools/inspector/tui">
+    Terminal navigation and keyboard reference.
+  </Card>
+
+  <Card title="Configuration and flags" icon="sliders" href="/docs/draft/tools/inspector/configuration">
+    Catalog vs. config files, the full per-client flag reference, and
+    environment variables.
+  </Card>
+
+  <Card title="Authorization" icon="lock" href="/docs/draft/tools/inspector/authorization">
+    The OAuth flow end to end, mid-session re-authorization, and loopback
+    callbacks.
+  </Card>
+
+  <Card title="Protocol eras" icon="code-branch" href="/docs/draft/tools/inspector/protocol-eras">
+    Legacy vs. modern (2026-07-28) operation, and how every tab changes between
+    protocol eras.
+  </Card>
+
+  <Card title="Recipes" icon="book" href="/docs/draft/tools/inspector/recipes">
+    Importing client configs, reviewing MCP Apps, Docker, and network hosting.
+  </Card>
+
+  <Card title="Debugging guide" icon="bug" href="/docs/draft/tools/debugging">
+    Broader debugging strategies beyond the Inspector.
   </Card>
 </CardGroup>
