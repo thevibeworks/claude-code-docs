@@ -16,7 +16,7 @@ Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
 Chat and Cowork share one home, so you start both from the same place. On any surface, find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat."
 
-Claude Cowork is in beta on web and mobile, and rolling out over the next several weeks starting with the Max plan, with more plans to follow.
+Claude Cowork is in beta on web and mobile for Max, Team, and Enterprise plans, and will be rolling out to Pro plans over the next several weeks.
 
 ---
 
@@ -24,7 +24,7 @@ Claude Cowork is in beta on web and mobile, and rolling out over the next severa
 
 Claude Cowork uses the same agentic architecture that powers Claude Code, with no terminal required. Instead of responding to prompts one at a time, Claude can take on complex, multi-step tasks and execute them on your behalf.
 
-With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely (in beta), so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent, self-contained workspaces with their own files, links, instructions, and memory.
+With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely in the cloud (in beta), so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent, self-contained workspaces with their own files, links, instructions, and memory.
 
 **Important:**
 
@@ -38,7 +38,7 @@ With Cowork, you can describe an outcome, step away, and come back to finished w
 
 - You control your Cowork tasks and can delete a task at any time using the "Delete" option (click "⋮" next to the task, or select tasks from your Tasks list and click the trash icon). Your Cowork task will be removed from your task history immediately, and deleted from our backend storage systems within 30 days, in accordance with our **[data retention periods](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
 
-- Cowork activity is not captured in the Compliance API at this time.
+- Cowork via mobile and web is captured in the Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
 
 - If you're a Team or Enterprise plan admin, you can **[use OpenTelemetry (OTel) to monitor Claude Cowork activity](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry)** across your organization.
 
@@ -48,9 +48,9 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 ### Key capabilities
 
-- **Work from anywhere:** Remote sessions follow your Claude account. Start a task on one surface, steer it from another, and pick up the finished output wherever you are. See **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
+- **Work from anywhere:** Sessions in the cloud follow your Claude account. Start a task on one surface, steer it from another, and pick up the finished output wherever you are. See **[Use Claude Cowork on web, desktop, and mobile](https://support.claude.com/en/articles/15520349)**.
 
-- **Work that continues without you:** In remote sessions, Claude keeps working when you close your laptop or step away.
+- **Work that continues without you:** In sessions in the cloud, Claude keeps working when you close your laptop or step away.
 
 - **Direct local file access:** On desktop, Claude can read from and write to your local files without manual uploads or downloads.
 
@@ -62,7 +62,7 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 - **Long-running tasks:** Work on complex tasks for extended periods without conversation timeouts or context limits interrupting your progress.
 
-- **Scheduled tasks:** Create and save tasks that you can have Claude run on-demand or automatically on a cadence of your choosing. Scheduled tasks run remotely, with no device online.
+- **Scheduled tasks:** Create and save tasks that you can have Claude run on-demand or automatically on a cadence of your choosing. Scheduled tasks run in the cloud, with no device online.
 
 - **Spreadsheets and presentations:** Cowork can produce spreadsheets and slides that can be further edited with Claude for Excel and Powerpoint.
 
@@ -74,7 +74,7 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 ## How Claude Cowork runs your tasks
 
-Cowork runs your tasks remotely (in beta). Claude's work runs on Anthropic's servers, in an isolated environment, and your sessions and files are saved to your Claude account. Work continues if you close your laptop, and you can open the same session from any surface.
+Cowork runs your tasks in the cloud (in beta). Claude's work runs on Anthropic's servers, in an isolated environment, and your sessions and files are saved to your Claude account. Work continues if you close your laptop, and you can open the same session from any surface.
 
 When a task needs something on your computer, like a local file or your browser, Claude reaches it through the Claude Desktop app on that computer. When you start a task in Cowork, Claude:
 
@@ -98,7 +98,7 @@ You maintain visibility into what Claude is planning and doing throughout the pr
 
 - **Paid Claude subscription:** Cowork is available to paid Claude plans (Pro, Max, Team, Enterprise) only.
 
-- **For local file access, browser use, and computer use:** The **[Claude Desktop app](https://support.claude.com/en/articles/10065433-installing-claude-desktop)** for macOS or Windows, open and connected. These capabilities reach things on your computer, so they need the app even though your session runs remotely.
+- **For local file access, browser use, and computer use:** The **[Claude Desktop app](https://support.claude.com/en/articles/10065433-installing-claude-desktop)** for macOS or Windows, open and connected. These capabilities reach things on your computer, so they need the app even though your session runs in the cloud.
 
 - **Active internet connection:** Required throughout the session.
 
@@ -143,8 +143,10 @@ Cowork has three modes that control when Claude asks your permission before taki
 |                   | **Connector tool permission: "Always allow"**                          | **Connector tool permission: "Needs approval"** | **Connector tool permission: "Blocked"** |
 | ----------------- | ---------------------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------- |
 | **"Manual" mode** | Approved                                                               | Asks for permission                             | Denied                                   |
-| **"Auto" mode**   | Read-only tools are approved<br>For write/delete tools, Claude decides | Claude decides                                  | Denied                                   |
+| **"Auto" mode\*** | Read-only tools are approved<br>For write/delete tools, Claude decides | Claude decides                                  | Denied                                   |
 | **"Skip" mode**   | Approved                                                               | Approved                                        | Denied                                   |
+
+**Currently available for Pro and Max plans only.*
 
 As a reminder, you control which connectors Claude can use via the + menu in the chat box or the **[Customize > Connectors](https://claude.ai/customize/connectors)** page.
 
@@ -176,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1785765600&amp;signature=0543b16ab26bc617fee9193a6103edf60e39a77618e5aa33770884c74c64d170&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t3rMFS28iWjaktE9434zoWDn23K5TUSE3IS%0A2Z%2B1MbbtzMG0eVP75Tc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1785780900&amp;signature=7acd8a9ed37e11d011bac31a7ed80f7158096ecf393755e76c64f77443ed6287&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t3rPlG58iWjaktE942aEYswVaDJEYdMdLe1%0AGih%2Frm5em0ckez0pGhw%3D%0A)
 
 ### Folder instructions
 
@@ -194,7 +196,7 @@ Plugins customize how Claude works for your role, team, and company in Cowork. E
 
 You can set up tasks that Claude runs automatically or on demand. To schedule a task, type `/schedule` in any Cowork task. You can also click "Scheduled" in the left sidebar to view, create, and manage your scheduled tasks.
 
-Scheduled tasks run remotely, so they don't need your computer to be awake or the desktop app open.
+Scheduled tasks run in the cloud, so they don't need your computer to be awake or the desktop app open.
 
 For more in-depth details, see **[Schedule recurring tasks in Cowork](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork)**.
 
@@ -302,7 +304,7 @@ Cowork on web and mobile is rolling out gradually across paid plans. Make sure y
 
 ### Claude stopped working on my task
 
-For local sessions, ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended. Remote sessions keep running in the background; open the session from any surface to check its progress.
+For local sessions, ensure the Claude Desktop app was open throughout the entire task. If the app was closed or your computer went to sleep, the session may have ended. Sessions in the cloud keep running in the background; open the session from any surface to check its progress.
 
 ### I'm hitting usage limits quickly
 

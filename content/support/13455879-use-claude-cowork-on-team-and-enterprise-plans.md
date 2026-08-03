@@ -18,7 +18,7 @@ Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
 - **Claude Mobile**, in the latest version of Claude for iOS and Claude for Android
 
-Starting August 3, 2026, Claude Cowork is in beta on web and mobile for Team and Enterprise plans. On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
+Claude Cowork is in beta on web and mobile for Team and Enterprise plans. On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
 
 ---
 
@@ -26,7 +26,7 @@ Starting August 3, 2026, Claude Cowork is in beta on web and mobile for Team and
 
 During the beta, Cowork sessions can run in two places:
 
-- **Sessions in the cloud (beta starting August 3, 2026):** Running Cowork in the cloud lets members run tasks on Anthropic's infrastructure instead of their own machines. This means work continues across desktop, web, and mobile and scheduled tasks run when the laptop closes and no device is online.
+- **Sessions in the cloud (beta):** Running Cowork in the cloud lets members run tasks on Anthropic's infrastructure instead of their own machines. This means work continues across desktop, web, and mobile and scheduled tasks run when the laptop closes and no device is online.
 
 - **Local sessions:** Claude's work runs on the user’s computer, with code in an isolated virtual machine.
 
