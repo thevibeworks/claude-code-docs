@@ -34,7 +34,7 @@ With Claude for Excel, you can:
 
 ### For individuals
 
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
+1. Navigate to the **[Claude for Microsoft 365 listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
 
 2. Click "Get it now" to install the add-in.
 
@@ -50,7 +50,7 @@ With Claude for Excel, you can:
 
 3. Navigate to **Settings > Integrated apps > Add-ins**.
 
-4. Search for "Claude by Anthropic for Excel" in Microsoft AppSource.
+4. Search for "Claude for Microsoft 365" in Microsoft AppSource.
 
 5. Deploy the add-in to your organization or specific users.
 
@@ -194,19 +194,19 @@ To connect a tool, open the Claude sidebar and select the connectors icon to see
 
 Custom connectors can introduce security risks. Before enabling them, review **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b79c05dfcd)** for guidance on what to consider.
 
-### Use Skills in Excel
+### Use skills in Excel
 
-Skills you've enabled in your Claude settings are also available in the Claude for Excel add-in. Claude applies relevant Skills automatically while you work—you don't need to invoke them separately.
+Skills you've enabled in your Claude settings are also available in the Claude for Excel add-in. Claude applies relevant skills automatically while you work—you don't need to invoke them separately.
 
-You can also type / in the sidebar to see available Skills and select one directly (for example, /debug or /clean-up). Skills that aren't relevant to Excel are excluded from this list.
+You can also type / in the sidebar to see available skills and select one directly (for example, /debug or /clean-up). Skills that aren't relevant to Excel are excluded from this list.
 
-To learn more about enabling and managing Skills, see **[Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
+To learn more about enabling and managing skills, see **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
 
 ### Set persistent instructions
 
 Use the **Instructions** field in the add-in sidebar to set preferences that apply to every conversation in Excel. Instructions are useful for things like formatting conventions (for example, "always use IB formatting: blue for inputs, black for formulas"), preferred output style, or recurring context Claude should know about your workflow.
 
-Instructions you set in Excel only apply to Excel — they're separate from any Instructions you set in PowerPoint.
+Instructions you set in Excel only apply to Excel—they're separate from any Instructions you set in PowerPoint.
 
 ---
 
@@ -330,7 +330,7 @@ Users can approve all of Claude’s actions via a confirmation pop-up that appea
 
 - System information: REGISTER.ID, RTD, INFO
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1849431310/ffc870a5114b4178fcd74b5cccf8/Screenshot+2025-11-25+at+11_30_10%E2%80%AFAM.png?expires=1785780900&amp;signature=dace34f554b7d967441f3eea16c7d14a412d5bdb003dd6bc005563a02940de55&amp;req=dSgjH819nIJeWfMW1HO4zYWKaOdsKtp7qAsRdssXCyCTukj1EaAErG7h5yz5%0A6%2FlqoAiS%2FA%2FUh6Gb8fI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1849431310/ffc870a5114b4178fcd74b5cccf8/Screenshot+2025-11-25+at+11_30_10%E2%80%AFAM.png?expires=1785888000&amp;signature=df840cf03b076c5d2589d13285007dbda36717df3d63839acd5eb4935f57d776&amp;req=dSgjH819nIJeWfMW3nq%2BgfAvMWKD8LiUAQbF3Y2%2BSQ%2BWvNjhP90W6gcv1QxD%0A0nIA2dfPlND8sGhG0hgYQJ1uMLA%3D%0A)
 
 While we continue to develop our offerings and improve safety measures to reduce these risks, users should exercise caution when using Claude for Excel and should not use it with spreadsheets from external, untrusted sources.
 

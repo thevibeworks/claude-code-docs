@@ -542,7 +542,7 @@ Claude Platform on AWS uses Claude API endpoints directly, which means you get f
 * **Prompt caching:** Cache tools, system prompts, and message history to reduce latency and cost. All prompt caching capabilities (5-minute TTL, 1-hour TTL, and automatic caching) are available.
 * **Files API:** Upload and reference files across requests.
 * **Customer-managed encryption keys (CMEK):** [CMEK](/docs/en/manage-claude/cmek) is available with [AWS KMS](/docs/en/manage-claude/cmek-aws-kms) keys only. Google Cloud KMS and Azure Key Vault keys cannot be registered. Create, validate, and attach keys in the [Claude Console](#using-the-claude-console). The `external_keys` Admin API endpoints are not currently available. The key must be in the same AWS region as the workspace it is attached to.
-* **Compliance API:** The [Compliance API](/docs/en/manage-claude/compliance-api) is available. Access is authorized through AWS IAM.
+* **Compliance API:** The [Compliance API](/docs/en/manage-claude/compliance-api) is available. Access is authorized through the AWS IAM [`ListComplianceActivities` action](/docs/en/api/claude-platform-on-aws-iam-actions#compliance).
 
 See the [comparison table](#claude-platform-on-aws-vs-amazon-bedrock) for feature-availability differences from Amazon Bedrock.
 
@@ -848,7 +848,7 @@ The spend limits you set are soft limits: spend is calculated at list prices and
 
 ## Monitoring and logging
 
-AWS CloudTrail can capture all requests to Claude Platform on AWS. Workspace, vault, and webhook operations are logged as Management events by default. Inference, batch, file, skill, model, user profile, and Claude Managed Agents operations (other than vaults and webhooks) are classified as Data events and require explicit data event logging configuration, which incurs additional CloudTrail charges. See the [IAM actions reference](/docs/en/api/claude-platform-on-aws-iam-actions#route-to-action-mapping) for the full event type classification and the [AWS CloudTrail documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) for configuration details.
+AWS CloudTrail can capture all requests to Claude Platform on AWS. Workspace, compliance, vault, and webhook operations are logged as Management events by default. Inference, batch, file, skill, model, user profile, and Claude Managed Agents operations (other than vaults and webhooks) are classified as Data events and require explicit data event logging configuration, which incurs additional CloudTrail charges. See the [IAM actions reference](/docs/en/api/claude-platform-on-aws-iam-actions#route-to-action-mapping) for the full event type classification and the [AWS CloudTrail documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) for configuration details.
 
 ### Request IDs
 

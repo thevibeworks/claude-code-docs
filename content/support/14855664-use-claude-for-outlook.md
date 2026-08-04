@@ -32,7 +32,7 @@ With Claude for Outlook, you can:
 
 ### For individuals
 
-1. Navigate to the **[Claude for Outlook listing on Microsoft AppSource](https://marketplace.microsoft.com/en-us/product/office/WA200010724?tab=Overview)**.
+1. Navigate to the **[Claude for Outlook listing](https://marketplace.microsoft.com/en-us/product/office/WA200010724?tab=Overview)** on Microsoft Marketplace.
 
 2. Click “Get it now” to install the add-in.
 
@@ -46,7 +46,7 @@ With Claude for Outlook, you can:
 
 2. Navigate to **Settings > Integrated apps > Add-ins**.
 
-3. Search for “Claude by Anthropic for Outlook” in Microsoft AppSource.
+3. Search for “Claude for Outlook” in Microsoft AppSource.
 
 4. Deploy the add-in to your organization or specific people.
 

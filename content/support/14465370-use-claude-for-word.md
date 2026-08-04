@@ -32,7 +32,7 @@ With Claude for Word, you can:
 
 ### For individuals
 
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
+1. Navigate to the **[Claude for Microsoft 365 listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
 
 2. Click “Get it now” to install the add-in.
 
@@ -42,17 +42,17 @@ With Claude for Word, you can:
 
 **Deploy Claude for Word to your organization:**
 
-1. Visit the **Microsoft 365 Admin Center**.
+1. Visit the **[Microsoft 365 Admin Center](https://admin.microsoft.com/)**.
 
-2. Navigate to **Settings > Org Settings > User owned apps and services** and ensure that **“Let users access the Office Store”** is toggled on.
+2. Navigate to **Settings > Org Settings > User owned apps and services** and ensure that **[“Let users access the Office Store”](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center?view=o365-worldwide#manage-add-in-downloads-by-turning-onoff-microsoft-marketplace-across-all-apps-except-outlook)** is toggled on.
 
 3. Navigate to **Settings > Integrated apps > Add-ins**.
 
-4. Search for “Claude by Anthropic for Word” in Microsoft AppSource.
+4. Search for “Claude for Microsoft 365” in Microsoft AppSource.
 
 5. Deploy the add-in to your organization or specific people.
 
-6. Share these instructions with your team: **Microsoft’s deployment guide**.
+6. Share these instructions with your team: **[Microsoft’s deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)**.
 
 After installation, team members can open Word, activate the Claude add-in (from Tools > Add-ins on Mac or Home > Add-ins on Windows), sign in with their Claude credentials, and start working with their documents.
 

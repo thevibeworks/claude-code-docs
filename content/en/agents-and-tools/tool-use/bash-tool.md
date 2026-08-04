@@ -814,14 +814,14 @@ Claude determines which command to run. Your application owns everything else: t
       ```ruby Ruby
       tool_results = []
       response.content.each do |block|
-        next unless block.type == "tool_use" && block.name == "bash"
+        next unless block.type == :tool_use && block.name == "bash"
 
         result =
-          if block.input["restart"]
+          if block.input[:restart]
             bash_session.restart
             "Bash session restarted"
           else
-            bash_session.execute_command(block.input["command"])
+            bash_session.execute_command(block.input[:command])
           end
 
         # One tool_result per tool_use block, all returned in the next user message

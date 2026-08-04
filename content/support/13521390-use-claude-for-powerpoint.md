@@ -32,7 +32,7 @@ With Claude for PowerPoint, you can:
 
 ### For individuals
 
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
+1. Navigate to the **[Claude for Microsoft 365 listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
 
 2. Click "Get it now" to install the add-in.
 
@@ -48,7 +48,7 @@ With Claude for PowerPoint, you can:
 
 3. Navigate to **Settings > Integrated apps > Add-ins**.
 
-4. Search for "Claude by Anthropic in PowerPoint" in Microsoft AppSource.
+4. Search for "Claude for Microsoft 365" in Microsoft AppSource.
 
 5. Deploy the add-in to your organization or specific users.
 
@@ -180,13 +180,13 @@ To connect a tool, open the Claude sidebar and select the connectors icon to see
 
 Custom connectors can introduce security risks. Before enabling them, review **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b79c05dfcd)** for guidance on what to consider.
 
-### Use Skills in PowerPoint
+### Use skills in PowerPoint
 
-Skills you've enabled in your Claude settings are also available in the Claude for PowerPoint add-in. Claude applies relevant Skills automatically while you work—you don't need to invoke them separately.
+Skills you've enabled in your Claude settings are also available in the Claude for PowerPoint add-in. Claude applies relevant skills automatically while you work—you don't need to invoke them separately.
 
-You can also type `/` in the sidebar to see available Skills and select one directly (for example, `/deck-check`). Skills that aren't relevant to PowerPoint are excluded from this list.
+You can also type `/` in the sidebar to see available skills and select one directly (for example, `/deck-check`). Skills that aren't relevant to PowerPoint are excluded from this list.
 
-To learn more about enabling and managing Skills, see **[Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
+To learn more about enabling and managing skills, see **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
 
 ### Set persistent instructions
 
@@ -204,7 +204,7 @@ We **[automatically compact longer conversations](https://support.claude.com/en/
 
 ### Chat history
 
-Chat history is now stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data. Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID — so your Excel and PowerPoint histories are separate, but conversations carry across different workbooks within Excel (or different presentations within PowerPoint). If you switch organizations, you'll have a separate chat history.
+Chat history is now stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data. Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID —so your Excel and PowerPoint histories are separate, but conversations carry across different workbooks within Excel (or different presentations within PowerPoint). If you switch organizations, you'll have a separate chat history.
 
 ### Overwrite protection
 

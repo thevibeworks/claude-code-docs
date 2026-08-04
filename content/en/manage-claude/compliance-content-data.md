@@ -11,12 +11,12 @@ Access chat content, file attachments, and projects for claude.ai organizations 
 <Check>
   **Required scope:** `read:compliance_user_data` on the Compliance Access Key. The delete endpoints also require `delete:compliance_user_data`.
 
-  **Prerequisite:** None for listing chats organization-wide. To filter the chat list to specific users, you need user IDs from [List organization users](/docs/en/manage-claude/compliance-org-data#list-organization-users). The other endpoints on this page take resource IDs directly.
+  **Prerequisite:** None for listing chats or remote sessions organization-wide. To filter the chat or session lists to specific users, you need user IDs from [List organization users](/docs/en/manage-claude/compliance-org-data#list-organization-users). The other endpoints on this page take resource IDs directly.
 </Check>
 
-The endpoints on this page expose claude.ai chat content, file uploads, projects, and project attachments to compliance reviewers. They support eDiscovery (electronic discovery) exports, data loss prevention (DLP) enforcement, and account-deletion responses. Content is retained for as long as your organization's retention policy allows. Chats that a user has soft-deleted in claude.ai remain visible through the Compliance API with `deleted_at` populated; chats that have been hard-deleted (through the Compliance API itself, or after the organization's retention window expires) are not retrievable.
+The endpoints on this page expose claude.ai chat content, file uploads, projects, project attachments, and remote session transcripts to compliance reviewers. They support eDiscovery (electronic discovery) exports, data loss prevention (DLP) enforcement, and account-deletion responses. Chat, file, and project content is retained for as long as your organization's retention policy allows; remote session transcripts are retained for 6 years. Chats that a user has soft-deleted in claude.ai remain visible through the Compliance API with `deleted_at` populated; chats that have been hard-deleted (through the Compliance API itself, or after the organization's retention window expires) are not retrievable.
 
-Both scopes are granted only on Compliance Access Keys (`sk-ant-api01-...`) created in claude.ai; see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access) to provision one. The `read:compliance_user_data` scope covers retrieval; `delete:compliance_user_data` is required only for the delete endpoints. The chat, file, project, and attachment endpoints are not available to Admin API keys (`sk-ant-admin01-...`); calls authenticated with an Admin API key return [403 Forbidden](/docs/en/manage-claude/compliance-errors#403-forbidden).
+Both scopes are granted only on Compliance Access Keys (`sk-ant-api01-...`) created in claude.ai; see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access) to provision one. The `read:compliance_user_data` scope covers retrieval; `delete:compliance_user_data` is required only for the delete endpoints. The chat, file, project, attachment, and session endpoints are not available to Admin API keys (`sk-ant-admin01-...`); calls authenticated with an Admin API key return [403 Forbidden](/docs/en/manage-claude/compliance-errors#403-forbidden).
 
 Endpoints on this page paginate two ways; see [Paginate results](/docs/en/manage-claude/compliance-activity-feed#paginate-results) for the full reference. Each section notes which scheme applies.
 
@@ -244,6 +244,142 @@ curl --fail-with-body -sS -G \
 }
 ```
 
+## Retrieve remote sessions
+
+Cowork sessions started on claude.ai web or mobile run in Anthropic-managed cloud environments. The Compliance API exposes these remote sessions through two endpoints: `GET /v1/compliance/apps/sessions/remote` lists session metadata, and `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` returns one session's transcript. Both require the `read:compliance_user_data` scope, and both count against the shared Compliance API rate limit plus a second budget specific to these endpoints; see [429 Too Many Requests](/docs/en/manage-claude/compliance-errors#429-too-many-requests).
+
+<Note>
+  The remote session endpoints are in beta. No additional setup is required: they work with the same Compliance Access Key and `read:compliance_user_data` scope as the rest of the content endpoints.
+</Note>
+
+The list endpoint defaults to organization-wide scope: leave off `organization_ids[]` to include every claude.ai organization your key can read, or pass up to 500 values to narrow the scope. To scope the list to specific users instead, pass 1–10 `user_ids[]` values (obtain the IDs from [List organization users](/docs/en/manage-claude/compliance-org-data#list-organization-users)); the filter matches the session's owning user, so agent-owned sessions are excluded whenever `user_ids[]` is set. Bound the results in time with `created_at` range parameters (`gte`, `gt`, `lt`, `lte`, in RFC 3339 format). There is no `updated_at` filter. The following request lists sessions created since a given date.
+
+```bash cURL
+curl --fail-with-body -sS -G \
+  "https://api.anthropic.com/v1/compliance/apps/sessions/remote" \
+  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  --data-urlencode "created_at.gte=2026-06-01T00:00:00Z" \
+  --data-urlencode "limit=100"
+```
+
+```json Response
+{
+  "data": [
+    {
+      "id": "cse_01WpQrStUvXyZaBcDeFgHjK6",
+      "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
+      "user": {
+        "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+        "email_address": "user@example.com"
+      },
+      "agent_id": null,
+      "started_by_user": null,
+      "status": "active",
+      "created_at": "2026-07-01T17:04:05Z",
+      "updated_at": "2026-07-01T18:00:41Z",
+      "product_surface": "cowork_remote"
+    },
+    {
+      "id": "cse_01TkNpRsUvWxYzAbCdEfGhJ4",
+      "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
+      "user": null,
+      "agent_id": "cagt_01MnPqRsTuVwXyZaBcDeFgH8",
+      "started_by_user": {
+        "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+        "email_address": "user@example.com"
+      },
+      "status": "archived",
+      "created_at": "2026-06-28T09:15:22Z",
+      "updated_at": "2026-06-28T09:47:10Z",
+      "product_surface": "cowork_remote"
+    }
+  ],
+  "next_page": "page_AAEfMk93cXpYdGxrZXk"
+}
+```
+
+Results are sorted in reverse chronological order (newest first) by `created_at` and capped at `limit` results per response (default 100, max 500). The endpoint paginates with the same page-token scheme as projects and attachments (see [Paginate results](/docs/en/manage-claude/compliance-activity-feed#paginate-results)): pass the response's `next_page` value back as the `page` query parameter on the next request, and stop when `next_page` is `null`.
+
+A session is owned by either a user or an agent, never both. For user-owned sessions, `user` carries the owner's ID and email address (`email_address` is `null` when the user is no longer a member of an organization your key can read) and `agent_id` is `null`. For agent-owned sessions (for example, scheduled tasks), `user` is `null`, `agent_id` carries the agent's ID (prefix `cagt_`), and `started_by_user` identifies the human who initiated the run, for example by starting a scheduled task; on user-owned sessions, `started_by_user` is `null`.
+
+`status` is one of `pending`, `active`, `paused`, `archived`, or `failed`. A session is `pending` while it is being provisioned; a `pending` session has no transcript yet, and the messages endpoint returns 404 for it until provisioning completes. Sessions that have been deleted are never returned.
+
+`product_surface` (string or `null`) identifies the product that created the session. The endpoint currently returns only sessions with `product_surface` of `cowork_remote`: Cowork sessions started on claude.ai web or mobile.
+
+<Note>
+  **Build forward-compatible handlers.** Pass through unrecognized `status` and `product_surface` values, and ignore fields your handler does not expect, so your integration keeps working as new statuses and product surfaces ship.
+</Note>
+
+### Retrieve a session transcript
+
+The messages endpoint returns the session's transcript: user prompts, assistant responses, and tool calls and results. Thinking blocks and images are not included. For a coverage summary and a comparison with Cowork's OpenTelemetry logging, see the [Compliance API FAQ](/docs/en/manage-claude/compliance-faq#data-coverage-and-retention).
+
+```bash cURL
+session_id="cse_01WpQrStUvXyZaBcDeFgHjK6"
+
+curl --fail-with-body -sS \
+  "https://api.anthropic.com/v1/compliance/apps/sessions/remote/$session_id/messages" \
+  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY"
+```
+
+```json Response
+{
+  "session": {
+    "id": "cse_01WpQrStUvXyZaBcDeFgHjK6",
+    "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
+    "user": {
+      "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+      "email_address": null
+    },
+    "agent_id": null,
+    "started_by_user": null,
+    "status": "active",
+    "created_at": "2026-07-01T17:04:05Z",
+    "updated_at": "2026-07-01T18:00:41Z",
+    "product_surface": "cowork_remote"
+  },
+  "data": [
+    {
+      "id": "csev_01HjKmNpQrStUvWxYzAbCdE2",
+      "role": "user",
+      "created_at": "2026-07-01T17:04:05Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Summarize the customer feedback in the attached spreadsheet."
+        }
+      ],
+      "sent_by_user_id": null,
+      "content_unavailable": false
+    },
+    {
+      "id": "csev_01BcDeFgHjKmNpQrStUvWxY4",
+      "role": "assistant",
+      "created_at": "2026-07-01T17:04:06Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll start by reading the spreadsheet..."
+        }
+      ],
+      "sent_by_user_id": null,
+      "content_unavailable": false
+    }
+  ],
+  "next_page": null
+}
+```
+
+The response embeds a `session` envelope alongside the paginated `data` array. On this endpoint the envelope always has `user.email_address` and `started_by_user` set to `null`; get those values from the list endpoint instead.
+
+Messages are returned oldest first by default; pass `order=desc` to reverse. Pagination uses the same `page`/`next_page` scheme as the list endpoint, with a `limit` default of 100 and a max of 1,000. A page can end early when the response reaches its size budget, so a page with fewer than `limit` messages does not mean you have reached the end; keep paginating until `next_page` is `null`.
+
+Each message carries a `role` (`user` or `assistant`) and a `content` array of `text`, `tool_use`, and `tool_result` blocks. Message `created_at` values are commit timestamps: consecutive messages can share a timestamp or slightly invert, so preserve the returned order rather than re-sorting by `created_at`. On agent-owned sessions, `sent_by_user_id` records the user who sent a given user message when one is attributable; it is `null` otherwise, including on all assistant messages. When a message's content cannot be returned at all (for example, it exceeds size bounds), the message carries `content_unavailable` set to `true`.
+
+Two parameters cap how many bytes of each tool block are returned: `tool_use_input_max_bytes` and `tool_result_max_bytes`, both defaulting to 10,000 bytes. Pass `-1` for the server maximum (about 1 MiB); `0` is invalid. A block cut off by either cap carries `"truncated": true`, and a truncated `tool_use` input is no longer valid JSON, so parse tool inputs only from untruncated blocks (or raise the cap and refetch).
+
+The messages endpoint returns [404 Not Found](/docs/en/manage-claude/compliance-errors#404-not-found) for `pending` sessions, deleted sessions, and sessions in organizations your key cannot read.
+
 ## Delete content
 
 <Warning>
@@ -258,6 +394,8 @@ The Compliance API exposes hard-delete endpoints for chats, files, project docum
 * [Delete project](/docs/en/api/compliance/apps/projects/delete): see [Detach chats before deleting a project](#detach-chats-before-deleting-a-project).
 
 All four endpoints require the `delete:compliance_user_data` scope, which is granted separately from the read scope when the Compliance Access Key is created.
+
+The remote session endpoints are read-only; remote sessions cannot be deleted through the Compliance API. Session transcripts are retained for 6 years; see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
 
 The following request deletes one chat. The same pattern applies to the other delete endpoints; only the URL changes.
 
@@ -307,6 +445,6 @@ To resolve, list the project's chats with `GET /v1/compliance/apps/chats?user_id
   </Card>
 
   <Card title="List organizations, users, roles, groups, and settings" href="/docs/en/manage-claude/compliance-org-data">
-    Enumerate the people and teams associated with the chats and projects on this page.
+    Enumerate the people and teams associated with the chats, projects, and sessions on this page.
   </Card>
 </CardGroup>

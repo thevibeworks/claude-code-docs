@@ -10,6 +10,10 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### August 1, 2026
+
+* [Dreams](/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5. See [Supported models](/docs/en/managed-agents/dreams#limits).
+
 ### July 24, 2026
 
 * We've launched **Claude Opus 5** (`claude-opus-5`), a step-change improvement over Claude Opus 4.8. Claude Opus 5 supports a [1M token context window](/docs/en/build-with-claude/context-windows) (both the default and the maximum), 128k max output tokens, and [thinking](/docs/en/build-with-claude/thinking) on by default, at $5 / $25 per MTok, the same pricing as Claude Opus 4.8. It's available on the Claude API, [Claude in Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude on Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai), and [Claude in Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry). See [What's new in Claude Opus 5](/docs/en/about-claude/models/whats-new-opus-5) for new features, behavior changes, and migration guidance, and the [models overview](/docs/en/about-claude/models/overview) for complete specs.
@@ -111,6 +115,7 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
 * Claude Fable 5 requires 30-day data retention and is not available under zero data retention. See [Model-specific data retention requirements](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 * Claude Managed Agents now supports [scheduled deployments](/docs/en/managed-agents/scheduled-deployments), letting you run sessions on a cron schedule without managing your own scheduler.
 * Claude Managed Agents vaults now support [environment variable credentials](/docs/en/managed-agents/vaults#add-a-credential), so you can securely inject secrets into the agent's sandbox for CLIs, SDKs, and other services that authenticate through environment variables.
+* The [Compliance API](/docs/en/manage-claude/compliance-api) [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) (`GET /v1/compliance/activities`) is now available on [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws). See [IAM actions for Claude Platform on AWS](/docs/en/api/claude-platform-on-aws-iam-actions#compliance) for the `ListComplianceActivities` action that authorizes it.
 * The `session.thread_*` webhook events now include a `session_thread_id` field identifying the multiagent thread that triggered the event.
 * We've released a [Swift package](/docs/en/cli-sdks-libraries/libraries/apple-foundation-models) in beta that adds Claude as a server-side `LanguageModel` in Apple's Foundation Models framework. Call Claude through the same `LanguageModelSession` API as Apple's on-device model on iOS 27, macOS 27, visionOS 27, and watchOS 27 (beta).
 

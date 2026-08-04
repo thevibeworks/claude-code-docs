@@ -51,7 +51,7 @@ This guide walks you through creating an agent, setting up an environment, start
   </Tab>
 
   <Tab title="Go">
-    You may also install the CLI from source using `go install`. Requires Go 1.25 or later.
+    You can also install the CLI from source using `go install`. Requires Go 1.25 or later.
 
     ```bash
     go install github.com/anthropics/anthropic-cli/cmd/ant@latest
@@ -162,11 +162,14 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       ```
 
       ```bash CLI
-      ant beta:agents create \
+      AGENT_ID=$(ant beta:agents create \
         --name "Coding Assistant" \
         --model '{id: claude-opus-5}' \
         --system "You are a helpful coding assistant. Write clean, well-documented code." \
-        --tool '{type: agent_toolset_20260401}'
+        --tool '{type: agent_toolset_20260401}' \
+        --transform id --raw-output)
+
+      echo "Agent ID: $AGENT_ID"
       ```
 
       ```python Python
@@ -356,9 +359,12 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       ```
 
       ```bash CLI
-      ant beta:environments create \
+      ENVIRONMENT_ID=$(ant beta:environments create \
         --name "quickstart-env" \
-        --config '{type: cloud, networking: {type: unrestricted}}'
+        --config '{type: cloud, networking: {type: unrestricted}}' \
+        --transform id --raw-output)
+
+      echo "Environment ID: $ENVIRONMENT_ID"
       ```
 
       ```python Python
@@ -479,6 +485,16 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       echo "Session ID: $SESSION_ID"
       ```
 
+      ```bash CLI
+      SESSION_ID=$(ant beta:sessions create \
+        --agent "$AGENT_ID" \
+        --environment-id "$ENVIRONMENT_ID" \
+        --title "Quickstart session" \
+        --transform id --raw-output)
+
+      echo "Session ID: $SESSION_ID"
+      ```
+
       ```python Python
       session = client.beta.sessions.create(
           agent=agent.id,
@@ -560,53 +576,13 @@ export ANTHROPIC_API_KEY="your-api-key-here"
 
     <CodeGroup>
       ```bash curl
-      # Send the user message first; the API buffers events until the stream attaches
-      curl -sS --fail-with-body \
-        "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
-        -H "x-api-key: $ANTHROPIC_API_KEY" \
-        -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: managed-agents-2026-04-01" \
-        -H "content-type: application/json" \
-        -d @- >/dev/null <<'EOF'
-      {
-        "events": [
-          {
-            "type": "user.message",
-            "content": [
-              {
-                "type": "text",
-                "text": "Create a Python script that generates the first 20 Fibonacci numbers and saves them to fibonacci.txt"
-              }
-            ]
-          }
-        ]
-      }
-      EOF
+      # This workflow does not translate well to a one-off shell command.
+      # Use one of the SDK examples in this code group instead.
+      ```
 
-      # Open the SSE stream and process events as they arrive
-      while IFS= read -r line; do
-        [[ $line == data:* ]] || continue
-        json=${line#data: }
-        case $(jq -r '.type' <<<"$json") in
-          agent.message)
-            jq -j '.content[] | select(.type == "text") | .text' <<<"$json"
-            ;;
-          agent.tool_use)
-            printf '\n[Using tool: %s]\n' "$(jq -r '.name' <<<"$json")"
-            ;;
-          session.status_idle)
-            printf '\n\nAgent finished.\n'
-            break
-            ;;
-        esac
-      done < <(
-        curl -sS -N --fail-with-body \
-          "https://api.anthropic.com/v1/sessions/$SESSION_ID/stream" \
-          -H "x-api-key: $ANTHROPIC_API_KEY" \
-          -H "anthropic-version: 2023-06-01" \
-          -H "anthropic-beta: managed-agents-2026-04-01" \
-          -H "Accept: text/event-stream"
-      )
+      ```bash CLI
+      # This workflow does not translate well to a one-off shell command.
+      # Use one of the SDK examples in this code group instead.
       ```
 
       ```python Python
@@ -843,7 +819,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       ```
     </CodeGroup>
 
-    The agent writes a Python script, executes it in the sandbox, and verifies the output file was created. Your output looks similar to this:
+    The agent writes a Python script, runs it in the sandbox, and verifies the output file was created. Your output looks similar to this:
 
     ```text wrap
     I'll create a Python script that generates the first 20 Fibonacci numbers and saves them to a file.
@@ -864,7 +840,7 @@ When you send a user event, Claude Managed Agents:
 
 1. **Provisions a sandbox:** Your environment configuration determines how it's built.
 2. **Runs the agent loop:** Claude determines which tools to use based on your message.
-3. **Executes tools:** File writes, bash commands, and other tool calls run inside the sandbox.
+3. **Runs tools:** File writes, bash commands, and other tool calls run inside the sandbox.
 4. **Streams events:** You receive real-time updates as the agent works.
 5. **Goes idle:** The agent emits a `session.status_idle` event when it has nothing more to do.
 
@@ -889,5 +865,9 @@ When you send a user event, Claude Managed Agents:
 
   <Card title="Scheduled deployments" icon="arrows-clockwise" href="/docs/en/managed-agents/scheduled-deployments">
     Run your agent on a recurring cron schedule
+  </Card>
+
+  <Card title="Chat SDK quickstart" icon="github-logo" href="https://github.com/anthropics/claude-quickstarts/tree/main/managed-agents/chat-sdk">
+    Explore a complete app that pairs Managed Agents with Vercel's Chat SDK
   </Card>
 </CardGroup>
