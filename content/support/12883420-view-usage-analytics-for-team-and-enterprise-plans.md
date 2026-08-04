@@ -48,7 +48,7 @@ Use the dropdown on the **Active members and assigned seats** chart to filter by
 
 - How agentic is their work? (beta)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2583875713/e3cb3c329f3b643cb9a3809876b3/image.png?expires=1785849300&amp;signature=3ffa8cf21408a553e379714fd25c8ec2862540de80f254e44151bf9cd79bde95&amp;req=diUvFcF5mIZeWvMW1HO4zciS3a3hnrdoDFD6TO7tG4iMyPbClqsm%2FaJrD54I%0AXZOKjqw0wVGjD1o62zE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2583875713/e3cb3c329f3b643cb9a3809876b3/image.png?expires=1785866400&amp;signature=a4607f052243fb3d7d90893f3c64561b5779dc4f41d28e7b752910346b4ac879&amp;req=diUvFcF5mIZeWvMW1HO4zciS3a3hnLhvDFD6TO7tG4gfIjD9CLIaaGBClooO%0An32K4rwkfFLJr391lbM%3D%0A)
 
 ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896563/abf008596ce5501297a609696362/fce5423c-4769-4b73-9a0a-c50f6407ebea?expires=1785888000&amp;signature=8b33afba875a33f559a913149448284b35864dc611e85736016a1bba1cb74a4e&amp;req=diUmE8F3m4RZWvMW3nq%2BgWrhFYLywyGjtoLuqx267GohS7UvD6KQ109DfHOW%0As2hYTaGEI9YQZs%2FxK2APuSRu9yU%3D%0A)
 
