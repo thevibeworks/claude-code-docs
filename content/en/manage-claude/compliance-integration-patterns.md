@@ -25,7 +25,7 @@ Both patterns share these constraints:
 * Activities are queryable within 1 minute of occurring and retained for 6 years.
 * The maximum `limit` for each page is 5,000.
 * Cursor values are opaque strings that you must not parse.
-* Requests are limited to 600 per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works), shared across every key, every linked organization, and every `/v1/compliance/*` endpoint; see [429 Too Many Requests](/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
+* Requests are limited to 600 per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works), shared across every key, every linked organization, and every `/v1/compliance/*` endpoint; the remote session endpoints carry an additional request budget on top. See [429 Too Many Requests](/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
 
 | Pattern                         | Choose when                                                                                                                                                                                                     |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -103,19 +103,20 @@ Calls to the Compliance API itself emit `compliance_api_accessed` activities. In
 
 ## Plan content retention
 
-Three retention horizons govern what you can retrieve later:
+Four retention horizons govern what you can retrieve later:
 
 | Data                                            | Retained for                                      | Controlled by                       |
 | ----------------------------------------------- | ------------------------------------------------- | ----------------------------------- |
 | Activity Feed records                           | 6 years                                           | Anthropic                           |
 | Chat, file, and project content                 | Your organization's claude.ai retention policy    | Your organization                   |
+| Remote session transcripts                      | 6 years                                           | Anthropic                           |
 | Content hard-deleted through the Compliance API | Not retained; deletion is immediate and permanent | The caller of the `DELETE` endpoint |
 
 For how the rest of the Claude Platform handles retention, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
 
 Decide between export-and-archive and on-demand API retrieval as follows:
 
-* If your legal-hold or audit horizon exceeds 6 years for activity metadata, export Activity Feed pages to your own archive as you ingest them.
+* If your legal-hold or audit horizon exceeds 6 years for activity metadata or remote session transcripts, export Activity Feed pages and session transcripts to your own archive as you ingest them.
 * If your content-retention policy is shorter than your eDiscovery horizon, export chat and file content before the retention window expires; the Compliance API cannot return content that retention has already removed.
 * If a workflow might issue a Compliance API hard-delete (for example, DLP enforcement), retrieve and archive the target content first. There is no recovery window after a hard-delete; soft-deletes from claude.ai remain retrievable with `deleted_at` populated, but Compliance API deletes do not.
 
@@ -131,9 +132,10 @@ The list endpoints do not return a `total_count` field or a checksum. To attest 
 * The number of records exported.
 * The run timestamp and the `request-id` of the final page.
 
-The content endpoints (chats, files, projects, and project attachments) serve claude.ai data only; the Activity Feed surfaces administrative and resource events organization-wide. The Compliance API does not include:
+The content endpoints (chats, files, projects, project attachments, and Cowork remote session transcripts) serve claude.ai data only; the Activity Feed surfaces administrative and resource events organization-wide. The Compliance API does not include:
 
 * Prompt text or model responses from Claude Console or Claude API workloads.
+* Thinking blocks and images inside remote session transcripts (transcripts carry user prompts, assistant responses, and tool activity only).
 * Content removed by your organization's retention policy.
 * Content hard-deleted through the Compliance API.
 

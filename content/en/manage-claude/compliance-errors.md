@@ -25,16 +25,16 @@ Match on `error.type`, not on the message string. Messages are stable enough to 
 
 The following table tells you at a glance whether to retry. Each section that follows shows the verbatim error body and the fix.
 
-| Status                                                  | Retry?                      | When                                                                                                                           |
-| ------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                    |
-| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                            |
-| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                  |
-| [404 Not Found](#404-not-found)                         | No                          | The resource was deleted or never existed; remove it from your queue.                                                          |
-| [409 Conflict](#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry. |
-| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                     |
-| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                    |
-| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff.                                                                                     |
+| Status                                                  | Retry?                      | When                                                                                                                                                                                                                                  |
+| ------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                                                                                                                           |
+| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                                                                                                                                   |
+| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                                                                                                                         |
+| [404 Not Found](#404-not-found)                         | Usually no                  | The resource was deleted or never existed; remove it from your queue. Exception: a remote session still in `pending` status 404s on its messages endpoint until it starts; see [Remote session not found](#remote-session-not-found). |
+| [409 Conflict](#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry.                                                                                                        |
+| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                                                                                                                            |
+| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                                                                                                                           |
+| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff.                                                                                                                                                                                            |
 
 ## 400 Bad Request
 
@@ -64,6 +64,8 @@ The limit parameter must be between 1 and 1000, inclusive. Got 1500.
 
 **Fix:** Send a `limit` within the range the endpoint accepts. Each list endpoint has its own `limit` range; see the parameter constraints on the corresponding [Compliance API reference](/docs/en/api/compliance) page.
 
+The remote session transcript endpoint (`GET /v1/compliance/apps/sessions/remote/{session_id}/messages`) validates its truncation parameters the same way: `tool_use_input_max_bytes` and `tool_result_max_bytes` each accept a positive byte count or `-1` (the server maximum), so a value such as `0` returns the same 400 `invalid_request_error`.
+
 ### Invalid pagination ID
 
 **Type:** `invalid_request_error`
@@ -76,7 +78,7 @@ Invalid `after_id`. No activity found for `after_id` "activity_invalid123"
 
 **Fix:** Treat pagination cursors as opaque strings. Always copy the `first_id` or `last_id` value returned by the previous page; stop when `has_more` is `false`. Do not construct cursors from object IDs.
 
-The directory and project endpoints (organizations, users, roles, role permissions, groups, group members, projects, and project attachments) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false`. A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
+The directory, project, and remote session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the remote session endpoints, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
 
 ## 401 Unauthorized
 
@@ -148,10 +150,10 @@ Missing required scopes. Got: ['read:compliance_org_settings'] Needed: ['read:co
 Missing required scopes. Got: ['read:compliance_activities'] Needed: ['read:compliance_user_data']
 ```
 
-**Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, organization users, or group-members endpoint. There are two common paths to this error:
+**Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, remote sessions, organization users, or group-members endpoint. There are two common paths to this error:
 
 * A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_user_data` scope.
-* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, user, or group-member endpoints.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, remote session, user, or group-member endpoints.
 
 **Fix:** Use a [Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) created in claude.ai with `read:compliance_user_data` selected. If the request really should be Activity Feed only, point the Admin API key at `GET /v1/compliance/activities` instead.
 
@@ -169,7 +171,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['delete:com
 
 ## 404 Not Found
 
-The endpoint resolved but the resource ID does not exist or has already been deleted. Compliance API deletes are immediate and permanent, so a 404 on a previously known ID usually means the content was hard-deleted through a Compliance API delete call or removed by a retention policy. The activity-type strings cited in each Fix (for example, `claude_chat_created`) are values you can pass to the Activity Feed `activity_types[]` filter; see [Query compliance activities](/docs/en/api/compliance/activities/list) for every supported value.
+The endpoint resolved but the resource ID does not exist or has already been deleted. Compliance API deletes are immediate and permanent, so a 404 on a previously known ID usually means the content was hard-deleted through a Compliance API delete call or removed by a retention policy. One exception is a remote session still in `pending` status, whose messages endpoint 404s transiently until the session starts; see [Remote session not found](#remote-session-not-found). The activity-type strings cited in each Fix (for example, `claude_chat_created`) are values you can pass to the Activity Feed `activity_types[]` filter; see [Query compliance activities](/docs/en/api/compliance/activities/list) for every supported value.
 
 ### Chat not found
 
@@ -219,6 +221,18 @@ No project document found with provided id, or it has already been deleted.
 
 **Fix:** Use `GET /v1/compliance/apps/projects/{project_id}/attachments` to list current attachments. If the document is missing, it was deleted; retrieve it through a `claude_project_document_uploaded` activity record if you only need the metadata.
 
+### Remote session not found
+
+**Type:** `not_found_error`
+
+```text wrap
+Remote session not found.
+```
+
+**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` does not match a session transcript readable through the Compliance API. This occurs when the session ID (`cse_...`) does not exist or the session has been deleted, when the session belongs to an organization your key cannot read, or when the session's `status` is still `pending`: a pending session has no transcript yet, so the messages endpoint returns 404 until the session starts. A session ID that is not a well-formed `cse_` identifier returns [400 Bad Request](#400-bad-request) instead.
+
+**Fix:** Confirm the session ID and its `status` against `GET /v1/compliance/apps/sessions/remote`; see [Retrieve remote sessions](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions). If the session is `pending`, retry after it leaves that status. If the session no longer appears in the list, it has been deleted and its transcript is not retrievable.
+
 ### Organization, role, or group not found
 
 **Type:** `not_found_error`
@@ -263,9 +277,9 @@ The "claude_proj_01KGp4eZNug9ri4kE35RSppq" project cannot be deleted as it has c
 
 ## 429 Too Many Requests
 
-Requests to the Compliance API are limited to **600 requests per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is a single budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint. Contact your Anthropic representative if your integration needs a higher limit.
+Requests to the Compliance API are limited to **600 requests per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is one budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint; the remote session endpoints carry a second request budget on top. Contact your Anthropic representative if your integration needs a higher limit.
 
-Once your API key authenticates, every Compliance API response includes the standard [rate-limit response headers](/docs/en/api/rate-limits#response-headers) so your client can throttle proactively instead of waiting for a 429:
+Once your API key authenticates, Compliance API responses report the shared budget through the standard [rate-limit response headers](/docs/en/api/rate-limits#response-headers) so your client can throttle proactively instead of waiting for a 429:
 
 * `anthropic-ratelimit-requests-limit` is your parent organization's per-minute request budget.
 * `anthropic-ratelimit-requests-remaining` is the budget left in the current window.
@@ -291,11 +305,13 @@ anthropic-ratelimit-requests-reset: 2026-04-21T14:38:25Z
 }
 ```
 
-**Cause:** Your parent organization sent more than 600 requests to `/v1/compliance/*` in a 1-minute window, across all of its keys and linked organizations.
+**Cause:** Your parent organization sent more than 600 requests to `/v1/compliance/*` in a 1-minute window, across all of its keys and linked organizations, or it exhausted the remote session endpoints' second request budget (described later in this section).
 
 **Fix:** Wait the number of seconds in the `retry-after` header, then retry. If the header is absent (for example, stripped by an intermediary), fall back to exponential backoff (start at 1 second, double up to 60 seconds). Do not advance your pagination cursor on a 429: the failed request returned no data, so the cursor from the last successful page is still correct.
 
 Requests that fail authentication (a missing or unrecognized key, or a Claude API key rather than a Compliance Access Key or Admin API key) are rejected before the rate limiter and do not consume quota. A valid key that lacks the endpoint's required scope consumes one quota unit before the 403 is returned.
+
+The [remote session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions) carry a second request budget, also keyed to your parent organization, on top of the shared limit. A 429 from that budget includes a `retry-after` header but not the `anthropic-ratelimit-*` headers; the same fix applies.
 
 If you poll the [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) on a schedule, budget your aggregate request rate (across all keys, linked organizations, and concurrent workers) below the parent-organization limit. Watch `anthropic-ratelimit-requests-remaining` to slow down before you reach it. See [Design your compliance integration](/docs/en/manage-claude/compliance-integration-patterns#choose-a-feed-consumption-pattern) for choosing between window-polling and cursor-driven ingestion.
 
