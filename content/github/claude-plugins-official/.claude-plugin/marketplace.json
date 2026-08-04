@@ -745,7 +745,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "df2c753006ce77cdc8df8c7715d0b5c6675560d4"
+        "sha": "ba4fe3eaa4c20e4e32ef6af3b78b4d9d9bbdc1d2"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -999,7 +999,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/coderabbitai/skills.git",
-        "sha": "c61c4908d36dda6fb08a343cc8b19c59fbb47de3"
+        "sha": "bbb4ab25a7f1d426062d83fe8fdf406beeecd0cb"
       },
       "homepage": "https://github.com/coderabbitai/skills"
     },
@@ -1752,7 +1752,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "1d0d4d8939d358edb7cdb017733b7641d5eec42c"
+        "sha": "edfe66a95375234f0d261a09a46a29424d040318"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2717,7 +2717,7 @@
         "url": "https://github.com/pydantic/skills.git",
         "path": "plugins/ai",
         "ref": "main",
-        "sha": "1aeed6d5583484c854c457d68f03a7459f1897c8"
+        "sha": "1eb37eace22e8f37e462fab6295e6322c7330126"
       },
       "homepage": "https://github.com/pydantic/skills/tree/main/plugins/ai"
     },
@@ -3320,7 +3320,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/ads-claude-plugin.git",
-        "sha": "e1f809ec3a287e41c8421301fa7fa69bc4b0e9fb"
+        "sha": "423191d7bf3343b532ac694d9626009a336ebcab"
       },
       "homepage": "https://github.com/spotify/ads-claude-plugin"
     },
@@ -3365,7 +3365,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "2ecd560bd426075690686536200174785c94f2b5"
+        "sha": "70de14e5d211c85a7c557f543554fbfe05109b4e"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3689,7 +3689,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/villagesql/villagesql-skills.git",
-        "sha": "3f1703cfc911d66b2270f057df9559a9d8a8231d"
+        "sha": "e0fbec66238b8f018ba9a071932ef01a2f55024f"
       },
       "homepage": "https://villagesql.com"
     },
