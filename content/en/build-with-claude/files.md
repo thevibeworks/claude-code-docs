@@ -29,6 +29,10 @@ The Files API provides a create-once, use-many-times approach for working with f
 * **Reference files** in [Messages](/docs/en/api/messages/create) requests using the `file_id` instead of re-uploading content
 * **Manage your files** with list, retrieve, and delete operations
 
+<Warning id="workspace-scoped-access">
+  **Uploaded files are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key in the same workspace can access any file uploaded there, and all of your keys share your organization's Default Workspace unless you have assigned them to separate [workspaces](/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping). Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
+</Warning>
+
 ## How to use the Files API
 
 <Note>
@@ -971,7 +975,7 @@ Download files that were created by [skills](/docs/en/build-with-claude/skills-g
 
 ### File lifecycle
 
-* Files are scoped to the workspace of the API key that uploaded them. Any API key in the same workspace can reference them
+* Files are scoped to the workspace of the API key that uploaded them. Any API key in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](#workspace-scoped-access))
 * Files cannot be modified or renamed after upload. To change a file's content, upload a new file and delete the old one
 * Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint
 * Deleted files cannot be recovered
