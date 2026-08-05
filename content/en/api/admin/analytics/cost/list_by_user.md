@@ -44,7 +44,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   If true, omit rows for deleted accounts. Pages may return fewer than `limit` rows when deleted users were filtered.
 
-- `group_by: optional array of "context_window" or "cost_type" or "inference_geo" or 5 more`
+- `group_by: optional array of "context_window" or "cost_type" or "inference_geo" or 6 more`
 
   Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/cost_report` endpoint. The `product`, `model`, `context_window`, `inference_geo`, and `speed` dimensions — and the time bucket, when `bucket_width` is set — count toward `limit`. `cost_type` and `token_type` do not: `cost_type` returns one row per cost component (tokens, web search, code execution); `token_type` returns one row per token type, each with `cost_type: "tokens"`; combining both returns the per-token-type rows plus the web-search and code-execution rows. A page can therefore contain more rows than `limit` when `cost_type` or `token_type` is requested.
 
@@ -59,6 +59,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
   - `"product"`
 
   - `"rbac_group_id"`
+
+  - `"slack_channel_id"`
 
   - `"speed"`
 
@@ -110,6 +112,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
 
+- `slack_channel_ids: optional array of string`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
@@ -126,29 +132,29 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
 - `UserCost object { data, data_refreshed_at, has_more, 2 more }`
 
-  - `data: array of object { actor, amount, context_window, 12 more }`
+  - `data: array of object { actor, amount, context_window, 13 more }`
 
     - `actor: AnalyticsUserActor`
+
+      - `deleted: boolean`
+
+        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
+
+      - `email: string`
+
+        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
+
+      - `name: string`
+
+        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
+
+      - `type: "user_actor"`
+
+        - `"user_actor"`
 
       - `user_id: string`
 
         Tagged user ID.
-
-      - `deleted: optional boolean`
-
-        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
-
-      - `email: optional string`
-
-        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
-
-      - `name: optional string`
-
-        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
-
-      - `type: optional "user_actor"`
-
-        - `"user_actor"`
 
     - `amount: string`
 
@@ -200,6 +206,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
+    - `slack_channel_id: string`
+
+      Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
     - `speed: "fast" or "standard"`
 
       - `"fast"`
@@ -249,11 +259,11 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_cost_report \
   "data": [
     {
       "actor": {
-        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt",
         "deleted": true,
         "email": "jane@example.com",
         "name": "Jane Smith",
-        "type": "user_actor"
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
       },
       "amount": "41280.000000",
       "context_window": "0-200k",
@@ -266,6 +276,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_cost_report \
       "product": "product",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "requests": 128,
+      "slack_channel_id": "C0123ABCDEF",
       "speed": "fast",
       "starting_at": "2019-12-27T18:11:19.117Z",
       "token_type": "cache_creation.ephemeral_1h_input_tokens"

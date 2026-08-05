@@ -38,9 +38,13 @@ and contains the set of limiter values that apply to it.
 
 ### Returns
 
-- `data: array of object { group_type, limits, models, type }`
+- `data: array of object { id, group_type, limits, 2 more }`
 
   Rate-limit entries for the organization, one per group.
+
+  - `id: string`
+
+    Stable identifier for this rate-limit group within the organization.
 
   - `group_type: "batch" or "files" or "model_group" or 3 more`
 
@@ -98,6 +102,7 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
 {
   "data": [
     {
+      "id": "id",
       "group_type": "batch",
       "limits": [
         {
@@ -121,9 +126,13 @@ curl https://api.anthropic.com/v1/organizations/rate_limits \
 
 - `RateLimitListResponse object { data, next_page }`
 
-  - `data: array of object { group_type, limits, models, type }`
+  - `data: array of object { id, group_type, limits, 2 more }`
 
     Rate-limit entries for the organization, one per group.
+
+    - `id: string`
+
+      Stable identifier for this rate-limit group within the organization.
 
     - `group_type: "batch" or "files" or "model_group" or 3 more`
 

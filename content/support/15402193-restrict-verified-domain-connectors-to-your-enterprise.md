@@ -92,10 +92,6 @@ If someone tries to make a connection that’s restricted, the connection fails 
 
 Domain claiming moves existing personal Claude accounts on your domain into your Enterprise workspace. This setting leaves Claude accounts where they are, and makes it so that only Claude accounts in your Enterprise organization can connect supported connectors using an email address on your verified domains. Learn more about **[claiming and migrating accounts on your domain](https://support.claude.com/en/articles/14625619-claim-and-migrate-accounts-on-your-domain)**.
 
-### Is this the same as the Claude in Slack setting, "Restrict to your verified domains"?
-
-No. That setting applies only to Claude in Slack. This setting covers the connectors listed in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
-
 ### What should someone do if their connection is blocked?
 
 Sign in to your organization's Claude account and make the connection there. Anyone who doesn't have a Claude account in your organization should contact their admin for access.

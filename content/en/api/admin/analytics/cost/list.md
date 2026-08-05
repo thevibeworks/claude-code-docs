@@ -37,7 +37,7 @@ Requires an API key with the `read:analytics` scope.
 
   End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
 
-- `group_by: optional array of "context_window" or "cost_type" or "inference_geo" or 5 more`
+- `group_by: optional array of "context_window" or "cost_type" or "inference_geo" or 6 more`
 
   Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
 
@@ -52,6 +52,8 @@ Requires an API key with the `read:analytics` scope.
   - `"product"`
 
   - `"rbac_group_id"`
+
+  - `"slack_channel_id"`
 
   - `"speed"`
 
@@ -87,6 +89,10 @@ Requires an API key with the `read:analytics` scope.
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
 
+- `slack_channel_ids: optional array of string`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
@@ -107,7 +113,7 @@ Requires an API key with the `read:analytics` scope.
 
     - `ending_at: string`
 
-    - `results: array of object { amount, context_window, cost_type, 9 more }`
+    - `results: array of object { amount, context_window, cost_type, 10 more }`
 
       - `amount: string`
 
@@ -156,6 +162,10 @@ Requires an API key with the `read:analytics` scope.
       - `requests: number`
 
         Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+      - `slack_channel_id: string`
+
+        Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
 
       - `speed: "fast" or "standard"`
 
@@ -218,6 +228,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/cost_report \
           "product": "product",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
           "requests": 0,
+          "slack_channel_id": "C0123ABCDEF",
           "speed": "fast",
           "token_type": "cache_creation.ephemeral_1h_input_tokens"
         }

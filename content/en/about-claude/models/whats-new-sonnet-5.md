@@ -30,13 +30,67 @@ Setting `temperature`, `top_p`, or `top_k` to a non-default value returns a 400 
 
 Manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) was deprecated on Claude Sonnet 4.6; on Claude Sonnet 5 it is removed and returns a 400 error, the same as on Claude Opus 4.8 and Claude Opus 4.7. Use adaptive thinking with the [effort parameter](/docs/en/build-with-claude/effort) instead.
 
-```python Python
-# Not supported on Claude Sonnet 5 (returns 400)
-thinking = {"type": "enabled", "budget_tokens": 32000}
+<CodeGroup exclude="shell">
+  ```python Python
+  # Not supported on Claude Sonnet 5 (returns 400)
+  thinking = {"type": "enabled", "budget_tokens": 32000}
 
-# Use this instead
-thinking = {"type": "adaptive"}
-```
+  # Use this instead
+  thinking = {"type": "adaptive"}
+  ```
+
+  ```typescript TypeScript
+  // Not supported on Claude Sonnet 5 (returns 400)
+  const legacyThinking = { type: "enabled", budget_tokens: 32000 };
+
+  // Use this instead
+  const thinking = { type: "adaptive" };
+  ```
+
+  ```csharp C#
+  // Not supported on Claude Sonnet 5 (returns 400)
+  var legacyThinking = new ThinkingConfigEnabled(budgetTokens: 32000);
+
+  // Use this instead
+  var thinking = new ThinkingConfigAdaptive();
+  ```
+
+  ```go Go
+  // Not supported on Claude Sonnet 5 (returns 400)
+  legacyThinking := anthropic.ThinkingConfigParamUnion{
+  	OfEnabled: &anthropic.ThinkingConfigEnabledParam{BudgetTokens: 32000},
+  }
+
+  // Use this instead
+  thinking := anthropic.ThinkingConfigParamUnion{
+  	OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
+  }
+  ```
+
+  ```java Java
+  // Not supported on Claude Sonnet 5 (returns 400)
+  var legacyThinking = ThinkingConfigEnabled.builder().budgetTokens(32_000L).build();
+
+  // Use this instead
+  var thinking = ThinkingConfigAdaptive.builder().build();
+  ```
+
+  ```php PHP
+  // Not supported on Claude Sonnet 5 (returns 400)
+  $thinking = ['type' => 'enabled', 'budget_tokens' => 32000];
+
+  // Use this instead
+  $thinking = ['type' => 'adaptive'];
+  ```
+
+  ```ruby Ruby
+  # Not supported on Claude Sonnet 5 (returns 400)
+  legacy_thinking = {type: "enabled", budget_tokens: 32_000}
+
+  # Use this instead
+  thinking = {type: "adaptive"}
+  ```
+</CodeGroup>
 
 ## New tokenizer
 
@@ -92,10 +146,44 @@ Claude Sonnet 5 supports [zero data retention](/docs/en/manage-claude/api-and-da
 
 Claude Sonnet 5 is a drop-in replacement for Claude Sonnet 4.6. Update your model ID:
 
-```python
-model = "claude-sonnet-4-6"  # Before
-model = "claude-sonnet-5"  # After
-```
+<CodeGroup exclude="shell">
+  ```python Python
+  model = "claude-sonnet-4-6"  # Before
+  model = "claude-sonnet-5"  # After
+  ```
+
+  ```typescript TypeScript
+  const legacyModel = "claude-sonnet-4-6"; // Before
+  const model = "claude-sonnet-5"; // After
+  ```
+
+  ```csharp C#
+  var legacyModel = Model.ClaudeSonnet4_6; // Before
+  var model = Model.ClaudeSonnet5; // After
+  ```
+
+  ```go Go
+  // Before
+  legacyModel := anthropic.ModelClaudeSonnet4_6
+  // After
+  model := anthropic.ModelClaudeSonnet5
+  ```
+
+  ```java Java
+  var legacyModel = Model.CLAUDE_SONNET_4_6; // Before
+  var model = Model.CLAUDE_SONNET_5; // After
+  ```
+
+  ```php PHP
+  $model = 'claude-sonnet-4-6'; // Before
+  $model = 'claude-sonnet-5'; // After
+  ```
+
+  ```ruby Ruby
+  legacy_model = "claude-sonnet-4-6" # Before
+  model = "claude-sonnet-5" # After
+  ```
+</CodeGroup>
 
 Then review the following:
 
