@@ -270,7 +270,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "445b418920ccb99132d587af0e2af488d9746c68"
+        "sha": "dbd9bb79c4f7b7ac9c1cdd2b4b75213c81f423e5"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -1166,7 +1166,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "445b418920ccb99132d587af0e2af488d9746c68"
+        "sha": "dbd9bb79c4f7b7ac9c1cdd2b4b75213c81f423e5"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -1190,7 +1190,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/astronomer/agents.git",
-        "sha": "445b418920ccb99132d587af0e2af488d9746c68"
+        "sha": "dbd9bb79c4f7b7ac9c1cdd2b4b75213c81f423e5"
       },
       "homepage": "https://github.com/astronomer/agents"
     },
@@ -1752,7 +1752,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "0f1333c80d3c18eddf8af69110168cc910d14fec"
+        "sha": "29f004cfc04b351bf38a8b28b20916bb5bad9fc4"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2113,7 +2113,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mattpocock/skills.git",
-        "sha": "2ab958093e83e0ec752e6c1c5932da465bf23e0c"
+        "sha": "a621cc4f755d1da9c35dc3bb3abbd1d2a3208670"
       },
       "homepage": "https://github.com/mattpocock/skills"
     },
@@ -2522,7 +2522,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/paypal/AI-Toolkit.git",
-        "sha": "a3a19c1ff237b53023b17c1e129ae4a7a0e24c21"
+        "sha": "725fa65b3135c274e06e90d4368686677fba0e5d"
       },
       "homepage": "https://developer.paypal.com/"
     },
@@ -2868,7 +2868,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "3e46e3a6a32fe3b2c1ecbb27fe4fae01d0d3cabb"
+        "sha": "8de00a74adc6a09fab840b42dfde5d7ed8039b90"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3365,7 +3365,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "70de14e5d211c85a7c557f543554fbfe05109b4e"
+        "sha": "a929698fa483f392a21d46e7385ff3f6025407e6"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3835,7 +3835,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "3bbe8a933d9496334f9ddecd134057b52c598977"
+        "sha": "9cee84e588ec17ec65142aea1020da191c0ebb30"
       },
       "homepage": "https://langfuse.com"
     },

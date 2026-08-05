@@ -62,7 +62,7 @@ All `/v1/compliance/*` endpoints share a rate limit of 600 requests per minute p
 
 ## Compliance API versus related features
 
-Two adjacent features overlap with the Compliance API; here is how to choose.
+A few adjacent features overlap with the Compliance API; here is how to choose.
 
 ### Export audit logs
 
@@ -71,6 +71,10 @@ The audit log export is a separate feature in [claude.ai > Organization settings
 ### Analytics API
 
 Anthropic provides two analytics APIs: the Claude Enterprise Analytics API and the [Claude Code Analytics API](/docs/en/manage-claude/claude-code-analytics-api). Both return aggregated usage and cost figures for IT, FinOps, and platform teams, whereas the Compliance API returns per-event records for security, legal, and compliance teams. The two API families answer different questions, use different keys, and are provisioned separately.
+
+### Inference hooks
+
+[Inference hooks](/docs/en/manage-claude/inference-hooks) (beta) act inline: your organization's AI security server receives each governed prompt before inference and can deny it in real time, whereas the Compliance API retrieves records after the fact and returns richer data, such as organization settings and full non-text files.
 
 ***
 

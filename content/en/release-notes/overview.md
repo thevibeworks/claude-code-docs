@@ -10,6 +10,10 @@ Updates to the Claude Platform, including the Claude API, client SDKs, and the C
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### August 5, 2026
+
+* **Inference hooks** are now in beta for Claude Enterprise organizations. Point Claude at your organization's AI security server, and each governed prompt across claude.ai, Cowork, and Claude Code is held for the server's allow or deny verdict before inference proceeds. Requests are signed, failure handling is configurable, and every denial is recorded in the compliance [Activity Feed](/docs/en/manage-claude/compliance-activity-feed). See [Inference hooks](/docs/en/manage-claude/inference-hooks).
+
 ### August 1, 2026
 
 * [Dreams](/docs/en/managed-agents/dreams) (research preview) now supports Claude Opus 5. See [Supported models](/docs/en/managed-agents/dreams#limits).
