@@ -50,7 +50,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 2. Click "Check for updates" under **SCIM sync**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312613548/44cd5970ee3c3b2c7f8dcd592d71/image+%2824%29.png?expires=1785919500&amp;signature=cd68208c9610bb242f745bac1fa8c53c626f79f06012789a060a880ed297dcc0&amp;req=diMmFM9%2FnoRbUfMW1HO4zW4gbDCkNMSxrgfl7PnOiuk%2B6efUX3TStaPVB4xM%0AVZu8%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312613548/44cd5970ee3c3b2c7f8dcd592d71/image+%2824%29.png?expires=1785935700&amp;signature=4275df43c1e0fd93277054b234fdf3d2312f7fe7b41589c7c22c29586bafdf65&amp;req=diMmFM9%2FnoRbUfMW1HO4zW4gbDCkNsizrgfl7PnOiunHTnRAQOWho31xW9aD%0A6acj%0A)
 
 3. Select whether to sync members, groups, or both.
 
@@ -62,7 +62,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 3. Select whether to sync members, groups, or both:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312608119/e4b0ef4f309f3c4eac8311a6ef47/image.png?expires=1785919500&amp;signature=4d3df4183168d76112380d9811f28a088baa194f98056c901d84fa20397aa744&amp;req=diMmFM9%2BlYBeUPMW1HO4zX%2F4fr%2F5yjIa43OpyTHzM9RQPMQE1w6Rlc8XJjEA%0AFibz%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312608119/e4b0ef4f309f3c4eac8311a6ef47/image.png?expires=1785935700&amp;signature=ddee9ccd8b182fe5ca42180de80bf56d081e538f71cb1e13e2c4a898a26e763f&amp;req=diMmFM9%2BlYBeUPMW1HO4zX%2F4fr%2F5yD4Y43OpyTHzM9QLOe9nVWcHDb8GwKM2%0AeSuW%0A)
 
 **Note:** If you trigger a manual sync while background changes are processing, your organization takes the most recent change for each member or group. If multiple changes are queued for the same member or group, you may need to resync again to make sure everything applies correctly.
 
