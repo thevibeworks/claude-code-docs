@@ -380,7 +380,7 @@ Advisor rate limits draw from the same per-model bucket as direct calls to the a
 
 Pass the full assistant content, including `advisor_tool_result` blocks, back to the API on subsequent turns. This example uses `claude-opus-4-8` as the advisor so the plaintext advice is visible in `response.content`; the mechanics are identical for any advisor model.
 
-<CodeGroup exclude="shell, go">
+<CodeGroup exclude="shell">
   ```python Python
   client = anthropic.Anthropic()
 
@@ -506,6 +506,63 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
       Messages = messages,
       Betas = ["advisor-tool-2026-03-01"]
   });
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  tools := []anthropic.BetaToolUnionParam{
+  	{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
+  		Model: anthropic.ModelClaudeOpus4_8,
+  	}},
+  }
+
+  messages := []anthropic.BetaMessageParam{
+  	anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Build a concurrent worker pool in Go with graceful shutdown.")),
+  }
+
+  response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:     anthropic.ModelClaudeSonnet5,
+  	MaxTokens: 1024,
+  	Tools:     tools,
+  	Messages:  messages,
+  	Betas: []anthropic.AnthropicBeta{
+  		anthropic.AnthropicBetaAdvisorTool2026_03_01,
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  // Append the full response content, including any advisor_tool_result blocks.
+  // BetaMessage.ToParam drops advisor result content as of anthropic-sdk-go
+  // v1.61.0, so re-parse each response block's raw JSON into a param block instead.
+  assistantContent := make([]anthropic.BetaContentBlockParamUnion, len(response.Content))
+  for i, block := range response.Content {
+  	if err := json.Unmarshal([]byte(block.RawJSON()), &assistantContent[i]); err != nil {
+  		log.Fatal(err)
+  	}
+  }
+  messages = append(messages, anthropic.BetaMessageParam{
+  	Role:    anthropic.BetaMessageParamRoleAssistant,
+  	Content: assistantContent,
+  })
+
+  // Continue the conversation
+  messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Now add a max-in-flight limit of 10.")))
+
+  response, err = client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  	Model:     anthropic.ModelClaudeSonnet5,
+  	MaxTokens: 1024,
+  	Tools:     tools,
+  	Messages:  messages,
+  	Betas: []anthropic.AnthropicBeta{
+  		anthropic.AnthropicBetaAdvisorTool2026_03_01,
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
   ```
 
   ```java Java
@@ -660,7 +717,7 @@ If a Haiku executor has not called the advisor in its first assistant turn, appe
 
 With the default `NUDGE_TURN` of 2, the reminder typically arrives after the model has oriented on the task but before it has committed to an approach.
 
-<CodeGroup exclude="shell, go">
+<CodeGroup exclude="shell">
   ```python Python
   client = anthropic.Anthropic()
 
@@ -863,6 +920,96 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
       {
           messages.Add(new BetaMessageParam { Role = Role.User, Content = NudgeText });
       }
+  }
+  ```
+
+  ```go Go
+  const (
+  	nudgeTurn = 2 // inject before this assistant turn if no advisor call yet
+  	nudgeText = "You have not consulted the advisor yet. If the task has a non-obvious " +
+  		"design decision or a failure mode you haven't ruled out, call advisor " +
+  		"now before committing to an approach."
+  	maxTurns = 10 // agent loop cap
+  )
+
+  // Replace with your tool dispatch. Returns one tool_result block per tool_use block.
+  func runYourTools(content []anthropic.BetaContentBlockUnion) []anthropic.BetaContentBlockParamUnion {
+  	var results []anthropic.BetaContentBlockParamUnion
+  	for _, block := range content {
+  		if block.Type == "tool_use" {
+  			results = append(results, anthropic.NewBetaToolResultBlock(block.ID, "Replace with your tool output.", false))
+  		}
+  	}
+  	return results
+  }
+
+  func main() {
+  	client := anthropic.NewClient()
+
+  	tools := []anthropic.BetaToolUnionParam{
+  		{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
+  			Model: anthropic.ModelClaudeFable5,
+  		}},
+  		// ... your other tools
+  	}
+  	task := "Build a concurrent worker pool in Go with graceful shutdown."
+  	messages := []anthropic.BetaMessageParam{
+  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(task)),
+  	}
+  	advisorCalled := false
+
+  	for turn := 1; turn <= maxTurns; turn++ {
+  		response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
+  			Model:     anthropic.ModelClaudeHaiku4_5,
+  			MaxTokens: 4096,
+  			Tools:     tools,
+  			Messages:  messages,
+  			Betas: []anthropic.AnthropicBeta{
+  				anthropic.AnthropicBetaAdvisorTool2026_03_01,
+  			},
+  		})
+  		if err != nil {
+  			log.Fatal(err)
+  		}
+
+  		// Append the full response content, including any advisor_tool_result blocks.
+  		// BetaMessage.ToParam drops advisor result content as of anthropic-sdk-go
+  		// v1.61.0, so re-parse each response block's raw JSON into a param block instead.
+  		assistantContent := make([]anthropic.BetaContentBlockParamUnion, len(response.Content))
+  		for i, block := range response.Content {
+  			if err := json.Unmarshal([]byte(block.RawJSON()), &assistantContent[i]); err != nil {
+  				log.Fatal(err)
+  			}
+  		}
+  		messages = append(messages, anthropic.BetaMessageParam{
+  			Role:    anthropic.BetaMessageParamRoleAssistant,
+  			Content: assistantContent,
+  		})
+
+  		for _, block := range response.Content {
+  			if block.Type == "server_tool_use" && block.Name == "advisor" {
+  				advisorCalled = true
+  			}
+  		}
+  		if response.StopReason == anthropic.BetaStopReasonEndTurn {
+  			break
+  		}
+  		if response.StopReason == anthropic.BetaStopReasonPauseTurn {
+  			continue // server tool pending; re-send to let the API complete it
+  		}
+
+  		results := runYourTools(response.Content) // list of tool_result blocks
+  		if len(results) > 0 {
+  			messages = append(messages, anthropic.BetaMessageParam{
+  				Role:    anthropic.BetaMessageParamRoleUser,
+  				Content: results,
+  			})
+  		}
+  		// Skip this if your system prompt already tells the model to call sparingly.
+  		if turn == nudgeTurn-1 && !advisorCalled {
+  			messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(nudgeText)))
+  		}
+  	}
   }
   ```
 

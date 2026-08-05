@@ -1,4 +1,4 @@
-# Requesting a refund for a paid Claude plan
+# Request a refund for a paid Claude plan
 
 **Important:** Except as expressly provided in our **[Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms)** or where required by law, all payments are non-refundable.
 
@@ -33,11 +33,29 @@ If you're unable to log in to the account associated with your payment (for exam
 
 ## I paid for my plan on Claude for iOS—what's the process for requesting a refund?
 
-If you paid for your plan on **[Claude for iOS](https://support.claude.com/en/collections/9879000-claude-for-ios)**, this means your subscription was started from the Apple App Store. We didn't process this payment, so you will need to reach out to **[Apple Support](https://support.apple.com/billing)** to request a refund.
+If you paid for your plan on **[Claude for iOS](https://support.claude.com/en/collections/9879000-claude-for-ios)**, this means your subscription was purchased through the Apple App Store. Apple processed this payment, so only Apple can review and issue a refund—our Support team can't access or refund App Store charges.
+
+To request a refund from Apple:
+
+1. Sign in at **reportaproblem.apple.com** with the Apple Account you used to purchase your subscription.
+
+2. Tap or click "I'd like to," then choose "Request a refund."
+
+3. Choose the reason for your refund request, then click "Next."
+
+4. Select your Claude subscription, then click "Submit."
+
+Apple will review your request and notify you of their decision. You can check the status of your request any time by returning to reportaproblem.apple.com. Refunds for App Store purchases are granted at Apple's discretion.
+
+**Note:** Requesting a refund doesn't cancel your subscription. To avoid future charges, you'll also need to cancel. For instructions, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+
+For more details, see Apple's guide: **[Request a refund for apps or content that you bought from Apple](https://support.apple.com/en-us/118223)**.
 
 ## I paid for my plan on Claude for Android—what's the process for requesting a refund?
 
-If you have an active subscription purchased on **[Claude for Android](https://support.claude.com/en/collections/9879004-claude-for-android)**, our Support team will need to check your eligibility before assisting with a refund. When contacting us, provide any relevant details upfront so our team can help with your request. However, if you are requesting a refund for an inactive subscription, our team won't be able to issue refunds for historical payments made through the Play Store. Please get in touch with **[Google Support](https://support.google.com/googleplay/workflow/9813244?hl=en)** for further assistance.
+If you have an active subscription purchased on **[Claude for Android](https://support.claude.com/en/collections/9879004-claude-for-android)**, our Support team will need to check your eligibility before assisting with a refund. When contacting us, provide any relevant details upfront so our team can help with your request.
+
+If you're requesting a refund for an inactive subscription, you'll need to **[contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** with the email address associated with your Google Play account or your GPA order number (found on your Google Play receipt, formatted GPA.xxxx-xxxx-xxxx-xxxxx) to further review the charge and refund eligibility.
 
 ## How do I request a refund when I'm disputing the payment?
 

@@ -4,11 +4,11 @@ Your billing address determines how taxes are calculated on your Claude purchase
 
 ## How billing addresses work by plan type
 
-### Pro, Max, and self-serve Team plans
+### Pro, Max, self-serve Team, and self-serve Enterprise plans
 
 Your billing address is automatically set to match your payment method's billing address. To update it, navigate to [Settings > Billing](http://claude.ai/settings/billing) and click “Update” to the right of your current payment method.
 
-### Sales-assisted Team plans and Enterprise plans
+### Sales-assisted Team plans and sales-assisted Enterprise plans
 
 You can update your billing address directly in Settings → Billing → Billing Addresses. Changes take effect immediately for future invoices.
 
@@ -22,10 +22,14 @@ You can update your billing address directly in the Claude Console under Setting
 
 ## Requesting a different billing address
 
-If you need a billing address that differs from your payment method address, contact our Support team with documentation verifying your primary business location:
+If your billing address doesn't match your payment method's address—for example, you're on a self-serve plan and need it to reflect a different business location for VAT purposes—you have two options:
 
-- **Non-US customers:** VAT registration certificate matching your requested location
+- **Update your payment method's address.** Self-serve plans (Pro, Max, self-serve Team, self-serve Enterprise, and API usage tiers) take their billing address from the payment method, so updating the address on your card or Link wallet updates your billing address too.
 
-- **US customers:** State of incorporation, business license, or tax ID documentation
+- **Contact support to lock a fixed address.** If you need an address that stays the same even when you change payment methods, contact our Support team with documentation verifying your primary business location:
+
+  - **Non-US customers:** VAT registration certificate matching your requested location
+
+  - **US customers:** State of incorporation, business license, or tax ID documentation
 
 Once verified, your billing address won't automatically update when you change payment methods.

@@ -165,7 +165,7 @@ If model guidance (the "Sonnet is your default" messaging) isn't landing and you
 
 **Where this applies**
 
-Model access and effort restrictions are enforced in chat (web, desktop, mobile), Claude Cowork, Office Agents, and Claude Code (CLI 2.1.199+—earlier versions still show restricted options but requests using them are rejected). Claude in Chrome, Claude Design, and Claude Security don't support this yet.
+Model access and effort restrictions are enforced in chat (web, desktop, mobile), Claude Cowork, Office Agents, Claude Design, Claude Tag, and Claude Code (CLI 2.1.199+—earlier versions still show restricted options but requests using them are rejected). Claude in Chrome and Claude Security don't support this yet.
 
 **How to configure:** Organization settings → Roles → select a role → Models tab. Set model access, an optional effort cap per model, and an optional role-level default model. To manage configuration across the org, go to **Organization settings → Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 

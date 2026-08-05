@@ -39,7 +39,7 @@ key with the `read:analytics` scope.
 
   End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
 
-- `group_by: optional array of "context_window" or "inference_geo" or "model" or 3 more`
+- `group_by: optional array of "context_window" or "inference_geo" or "model" or 4 more`
 
   Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
 
@@ -52,6 +52,8 @@ key with the `read:analytics` scope.
   - `"product"`
 
   - `"rbac_group_id"`
+
+  - `"slack_channel_id"`
 
   - `"speed"`
 
@@ -85,6 +87,10 @@ key with the `read:analytics` scope.
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
 
+- `slack_channel_ids: optional array of string`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
@@ -105,7 +111,7 @@ key with the `read:analytics` scope.
 
     - `ending_at: string`
 
-    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 9 more }`
+    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 10 more }`
 
       - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
 
@@ -156,6 +162,10 @@ key with the `read:analytics` scope.
         - `web_search_requests: number`
 
           The number of web search requests made.
+
+      - `slack_channel_id: string`
+
+        Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
 
       - `speed: "fast" or "standard"`
 
@@ -213,6 +223,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/usage_report \
           "server_tool_use": {
             "web_search_requests": 10
           },
+          "slack_channel_id": "C0123ABCDEF",
           "speed": "fast",
           "uncached_input_tokens": 0
         }
@@ -273,7 +284,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   If true, omit rows for deleted accounts. Pages may return fewer than `limit` rows when deleted users were filtered.
 
-- `group_by: optional array of "context_window" or "inference_geo" or "model" or 3 more`
+- `group_by: optional array of "context_window" or "inference_geo" or "model" or 4 more`
 
   Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/usage_report` endpoint. `limit` bounds (actor × time bucket × dimension) rows — with dimensions or `bucket_width` present, one actor may span several rows.
 
@@ -286,6 +297,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
   - `"product"`
 
   - `"rbac_group_id"`
+
+  - `"slack_channel_id"`
 
   - `"speed"`
 
@@ -339,6 +352,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
 
+- `slack_channel_ids: optional array of string`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
@@ -355,29 +372,29 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
 - `UserUsage object { data, data_refreshed_at, has_more, 2 more }`
 
-  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 13 more }`
+  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 14 more }`
 
     - `actor: AnalyticsUserActor`
+
+      - `deleted: boolean`
+
+        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
+
+      - `email: string`
+
+        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
+
+      - `name: string`
+
+        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
+
+      - `type: "user_actor"`
+
+        - `"user_actor"`
 
       - `user_id: string`
 
         Tagged user ID.
-
-      - `deleted: optional boolean`
-
-        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
-
-      - `email: optional string`
-
-        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
-
-      - `name: optional string`
-
-        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
-
-      - `type: optional "user_actor"`
-
-        - `"user_actor"`
 
     - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
 
@@ -431,6 +448,10 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
         The number of web search requests made.
 
+    - `slack_channel_id: string`
+
+      Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
     - `speed: "fast" or "standard"`
 
       - `"fast"`
@@ -474,11 +495,11 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
   "data": [
     {
       "actor": {
-        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt",
         "deleted": true,
         "email": "jane@example.com",
         "name": "Jane Smith",
-        "type": "user_actor"
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
       },
       "cache_creation": {
         "ephemeral_1h_input_tokens": 1000,
@@ -496,6 +517,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
       "server_tool_use": {
         "web_search_requests": 10
       },
+      "slack_channel_id": "C0123ABCDEF",
       "speed": "fast",
       "starting_at": "2019-12-27T18:11:19.117Z",
       "total_tokens": 5377000,
@@ -519,7 +541,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
     - `ending_at: string`
 
-    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 9 more }`
+    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 10 more }`
 
       - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
 
@@ -571,6 +593,10 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
           The number of web search requests made.
 
+      - `slack_channel_id: string`
+
+        Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
       - `speed: "fast" or "standard"`
 
         - `"fast"`
@@ -599,29 +625,29 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
 - `UserUsage object { data, data_refreshed_at, has_more, 2 more }`
 
-  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 13 more }`
+  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 14 more }`
 
     - `actor: AnalyticsUserActor`
+
+      - `deleted: boolean`
+
+        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
+
+      - `email: string`
+
+        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
+
+      - `name: string`
+
+        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
+
+      - `type: "user_actor"`
+
+        - `"user_actor"`
 
       - `user_id: string`
 
         Tagged user ID.
-
-      - `deleted: optional boolean`
-
-        True if the account has been deleted. `name` is `"Deleted User"` and `email` is null in that case; the `user_id` is still populated for reconciliation.
-
-      - `email: optional string`
-
-        The user's email address. Null when unavailable or when the account has been deleted (check `deleted`).
-
-      - `name: optional string`
-
-        The user's name. Returns `"Deleted User"` when the account has been deleted (`deleted: true`). Null when unavailable.
-
-      - `type: optional "user_actor"`
-
-        - `"user_actor"`
 
     - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
 
@@ -674,6 +700,10 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
       - `web_search_requests: number`
 
         The number of web search requests made.
+
+    - `slack_channel_id: string`
+
+      Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
 
     - `speed: "fast" or "standard"`
 

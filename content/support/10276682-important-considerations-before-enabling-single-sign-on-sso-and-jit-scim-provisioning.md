@@ -64,13 +64,17 @@ Team or Enterprise organizations can invite other organizations to join an exist
 
 4. Review the member count and click "Invite."
 
-5. The merge proposal will be sent to the invited organization's Admins/Owners, with the email subject “*Parent Organization Update: New Member Organization Proposed*,” and must be approved within 14 days.
+5. The merge proposal will be sent to the invited organization's Admins/Owners, with the email subject "Parent Organization Update: New Member Organization Proposed," and must be approved within 14 days.
 
 **Note:** If the person initiating the merge is also an Admin/Owner in the invited organization, only one approval is required.
 
 ### To approve a merge proposal
 
-An organization Owner or Primary Owner needs to go to **[claude.ai/settings/join-proposal](https://claude.ai/settings/join-proposal)** to accept the merge.
+Approving a merge takes two steps, one on each side, and completes only after both are done:
+
+1. **Invited organization:** An organization Owner or Primary Owner needs to go to **[claude.ai/settings/join-proposal](https://claude.ai/settings/join-proposal)** to accept.
+
+2. **Parent organization:** An Owner or Admin of an organization already under the parent approves from Organization settings > Organization and access > Pending Organizations, or from the link in the "Parent Organization Update: New Member Organization Proposed" email.
 
 Once a Console organization is merged, it gains access to the **[Identity and access page](http://platform.claude.com/settings/identity)**, in the Organization settings, to configure SSO and provisioning settings.
 

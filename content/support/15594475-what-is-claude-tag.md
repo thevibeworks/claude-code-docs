@@ -1,6 +1,6 @@
 # What is Claude Tag?
 
-Claude in Slack will be switched over to the new Claude Tag experience on August 3, 2026. To integrate Claude and Slack, use Claude Tag instead.
+Claude in Slack switched over to the new Claude Tag experience on August 3, 2026. To integrate Claude and Slack, use Claude Tag instead. Learn how to **[set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview)** or **[migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier)**.
 
 Claude Tag is a new way to work with Claude: tag @Claude into a conversation and it takes on real work, using your organization's tools and the shared context around it. Claude works under its own identity, builds context by remembering relevant information from the channels it’s in, and can follow up on its own.
 
@@ -30,7 +30,7 @@ After the Claude app is installed, a Primary Owner or Owner sets up Claude Tag: 
 
 ## Control who can use Claude Tag
 
-In **Organization settings > Claude in Slack**, Member Access has three modes: open to anyone in the Slack workspace, open to any member of your Claude organization, or only members whose role allows it. The third option is role-based access and is available on the Claude Enterprise plan. To restrict by role, set Member Access to "Only members whose role allows it" and grant the "Claude in Slack" capability to a custom role. This setting applies to both channel mentions and direct messages. To set member access, see **[Restrict where Claude Tag operates](https://claude.com/docs/claude-tag/admins/restrict-access)**.
+In **Organization settings > Claude Tag**, Member Access has three modes: open to anyone in the Slack workspace, open to any member of your Claude organization, or only members whose role allows it. The third option is role-based access and is available on the Claude Enterprise plan. To restrict by role, set Member Access to "Only members whose role allows it" and grant the "Claude Tag in Slack" capability to a custom role. This setting applies to both channel mentions and direct messages. To set member access, see **[Restrict where Claude Tag operates](https://claude.com/docs/claude-tag/admins/restrict-access)**.
 
 [https://www.youtube.com/embed/JhipXUs1Y98?rel=0](https://www.youtube.com/embed/JhipXUs1Y98?rel=0)
 

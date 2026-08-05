@@ -5,8 +5,11 @@
 Get per-skill usage for a given day, with cursor-based pagination.
 
 Returns skill usage metrics for the organization, sorted by skill name.
-Available to organizations on a Claude Enterprise plan. Requires an API
-key with the `read:analytics` scope.
+Use group_by[] to break usage out per member, per RBAC group, or per
+product surface, and filter[] to scope results; the parameter
+descriptions list the supported dimensions. Available to organizations
+on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
 
 ### Query Parameters
 
@@ -20,11 +23,17 @@ key with the `read:analytics` scope.
 
 - `filter: optional array of string`
 
-  Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Unsupported dimensions return 400. rbac_group_id accepts the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution). At most 100 entries.
+  Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: product, rbac_group_id, share_status, skill_name, user_id. Value forms: product is one of chat, claude_code, cowork, or office_agent; rbac_group_id takes the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); share_status is one of organization, private, or public; skill_name matches case-insensitively; user_id takes a tagged user id (user_...), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
-- `group_by: optional array of string`
+- `group_by: optional array of "product" or "rbac_group_id" or "user_id"`
 
-  Dimensions to break results out by, e.g. group_by[]=rbac_group_id. Supported dimensions vary by endpoint; an unsupported dimension returns 400. Grouped responses paginate like ungrouped ones via next_page. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+  Dimensions to break results out by (e.g. group_by[]=user_id). Supported on this endpoint: product, rbac_group_id, user_id. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via next_page; an unsupported dimension returns 400. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+  - `"product"`
+
+  - `"rbac_group_id"`
+
+  - `"user_id"`
 
 - `limit: optional number`
 

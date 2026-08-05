@@ -621,105 +621,670 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 
 **Before** (Agent SDK):
 
-```python
-from claude_agent_sdk import (
-    ClaudeAgentOptions,
-    ClaudeSDKClient,
-    create_sdk_mcp_server,
-    tool,
-)
+<CodeGroup exclude="shell, csharp, go, java, php, ruby">
+  ```python Python
+  from claude_agent_sdk import (
+      ClaudeAgentOptions,
+      ClaudeSDKClient,
+      create_sdk_mcp_server,
+      tool,
+  )
 
 
-@tool("get_weather", "Get the current weather for a city.", {"city": str})
-async def get_weather(args: dict) -> dict:
-    return {"content": [{"type": "text", "text": f"{args['city']}: 18°C, clear"}]}
+  @tool("get_weather", "Get the current weather for a city.", {"city": str})
+  async def get_weather(args: dict) -> dict:
+      return {"content": [{"type": "text", "text": f"{args['city']}: 18°C, clear"}]}
 
 
-options = ClaudeAgentOptions(
-    model="claude-opus-5",
-    system_prompt="You are a concise weather assistant.",
-    mcp_servers={
-        "weather": create_sdk_mcp_server("weather", "1.0", tools=[get_weather])
-    },
-)
+  options = ClaudeAgentOptions(
+      model="claude-opus-5",
+      system_prompt="You are a concise weather assistant.",
+      mcp_servers={
+          "weather": create_sdk_mcp_server("weather", "1.0", tools=[get_weather])
+      },
+  )
 
-async with ClaudeSDKClient(options=options) as agent:
-    await agent.query("What's the weather in Tokyo?")
-    async for msg in agent.receive_response():
-        print(msg)
-```
+  async with ClaudeSDKClient(options=options) as agent:
+      await agent.query("What's the weather in Tokyo?")
+      async for msg in agent.receive_response():
+          print(msg)
+  ```
+
+  ```typescript TypeScript
+  import { createSdkMcpServer, query, tool } from "@anthropic-ai/claude-agent-sdk";
+  import { z } from "zod";
+
+  const getWeather = tool(
+    "get_weather",
+    "Get the current weather for a city.",
+    { city: z.string() },
+    async (args) => ({
+      content: [{ type: "text", text: `${args.city}: 18°C, clear` }]
+    })
+  );
+
+  for await (const message of query({
+    prompt: "What's the weather in Tokyo?",
+    options: {
+      model: "claude-opus-5",
+      systemPrompt: "You are a concise weather assistant.",
+      mcpServers: {
+        weather: createSdkMcpServer({ name: "weather", version: "1.0", tools: [getWeather] })
+      }
+    }
+  })) {
+    console.log(message);
+  }
+  ```
+</CodeGroup>
 
 **After** (Managed Agents):
 
-```python
-from anthropic import Anthropic
+<CodeGroup exclude="shell">
+  ```python Python
+  from anthropic import Anthropic
 
-client = Anthropic()
+  client = Anthropic()
 
-agent = client.beta.agents.create(
-    name="weather-agent",
-    model="claude-opus-5",
-    system="You are a concise weather assistant.",
-    tools=[
-        {
-            "type": "custom",
-            "name": "get_weather",
-            "description": "Get the current weather for a city.",
-            "input_schema": {
-                "type": "object",
-                "properties": {"city": {"type": "string"}},
-                "required": ["city"],
-            },
+  agent = client.beta.agents.create(
+      name="weather-agent",
+      model="claude-opus-5",
+      system="You are a concise weather assistant.",
+      tools=[
+          {
+              "type": "custom",
+              "name": "get_weather",
+              "description": "Get the current weather for a city.",
+              "input_schema": {
+                  "type": "object",
+                  "properties": {"city": {"type": "string"}},
+                  "required": ["city"],
+              },
+          }
+      ],
+  )
+  environment = client.beta.environments.create(
+      name="weather-env",
+      config={"type": "cloud", "networking": {"type": "unrestricted"}},
+  )
+
+  session = client.beta.sessions.create(
+      agent={"type": "agent", "id": agent.id, "version": agent.version},
+      environment_id=environment.id,
+  )
+
+
+  def get_weather(city: str) -> str:
+      return f"{city}: 18°C, clear"
+
+
+  with client.beta.sessions.events.stream(session.id) as stream:
+      client.beta.sessions.events.send(
+          session.id,
+          events=[
+              {
+                  "type": "user.message",
+                  "content": [{"type": "text", "text": "What's the weather in Tokyo?"}],
+              }
+          ],
+      )
+      for ev in stream:
+          if ev.type == "agent.message":
+              print("".join(block.text for block in ev.content if block.type == "text"))
+          elif ev.type == "agent.custom_tool_use":
+              result = get_weather(**ev.input)
+              client.beta.sessions.events.send(
+                  session.id,
+                  events=[
+                      {
+                          "type": "user.custom_tool_result",
+                          "custom_tool_use_id": ev.id,
+                          "content": [{"type": "text", "text": result}],
+                      }
+                  ],
+              )
+          elif (
+              ev.type == "session.status_idle"
+              and ev.stop_reason
+              and ev.stop_reason.type == "end_turn"
+          ):
+              break
+  ```
+
+  ```typescript TypeScript
+  import Anthropic from "@anthropic-ai/sdk";
+
+  const client = new Anthropic();
+
+  const agent = await client.beta.agents.create({
+    name: "weather-agent",
+    model: "claude-opus-5",
+    system: "You are a concise weather assistant.",
+    tools: [
+      {
+        type: "custom",
+        name: "get_weather",
+        description: "Get the current weather for a city.",
+        input_schema: {
+          type: "object",
+          properties: { city: { type: "string" } },
+          required: ["city"]
         }
-    ],
-)
-environment = client.beta.environments.create(
-    name="weather-env",
-    config={"type": "cloud", "networking": {"type": "unrestricted"}},
-)
+      }
+    ]
+  });
+  const environment = await client.beta.environments.create({
+    name: "weather-env",
+    config: { type: "cloud", networking: { type: "unrestricted" } }
+  });
 
-session = client.beta.sessions.create(
-    agent={"type": "agent", "id": agent.id, "version": agent.version},
-    environment_id=environment.id,
-)
+  const session = await client.beta.sessions.create({
+    agent: { type: "agent", id: agent.id, version: agent.version },
+    environment_id: environment.id
+  });
 
+  function getWeather({ city }: Record<string, unknown>): string {
+    return `${city}: 18°C, clear`;
+  }
 
-def get_weather(city: str) -> str:
-    return f"{city}: 18°C, clear"
+  const stream = await client.beta.sessions.events.stream(session.id);
 
+  await client.beta.sessions.events.send(session.id, {
+    events: [
+      {
+        type: "user.message",
+        content: [{ type: "text", text: "What's the weather in Tokyo?" }]
+      }
+    ]
+  });
 
-with client.beta.sessions.events.stream(session.id) as stream:
-    client.beta.sessions.events.send(
+  for await (const event of stream) {
+    if (event.type === "agent.message") {
+      for (const block of event.content) {
+        if (block.type === "text") {
+          console.log(block.text);
+        }
+      }
+    } else if (event.type === "agent.custom_tool_use") {
+      const result = getWeather(event.input);
+      await client.beta.sessions.events.send(session.id, {
+        events: [
+          {
+            type: "user.custom_tool_result",
+            custom_tool_use_id: event.id,
+            content: [{ type: "text", text: result }]
+          }
+        ]
+      });
+    } else if (event.type === "session.status_idle" && event.stop_reason?.type === "end_turn") {
+      break;
+    }
+  }
+  ```
+
+  ```csharp C#
+  using System.Text.Json;
+
+  using Anthropic.Models.Beta.Agents;
+  using Anthropic.Models.Beta.Environments;
+  using Anthropic.Models.Beta.Sessions;
+  using Anthropic.Models.Beta.Sessions.Events;
+
+  AnthropicClient client = new();
+
+  var agent = await client.Beta.Agents.Create(new()
+  {
+      Name = "weather-agent",
+      Model = BetaManagedAgentsModel.ClaudeOpus5,
+      System = "You are a concise weather assistant.",
+      Tools =
+      [
+          new BetaManagedAgentsCustomToolParams
+          {
+              Type = "custom",
+              Name = "get_weather",
+              Description = "Get the current weather for a city.",
+              InputSchema = new()
+              {
+                  Properties = new Dictionary<string, JsonElement>
+                  {
+                      ["city"] = JsonSerializer.SerializeToElement(new { type = "string" }),
+                  },
+                  Required = ["city"],
+              },
+          },
+      ],
+  });
+  var environment = await client.Beta.Environments.Create(new()
+  {
+      Name = "weather-env",
+      Config = new BetaCloudConfigParams
+      {
+          Networking = new BetaUnrestrictedNetwork(),
+      },
+  });
+
+  var session = await client.Beta.Sessions.Create(new()
+  {
+      Agent = new BetaManagedAgentsAgentParams
+      {
+          Type = "agent",
+          ID = agent.ID,
+          Version = agent.Version,
+      },
+      EnvironmentID = environment.ID,
+  });
+
+  static string GetWeather(string city) => $"{city}: 18°C, clear";
+
+  using var stream = await client.Beta.Sessions.Events.WithRawResponse.StreamStreaming(session.ID);
+
+  await client.Beta.Sessions.Events.Send(session.ID, new()
+  {
+      Events =
+      [
+          new BetaManagedAgentsUserMessageEventParams
+          {
+              Type = "user.message",
+              Content = [new BetaManagedAgentsTextBlock { Type = "text", Text = "What's the weather in Tokyo?" }],
+          },
+      ],
+  });
+
+  await foreach (var streamEvent in stream.Enumerate())
+  {
+      if (streamEvent.Value is BetaManagedAgentsAgentMessageEvent message)
+      {
+          Console.WriteLine(string.Concat(message.Content.Select(block => block.Text)));
+      }
+      else if (streamEvent.Value is BetaManagedAgentsAgentCustomToolUseEvent toolUse)
+      {
+          var result = GetWeather(toolUse.Input["city"].GetString()!);
+          await client.Beta.Sessions.Events.Send(session.ID, new()
+          {
+              Events =
+              [
+                  new BetaManagedAgentsUserCustomToolResultEventParams
+                  {
+                      Type = "user.custom_tool_result",
+                      CustomToolUseID = toolUse.ID,
+                      Content =
+                      [
+                          new BetaManagedAgentsTextBlock
+                          {
+                              Type = "text",
+                              Text = result,
+                          },
+                      ],
+                  },
+              ],
+          });
+      }
+      else if (streamEvent.Value is BetaManagedAgentsSessionStatusIdleEvent idle
+          && idle.StopReason?.Value is BetaManagedAgentsSessionEndTurn)
+      {
+          break;
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+  ctx := context.Background()
+
+  agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
+  	Name: "weather-agent",
+  	Model: anthropic.BetaManagedAgentsModelConfigParams{
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5,
+  	},
+  	System: anthropic.String("You are a concise weather assistant."),
+  	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
+  		OfCustom: &anthropic.BetaManagedAgentsCustomToolParams{
+  			Type:        anthropic.BetaManagedAgentsCustomToolParamsTypeCustom,
+  			Name:        "get_weather",
+  			Description: "Get the current weather for a city.",
+  			InputSchema: anthropic.BetaManagedAgentsCustomToolInputSchemaParam{
+  				Properties: map[string]any{
+  					"city": map[string]any{"type": "string"},
+  				},
+  				Required: []string{"city"},
+  			},
+  		},
+  	}},
+  })
+  if err != nil {
+  	panic(err)
+  }
+  environment, err := client.Beta.Environments.New(ctx, anthropic.BetaEnvironmentNewParams{
+  	Name: "weather-env",
+  	Config: anthropic.BetaEnvironmentNewParamsConfigUnion{
+  		OfCloud: &anthropic.BetaCloudConfigParams{
+  			Networking: anthropic.BetaCloudConfigParamsNetworkingUnion{
+  				OfUnrestricted: &anthropic.BetaUnrestrictedNetworkParam{},
+  			},
+  		},
+  	},
+  })
+  if err != nil {
+  	panic(err)
+  }
+
+  session, err := client.Beta.Sessions.New(ctx, anthropic.BetaSessionNewParams{
+  	Agent: anthropic.BetaSessionNewParamsAgentUnion{
+  		OfBetaManagedAgentsAgents: &anthropic.BetaManagedAgentsAgentParams{
+  			Type:    anthropic.BetaManagedAgentsAgentParamsTypeAgent,
+  			ID:      agent.ID,
+  			Version: anthropic.Int(agent.Version),
+  		},
+  	},
+  	EnvironmentID: environment.ID,
+  })
+  if err != nil {
+  	panic(err)
+  }
+
+  getWeather := func(city string) string {
+  	return fmt.Sprintf("%s: 18°C, clear", city)
+  }
+
+  stream := client.Beta.Sessions.Events.StreamEvents(ctx, session.ID, anthropic.BetaSessionEventStreamParams{})
+  defer stream.Close()
+
+  _, err = client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
+  	Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
+  		OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
+  			Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
+  			Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
+  				OfText: &anthropic.BetaManagedAgentsTextBlockParam{
+  					Type: anthropic.BetaManagedAgentsTextBlockTypeText,
+  					Text: "What's the weather in Tokyo?",
+  				},
+  			}},
+  		},
+  	}},
+  })
+  if err != nil {
+  	panic(err)
+  }
+
+  loop:
+  for stream.Next() {
+  	event := stream.Current()
+  	switch event.Type {
+  	case "agent.message":
+  		for _, block := range event.AsAgentMessage().Content {
+  			if block.Type == "text" {
+  				fmt.Println(block.Text)
+  			}
+  		}
+  	case "agent.custom_tool_use":
+  		toolUse := event.AsAgentCustomToolUse()
+  		result := getWeather(toolUse.Input["city"].(string))
+  		if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
+  			Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
+  				OfUserCustomToolResult: &anthropic.BetaManagedAgentsUserCustomToolResultEventParams{
+  					Type:            anthropic.BetaManagedAgentsUserCustomToolResultEventParamsTypeUserCustomToolResult,
+  					CustomToolUseID: toolUse.ID,
+  					Content: []anthropic.BetaManagedAgentsUserCustomToolResultEventParamsContentUnion{{
+  						OfText: &anthropic.BetaManagedAgentsTextBlockParam{
+  							Type: anthropic.BetaManagedAgentsTextBlockTypeText,
+  							Text: result,
+  						},
+  					}},
+  				},
+  			}},
+  		}); err != nil {
+  			panic(err)
+  		}
+  	case "session.status_idle":
+  		idle := event.AsSessionStatusIdle()
+  		if _, ok := idle.StopReason.AsAny().(anthropic.BetaManagedAgentsSessionEndTurn); ok {
+  			break loop
+  		}
+  	}
+  }
+  if err := stream.Err(); err != nil {
+  	panic(err)
+  }
+  ```
+
+  ```java Java
+  import java.util.Map;
+  import java.util.function.Function;
+
+  import com.anthropic.models.beta.agents.AgentCreateParams;
+  import com.anthropic.models.beta.agents.BetaManagedAgentsCustomToolInputSchema;
+  import com.anthropic.models.beta.agents.BetaManagedAgentsCustomToolParams;
+  import com.anthropic.models.beta.agents.BetaManagedAgentsModel;
+  import com.anthropic.models.beta.environments.BetaCloudConfigParams;
+  import com.anthropic.models.beta.environments.BetaUnrestrictedNetwork;
+  import com.anthropic.models.beta.environments.EnvironmentCreateParams;
+  import com.anthropic.models.beta.sessions.BetaManagedAgentsAgentParams;
+  import com.anthropic.models.beta.sessions.SessionCreateParams;
+  import com.anthropic.models.beta.sessions.events.BetaManagedAgentsStreamSessionEvents;
+  import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserCustomToolResultEventParams;
+  import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserMessageEventParams;
+  import com.anthropic.models.beta.sessions.events.EventSendParams;
+
+  var client = AnthropicOkHttpClient.fromEnv();
+
+  var agent = client.beta().agents().create(AgentCreateParams.builder()
+      .name("weather-agent")
+      .model(BetaManagedAgentsModel.CLAUDE_OPUS_5)
+      .system("You are a concise weather assistant.")
+      .addTool(BetaManagedAgentsCustomToolParams.builder()
+          .type(BetaManagedAgentsCustomToolParams.Type.CUSTOM)
+          .name("get_weather")
+          .description("Get the current weather for a city.")
+          .inputSchema(BetaManagedAgentsCustomToolInputSchema.builder()
+              .properties(BetaManagedAgentsCustomToolInputSchema.Properties.builder()
+                  .putAdditionalProperty("city", JsonValue.from(Map.of("type", "string")))
+                  .build())
+              .addRequired("city")
+              .build())
+          .build())
+      .build());
+  var environment = client.beta().environments().create(EnvironmentCreateParams.builder()
+      .name("weather-env")
+      .config(BetaCloudConfigParams.builder()
+          .networking(BetaUnrestrictedNetwork.builder().build())
+          .build())
+      .build());
+
+  var session = client.beta().sessions().create(SessionCreateParams.builder()
+      .agent(BetaManagedAgentsAgentParams.builder()
+          .type(BetaManagedAgentsAgentParams.Type.AGENT)
+          .id(agent.id())
+          .version(agent.version())
+          .build())
+      .environmentId(environment.id())
+      .build());
+
+  Function<String, String> getWeather = city -> city + ": 18°C, clear";
+
+  try (var stream = client.beta().sessions().events().streamStreaming(session.id())) {
+      client.beta().sessions().events().send(
+          session.id(),
+          EventSendParams.builder()
+              .addEvent(BetaManagedAgentsUserMessageEventParams.builder()
+                  .type(BetaManagedAgentsUserMessageEventParams.Type.USER_MESSAGE)
+                  .addTextContent("What's the weather in Tokyo?")
+                  .build())
+              .build());
+
+      for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
+          if (event.isAgentMessage()) {
+              for (var block : event.asAgentMessage().content()) {
+                  IO.println(block.text());
+              }
+          } else if (event.isAgentCustomToolUse()) {
+              var toolUse = event.asAgentCustomToolUse();
+              var city = toolUse.input()._additionalProperties().get("city").asStringOrThrow();
+              var result = getWeather.apply(city);
+              client.beta().sessions().events().send(
+                  session.id(),
+                  EventSendParams.builder()
+                      .addEvent(BetaManagedAgentsUserCustomToolResultEventParams.builder()
+                          .type(BetaManagedAgentsUserCustomToolResultEventParams.Type.USER_CUSTOM_TOOL_RESULT)
+                          .customToolUseId(toolUse.id())
+                          .addTextContent(result)
+                          .build())
+                      .build());
+          } else if (event.isSessionStatusIdle()
+              && event.asSessionStatusIdle().stopReason().isEndTurn()) {
+              break;
+          }
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Client;
+  use Anthropic\Beta\Agents\BetaManagedAgentsCustomToolInputSchema;
+  use Anthropic\Beta\Agents\BetaManagedAgentsCustomToolParams;
+  use Anthropic\Beta\Sessions\BetaManagedAgentsAgentParams;
+
+  $client = new Client();
+
+  $agent = $client->beta->agents->create(
+      name: 'weather-agent',
+      model: 'claude-opus-5',
+      system: 'You are a concise weather assistant.',
+      tools: [
+          BetaManagedAgentsCustomToolParams::with(
+              type: 'custom',
+              name: 'get_weather',
+              description: 'Get the current weather for a city.',
+              inputSchema: BetaManagedAgentsCustomToolInputSchema::with(
+                  properties: ['city' => ['type' => 'string']],
+                  required: ['city'],
+              ),
+          ),
+      ],
+  );
+  $environment = $client->beta->environments->create(
+      name: 'weather-env',
+      config: ['type' => 'cloud', 'networking' => ['type' => 'unrestricted']],
+  );
+
+  $session = $client->beta->sessions->create(
+      agent: BetaManagedAgentsAgentParams::with(
+          type: 'agent',
+          id: $agent->id,
+          version: $agent->version,
+      ),
+      environmentID: $environment->id,
+  );
+
+  function getWeather(string $city): string
+  {
+      return "{$city}: 18°C, clear";
+  }
+
+  $stream = $client->beta->sessions->events->streamStream($session->id);
+
+  $client->beta->sessions->events->send(
+      $session->id,
+      events: [
+          [
+              'type' => 'user.message',
+              'content' => [['type' => 'text', 'text' => "What's the weather in Tokyo?"]],
+          ],
+      ],
+  );
+
+  foreach ($stream as $event) {
+      if ($event->type === 'agent.message') {
+          foreach ($event->content as $block) {
+              if ($block->type === 'text') {
+                  echo $block->text . "\n";
+              }
+          }
+      } elseif ($event->type === 'agent.custom_tool_use') {
+          $result = getWeather($event->input['city']);
+          $client->beta->sessions->events->send(
+              $session->id,
+              events: [
+                  [
+                      'type' => 'user.custom_tool_result',
+                      'custom_tool_use_id' => $event->id,
+                      'content' => [['type' => 'text', 'text' => $result]],
+                  ],
+              ],
+          );
+      } elseif ($event->type === 'session.status_idle' && $event->stopReason?->type === 'end_turn') {
+          break;
+      }
+  }
+  $stream->close();
+  ```
+
+  ```ruby Ruby
+  require "anthropic"
+
+  client = Anthropic::Client.new
+
+  agent = client.beta.agents.create(
+    name: "weather-agent",
+    model: "claude-opus-5",
+    system_: "You are a concise weather assistant.",
+    tools: [
+      {
+        type: "custom",
+        name: "get_weather",
+        description: "Get the current weather for a city.",
+        input_schema: {
+          type: "object",
+          properties: {city: {type: "string"}},
+          required: ["city"]
+        }
+      }
+    ]
+  )
+  environment = client.beta.environments.create(
+    name: "weather-env",
+    config: {type: "cloud", networking: {type: "unrestricted"}}
+  )
+
+  session = client.beta.sessions.create(
+    agent: {type: "agent", id: agent.id, version: agent.version},
+    environment_id: environment.id
+  )
+
+  def get_weather(city)
+    "#{city}: 18°C, clear"
+  end
+
+  stream = client.beta.sessions.events.stream_events(session.id)
+  client.beta.sessions.events.send_(
+    session.id,
+    events: [{type: "user.message", content: [{type: "text", text: "What's the weather in Tokyo?"}]}]
+  )
+
+  stream.each do |event|
+    case event.type
+    when :"agent.message"
+      event.content.each do |block|
+        puts block.text if block.type == :text
+      end
+    when :"agent.custom_tool_use"
+      result = get_weather(event.input[:city])
+      client.beta.sessions.events.send_(
         session.id,
-        events=[
-            {
-                "type": "user.message",
-                "content": [{"type": "text", "text": "What's the weather in Tokyo?"}],
-            }
-        ],
-    )
-    for ev in stream:
-        if ev.type == "agent.message":
-            print("".join(block.text for block in ev.content if block.type == "text"))
-        elif ev.type == "agent.custom_tool_use":
-            result = get_weather(**ev.input)
-            client.beta.sessions.events.send(
-                session.id,
-                events=[
-                    {
-                        "type": "user.custom_tool_result",
-                        "custom_tool_use_id": ev.id,
-                        "content": [{"type": "text", "text": result}],
-                    }
-                ],
-            )
-        elif (
-            ev.type == "session.status_idle"
-            and ev.stop_reason
-            and ev.stop_reason.type == "end_turn"
-        ):
-            break
-```
+        events: [
+          {
+            type: "user.custom_tool_result",
+            custom_tool_use_id: event.id,
+            content: [{type: "text", text: result}]
+          }
+        ]
+      )
+    when :"session.status_idle"
+      break if event.stop_reason&.type == :end_turn
+    end
+  end
+  ```
+</CodeGroup>
 
 The Agent and Environment are created once and reused across sessions. The tool function still runs in your process; the difference is that you read the `agent.custom_tool_use` event and send the result explicitly instead of the SDK dispatching it for you.
 
