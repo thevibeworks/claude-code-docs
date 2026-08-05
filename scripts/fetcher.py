@@ -69,6 +69,21 @@ DISCOVER_DOMAINS = [
 ]
 
 
+def looks_like_html(content: bytes) -> bool:
+    """True if the body is an HTML page rather than the markdown we asked for.
+
+    platform.claude.com answers unknown doc paths with its Next.js app shell at
+    HTTP 200 — a soft 404. raise_for_status() sees nothing wrong, so without
+    this check the shell gets written straight into a .md file. That is how 53
+    files, 44 of them under content/en/api/kotlin/, ended up holding
+    "<!DOCTYPE html><html class=..." instead of documentation, across three
+    separate bug reports (#669, #768, #941) while the scheduled run stayed
+    green.
+    """
+    head = content[:512].lstrip().lower()
+    return head.startswith(b"<!doctype html") or head.startswith(b"<html")
+
+
 class Fetcher:
     def __init__(
         self,
@@ -164,6 +179,16 @@ class Fetcher:
                 return {"url": url, "status": "skipped"}
             try:
                 content = await self.fetch_bytes(session, f"{url}.md")
+                if looks_like_html(content):
+                    # Soft 404: HTTP 200 with the site's HTML shell. Writing it
+                    # would replace docs with markup, and because incremental
+                    # mode skips paths that already exist, a bad file is never
+                    # re-fetched — it just stays wrong.
+                    self.stats["failed"] += 1
+                    return {
+                        "url": url, "status": "failed",
+                        "error": "upstream returned HTML, not markdown (soft 404)",
+                    }
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
@@ -188,6 +213,12 @@ class Fetcher:
                 return {"url": url, "status": "skipped"}
             try:
                 content = await self.fetch_bytes(session, url)
+                if filepath.endswith(".md") and looks_like_html(content):
+                    self.stats["failed"] += 1
+                    return {
+                        "url": url, "status": "failed",
+                        "error": "upstream returned HTML, not markdown",
+                    }
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
