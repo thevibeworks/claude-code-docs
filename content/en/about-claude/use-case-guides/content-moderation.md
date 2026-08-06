@@ -51,7 +51,7 @@ Here are some key indicators that you should use an LLM like Claude instead of a
 </AccordionGroup>
 
 <Note>
-  Anthropic has trained all Claude models to be honest, helpful, and harmless. This may result in Claude moderating content deemed particularly dangerous (in line with the 
+  All Claude models are trained with built-in safety behaviors. This may result in Claude moderating content deemed particularly dangerous (in line with the 
 
   [Acceptable Use Policy](https://www.anthropic.com/legal/aup)
 

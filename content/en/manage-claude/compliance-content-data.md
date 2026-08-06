@@ -5,7 +5,7 @@ Access chat content, file attachments, and projects for claude.ai organizations 
 ---
 
 <Note>
-  The endpoints on this page retrieve and delete claude.ai content and are available only to Claude Enterprise organizations, which have self-service access to the Compliance API. See [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
+  The endpoints on this page retrieve and delete claude.ai content and are available only to Claude Enterprise organizations. See [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access).
 </Note>
 
 <Check>

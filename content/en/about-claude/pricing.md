@@ -21,7 +21,7 @@ The following table shows pricing for all Claude models:
 | Claude Opus 4.7                                                                                               | $5 / MTok         | $6.25 / MTok    | $10 / MTok      | $0.50 / MTok           | $25 / MTok    |
 | Claude Opus 4.6                                                                                               | $5 / MTok         | $6.25 / MTok    | $10 / MTok      | $0.50 / MTok           | $25 / MTok    |
 | Claude Opus 4.5                                                                                               | $5 / MTok         | $6.25 / MTok    | $10 / MTok      | $0.50 / MTok           | $25 / MTok    |
-| Claude Opus 4.1 ([deprecated](/docs/en/about-claude/model-deprecations))                                      | $15 / MTok        | $18.75 / MTok   | $30 / MTok      | $1.50 / MTok           | $75 / MTok    |
+| Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations))     | $15 / MTok        | $18.75 / MTok   | $30 / MTok      | $1.50 / MTok           | $75 / MTok    |
 | Claude Opus 4 ([retired, except on Google Cloud](/docs/en/about-claude/model-deprecations))                   | $15 / MTok        | $18.75 / MTok   | $30 / MTok      | $1.50 / MTok           | $75 / MTok    |
 | Claude Sonnet 5 [through August 31, 2026](/docs/en/about-claude/pricing#claude-sonnet-5-introductory-pricing) | $2 / MTok         | $2.50 / MTok    | $4 / MTok       | $0.20 / MTok           | $10 / MTok    |
 | Claude Sonnet 5 starting September 1, 2026                                                                    | $3 / MTok         | $3.75 / MTok    | $6 / MTok       | $0.30 / MTok           | $15 / MTok    |
@@ -64,7 +64,7 @@ Claude models are available on [Amazon Bedrock](/docs/en/build-with-claude/claud
 
   Regional and multi-region endpoints include a 10% premium over global endpoints. The Claude API (first-party) is global by default; for first-party data residency options and pricing, see [Data residency pricing](#data-residency-pricing).
 
-  **Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, and all future models. Earlier models (Claude Opus 4.1 (deprecated) and prior releases) retain their existing pricing.
+  **Scope:** This pricing structure applies to Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, and all future models. Earlier models (Claude Opus 4.1 and prior releases) retain their existing pricing.
 
   For implementation details and code examples:
 
@@ -191,7 +191,7 @@ The Batch API allows asynchronous processing of large volumes of requests with a
 | Claude Opus 4.7                                                                                               | $2.50 / MTok | $12.50 / MTok |
 | Claude Opus 4.6                                                                                               | $2.50 / MTok | $12.50 / MTok |
 | Claude Opus 4.5                                                                                               | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.1 ([deprecated](/docs/en/about-claude/model-deprecations))                                      | $7.50 / MTok | $37.50 / MTok |
+| Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations))     | $7.50 / MTok | $37.50 / MTok |
 | Claude Opus 4 ([retired, except on Google Cloud](/docs/en/about-claude/model-deprecations))                   | $7.50 / MTok | $37.50 / MTok |
 | Claude Sonnet 5 [through August 31, 2026](/docs/en/about-claude/pricing#claude-sonnet-5-introductory-pricing) | $1 / MTok    | $5 / MTok     |
 | Claude Sonnet 5 starting September 1, 2026                                                                    | $1.50 / MTok | $7.50 / MTok  |
@@ -232,7 +232,7 @@ When you use `tools`, the API also automatically includes a special system promp
 | Claude Opus 4.7                                                                                            | `auto`, `none`***`any`, `tool` | 675 tokens***804 tokens            |
 | Claude Opus 4.6                                                                                            | `auto`, `none`***`any`, `tool` | 497 tokens***589 tokens            |
 | Claude Opus 4.5                                                                                            | `auto`, `none`***`any`, `tool` | 496 tokens***588 tokens            |
-| Claude Opus 4.1 ([deprecated](/docs/en/about-claude/model-deprecations))                                   | `auto`, `none`***`any`, `tool` | 313 tokens***315 tokens            |
+| Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations))  | `auto`, `none`***`any`, `tool` | 313 tokens***315 tokens            |
 | Claude Opus 4 ([retired, except on Google Cloud](/docs/en/about-claude/model-deprecations))                | `auto`, `none`***`any`, `tool` | 313 tokens***315 tokens            |
 | Claude Sonnet 5                                                                                            | `auto`, `none`***`any`, `tool` | 354 tokens***474 tokens            |
 | Claude Sonnet 4.6                                                                                          | `auto`, `none`***`any`, `tool` | 497 tokens***589 tokens            |

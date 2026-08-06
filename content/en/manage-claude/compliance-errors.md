@@ -111,7 +111,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['read:compl
 **Cause:** A key without `read:compliance_activities` was used to call `GET /v1/compliance/activities`. There are two common paths to this error:
 
 * A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_activities` scope.
-* A Claude Console Admin API key (`sk-ant-admin01-...`) was created before the Compliance API was enabled for the organization. Keys created before enablement do not carry the scope; see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api).
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was created while the Compliance API was not enabled for the organization. Keys created while the Compliance API was not enabled do not carry the scope; see [Set up the Compliance API](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api).
 
 **Fix:** Compliance Access Key scopes are immutable after creation. Create a new key that includes `read:compliance_activities`, or use a Claude Console Admin API key. See [Which key do you need?](/docs/en/manage-claude/compliance-api-access#which-key-do-you-need) for the conditions under which an Admin API key carries this scope.
 
@@ -277,11 +277,11 @@ The "claude_proj_01KGp4eZNug9ri4kE35RSppq" project cannot be deleted as it has c
 
 ## 429 Too Many Requests
 
-Requests to the Compliance API are limited to **600 requests per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is one budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint; the remote session endpoints carry a second request budget on top. Contact your Anthropic representative if your integration needs a higher limit.
+Requests to the Compliance API are limited to **600 requests per minute per [parent organization](/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is one budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint; the remote session endpoints carry a second request budget on top. For a standalone Claude Console organization, which has no parent organization, the same budget applies to the organization itself and is shared across its Admin API keys. Contact your Anthropic representative if your integration needs a higher limit.
 
 Once your API key authenticates, Compliance API responses report the shared budget through the standard [rate-limit response headers](/docs/en/api/rate-limits#response-headers) so your client can throttle proactively instead of waiting for a 429:
 
-* `anthropic-ratelimit-requests-limit` is your parent organization's per-minute request budget.
+* `anthropic-ratelimit-requests-limit` is the per-minute request budget.
 * `anthropic-ratelimit-requests-remaining` is the budget left in the current window.
 * `anthropic-ratelimit-requests-reset` is the RFC 3339 timestamp when the window resets and the full budget is restored.
 
@@ -305,7 +305,7 @@ anthropic-ratelimit-requests-reset: 2026-04-21T14:38:25Z
 }
 ```
 
-**Cause:** Your parent organization sent more than 600 requests to `/v1/compliance/*` in a 1-minute window, across all of its keys and linked organizations, or it exhausted the remote session endpoints' second request budget (described later in this section).
+**Cause:** Your parent organization (or standalone Claude Console organization) sent more than 600 requests to `/v1/compliance/*` in a 1-minute window, across all of the keys that share its budget, or it exhausted the remote session endpoints' second request budget (described later in this section).
 
 **Fix:** Wait the number of seconds in the `retry-after` header, then retry. If the header is absent (for example, stripped by an intermediary), fall back to exponential backoff (start at 1 second, double up to 60 seconds). Do not advance your pagination cursor on a 429: the failed request returned no data, so the cursor from the last successful page is still correct.
 
@@ -313,7 +313,7 @@ Requests that fail authentication (a missing or unrecognized key, or a Claude AP
 
 The [remote session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions) carry a second request budget, also keyed to your parent organization, on top of the shared limit. A 429 from that budget includes a `retry-after` header but not the `anthropic-ratelimit-*` headers; the same fix applies.
 
-If you poll the [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) on a schedule, budget your aggregate request rate (across all keys, linked organizations, and concurrent workers) below the parent-organization limit. Watch `anthropic-ratelimit-requests-remaining` to slow down before you reach it. See [Design your compliance integration](/docs/en/manage-claude/compliance-integration-patterns#choose-a-feed-consumption-pattern) for choosing between window-polling and cursor-driven ingestion.
+If you poll the [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) on a schedule, budget your aggregate request rate (across all keys, linked organizations, and concurrent workers) below the shared limit. Watch `anthropic-ratelimit-requests-remaining` to slow down before you reach it. See [Design your compliance integration](/docs/en/manage-claude/compliance-integration-patterns#choose-a-feed-consumption-pattern) for choosing between window-polling and cursor-driven ingestion.
 
 ## 500 Internal Server Error
 

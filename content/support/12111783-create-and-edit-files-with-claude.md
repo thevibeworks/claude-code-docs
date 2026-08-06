@@ -48,7 +48,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1785951900&amp;signature=1dd1fddfc6505a241175e6b552a1d760f1a72f6bef60443c2ceb4e8040a74404&amp;req=diAiEs55mYFfXPMW1HO4zYFJywhMCZjHPQVowIiib2kSzODLzGoy7qkyu0rj%0AM548FV2Cj5ns9vL%2FXIQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1786082400&amp;signature=ba4c5ea647844af845afcd61500b2a6dfc3eceae039a4ef6d8c12861b0750449&amp;req=diAiEs55mYFfXPMW3nq%2BgWwhvHagSfAa6ex%2BPMWT8DhLq1apKkbeI39VOdmL%0APD8l9oypxZhsApAWwyJD6OcF%2FIE%3D%0A)
 
 ### Enabling on Claude Mobile
 
@@ -66,11 +66,11 @@ Team and Enterprise organization owners can control network access settings in *
 
 - **Allow network egress to package managers and specific domains:** Claude can access package managers plus additional domains you specify. Add domains individually to whitelist specific resources your organization needs:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1785951900&amp;signature=ab09a5f4f0183bc9d12e9ffa168009bddbcbf1608dd85f13ed59aeab34552c7c&amp;req=dScvH8B6mIJZW%2FMW1HO4zXJcBmhKkChCpMW6Iph6YZfD8rutAhRlxWoqtoCe%0A2q5qPlbZFJHtFKfAhKY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1786082400&amp;signature=bdbc0691a7cc51ab99579b119bd20cd022fee8b9fe50436476b1f9a7f620e86a&amp;req=dScvH8B6mIJZW%2FMW3nq%2BgdQoTgnvUtVQCprNBj0zeZRhGuyQqCj8g9tMdQJS%0AvCRHYRwqED6OnPtZea7Ot4jbEZM%3D%0A)
 
 **All domains:** Claude has full internet access except for domains on Anthropic's legal blocklist. While this provides maximum flexibility for file creation and analysis tasks, it’s also the riskiest option. Please review the **[security considerations below](#h_0ee9d698a1)** before enabling “All domains”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1785951900&amp;signature=b0eb3ff01b5b3f1fa91dd05b2c64f77ffcbaa5cf3ce53c555a24e16ed9efc0fd&amp;req=dScvH8B6mIJZWPMW1HO4zdnseBGb6z6rqgKIA6CM1tqUlmtOw5jAzhoIHEjH%0A6nKYhGT6ZQrkRP3yPM4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1786082400&amp;signature=8c3efac1e6d5d120565692b8db6a9a97d38af7bf338179ae879b369380f25342&amp;req=dScvH8B6mIJZWPMW3nq%2BgcDM0aeOmZtFl%2BOqj03ykB5%2FW2lqfGB7tlFT1qhj%0A6QAdr7lnAdQQYYu3tXNNmD9GDSM%3D%0A)
 
 ---
 
@@ -214,19 +214,19 @@ Team and Enterprise owners have full control over this feature, including:
 
 When network access is enabled, Claude can access the following approved domains:
 
-- **Anthropic Services (Explicit):** [api.anthropic.com](http://api.anthropic.com/), [statsig.anthropic.com](http://statsig.anthropic.com/)
+- **Anthropic Services (Explicit):** api.anthropic.com, statsig.anthropic.com
 
-- ​**GitHub:** [github.com](http://github.com/)
+- ​**GitHub:** github.com
 
-- **NPM:** [registry.npmjs.org](http://registry.npmjs.org/), [npmjs.com](http://npmjs.com/), [npmjs.org](http://npmjs.org/)
+- **NPM:** registry.npmjs.org, npmjs.com, npmjs.org
 
-- ​**Python:** [pypi.org](http://pypi.org/), [files.pythonhosted.org](http://files.pythonhosted.org/), [pythonhosted.org](http://pythonhosted.org/)
+- ​**Python:** pypi.org, files.pythonhosted.org, pythonhosted.org
 
-- **Rust:** [crates.io](https://crates.io), [index.crates.io](https://index.crates.io), [static.crates.io](https://static.crates.io)
+- **Rust:** crates.io, index.crates.io, static.crates.io
 
-- **Ubuntu:** [archive.ubuntu.com](https://archive.ubuntu.com), [security.ubuntu.com](https://security.ubuntu.com)
+- **Ubuntu:** archive.ubuntu.com, security.ubuntu.com
 
-- **Yarn:** [yarnpkg.com](http://yarnpkg.com/), [registry.yarnpkg.com](http://registry.yarnpkg.com/)
+- **Yarn:** yarnpkg.com, registry.yarnpkg.com
 
 ---
 

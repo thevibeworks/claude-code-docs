@@ -18,28 +18,27 @@ Extended thinking (`thinking.type: "enabled"` with `budget_tokens`) is deprecate
 
 The table lists what each model supports, what it defaults to, and which `thinking.type` values it rejects with a 400 error; any value not listed as rejected is accepted.
 
-| Model                        | Thinking types                   | Default   | Rejected with 400          |
-| ---------------------------- | -------------------------------- | --------- | -------------------------- |
-| Claude Fable 5               | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Mythos 5              | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
-| Claude Mythos Preview        | Adaptive, extended               | Always on | `"disabled"`               |
-| Claude Opus 5                | Adaptive only                    | On        | `"enabled"`, `"disabled"`2 |
-| Claude Opus 4.8              | Adaptive only                    | Off       | `"enabled"`                |
-| Claude Opus 4.7              | Adaptive only                    | Off       | `"enabled"`                |
-| Claude Sonnet 5              | Adaptive only                    | On        | `"enabled"`                |
-| Claude Opus 4.6              | Adaptive, extended (deprecated)1 | Off       | None                       |
-| Claude Sonnet 4.6            | Adaptive, extended (deprecated)1 | Off       | None                       |
-| Claude Opus 4.5              | Extended only                    | Off       | `"adaptive"`               |
-| Claude Haiku 4.5             | Extended only                    | Off       | `"adaptive"`               |
-| Claude Sonnet 4.5            | Extended only                    | Off       | `"adaptive"`               |
-| Claude Opus 4.1 (deprecated) | Extended only                    | Off       | `"adaptive"`               |
+| Model                 | Thinking types                   | Default   | Rejected with 400          |
+| --------------------- | -------------------------------- | --------- | -------------------------- |
+| Claude Fable 5        | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
+| Claude Mythos 5       | Adaptive only                    | Always on | `"enabled"`, `"disabled"`  |
+| Claude Mythos Preview | Adaptive, extended               | Always on | `"disabled"`               |
+| Claude Opus 5         | Adaptive only                    | On        | `"enabled"`, `"disabled"`2 |
+| Claude Opus 4.8       | Adaptive only                    | Off       | `"enabled"`                |
+| Claude Opus 4.7       | Adaptive only                    | Off       | `"enabled"`                |
+| Claude Sonnet 5       | Adaptive only                    | On        | `"enabled"`                |
+| Claude Opus 4.6       | Adaptive, extended (deprecated)1 | Off       | None                       |
+| Claude Sonnet 4.6     | Adaptive, extended (deprecated)1 | Off       | None                       |
+| Claude Opus 4.5       | Extended only                    | Off       | `"adaptive"`               |
+| Claude Haiku 4.5      | Extended only                    | Off       | `"adaptive"`               |
+| Claude Sonnet 4.5     | Extended only                    | Off       | `"adaptive"`               |
 
 *1 `enabled` and `budget_tokens` still work on these models but are deprecated; use adaptive thinking instead.*\
 *2 Claude Opus 5 accepts `"disabled"` at [effort](/docs/en/build-with-claude/effort) `high` or below; combining it with effort `xhigh` or `max` returns a 400 error. This restriction applies to Claude Opus 5 and later models and is enforced on each request.*
 
 Models marked `Always on` cannot turn thinking off. Models marked `On` default to thinking but accept `thinking: {type: "disabled"}`.
 
-Earlier Claude 4 models (Claude Sonnet 4 and Claude Opus 4) support extended thinking only; see [model deprecations](/docs/en/about-claude/model-deprecations) for their availability. Claude Fable 5 and Claude Mythos 5 are not available under [zero data retention](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+Earlier Claude 4 models (Claude Opus 4.1, Claude Sonnet 4, and Claude Opus 4) support extended thinking only; see [model deprecations](/docs/en/about-claude/model-deprecations) for their availability. Claude Fable 5 and Claude Mythos 5 are not available under [zero data retention](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 
 ## A 400 error says `"thinking.type.enabled"` is not supported
 

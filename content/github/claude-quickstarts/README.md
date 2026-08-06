@@ -50,6 +50,12 @@ A browser chat app powered by Claude Managed Agents and Vercel's Chat SDK. This 
 
 [Go to Managed Agents Chat SDK Quickstart](./managed-agents/chat-sdk)
 
+### Managed Agents with CopilotKit and AG-UI
+
+A personal finance assistant chat app built on a Claude Managed Agent and rendered with CopilotKit. This project demonstrates how to bridge a managed-agent session to the AG-UI protocol, stream replies token by token with event deltas, and render agent tool calls as interactive generative UI components in the chat.
+
+[Go to Managed Agents with CopilotKit Quickstart](./managed-agents/copilot-kit-ag-ui)
+
 ### Managed Agents: Knowledge Wiki
 
 A deal-room knowledge wiki built with Claude Managed Agents. This project demonstrates how to distill a document corpus once into a versioned memory-store knowledge wiki — using parallel extraction sessions, a resolve pass, and a steered consolidation dream — then answer repeated analyst questions from the wiki with provenance on every fact and a fraction of the per-question token cost of raw-document search. The worked example is a real M&A data room fetched from public SEC EDGAR filings.

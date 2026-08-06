@@ -2,21 +2,17 @@
 
 Diagnose unexpected prompt cache misses by comparing consecutive requests and identifying exactly where the prompt prefix diverged.
 
----
+## Compatibility
+- Status: Beta
+- [Beta header](/docs/en/api/beta-headers): `cache-diagnosis-2026-04-07`
+- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- Platforms: Claude API (beta); not available on Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
 
-<Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
-</Note>
+---
 
 [Prompt caching](/docs/en/build-with-claude/prompt-caching) cuts latency and cost significantly, but only when the beginning of your prompt is byte-for-byte identical to a recent request. A reordered tool, a timestamp interpolated into your system prompt, or an edit to an earlier message can silently invalidate the cache. Without cache diagnostics, the only signal is `usage.cache_read_input_tokens` dropping to zero, with no indication of what changed.
 
 Cache diagnostics closes that gap. Pass the `id` of your previous response, and the API compares the two requests and tells you where they diverged (the model, the system prompt, the tools, or the message history) so you can fix the root cause instead of guessing.
-
-<Note>
-  Cache diagnostics is in beta. Include the [beta header](/docs/en/api/beta-headers) `cache-diagnosis-2026-04-07` in your API requests to use this feature.
-
-  Cache diagnostics is currently available on the Claude API only. It is not supported on Amazon Bedrock or Google Cloud.
-</Note>
 
 ## How cache diagnostics works
 

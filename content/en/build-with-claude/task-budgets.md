@@ -2,13 +2,14 @@
 
 Give Claude an advisory token budget for the full agentic loop to help the model self-regulate on long agentic tasks.
 
+## Compatibility
+- Status: Beta
+- [Beta header](/docs/en/api/beta-headers): `task-budgets-2026-03-13`
+- Supported models: `claude-fable-5`, `claude-mythos-5`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`
+
 ---
 
 Task budgets let you tell Claude how many tokens it has for a full agentic loop, including thinking, tool calls, tool results, and output. The model sees a running countdown and uses it to prioritize work and finish gracefully as the budget is consumed.
-
-<Note>
-  Task budgets are in beta on Claude Opus 5, Claude Fable 5, Claude Mythos 5, Claude Opus 4.8, and Claude Opus 4.7. Set the `task-budgets-2026-03-13` beta header to opt in.
-</Note>
 
 ## When to use task budgets
 
