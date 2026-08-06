@@ -34,13 +34,13 @@ Open each app and activate the add-in at least once before using the cross-app f
 
 Go to **Settings** in each of the add-ins and toggle **Let Claude work across files** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152216540/23e9f22eca1109ec09f2c6138191/2ef697a8-3a60-4193-bbd7-639ed91b20e9?expires=1786005900&amp;signature=dc79b9cc28c6e006dacf79deb195355af4c84b28196b9fb6b5652c04c328823b&amp;req=diEiFMt%2Fm4RbWfMW1HO4ze%2BVVHL1UAtWQEr1GSm7Lk3GwPKkb5ZtQ6KTmGDA%0Ar0BDnzQQdEndLH%2Fz%2F%2F4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152216540/23e9f22eca1109ec09f2c6138191/2ef697a8-3a60-4193-bbd7-639ed91b20e9?expires=1786022100&amp;signature=34ca42508cf7313f6eb7ec0994889cef7772328d744dd5a9d8c336df8057577b&amp;req=diEiFMt%2Fm4RbWfMW1HO4ze%2BVVHL1UgxeQEr1GSm7Lk2TsIwGdViNv4PNrAMd%0A0U9nCWHoWTos03e%2BLl4%3D%0A)
 
 **Note:** This setting is default on for Pro and Max plans and default off for Team and Enterprise plans.
 
 You'll see connected file indicators when Excel, PowerPoint, Word, or Outlook files are linked to your session:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152215013/db0cfd2aa4034975480d82218aad/8f11dc16-2173-4b34-a05a-e31a53b58cc2?expires=1786005900&amp;signature=936bc213373a8570cbc4a54d1bf6617e5fac202e1d48ab9f3d70d6047a72e057&amp;req=diEiFMt%2FmIFeWvMW1HO4zZtV3mu229doGgi4PNaz7vVnwtx7v6ITGWARSfmA%0ATbB%2F3MROZSTAHkgJ%2FS4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152215013/db0cfd2aa4034975480d82218aad/8f11dc16-2173-4b34-a05a-e31a53b58cc2?expires=1786022100&amp;signature=92bcd60e349e36c1451525bfbc6e19ffe87e644b3e4586ba5188833dc6215921&amp;req=diEiFMt%2FmIFeWvMW1HO4zZtV3mu22dBgGgi4PNaz7vX83Zqr0Ob3jku1Bdq2%0Aemw5%2BjA8Y5Dqx2LD%2FNM%3D%0A)
 
 ---
 
