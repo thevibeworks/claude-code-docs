@@ -6,6 +6,6 @@ As a Primary Owner or Owner of a Team or Enterprise plan, you can manage the abi
 
 2. Use the toggle to change the **Rate chats** setting for your organization:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2058292603/75752add0bed6a9f3ab217f01708/CleanShot%2B2026-02-12%2Bat%2B08_55_14-402x.png?expires=1785990600&amp;signature=0feba6afcafa6c8e37f58c9aa195a3cbbbfcf85a14d65a6cd3659bd79ad51bb3&amp;req=diAiHst3n4dfWvMW1HO4zYGm8iIVGajK085gFtEpvcSTto56yStqNxpYwUmj%0AMqxrpcAyc2hsAKhSvk8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2058292603/75752add0bed6a9f3ab217f01708/CleanShot%2B2026-02-12%2Bat%2B08_55_14-402x.png?expires=1786005900&amp;signature=fbabd622a2d203b3f4ddc908ac7efd369d2435eafdf7dcdfe247027ce22b3e2e&amp;req=diAiHst3n4dfWvMW1HO4zYGm8iEcEK3F085gFtEpvcQxcx6GYjkTlTaL7%2B0V%0AjU5fsdlWLW52f3sMvc8%3D%0A)
 
 More information on how Anthropic collects, uses, and stores feedback data can be found in our Privacy Center: **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
