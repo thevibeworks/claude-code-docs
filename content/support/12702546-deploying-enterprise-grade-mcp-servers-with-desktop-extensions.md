@@ -20,7 +20,7 @@ Desktop extensions provide access to local resources that remote connectors cann
 
 ### Instant deployment with minimal infrastructure overhead
 
-One-click installation through Claude Desktop comes with no dependencies to manage. The built-in [Node.js](http://node.js) runtime is included, there’s no cloud infrastructure to provision, and updates are distributed directly through the extension marketplace.
+One-click installation through Claude Desktop comes with no dependencies to manage. The built-in Node.js runtime is included, there’s no cloud infrastructure to provision, and updates are distributed directly through the extension marketplace.
 
 ### Enterprise-grade controls
 

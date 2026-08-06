@@ -39,7 +39,7 @@ The protocol must be HTTP-based OTLP. gRPC is rejected at configuration time.
 
 For deployments that authenticate against your own model provider rather than Claude.ai, the collector endpoint is supplied through one of three configuration channels. All three use the same two keys.
 
-**Recommended:** Use the **[claude-in-office plugin](https://github.com/anthropics/financial-services-plugins/tree/main/claude-in-office)** for Claude Code. It walks you through generating the manifest, registering Entra extension attributes, and standing up a bootstrap endpoint with `otlp_endpoint` and `otlp_headers` pre-wired. The three channels below are documented for reference and manual setup.
+**Recommended:** Use the **[claude-for-msft-365-install plugin](https://github.com/anthropics/financial-services/tree/main/claude-for-msft-365-install)** for Claude Code. It walks you through generating the manifest, registering Entra extension attributes, and standing up a bootstrap endpoint with `otlp_endpoint` and `otlp_headers` pre-wired. The three channels below are documented for reference and manual setup.
 
 | **Key**         | **Format**              | **Description**                                                                                                       |
 | --------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -54,7 +54,7 @@ If `otlp_endpoint` is unset or empty, no custom collector is configured and the 
 
 Append the keys as query string parameters to the taskpane URL in your custom add-in manifest:
 
-<https://<addin-host>/taskpane.html?otlp_endpoint=https://otel-collector.your-domain.com&otlp_headers=Authorization=Bearer%20<token>`>`
+`https://<addin-host>/taskpane.html?otlp_endpoint=https://otel-collector.your-domain.com&otlp_headers=Authorization=Bearer%20<token>`
 
 URL-encode the values. This applies the configuration to every user who installs the manifest.
 
@@ -64,10 +64,10 @@ For per-user configuration, register the keys as Entra ID directory extension at
 
 The claim names in the issued ID token follow Azure's directory extension format:
 
-| **Claim**            | **Maps to**    |
-| -------------------- | -------------- |
-| `extn.otlp_endpoint` | otlp\_endpoint |
-| `extn.otlp_headers`  | otlp\_headers  |
+| **Claim**            | **Maps to**     |
+| -------------------- | --------------- |
+| `extn.otlp_endpoint` | `otlp_endpoint` |
+| `extn.otlp_headers`  | `otlp_headers`  |
 
 Set these per-user with a Graph PATCH against the user object. Azure encodes directory extension values as single-element arrays in the ID token; the add-in unwraps them automatically. This channel requires `entra_sso=1` in the manifest URL parameters to enable NAA token acquisition.
 
@@ -88,7 +88,7 @@ The bootstrap endpoint URL itself is configured via `bootstrap_url` in either th
 
 When multiple channels supply a value, later channels override earlier ones: manifest parameters are read first, then Entra claims, then the bootstrap response. The bootstrap response wins.
 
-If you haven't already, the fastest path is the **[claude-in-office plugin](https://github.com/anthropics/financial-services-plugins/tree/main/claude-in-office)**.
+If you haven't already, the fastest path is the **[claude-for-msft-365-install plugin](https://github.com/anthropics/financial-services/tree/main/claude-for-msft-365-install)**.
 
 ---
 

@@ -4,7 +4,7 @@
 
 This article explains how Claude for Government Owners and Primary Owners can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need.
 
-## How to Get Started
+## How to get started
 
 1. Log in to your Owner or Primary Owner Claude for Government account.
 

@@ -1,17 +1,18 @@
 # Authentication
 
-Authenticate to the Claude API with API keys or Workload Identity Federation.
+Authenticate to the Claude API with API keys, Workload Identity Federation, or App Attest.
 
 ---
 
-The Claude API supports two ways to authenticate requests:
+The Claude API supports three ways to authenticate requests:
 
-| Method                                                        | Credential                                                                      | Best for                                                                                                                                        |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [API key](#api-keys)                                          | Static `sk-ant-api...` secret in the `x-api-key` header                         | Local development, prototyping, scripts, and single-tenant servers where you control secret storage                                             |
-| [Workload Identity Federation](#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider's identity token | Production workloads on cloud platforms (AWS, Google Cloud, Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
+| Method                                                        | Credential                                                                                              | Best for                                                                                                                                        |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [API key](#api-keys)                                          | Static `sk-ant-api...` secret in the `x-api-key` header                                                 | Local development, prototyping, scripts, and single-tenant servers where you control secret storage                                             |
+| [Workload Identity Federation](#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider's identity token                         | Production workloads on cloud platforms (AWS, Google Cloud, Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
+| [App Attest](#app-attest)                                     | Short-lived access token issued to a genuine, attested installation of your registered iOS or macOS app | iOS and macOS apps distributed to end users, where the app calls the Claude API directly with no back end or proxy                              |
 
-Both methods grant the same access to Claude API endpoints. Choose API keys to get started quickly, and move to Workload Identity Federation when your workload already has a platform-issued identity you can federate.
+API keys and Workload Identity Federation grant the same access to Claude API endpoints. Choose API keys to get started quickly, and move to Workload Identity Federation when your workload already has a platform-issued identity you can federate. Use App Attest for iOS and macOS apps you distribute to end users.
 
 ## API keys
 
@@ -120,6 +121,12 @@ Federation removes long-lived Claude API keys from your environment, which shrin
 
 To configure federation, you create three resources in the Claude Console (a service account, a federation issuer, and a federation rule) and then point your SDK at the rule. See [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation) for the full setup walkthrough.
 
+## App Attest
+
+App Attest authenticates iOS and macOS apps that call the Claude API directly from the device. Each installation proves that it is a genuine, unmodified build of an app you registered in the Claude Console, using Apple's App Attest service. Anthropic then issues the device a short-lived access token that bills usage to your workspace. Tokens are scoped to your workspace, expire after one hour, and authorize only [Messages API](/docs/en/api/messages/create) calls.
+
+To register your app and get a client ID, see [App Attest for iOS and macOS apps](/docs/en/manage-claude/app-attest).
+
 ## Next steps
 
 <CardGroup cols={2}>
@@ -133,6 +140,10 @@ To configure federation, you create three resources in the Claude Console (a ser
 
   <Card title="WIF reference" icon="book" href="/docs/en/manage-claude/wif-reference">
     Environment variables, validation rules, profile configuration, and error reference
+  </Card>
+
+  <Card title="App Attest for iOS and macOS apps" icon="fingerprint" href="/docs/en/manage-claude/app-attest">
+    Let genuine installations of your app call the Claude API without shipping an API key
   </Card>
 
   <Card title="Client SDKs" icon="code" href="/docs/en/cli-sdks-libraries/overview">

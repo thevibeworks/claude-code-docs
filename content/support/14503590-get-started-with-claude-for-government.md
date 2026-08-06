@@ -6,7 +6,7 @@ Claude for Government brings Anthropic's Claude AI to environments requiring the
 
 ## How do I access Claude for Government?
 
-Claude for Government is available to U.S. federal, state, and local government agencies and qualifying public sector organizations. To learn more or get started, contact Anthropic's **[public sector Sales team](https://claude.com/contact-sales/government)**.
+Claude for Government is available to U.S. federal, state, and local government agencies and qualifying public sector organizations. To learn more or get started, contact Anthropic's public sector Sales team via the **[Contact sales form](https://claude.com/contact-sales)** (choose "Contact sales" for **What can we help you with?**) and select "Government & Public Sector" for the **Industry** field.
 
 ## Product differentiation between Claude for Government and Claude Enterprise
 
