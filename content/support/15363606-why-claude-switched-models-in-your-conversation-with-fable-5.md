@@ -14,11 +14,11 @@ Most user queries blocked by these safeguards on Fable 5 may instead receive a r
 
 ## What requests may fallback
 
-**Claude Fable 5 runs automated safety checks, or classifiers, on every user request. These checks are intended to visibly fallback from Fable 5 to Opus models when users submit requests in four areas:**
+**Claude Fable 5 runs automated safety checks, or classifiers, on every user request. These checks are intended to visibly fallback from Fable 5 to Opus models when users submit requests in:**
 
 - Offensive cybersecurity techniques, such as building exploits, malware, or attack tooling. Claude Fable 5 can assist with routine cybersecurity tasks, but users should expect high fallback rates. The safeguards are designed to block access to Mythos-level capabilities.
 
-- Majority of biology, chemistry, and life sciences queries, such as lab methods or molecular mechanisms. In the near-term, this may impact the model’s ability to help with benign biology research and related topics, such as biotech business documentation, medical imaging and diagnostics, clinical and diagnostic healthcare questions, or basic educational content in biology.
+- A large fraction of queries we consider dual-use in biology, such as virology, toxicology, drug design, and molecular design—so Fable 5 is not recommended for professional biology research and drug development at this time. (**[Classifier updated](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards)**: August 6, 2026 on Claude, Claude apps, and Claude Platform, with Amazon Bedrock, Claude Platform on AWS, Google Cloud Vertex AI, and Microsoft Foundry to follow.)
 
 - Distillation attacks on Fable 5, including attempts to extract the model’s **[summarized thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#summarized-thinking).**
 

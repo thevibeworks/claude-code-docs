@@ -48,7 +48,7 @@ Check the install summary. If it reports `Run /reload-plugins to activate.`, app
 
 ### Enable in cloud sessions and shared repositories
 
-User-scoped plugins do not carry into [Claude Code on the web](/docs/en/claude-code-on-the-web), because those sessions run on Anthropic infrastructure rather than your machine. To enable the plugin there, or to turn it on for everyone who clones a repository, declare it in the project's checked-in settings:
+User-scoped plugins do not carry into [Claude Code on the web](/docs/en/claude-code-on-the-web), because those sessions run in the cloud rather than on your machine. To enable the plugin there, or to turn it on for everyone who clones a repository, declare it in the project's checked-in settings:
 
 ```json .claude/settings.json theme={null}
 {
