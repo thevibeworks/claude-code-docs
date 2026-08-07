@@ -115,10 +115,10 @@ To remove a member, click the trash icon next to their name.
 
 #### Set workspace limits
 
-In the **Limits** tab, you can configure:
+Each workspace's settings split these across two tabs:
 
-* **Rate limits:** Set limits per model tier for requests per minute, input tokens, or output tokens
-* **Spend notifications:** Configure alerts when spending reaches certain thresholds
+* **Rate limits:** On the **Rate limits** tab, set limits per model tier for requests per minute, input tokens, or output tokens
+* **Spend limits:** On the **Spend limits** tab, cap monthly spending and configure alerts when spending reaches certain thresholds
 
 #### Archive a workspace
 
@@ -219,8 +219,8 @@ You can set custom spend and rate limits for each workspace to protect against o
 
 You can set workspace limits lower than (but not higher than) your organization's limits:
 
-* **Spend limits:** Cap monthly spending for a workspace
-* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute
+* **Spend limits:** Cap monthly spending for a workspace. Set these on the workspace's **Spend limits** settings tab in the [Claude Console](/settings/workspaces).
+* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. Set these on the workspace's **Rate limits** settings tab in the [Claude Console](/settings/workspaces).
 
 <Note>
   - You cannot set limits on the Default Workspace
