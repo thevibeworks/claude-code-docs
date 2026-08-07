@@ -41,7 +41,7 @@ With SCIM, login and provisioning are separate. Your IdP tells Anthropic who sho
 
 **Important**: Store this key securely. It cannot be retrieved after you leave the page.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040196/c3b045028c4c2edef9172b6fb424/9a71258e-ae73-41e3-83a2-d24a240ac0ae?expires=1786082400&amp;signature=919899815f36ea3298f9329d08d0152d6db93f8d09e2b9788b2e547a42dec3e9&amp;req=diIiEMl6nYBWX%2FMW3nq%2Bgc89OY2aIxIjq9hvSmWoJSivVb1EdVDMBKDd0GW7%0A93dmNg5b2CulwwVXhCbyxdx71EI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040196/c3b045028c4c2edef9172b6fb424/9a71258e-ae73-41e3-83a2-d24a240ac0ae?expires=1786147200&amp;signature=2e0d0fe1c1f51eb61fe74e7ccf0e2665a05c321bf1b838a29e97ae5dce8ac807&amp;req=diIiEMl6nYBWX%2FMW3nq%2Bgc89OY2aIxMvrt5vSmWoJSjWI2YquMPQghVhayUS%0AQCDwzh%2B7HF%2BVHZswa21xoEaX4E8%3D%0A)
 
 ### Step 2: Configure SCIM in your Identity Provider
 
@@ -49,7 +49,7 @@ With SCIM, login and provisioning are separate. Your IdP tells Anthropic who sho
 
 2. Enter the following values:
 
-  1. **SCIM endpoint URL:** <https://claude.fedstart.com/v1/scim/v2>
+  1. **SCIM endpoint URL:** `https://claude.fedstart.com/v1/scim/v2`
 
   2. **API key / Bearer token:** The key generated in Step 1
 
@@ -67,7 +67,7 @@ After enabling the integration in your IdP:
 
 **Warning**: When you fully enable SCIM provisioning, any users who were **not** synced via SCIM will be removed from the organization. Confirm that all expected users appear in the sync before proceeding.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040198/da9188b8b968d5f900cc08e9ceb2/3814ab37-c3fa-4256-8d16-49c1e1b4c654?expires=1786082400&amp;signature=3230e91830f656c85dbd238cf8a0030047a7977810e954c568956083d08bd5c1&amp;req=diIiEMl6nYBWUfMW3nq%2BgQOGdDQ3c%2F%2FbTkvMT6JpuTSKWpiuTENxj6E1he%2Bh%0A3M4UyNPh2gcKhOLzuYm8khXilGw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040198/da9188b8b968d5f900cc08e9ceb2/3814ab37-c3fa-4256-8d16-49c1e1b4c654?expires=1786147200&amp;signature=7c18084d848fe3bfa32762bc32f459dbed93cd86d7a186664db4c562412e1635&amp;req=diIiEMl6nYBWUfMW3nq%2BgQOGdDQ3c%2F7XS03MT6JpuTQEiVKRojil0keBHX7K%0A5KLbSnucVRnEd%2FGOqReqZECwg9s%3D%0A)
 
 ### Step 4: Map groups to roles and seat tiers
 
@@ -83,7 +83,7 @@ SCIM provisioning uses IdP groups to assign roles and seat tiers within Claude f
 
 3. Save your mappings.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256056441/f7eb09bba549e9861fc81b961cc7/2760fa5b-87bb-491f-9354-ca3cd2bc4475?expires=1786082400&amp;signature=94f194cfc80014c7f916f1739f23e01992d73a673ce085fd499865451698c21e&amp;req=diIiEMl7m4VbWPMW3nq%2BgQXN5mIoPEg6JnotEaDwkV8letPQsbw7zlhHzMuZ%0AN7ZquqzqJOPD0xJ5uwiXmP24fCM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256056441/f7eb09bba549e9861fc81b961cc7/2760fa5b-87bb-491f-9354-ca3cd2bc4475?expires=1786147200&amp;signature=33593dd2adbcbb3619c74d2ec4f780880b8f0e00a14876aad5fe0552b45f8fd9&amp;req=diIiEMl7m4VbWPMW3nq%2BgQXN5mIoPEk2I3wtEaDwkV%2FcMRkulMBuxL74dmIQ%0AUNGqOiga817v%2FKbR56QzUWxLb6g%3D%0A)
 
 If you manage multiple organizations under a single parent (see below), each organization maintains its own role and seat tier mappings. Switch between organizations using the organization selector in the bottom-left corner of the page.
 

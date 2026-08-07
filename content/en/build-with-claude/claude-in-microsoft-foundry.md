@@ -104,7 +104,7 @@ Anthropic's [client SDKs](/docs/en/cli-sdks-libraries/overview) support Foundry 
 
   <Tab title="PHP">
     ```bash
-    composer require anthropic-ai/sdk
+    composer require "anthropic-ai/sdk" "guzzlehttp/guzzle:^7"
     ```
   </Tab>
 

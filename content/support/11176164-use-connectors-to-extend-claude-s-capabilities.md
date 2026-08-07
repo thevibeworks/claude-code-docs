@@ -36,7 +36,7 @@ You can browse the directory from two areas:
 
 **From settings**
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. Click the “+” button next to **Connectors**.
 
@@ -94,7 +94,7 @@ Common use cases:
 
 To configure action restrictions:
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors).**
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors).**
 
 2. Select the connector to see **Tool permissions**.
 
@@ -138,7 +138,7 @@ Learn more about tool access modes: **[Manage Claude's tool access](https://supp
 
 To manage your connected services:
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. View all your connected services in the **Connectors** section.
 
@@ -152,7 +152,7 @@ Custom connectors using remote MCP are available on Claude, Cowork, and Claude D
 
 In addition to directory connectors, you can add custom connectors:
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. Click the “+” button next to **Connectors**.
 
@@ -198,7 +198,7 @@ If you're having trouble connecting to a service, try these steps:
 
 3. Review any permissions or account type requirements for the service.
 
-4. If authentication fails, try disconnecting and reconnecting from **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+4. If authentication fails, try disconnecting and reconnecting from **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 ### See a message that says, "This corporate identity belongs to an Enterprise that manages access through their own Claude account"?
 

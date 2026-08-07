@@ -48,7 +48,7 @@ In addition to provisioning skills top-down, you can let members share skills th
 
 - **Share with organization:** Members can publish a skill to the organization directory, where anyone can find and install it.
 
-Both toggles are off by default. You can enable either or both in **[Organization settings > Skills](http://claude.ai/admin-settings/skills)**.
+Both toggles are off by default. You can enable either or both in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
 
 **Note:** Shared skills are view-only. Recipients can enable and use a shared skill but can't edit its contents.
 
@@ -94,6 +94,30 @@ The **Organization skills** section in **[Organization settings > Skills](https:
 To remove a skill from your organization, locate it in the **Organization skills** list and select the option to remove it. Once removed, the skill will no longer appear in members' skills lists in **[Customize > Skills](https://claude.ai/customize/skills).**
 
 **Note:** Only owners can add or remove organization-wide skills. Individual users cannot delete provisioned skills, though they can toggle them off for their own use.
+
+---
+
+## Scan skills and plugins for malicious content (beta)
+
+On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your members upload or edit for malicious content before it can run. Scanning is off by default, and it applies only to new uploads and edits, so skills and plugins already in your organization keep working.
+
+To turn on skill scanning for your organization:
+
+1. Go to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+
+2. Turn on **Skill and plugin security scanning**.
+
+If you use custom roles, you can further define who scanning applies to by turning on the **Skill and plugin security scanning** capability for roles that should have access to skill scanning.
+
+Here's what your members see:
+
+- A skill or plugin that passes the scan installs normally.
+
+- A skill or plugin that may carry risk stays usable behind a caution banner the member acknowledges.
+
+- A skill or plugin with malicious content is blocked and can't be used.
+
+A blocked skill can't be overridden by the member who uploaded it, and can't be approved for the organization at this time. Scanning isn't available for organizations using customer-managed encryption keys (CMEK), zero data retention (ZDR), or HIPAA configurations. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
 ---
 

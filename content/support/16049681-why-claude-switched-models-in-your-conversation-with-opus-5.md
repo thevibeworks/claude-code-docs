@@ -44,7 +44,7 @@ Opus 4.8 has its own safety systems. If your request is also blocked on Opus 4.8
 
 Automatic switching is enabled by default the first time you select Claude Opus 5. It stays on by default, and you can turn it off anytime:
 
-1. Go to **[Settings > Capabilities](http://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
+1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
 2. Toggle **Switch models when a message is flagged** off.
 
@@ -82,6 +82,6 @@ Automatic model switching works the same way everywhere you can use Claude Opus 
 
 **Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't active by default, and API customers must opt into and configure the fallbacks. Until fallbacks are configured, the model will return a 200 response with a stop reason on the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
 
-Read our blog to learn more about**[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)**.
+Read our blog to learn more about **[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)**.
 
 Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Fable 5, see **[Why Claude switched models in your conversation with Fable 5](https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5).**

@@ -1,5 +1,15 @@
 # Release notes
 
+## August 2026
+
+### August 6, 2026
+
+**Skill and plugin security scanning (beta)**
+
+Enterprise plans can now turn on skill and plugin security scanning to automatically check third-party skills and plugins for malicious content when someone uploads or edits them. For more information, see **[Get started with skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
+
+---
+
 ## July 2026
 
 ### July 24, 2026
@@ -227,7 +237,7 @@ We launched our most capable Sonnet model yet, with a full upgrade of the modelâ
 
 **Analytics API for Enterprise plans**
 
-The Enterprise Analytics API provides programmatic access to usage and engagement data for Claude and Claude Code Remote usage within your organization. Data is aggregated per organization, per day, and each endpoint returns a snapshot for a single date that you specify. For more information, see **[Access usage data with the Analytics API](https://support.claude.com/en/articles/13694757-access-usage-data-with-the-analytics-api)**.
+The Enterprise Analytics API provides programmatic access to usage and engagement data for Claude and Claude Code Remote usage within your organization. Data is aggregated per organization, per day, and each endpoint returns a snapshot for a single date that you specify. For more information, see **[Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
 
 ### February 12, 2026
 

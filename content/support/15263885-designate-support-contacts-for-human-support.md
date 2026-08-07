@@ -24,7 +24,7 @@ Before configuring support contacts, make sure the groups you want to designate 
 
 To configure support contacts:
 
-1. Navigate to **[Organization settings > Organization and access](http://claude.ai/admin-settings/organization)**.
+1. Navigate to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
 
 2. Find the **Support contacts** section and toggle the feature on.
 

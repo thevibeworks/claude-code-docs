@@ -48,7 +48,7 @@ This toggle controls whether Cowork is available at all. Whether sessions can ru
 
 **Note:** This is an organization-wide setting. On Enterprise plans, you can use groups and custom roles to enable Cowork for specific teams. See **[Access controls](#h_8465b1b558)** below.
 
-### **Enable or disable sessions in the cloud**
+### Enable or disable sessions in the cloud
 
 For Team and Enterprise plans, there's a separate organization-wide toggle in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)** under "Run Cowork in the cloud."
 
@@ -154,4 +154,4 @@ Cowork respects your organization's current network egress permissions. Review y
 
 Network settings are applied when a new Cowork session is created. If you change the network access mode or add domains to the allowlist while a conversation is already active, those changes will not take effect in that session. Start a new conversation for the updated settings to apply.
 
-**Important:** Network egress permissions don't apply to the web fetch or **[web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)** tools or MCPs, including Claude in Chrome. Web fetch runs server-side and is limited to search results and URLs you've shared. Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+**Important:** Network egress permissions don't apply to the web fetch or **[web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)** tools or MCPs, including Claude in Chrome. Web fetch runs server-side and is limited to search results and URLs you've shared. Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.

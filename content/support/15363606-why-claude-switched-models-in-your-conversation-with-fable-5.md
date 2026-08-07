@@ -46,7 +46,7 @@ If your request is also blocked on the less capable model, you can edit your mes
 
 Automatic switching is enabled by default the first time you select Claude Fable 5. It stays on by default, and you can turn it off anytime:
 
-1. Go to **[Settings > Capabilities](http://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
+1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
 2. Toggle **Switch models when a message is flagged** off.
 

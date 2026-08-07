@@ -34,7 +34,7 @@ Use this view to understand the scope of migration before initiating a claim. Ch
 
 ### Enable domain capture
 
-Navigate to **[Organization settings > Organization and access](http://claude.ai/admin-settings/organization)**, scroll down to **Security** and toggle **Migrate accounts using your domain** on to enable domain capture. This is an organization-level setting that enforces a policy: no non-Enterprise accounts can exist on your verified domain.
+Navigate to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**, scroll down to **Security** and toggle **Migrate accounts using your domain** on to enable domain capture. This is an organization-level setting that enforces a policy: no non-Enterprise accounts can exist on your verified domain.
 
 **Warning:** Domain capture is a one-way door. Once enabled, it can’t be reversed. The admin UI will display a prominent confirmation before you proceed. Make sure your prerequisites are fully in place and you’ve reviewed the affected accounts before enabling.
 

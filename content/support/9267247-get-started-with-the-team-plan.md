@@ -14,11 +14,11 @@
 
 ## Create a new Team organization
 
-To get started with the Team plan, navigate to **[claude.ai/login](http://claude.ai/login)** and enter your work email address. Follow the onboarding prompts and select the Team plan.
+To get started with the Team plan, navigate to **[claude.ai/login](https://claude.ai/login)** and enter your work email address. Follow the onboarding prompts and select the Team plan.
 
 ## Upgrade from an individual plan to the Team plan
 
-If you already have an individual Free, Pro, or Max account associated with your work email and wish to create a Team plan, sign into your individual account, then visit **[claude.ai/upgrade](http://claude.ai/upgrade)**. Follow the steps to create your Team.
+If you already have an individual Free, Pro, or Max account associated with your work email and wish to create a Team plan, sign into your individual account, then visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
 
 Upgrading to the Team plan creates a new Claude organization. Your individual Free, Pro, or Max account remains separate, and you can toggle between the two by clicking your initials or name in the lower left and selecting the account you'd like to access.
 

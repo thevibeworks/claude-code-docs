@@ -97,7 +97,7 @@ Both self-serve and sales-assisted Enterprise plans include the same features an
 
 ### Self-serve Enterprise plans
 
-Visit **[claude.ai/create/enterprise](http://claude.ai/create/enterprise)** to purchase an Enterprise plan directly. You can pay with a credit card or ACH bank transfer (USD only).
+Visit **[claude.ai/create/enterprise](https://claude.ai/create/enterprise)** to purchase an Enterprise plan directly. You can pay with a credit card or ACH bank transfer (USD only).
 
 **About ACH bank transfers**
 

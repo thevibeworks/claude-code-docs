@@ -6,7 +6,7 @@ Your billing address determines how taxes are calculated on your Claude purchase
 
 ### Pro, Max, self-serve Team, and self-serve Enterprise plans
 
-Your billing address is automatically set to match your payment method's billing address. To update it, navigate to [Settings > Billing](http://claude.ai/settings/billing) and click “Update” to the right of your current payment method.
+Your billing address is automatically set to match your payment method's billing address. To update it, navigate to **[Settings > Billing](https://claude.ai/settings/billing)** and click “Update” to the right of your current payment method.
 
 ### Sales-assisted Team plans and sales-assisted Enterprise plans
 
@@ -14,7 +14,7 @@ You can update your billing address directly in Settings → Billing → Billing
 
 ### API (usage tiers / self-serve)
 
-Your billing address is tied to your payment method. Update your payment method by navigating to [Settings > Billing in the Claude Console](https://platform.claude.com/settings/billing) and clicking the pencil icon to the right of your current card number to change your billing address.
+Your billing address is tied to your payment method. Update your payment method by navigating to **[Settings > Billing in the Claude Console](https://platform.claude.com/settings/billing)** and clicking the pencil icon to the right of your current card number to change your billing address.
 
 ### Paid API contracts
 

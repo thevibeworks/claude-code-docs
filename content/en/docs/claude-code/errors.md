@@ -25,6 +25,7 @@ Match the message you see in your terminal to a section below.
 | `Request timed out`                                                                                | [Server errors](#request-timed-out), or [Network](#unable-to-connect-to-api) if the message mentions your internet connection |
 | `Server error mid-response. The response above may be incomplete.`                                 | [Server errors](#the-response-above-may-be-incomplete)                                                                        |
 | `Connection closed mid-response` / `Response stalled mid-stream`                                   | [Server errors](#the-response-above-may-be-incomplete)                                                                        |
+| `Connection closed while thinking` / `Response stalled while thinking`                             | [Automatic retries](#automatic-retries)                                                                                       |
 | `<model> is temporarily unavailable, so auto mode cannot determine the safety of...`               | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action)                                                          |
 | `Auto mode could not evaluate this action and is blocking it for safety`                           | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action)                                                          |
 | `Auto mode classifier transcript exceeded context window`                                          | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action)                                                          |
@@ -118,19 +119,19 @@ Match the message you see in your terminal to a section below.
 
 ## Automatic retries
 
-Claude Code retries transient failures up to 10 times with exponential backoff before showing you an error. It doesn't always retry a failure that arrives partway through Claude's response. When you see one of the errors on this page, Claude Code has already exhausted those retries, unless the failure is one it doesn't retry.
+Claude Code retries transient failures up to 10 times with exponential backoff before showing you an error. It doesn't always retry a failure that arrives partway through Claude's response. When you see one of the errors on this page, Claude Code has already made whatever retries apply to that failure; the lists below say which failures get the full budget, which get a smaller one, and which get none.
 
 Claude Code retries these failures:
 
-* Server errors, overloaded responses, and request timeouts.
-* Dropped connections. This covers a connection that drops in the middle of a request, before Claude has started a block of text or a tool call in its response: Claude Code re-issues the request with the same backoff, and the turn continues. Before v2.1.198, Claude Code stopped the turn with a connection error when the connection dropped mid-response, before any visible output had streamed.
-* A stalled response stream while the response is still in progress, before Claude has started a block of text or a tool call: Claude Code aborts the stalled connection and re-issues the request at most once, outside the 10-attempt budget above.
+* Server errors, overloaded responses, and request timeouts that arrive before any of Claude's response has streamed.
+* Dropped connections. When a connection drops partway through a request before Claude has completed any part of its response, including its thinking, Claude Code re-issues the request with the same backoff and the turn continues, even if some text had already started streaming. When it drops after Claude has finished thinking but before it has started any text or tool call, Claude Code instead re-issues the request up to two times in quick succession, and ends the turn with `Connection closed while thinking, before producing a response` if the connection keeps dropping at that point.
+* A stalled response stream, when none of the response has arrived yet or when Claude has finished thinking but hasn't started any text or tool call: Claude Code aborts the stalled connection and re-issues the request at most once, outside the 10-attempt budget above. If the response stalls a second time after Claude has finished thinking but before any text or tool call, Claude Code ends the turn with `Response stalled while thinking, before producing a response`.
 * Temporary 429 throttles. When you're signed in with a claude.ai subscription, this includes 429 throttles that don't carry your plan's quota headers. Before v2.1.199, Claude Code retried those throttles only for API key and Enterprise sign-ins.
 
 Claude Code doesn't retry these failures:
 
 * A TLS certificate validation failure, such as a TLS-inspecting proxy, a missing `NODE_EXTRA_CA_CERTS` bundle, or an expired certificate. Claude Code reports the error on the first attempt, so you can fix the certificate setup right away; see [SSL certificate errors](#ssl-certificate-errors). Claude Code still retries transient TLS conditions such as a handshake timeout. Before v2.1.199, Claude Code retried certificate failures through the full retry budget before showing the error.
-* A server error, dropped connection, or stalled stream that arrives after Claude has started a block of text or a tool call in its response, but before it finishes the response. Claude Code could execute the same tool calls twice if it re-ran the request, so it keeps what Claude completed and shows an [incomplete-response notice](#the-response-above-may-be-incomplete). Claude Code still runs any tool calls Claude completed and continues the turn from their results. Before v2.1.199, Claude Code discarded the partial output and reported the whole turn as an error when a server error arrived mid-stream.
+* A server error, dropped connection, or stalled stream that arrives after Claude has completed a block of text or a tool call, or has started one after finishing its thinking, but before it finishes the response. Claude Code could execute the same tool calls twice if it re-ran the request, so it keeps what Claude completed and shows an [incomplete-response notice](#the-response-above-may-be-incomplete). Claude Code still runs any tool calls Claude completed and continues the turn from their results. Before v2.1.199, Claude Code discarded the partial output and reported the whole turn as an error when a server error arrived mid-stream.
 * A failure that arrives after Claude has finished the response: nothing needs retrying, so Claude Code keeps the complete response and ends the turn normally.
 * An [Amazon Bedrock streaming response with an unexpected content-type](#bedrock-streaming-response-has-an-unexpected-content-type), because the gateway or proxy rewriting the response would rewrite the retry the same way. Requires Claude Code v2.1.208 or later.
 
@@ -213,7 +214,7 @@ This can happen during periods of high load or when the model is generating a ve
 
 ### The response above may be incomplete
 
-A streaming request failed after Claude had started a block of text or a tool call, while the response was still in progress. Re-sending the request could run the same tool calls twice, so Claude Code keeps the output Claude completed and appends this notice instead of discarding the turn. Which variant you see names the cause:
+A streaming request failed while the response was still in progress, after Claude had completed a block of text or a tool call, or had started one after finishing its thinking. Re-sending the request could run the same tool calls twice, so Claude Code keeps the output Claude completed and appends this notice instead of discarding the turn. Which variant you see names the cause:
 
 ```text theme={null}
 API Error: Server error mid-response. The response above may be incomplete.
@@ -225,9 +226,9 @@ API Error: Response stalled mid-stream. The response above may be incomplete.
 * `Connection closed mid-response`: the connection dropped.
 * `Response stalled mid-stream`: the stream stopped sending data. Before v2.1.222, this variant could also appear on [gateway](/docs/en/gateways) connections reached through `ANTHROPIC_BASE_URL` or `ANTHROPIC_AWS_BASE_URL` while the server's keep-alive pings were still arriving, because Claude Code counted only parsed response events there; upgrading stops those spurious timeouts on those routes. Gateways reached through a provider base URL such as `ANTHROPIC_BEDROCK_BASE_URL` aren't wrapped by the byte watchdog; see [Streaming idle watchdogs](/docs/en/network-config#streaming-idle-watchdogs).
 
-Claude Code shows this notice only when the failure lands after Claude has started a block of text or a tool call and before the response finishes:
+When one of these failures lands at another point in the turn, Claude Code handles it without this notice:
 
-* While the response is in progress, before Claude has started a block of text or a tool call, Claude Code either retries the failure or ends the turn with a different error. See [Automatic retries](#automatic-retries).
+* Earlier in the response, Claude Code either retries the failure or ends the turn with a different error. See [Automatic retries](#automatic-retries).
 * When one of these failures arrives after Claude has finished the response, Claude Code keeps the complete response and ends the turn normally, without this notice. Before v2.1.222, Claude Code showed the `Connection closed mid-response` or `Response stalled mid-stream` notice when the connection dropped or stalled after the response finished, and reported the turn as an error even though the response was complete.
 
 **What to do:**
@@ -471,7 +472,7 @@ Invalid API key · Fix external API key
 **What to do:**
 
 * Check for typos and confirm the key has not been revoked in the [Console](https://platform.claude.com/settings/keys)
-* Run `env | grep ANTHROPIC` in the same shell. Tools like direnv, dotenv shell plugins, and IDE terminals can load a stale key from a `.env` file in your project without you setting it explicitly.
+* In the same shell, run `env | grep ANTHROPIC`, or in PowerShell `Get-ChildItem Env:ANTHROPIC*`. Tools like direnv, dotenv shell plugins, and IDE terminals can load a stale key from a `.env` file in your project without you setting it explicitly.
 * Unset `ANTHROPIC_API_KEY` and run `/login` to use subscription auth instead
 * If the key comes from an [`apiKeyHelper`](/docs/en/settings#available-settings) script, run the script directly to confirm it prints a valid key on stdout
 * Run `/status` to confirm which credential source Claude Code is actually using
@@ -616,7 +617,7 @@ Please run /login · API Error: 401 Invalid authentication credentials
 
 **What to do:**
 
-* If `/status` shows an `API key` row, an approved [`ANTHROPIC_API_KEY`](/docs/en/authentication#authentication-precedence) is the active credential and takes precedence over your login, so `/login` doesn't replace it. Rotate the key in the Claude Console, or run `unset ANTHROPIC_API_KEY` to fall back to your subscription.
+* If `/status` shows an `API key` row, an approved [`ANTHROPIC_API_KEY`](/docs/en/authentication#authentication-precedence) is the active credential and takes precedence over your login, so `/login` doesn't replace it. Rotate the key in the Claude Console, or fall back to your subscription by running `unset ANTHROPIC_API_KEY`, or in PowerShell `Remove-Item Env:ANTHROPIC_API_KEY`.
 * If `/status` shows only your login, run `/login` once. If the credential was revoked, a fresh login replaces it.
 * If the same message returns for the same login account, the account or organization is no longer active. Check the account and organization that `/status` reports, and ask your organization admin to restore access.
 * If [`ANTHROPIC_BASE_URL`](/docs/en/env-vars) points at an [LLM gateway](/docs/en/llm-gateway), the text after `401` is your gateway's message rather than Anthropic's, and `/login` doesn't change it. Fix the credential your gateway expects instead.
@@ -786,10 +787,11 @@ Claude Code sends the check through the same [proxy configuration](/docs/en/netw
 
 `Socket is closed` means the connection carrying a streaming response was closed while the response was still arriving. The most common cause is a corporate proxy on Windows dropping an established tunnel mid-response.
 
-Claude Code either retries the request or keeps the response Claude produced:
+Depending on how far the response had progressed, Claude Code retries the request, keeps what Claude produced, or ends the turn:
 
-* If the response is still in progress and Claude hasn't started any block of text or a tool call, Claude Code treats the failure as a dropped connection and [retries the request automatically](#automatic-retries), so the turn continues.
-* If Claude has started a block of text or a tool call but hasn't finished the response, Claude Code keeps what Claude completed and shows an [incomplete-response notice](#the-response-above-may-be-incomplete). It still runs any tool calls Claude completed and continues the turn from their results.
+* If Claude hasn't completed any part of the response yet, including its thinking, Claude Code treats the failure as a dropped connection and [retries the request automatically](#automatic-retries), so the turn continues, even if some text had started streaming.
+* If Claude has finished thinking but hasn't started any text or tool call, Claude Code re-issues the request up to two times in quick succession, then ends the turn with `Connection closed while thinking, before producing a response` if the connection keeps dropping at that point.
+* If Claude has completed a block of text or a tool call, or has started one after finishing its thinking, but hasn't finished the response, Claude Code keeps what Claude completed and shows an [incomplete-response notice](#the-response-above-may-be-incomplete). It still runs any tool calls Claude completed and continues the turn from their results.
 * If the socket closes after Claude has finished the response, Claude Code ends the turn normally with the complete response.
 
 Before v2.1.214, Claude Code didn't retry this failure, and the turn stopped with an error containing `Socket is closed`.
@@ -1345,8 +1347,8 @@ The quoted command varies between runs: the review starts several `git` commands
 
 **What to do:**
 
-* Create the ref by naming your remote's default branch: `git remote set-head origin <default-branch>`. This works whenever the local tracking ref `origin/<default-branch>` exists. If it doesn't, as in single-branch clones, fetch the branch first: `git remote set-branches --add origin <branch> && git fetch origin`, then rerun the set-head command. Rerun `/security-review`.
-* If you'd rather not name the branch, run `git fetch origin && git remote set-head origin --auto`, which asks the remote which branch is its default. It fails with `error: Cannot determine remote HEAD` when the remote advertises no default branch, because it is empty or its HEAD points at a branch nobody pushed; name the branch explicitly instead. It fails with `error: Not a valid ref` when your clone doesn't fetch that branch; widen the refspec as above first.
+* Create the ref by naming your remote's default branch: `git remote set-head origin <default-branch>`. This works whenever the local tracking ref `origin/<default-branch>` exists. If it doesn't, as in single-branch clones, fetch the branch first: run `git remote set-branches --add origin <branch>`, then `git fetch origin`, then rerun the set-head command. Rerun `/security-review`.
+* If you'd rather not name the branch, run `git fetch origin` and then `git remote set-head origin --auto`, which asks the remote which branch is its default. It fails with `error: Cannot determine remote HEAD` when the remote advertises no default branch, because it is empty or its HEAD points at a branch nobody pushed; name the branch explicitly instead. It fails with `error: Not a valid ref` when your clone doesn't fetch that branch; widen the refspec as above first.
 * If the repository has no remote, add one with `git remote add origin <url>` and fetch before creating the ref. If the remote is empty, push your branch first with `git push -u origin HEAD` and name that branch in the set-head command; `origin/HEAD` then points at the branch you just pushed, so `/security-review` sees an empty diff until the branch diverges from it.
 
 <h3 id="input-must-be-provided-when-using-print">
@@ -1684,8 +1686,7 @@ Restored the code, but skipped 2 files: the tracked path is (or became) a link o
 
 **What to do:**
 
-* Identify which files were skipped so you can handle each one with the steps below. The message gives only a count, so list your project's links to find them: `find . -type l` for symlinks and `find . -type f -links +1` for hard-linked files.
-  * If debug logging is on, the log at `~/.claude/debug/<session-id>.txt` names each skipped path as the restore runs. Turn it on with `/debug` before your next restore to skip the search.
+* Identify which files were skipped so you can handle each one with the steps below. The message gives only a count; the debug log at `~/.claude/debug/<session-id>.txt` names each skipped path as the restore runs, so turn on debug logging with `/debug` before your next restore. On macOS or Linux, you can instead find the links directly: `find . -type l` for symlinks and `find . -type f -links +1` for hard-linked files.
 * If a skipped file is a link you created on purpose, such as a config file managed by a dotfile manager or a file hard-linked by tools like pnpm, the rewind left its contents alone. To undo the session's changes to it, ask Claude to reverse the edit or edit the file yourself
 * If you didn't create the link, inspect the path before trusting its contents: something replaced the file after the checkpoint
 

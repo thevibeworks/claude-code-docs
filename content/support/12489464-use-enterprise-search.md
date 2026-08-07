@@ -218,7 +218,7 @@ Enterprise search is particularly valuable for:
 
 ### Connected tools aren't working
 
-- Revisit **[Settings > Connectors](http://claude.ai/settings/connectors)** to verify authentication status.
+- Revisit **[Settings > Connectors](https://claude.ai/settings/connectors)** to verify authentication status.
 
 - Try disconnecting and reconnecting the problematic connector.
 
@@ -250,7 +250,7 @@ If a connector fails:
 
 2. You'll see a notice about the failed connector.
 
-3. Try reconnecting the tool through **[Settings > Connectors](http://claude.ai/settings/connectors)**.
+3. Try reconnecting the tool through **[Settings > Connectors](https://claude.ai/settings/connectors)**.
 
 4. Contact an organization owner if the issue persists.
 
@@ -260,7 +260,7 @@ If a connector fails:
 
 ### Can I add my own custom connectors to the search project?
 
-Yes. You can add connectors available through **[Settings > Connectors](http://claude.ai/settings/connectors)**, and you can also add custom connectors if permitted by your organization. The guided onboarding recommends a few connectors, but you're not limited to those.
+Yes. You can add connectors available through **[Settings > Connectors](https://claude.ai/settings/connectors)**, and you can also add custom connectors if permitted by your organization. The guided onboarding recommends a few connectors, but you're not limited to those.
 
 For more information, refer to **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)**.
 
