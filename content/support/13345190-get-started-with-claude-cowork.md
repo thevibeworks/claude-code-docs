@@ -8,7 +8,7 @@ Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
 - **Claude Desktop for macOS** — **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download
 
-- **Claude Desktop for Windows** —  Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](http://claude.com/download)**.
+- **Claude Desktop for Windows** —  Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
 
 - **Web**, at claude.ai
 
@@ -34,7 +34,7 @@ With Cowork, you can describe an outcome, step away, and come back to finished w
 
   - **Important:** Network egress permissions don't apply to the web fetch or **[web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)** tools or MCPs, including Claude in Chrome. Web fetch runs server-side and is limited to search results and URLs you've shared.
 
-  - Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension).**
+  - Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension).**
 
 - You control your Cowork tasks and can delete a task at any time using the "Delete" option (click "⋮" next to the task, or select tasks from your Tasks list and click the trash icon). Your Cowork task will be removed from your task history immediately, and deleted from our backend storage systems within 30 days, in accordance with our **[data retention periods](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
 
@@ -158,7 +158,7 @@ As a reminder, you control which connectors Claude can use via the + menu in the
 
 We tested Claude's safety check extensively before releasing it, including working with outside security experts who tried to sneak dangerous actions past it. It gives you the speed of letting Claude work without interruptions, with a layer of protection that "Skip all approvals" doesn't have: every action still gets reviewed before it happens. *Of course, no defense is perfect and no mode replaces your judgment. For work with real consequences—money, messages sent as you, important files—stay close and review what Claude does or consider switching back to "Manually approve."*
 
-Auto mode applies to all of your existing connectors, plugins, Claude in Chrome, and some Cowork actions like fetching websites. Auto mode won't approve certain sensitive actions like allowing Cowork to access additional folders on your computer, allowing Cowork to delete files in a given folder it has access to, creating scheduled tasks, and others. Because Claude does this extra checking for you, **auto mode consumes more of your usage limit than the other modes**.
+Auto mode applies to all of your existing connectors, plugins, Claude in Chrome, and some Cowork actions like fetching websites. Because Claude does this extra checking for you, **auto mode consumes more of your usage limit than the other modes**.
 
 **Skip all approvals (Skip)**, formerly "Act without asking." Claude doesn't pause to ask and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
 
@@ -178,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1786022100&amp;signature=74b54e270a732169c25c6975daa93629a01426c5c0e781e949d244fa77d1cff8&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t7sNFOx8iWjaktE94337aiv8uIgdWrPM8Rz%0A%2FdO76AqUKDNIoFgjLWU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1786147200&amp;signature=e59755c70fbb759c10ff08ed7fa59fe883d91f68f323905f075143efe44407f7&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD2rfYbFOMqW%2FkK1e8cYGShEhkKcwxWZ5K%0Awn7VlS3tBAwhwNgaClwbt2naimY%3D%0A)
 
 ### Folder instructions
 
@@ -212,7 +212,7 @@ If you find yourself hitting usage limits frequently when using Cowork, consider
 
 - Using standard chat for simpler tasks that don't require file access or extended execution.
 
-- Monitoring your individual usage in **[Settings > Usage](http://claude.ai/settings/usage)**.
+- Monitoring your individual usage in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
 See **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)** for more information.
 

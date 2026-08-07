@@ -851,9 +851,9 @@ Tool use requests are priced based on:
 
 1. The total number of input tokens sent to the model (including in the `tools` parameter)
 2. The number of output tokens generated
-3. For server-side tools, additional usage-based pricing (e.g., web search charges per search performed)
+3. For server-side tools, additional usage-based pricing (for example, web search charges per search performed)
 
-Client-side tools are priced the same as any other Claude API request, while server-side tools may incur additional charges based on their specific usage.
+Client-side tools are priced the same as any other Claude API request, although server-side tools can incur additional charges based on their specific usage.
 
 The additional tokens from tool use come from:
 
@@ -861,7 +861,7 @@ The additional tokens from tool use come from:
 * `tool_use` content blocks in API requests and responses
 * `tool_result` content blocks in API requests
 
-When you use `tools`, the API also automatically includes a special system prompt for the model which enables tool use. The number of tool use tokens required for each model are listed below (excluding the additional tokens listed above). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
+When you use `tools`, the API also automatically includes a special system prompt for the model that enables tool use. The number of tool use tokens required for each model is listed in the following table (excluding the additional tokens listed earlier). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
 
 | Model                                                                                                      | Tool choice                    | Tool use system prompt token count |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------ | ---------------------------------- |

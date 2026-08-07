@@ -1,8 +1,8 @@
-# Logging in to your Console account
+# Log in to your Console account
 
-When you navigate to the [Claude Console](https://platform.claude.com), you will see two different options for logging in to your Console account.
+When you navigate to the **[Claude Console](https://platform.claude.com)**, you will see two different options for logging in to your Console account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1786022100&amp;signature=2adec6fb70212e8f2ce0ec0950ffafe82efda17ad55b5982dd035b6496591b8f&amp;req=dSkkE8l8m4dbX%2FMW1HO4zcrI54%2FsooIM8vUNcPt4%2B71bf7BaGVXY5b8ID6PR%0AyHJS0gVu%2FFgnVplybGU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1786147200&amp;signature=8557f247367f8178eb4d03c33301c145b1154c86633265f0615b4ba99554845e&amp;req=dSkkE8l8m4dbX%2FMW3nq%2Bgcz%2BjLKQQB4vjXqxKXGdglrUCy%2FABjqFlR3DcZHe%0AZitu6OHwPizS0NUivlR0g7VrgWM%3D%0A)
 
 ## Continue with Google
 
@@ -48,7 +48,7 @@ It's not possible to create a dedicated password for your Console account at thi
 
 ### Does my organization use Single Sign-On (SSO)?
 
-If you're a member of an organization that has configured single sign-on for the Console, you'll be redirected to your SSO provider when you attempt to log in. For information about setting up SSO for your organization, see [Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso).
+If you're a member of an organization that has configured single sign-on for the Console, you'll be redirected to your SSO provider when you attempt to log in. For information about setting up SSO for your organization, see **[Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso)**.
 
 ### I have multiple Console accounts – how can I switch between them?
 
@@ -64,7 +64,7 @@ If you're a member of multiple Console organizations tied to the same email addr
 
 If you've previously authenticated using Google, you can follow these steps to unlink your Google account from the Console and use only the emailed login link moving forward:
 
-1. Visit <https://myaccount.google.com/connections>.
+1. Visit **<https://myaccount.google.com/connections>**.
 
 2. Locate "Claude by Anthropic" in the list and click on it.
 
@@ -74,4 +74,4 @@ If you've previously authenticated using Google, you can follow these steps to u
 
 ### Can I have both a Claude account and a Console account?
 
-Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the Workbench and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in [Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)
+Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the Workbench and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in **[Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)**

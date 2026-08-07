@@ -88,7 +88,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Coding Assistant",
-      Model = new("claude-opus-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5,
       System = "You are a helpful coding agent.",
       Tools =
       [
@@ -104,7 +104,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Coding Assistant",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID: "claude-opus-5",
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5,
   	},
   	System: anthropic.String("You are a helpful coding agent."),
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
@@ -157,7 +157,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
 </CodeGroup>
 
 <Tip>
-  To use Claude Opus 5 or Claude Opus 4.8 with [fast mode](/docs/en/build-with-claude/fast-mode), pass `model` as an object, for example: `{"id": "claude-opus-5", "speed": "fast"}`. See [Fast mode](/docs/en/build-with-claude/fast-mode#supported-models) for supported models.
+  To use Claude Opus 5 or Claude Opus 4.8 with [fast mode](/docs/en/build-with-claude/fast-mode), pass `model` as an object, for example: `{"id": "claude-opus-5", "speed": "fast"}`. See the fast mode page's [supported models](/docs/en/build-with-claude/fast-mode#supported-models).
 </Tip>
 
 <Tip>

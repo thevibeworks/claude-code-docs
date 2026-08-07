@@ -34,7 +34,7 @@ Use this table to help decide which provisioning mode is right for your organiza
 
 Both JIT and SCIM can be combined with **Enable group mappings** to control role or seat tier assignment based on IdP group membership. If you select either of these options for your provisioning mode, **Enable group mappings** will appear within the **User provisioning** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1786022100&amp;signature=a0b875fec5b37b174f0d4c5143308de5d398a81a2ca695787e745f96fd9395fc&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQ61UD1h3xFMG%2BIEvQSeW7OssmknrjhXyN4TI%0Ai7BriFFuRu3HhPGjgOQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1786212000&amp;signature=aeee35080b832bae4a3a113b7fc569b096d8161ebefdc6b5fa16ec0155399186&amp;req=diMmFM5%2Bm4FWUPMW3nq%2BgfvyY15K9wtEj7g49Ml26XTBJnW8vHkI0oGifWwc%0AwaoCwp6MpvWaMbnyksqAKVwKjqk%3D%0A)
 
 ### Available roles and seat tiers
 
@@ -56,7 +56,7 @@ For information on purchasing seats or adjusting your plan's seat allocation, se
 
 If you chose SCIM as your provisioning mode, you need to establish the connection between your Identity Provider and Anthropic before enabling it.
 
-1. Navigate to your **Organization and access** settings in Claude (**[claude.ai/admin-settings/organization](http://claude.ai/admin-settings/organization)**) or your **Identity and access** settings in Console (**[platform.claude.com/settings/identity](http://platform.claude.com/settings/identity)**)
+1. Navigate to your **Organization and access** settings in Claude (**[claude.ai/admin-settings/organization](https://claude.ai/admin-settings/organization)**) or your **Identity and access** settings in Console (**[platform.claude.com/settings/identity](https://platform.claude.com/settings/identity)**)
 
 2. In the **User provisioning** section, click “Setup SCIM” (or “Manage SCIM”)next to **SCIM directory sync**.
 
@@ -118,7 +118,7 @@ Once your IdP is connected, continue to Step 3.
 
 4. Toggle **Enable group mappings** on (if it’s not already):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1786022100&amp;signature=c5ac8a48ef19fc4e18644f3c70afac31b86e42a114a76d223edec16e5435e088&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEbsPYlfhJyb72rapuHpOHuvrDGNa2KIBOgo3r%0AvDyp%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1786212000&amp;signature=9d0d5c34c1a9e0f5cfddbc53ba8c9e695fa3d4552c424156b0f12a5770bb7591&amp;req=diMmFM5%2FmYdcXPMW3nq%2BgQ152WYnPEnzZz8gm2WmwAJGfY4kSl8nfoJY53Re%0AJ6LBwLiCN2FF5F9Ts%2B%2BfHG8YUKw%3D%0A)
 
 5. In the **Enable group mappings** section, click “Add” next to each role and select the corresponding group from your IdP in the dropdown.
 
@@ -170,7 +170,7 @@ Verify you have enough seats purchased and available to add members to your org.
 
 4. **For SCIM:** Click "Sync" to prompt an immediate sync, or wait for the automatic sync cycle:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1786022100&amp;signature=e9900ef6bcefca30eb4dde339dbecc5a90167cddacf56418083b6db074296605&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9La1utG8jD5hujYvMis4d3ZKbpzcH%2B7fc4Qiv9%0AkNX7%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1786212000&amp;signature=b00bb5837fc8a6479b5d6595199555200618da095096aaf2448090942161519d&amp;req=diMmFM5%2FmoVdWPMW3nq%2BgREJfJk7qicnKEq7lv2I5odZErGwdY1A1OkJt3hR%0AQCPiSCkxkG1LFOi00xnk8KePJxY%3D%0A)
 
 ### I lost Admin/Owner access after enabling group mappings
 

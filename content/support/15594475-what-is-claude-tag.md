@@ -80,7 +80,7 @@ Your Slack conversations with Claude remain separate from your Claude history, k
 
 ### Data visibility
 
-- Conversations initiated in Slack are not visible in **[your Claude chat history](http://claude.ai/recents)**.
+- Conversations initiated in Slack are not visible in **[your Claude chat history](https://claude.ai/recents)**.
 
 - Conversations initiated in the Claude web app are not accessible in Slack.
 

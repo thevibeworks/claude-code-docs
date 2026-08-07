@@ -23,7 +23,7 @@ Individual instructions still apply for anything the organization instructions d
 
 You need at least an Admin role to configure organization instructions.
 
-1. Go to **[Organization settings > Organization and access](http://claude.ai/admin-settings/organization)**.
+1. Go to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
 
 2. Find the **Organization instructions** section.
 
@@ -65,6 +65,6 @@ To remove instructions entirely, clear the text area and click “Save.”
 
 **Domain context.** “Our team works in healthcare claims processing. When users mention ‘claims,’ they’re referring to insurance claims, not legal claims.”
 
-**Referral guidance.** “When users ask about HR policies, direct them to **<hr@acme.com>** rather than giving specific policy advice.”
+**Referral guidance.** “When users ask about HR policies, direct them to <hr@acme.com> rather than giving specific policy advice.”
 
 **Data handling reminders.** “Don’t include customer names, account numbers, or other personally identifiable information in responses or generated artifacts.”

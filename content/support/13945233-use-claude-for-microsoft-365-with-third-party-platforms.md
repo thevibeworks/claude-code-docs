@@ -435,7 +435,7 @@ MCP connectors are now supported in Claude for Excel, PowerPoint, and Word. As a
 
 Skills are now supported in Claude for Excel, PowerPoint, and Word. The Anthropic financial services skills are available by default. Additional Skills may be added by administrators or manually by individuals.
 
-Administrators can add skills using the bootstrap endpoint, following the documentation here: **[`skills`](https://github.com/anthropics/financial-services-plugins/blob/main/claude-in-office/commands/bootstrap.md#skills)**.
+Administrators can add skills using the bootstrap endpoint, following the documentation here: **[`skills`](https://github.com/anthropics/financial-services/blob/main/claude-for-msft-365-install/commands/bootstrap.md#skills)**.
 
 Individuals can manually upload local skills (either as a .zip, .skill, or SKILL.md file) and manage them individually. Skills are uploaded by selecting the "+" button, then Skills → "Upload Skills."
 

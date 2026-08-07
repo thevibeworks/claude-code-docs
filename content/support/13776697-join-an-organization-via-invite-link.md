@@ -12,13 +12,13 @@ Admins and above can generate, copy, disable, and regenerate the invite link for
 
 - **Team plans:** Invite links are enabled by default for new organizations.
 
-- **Enterprise plans (non-SSO):** Invite links are disabled by default. Admins can enable them from **[Organization settings > Identity and access](http://claude.ai/admin-settings/identity)**.
+- **Enterprise plans (non-SSO):** Invite links are disabled by default. Admins can enable them from **[Organization settings > Identity and access](https://claude.ai/admin-settings/identity)**.
 
 - **SSO organizations:** Invite links are not available. Member provisioning is managed through your Identity Provider.
 
 ### Find and share your invite link
 
-1. Navigate to **[Organization settings > Identity and access](http://claude.ai/admin-settings/identity)**.
+1. Navigate to **[Organization settings > Identity and access](https://claude.ai/admin-settings/identity)**.
 
 2. Find **Invite link** in the **Global access settings** section.
 

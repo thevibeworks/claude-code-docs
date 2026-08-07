@@ -14,7 +14,7 @@ Communication with Claude Managed Agents is event-based. You send user events to
 
 Events flow in two directions.
 
-* **User events** and **system events** are what you send to the agent: `user.*` events kick off a session and steer it as it progresses; `system.message` appends system-level context that applies to the accompanying turn and all subsequent turns.
+* **User events** and **system events** are what you send to the agent: `user.*` events start a session and steer it as it progresses; `system.message` appends system-level context that applies to the accompanying turn and all subsequent turns.
 * **Session events**, **span events**, and **agent events** are sent to you for observability into your session state and agent progress. Stream connections that opt in also receive [event deltas](#event-deltas).
 
 Session, span, agent, user, and system event type strings follow a `{domain}.{action}` naming convention. The stream-only delta preview events (`event_start`, `event_delta`) are the exception. See [Event types](/docs/en/managed-agents/reference#event-types) in the reference for the full catalog.
@@ -1044,7 +1044,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
       ```
 
       ```php PHP
-      // Filtering events by type is not currently available in the PHP SDK.
+      // In PHP, pass the types you want on EventListParams; see the Anthropic PHP SDK.
       ```
 
       ```ruby Ruby
@@ -1105,7 +1105,7 @@ Unlike persisted events, `event_start` and `event_delta` have no `id` or `proces
 
 ### Accumulate and reconcile
 
-Every SDK that supports event deltas includes an accumulator helper that keys the preview by the event's `id` and handles the `index` bookkeeping for you (event deltas are not currently available in the PHP SDK; see the PHP tabs that follow). The manual pattern also works in every language when you need custom bookkeeping: apply it to the generated event types.
+Every SDK that supports event deltas includes an accumulator helper that handles the `index` bookkeeping for you. The Go, Java, Ruby, and C# helpers also key the accumulating preview by the event's `id`; with the Python, TypeScript, and PHP helpers you keep that map yourself and fold each delta into the entry for its `id`. The manual pattern also works in every language when you need custom bookkeeping: apply it to the generated event types.
 
 In the manual pattern, treat the preview as a scratch buffer and the buffered event as the record. Key the buffer by `(event_id, index)`. Reconcile per model request: a turn opens with a single `session.status_running` event, then on a turn that completes normally each model request produces, in order, `span.model_request_start`, `event_start`, the `event_delta` events, the buffered `agent.message`, and finally [`span.model_request_end`](/docs/en/managed-agents/reference#event-types) (in the Span events tab). On the wire, this is the previewed portion of that sequence, interleaved with the connection's other buffered events:
 
@@ -1121,11 +1121,11 @@ The `event_delta` line repeats once per text fragment. Process each event as it 
 1. On `event_start`, note the announced `id`. The identifiers always line up: `event_start.event.id`, every `event_delta.event_id`, and the buffered `agent.message`'s `id` are the same value.
 2. On each `event_delta`, append `delta.content.text` to the entry at `(event_id, delta.index)` and render the running text. The first delta for an `index` creates that entry.
 3. When the buffered `agent.message` arrives, match it by `id`, discard the accumulated preview, and render the message's content instead.
-4. On `span.model_request_end`, close any preview that has not been reconciled by its buffered event. No more deltas are coming for it. If the turn errors or is interrupted, the buffered event may never arrive; `span.model_request_end` still does.
+4. On `span.model_request_end`, close any preview that has not been reconciled by its buffered event. No more deltas are coming for it. If the turn errors or is interrupted, the buffered event might never arrive; `span.model_request_end` still does.
 
 Guarantees the pattern relies on:
 
-* Concatenating a preview's deltas in arrival order, keyed by `(event_id, index)`, gives a prefix of `content[index].text` in the buffered event (a prefix, not necessarily the whole text, because deltas may be shed under load).
+* Concatenating a preview's deltas in arrival order, keyed by `(event_id, index)`, gives a prefix of `content[index].text` in the buffered event (a prefix, not necessarily the whole text, because deltas might be shed under load).
 * A connection emits at most one `event_start` per `event_id`, and the buffered event is the last thing that connection delivers for that `id`.
 
 <CodeGroup>
@@ -1488,7 +1488,7 @@ Guarantees the pattern relies on:
   ```
 
   ```php PHP
-  // Event deltas are not currently available in the PHP SDK.
+  // In PHP, set eventDeltas on EventStreamParams and accumulate with Anthropic\Lib\Sessions\EventAccumulator.
   ```
 
   ```ruby Ruby
@@ -1808,7 +1808,7 @@ The preview events themselves don't change. `event_start` and `event_delta` have
   ```
 
   ```php PHP
-  // Previewing session thread events is not currently available in the PHP SDK.
+  // In PHP, set eventDeltas on the thread EventStreamParams and accumulate with Anthropic\Lib\Sessions\EventAccumulator.
   ```
 
   ```ruby Ruby
@@ -1848,7 +1848,7 @@ The read loop exits on [`session.thread_status_idle`](/docs/en/managed-agents/re
 
 Previews are tuned for responsiveness. Build against these constraints:
 
-* **Best effort:** Under load, the server may shed deltas for an event. When it does, you receive a contiguous prefix of the text and then no further deltas for that event. The buffered `agent.message` still arrives complete. Never treat an accumulated preview as final.
+* **Best effort:** Under load, the server might shed deltas for an event. When it does, you receive a contiguous prefix of the text and then no further deltas for that event. The buffered `agent.message` still arrives complete. Never treat an accumulated preview as final.
 * **No replay on reconnect:** Deltas are delivered only to the connection that opted in, while it is open. This applies to the session-level stream and to each session thread stream alike, and a connection opened after a model request started receives no deltas for that in-flight event. If the stream drops, follow the [reconnect procedure](#integrating-events) in the Streaming events tab: reopen the stream and list the event history. The history includes any buffered events emitted while you were disconnected, including the `agent.message` your preview was waiting for. There is no way to re-request missed deltas.
 * **One thread, text only:** Previews cover assistant text on the thread the connection is reading. Tool use, tool results, MCP results, and activity on any other [session thread](/docs/en/managed-agents/multiagent-orchestration) are never previewed on that connection.
 * **Start-only `agent.thinking`:** An `agent.thinking` preview emits only the `event_start` as a signal that a thinking block has started; no `event_delta` events follow it.
@@ -2722,7 +2722,7 @@ The session object includes a `usage` field with cumulative token statistics. Fe
 
 ## Console observability
 
-The Console provides a visual timeline view of your agent sessions. Navigate to the Claude Managed Agents section in the Console to see:
+The Claude Console provides a visual timeline view of your agent sessions. Navigate to the Claude Managed Agents section in the Console to see:
 
 * **Session list:** All sessions with their status, creation time, and agent
 * **Tracing view:** A chronological view of events (content, timestamps, token usage) within a session. Tracing views are only accessible to Developers and Admins.

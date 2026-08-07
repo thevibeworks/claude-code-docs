@@ -14,7 +14,7 @@ To manage Claude in Chrome settings for your organization:
 
 1. Sign in to Claude with your Owner or Primary Owner account.
 
-2. Navigate to **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.
 
 ## Enable or disable the extension
 
@@ -54,7 +54,7 @@ If you want to disable this for members of your organization, you can toggle the
 
 1. Sign in to Claude with your Owner account.
 
-2. Navigate to **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.
 
 3. Toggle the extension off.
 
@@ -80,7 +80,7 @@ To test Claude in Chrome with a subset of users before broader rollout:
 
 3. Use your IT controls to limit which employees can install the extension.
 
-4. Share **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** with pilot users.
+4. Share **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)** with pilot users.
 
 5. Gather feedback and expand access over time.
 
@@ -98,6 +98,6 @@ We recommend sharing these resources with users before they start using Claude i
 
 - **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-getting-started-with-claude-for-chrome)**: Installation and core capabilities
 
-- **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)**: Risks and best practices
+- **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)**: Risks and best practices
 
 - **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)**: How users control what Claude can access

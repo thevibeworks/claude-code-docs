@@ -48,7 +48,7 @@ Once a credit is issued:
 
 ## Track activations in your organization
 
-Admins can see who’s eligible by going to the **[usage page in organization settings](http://claude.ai/admin-settings/usage)** or:
+Admins can see who’s eligible by going to the **[usage page in organization settings](https://claude.ai/admin-settings/usage)** or:
 
 - For Claude Code, go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**
 

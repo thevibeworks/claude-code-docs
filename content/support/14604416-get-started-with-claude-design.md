@@ -1,6 +1,6 @@
 # Get started with Claude Design
 
-**[Claude Design](http://claude.ai/design)** lets you create designs, interactive prototypes, presentations, and more by having a conversation with Claude. This guide walks you through creating your first project, iterating on designs, and getting the most out of the tool.
+**[Claude Design](https://claude.ai/design)** lets you create designs, interactive prototypes, presentations, and more by having a conversation with Claude. This guide walks you through creating your first project, iterating on designs, and getting the most out of the tool.
 
 Claude Design is now available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans. You can use it on the web at claude.ai/design or from the sidebar in Claude Desktop.
 
@@ -35,7 +35,7 @@ You can move between working in Claude Design and Claude Code while keeping your
 If you prefer to work from Claude Code, connect the Claude Design MCP server to create and edit designs without leaving your terminal:
 
 1. Add the server:
-`claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp`
+​`claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp`
 
 2. Run `/design-login` to sign in.
 
@@ -153,7 +153,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1786022100&amp;signature=b59d1c3bbdd2746e219d216e1b236cc9b66cd5a6b2798bbd9a48e266876ca2be&amp;req=diIvEcx%2FnYhaW%2FMW1HO4zQFD4SpamW91nfz9ljnuyXQDYY9kjCDw%2BULio%2FB1%0Aot21V0%2Fsd9pjyqyBxNE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1786212000&amp;signature=a683165da7e98dd01ac0743bf8d2ce198c3d5dbde6c89165bfb18dd0881c8028&amp;req=diIvEcx%2FnYhaW%2FMW3nq%2BgeY03psVG77BSuCDLaDjt0cA4wKb1ur6gH989dXT%0AnPt67WD7dMx%2BjaRel8aX6JGDvC4%3D%0A)
 
 You can also share projects within your organization using a shareable link. Sharing options include view-only, comment, and edit access.
 

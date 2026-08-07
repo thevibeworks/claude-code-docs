@@ -14,7 +14,7 @@ GitHub repositories are cached, so future sessions that use the same repository 
 
 ## GitHub MCP and session resources
 
-First, create an agent that declares the GitHub MCP server. The agent definition holds the server URL but no auth token:
+First, create an agent that declares the GitHub MCP server. The agent definition holds the server URL but no authentication token:
 
 <CodeGroup defaultLanguage="CLI">
   ```bash curl
@@ -106,7 +106,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Code Reviewer",
-      Model = new("claude-opus-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5,
       System = "You are a code review assistant with access to GitHub.",
       McpServers =
       [
@@ -131,7 +131,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Code Reviewer",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID: "claude-opus-5",
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5,
   	},
   	System: anthropic.String("You are a code review assistant with access to GitHub."),
   	MCPServers: []anthropic.BetaManagedAgentsURLMCPServerParams{

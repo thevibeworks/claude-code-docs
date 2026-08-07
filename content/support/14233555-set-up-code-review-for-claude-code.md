@@ -40,7 +40,7 @@ The steps below cover setup for repositories on github.com. If your repositories
 
 Owners and Primary Owners of Team and Enterprise plans can enable Code Review once for the organization and select which repositories to include. In addition to an owner role within your Claude organization, you’ll need permission to install GitHub Apps in your GitHub organization.
 
-1. Go to **[Organization settings > Claude Code](http://claude.ai/admin-settings/claude-code)** and find the **Code Review** section.
+1. Go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)** and find the **Code Review** section.
 
 2. Click “Configure” to begin the GitHub App installation flow.
 

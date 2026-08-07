@@ -145,7 +145,7 @@ Prompt caching uses the following pricing multipliers relative to base input tok
 | 1-hour cache write   | 2x base input price    | Cache valid for 1 hour               |
 | Cache read (hit)     | 0.1x base input price  | Same duration as the preceding write |
 
-Cache write tokens are charged when content is first stored. Cache read tokens are charged when a subsequent request retrieves the cached content. A cache hit costs 10% of the standard input price, which means caching pays off after just one cache read for the 5-minute duration (1.25x write), or after two cache reads for the 1-hour duration (2x write).
+Cache write tokens are charged when content is first stored. Cache read tokens are charged when a subsequent request retrieves the cached content. A cache hit costs 10% of the standard input price, which means caching pays off after one cache read for the 5-minute duration (1.25x write), or after two cache reads for the 1-hour duration (2x write).
 
 These multipliers stack with other pricing modifiers, including the Batch API discount and data residency.
 
@@ -213,9 +213,9 @@ Tool use requests are priced based on:
 
 1. The total number of input tokens sent to the model (including in the `tools` parameter)
 2. The number of output tokens generated
-3. For server-side tools, additional usage-based pricing (e.g., web search charges per search performed)
+3. For server-side tools, additional usage-based pricing (for example, web search charges per search performed)
 
-Client-side tools are priced the same as any other Claude API request, while server-side tools may incur additional charges based on their specific usage.
+Client-side tools are priced the same as any other Claude API request, although server-side tools can incur additional charges based on their specific usage.
 
 The additional tokens from tool use come from:
 
@@ -223,7 +223,7 @@ The additional tokens from tool use come from:
 * `tool_use` content blocks in API requests and responses
 * `tool_result` content blocks in API requests
 
-When you use `tools`, the API also automatically includes a special system prompt for the model which enables tool use. The number of tool use tokens required for each model are listed below (excluding the additional tokens listed above). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
+When you use `tools`, the API also automatically includes a special system prompt for the model that enables tool use. The number of tool use tokens required for each model is listed in the following table (excluding the additional tokens listed earlier). Note that the table assumes at least 1 tool is provided. If no `tools` are provided, then a tool choice of `none` uses 0 additional system prompt tokens.
 
 | Model                                                                                                      | Tool choice                    | Tool use system prompt token count |
 | ---------------------------------------------------------------------------------------------------------- | ------------------------------ | ---------------------------------- |
@@ -380,14 +380,13 @@ Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/t
 
 ### Tokens
 
-All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](#model-pricing). [Prompt caching](#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On [Claude Platform on AWS](#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate.
+All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](#model-pricing). [Prompt caching](#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On [Claude Platform on AWS](#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate. [Fast mode](#fast-mode-pricing) premium pricing applies when an agent's `model.speed` is set to `"fast"`.
 
 The following Messages API modifiers do **not** apply to Claude Managed Agents sessions:
 
 | Modifier                                             | Why it doesn't apply                                           |
 | ---------------------------------------------------- | -------------------------------------------------------------- |
 | [Batch API discount](#batch-processing)              | Sessions are stateful and interactive. There is no batch mode. |
-| [Fast mode premium](#fast-mode-pricing)              | Inference speed is managed by the runtime.                     |
 | [Data residency multiplier](#data-residency-pricing) | `inference_geo` is a Messages API request field.               |
 | [Cloud platform pricing](#cloud-platform-pricing)    | Not available on partner-operated cloud platforms.             |
 
@@ -400,7 +399,7 @@ The following Messages API modifiers do **not** apply to Claude Managed Agents s
 Runtime is measured to the millisecond and accrues only while the session's status is `running`. Time spent `idle` (waiting for your next message or a tool confirmation), `rescheduling`, or `terminated` does not count toward runtime.
 
 <Note>
-  Session runtime replaces the [Code Execution](#code-execution-tool) container-hour billing model when using Claude Managed Agents. You are not separately billed for container hours on top of session runtime.
+  Session runtime replaces the [code execution](#code-execution-tool) container-hour billing model when using Claude Managed Agents. You are not separately billed for container hours on top of session runtime.
 </Note>
 
 ### Worked example

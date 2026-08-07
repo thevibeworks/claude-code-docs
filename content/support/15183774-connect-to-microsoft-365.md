@@ -14,7 +14,7 @@ You'll need a work Microsoft 365 account tied to a Microsoft Entra tenant. Perso
 
 Once your admin has finished setup:
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. Find **Microsoft 365** in the list and click “Connect.”
 
@@ -90,7 +90,7 @@ When Claude sends an email, it includes a message header identifying it as agent
 
 You can selectively turn off specific tools within Microsoft 365—for example, you might keep document search on but turn off email access. To do this:
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. Click on “Microsoft 365.”
 
@@ -110,7 +110,7 @@ You can also enable or disable Microsoft 365 in a specific conversation.
 
 Disconnecting removes Claude's access to your Microsoft 365 data. Reconnecting later doesn't require admin reapproval as long as your admin's consent is still active.
 
-1. Navigate to **[Customize > Connectors](http://claude.ai/customize/connectors)**.
+1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
 2. Find Microsoft 365 in your connected services.
 

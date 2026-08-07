@@ -14,12 +14,12 @@ Once a session exists, use these operations to read, update, archive, or delete 
 
 Sessions progress through these statuses. See [Start a session](/docs/en/managed-agents/sessions) for the session lifecycle.
 
-| Status         | Description                                                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `idle`         | Agent is waiting for input, including user messages or tool confirmations. Sessions created without `initial_events` start in `idle`. |
-| `running`      | Agent is actively executing.                                                                                                          |
-| `rescheduling` | Transient error occurred, retrying automatically.                                                                                     |
-| `terminated`   | Session has ended, either because of an unrecoverable error or on completion.                                                         |
+| Status         | Description                                                                                                                                             |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `idle`         | Agent is waiting for input, including user messages or tool confirmations. Sessions created without `initial_events` start in `idle`.                   |
+| `running`      | Agent is actively executing.                                                                                                                            |
+| `rescheduling` | Transient error occurred, retrying automatically.                                                                                                       |
+| `terminated`   | Session has ended, either because of an unrecoverable error or because it was archived. A session that finishes its work goes `idle`, not `terminated`. |
 
 ## Updating the agent configuration
 
@@ -271,7 +271,7 @@ Results from `GET /v1/sessions` are paginated. Use the `limit` query parameter t
 
 To go back a page, pass `prev_page` as the `page` parameter. `prev_page` is `null` when you're on the first page.
 
-A `page` cursor is opaque and encodes the `order` of the request that produced it. The `order` query parameter sets the sort direction of the results, `asc` or `desc` by creation time; the default is `desc` (newest first). Reusing a cursor with a different `order` returns a 400 error; other query parameters, including filters and `limit`, can change between paginated requests. For the pagination fields shared across list endpoints, see [Pagination](/docs/en/api/overview#pagination).
+A `page` cursor is opaque and encodes the `order` of the request that produced it. The `order` query parameter sets the sort direction of the results, `asc` or `desc` by creation time; the default is `desc` (newest first). Reusing a cursor with a different `order` returns a 400 error, as does changing a `created_at` filter so that it excludes the cursor's position. Other query parameters, including the remaining filters and `limit`, can change between paginated requests. For the pagination fields shared across list endpoints, see [Pagination](/docs/en/api/overview#pagination).
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -579,7 +579,7 @@ Archive a session to prevent new events from being sent while preserving its his
 
 Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; send an [interrupt event](/docs/en/managed-agents/events-and-streaming#integrating-events) if you need to delete it immediately.
 
-Files, memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion.
+Memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion. Files you uploaded through the Files API are also unaffected, but files the session itself produced are scoped to it and are permanently deleted along with its filesystem. Download anything you need to keep before deleting the session.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL

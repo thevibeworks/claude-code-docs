@@ -132,13 +132,15 @@ For more information, see **[Let Claude use your computer in Cowork](https://sup
 
 Only give Claude internet access to sites you trust. Web content is a primary vector for prompt injection attacks—malicious instructions can be hidden in websites, emails, or documents Claude reads.
 
-**Important:** Network egress permissions don't apply to the web fetch or **[web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)** tools or MCPs, including Claude in Chrome. Web fetch runs server-side and is limited to search results and URLs you've shared. Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+**Important:** Network egress permissions don't apply to the web fetch or **[web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)** tools or MCPs, including Claude in Chrome. Web fetch runs server-side and is limited to search results and URLs you've shared. Team or Enterprise plan owners can turn off web search for Cowork and Chat in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, or Claude in Chrome via **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.
 
 **7. Be especially cautious with unfamiliar MCPs and plugins**
 
 Desktop extensions (MCPs) and plugins expand what Claude can do, but each one introduces new ways for attacks to reach Claude. Plugins bundle together skills, connectors, and sub-agents into a single package, which means installing one can significantly expand Claude's scope of action.
 
 Local MCP servers bundled with plugins and desktop extensions run on your computer with the same permissions as any other program you run. Stick to verified extensions from the Claude Desktop directory, and carefully evaluate the permissions any extension or plugin requests before installing.
+
+On the Enterprise plan, your organization can turn on skill scanning to check skills and plugins for malicious content when they're installed. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
 For more on plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440)**.
 
@@ -154,7 +156,7 @@ If your organization manages your computer, note that connecting local folders m
 
 **10. Report suspicious behavior immediately**
 
-If Claude suddenly starts discussing unrelated topics, attempts to access unexpected resources, or requests sensitive information unprompted, stop the task and report it to **<usersafety@anthropic.com>** or use the in-app feedback button. Your reports help us improve our defenses.
+If Claude suddenly starts discussing unrelated topics, attempts to access unexpected resources, or requests sensitive information unprompted, stop the task and report it to <usersafety@anthropic.com> or use the in-app feedback button. Your reports help us improve our defenses.
 
 ---
 

@@ -5,7 +5,7 @@ To mitigate misuse and manage capacity on the API, limits are in place on how mu
 ---
 
 <Note>
-  **[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws):** The rate limits on this page apply to Claude Platform on AWS, but billing and limit management differ. Billing is through AWS Marketplace (not Anthropic credit purchases). Organizations on Claude Platform on AWS are placed on the Start tier and do not move between usage tiers automatically. To request higher limits, contact your Anthropic account representative or [Anthropic support](https://support.claude.com); the **Request rate limit increase** flow is not available. Spend limits are set in [Settings > Billing](/settings/billing) rather than **Settings > Limits**. Per-workspace rate limit configuration and [fast mode](/docs/en/build-with-claude/fast-mode) are not available on Claude Platform on AWS. For details, see [Rate limits and quotas on Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws#rate-limits-and-quotas).
+  **[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws):** The rate limits on this page apply to Claude Platform on AWS, but billing and limit management differ. Billing is through AWS Marketplace (not Anthropic credit purchases). Organizations on Claude Platform on AWS are placed on the Start tier and do not move between usage tiers automatically. To request higher limits, contact your Anthropic account representative or [Anthropic support](https://support.claude.com); the **Request rate limit increase** flow is not available. Per-workspace rate limit configuration and [fast mode](/docs/en/build-with-claude/fast-mode) are not available on Claude Platform on AWS. For details, see [Rate limits and quotas on Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws#rate-limits-and-quotas).
 </Note>
 
 There are two types of limits:
@@ -20,7 +20,7 @@ The API enforces service-configured limits at the organization level, but you ma
 * Limits are designed to prevent API abuse, while minimizing impact on common customer usage patterns.
 * Limits are defined by **usage tier**. Organizations are placed on a tier automatically based on usage history and account standing and can move to a higher tier over time as they use the API.
 * New organizations and organizations with limited usage history may start in the Evaluation tier, with limits below the standard limits shown on this page while account history is established. These starting limits are part of how Anthropic prevents fraud and abuse, and they increase automatically as your organization builds usage history.
-* Limits are set at the organization level. You can see your organization's tier and current limits on the [Limits](/settings/limits) page in the [Claude Console](/).
+* Limits are set at the organization level. You can see your organization's tier and current limits on the [Rate limits](/settings/limits) page in the [Claude Console](/).
 * You might hit rate limits over shorter time intervals. For instance, a rate of 60 requests per minute (RPM) might be enforced as 1 request per second. Short bursts of requests can exceed the limit and trigger rate limit errors.
 * The following limits are the standard limits for each tier. If you need higher limits, see [Requesting higher limits](#requesting-higher-limits).
 * The API uses the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) to do rate limiting. This means that your capacity is continuously replenished up to your maximum limit, rather than being reset at fixed intervals.
@@ -29,10 +29,10 @@ The API enforces service-configured limits at the organization level, but you ma
 ## Spend limits
 
 <Note>
-  **[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws):** Spend limits work differently on Claude Platform on AWS. Set spend limits in [Settings > Billing](/settings/billing) instead of **Settings > Limits**. See [Spend limits on Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws#spend-limits) for how spend caps and self-set spend limits apply to your organization.
+  **[Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws):** Spend limits work differently on Claude Platform on AWS. See [Spend limits on Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws#spend-limits) for how spend caps and self-set spend limits apply to your organization.
 </Note>
 
-Each of the Start, Build, and Scale tiers carries a monthly spend cap, which is the maximum your organization can spend on the API each calendar month. Once you reach your tier's spend cap, API usage pauses until the next month unless you request a higher limit. You can view your organization's monthly spend cap on the [Limits](/settings/limits) page.
+Each of the Start, Build, and Scale tiers carries a monthly spend cap, which is the maximum your organization can spend on the API each calendar month. Once you reach your tier's spend cap, API usage pauses until the next month unless you request a higher limit. You can view your organization's monthly spend cap and set your own limit on the [Billing](/settings/billing) page.
 
 | Usage tier | Monthly spend cap |
 | ---------- | ----------------- |
@@ -45,12 +45,12 @@ Organizations on the Custom tier have no monthly spend cap; limits are arranged 
 You can also set your own spend limit below your tier's cap to control costs:
 
 <Steps>
-  <Step title="Navigate to the Limits page">
-    Go to [Settings > Limits](/settings/limits) in the Claude Console.
+  <Step title="Navigate to the Billing page">
+    Go to [Settings > Billing](/settings/billing) in the Claude Console.
   </Step>
 
   <Step title="Open the spend limit editor">
-    In the **Spend limits** section, click **Change Limit** (or **Set spend limit** if no limit is currently set).
+    In the **Spend limits** section, click **Adjust limit** (or **Set limit** if no limit is currently set).
   </Step>
 
   <Step title="Adjust your spend limit">
@@ -113,7 +113,7 @@ Here's what counts toward ITPM:
 
 OTPM rate limits are evaluated in real time as output tokens are produced, counting only the actual tokens generated. The `max_tokens` parameter does not factor into OTPM rate limit calculations, so there is no rate limit downside to setting a higher `max_tokens` value.
 
-Rate limits are applied separately for each model; therefore you can use different models up to their respective limits simultaneously. You can check your current rate limits and behavior on the [Limits](/settings/limits) page in the Claude Console, or read the configured limits programmatically with the [Rate Limits API](/docs/en/manage-claude/rate-limits-api).
+Rate limits are applied separately for each model; therefore you can use different models up to their respective limits simultaneously. You can check your current rate limits and behavior on the [Rate limits](/settings/limits) page in the Claude Console, or read the configured limits programmatically with the [Rate Limits API](/docs/en/manage-claude/rate-limits-api).
 
 <Note>
   Rate limits are currently shared across all `inference_geo` values. Requests with `inference_geo: "us"` and `inference_geo: "global"` draw from the same rate limit pool.
@@ -157,7 +157,7 @@ Rate limits are applied separately for each model; therefore you can use differe
   </Tab>
 
   <Tab title="Custom tier">
-    If you need limits higher than the Scale tier, contact sales through the [Limits](/settings/limits) page in the Claude Console.
+    If you need limits higher than the Scale tier, contact sales through the [Rate limits](/settings/limits) page in the Claude Console.
   </Tab>
 </Tabs>
 
@@ -191,7 +191,7 @@ The Message Batches API has its own set of rate limits which are shared across a
   </Tab>
 
   <Tab title="Custom tier">
-    If you need limits higher than the Scale tier, contact sales through the [Limits](/settings/limits) page in the Claude Console.
+    If you need limits higher than the Scale tier, contact sales through the [Rate limits](/settings/limits) page in the Claude Console.
   </Tab>
 </Tabs>
 
@@ -229,7 +229,7 @@ In addition to providing token and request charts, the Usage page provides two s
 
 ## Requesting higher limits
 
-To request higher rate limits or a higher monthly spend cap, use **Request rate limit increase** on the [Limits](/settings/limits) page.
+To request higher rate limits or a higher monthly spend cap, use **Request rate limit increase** on the [Rate limits](/settings/limits) page.
 
 <Note>
   Support can also raise limits. For urgent needs, contact [Anthropic support](https://support.claude.com).

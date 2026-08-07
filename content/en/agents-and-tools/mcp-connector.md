@@ -684,7 +684,7 @@ Install both the Anthropic SDK and the MCP SDK:
     The helpers use the official [MCP PHP SDK](https://packagist.org/packages/mcp/sdk):
 
     ```bash
-    composer require "anthropic-ai/sdk" "mcp/sdk"
+    composer require "anthropic-ai/sdk" "guzzlehttp/guzzle:^7" "mcp/sdk"
     ```
   </Tab>
 

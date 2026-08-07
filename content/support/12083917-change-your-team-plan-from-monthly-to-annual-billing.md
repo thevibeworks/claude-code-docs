@@ -2,17 +2,17 @@
 
 Owners and Primary Owners of Team plans with monthly subscriptions can switch from the monthly plan to an annual plan by following these steps:
 
-1. Navigate to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** or **[claude.ai/upgrade](http://claude.ai/upgrade)**.
+1. Navigate to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** or **[claude.ai/upgrade](https://claude.ai/upgrade)**.
 
 2. You’ll see a banner confirming your current monthly plan in your Billing settings; click the “Switch to Annual” button.
 
 3. Or from /upgrade, click the “Switch to Annual plan” button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690325734/d47f714680d78408d6022d06b8d1/image.png?expires=1786104000&amp;signature=2895a1efd494884adfdffc81f17f453961bbb83b2d69fc8e2e49bf914fb2f446&amp;req=dSYuFsp8mIZcXfMW3Hu4gZzas%2FXtvz5SmWrRiVwqPzYAH8wCKDyZwPEp02Xg%0ASw%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690325734/d47f714680d78408d6022d06b8d1/image.png?expires=1786158000&amp;signature=b894c34fdffdb8cdcb6e9063c77138f683b84f87aa095388ca0b993f140c9cee&amp;req=dSYuFsp8mIZcXfMW3Hu4gZzas%2FXtvz5XlWrRiVwqPzZIhBeN%2FmcYds%2FzdfZb%0ASw%3D%3D%0A)
 
 4. The confirmation screen will display the total cost for your upgrade from monthly to annual billing:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690326039/3a91cdc5fff57d188a18ecc6273f/image.png?expires=1786104000&amp;signature=a52f2826e335581fbbbf5250bea45297bc5616c116b4a3040c9cde982a0ed724&amp;req=dSYuFsp8m4FcUPMW3Hu4gbNj%2Bk78Wgzhj%2B5vzcg6znUc1ejfQuU%2BCBY65q7G%0AeA%3D%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690326039/3a91cdc5fff57d188a18ecc6273f/image.png?expires=1786158000&amp;signature=d07c2252b81fb8007fc60c7abd609d3b14c178d7448c90899e77600526612532&amp;req=dSYuFsp8m4FcUPMW3Hu4gbNj%2Bk78Wgzkg%2B5vzcg6znVXBy5uMDbrDUfrlUYj%0AUA%3D%3D%0A)
 
 5. Click “Confirm subscription.”
 

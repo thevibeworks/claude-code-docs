@@ -2,7 +2,7 @@
 
 This guide explains how to choose the Claude model that new conversations start on across your organization. You can set one default for your whole organization, or set different defaults for specific custom roles.
 
-Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](http://claude.ai/admin-settings/models)**.
+Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
 ---
 
@@ -34,7 +34,7 @@ For member-facing instructions on switching models, see **[Change the model, eff
 
 The organization default applies to every member. To set it:
 
-1. Navigate to **[Organization settings > Models](http://claude.ai/admin-settings/models)**.
+1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
 2. Under **Default model**, select an option:
 
@@ -46,7 +46,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1786022100&amp;signature=1c676b9df27e9f9e35aa2b0cbc758d13260d61a996a3acd7671decc4f8a5b995&amp;req=diUmEs58n4BcUPMW1HO4zelOdzRAL0pGfdGVZ664dGFB6B%2F7KWfDkKDAE%2Bnc%0AT5Rx5GkQQJ6zqQCWIK4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1786212000&amp;signature=75ed323ec1425636ed68e36088dbc887297a6f5d70e3a70ab3781ca65f2b6b03&amp;req=diUmEs58n4BcUPMW3nq%2Bga5jDn%2BYFspCeQKMkc502AUixR4lUKTUERAFfAd2%0An3xX0q3SYboJWPL0jrbogwXPFjM%3D%0A)
 
 ---
 
@@ -54,7 +54,7 @@ The organization default applies to every member. To set it:
 
 Custom role defaults let you set different starting models for different teams. For example, you can keep most of your organization on the recommended default while a specific group starts on a different model.
 
-1. Navigate to **[Organization settings > Roles](http://claude.ai/admin-settings/roles)**.
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
 
 2. Click the role you want to edit, or create a new role.
 
@@ -74,7 +74,7 @@ For details on creating roles and assigning them to groups, see **[Manage custom
 
 ## Default model and Claude Code managed settings
 
-If your organization also configures Claude Code through `managed-settings.json`, the model setting there takes precedence. When model is set in managed settings, Claude Code CLI and IDE start on that model and ignore the default you set in **[Organization settings > Models](http://claude.ai/admin-settings/models)**.
+If your organization also configures Claude Code through `managed-settings.json`, the model setting there takes precedence. When model is set in managed settings, Claude Code CLI and IDE start on that model and ignore the default you set in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
 If `managed-settings.json` specifies `availableModels` that doesn't contain the default model, Claude CLI bypasses `availableModels` and starts on the selected default model unless `enforceAvailableModels` is set.
 

@@ -164,7 +164,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1786022100&amp;signature=3545349437c57bd70123bedc5c234cb9c3f58f3fbd16c3b4c9449273626253b6&amp;req=diEnE8p3nINYWvMW1HO4zSOgDy0owOSsH%2BdCnFXB0ujAi7XXx1D2YCZXJT7y%0APcG9%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1786147200&amp;signature=da70610d032179faff3d5ab9fea7431cdf7c8e3a0a2aebeb9dc1a83f2862ebf6&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bphmBIw1MT2ztkCRg8dae0E4sPf3ft8Nya%0AUaj1cMsTilCabQ%2Fb9fO9NA%2Bk%2BAc%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 
@@ -177,6 +177,8 @@ If you change your mind, you can add the skill again by re-uploading the file.
 For Team and Enterprise plans, organization owners can provision skills for all users through organization settings, and individuals can share skills with colleagues or organization-wide if an owner has enabled sharing. On all other plans, each person uploads skills to their own account.
 
 Note that skills may include, or instruct Claude to install, third-party packages and software for Claude to use when completing a task. See **[our guidance on Claude's container environment](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_0ee9d698a1)** for details on Claude's container environment and **[the API documentation](https://docs.claude.com/en/docs/agents-and-tools/tool-use/code-execution-tool#containers)** for API's container environment.
+
+**Note:** If you're on the Enterprise plan and your organization has skill scanning turned on, each third-party skill you upload or edit is checked for malicious content before it can run. Most scans finish in about one to two minutes. If a skill is blocked, you can't use it until you fix what was flagged and upload it again. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
 ### What are the primary risks of using skills?
 

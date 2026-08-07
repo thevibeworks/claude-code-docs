@@ -10,7 +10,7 @@ This guide covers configuring SSO and SCIM provisioning for Claude with Okta as 
 
 - Okta administrator access
 
-- Your domain verified in Claude's Identity and access settings — see **[Set up single sign-on](https://support.claude.com/en/articles/13132885)** for the full setup path including domain verification
+- Your domain verified in Claude's Identity and access settings—see **[Set up single sign-on](https://support.claude.com/en/articles/13132885)** for the full setup path including domain verification
 
 ## Where to find your configuration values
 
