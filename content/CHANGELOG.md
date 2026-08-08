@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.226
+
+- Bug fixes and reliability improvements
+
 ## 2.1.225
 
 - Added gateway spend-limit support to Claude Code's usage warning; the limit-reached message now names the cap, its reset time, and the operator's message (requires the gateway on 2.1.225)
