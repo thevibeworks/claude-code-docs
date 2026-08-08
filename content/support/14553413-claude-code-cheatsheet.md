@@ -64,17 +64,17 @@ Type `/` on an empty prompt to see every command available in your setup, includ
 
 ## Keyboard shortcuts
 
-| **Key**         | **Action**                                                                                                                                                              |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Shift + Tab** | Cycle permission mode: `default → acceptEdits → plan`. Also includes auto after running `claude --enable-auto-mode`, and `bypassPermissions` when that mode is enabled. |
-| **Esc**         | Interrupt Claude mid-response so you can type again.                                                                                                                    |
-| **Esc, Esc**    | Open the rewind/checkpoint menu to roll back to an earlier point in the session.                                                                                        |
-| **Ctrl + C**    | Cancel the current input, or exit on an empty prompt.                                                                                                                   |
-| **Ctrl + R**    | Reverse search through your prompt history.                                                                                                                             |
-| **Ctrl + O**    | Expand to the verbose, full transcript view.                                                                                                                            |
-| **↑ / ↓**       | Scroll through your prompt history.                                                                                                                                     |
-| **`@` + path**  | Reference a file or directory in your prompt.                                                                                                                           |
-| **`/`**         | Open the command menu.                                                                                                                                                  |
-| **`?`**         | Show shortcuts for your current terminal or IDE.                                                                                                                        |
+| **Key**         | **Action**                                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Shift + Tab** | Cycle permission mode: `auto → manual → acceptEdits → plan`. Also includes `bypassPermissions` when that mode is enabled. |
+| **Esc**         | Interrupt Claude mid-response so you can type again.                                                                      |
+| **Esc, Esc**    | Open the rewind/checkpoint menu to roll back to an earlier point in the session.                                          |
+| **Ctrl + C**    | Cancel the current input, or exit on an empty prompt.                                                                     |
+| **Ctrl + R**    | Reverse search through your prompt history.                                                                               |
+| **Ctrl + O**    | Expand to the verbose, full transcript view.                                                                              |
+| **↑ / ↓**       | Scroll through your prompt history.                                                                                       |
+| **`@` + path**  | Reference a file or directory in your prompt.                                                                             |
+| **`/`**         | Open the command menu.                                                                                                    |
+| **`?`**         | Show shortcuts for your current terminal or IDE.                                                                          |
 
 Shortcuts vary slightly by terminal and IDE. Press **`?`** inside a session for the exact list in your environment.

@@ -39,6 +39,8 @@ Persisted event type strings follow a `{domain}.{action}` naming convention; the
     | `agent.thread_context_compacted` | Conversation history was compacted to fit the context window.                                                                                                                                                                                       |
     | `agent.thread_message_received`  | In a [multiagent](/docs/en/managed-agents/multiagent-orchestration) session, a message from another thread arrived on the thread whose stream carries this event; on the primary thread, an agent sent a report or question to the coordinator.     |
     | `agent.thread_message_sent`      | In a [multiagent](/docs/en/managed-agents/multiagent-orchestration) session, the thread whose stream carries this event sent a message to another thread; on the primary thread, the coordinator sent a task or follow-up message to another agent. |
+
+    Message content in these events can include a `redacted` content block, `{"type": "redacted"}`: a placeholder for content withheld by Anthropic model policy. The block carries no other fields. Redacted blocks appear only in content the platform emits; a user event that includes one is rejected with a 400 error.
   </Tab>
 
   <Tab title="Session events">
@@ -51,6 +53,7 @@ Persisted event type strings follow a `{domain}.{action}` naming convention; the
     | `session.deleted`                   | Session was deleted. Terminates any active event stream; no further events are emitted for this session.                                                                                                                             |
     | `session.updated`                   | Session update request changed at least one field. Includes only the fields that changed. Updates apply on the next turn.                                                                                                            |
     | `session.error`                     | An error occurred during processing. Includes a typed `error` object with a `retry_status`.                                                                                                                                          |
+    | `session.usage`                     | Snapshot of the session's cumulative usage and tracked list cost. Carries the session's usage totals and an echo of the session's [budget](/docs/en/managed-agents/budgets), or `null` when the session has none.                    |
     | `session.thread_created`            | A [multiagent](/docs/en/managed-agents/multiagent-orchestration) thread was created.                                                                                                                                                 |
     | `session.thread_status_running`     | A session thread began executing. Every session emits this for its primary thread; in [multiagent](/docs/en/managed-agents/multiagent-orchestration) sessions, child-thread transitions are also cross-posted to the primary stream. |
     | `session.thread_status_idle`        | A session thread finished its turn and is awaiting input. Includes `stop_reason`.                                                                                                                                                    |
