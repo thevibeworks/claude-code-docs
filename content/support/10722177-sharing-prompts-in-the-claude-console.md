@@ -10,13 +10,13 @@ The prompt sharing feature enables teams to collaborate on prompt development wi
 
 3. Select "Share" from the dropdown menu:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899224/f39d557d4925710cb16384886baa/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1786172400&amp;signature=aa9af810d0e64921df81a8eace6a63153603a2d80da7619ca4ad6eb5af4c85a2&amp;req=dSQnH8F3lINdXfMW1HO4zajBO18vPg2%2F5HPc4FxcZupaivCJj3xuzgLtpphD%0AT%2BVr%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899224/f39d557d4925710cb16384886baa/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1786189500&amp;signature=ea84773191f528cb49004d73ba352a752267d8022ca6117a8fc51b2091e4a2e5&amp;req=dSQnH8F3lINdXfMW1HO4zajBO18vMQa%2B5HPc4FxcZup3YSZQ%2BmEr8pWU67qL%0Al3mO%0A)
 
 4. Change the access settings from "Private" to "Shared."
 
 5. Click the "Copy link" button that appears:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899713/0fd923a839b2c0ff8a0b5e11cf0c/AD_4nXdGUlO0CiCdnhllDnlz2Dd75uiNClFmR8_Qi1Wx6MM9rF-EUSIzRzvs_P6kGSqWBuF-l4iBMRtoEN8ip1-c8bqNzSqKA7SX1STIjtRqNisW-NCmcl9DEhWjv4edORWaT4LNZuPVww?expires=1786172400&amp;signature=056bddacf33d39b889cde4fa01b677b308c3d48884d7c69bc68c5aee7ec133e2&amp;req=dSQnH8F3lIZeWvMW1HO4zaU8nlG1Oc6tiqPPSiDAl9LuaKyAIpoaUuOnPudM%0A1QQ7%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899713/0fd923a839b2c0ff8a0b5e11cf0c/AD_4nXdGUlO0CiCdnhllDnlz2Dd75uiNClFmR8_Qi1Wx6MM9rF-EUSIzRzvs_P6kGSqWBuF-l4iBMRtoEN8ip1-c8bqNzSqKA7SX1STIjtRqNisW-NCmcl9DEhWjv4edORWaT4LNZuPVww?expires=1786189500&amp;signature=244f75cf0aae964d819229213b0f5356dc79f0227e81bfadeb63fc47d4057fd3&amp;req=dSQnH8F3lIZeWvMW1HO4zaU8nlG1NsWsiqPPSiDAl9JXgyHKaaVxjxtPkTxu%0AnRwd%0A)
 
 6. Share the link with members of your workspace.
 
@@ -38,7 +38,7 @@ When working on a shared prompt:
 
 **Note:** If a collaborator saves changes to the prompt while you are viewing it, you will be prompted with a message to “Go to the Latest Version,” where all their changes will be reflected.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901036/6b69f2878fcb1b4e9ba0747464ac/AD_4nXcp1htcsSLR8H98i7KazEFqIkOhVUHnw__-17jbMZ-n70qnSttxx_m7wNNaHsK7FZHoG8v6zRyqkElQrtdVkxnydo2hzsznCwt6ehzqlGAR7Js7TggP6WmVfwnUTgbouDIxyGS0?expires=1786172400&amp;signature=4bdf7c4ed83a94df8d43ba05a4d3f3f66c38df16aeaf05d30860fd8c891a2275&amp;req=dSQnH8B%2BnIFcX%2FMW1HO4zUnGutEOAkEi83rdFAdB3KyLJhORrH3g9BGBn70V%0AAlUbo%2FH3d0CpuH5tY3w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901036/6b69f2878fcb1b4e9ba0747464ac/AD_4nXcp1htcsSLR8H98i7KazEFqIkOhVUHnw__-17jbMZ-n70qnSttxx_m7wNNaHsK7FZHoG8v6zRyqkElQrtdVkxnydo2hzsznCwt6ehzqlGAR7Js7TggP6WmVfwnUTgbouDIxyGS0?expires=1786189500&amp;signature=5b30c371aa5627dcda5737c1bdd193728b91cfc9d53739ab0a35f09660069459&amp;req=dSQnH8B%2BnIFcX%2FMW1HO4zUnGutEODUoj83rdFAdB3KzNHde9yZsY9VEXDCl%2B%0AJEXIET0q1V4Fxfy7J4E%3D%0A)
 
 ## Viewing Version History
 
@@ -48,13 +48,13 @@ To see previous versions of a prompt:
 
 2. Select "Version history" from the dropdown:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901693/2924593d08c79c5ef1c4ca795f9d/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1786172400&amp;signature=152ecc0822146d0a826ffe38e508c5f1131ccc45c51163a153dae0a2657fb5dc&amp;req=dSQnH8B%2BnIdWWvMW1HO4zdOs5EIhMnDaplKKWUPxWw2a%2BA%2B%2F1loXG52MNLL9%0As4Kb%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901693/2924593d08c79c5ef1c4ca795f9d/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1786189500&amp;signature=9fa42bb8a25d6789b6a938b90c75bc4473e435e45c314fa4f896e07facacec35&amp;req=dSQnH8B%2BnIdWWvMW1HO4zdOs5EIhPXvbplKKWUPxWw1wMj1EGStervovQgzO%0A8LdU%0A)
 
 3. Choose the specific version you want to view from the list.
 
 **Note:**  Past versions cannot be edited. To restore the prompt to a previous version, select the version from the version history list, and click the “Restore” button in the pop up.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409902092/39258424bd71205743134bb5a2d8/AD_4nXe7EGQNq4UAioXobBxbEdluYda1qU277VuDxoqXgmL9z1ch8ro5k3RjDmBWlpPzcfI8eeAbbmiouCc2AEfGPO_LiwFekOgCDj5MV8klaRgH1BHko5OZ1WtWq8Ow0HlYif77j2AxRQ?expires=1786172400&amp;signature=960b3168afd71c29d26e5e2217018a04e8500f389a095108f37540539ad215c1&amp;req=dSQnH8B%2Bn4FWW%2FMW1HO4zeZkcjFSjNUkRPhLT%2BKEBGOgET5F9jpqMtyaKuH9%0AVRNKkSZcZQaCt1Eb3fg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409902092/39258424bd71205743134bb5a2d8/AD_4nXe7EGQNq4UAioXobBxbEdluYda1qU277VuDxoqXgmL9z1ch8ro5k3RjDmBWlpPzcfI8eeAbbmiouCc2AEfGPO_LiwFekOgCDj5MV8klaRgH1BHko5OZ1WtWq8Ow0HlYif77j2AxRQ?expires=1786189500&amp;signature=14988aee451558bf889b4d569990df5db00a4d46679e525bb6d6acee5752293b&amp;req=dSQnH8B%2Bn4FWW%2FMW1HO4zeZkcjFSg94lRPhLT%2BKEBGOJE2eyhA7eC%2B9pEQCm%0AGjbv8rpkPR5okpabPyA%3D%0A)
 
 ## Unsharing a Prompt
 
@@ -64,6 +64,6 @@ To see previous versions of a prompt:
 
 3. Change the access settings from "Shared" to "Private":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409898166/d7f3c0233ef3a3fa66701b558db7/AD_4nXcuZY7tln-InGzsyEmOZdRER_FWN9rQmcKalQqRTu6lSEyFSGBhGuvVPkLv7QHvsJCZsHz6-lTOX_tw77ribji4VlTsdG2dp-orGm6ST7IQ9aRnZvQMNvetkik0voTDZ1rHuFP5zA?expires=1786172400&amp;signature=72f38715df03675b6e038c09cebf389fcd9f52704d64972728c498e27fb09d94&amp;req=dSQnH8F3lYBZX%2FMW1HO4zZMvtFHfQ%2FRlH68akkuAPm1DIF6Itg4uAuCjIxej%0AKNx5zagwkFAYr4SnFpI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409898166/d7f3c0233ef3a3fa66701b558db7/AD_4nXcuZY7tln-InGzsyEmOZdRER_FWN9rQmcKalQqRTu6lSEyFSGBhGuvVPkLv7QHvsJCZsHz6-lTOX_tw77ribji4VlTsdG2dp-orGm6ST7IQ9aRnZvQMNvetkik0voTDZ1rHuFP5zA?expires=1786189500&amp;signature=42eeb262f1a3648359058b59cee37582d8a8f8b08d747622c506df851d17e7ff&amp;req=dSQnH8F3lYBZX%2FMW1HO4zZMvtFHfTP9kH68akkuAPm3f7nYmmv6j7o%2B%2Ft%2Far%0AhDVPgb5YnbPB2kRRZp4%3D%0A)
 
 **Note:** Unsharing immediately disables access via the direct link. Anyone that the link was previously shared with will no longer be able to view the prompt.
