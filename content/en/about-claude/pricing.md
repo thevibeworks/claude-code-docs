@@ -382,13 +382,14 @@ Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/t
 
 All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](#model-pricing). [Prompt caching](#prompt-caching) multipliers apply identically. Web search triggered inside a session incurs the standard $10 per 1,000 searches. On [Claude Platform on AWS](#claude-platform-on-aws-pricing), session token and runtime charges convert to Claude Consumption Units at the standard rate. [Fast mode](#fast-mode-pricing) premium pricing applies when an agent's `model.speed` is set to `"fast"`.
 
+The [data residency multiplier](#data-residency-pricing) also applies: when an agent's `model.inference_geo` is pinned to `"us"`, tokens consumed by sessions running that agent are billed at 1.1x the standard rates, the same multiplier that applies to US-only inference on the Messages API.
+
 The following Messages API modifiers do **not** apply to Claude Managed Agents sessions:
 
-| Modifier                                             | Why it doesn't apply                                           |
-| ---------------------------------------------------- | -------------------------------------------------------------- |
-| [Batch API discount](#batch-processing)              | Sessions are stateful and interactive. There is no batch mode. |
-| [Data residency multiplier](#data-residency-pricing) | `inference_geo` is a Messages API request field.               |
-| [Cloud platform pricing](#cloud-platform-pricing)    | Not available on partner-operated cloud platforms.             |
+| Modifier                                          | Why it doesn't apply                                           |
+| ------------------------------------------------- | -------------------------------------------------------------- |
+| [Batch API discount](#batch-processing)           | Sessions are stateful and interactive. There is no batch mode. |
+| [Cloud platform pricing](#cloud-platform-pricing) | Not available on partner-operated cloud platforms.             |
 
 ### Session runtime
 

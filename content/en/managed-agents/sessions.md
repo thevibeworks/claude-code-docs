@@ -475,6 +475,8 @@ Each overridable field follows the same three rules:
 * **Set the field to a value:** The value replaces the agent's value in full. Overrides never merge with the agent's configuration, so a `tools` override must list every tool the session should have. There is one exception:
   * An `effort` level inside a per-session `model` override isn't applied. Set `effort` on the [agent](/docs/en/managed-agents/agent-setup#agent-configuration-fields) instead.
 
+A `model` override also sets or clears the model's [`inference_geo`](/docs/en/manage-claude/data-residency) pin for the session. Because the override replaces the agent's `model` object in full, an override that includes `inference_geo` pins the geography that serves the session's model requests, and one that omits it clears the agent's pin so the session follows the workspace's `default_inference_geo`. The overridden value is validated against the workspace's `allowed_inference_geos` when the session is created.
+
 Overrides apply only to the session you create. They do not modify the agent resource or create a new agent version, so other sessions that reference the same agent are unaffected.
 
 In the response, the `agent` object reflects the configuration the session runs with after the overrides are applied. Its `id` and `version` still identify the agent and version the overrides are applied to. This lets you trace a session back to its base agent.
@@ -650,6 +652,32 @@ The following example starts a session that overrides the model and clears the s
 <Tip>
   The agent defines how Claude behaves within the session, including the model, system prompt, tools, and MCP servers. See [Define your agent](/docs/en/managed-agents/agent-setup) for details.
 </Tip>
+
+### Set a session budget
+
+To cap what a session can spend, pass the optional `budget` object when you create it. A budget is a hard ceiling on the session's list cost: the platform prices everything the session consumes at public list rates, and the session stops issuing new model requests once that running total reaches `max_list_cost`. Set `type` to `limit` and give `max_list_cost` an `amount` and a `currency`. `amount` is a whole number of US cents written as a string, such as `"2500"` for $25.00; the API takes a string rather than a number so no floating-point rounding is ever applied. `USD` is the only currency currently supported. When the session reaches the cap, it pauses and goes idle with the stop reason `budget_reached`. The cap is enforced between model requests, so the request that crosses it finishes first and the session's final list cost can land [a fraction past the cap](/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). A budget can only be attached at creation: you can [change or remove](/docs/en/managed-agents/session-operations#updating-the-session-budget) it later, but you can't add one to a session created without it.
+
+The following example creates a session with a $25.00 budget; the response echoes the `budget` on the session resource:
+
+```bash cURL
+curl -fsSL https://api.anthropic.com/v1/sessions \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "anthropic-beta: managed-agents-2026-04-01" \
+  -H "content-type: application/json" \
+  -d @- <<EOF
+{
+  "agent": "$AGENT_ID",
+  "environment_id": "$ENVIRONMENT_ID",
+  "budget": {
+    "type": "limit",
+    "max_list_cost": {"amount": "2500", "currency": "USD"}
+  }
+}
+EOF
+```
+
+See [Session budgets](/docs/en/managed-agents/budgets) for how enforcement works, what counts toward list cost, and how budgets behave in multiagent sessions.
 
 ## MCP authentication through vaults
 

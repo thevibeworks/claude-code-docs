@@ -191,6 +191,10 @@ To make plan mode the default for a project, set `defaultMode` in `.claude/setti
   Eliminate permission prompts with auto mode
 </h2>
 
+<Note>
+  Starting August 14, 2026, auto mode becomes the default permission mode for new sessions on Pro, Max, and Team plans. You can switch modes at any time. A default you set yourself stays in place unless you accept the one-time switch prompt, and a default your organization manages is unchanged. For details, see [the announcement](https://claude.com/blog/auto-mode-default-in-claude-code) on the blog.
+</Note>
+
 Auto mode lets Claude execute without routine permission prompts. A separate classifier model reviews actions before they run, blocking anything that escalates beyond your request, targets unrecognized infrastructure, or appears driven by hostile content Claude read. Explicit [ask rules](/docs/en/permissions#manage-permissions) still force a prompt.
 
 The classifier also decides removals targeting the filesystem root or home directory, such as `rm -rf /` and `rm -rf ~`, including when the removal sits inside command or process substitution. Before v2.1.218, the plain forms prompted for approval instead, and the substitution forms prompted in v2.1.208 through v2.1.217.
@@ -369,7 +373,7 @@ If you switch permission modes while a classifier check is pending, Claude Code 
 
     The session's first auto-mode request validates the Sonnet 5 default: if the request succeeds, Sonnet 5 stays the session's classifier model, and if it fails because the model isn't available, the session uses the fallback instead. After that validation settles, the classifier's model doesn't change for the session.
 
-    Classifier calls count toward your token usage. Each check sends a portion of the transcript plus the pending action, adding a round-trip before execution. Reads and working-directory edits outside protected paths skip the classifier, so the overhead comes mainly from shell commands and network operations.
+    On Enterprise plans and on accounts that use the Claude API, [Claude Platform on AWS](/docs/en/claude-platform-on-aws), Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry, classifier calls count toward your token usage. Each check sends a portion of the transcript plus the pending action, adding a round-trip before execution. Reads and working-directory edits outside protected paths skip the classifier, so the overhead comes mainly from shell commands and network operations.
 
     The classifier reuses a sandbox network verdict for a host and port, so repeated connections to the same host don't each add a check. [What the classifier blocks by default](#what-the-classifier-blocks-by-default) describes how long an allow and a deny last.
   </Accordion>
@@ -396,6 +400,11 @@ claude --permission-mode dontAsk
 Explicit [ask rules](/docs/en/permissions#manage-permissions) and connector tools [your organization set to `ask`](/docs/en/mcp#organization-controls-on-connector-tools) still force a prompt in this mode. MCP tools marked with [`_meta["anthropic/requiresUserInteraction"]`](/docs/en/mcp#require-approval-for-a-specific-tool) also still prompt; this requires Claude Code v2.1.199 or later.
 
 Removals targeting the filesystem root or home directory, such as `rm -rf /` and `rm -rf ~`, still prompt as a circuit breaker against model error. The circuit breaker also fires when the command contains command substitution with `$(...)` or backticks, or process substitution with `<(...)`, whether the removal sits inside the substitution, as in `echo "$(rm -rf ~)"`, or elsewhere in the same command. The plain form, typed as its own command, has prompted in this mode since the circuit breaker was introduced; before v2.1.208, commands containing those forms didn't prompt.
+
+Two [cross-session messaging](/docs/en/cross-session-messaging) safeguards still apply in this mode, and in plan-mode sessions where bypass permissions are available:
+
+* The [`isolatePeerMachines`](/docs/en/settings#available-settings) approval prompt for messages to your sessions beyond this machine still appears.
+* When no [`crossSessionInbound`](/docs/en/cross-session-messaging#control-inbound-messages) value applies, Claude Code holds an inbound message from another of your sessions for your approval, and delivers without asking only when the sending session identifies itself as also bypassing permission prompts. If you leave the mode while messages are held, Claude Code re-applies the inbound rules and delivers any held message they now accept.
 
 In sessions with bypass permissions available, Claude Code also doesn't enforce [plan mode's](#analyze-before-you-edit-with-plan-mode) blocks. Claude is still instructed to plan without editing, but a file edit or shell command it attempts during planning runs without prompting. Explicit [ask rules](/docs/en/permissions#manage-permissions) and the removal circuit breaker above still prompt.
 

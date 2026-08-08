@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786147200&amp;signature=7c39771a699a900c6199eee78ae964cb36c1cce0e7bf622eede7452fc9f9f280&amp;req=diEnFs1%2BlINeWPMW3nq%2BgVBR61lPvJ0X3S9Cn8XYmtDHIm9cR10qyjZIIGO5%0A2u1tjND4HnWE7n3O0MxEukh0a4c%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786158900&amp;signature=579cd0c783fd9e01e489f74f3b887506634c418d18d5fc56be944f05638980df&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPcNv1cxakFVfq5WwzO0%2BgKcp4ee8oZ6HaJ%0Ar1ARJQ6C1USs5YNtGYM%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786147200&amp;signature=1b107f3db1a950632b29ad2cb5a75d9f646b5c39579cdbbe5a5fb783f094b132&amp;req=diEiEcp3m4lbXfMW3nq%2BgasPOp6LGwHuIuYpIe1p%2BLYhdwz%2FqGd0pd3tl7QD%0AV%2Fir5zZ4omSyfOHWJbIj7HcxKNY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786158900&amp;signature=d90b8bbe1bcfb37c07c58b0a32eaa349de10c024bb0ca82bbe468dea80af12cf&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD9hkidmKUxugP2BQvIsbhZM4TBf1S3v3I9%0AsPXpRaL0NfOxfb5p15Y%3D%0A)
 
 ---
 

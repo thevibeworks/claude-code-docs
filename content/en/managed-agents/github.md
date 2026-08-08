@@ -379,6 +379,8 @@ Then create a session that mounts the GitHub repository:
 
 The `resources[].authorization_token` authenticates the repository clone operation and is not echoed in API responses.
 
+Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once per session, from the repository state checked out at session start. See [Load skills from a GitHub repository](/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
+
 ## Token permissions
 
 When providing a GitHub token, use the minimum required permissions:

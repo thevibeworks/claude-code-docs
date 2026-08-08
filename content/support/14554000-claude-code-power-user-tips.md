@@ -12,7 +12,7 @@ These are power-user patterns collected from individual engineers on the Claude 
 
 - The iMessage plugin ships in the official claude-plugins-official marketplace. Community plugins (for example the “ralph-wiggum” plugin) are not reviewed or sanctioned by Anthropic — check with your administrator before installing third-party plugins in a managed environment.
 
-- Some capabilities—auto mode, sandboxing, remote control, scheduled cloud jobs, voice—are **off by default** and may be disabled by your organization's policy. If a command or flag here returns "not available," your admin has likely not enabled it for your workspace.
+- Some capabilities—sandboxing, remote control, scheduled cloud jobs, voice—are **off by default** and may be disabled by your organization's policy. If a command or flag here returns "not available," your admin has likely not enabled it for your workspace.
 
 Everything else in this guide works on a stock Claude Code install. When in doubt, run `/help` to see what is actually available in your session.
 
@@ -280,7 +280,7 @@ Claude Code’s permission system layers prompt-injection detection, static anal
 
 ### Auto mode
 
-Auto mode lets Claude make permission decisions on your behalf. Classifiers evaluate each action before it runs — safe operations get auto-approved, risky ones still get flagged. Enable it with `claude --enable-auto-mode`; once enabled, **Shift+Tab** cycles `default → acceptEdits → plan → auto` during a session. Without that flag, the cycle is `default → acceptEdits → plan`.
+Auto mode lets Claude make permission decisions on your behalf. Classifiers evaluate each action before it runs — safe operations get auto-approved, risky ones still get flagged. You can switch permission modes at any time during a session using **Shift+Tab**.
 
 ### Sandboxing
 
