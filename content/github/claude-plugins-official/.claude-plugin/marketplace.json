@@ -370,7 +370,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "fe3d7c59d9d8721a14c4302d273de91c4cf06004"
+        "sha": "b7d5f82c3f09a5af9d140d324b73d2aba922e549"
       },
       "homepage": "https://auth0.com"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "2eae38ee2b01ceaf5b8ffe629cb533b32605a93e"
+        "sha": "d65129bf40559d9b68641fe9f34203f644a4831c"
       },
       "homepage": "https://carta.com"
     },
@@ -1802,7 +1802,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "d9b00e57ebd6ecafdde755a2482a47057cb55907"
+        "sha": "b08cefea631b2c13697b6cb31075bf5a9b7c738d"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2918,7 +2918,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "4f33f21c761f2ca508cd97381a2e4b76a68fb9c9"
+        "sha": "dd59077e22ac48e8ed41a5a83418c631b51d12c2"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3445,7 +3445,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "4b7495aa701334e453555ce4afb0029b06df590b"
+        "sha": "89ffbee06b3782ed15d77ffd6cbc5620ad26d3bd"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3810,7 +3810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "5e1bccc941af477f46adea1d1ce2876235e210cb"
+        "sha": "d87b9db2559eb7d224f7e62ec2480cb9bccc6883"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
