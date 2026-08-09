@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786258800&amp;signature=8985799593369356e63b03ade9dd44a8713a2be9d97481dfb11f2e4179cf4917&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPfNv1dxakFVfq5WwxvcVCF481xXpISAs1l%0AXNQRs1KciH3sFczmdO4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786275900&amp;signature=78794fddc516ad142c97c9b877e7e756e3e210a5c6d7a4398bb0b895e5a2453f&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPfNPBcxakFVfq5WwzbiCnH0s4%2Fk6z5Shvw%0AFyVOR5IG95R%2BzYodpFs%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786258800&amp;signature=79d0a5d8515a5cccd44002588ed61016b2afac70ab4b1c9d6670e7f37c4ae709&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD%2BhkicmKUxugP2BQtUSQK0TdDWOvYh4UQx%0A2BtvjCQj1lu2hqBYK0w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786275900&amp;signature=8684ab7490451ef9ab1d89bfc49a03a9150f1963af5fc03d219d16231fc24c04&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD%2BhEWdmKUxugP2BQvpKCbTrQ8%2BbpWXbCJ9%0Ahfkk8f%2BnzjGCIJm6JQU%3D%0A)
 
 ---
 
