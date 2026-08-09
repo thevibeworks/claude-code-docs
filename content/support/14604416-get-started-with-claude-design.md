@@ -153,7 +153,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1786275900&amp;signature=8b89a0c29b49dd2799aa9075bdeb160b4a6e85064fd47eb76d39d38528177e99&amp;req=diIvEcx%2FnYhaW%2FMW1HO4zQFD4SpYnGh9nfz9ljnuyXQ%2BtlKNHWChRDh9rubI%0A%2F%2Fat5blJDnX133T6q1M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1786293900&amp;signature=fcd33804257d0c4762203a5ac3420c46d1c9143a6c4112d830d8aeef9a5ec8ce&amp;req=diIvEcx%2FnYhaW%2FMW1HO4zQFD4SpYkm59nfz9ljnuyXTuNxZpPUvYs3sEQMV4%0AAx7exwSYnr5S06oTwjA%3D%0A)
 
 You can also share projects within your organization using a shareable link. Sharing options include view-only, comment, and edit access.
 

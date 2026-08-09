@@ -1802,7 +1802,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "9ec9e3a711531b3d45c30a1e2c3006df97dbe5cb"
+        "sha": "b4bd670402b82f25c1f5e0343336e21455284f80"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2110,7 +2110,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ory/lumen.git",
-        "sha": "80396366e303bfb922071ae9133e74bd36367a1f"
+        "sha": "ce62b6051ac5cb46418b8bfbc4c43ce32cb74bd2"
       },
       "homepage": "https://www.ory.sh"
     },
@@ -2918,7 +2918,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Digital-Process-Tools/claude-remember.git",
-        "sha": "a7d508aedd70606ab1fbbcc72c393696696dd28c"
+        "sha": "a2a3e42bebfdb787391be414f9e76fcba37c4946"
       },
       "homepage": "https://github.com/Digital-Process-Tools/claude-remember"
     },
@@ -3810,7 +3810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "ba81655a28b148e34a36e80142d699c6b49d4c11"
+        "sha": "ab0218fb13f594cbf587b3392968c178152f8c65"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
