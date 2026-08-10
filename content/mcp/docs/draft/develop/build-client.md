@@ -1667,7 +1667,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
       bundle init
 
       # Add required dependencies
-      bundle add anthropic base64 dotenv mcp
+      bundle add anthropic dotenv mcp
 
       # Create our main file
       touch client.rb

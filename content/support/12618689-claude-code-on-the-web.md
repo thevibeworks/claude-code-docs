@@ -10,7 +10,7 @@ This feature works with repositories you may not have on your local machine. You
 
 Claude Code for web enables asynchronous development workflows. With Claude Code in your terminal or editor, you typically work synchronously: you make a request, wait for Claude to respond, review the changes, then make another request. Synchronous work like this gives you fine-grained control but requires your attention throughout the process. Claude Code on the web handles this differently: you can assign a larger task, let Claude work independently, and return later to review the completed work.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446157/07ec74cd46317f8278083a317841/6448f3ee-c6df-4417-8a13-90d8c2ca3d55?expires=1786293900&amp;signature=0f63120655db6df8188d59036e00fea2f1c574c46efdd65e8cc841195a00f5e1&amp;req=dScvEM16m4BaXvMW1HO4zR8%2BAFWCS55%2F7XrRA1YwWGvEBbtz0ZeK3arfsK7q%0A9vy%2Fm1igm8MP%2FyHVxe0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446157/07ec74cd46317f8278083a317841/6448f3ee-c6df-4417-8a13-90d8c2ca3d55?expires=1786332600&amp;signature=9d1fbe601adc63cbe5279fb35ebb03f50403b486eeceb67f68d1fa3dbb323042&amp;req=dScvEM16m4BaXvMW1HO4zR8%2BAFWDQZ9w7XrRA1YwWGtFO6qPFuhB0k8um0x5%0AjsAvme4wVOvH483ZzO4%3D%0A)
 
 You can also run multiple tasks in parallel. Since each task runs in its own isolated environment, you can have Claude working on several different issues or repositories simultaneously. Each task proceeds independently and creates its own pull request when complete. More than one task can work on the same repository at the same time.
 
@@ -18,13 +18,13 @@ You can also run multiple tasks in parallel. Since each task runs in its own iso
 
 When you start a task, Claude Code on the web creates an isolated virtual machine for your work. Your GitHub repository is cloned into this environment, which comes pre-configured with common development tools and language ecosystems.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446158/c092f1383826cb871493f74169d4/97b7cb98-5da2-438e-a920-e170b8b9790e?expires=1786293900&amp;signature=43455c05b8c1a3652a15c15419ac1ff075dc0c756128ea930fc2e6a19030ba07&amp;req=dScvEM16m4BaUfMW1HO4zcR0rZA2hurJ7DtpMiX%2FBYlUv%2BXWDAkNrTB8C1ry%0AtxCc9DE2OFD3tIviQKc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446158/c092f1383826cb871493f74169d4/97b7cb98-5da2-438e-a920-e170b8b9790e?expires=1786332600&amp;signature=1b033b098479062dfa409cf279cc053732e3cf22b795e2c3c49146a307050a8d&amp;req=dScvEM16m4BaUfMW1HO4zcR0rZA3jOvG7DtpMiX%2FBYl2VNefd9YSw%2BhmHdVI%0AqWOmLu0GCmMvzykQh0k%3D%0A)
 
 Claude prepares the environment by running any setup commands you've defined in your repository's configuration. This includes installing dependencies, setting up databases, or running other initialization steps your project needs. If your task requires network access, maybe to install packages or fetch data, you can configure the level of internet access the environment has.
 
 Once the environment is ready, Claude begins working on your task. Claude reads your code, makes changes, writes tests, and runs commands to verify the work. You can monitor progress and provide guidance through the web interface if needed.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446156/83ecf0a5b98eddc9ffc9694c50f7/353589ce-b678-441d-8909-71b45fa2d065?expires=1786293900&amp;signature=4dac9fc4b944b8ba03580657ff8c8f543943243aea76a5eda207ed2e1b279ecf&amp;req=dScvEM16m4BaX%2FMW1HO4zVbcTGWB6sfHUQl3YqgIJdbbLPWs8oXhBgSbXO03%0AzBf7B88%2FVOzQHl0oRs0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446156/83ecf0a5b98eddc9ffc9694c50f7/353589ce-b678-441d-8909-71b45fa2d065?expires=1786332600&amp;signature=2a35a176b5c1eeafcc6b9b6bc56a17d36600c52e11adb88f29b9d6dbbed601f2&amp;req=dScvEM16m4BaX%2FMW1HO4zVbcTGWA4MbIUQl3YqgIJdbcwpnw4f1vRBnMeE78%0AhIJlBV3%2FlqhcUo5rgpc%3D%0A)
 
 When Claude completes the task, it pushes the changes to a new branch in your GitHub repository. You receive a notification and can review the changes, then create a pull request directly from the interface. The pull request includes all of Claude's work, ready for your review and any additional changes you want to make.
 
