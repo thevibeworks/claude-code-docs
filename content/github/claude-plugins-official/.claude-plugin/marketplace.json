@@ -1353,7 +1353,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "bd10fa61c1727996607593d26631f9b22bb41d14"
+        "sha": "5217f031c1dcf117bd34d3c290faa3ec7d0f3622"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1802,7 +1802,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "b4bd670402b82f25c1f5e0343336e21455284f80"
+        "sha": "17ac986bfe0fffbbc8aac2a68b9e9814f561b562"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2426,7 +2426,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Nimbleway/agent-skills.git",
-        "sha": "dc6ee17b12f74ff0f5d892dbec43a6b0bfdd9337"
+        "sha": "7b93ca4c67f30c8dbcf98bd44224bceb7e5368c7"
       },
       "homepage": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation"
     },
@@ -2817,7 +2817,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qodo-ai/qodo-skills.git",
-        "sha": "5c6306797ad2c9831546f9bbd6360d2515bf5c26"
+        "sha": "e7e9a207455288fb9087107a3d8f700dc00a93fa"
       },
       "homepage": "https://github.com/qodo-ai/qodo-skills.git"
     },
@@ -3810,7 +3810,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "ab0218fb13f594cbf587b3392968c178152f8c65"
+        "sha": "5ba0173577dd63a7988f0d958030935dccb01632"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
