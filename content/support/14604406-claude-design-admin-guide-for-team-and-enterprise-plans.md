@@ -18,7 +18,7 @@ Team and Enterprise plan admins can enable this organization-wide by following t
 
 2. Find the **Claude Design** toggle under **Anthropic Labs** and switch it on.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1786347000&amp;signature=239d3154aeb0b436a2938682bace9c468cb1fd53fe4b1715529c962c8801b69f&amp;req=diIvH8t6nYFdXPMW1HO4zahp3eQLHeElDIPtKBLQ9H%2Fn8FG3SQF209PrgYAl%0A%2BQkKvJu0%2BKW%2By8AI6l4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1786364100&amp;signature=65e00c4a6e3d92f209ccd12051f92210136ea24be2a35ba55913bf0a74c8c0d0&amp;req=diIvH8t6nYFdXPMW1HO4zahp3eQLH%2BIkDIPtKBLQ9H9VeEbYZBKhxd5qG8kJ%0AzCVQaac37KZZPGJEEJo%3D%0A)
 
 ---
 
