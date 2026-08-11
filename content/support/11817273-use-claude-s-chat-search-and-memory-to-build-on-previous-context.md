@@ -40,7 +40,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **[Settings > Memory](https://claude.ai/new#settings/customize-memory)** and switch the toggle next to "Search and reference chats" off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482439/4dee2d7b267f865205feefc8f4f3/cb60c334-d1e2-4828-a01d-dfb36bbaa7eb?expires=1786419000&amp;signature=e50cf886eb2d1f4d1fc1163903b54f68c632c0aa7adf526e8f0b140eef72eb45&amp;req=diUkFc12n4VcUPMW1HO4zY9IRAxoVNh3YNcz5nFaZkFkzR7IbM%2FyfzGo1I62%0A4MCdGoYyYKmBFDanrQc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482439/4dee2d7b267f865205feefc8f4f3/cb60c334-d1e2-4828-a01d-dfb36bbaa7eb?expires=1786432500&amp;signature=90d7d65d6ad0537a190700694f187658cd0a8f065176d7c7bec2a3e655884775&amp;req=diUkFc12n4VcUPMW1HO4zY9IRAxoVtNyYNcz5nFaZkGhnT7I79uMK3vXcKzB%0ABjSFz9GTyrbGQDs6cPA%3D%0A)
 
 ## Can I exclude a specific past chat from searches?
 
@@ -80,7 +80,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude’s memory on by navigating to **[Settings > Memory](https://claude.ai/new#settings/customize-memory)** and turning on **Generate memory from chats**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1786419000&amp;signature=9f48fa46da39ef5fef4541b7bf5597898c7ce755d894b4e8af9623d09773683c&amp;req=diUkFc12n4VbWPMW1HO4zRlYrp1p41ksNshWSMEMw9c8IdFVvOFsKXHY00xW%0AjsJCIFsZqDeVkbhV%2FkQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533482441/b5c806a8e3f68bf34c4a70724d38/d30be013-d099-4c93-99d1-23d404792f08?expires=1786432500&amp;signature=b6d4a047c8a5445cb4647cf00933544ff1aef8d1a562bb73b112fe2d2b85ec11&amp;req=diUkFc12n4VbWPMW1HO4zRlYrp1p4VIpNshWSMEMw9cID3oD455CCQFG47cU%0AwbIUHJrehi7kpRLfW8E%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle and you'll see two options:
 
@@ -184,7 +184,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and find the **Preferences** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1786419000&amp;signature=c7163c9ebe4b88f8df180a30edd5c3bd0f8e75d3ae14ae5d6bf21ae6891a370a&amp;req=dScmH859nYlXUPMW1HO4zRzXH1k0IjjCJG68qZhl782w%2FSpV83S%2FWxu9Bfw2%0AUx1wVhFjkq9x2rg%2BFww%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1786432500&amp;signature=9da34acb20a52fa543fe8a5a9aab99cc7e5316651f5ede62275139a849b42fed&amp;req=dScmH859nYlXUPMW1HO4zRzXH1k0IDPHJG68qZhl783nyh0Lg%2FerNweo1zqL%0AGlVBJ8O0BTmja9iHmQI%3D%0A)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -192,7 +192,7 @@ Incognito chats are available to all Claude users (free, Pro, Max, Team, and Ent
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1786419000&amp;signature=e0712011b3b297379bfdb101f1c691ce76d1468f08f49ae3de24c57e8a060eb9&amp;req=dScmH859nYlWWvMW1HO4za54sKVoPY%2B7XDpzhlKsgjPt%2Fdk7SujhykcqePlI%0A6RUv%2Fn8uFKw7IAcBxkk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1786432500&amp;signature=6492aa8cc4f96624b109c6f9adec2f6800aaea088fd43577341dc50aadf3476b&amp;req=dScmH859nYlWWvMW1HO4za54sKVoP4S%2BXDpzhlKsgjOwJxcIAcq%2BteHEv3Mg%0Axc6fmax6z066se4jqKY%3D%0A)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -224,7 +224,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude’s memory on by navigating to **[Settings > Capabilities](https://claude.ai/settings/capabilities)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1786419000&amp;signature=bd15727b94bf1024e8a9122c05a0623a997bef05c7ea6bf87d7aa427f6fc7e63&amp;req=dScmH859nYlWW%2FMW1HO4zTD5MMfidu1FBq9N9dRTKYeRamxPf6efFr8eTtHr%0Akee2tIYmFSXNPtCe2dE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1786432500&amp;signature=37dca32caf0e7c29542131487096392f14ddcdeefb395564ff5112b4d730dfb0&amp;req=dScmH859nYlWW%2FMW1HO4zTD5MMfidOZABq9N9dRTKYc7wpePFDp5bPz7e9sc%0A%2BPEmnL2Z00ZvE8gUpa4%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 
