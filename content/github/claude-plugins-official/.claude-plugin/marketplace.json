@@ -223,7 +223,7 @@
         "url": "https://github.com/amd/skills.git",
         "path": "skills",
         "ref": "main",
-        "sha": "8d5332c8f9405588f6813169ba2268fdc9308fbf"
+        "sha": "cf5e518e0a2efcc8d1131b18ff17d40970d53ac1"
       },
       "strict": false,
       "skills": [
@@ -386,7 +386,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-agents",
         "ref": "main",
-        "sha": "9766f27101bfb99edecfcbf22f023a4d68d3fddc"
+        "sha": "e2588f4b494416e68c5a991e51b21c2d99038de3"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -519,7 +519,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-skills.git",
-        "sha": "7e172d6883f11ddb5d357deadddd02d6d9cab829"
+        "sha": "18ad18c6b62c40334368d6413e6bbd8f7c86298f"
       },
       "homepage": "https://github.com/microsoft/azure-skills"
     },
@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "f95f76bcab9a11d419b0eebc80c4d6c7cf0f03ba"
+        "sha": "c71893f60124d03cc9abf14f7c160d3553362257"
       },
       "homepage": "https://carta.com"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "f95f76bcab9a11d419b0eebc80c4d6c7cf0f03ba"
+        "sha": "581c57bd85cd0da22a20875ae92ddf62a510657f"
       },
       "homepage": "https://carta.com"
     },
@@ -1032,7 +1032,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/coderabbitai/skills.git",
-        "sha": "bbb4ab25a7f1d426062d83fe8fdf406beeecd0cb"
+        "sha": "aa49953c4cb2590e35480637b1b6a29cf4187cfa"
       },
       "homepage": "https://github.com/coderabbitai/skills"
     },
@@ -1297,7 +1297,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/datahub-project/datahub-skills.git",
-        "sha": "f22f93074cf265ba6f9401947404f090c2584d9d"
+        "sha": "c3c76a6d26d7ed61cb875219ffa82a50cd144a93"
       },
       "homepage": "https://datahub.com"
     },
@@ -1338,7 +1338,7 @@
         "url": "https://github.com/microsoft/Dataverse-skills.git",
         "path": ".github/plugins/dataverse",
         "ref": "main",
-        "sha": "e61db16db018b10807e6e270a34bd9a5275f5285"
+        "sha": "a8d4a8149cb4f0b27668e95586c2a9391d3eec33"
       },
       "homepage": "https://github.com/microsoft/Dataverse-skills"
     },
@@ -1460,7 +1460,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/exa-labs/exa-mcp-server.git",
-        "sha": "394f9210ed16d3e25d328e1e6db285824caedc04"
+        "sha": "e64c11f2d3b4400ffbda8ccdd9658a450cc9d270"
       },
       "homepage": "https://exa.ai/docs/reference/exa-mcp"
     },
@@ -2110,7 +2110,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ory/lumen.git",
-        "sha": "ce62b6051ac5cb46418b8bfbc4c43ce32cb74bd2"
+        "sha": "f0a262205fc4833e486bfe17589f413a59a35983"
       },
       "homepage": "https://www.ory.sh"
     },
@@ -2313,7 +2313,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mlflow/skills.git",
-        "sha": "d95eabfe9758d8f94fa8b82cb14851ffa1451fcf"
+        "sha": "2be2822710586d3d8f27a3bc52b002da018bddf4"
       },
       "homepage": "https://mlflow.org/"
     },
@@ -2371,7 +2371,7 @@
         "url": "https://github.com/neondatabase/agent-skills.git",
         "path": "plugins/neon-postgres",
         "ref": "main",
-        "sha": "b42b30e5690a60095cabcf406958cd7d73f5724a"
+        "sha": "af27b52659c3c5bbf05d6c626b166163eb351e19"
       },
       "homepage": "https://github.com/neondatabase/agent-skills/tree/main/plugins/neon-postgres"
     },
@@ -2442,7 +2442,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Nimbleway/agent-skills.git",
-        "sha": "16a599fbb27a841d996fae0385bc3cacc528c299"
+        "sha": "464346b365ed718537af6a986cdfacaa58a47f26"
       },
       "homepage": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation"
     },
@@ -2563,7 +2563,7 @@
         "url": "https://github.com/growthxai/output.git",
         "path": "coding_assistants/claude/plugins/outputai",
         "ref": "main",
-        "sha": "10709494626015790edfdba7193c3ea1d5f16e71"
+        "sha": "74e6a3d1208a29ba672e40c2798176d2066c1dba"
       },
       "homepage": "https://output.ai"
     },
@@ -3448,7 +3448,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confluentinc/agent-skills.git",
-        "sha": "0b4f9f01fcbf2cbc174e62b9fe2df9941c2d6972"
+        "sha": "612024a342b456349b954c5202ab46b6e039ea13"
       },
       "homepage": "https://www.confluent.io"
     },
@@ -3461,7 +3461,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "89ffbee06b3782ed15d77ffd6cbc5620ad26d3bd"
+        "sha": "1953b6cce7344d880a054c42b8dd21ca3e50ebd5"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },
@@ -3801,7 +3801,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/villagesql/villagesql-skills.git",
-        "sha": "e0fbec66238b8f018ba9a071932ef01a2f55024f"
+        "sha": "81882a74595fa721642a51c4446656bef4bcc8f7"
       },
       "homepage": "https://villagesql.com"
     },
@@ -3826,7 +3826,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "3a771a138353fddf585386fb600dcc5639d77a0d"
+        "sha": "7423f05e4db9214270b30991e9a5afc3c589822e"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3947,7 +3947,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/skills.git",
-        "sha": "b9958d6c7b0df35a7f1df76a5f6c3a4505b0a3d3"
+        "sha": "ea09af90e5bc2ba48ee7a9c8de394ea2ab55b37a"
       },
       "homepage": "https://langfuse.com"
     },

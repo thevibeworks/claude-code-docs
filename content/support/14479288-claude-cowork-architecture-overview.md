@@ -88,7 +88,7 @@ Not by default. Sessions in the cloud run in isolated environments on Anthropic'
 
 ### Is Cowork activity captured in the Compliance API or OpenTelemetry?
 
-Yes. Cowork via mobile and web is captured in Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
+Yes. Cowork via Claude, Claude Desktop, and Claude Mobile is captured in Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
 ​
 If you're a Team or Enterprise plan admin, you can **[use OpenTelemetry (OTel) to monitor Claude Cowork activity](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry)** across your organization.
 

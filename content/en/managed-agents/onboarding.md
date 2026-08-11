@@ -1,6 +1,6 @@
-# Prototype in Console
+# Build in Console
 
-Create and test agents visually in Console without writing API calls.
+Create, test, and iterate on agents visually in Console, then run them from your code with the API.
 
 ---
 
@@ -25,7 +25,7 @@ As you configure, Console shows the equivalent API request so you can copy it in
 
 Console includes an inline session runner. After configuring your agent, you can start a test session directly, send messages, and watch the event stream without leaving the page. This is the fastest way to check that your system prompt and tool selection produce the behavior you expect.
 
-## From prototype to code
+## From Console to your codebase
 
 Once your agent works as expected:
 

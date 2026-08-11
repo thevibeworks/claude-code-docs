@@ -76,11 +76,11 @@ The Compliance API uses two pagination schemes depending on the endpoint family:
 | Activities                                                                                          | Newest first                                            | Cursor     | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
 | Chats and chat messages                                                                             | Oldest first                                            | Cursor     | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
 | Organizations, projects, project attachments, users, roles, role permissions, groups, group members | Endpoint-specific                                       | Page token | `page` (returned as `next_page`)                            |
-| Remote sessions and session messages                                                                | Sessions newest first; messages oldest first by default | Page token | `page` (returned as `next_page`)                            |
+| Local and remote sessions and session messages                                                      | Sessions newest first; messages oldest first by default | Page token | `page` (returned as `next_page`)                            |
 
 Files do not paginate: they are retrieved individually by ID.
 
-Pagination cursors and page tokens are opaque strings: pass them back unchanged. Their internal format is not stable, and parsing them will break without notice. Only one of `after_id` or `before_id` may be set in each request, and both schemes return `has_more` so you know when to stop. The remote session endpoints are the exception: they return `next_page` without `has_more`, so stop when `next_page` is `null`.
+Pagination cursors and page tokens are opaque strings: pass them back unchanged. Their internal format is not stable, and parsing them will break without notice. Only one of `after_id` or `before_id` may be set in each request, and both schemes return `has_more` so you know when to stop. The session endpoints (local and remote) are the exception: they return `next_page` without `has_more`, so stop when `next_page` is `null`.
 
 To page through activities:
 
@@ -92,6 +92,8 @@ The cursor parameter sets the page direction; the endpoint's sort order sets the
 
 <Note>
   **Cursors are safe to reuse on retry.** A cursor or page token from a successfully returned page remains valid; a request that fails (5xx, timeout, network error) does not advance your position. Retry the same request with the same cursor. Only move to the next cursor after you have stored the page it points past.
+
+  Page tokens on the local session endpoints are the exception over longer pauses. On the [local session messages endpoint](/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript), a walk's `page` tokens expire 24 hours after its first page (a walk is one pass through the pages), so finish or resume within that window, or restart without the `page` parameter. On the [local session list](/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions), an older `page` token is still accepted but is re-evaluated against the current retention boundary and can skip sessions, so complete list walks within 24 hours as well.
 </Note>
 
 ```bash cURL

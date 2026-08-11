@@ -82,4 +82,4 @@ A few things to be aware of before you turn on OpenTelemetry export:
 
 ## Joining OpenTelemetry data with the Compliance API
 
-The Compliance API now covers Cowork on web and mobile alongside Claude chats, giving you one audit trail with every session attributable to an individual user. Organizations already using OpenTelemetry can run both in parallel, and OTel coverage now includes Cowork on web and mobile too. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
+The Compliance API now covers Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop) alongside Claude chats, giving you one audit trail with every session attributable to an individual user. Organizations already using OpenTelemetry can run both in parallel, and OTel coverage now includes Cowork on web and mobile too. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
