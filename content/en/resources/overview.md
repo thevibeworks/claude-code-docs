@@ -87,7 +87,7 @@ Model cards, learning resources, and documentation formats optimized for AI inge
     Step-by-step lessons on building with Claude.
   </Card>
 
-  <Card title="Cookbook" icon="fork-knife" href="https://platform.claude.com/cookbooks">
+  <Card title="Cookbook" icon="fork-knife" href="https://platform.claude.com/cookbook">
     Replicable code samples and implementations.
   </Card>
 

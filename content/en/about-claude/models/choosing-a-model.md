@@ -58,11 +58,11 @@ This approach is best for:
   The [effort parameter](/docs/en/build-with-claude/effort) defaults to `high` on Claude Opus 5 and Claude Opus 4.8, including in Claude Code and the Messages API. On Claude Opus 5, start at the default and step up to `xhigh` for the most demanding coding and agentic work. On Claude Opus 4.8, use `xhigh` for coding, high-autonomy work, and the most intelligence-demanding tasks.
 </Note>
 
-**Claude Opus 5** (`claude-opus-5`) is a step-change improvement over Claude Opus 4.8, strong on deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. Claude Opus 5 supports a 1M token context window by default and up to 128k output tokens, and is priced at $5 per million input tokens and $25 per million output tokens.
+**Claude Opus 5** (`claude-opus-5`) is a step-change improvement over Claude Opus 4.8, strong on deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. Claude Opus 5 supports a 1M token context window by default and up to 128k output tokens, and is priced at $5 USD per million input tokens and $25 USD per million output tokens.
 
 **Claude Fable 5** (`claude-fable-5`) is Anthropic's most capable widely released model, delivering next-generation intelligence for long-running agents. **Claude Mythos 5** (`claude-mythos-5`) is available through [Project Glasswing](https://anthropic.com/glasswing). Both models support a 1M token context window by default, up to 128k output tokens, and always-on [adaptive thinking](/docs/en/build-with-claude/thinking). See [Introducing Claude Fable 5 and Claude Mythos 5](/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details.
 
-Claude Fable 5 and Claude Mythos 5 are priced at $10 per million input tokens and $50 per million output tokens.
+Claude Fable 5 and Claude Mythos 5 are priced at $10 USD per million input tokens and $50 USD per million output tokens.
 
 ## Model selection matrix
 

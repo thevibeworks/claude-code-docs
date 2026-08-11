@@ -81,7 +81,7 @@ Anthropic provides developer tools to help you build and scale applications with
     Explore the full Claude API and client SDK documentation.
   </Card>
 
-  <Card title="Claude Cookbook" icon="chef-hat" href="https://platform.claude.com/cookbooks">
+  <Card title="Claude Cookbook" icon="chef-hat" href="https://platform.claude.com/cookbook">
     Learn with interactive Jupyter notebooks covering PDFs, embeddings, and more.
   </Card>
 </CardGroup>
