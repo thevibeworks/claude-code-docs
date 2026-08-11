@@ -922,10 +922,7 @@ All [active models](/docs/en/about-claude/models/overview) support token countin
   using Anthropic;
   using Anthropic.Models.Messages;
 
-  AnthropicClient client = new()
-  {
-      ApiKey = Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")
-  };
+  AnthropicClient client = new();
 
   var parameters = new MessageCountTokensParams
   {

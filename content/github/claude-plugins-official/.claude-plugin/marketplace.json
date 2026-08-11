@@ -612,7 +612,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/box/box-for-ai.git",
-        "sha": "172a8273f5d532c13ef6a3057e50c30e5368a2aa"
+        "sha": "20374501fc7323c359bc67779520fbd75c36fc82"
       },
       "skills": [
         "./skills/box",
@@ -705,7 +705,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "7b02f62bdb4455c5a9dc4259eca7fca71a9525ed"
+        "sha": "f95f76bcab9a11d419b0eebc80c4d6c7cf0f03ba"
       },
       "homepage": "https://carta.com"
     },
@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "7b02f62bdb4455c5a9dc4259eca7fca71a9525ed"
+        "sha": "f95f76bcab9a11d419b0eebc80c4d6c7cf0f03ba"
       },
       "homepage": "https://carta.com"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "d65129bf40559d9b68641fe9f34203f644a4831c"
+        "sha": "f95f76bcab9a11d419b0eebc80c4d6c7cf0f03ba"
       },
       "homepage": "https://carta.com"
     },
@@ -767,7 +767,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cap-js/mcp-server.git",
-        "sha": "06062a1520fe29479bee21148b00623c9f835315"
+        "sha": "f3b3cde4fbb045af52b97313f3af2550182f7e92"
       },
       "homepage": "https://cap.cloud.sap/"
     },
@@ -778,7 +778,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "5ddbffd0f364ecd073f4d42a56109950b1421a57"
+        "sha": "073d4a39e9c96b17936d3cdc4bdea69977f0cca6"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -1205,7 +1205,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "f0338c9838d07d9ff181d9ba70aaf6306556cd5b"
+        "sha": "160aeb40daad62fd4b400fb4fbd8cc51c03a68b1"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1578,7 +1578,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/atlassian/forge-skills.git",
-        "sha": "ea409cc73b8cac3b6710c3ca7976dd64e570a2fc"
+        "sha": "a8eb109708de685dbad5b92eb25890d0a20addff"
       },
       "homepage": "https://developer.atlassian.com/platform/forge/"
     },
@@ -1788,7 +1788,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/hunter-io/claude-plugin.git",
-        "sha": "0b23e12e68e3f7f12b4ff59458451c05ce7e912e"
+        "sha": "c19cef9185dabd70b563e7aaeaa0cf1a97e57549"
       },
       "homepage": "https://hunter.io"
     },
@@ -1802,7 +1802,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "68205dbbc159412209663ede7732629b4f50bcf1"
+        "sha": "6de29f5beabf29545c1c70e97530d4cf24542c5b"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1873,7 +1873,7 @@
         "source": "github",
         "repo": "jfrog/claude-plugin",
         "commit": "259c8e718266c16e99b4f30ae9b1ed0f9f00d98d",
-        "sha": "5525279d72af8e1982acfc8dabd1058d55b8b167"
+        "sha": "3ae8f77275ee03397d7020ddca8793f1cd8f7cfe"
       },
       "homepage": "https://jfrog.com"
     },
@@ -1926,7 +1926,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/langfuse/claude-observability-plugin.git",
-        "sha": "8612682f9920035252b489d79f94648daa4486ac"
+        "sha": "05b7742829e0b0ad840c8760376ca737fa1eb662"
       },
       "homepage": "https://langfuse.com/integrations/other/claude-code"
     },
@@ -2231,7 +2231,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "cc0c6ba1379819b1083c8c1450a8b82f2e485d0e"
+        "sha": "8714b796cbb22589be6fd08e543e0e0733d15abc"
       },
       "homepage": "https://mergify.com"
     },
@@ -2347,6 +2347,22 @@
       "homepage": "https://www.mongodb.com/docs/mcp-server/overview/"
     },
     {
+      "name": "mongodb-atlas",
+      "description": "Connect to MongoDB Atlas clusters only through the Atlas Managed MCP Server. Sign in with your Atlas account to explore data, manage collections, optimize queries, generate reliable code with MongoDB best practices, and manage Atlas resources such as clusters, projects, database users, and network access. If you are running a different MongoDB deployment or want to run a local MongoDB MCP Server, install the MongoDB (Self-Managed MCP) plugin instead.",
+      "author": {
+        "name": "MongoDB"
+      },
+      "category": "database",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/mongodb/agent-skills.git",
+        "path": "plugins/mongodb-atlas",
+        "ref": "main",
+        "sha": "b4ea8150a020b9babaddc6c271c6dc177c06a83f"
+      },
+      "homepage": "https://www.mongodb.com/docs/mcp-server/get-started/"
+    },
+    {
       "name": "neon",
       "description": "Manage your Neon projects and databases with the neon-postgres agent skill and the Neon MCP Server.",
       "category": "database",
@@ -2426,7 +2442,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/Nimbleway/agent-skills.git",
-        "sha": "7b93ca4c67f30c8dbcf98bd44224bceb7e5368c7"
+        "sha": "16a599fbb27a841d996fae0385bc3cacc528c299"
       },
       "homepage": "https://docs.nimbleway.com/integrations/agent-skills/plugin-installation"
     },
@@ -3073,7 +3089,7 @@
         "url": "https://github.com/forcedotcom/sf-skills.git",
         "path": "plugins/builder/salesforce-development",
         "ref": "main",
-        "sha": "fbf1c040c9861dd196191ac95a8b7dade8dc3e2e"
+        "sha": "870e4afc09bc2ccf9c6c41b045e54492f1f37688"
       },
       "homepage": "https://github.com/forcedotcom/sf-skills/tree/main/plugins/builder/salesforce-development"
     },
@@ -3103,7 +3119,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/cap-js/mcp-server.git",
-        "sha": "06062a1520fe29479bee21148b00623c9f835315"
+        "sha": "f3b3cde4fbb045af52b97313f3af2550182f7e92"
       },
       "homepage": "https://cap.cloud.sap/"
     },
@@ -3121,7 +3137,7 @@
         "url": "https://github.com/SAP/open-ux-tools.git",
         "path": "packages/fiori-mcp-server",
         "ref": "main",
-        "sha": "6e6aeb18fff2d16a2dc5aabcd5084d13d1b0fca0"
+        "sha": "e1a0a1336030f5833153a119e5169334baa8ee0e"
       },
       "homepage": "https://github.com/SAP/open-ux-tools/tree/main/packages/fiori-mcp-server"
     },
@@ -3339,7 +3355,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SonarSource/sonarqube-agent-plugins.git",
-        "sha": "0e502ceb9a2083a586ad2b5ad14cd10174243626"
+        "sha": "acaa5772276cd8e3ee622e54e2ebcb5dbf6f68ba"
       },
       "homepage": "https://www.sonarsource.com"
     },
@@ -3432,7 +3448,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confluentinc/agent-skills.git",
-        "sha": "e311f93620480e47a168e88c5aadcf6373632f1d"
+        "sha": "0b4f9f01fcbf2cbc174e62b9fe2df9941c2d6972"
       },
       "homepage": "https://www.confluent.io"
     },
@@ -3810,7 +3826,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "2936837b4f3a00bdffc8ea2d548bf4d4f6e962b9"
+        "sha": "3a771a138353fddf585386fb600dcc5639d77a0d"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },

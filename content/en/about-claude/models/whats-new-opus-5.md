@@ -32,7 +32,7 @@ The minimum cacheable prompt length on Claude Opus 5 is 512 tokens, down from 1,
 
 ### Fast mode
 
-[Fast mode](/docs/en/build-with-claude/fast-mode) (research preview) is available for Claude Opus 5 on the Claude API only; it is not currently available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. Fast mode for Claude Opus 5 is priced at $10 per million input tokens and $50 per million output tokens. See [Fast mode](/docs/en/build-with-claude/fast-mode) for access, supported models, and pricing.
+[Fast mode](/docs/en/build-with-claude/fast-mode) (research preview) is available for Claude Opus 5 on the Claude API only; it is not currently available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. Fast mode for Claude Opus 5 is priced at $10 USD per million input tokens and $50 USD per million output tokens. See [Fast mode](/docs/en/build-with-claude/fast-mode) for access, supported models, and pricing.
 
 ## Behavior changes
 
@@ -260,7 +260,7 @@ For the prompting patterns that get the most out of these capabilities, see [Pro
 
 ## Pricing
 
-Claude Opus 5 is priced at $5 per million input tokens and $25 per million output tokens, unchanged from Claude Opus 4.8.
+Claude Opus 5 is priced at $5 USD per million input tokens and $25 USD per million output tokens, unchanged from Claude Opus 4.8.
 
 See [Pricing](/docs/en/about-claude/pricing) for complete pricing, including batch processing, prompt caching, and fast mode rates.
 

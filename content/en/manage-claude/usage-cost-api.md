@@ -284,7 +284,7 @@ page=page_xyz..." \
 
 ## Common use cases
 
-Explore detailed implementations in [Claude Cookbook](https://platform.claude.com/cookbooks):
+Explore detailed implementations in [Claude Cookbook](https://platform.claude.com/cookbook):
 
 * **Daily usage reports:** Track token consumption trends
 * **Cost attribution:** Allocate expenses by workspace for chargebacks

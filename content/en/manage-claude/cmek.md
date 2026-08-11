@@ -58,6 +58,7 @@ What CMEK covers depends on which product you use.
 **Claude Platform**
 
 * Message content, files and attachments (both inline attachments sent with a request and Files API uploads), and MCP and tool configuration.
+* [Claude Managed Agents](/docs/en/managed-agents/overview) data, including agent configurations, environments, webhooks, and sessions and their events.
 
 **Claude Enterprise**
 
@@ -78,13 +79,14 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 
 * Workbench in the Claude Console is disabled.
 * Portions of the Compliance API that return raw content, such as prompts, responses, and files, are disabled.
-* Beta and research preview features may not be covered by CMEK. This includes Claude Managed Agents, a beta feature that is disabled as a whole, including agent memory and agent dreaming.
+* In Claude Managed Agents, [memory stores](/docs/en/managed-agents/memory) and [dreams](/docs/en/managed-agents/dreams) are disabled. Requests to these endpoints from a CMEK-protected workspace return an `invalid_request_error` (HTTP 400). To use memory stores or dreams, send requests from a workspace without CMEK.
+* Other beta and research preview features may not be covered by CMEK.
 
 **Claude Enterprise**
 
 * Conversation history search is disabled. Conversation titles are encrypted, so searching by title or content returns no results.
 * Search across large numbers of files is slower.
-* Certain analytics will be degraded - Admin analytics for Claude.ai skills and connectors (under claude.ai/analytics/usage and via analytics API), Claude smart reports (claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
+* Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
 * Audit log exports are disabled.
 * Signed URLs for temporary file exchanges are disabled. These back organization data exports in claude.ai and Claude Code Remote file flows such as screenshot updates.
 * Personal preferences are disabled for users who belong to a CMEK-protected organization, across all organizations under the same parent. Users who do not belong to a CMEK-protected organization can still use them across all organizations.
@@ -97,11 +99,13 @@ These features remain available, but their data is not encrypted under your key.
 
 * Data that is not at rest (such as cache) and data with a TTL shorter than 24 hours.
 * Activity Feed, audit logs, and telemetry network traffic such as OTEL, so customers can maintain compliance even if a key is revoked.
+* Claude Managed Agents [vault credential](/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
+* [User profiles](/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
 
 **Claude Enterprise**
 
 * Claude Code Desktop, Claude Code on the web, and Claude in Slack. Anthropic recommends disabling any of these that are not appropriate for your use case in the admin console.
-* Beta and research preview features may not be covered by CMEK and can break in CMEK organizations, for example Claude Security and Claude Design.
+* Beta and research preview features may not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and Claude Design.
 * On-demand data export under **Settings** > **Privacy**.
 
 On both products, account data for users in your organization (such as names, email addresses, and profile pictures) is not encrypted under your key.
@@ -110,18 +114,18 @@ On both products, account data for users in your organization (such as names, em
 
 The following Claude Platform APIs and tools store data at rest under your key when CMEK is enabled:
 
-| APIs          | Tools and features                                                                                  |
-| ------------- | --------------------------------------------------------------------------------------------------- |
-| Messages      | Web search                                                                                          |
-| Models        | Web fetch                                                                                           |
-| Files         | Code execution                                                                                      |
-| Batch         | Bash tool                                                                                           |
-| Skills        | Text editor tool                                                                                    |
-| User profiles | MCP connector                                                                                       |
-|               | Structured outputs (not available for Claude Fable 5 or Claude Mythos models in CMEK organizations) |
-|               | Advisor tool                                                                                        |
-|               | Computer use                                                                                        |
-|               | Context management                                                                                  |
+| APIs                                                           | Tools and features                                                                                  |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Messages                                                       | Web search                                                                                          |
+| Models                                                         | Web fetch                                                                                           |
+| Files                                                          | Code execution                                                                                      |
+| Batch                                                          | Bash tool                                                                                           |
+| Skills                                                         | Text editor tool                                                                                    |
+| Claude Managed Agents (memory stores and dreams not available) | MCP connector                                                                                       |
+|                                                                | Structured outputs (not available for Claude Fable 5 or Claude Mythos models in CMEK organizations) |
+|                                                                | Advisor tool                                                                                        |
+|                                                                | Computer use                                                                                        |
+|                                                                | Context management                                                                                  |
 
 ## Limited preservation outside your key
 

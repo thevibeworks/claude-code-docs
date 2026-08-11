@@ -18,11 +18,11 @@ Many cybersecurity practitioners do legitimate work that overlaps with the dual 
 
 If your use case has a legitimate defensive purpose and is being affected by these safeguards, we encourage you to apply for the CVP. See **How to apply** below for the right path based on how you access Claude.
 
-CVP requires data retention to be enabled. If your API organization uses Zero Data Retention (ZDR), you can set up a separate workspace with data retention turned on. If you have a sales-managed Claude Enterprise or Claude Teams account, contact your Anthropic Sales Representative to get started.
+Organizations on Zero Data Retention (ZDR) are not currently eligible to participate in the CVP. If you have a Sales Managed ZDR account, please contact your Anthropic Sales Representative for more information.
 
 ## How to apply
 
-How you apply depends on how you access Claude. Once you submit your application, we aim to send an email notification with our review decision within 2 business days.
+How you apply depends on how you access Claude. Once you submit your application, we aim to send an email notification with our review decision within two business days. To submit an application you will need to verify your identity. Please see **[Identity verification on Claude](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)** for more information.
 
 | **How you access Claude**                                                | **How to apply**                                                                                                                                                                                                                                                                                                                                                                    |
 | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
