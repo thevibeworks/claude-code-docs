@@ -21,20 +21,20 @@ The Compliance API returns errors in the standard [Anthropic error format](/docs
 }
 ```
 
-Match on `error.type`, not on the message string. Messages are stable enough to copy into runbooks but might be reworded over time; the type values are part of the API contract.
+Match on `error.type`, not on the message string. Messages are stable enough to copy into runbooks but might be reworded over time; the type values are part of the API contract. The local session endpoints have a few documented exceptions where responses that share a type are told apart by their message; each is called out where it applies.
 
 The following table tells you at a glance whether to retry. Each section that follows shows the verbatim error body and the fix.
 
-| Status                                                  | Retry?                      | When                                                                                                                                                                                                                                  |
-| ------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                                                                                                                           |
-| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                                                                                                                                   |
-| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                                                                                                                         |
-| [404 Not Found](#404-not-found)                         | Usually no                  | The resource was deleted or never existed; remove it from your queue. Exception: a remote session still in `pending` status 404s on its messages endpoint until it starts; see [Remote session not found](#remote-session-not-found). |
-| [409 Conflict](#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry.                                                                                                        |
-| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                                                                                                                            |
-| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                                                                                                                           |
-| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff.                                                                                                                                                                                            |
+| Status                                                  | Retry?                      | When                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [400 Bad Request](#400-bad-request)                     | No                          | Fix the request and resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [401 Unauthorized](#401-unauthorized)                   | No                          | Fix or rotate the key, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| [403 Forbidden](#403-forbidden)                         | No                          | Add the missing scope or use the right key type, then resend.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| [404 Not Found](#404-not-found)                         | Usually no                  | The resource was deleted or never existed; remove it from your queue. Exceptions: a remote session still in `pending` status 404s on its messages endpoint until it starts; see [Remote session not found](#remote-session-not-found). On the local session endpoints, the message `Local sessions are not available.` (returned on every call, including the list) means the endpoints are currently unavailable to your parent organization, not that a session is gone; keep your queued IDs and see [Local session not found](#local-session-not-found). |
+| [409 Conflict](#409-conflict)                           | No                          | The request conflicts with the resource's current state; resolve the conflict (such as detaching child resources), then retry.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| [429 Too Many Requests](#429-too-many-requests)         | Yes, after `retry-after`    | Wait the seconds in `retry-after`, then retry; do not advance your cursor.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| [500 Internal Server Error](#500-internal-server-error) | Depends on `x-should-retry` | Check the `x-should-retry` response header before retrying.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| [502, 503, 504, 529](#500-internal-server-error)        | Yes, with backoff           | Transient; retry with exponential backoff. Exception: one local session 503 is data-dependent and can persist; see [Local sessions temporarily unavailable](#local-sessions-temporarily-unavailable).                                                                                                                                                                                                                                                                                                                                                        |
 
 ## 400 Bad Request
 
@@ -52,6 +52,14 @@ The `created_at.gte` parameter contains an invalid timestamp format. Timestamps 
 
 **Fix:** Send a full RFC 3339 timestamp including time and time zone, for example, `2024-03-01T00:00:00Z` or `2024-03-01T00:00:00+00:00`.
 
+The local session list (`GET /v1/compliance/apps/sessions/local`) also returns a 400 `invalid_request_error` when both time bounds are supplied and `created_at.lt` is not strictly after `created_at.gte`. The body reads:
+
+```text wrap
+created_at.lt must be strictly after created_at.gte.
+```
+
+Send a `created_at.lt` later than `created_at.gte`, or omit one of the bounds.
+
 ### Invalid limit
 
 **Type:** `invalid_request_error`
@@ -64,7 +72,7 @@ The limit parameter must be between 1 and 1000, inclusive. Got 1500.
 
 **Fix:** Send a `limit` within the range the endpoint accepts. Each list endpoint has its own `limit` range; see the parameter constraints on the corresponding [Compliance API reference](/docs/en/api/compliance) page.
 
-The remote session transcript endpoint (`GET /v1/compliance/apps/sessions/remote/{session_id}/messages`) validates its truncation parameters the same way: `tool_use_input_max_bytes` and `tool_result_max_bytes` each accept a positive byte count or `-1` (the server maximum), so a value such as `0` returns the same 400 `invalid_request_error`.
+The session transcript endpoints (`GET /v1/compliance/apps/sessions/remote/{session_id}/messages` and `GET /v1/compliance/apps/sessions/local/{session_id}/messages`) validate their truncation parameters the same way: `tool_use_input_max_bytes` and `tool_result_max_bytes` each accept a positive byte count or `-1` (the server maximum), so a value such as `0` returns the same 400 `invalid_request_error`.
 
 ### Invalid pagination ID
 
@@ -78,7 +86,21 @@ Invalid `after_id`. No activity found for `after_id` "activity_invalid123"
 
 **Fix:** Treat pagination cursors as opaque strings. Always copy the `first_id` or `last_id` value returned by the previous page; stop when `has_more` is `false`. Do not construct cursors from object IDs.
 
-The directory, project, and remote session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the remote session endpoints, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
+The directory, project, and session endpoints (organizations, users, roles, role permissions, groups, group members, projects, project attachments, local and remote sessions, and session messages) paginate with an opaque `page` token rather than `after_id` and `before_id`. The same advice applies: pass the `next_page` value from the previous response unchanged, and stop when `has_more` is `false` (or, on the session endpoints, which return no `has_more`, when `next_page` is `null`). A malformed `page` token returns the same 400 `invalid_request_error` as a malformed `after_id` or `before_id`.
+
+Both local session endpoints (the list and the messages endpoint) return the following 400 `invalid_request_error` for any `page` value they cannot decode, for example a token that was truncated or altered after you stored it, or one issued by a different endpoint or under a different parent organization. On the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`), each `page` cursor is also bound to the session and `order` it was issued for, so a cursor issued for a different session or sort order returns the same body:
+
+```text wrap
+The page parameter is not a valid cursor for this request.
+```
+
+Cursors on the messages endpoint also expire 24 hours after the walk (one pass through the pages) began. An expired cursor returns:
+
+```text wrap
+The page cursor has expired. Restart the walk without a page parameter; results will reflect the current retention boundary.
+```
+
+For the first body, resend the unmodified `next_page` value from the previous response to the endpoint and session that issued it. For an expired cursor, restart without a `page` parameter; the new walk reflects the retention boundary in effect when it starts, so messages that aged out of the retention period in the meantime are no longer returned (see [Retrieve a local session transcript](/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript)).
 
 ## 401 Unauthorized
 
@@ -150,10 +172,10 @@ Missing required scopes. Got: ['read:compliance_org_settings'] Needed: ['read:co
 Missing required scopes. Got: ['read:compliance_activities'] Needed: ['read:compliance_user_data']
 ```
 
-**Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, remote sessions, organization users, or group-members endpoint. There are two common paths to this error:
+**Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, sessions, organization users, or group-members endpoint. There are two common paths to this error:
 
 * A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_user_data` scope.
-* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, remote session, user, or group-member endpoints.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, session, user, or group-member endpoints.
 
 **Fix:** Use a [Compliance Access Key](/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) created in claude.ai with `read:compliance_user_data` selected. If the request really should be Activity Feed only, point the Admin API key at `GET /v1/compliance/activities` instead.
 
@@ -172,6 +194,8 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed: ['delete:com
 ## 404 Not Found
 
 The endpoint resolved but the resource ID does not exist or has already been deleted. Compliance API deletes are immediate and permanent, so a 404 on a previously known ID usually means the content was hard-deleted through a Compliance API delete call or removed by a retention policy. One exception is a remote session still in `pending` status, whose messages endpoint 404s transiently until the session starts; see [Remote session not found](#remote-session-not-found). The activity-type strings cited in each Fix (for example, `claude_chat_created`) are values you can pass to the Activity Feed `activity_types[]` filter; see [Query compliance activities](/docs/en/api/compliance/activities/list) for every supported value.
+
+Local sessions have no `pending` state, so a `Local session not found.` 404 is never transient; see [Local session not found](#local-session-not-found) for its causes and for the separate `Local sessions are not available.` response, which does not depend on the session ID and can be temporary.
 
 ### Chat not found
 
@@ -232,6 +256,20 @@ Remote session not found.
 **Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/remote/{session_id}/messages` does not match a session transcript readable through the Compliance API. This occurs when the session ID (`cse_...`) does not exist or the session has been deleted, when the session belongs to an organization your key cannot read, or when the session's `status` is still `pending`: a pending session has no transcript yet, so the messages endpoint returns 404 until the session starts. A session ID that is not a well-formed `cse_` identifier returns [400 Bad Request](#400-bad-request) instead.
 
 **Fix:** Confirm the session ID and its `status` against `GET /v1/compliance/apps/sessions/remote`; see [Retrieve remote sessions](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions). If the session is `pending`, retry after it leaves that status. If the session no longer appears in the list, it has been deleted and its transcript is not retrievable.
+
+### Local session not found
+
+**Type:** `not_found_error`
+
+```text wrap
+Local session not found.
+```
+
+**Cause:** The session ID passed to `GET /v1/compliance/apps/sessions/local/{session_id}` or `GET /v1/compliance/apps/sessions/local/{session_id}/messages` does not match a local session readable through the Compliance API. Both endpoints return this one message, without distinguishing the cause, when the ID is not a session in an organization your key can read (including IDs that belong to another parent organization), when the session never existed, when [zero data retention](/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect for the session, or when all of the session's activity has aged past the retention period that applies to the organization that ran it. Unlike remote sessions, local sessions have no `pending` state, so the `Local session not found.` response has no transient form. A session ID that is not a well-formed `clls_` identifier returns [400 Bad Request](#400-bad-request) instead.
+
+The local session endpoints, including the list endpoint, return a different 404 message, `Local sessions are not available.`, while the endpoints themselves are unavailable to your parent organization. That response does not depend on the session ID; no customer-side key, scope, or setting changes it, and it can be temporary. Both responses carry the `not_found_error` type; the message text is what tells them apart.
+
+**Fix:** Confirm the session ID against `GET /v1/compliance/apps/sessions/local`; see [Retrieve local sessions](/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions). If the session no longer appears in the list, its content has aged past retention (or the session is otherwise no longer in an organization your key can read) and its transcript is not retrievable; remove the ID from your queue. If every call, including the list, returns `Local sessions are not available.`, keep your queued session IDs and retry on your next scheduled run; if the response persists, contact your Anthropic representative and include the `request-id` response header.
 
 ### Organization, role, or group not found
 
@@ -311,7 +349,7 @@ anthropic-ratelimit-requests-reset: 2026-04-21T14:38:25Z
 
 Requests that fail authentication (a missing or unrecognized key, or a Claude API key rather than a Compliance Access Key or Admin API key) are rejected before the rate limiter and do not consume quota. A valid key that lacks the endpoint's required scope consumes one quota unit before the 403 is returned.
 
-The [remote session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions) carry a second request budget, also keyed to your parent organization, on top of the shared limit. A 429 from that budget includes a `retry-after` header but not the `anthropic-ratelimit-*` headers; the same fix applies.
+The [remote session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-remote-sessions) carry a second request budget, also keyed to your parent organization, on top of the shared limit. A 429 from that budget carries a `retry-after` header that is always `1` (a minimum wait, not the actual reset time); any `anthropic-ratelimit-*` headers on that response describe the shared limit rather than this budget, so back off exponentially if the 429 repeats. The [local session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions) have no second budget and count only against the shared limit.
 
 If you poll the [Activity Feed](/docs/en/manage-claude/compliance-activity-feed) on a schedule, budget your aggregate request rate (across all keys, linked organizations, and concurrent workers) below the shared limit. Watch `anthropic-ratelimit-requests-remaining` to slow down before you reach it. See [Design your compliance integration](/docs/en/manage-claude/compliance-integration-patterns#choose-a-feed-consumption-pattern) for choosing between window-polling and cursor-driven ingestion.
 
@@ -319,7 +357,27 @@ If you poll the [Activity Feed](/docs/en/manage-claude/compliance-activity-feed)
 
 A 500 from the Compliance API carries an `x-should-retry: false` response header when the failure is deterministic. Anthropic SDKs honor this header automatically. If you use a generic HTTP retry library that retries on every 5xx, suppress retries when `x-should-retry` is `false`; retrying this error fails identically on every attempt.
 
-A 500 without the `x-should-retry: false` header is transient: retry with exponential backoff (start at 1 second, double up to 60 seconds). The same applies to 502, 503, 504, and 529 responses. See [Errors](/docs/en/api/errors) for the platform-wide retry semantics.
+A 500 without the `x-should-retry: false` header is transient: retry with exponential backoff (start at 1 second, double up to 60 seconds). The same applies to 502, 503, 504, and 529 responses. One local session 503, described next, is data-dependent rather than transient. See [Errors](/docs/en/api/errors) for the platform-wide retry semantics.
+
+### Local sessions temporarily unavailable
+
+**Type:** `overloaded_error`
+
+```text wrap
+The local-sessions index is temporarily unavailable. Try again shortly.
+```
+
+```text wrap
+Captured content is temporarily unavailable. Try again shortly.
+```
+
+```text wrap
+The local-sessions index cannot currently evaluate retention overrides for this page. Try again later.
+```
+
+**Cause:** The [local session endpoints](/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions) return 503 with one of these bodies. The first two mean that session listings, or a session's captured content, are briefly unavailable; that is a transient condition related to load or to the back end. The third body (which reads `for this session` instead of `for this page` on the retrieve and messages endpoints) means that a retention or data-handling setting that applies to one or more sessions in the requested range could not yet be evaluated. That depends on the data and settings of the organization that ran the session rather than on load, and it can persist for an extended period. All three bodies share the `overloaded_error` type, so this is one of the few cases on this page where the message text, rather than `error.type`, distinguishes conditions that need different handling.
+
+**Fix:** For the two `Try again shortly.` bodies, retry with exponential backoff and do not advance your `page` cursor, because the failed request returned no data. For the `Try again later.` body, do not hold a walk open waiting for it to clear. On the list endpoint, either retry later by restarting without the `page` parameter (a list page token older than 24 hours is still accepted but is re-evaluated against the current retention boundary, so a parked walk can skip sessions), or narrow the `created_at.gte` and `created_at.lt` window until the request succeeds and export the skipped range separately on a later run. On the retrieve and messages endpoints, skip that session ID, continue with the rest of your export, and retry the session on a later run; messages page cursors expire 24 hours after the walk's first page, so restart that session's walk without `page` when you return to it. If the condition recurs across runs, contact your Anthropic representative and include the `request-id` response header.
 
 For service-wide incidents, check [status.anthropic.com](https://status.anthropic.com).
 

@@ -14,6 +14,8 @@ The Compliance API provides access to different data depending on the product:
 
   - **Conversation content** including chats, uploaded files, and projects
 
+  - **Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop) session content**, in beta. Includes prompts and responses, tool calls content, and skills and artifacts content captured as transcript text.
+
   - **Activity feed events** covering user logins, admin actions, and configuration changes
 
 - **Claude Platform:**

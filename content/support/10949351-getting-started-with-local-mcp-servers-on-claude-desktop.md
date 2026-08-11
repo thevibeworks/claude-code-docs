@@ -48,7 +48,7 @@ for specific instructions.
 
 Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to Settings > Extensions within Claude Desktop and click “Advanced settings” to access the **Extension Developer** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1786449600&amp;signature=169ab363244ff3f70c3a9586f8ce5722d4741f0ce0e76dab1cefa6bf8e4e0d76&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxEZ7MzQ0Hn9K2IaIG2Ic2SFZlVxFVDt31oPC%0A96A3t8sMltu0CUho4Ig%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1786468500&amp;signature=646bfacdd756b46cdc4206d13b18ca03bb794f2baa22088cd5c6009fd2a22ade&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxEZ7MTU3Hn9K2IaIG2LTCeAYPEzH7LbfJGE2%0APUVJw9XvHtE3qKxGSq0%3D%0A)
 
 Click “Install Extension…” and select the .mcpb file. Follow the prompts to install and configure your custom desktop extension. For more in-depth information, please refer to our [desktop extension developer documentation](https://github.com/anthropics/mcpb).
 

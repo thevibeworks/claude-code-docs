@@ -70,11 +70,11 @@ Governed requests are the inference requests behind the user's conversation. Anc
 
 Both features serve security, legal, and compliance teams at Claude Enterprise organizations.
 
-|              | Inference hooks                                     | Compliance API                                                             |
-| ------------ | --------------------------------------------------- | -------------------------------------------------------------------------- |
-| When it acts | Inline, before inference runs                       | After the fact                                                             |
-| What it does | Allows or denies each governed request in real time | Retrieves activity, chats, files, projects, and users for audit and export |
-| Direction    | Anthropic calls your AI security server             | You call Anthropic's API                                                   |
+|              | Inference hooks                                     | Compliance API                                                                                                         |
+| ------------ | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| When it acts | Inline, before inference runs                       | After the fact                                                                                                         |
+| What it does | Allows or denies each governed request in real time | Retrieves activity, chats, files, projects, Cowork and Claude Code session transcripts, and users for audit and export |
+| Direction    | Anthropic calls your AI security server             | You call Anthropic's API                                                                                               |
 
 Use Inference hooks to stop a request before it reaches the model, and the [Compliance API](/docs/en/manage-claude/compliance-api) to audit what happened afterward.
 
