@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-08-11T02:57:53.797790Z",
+    "fetch_date": "2026-08-11T06:43:35.641398Z",
     "section": "all"
   },
   "items": [
@@ -4055,8 +4055,8 @@
       "url": "https://code.claude.com/docs/en/desktop-ios-simulator",
       "status": "success",
       "path": "en/docs/claude-code/desktop-ios-simulator.md",
-      "sha256": "e6032bada9af262bf8512e255cbf03859ed2309a8ba3f41d7787f0f8a67455b6",
-      "size": 12191
+      "sha256": "882af9bd5bbb430adbbf3f289b57407d09fa9636b57ec9ca63297649a489743b",
+      "size": 12161
     },
     {
       "url": "https://code.claude.com/docs/en/mobile",
@@ -4517,8 +4517,8 @@
       "url": "https://code.claude.com/docs/en/costs",
       "status": "success",
       "path": "en/docs/claude-code/costs.md",
-      "sha256": "37beb85c4a849f71a387b5c837fd8c18846e3ff2ae0c0ac5548ddb38e046579d",
-      "size": 31163
+      "sha256": "6c4ff6151585ac06c51ce7d95fc48f8ec7e18ca45b5725fadb804f55512a49f5",
+      "size": 31911
     },
     {
       "url": "https://code.claude.com/docs/en/analytics",
@@ -4685,8 +4685,8 @@
       "url": "https://code.claude.com/docs/en/fast-mode",
       "status": "success",
       "path": "en/docs/claude-code/fast-mode.md",
-      "sha256": "8b834eab43477b848aa87e43f0b4493a46a191dc9f149b0cf410182215c9de32",
-      "size": 15696
+      "sha256": "b035f1e546e7c03e5a9d2d8bc17b15bdaf584eb6cd7354bcca0d0c5c6267b131",
+      "size": 17839
     },
     {
       "url": "https://code.claude.com/docs/en/advisor",
@@ -7660,8 +7660,8 @@
       "url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
       "status": "success",
       "path": "support/8114491-get-started-with-claude.md",
-      "sha256": "a64f96fbdc09333eeb5345b5c9e26c10a048e5c16bb69c409d085abedcab8236",
-      "size": 5298
+      "sha256": "7eb27337c815b40d4063b4c66bb06beb55a8f79122be7560654d50410d5c9590",
+      "size": 5300
     },
     {
       "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data",
@@ -7786,8 +7786,8 @@
       "url": "https://support.claude.com/en/articles/8287232-verify-your-phone-number",
       "status": "success",
       "path": "support/8287232-verify-your-phone-number.md",
-      "sha256": "175d8e60dde9edd5d75fccc952c2d3957acf7a5d547d6cb83e74c2a2aab95b61",
-      "size": 3975
+      "sha256": "b1643f0bfb253f88e4eb34f51d08c3f52eca5ce88cc726f32610e3565a780173",
+      "size": 3977
     },
     {
       "url": "https://support.claude.com/en/articles/8325606-what-is-the-pro-plan",
@@ -7814,8 +7814,8 @@
       "url": "https://support.claude.com/en/articles/8325618-paid-plan-billing-faqs",
       "status": "success",
       "path": "support/8325618-paid-plan-billing-faqs.md",
-      "sha256": "0e891b26a9b2435c6d3aaf52e10286cbffb2955f2e824faff22c4f135e6d518a",
-      "size": 4553
+      "sha256": "d24a396a6016ae8a5ad95722171f226e8bd24815a3cbf8cea947e2bb130d1c19",
+      "size": 4555
     },
     {
       "url": "https://support.claude.com/en/articles/8325621-i-would-like-to-input-sensitive-data-into-my-chats-with-claude-who-can-view-my-conversations",
@@ -7856,8 +7856,8 @@
       "url": "https://support.claude.com/en/articles/8606378-how-do-i-use-the-workbench",
       "status": "success",
       "path": "support/8606378-how-do-i-use-the-workbench.md",
-      "sha256": "a4de3d2c7eab5dc4b74470d516d74f49882759f1d39e70ba255eee83e6957294",
-      "size": 9649
+      "sha256": "e1e984d655177c97adfe1aa7c99c02b480fc9d1dc55f3ea421c99006e7e978a2",
+      "size": 9653
     },
     {
       "url": "https://support.claude.com/en/articles/8606394-how-large-is-the-context-window-on-paid-claude-plans",
@@ -7877,8 +7877,8 @@
       "url": "https://support.claude.com/en/articles/8887527-customizing-your-appearance-settings",
       "status": "success",
       "path": "support/8887527-customizing-your-appearance-settings.md",
-      "sha256": "21fec2e078c8a99dc6abbbe8349f59f8ac5e264c38f8f4fb8676a66a830fd958",
-      "size": 1872
+      "sha256": "5e7777c94c564af7a8546a11dfea51df2bca769fa7f66ab9987774d694351231",
+      "size": 1870
     },
     {
       "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
@@ -7933,8 +7933,8 @@
       "url": "https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account",
       "status": "success",
       "path": "support/9028421-how-can-i-delete-my-claude-account.md",
-      "sha256": "479f02bc4e8aecd821b850e3467aeb0885491940d20043854210f069508953ee",
-      "size": 2017
+      "sha256": "9c9f1b62308039b1a85da48a39483523ceae0c03dd6a98a68b84c09a658b4b63",
+      "size": 2025
     },
     {
       "url": "https://support.claude.com/en/articles/9035075-law-enforcement-requests",
@@ -8052,8 +8052,8 @@
       "url": "https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization",
       "status": "success",
       "path": "support/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization.md",
-      "sha256": "8309c5dfe4a7bae2c9ab56dd4dedc03a0b610edd904a9ec5d14d3a65762a6930",
-      "size": 8328
+      "sha256": "7970e3f8a52f3fc60e492237f5910035459be266429eb463d76edace70e49b27",
+      "size": 8326
     },
     {
       "url": "https://support.claude.com/en/articles/9301722-updates-to-our-acceptable-use-policy-now-usage-policy-consumer-terms-of-service-and-privacy-policy",
@@ -8101,15 +8101,15 @@
       "url": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "status": "success",
       "path": "support/9519177-how-can-i-create-and-manage-projects.md",
-      "sha256": "8f2e07d442724dce18dc7f8566489903f50e245d1cfb3313602fb22b137196ac",
-      "size": 9276
+      "sha256": "ffc3b46f6a2ba5aaa7e22cac681604f41916467731733f0edd5bc7f223582774",
+      "size": 9278
     },
     {
       "url": "https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing",
       "status": "success",
       "path": "support/9519189-manage-project-visibility-and-sharing.md",
-      "sha256": "e87e9fc2b051cda9918c7983f08c2a6fa18799586d4c535a0c3e1a583f44b407",
-      "size": 8570
+      "sha256": "4f123a2333e4450fe321c4e15b32c3e2d664a7b992aac062834adf6bd637305e",
+      "size": 8566
     },
     {
       "url": "https://support.claude.com/en/articles/9519291-what-is-anthropic-s-policy-for-handling-governmental-requests-for-user-information",
@@ -8129,15 +8129,15 @@
       "url": "https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-the-claude-console",
       "status": "success",
       "path": "support/9534590-cost-and-usage-reporting-in-the-claude-console.md",
-      "sha256": "e0a4813129b89e189a5124e67f8497db762cecd9a189f27c582adc8973ca5558",
-      "size": 5106
+      "sha256": "8c7d1906795de834bbfb721d219e39def4c49d7a6e5f3e2df13e68a26e13de76",
+      "size": 5100
     },
     {
       "url": "https://support.claude.com/en/articles/9547008-publish-and-share-artifacts",
       "status": "success",
       "path": "support/9547008-publish-and-share-artifacts.md",
-      "sha256": "0ecf31f2081977094e4d8da6214e2cc6a88d516f2cf640d6ba0cbb07b5618ac9",
-      "size": 7344
+      "sha256": "e42518c8c51e13ba1af8f53cb98d632b9303f3d3b18adea8615956d804b32067",
+      "size": 7334
     },
     {
       "url": "https://support.claude.com/en/articles/9612887-install-claude-for-android",
@@ -8213,7 +8213,7 @@
       "url": "https://support.claude.com/en/articles/9927533-disable-public-projects-for-your-organization",
       "status": "success",
       "path": "support/9927533-disable-public-projects-for-your-organization.md",
-      "sha256": "91e9683e2710be6f38206cf67590ad23acef91f45f172650c440013119f90ed9",
+      "sha256": "5275ee14e639bf489a3ce6437378bc4a1b5094c87fa39c83a9c45eba0f9a3b2b",
       "size": 2578
     },
     {
@@ -8353,15 +8353,15 @@
       "url": "https://support.claude.com/en/articles/10310342-how-do-i-log-out-of-all-active-sessions",
       "status": "success",
       "path": "support/10310342-how-do-i-log-out-of-all-active-sessions.md",
-      "sha256": "a4b04705460252b33687feb8a3066398e3c17049b9d36d4be43d5a0690327d9d",
-      "size": 2492
+      "sha256": "604c077c06852eb18548b4ae2333b844c05929254bf836bccc07cc4e2d52d8a6",
+      "size": 2498
     },
     {
       "url": "https://support.claude.com/en/articles/10366376-how-can-i-delete-my-claude-console-account",
       "status": "success",
       "path": "support/10366376-how-can-i-delete-my-claude-console-account.md",
-      "sha256": "05400460c02452e3d4c8890728d8f3a51ed18397264eac4bf636419c75be8ae6",
-      "size": 3163
+      "sha256": "20616c6b973a5ea97f17507565064fe2e8ab72367cf9b34d7691c55d623c9dfb",
+      "size": 3167
     },
     {
       "url": "https://support.claude.com/en/articles/10366389-how-can-i-get-higher-rate-limits-on-the-claude-api",
@@ -8409,15 +8409,15 @@
       "url": "https://support.claude.com/en/articles/10504844-manage-user-feedback-settings-on-team-and-enterprise-plans",
       "status": "success",
       "path": "support/10504844-manage-user-feedback-settings-on-team-and-enterprise-plans.md",
-      "sha256": "391691975b747a56ef672fa0c84986f27a0bee6db1b71fc0e0c9ac6414442e6a",
-      "size": 1036
+      "sha256": "eb1f256cde6cd351a56b872103dc5929c6074a699d1abd91223c507ccc181e27",
+      "size": 1034
     },
     {
       "url": "https://support.claude.com/en/articles/10504853-manage-user-feedback-settings-on-claude-console",
       "status": "success",
       "path": "support/10504853-manage-user-feedback-settings-on-claude-console.md",
-      "sha256": "c99d8ff406004b78ec878eae7d8ccac599944cdc424de701848fff28336cc8a8",
-      "size": 997
+      "sha256": "cbb77c421129bae7d4530fca33bcd79ebca96b6e0a07de11f548b8bda3ed98c6",
+      "size": 999
     },
     {
       "url": "https://support.claude.com/en/articles/10534883-use-the-claude-widget-on-android",
@@ -8430,15 +8430,15 @@
       "url": "https://support.claude.com/en/articles/10593882-share-and-unshare-chats",
       "status": "success",
       "path": "support/10593882-share-and-unshare-chats.md",
-      "sha256": "4c707a8ea8a589142cf77e77b0f0387084598721986d92ecfd112ea22ae728a7",
-      "size": 4014
+      "sha256": "27a2a5fb40bef28ddcf6d197fffc7b3146c41b46f9ece2f3ae4de191ebd662c6",
+      "size": 4020
     },
     {
       "url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
       "status": "success",
       "path": "support/10684626-enable-and-use-web-search.md",
-      "sha256": "4312363e4ff0502b458b52c46dd70443be0111e4fe0c7f52f273eb04b1246ffb",
-      "size": 6372
+      "sha256": "7767625f8e7db14a58e461df2d32a61fdcb4b570d7384f65cdaa1db07f2fb8dc",
+      "size": 6374
     },
     {
       "url": "https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude",
@@ -8451,8 +8451,8 @@
       "url": "https://support.claude.com/en/articles/10722177-sharing-prompts-in-the-claude-console",
       "status": "success",
       "path": "support/10722177-sharing-prompts-in-the-claude-console.md",
-      "sha256": "9bb754b528ff675d1e1aed931a16d5644e9bad319f83a630c90297ef42670336",
-      "size": 4529
+      "sha256": "8ba69779c827bd557c3f8966ad3aa21454c3dd59d4093bd62da5af35c3070138",
+      "size": 4531
     },
     {
       "url": "https://support.claude.com/en/articles/10769299-how-to-use-claude-in-your-preferred-language",
@@ -8465,8 +8465,8 @@
       "url": "https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop",
       "status": "success",
       "path": "support/10949351-getting-started-with-local-mcp-servers-on-claude-desktop.md",
-      "sha256": "1818a923d525a061cf79971ce8f6b62ba848af2eb2d55071d765bda03ad881dc",
-      "size": 8267
+      "sha256": "58290ec2dce12fda2dbc90cf8a1cea35b2d9673b497d79795924fc2f25c0a217",
+      "size": 8265
     },
     {
       "url": "https://support.claude.com/en/articles/11049741-what-is-the-max-plan",
@@ -8507,8 +8507,8 @@
       "url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
       "status": "success",
       "path": "support/11101966-use-voice-mode.md",
-      "sha256": "49132c6edab8cfdcc5dedc93ac65946aba82a271d0900cf97ae7155cdaddf7c2",
-      "size": 10552
+      "sha256": "7d7fbed3501722d20e0574eaa144a34ed5d4d0475f08cf1951deb451ca55acf8",
+      "size": 10560
     },
     {
       "url": "https://support.claude.com/en/articles/11107691-why-is-a-coupon-or-promotion-not-available-for-my-account",
@@ -8647,7 +8647,7 @@
       "url": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure",
       "status": "success",
       "path": "support/11725453-set-up-the-claude-lti-in-canvas-by-instructure.md",
-      "sha256": "71d3edca6305a89b9e878849788ee8f87205adc9755b6d5add5dacdddc9e8e4f",
+      "sha256": "b8f7e7b064607734eb4ff6f3914f3ddf0b621a65dfeaf14e6866a42da5bce750",
       "size": 2748
     },
     {
@@ -8661,15 +8661,15 @@
       "url": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
       "status": "success",
       "path": "support/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context.md",
-      "sha256": "905a900e0ce23721dd87d1022d4929389fc5edf1356fbfe984005402fe705da9",
-      "size": 21520
+      "sha256": "69bbeb3bb72d2e9594e38d67cc5c6fbf30f98989d0c753ac221afb1deaaf5398",
+      "size": 21512
     },
     {
       "url": "https://support.claude.com/en/articles/11818288-why-am-i-being-asked-to-verify-my-payment-method",
       "status": "success",
       "path": "support/11818288-why-am-i-being-asked-to-verify-my-payment-method.md",
-      "sha256": "58861ab55e9993ab70ad61bf298926667eaaa4f9625a556dc8a2376fc59bc863",
-      "size": 816
+      "sha256": "f6279ef6a5aed1e966b82c2093bc54a7035bdc198546d8d94865d2d9c6164d89",
+      "size": 820
     },
     {
       "url": "https://support.claude.com/en/articles/11825384-how-to-update-claude-for-ios",
@@ -8703,7 +8703,7 @@
       "url": "https://support.claude.com/en/articles/11869629-use-claude-with-android-apps",
       "status": "success",
       "path": "support/11869629-use-claude-with-android-apps.md",
-      "sha256": "3375f6c240abb0f82fffce449a124dae2c2beb9bc59ad8946d7114f542a2b852",
+      "sha256": "02c5aeab96b06b06f590e182930feddea4c7e98d3a3d8e7b04e19864449c2778",
       "size": 13877
     },
     {
@@ -8738,15 +8738,15 @@
       "url": "https://support.claude.com/en/articles/12005970-manage-usage-credits-for-team-and-seat-based-enterprise-plans",
       "status": "success",
       "path": "support/12005970-manage-usage-credits-for-team-and-seat-based-enterprise-plans.md",
-      "sha256": "05545ab32c7a7dc86e60755e95f7b0e0ae111c593bd3c1ed66303ccb7f2e88da",
+      "sha256": "f760d7ac7e75b172ca6426b37a045aa8839959c7073eca2af7b5b12154ca23e2",
       "size": 9634
     },
     {
       "url": "https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome",
       "status": "success",
       "path": "support/12012173-get-started-with-claude-in-chrome.md",
-      "sha256": "12152ad99dceac48f1ba7083359896d38b158d2f70ffa60b26caa8a8c6e0f4e5",
-      "size": 12680
+      "sha256": "6e7fadbf85dd572aaea5c7498b62a0d56160a01a38fd2909c919caaa84f87e96",
+      "size": 12672
     },
     {
       "url": "https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s-data-when-they-are-removed-from-a-team-or-enterprise-organization",
@@ -8773,8 +8773,8 @@
       "url": "https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude",
       "status": "success",
       "path": "support/12111783-create-and-edit-files-with-claude.md",
-      "sha256": "dc1f3eaa7c67443b0a6f105908b2707984512a1321fa1978e8a41b4b5efc68d3",
-      "size": 17958
+      "sha256": "e36050f90b043ab2fc5cba0c22416a181588ca7f761fb491828849a92724d8a6",
+      "size": 17964
     },
     {
       "url": "https://support.claude.com/en/articles/12119250-model-safety-bug-bounty-program",
@@ -8801,22 +8801,22 @@
       "url": "https://support.claude.com/en/articles/12157520-claude-code-usage-analytics",
       "status": "success",
       "path": "support/12157520-claude-code-usage-analytics.md",
-      "sha256": "e9409cf51f29907ecd78738e24a1b7cf40afc69baf1ea533af4e2a33b48ad826",
-      "size": 6425
+      "sha256": "965398b9ed593705fa34599b76b901432259f310564d6b1c9e4f71fd8d9c6985",
+      "size": 6431
     },
     {
       "url": "https://support.claude.com/en/articles/12260368-use-incognito-chats",
       "status": "success",
       "path": "support/12260368-use-incognito-chats.md",
-      "sha256": "7ec36bd3020cf6aa84d5f72609bedc7190070307868d29a9956a5ebde5aebe36",
-      "size": 3600
+      "sha256": "4b0e5b8e9b99f865f29b1838d3b4c6bf1b58b573402d805a3c5c95ea9cedf173",
+      "size": 3594
     },
     {
       "url": "https://support.claude.com/en/articles/12293051-use-claude-in-xcode",
       "status": "success",
       "path": "support/12293051-use-claude-in-xcode.md",
-      "sha256": "f04fddd42dc04791d6a027b719726f52308de27828de2daca5cc7e80d4d2be57",
-      "size": 1909
+      "sha256": "da8e3cc3175b877620dca16246895dcc31e1be6fe3d075dbdb74451de4d23c63",
+      "size": 1905
     },
     {
       "url": "https://support.claude.com/en/articles/12304248-manage-api-key-environment-variables-in-claude-code",
@@ -8864,8 +8864,8 @@
       "url": "https://support.claude.com/en/articles/12466728-troubleshoot-claude-error-messages",
       "status": "success",
       "path": "support/12466728-troubleshoot-claude-error-messages.md",
-      "sha256": "f340e4a259f6a1aea56c5830b2c4be4daf4150c75aedf62c0110465b638180b4",
-      "size": 4232
+      "sha256": "0381a4a923f0bb757d8281b62de1b304b0d801a7970212a1e38452ad145a51c2",
+      "size": 4236
     },
     {
       "url": "https://support.claude.com/en/articles/12489464-use-enterprise-search",
@@ -8885,8 +8885,8 @@
       "url": "https://support.claude.com/en/articles/12512180-use-skills-in-claude",
       "status": "success",
       "path": "support/12512180-use-skills-in-claude.md",
-      "sha256": "ba615b6e975e89129606dddf13d501dc1a520fd5c418a72722f451324f549f39",
-      "size": 13700
+      "sha256": "acda306460b2d8393690e4f53f55381f2af1d8f5b257761b9ab5ab558cf408c4",
+      "size": 13696
     },
     {
       "url": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
@@ -8906,8 +8906,8 @@
       "url": "https://support.claude.com/en/articles/12592343-enabling-and-using-the-desktop-extension-allowlist",
       "status": "success",
       "path": "support/12592343-enabling-and-using-the-desktop-extension-allowlist.md",
-      "sha256": "889c3127f2aebbb9d4b1526ccdff027db09e6bc470f15adc02899c78387cb99a",
-      "size": 5714
+      "sha256": "4f3c311b3fc890c723d05b8f8c22bec6e78ead5d9581dbd791eba9ed5e6ab869",
+      "size": 5718
     },
     {
       "url": "https://support.claude.com/en/articles/12611117-deploy-claude-desktop-for-macos",
@@ -8920,8 +8920,8 @@
       "url": "https://support.claude.com/en/articles/12618689-claude-code-on-the-web",
       "status": "success",
       "path": "support/12618689-claude-code-on-the-web.md",
-      "sha256": "6eb7fb09427142daaaf86428dc1dc2b348eb6e1caa342a3bd1102ddc6295b66e",
-      "size": 10962
+      "sha256": "39fc1e8a210a3e9bc092c695f78584f223362b696cdf487f41ba508b5013ad38",
+      "size": 10976
     },
     {
       "url": "https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop",
@@ -8941,8 +8941,8 @@
       "url": "https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac",
       "status": "success",
       "path": "support/12626668-use-quick-entry-with-claude-desktop-on-mac.md",
-      "sha256": "a67038823a4ee2223cb408cb440271960f10469d2c861f9aa06db5882a4c97dc",
-      "size": 5970
+      "sha256": "a3cf7294788852e18fc5dc3ecfca1da79b101a3c0dca4ddf8008e3a36732ec2b",
+      "size": 5972
     },
     {
       "url": "https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide",
@@ -8976,8 +8976,8 @@
       "url": "https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans",
       "status": "success",
       "path": "support/12883420-view-usage-analytics-for-team-and-enterprise-plans.md",
-      "sha256": "7b07c76a42aaba4a1abbdcf454abbc298d69b63ff5ae9c619a8873c965f8de7b",
-      "size": 13167
+      "sha256": "5800e46be2aef3cb3179b9820e11af4a5e4c93ea0240e0107c6893a5ba037e52",
+      "size": 13155
     },
     {
       "url": "https://support.claude.com/en/articles/12902405-claude-in-chrome-troubleshooting",
@@ -8997,8 +8997,8 @@
       "url": "https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide",
       "status": "success",
       "path": "support/12902446-claude-in-chrome-permissions-guide.md",
-      "sha256": "43f80b61d4a239cb233af39a7d81b32539c4b583f876db594a127590b51b25ea",
-      "size": 8090
+      "sha256": "bc7ef2003f2e38cdd2a621c672d5a76b30ac60711e2a0d3324791b6a6b454a1a",
+      "size": 8094
     },
     {
       "url": "https://support.claude.com/en/articles/12922490-remote-mcp-server-submission-guide",
@@ -9046,8 +9046,8 @@
       "url": "https://support.claude.com/en/articles/12997503-team-plan-billing-faqs",
       "status": "success",
       "path": "support/12997503-team-plan-billing-faqs.md",
-      "sha256": "f7fe8864036e424d399cf8cff9892f5501efcfb5d6fe301aab0812419eebc377",
-      "size": 3924
+      "sha256": "32fdebce3ec1a275c517fedfe98a0da53569c0479e88154aede09bb05a6c0daf",
+      "size": 3922
     },
     {
       "url": "https://support.claude.com/en/articles/13015708-access-the-compliance-api",
@@ -9095,15 +9095,15 @@
       "url": "https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso",
       "status": "success",
       "path": "support/13132885-set-up-single-sign-on-sso.md",
-      "sha256": "402758690d6ecf0f4206c47b06c33aee49b7ca5ab616eb4ba105f4e804dc1040",
-      "size": 12325
+      "sha256": "a7ad767c8ee1ad49a086540077c3f1d70664c75dad7718f49c6690a4ab8dcfcd",
+      "size": 12319
     },
     {
       "url": "https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning",
       "status": "success",
       "path": "support/13133195-set-up-jit-or-scim-provisioning.md",
-      "sha256": "df33729bc2d0922fb1c303596b946ebd23beeb1d00cd83430747f94fa7a914c2",
-      "size": 16606
+      "sha256": "445eb3f9f5e8a66dcff870f67fcaf890cc6ebc0bdb96b566c8161d972c540a11",
+      "size": 16604
     },
     {
       "url": "https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans",
@@ -9130,8 +9130,8 @@
       "url": "https://support.claude.com/en/articles/13163631-configuring-session-security-settings",
       "status": "success",
       "path": "support/13163631-configuring-session-security-settings.md",
-      "sha256": "a80e278fa5cf5d049acf9037ac54de29fb4f30c10023010881a67b1022a86ecd",
-      "size": 3698
+      "sha256": "635313129f73e464020cbfda5e00ed970ccbcbdb570e90fe81a4fb263177f8f3",
+      "size": 3708
     },
     {
       "url": "https://support.claude.com/en/articles/13163666-holiday-2025-usage-promotion",
@@ -9151,7 +9151,7 @@
       "url": "https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account",
       "status": "success",
       "path": "support/13189465-log-in-to-your-claude-account.md",
-      "sha256": "f54662ef8ea7be4714cfb42475949b214572de779180134325c64b013069190b",
+      "sha256": "9985fff73dd9e3cec9bbcf5289d3bca58c9ea91d5953aeaba6004dd322d82009",
       "size": 7038
     },
     {
@@ -9179,22 +9179,22 @@
       "url": "https://support.claude.com/en/articles/13325567-account-management-faqs",
       "status": "success",
       "path": "support/13325567-account-management-faqs.md",
-      "sha256": "b1ec4719aacad1cc4ec261d1f7ddb8af48ed41aa2f1eed2017e3fe1ca871c558",
+      "sha256": "5a128cc92e1c4d10c39bf921a365ab5ae2039e114502387bb3e83838ed982bff",
       "size": 2634
     },
     {
       "url": "https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork",
       "status": "success",
       "path": "support/13345190-get-started-with-claude-cowork.md",
-      "sha256": "2f94de6f84731e64696fc2e8a055fb199f9721abbdad1a0aab5d05772e1a0605",
+      "sha256": "bcc81a7e659da6b22d30336e7abfabc408dfb668b7b3a725a4e7a1bde9e8b9d3",
       "size": 20059
     },
     {
       "url": "https://support.claude.com/en/articles/13346458-customizing-your-console-appearance-settings",
       "status": "success",
       "path": "support/13346458-customizing-your-console-appearance-settings.md",
-      "sha256": "78a3009c74900410b9e2b718206245654273f7c4e15342429a77cfd2000830de",
-      "size": 605
+      "sha256": "5ecc3ccb2a9a91885670ba355daf1496a346f12a4330fff8b28fd933635fd825",
+      "size": 607
     },
     {
       "url": "https://support.claude.com/en/articles/13346720-export-your-organization-s-data",
@@ -9214,8 +9214,8 @@
       "url": "https://support.claude.com/en/articles/13371040-log-in-to-your-console-account",
       "status": "success",
       "path": "support/13371040-log-in-to-your-console-account.md",
-      "sha256": "e3a4219e45f6b5bc01f210fa675265ae32c650e85535ceb8037f03bb96977a81",
-      "size": 4618
+      "sha256": "71a32b2e91b33f28d55310ade05b825fbddeaaad976f68ef1edaea68a743fe12",
+      "size": 4614
     },
     {
       "url": "https://support.claude.com/en/articles/13393991-purchase-and-manage-seats-on-enterprise-plans",
@@ -9270,8 +9270,8 @@
       "url": "https://support.claude.com/en/articles/13641943-visual-and-interactive-content",
       "status": "success",
       "path": "support/13641943-visual-and-interactive-content.md",
-      "sha256": "6297e580518a540e7d650e48fbdc7465df4d396b6d6d218fc3fd5d45fae44dba",
-      "size": 6517
+      "sha256": "5fc3558373fcb29ab4a708617b34ee0745e05a9dd4224b66904b3a769a0f6f1a",
+      "size": 6509
     },
     {
       "url": "https://support.claude.com/en/articles/13663666-use-visual-and-interactive-content-on-team-and-enterprise-plans",
@@ -9298,8 +9298,8 @@
       "url": "https://support.claude.com/en/articles/13756069-public-sector-faqs",
       "status": "success",
       "path": "support/13756069-public-sector-faqs.md",
-      "sha256": "d1c24fb53c7336c6e73dedd959255bb4be318df57f572b237d25a6aec2c78c8d",
-      "size": 8378
+      "sha256": "a37ae9287d431ad1bb9010d3bbdd03d36a80a1538ed4c33f2b3f207f1ec6bffa",
+      "size": 8376
     },
     {
       "url": "https://support.claude.com/en/articles/13776697-join-an-organization-via-invite-link",
@@ -9326,22 +9326,22 @@
       "url": "https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization",
       "status": "success",
       "path": "support/13837433-manage-plugins-for-your-organization.md",
-      "sha256": "9fa30b05d2cf8aeafddd33e72d1b09fb776d74da8b2bae83c444215264c73c4f",
-      "size": 19934
+      "sha256": "92f0b87d5092eb5fb255b33fb975dd5482f61caeb1cd7e68926113744c39fd20",
+      "size": 19938
     },
     {
       "url": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "status": "success",
       "path": "support/13837440-use-plugins-in-claude.md",
-      "sha256": "39e379b98524e177932eaefa3d70c80a8be01779280053f496d74f740d075d6b",
-      "size": 6716
+      "sha256": "66b8082d984c93c09e296857ad566d8f0fe11c4240c7b425f223ef5b4e04ce8b",
+      "size": 6720
     },
     {
       "url": "https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork",
       "status": "success",
       "path": "support/13854387-schedule-recurring-tasks-in-claude-cowork.md",
-      "sha256": "082b0488d514252beadf74c200e3316a9e3b9be6f262d530d05e6719a3b23d0f",
-      "size": 4698
+      "sha256": "9da83a1bafc3b369367171f27bd974563241b6519f785c9e1a8196d058afa7a3",
+      "size": 4700
     },
     {
       "url": "https://support.claude.com/en/articles/13917817-google-workspace-sso-scim-email-mismatch",
@@ -9424,15 +9424,15 @@
       "url": "https://support.claude.com/en/articles/13930458-set-up-role-based-permissions-on-enterprise-plans",
       "status": "success",
       "path": "support/13930458-set-up-role-based-permissions-on-enterprise-plans.md",
-      "sha256": "ac73271c4cb035f34e1c1431e64a98b56a3bb17ab5dafedc793315abce544e4b",
-      "size": 40976
+      "sha256": "3f789e633a3c5178ae1e80bd9197ce8d11c392c23f3ea6efe6e25138c7a1bb44",
+      "size": 40982
     },
     {
       "url": "https://support.claude.com/en/articles/13947068-assign-tasks-from-anywhere-in-claude-cowork",
       "status": "success",
       "path": "support/13947068-assign-tasks-from-anywhere-in-claude-cowork.md",
-      "sha256": "7ae9e11c402ca9b2f02c23ed71e49da73f89e8cb0144f8b626d82406fa163ddc",
-      "size": 8276
+      "sha256": "88493dcbee34709c874391b4aa2ac9bb1a969b23ed0703ca8fdc225d2f130548",
+      "size": 8274
     },
     {
       "url": "https://support.claude.com/en/articles/13979539-custom-visuals-in-chat-and-cowork",
@@ -9452,15 +9452,15 @@
       "url": "https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-claude-cowork",
       "status": "success",
       "path": "support/14116274-organize-your-tasks-with-projects-in-claude-cowork.md",
-      "sha256": "73ad59964cd5405db92360444134801f2cbdc25ebbaeb0591f86d1e8e7dc7953",
-      "size": 5702
+      "sha256": "b1da23d9962d0043bdd740c8d638d15ac7687e3ea30e999916d6ff1d76a422ee",
+      "size": 5708
     },
     {
       "url": "https://support.claude.com/en/articles/14128542-let-claude-use-your-computer-in-cowork",
       "status": "success",
       "path": "support/14128542-let-claude-use-your-computer-in-cowork.md",
-      "sha256": "54f45d6235f4deb95bab40ea5f24ad298e712fe0e3b24564f27655268d392d32",
-      "size": 8284
+      "sha256": "9c7dc24d07845da7305afb109a5a4f9e37438cbf51dca69602f55e79f10b6ca3",
+      "size": 8286
     },
     {
       "url": "https://support.claude.com/en/articles/14128775-claude-code-on-console-to-enterprise-migration",
@@ -9522,8 +9522,8 @@
       "url": "https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations",
       "status": "success",
       "path": "support/14499648-how-scim-sync-works-for-enterprise-organizations.md",
-      "sha256": "7f8174e4dca7688192e78c29b14191ef9d76c91f6dfc1efabdbc2311d2ff7279",
-      "size": 7442
+      "sha256": "e90318ff73dc8d0976e45385501fc28e98ba22873e343c71abe8d0215f28f194",
+      "size": 7440
     },
     {
       "url": "https://support.claude.com/en/articles/14503520-available-beta-and-research-preview-features",
@@ -9543,14 +9543,14 @@
       "url": "https://support.claude.com/en/articles/14503613-sso-login",
       "status": "success",
       "path": "support/14503613-sso-login.md",
-      "sha256": "4f38d172661e3e15b808fc33d9633f92be83d947b90f5b3b6086e02a348701bf",
-      "size": 6690
+      "sha256": "f74e8c59dfc425ec0154960d4a6d63268302e0b32583f03b0920755f462becf4",
+      "size": 6688
     },
     {
       "url": "https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government",
       "status": "success",
       "path": "support/14503643-set-up-scim-in-claude-for-government.md",
-      "sha256": "bbef0e9cb2d5f74790d74f3765ad02a1ae895fe9a4ced7ee640097f53bc40228",
+      "sha256": "69a42f43f0b593c7530311219b6a1bec8ce159d1a1f4a51c11b3017ad905a3e5",
       "size": 6423
     },
     {
@@ -9578,8 +9578,8 @@
       "url": "https://support.claude.com/en/articles/14503775-mcp-web-search",
       "status": "success",
       "path": "support/14503775-mcp-web-search.md",
-      "sha256": "f8953c1b85ef7e339452156390b5d53575a2e486273f76b3d7f7cd9d885c583b",
-      "size": 4677
+      "sha256": "6e1c6db6f1eb4f121f698fd0d9639cf46a78b637864af3a4db7f2cbd070db456",
+      "size": 4681
     },
     {
       "url": "https://support.claude.com/en/articles/14503794-model-availability-in-claude-for-government",
@@ -9676,21 +9676,21 @@
       "url": "https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design",
       "status": "success",
       "path": "support/14604397-set-up-your-design-system-in-claude-design.md",
-      "sha256": "27dd2919136e37bd1b13f374b0c724b65d9157a6609125ae4132523527cf6f98",
-      "size": 4394
+      "sha256": "6565a89264780e170f82bb796603ebc3f86dec8bea9bb0a9f0f91f4504958c59",
+      "size": 4396
     },
     {
       "url": "https://support.claude.com/en/articles/14604406-claude-design-admin-guide-for-team-and-enterprise-plans",
       "status": "success",
       "path": "support/14604406-claude-design-admin-guide-for-team-and-enterprise-plans.md",
-      "sha256": "41d71c7782945858c62aee86eb57b1ee3915a06c63590c141f471a7495aed1f1",
-      "size": 12731
+      "sha256": "329dcb89b0e34f60ffd613bc2e440e6a39ce9e34360a8ea8c853bb1a714fba52",
+      "size": 12735
     },
     {
       "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design",
       "status": "success",
       "path": "support/14604416-get-started-with-claude-design.md",
-      "sha256": "2b6261cd979091b37cff046733689ed4455e4979280188df48c1b4c1aa84eb0c",
+      "sha256": "46c9a6bc4b215774e937d91a2f7972357b6e0a11b414263bdc7903f5d507fd7d",
       "size": 11132
     },
     {
@@ -9816,8 +9816,8 @@
       "url": "https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization",
       "status": "success",
       "path": "support/15330088-set-a-default-model-for-your-organization.md",
-      "sha256": "6409b1ebce5a1640e4eef37612eede92a38a7d95a949b02279bb9b82ec31daca",
-      "size": 5744
+      "sha256": "f7b93f5f02a36b62443a6aba479aac1d32e917f98d503e72ee80989db7d592a9",
+      "size": 5742
     },
     {
       "url": "https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide",
@@ -9928,8 +9928,8 @@
       "url": "https://support.claude.com/en/articles/15694740-manage-model-access-for-your-organization",
       "status": "success",
       "path": "support/15694740-manage-model-access-for-your-organization.md",
-      "sha256": "7bfec3b0893ade3de768e188d42bfab64522809988984b4039c76514fe02c84a",
-      "size": 8513
+      "sha256": "1c9d80e082ddce1f1df072f14934598361d518aa6ee5b8e3c709b0ba4528c732",
+      "size": 8511
     },
     {
       "url": "https://support.claude.com/en/articles/15707726-using-claude-for-legal-work-privilege-confidentiality-and-how-to-think-about-configuration",
@@ -9963,8 +9963,8 @@
       "url": "https://support.claude.com/en/articles/15936181-get-started-with-1password-for-claude",
       "status": "success",
       "path": "support/15936181-get-started-with-1password-for-claude.md",
-      "sha256": "c4120a3d42705793704bccbdcd67fefb307d6ea94defe451ae584c937f7cd7a2",
-      "size": 5062
+      "sha256": "0c735ea7cbe24201d0c09c3fda1d661c0bc22f009ab0d37fa49686cd8a85b165",
+      "size": 5056
     },
     {
       "url": "https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5",

@@ -2,7 +2,7 @@
 
 Once you are logged in, click your initials or name in the lower left corner and select "Settings." Navigate to **[Settings > Account](https://claude.ai/settings/account)** and click the "Delete account" button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2274267534/e7064e2657b1bd20031ba40da11c/CleanShot+2026-04-14+at+09_48_08.png?expires=1786419000&amp;signature=2c6f5db4a9897edcbf8ff0079a8088d46f58e0d7efe763c1d680838a7e2d5e6f&amp;req=diIgEst4moRcXfMW1HO4zeqzlXoKJ4j8oVDupr7i4TEhWJqq2XtDKbWnVFmj%0AzZAUgI6hjysn5zBjMms%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2274267534/e7064e2657b1bd20031ba40da11c/CleanShot+2026-04-14+at+09_48_08.png?expires=1786432500&amp;signature=adc1ebfac75a93c1a7dd9d40bb48e2080230d03a422f12b1eca0098f23bdcf84&amp;req=diIgEst4moRcXfMW1HO4zeqzlXoKJYP5oVDupr7i4TFJp%2F7zrkJSK28k%2B7LV%0AqiTujVxoX2cGffV8LP0%3D%0A)
 
 ## Considerations for paid Claude accounts
 
@@ -20,4 +20,4 @@ If you have multiple accounts associated with the same email address, you'll nee
 
 There are some scenarios where you will need to **[contact our team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to delete your account. If this is the case, it will be noted in your account:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584796811/331afc5dc61eec6f72786155b782/Screenshot+2025-06-23+at+1_54_23%E2%80%AFPM.png?expires=1786419000&amp;signature=88051b08c61f4b1d42d243cafa55985be7b50a46e9aa780f9e957b9bf11117d2&amp;req=dSUvEs53m4leWPMW1HO4zXW0qxMPGoNbVOsMorzl%2B%2FSOKIatz2D43IOzGbIl%0AQ2OC%2FXzqfn40PDqXQ8w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584796811/331afc5dc61eec6f72786155b782/Screenshot+2025-06-23+at+1_54_23%E2%80%AFPM.png?expires=1786432500&amp;signature=c137d2902ebb759815eefd09bb03937e13c5409b6e9fd4835ffd3a4e8eff1cc0&amp;req=dSUvEs53m4leWPMW1HO4zXW0qxMPGIheVOsMorzl%2B%2FQxvg0NfdO%2F8j5KNcl%2F%0A3kf%2FeDS4sOOBGvZk28U%3D%0A)
