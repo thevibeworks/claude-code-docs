@@ -16,7 +16,9 @@ You decide which connectors are enabled, which groups or roles get them, and at 
 
 - Auth connectors once for your organization, and access is given to your team automatically.
 
-- Scope access by group, team, or role, so different teams get the access that fits their work (integration with role-based permissions coming soon).
+- Use role-based permissions to choose exactly which roles get each connector, so different teams get the access that fits their work. See **Choose which roles get managed auth** below.
+
+- Choose which permissions Claude can request when members connect through your identity provider, and narrow that further for individual roles.
 
 - Revoke access by deprovisioning someone in your identity provider, which removes their connector access at the same time.
 
@@ -25,6 +27,42 @@ You decide which connectors are enabled, which groups or roles get them, and at 
 **Note:** Your identity provider and each connector are operated by third parties under their own terms. Claude relays the authorization your identity provider issues; access decisions, scoping, and the data each connector can reach are governed by your identity provider’s policies and the connected service’s permissions, not by Anthropic.
 
 Token lifetimes and lifecycle are managed by the connected authorization server and identity provider. Existing sessions end when the connector’s access token expires or is revoked.
+
+## Choose which roles get managed auth
+
+When you set up Enterprise-managed auth for a connector, you choose which roles inherit the connector when you set up role-based permissions. You can use role-based permissions to pilot a connector with a specific team before turning it on for your whole organization.
+
+1. Go to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** and select a connector.
+
+2. On the **Configuration** tab, click "Set up" next to **Managed authorization**.
+
+3. On the **Connect** step, confirm your identity provider connection. Follow the setup guide to configure Enterprise-managed auth for this connector in your identity provider, and to enable managed auth in the connector's own admin settings. Click "Run test" to confirm the connection works.
+
+4. On the **Roles** step, select who should get this connector automatically.
+
+  1. **User, Admin, Owner, Primary owner**: your organization's built-in roles, as a group.
+
+  2. Any custom role, selected individually.
+
+To pilot a connector with one team, select only that team's custom role and leave the built-in roles unchecked. Members on the User, Admin, Owner, or Primary Owner role won't get the connector until you come back and add that option.
+
+5. On the **Scopes** step, choose which permissions Claude can request when members connect through your identity provider. These apply to every role you selected. To narrow permissions for a specific role, use that role's **Connectors** tab instead (see below).
+
+6. Click "Save & turn on."
+
+Once set up, the connector's Configuration tab shows its current state: **Applied roles** lists which roles connect through managed authorization, and **Scopes** shows what's granted. To expand a pilot, click "Edit" next to **Applied roles** and add "User, Admin, Owner, Primary owner" or more custom roles.
+
+**Note:** **Browser sign-in** and **Managed authorization** can be on for a connector at the same time. When they are, Claude tries **Managed authorization** first and prompts the user to sign in individually if that fails, so members aren't locked out while an identity provider issue gets resolved.
+
+### Connector settings inside a custom role
+
+You can also start from a role in **Organization settings** > **Roles** instead of a connector. On a custom role's **Connectors** tab, **How members connect** controls how that role's members authenticate, across every connector at once, or per connector:
+
+- **Individually**: members sign in with their own accounts.
+
+- **Managed authorization**: members connect through your identity provider.
+
+- **Set per connector**: choose individually for each connector.
 
 ## What works with Enterprise-managed auth
 

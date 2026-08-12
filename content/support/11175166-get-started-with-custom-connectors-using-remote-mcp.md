@@ -114,7 +114,7 @@ If you're hoping to edit a custom connector, you'll need to remove it first, the
 
 ## Build custom connectors
 
-To learn about building connectors to use with Claude, see **[Building custom connectors via remote MCP servers](https://support.claude.com/en/articles/11503834-building-custom-connectors-via-remote-mcp-servers)**.
+To learn about building connectors to use with Claude, see **[Building custom connectors](https://claude.com/docs/connectors/building)** in Claude Docs.
 
 ---
 
