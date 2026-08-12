@@ -223,7 +223,7 @@
         "url": "https://github.com/amd/skills.git",
         "path": "skills",
         "ref": "main",
-        "sha": "cf5e518e0a2efcc8d1131b18ff17d40970d53ac1"
+        "sha": "ec4bf7f0dda91d25cea2c4db4096adf9ef383096"
       },
       "strict": false,
       "skills": [
@@ -476,7 +476,7 @@
         "url": "https://github.com/awslabs/agent-plugins.git",
         "path": "plugins/aws-serverless",
         "ref": "main",
-        "sha": "efe040ab66ed7eb4bccc0a94133181da5bc57567"
+        "sha": "34afdf5005325f17d5da2d1443b87f27a53b0a20"
       },
       "homepage": "https://github.com/awslabs/agent-plugins"
     },
@@ -778,7 +778,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "9b9639edafa24ebae749043ce43d92f8b031fd42"
+        "sha": "da8fc21ab430512ff4db1e36bfb0e7701d51d500"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -1205,7 +1205,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "d7f3d1da92bf9a89806f3020756c52d61c62c0e6"
+        "sha": "d3988b6a99e77b0c050f50c22f06fdb3c9db1f36"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1484,7 +1484,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "ea6f1492f4e69e5b530c3fb8162728a1b0d982eb"
+        "sha": "dcff9e7cd61f79ee821e18b5b215d5585eaac441"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1500,7 +1500,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/fastly/fastly-agent-toolkit.git",
-        "sha": "9e5372506801baba57a3e903bc0e8c48823be081"
+        "sha": "d5a8062287c8f70278f3c94f6198396004a4889f"
       },
       "homepage": "https://github.com/fastly/fastly-agent-toolkit/blob/main/README.md"
     },
@@ -1816,7 +1816,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "a16222d9a278e93b0eff8ebbc62fef04e3c979e9"
+        "sha": "5752d224929f00ac2fa2757df02339f781cdd6fa"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -3497,7 +3497,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/supabase-community/supabase-plugin.git",
-        "sha": "36c3b08575f34ca7360806c6274661231aa70fd4"
+        "sha": "aadcf51499969e5ed476dadd19fdf688bcc0b250"
       },
       "homepage": "https://github.com/supabase-community/supabase-plugin"
     },
@@ -3853,7 +3853,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "105a82c7cebc873bc82dffa2a44ba3d6f6e57a2f"
+        "sha": "7a1f49419c1211d823fdc11bd8c9f17dc9500233"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
