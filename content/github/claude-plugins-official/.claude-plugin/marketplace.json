@@ -370,7 +370,7 @@
         "url": "https://github.com/auth0/agent-skills.git",
         "path": "plugins/auth0",
         "ref": "main",
-        "sha": "ff9618bb145f326341979ec976d7e722a7b001c0"
+        "sha": "abab92beb4b7c703313fe2309567b018474e48a0"
       },
       "homepage": "https://auth0.com"
     },
@@ -555,7 +555,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/base44/skills.git",
-        "sha": "ee5371011cb43a0dcdf1bab313ee704b461a2eb6"
+        "sha": "773a301cfb79112141add32d19c024f2bafc44ee"
       },
       "homepage": "https://docs.base44.com"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "c59339c3aa9846212c19ed99a940b30e1160f07f"
+        "sha": "02c086ea52e15a15d39dd5960b74a39dddaa101e"
       },
       "homepage": "https://carta.com"
     },
@@ -778,7 +778,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "da8fc21ab430512ff4db1e36bfb0e7701d51d500"
+        "sha": "b58c613f4b05ade36bbf0d6ba44d5a525ec4d19a"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -1205,7 +1205,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "d3988b6a99e77b0c050f50c22f06fdb3c9db1f36"
+        "sha": "04df55f006b3185a8c62cadf0565fe5661f6f022"
       },
       "homepage": "https://dash0.com/"
     },
