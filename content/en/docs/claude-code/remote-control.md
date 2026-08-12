@@ -288,7 +288,7 @@ Claude Code skips mobile push notifications while you are typing in or focused o
 * **One remote session per interactive process**: outside of server mode, each Claude Code instance supports one remote session at a time. Use [server mode](#start-a-remote-control-session) to run multiple concurrent sessions from a single process.
 * **Local process must keep running**: Remote Control runs as a local process. If you close the terminal, quit VS Code, or otherwise stop the `claude` process, the session ends. To keep a session running on a remote machine after you disconnect from SSH, start it inside `tmux` or `screen`.
 * **Extended network outage**: if your machine is awake but unable to reach the network for more than roughly 10 minutes, the session times out and the process exits. Run `claude remote-control` again to start a new session.
-* **Forwarded dialogs expire**: Claude Code keeps permission prompts and `AskUserQuestion` questions open until you answer them. When Claude Code forwards another kind of dialog to the remote session, it waits five minutes by default, then closes the dialog and continues with the dialog's no-action default. Set [`dialogExpiry`](/docs/en/settings#available-settings) to adjust or disable the deadline. Requires Claude Code v2.1.224 or later. The approval dialog for a held cross-session message uses the same deadline; [the held-message expiry rules](/docs/en/cross-session-messaging#control-inbound-messages) cover the cases where Claude Code keeps the dialog open past it.
+* **Forwarded dialogs expire**: Claude Code keeps permission prompts and `AskUserQuestion` questions open until you answer them. When Claude Code forwards another kind of dialog to the remote session, such as the model-choice prompt shown after a safety refusal, it waits five minutes by default, then closes the dialog and continues with the dialog's no-action default. Set [`dialogExpiry`](/docs/en/settings#available-settings) to adjust or disable the deadline. Requires Claude Code v2.1.224 or later. The approval dialog for a held cross-session message uses the same deadline. [The held-message expiry rules](/docs/en/cross-session-messaging#control-inbound-messages) cover the cases where Claude Code keeps the dialog open past it.
 * **Some commands are local-only**: commands that only run in the terminal interface, such as `/plugin` or `/resume`, work only from the local CLI, whether or not you pass an argument. The following work from mobile and web:
   * Text-output commands: `/compact`, `/clear`, `/context`, `/usage`, `/exit`, `/usage-credits` (prints the billing URL instead of opening a browser), `/recap`, `/reload-plugins`
   * `/model`, `/effort`, `/fast`, `/color`, and `/rename`: pass the value as an argument, for example `/model sonnet` or `/effort high`. From mobile and web, `/model` and `/effort` take the argument in place of the terminal picker or slider.
@@ -362,23 +362,22 @@ A stale login token doesn't cause this error. When the Anthropic API rejects the
 
 When you resume a conversation with `claude --resume` or `claude --continue`, Claude Code reconnects to the Remote Control session recorded in that conversation. This message means the reconnection failed for a reason that may be temporary, such as a network interruption or a server error, so Claude Code can't confirm whether the remote session still exists.
 
-When the server confirms the previous session no longer exists, Claude Code creates a new Remote Control session without showing this message. Claude Code creates this replacement differently from a Remote Control session you start yourself with `/remote-control`, which syncs the conversation so far:
+Your local session keeps running without Remote Control. Run `/remote-control` to retry the connection, or start a new session with `claude --remote-control` to create a new Remote Control session.
 
-* **History upload**: Claude Code turns history upload off for the replacement, so it doesn't carry the earlier local conversation.
-* **Name**: Claude Code gives the replacement an auto-generated name.
-* **Conversation scope**: the replacement session shows only the conversation from the point it connects. The full conversation stays available in your terminal.
+Resuming can also end in two other ways:
 
-Your local session keeps running without Remote Control. Run `/remote-control` to retry the connection, or start Claude Code without `--resume` to create a new Remote Control session.
+* **The server reports that the recorded session no longer exists**: Claude Code shows [`Remote Control could not resume the previous session under the current login`](#remote-control-could-not-resume-the-previous-session-under-the-current-login) instead of this message, doesn't create a replacement session, and removes the reconnection record from the conversation.
+* **Remote Control was turned off before you resumed**: Claude Code keeps the reconnection record only while Remote Control stays on. Turning it off from the CLI's [status panel](#check-connection-status), the VS Code extension, or a host built on the [Agent SDK](/docs/en/agent-sdk/overview) removes the record, so resuming doesn't reconnect Remote Control.
 
-Claude Code keeps the reconnection record only while Remote Control stays on. When you turn Remote Control off, whether from the CLI's [status panel](#check-connection-status), the VS Code extension, or a host built on the [Agent SDK](/docs/en/agent-sdk/overview), Claude Code removes the record, so resuming the conversation doesn't reconnect Remote Control.
+Earlier versions created a new Remote Control session instead of showing a message: before v2.1.200 on any reconnection failure, and through v2.1.226 when the server reported the session gone.
 
-Before v2.1.200, a reconnection failure created a new Remote Control session instead of showing this message, which left extra sessions in the session list at claude.ai/code.
+<h3 id="remote-control-could-not-resume-the-previous-session-under-the-current-login">
+  "Remote Control could not resume the previous session under the current login"
+</h3>
 
-### "Remote Control could not resume the previous session under the current login"
+Claude Code tried to reconnect to a previous Remote Control session and stopped: it couldn't confirm that the session is still available to the account you're now signed in with, for example because you signed in to a different account or the server reported the session gone. You can see this message after resuming a conversation with `claude --resume` or `claude --continue`, or after Claude Code reconnects on its own following a disconnect.
 
-Claude Code was reconnecting the previous remote session on its own and stopped: it couldn't confirm that the session is still available to the account you're now signed in with, for example because you signed in to a different account or the server reported the session gone. Instead of starting a fresh remote session unattended, which by default would upload the local conversation under an account that may not own it, Claude Code leaves the session running locally without Remote Control. Run `/remote-control` to start a fresh Remote Control session under the current login.
-
-The related message `Remote Control could not verify the signed-in account — run /remote-control to reconnect` appears when the signed-in account changed or couldn't be read between Claude Code validating it and reconnecting, and has the same fix.
+Rather than start a fresh remote session, which by default would upload the local conversation under an account that may not own it, Claude Code leaves the session running locally without Remote Control. Run `/remote-control` to start a fresh Remote Control session under the current login. The related message `Remote Control could not verify the signed-in account — run /remote-control to reconnect` appears when the signed-in account changed or couldn't be read between Claude Code validating it and reconnecting, and has the same fix.
 
 The automatic reconnection is part of disconnect recovery. When a [Remote Control disconnect message](/docs/en/errors#remote-control-couldnt-refresh-your-login) says to run `/login` to restore Remote Control, Claude Code watches for a new sign-in and reconnects to the previous remote session on its own. Any other disconnect listed in that entry needs a manual `/remote-control`. Both messages were added in v2.1.225.
 
