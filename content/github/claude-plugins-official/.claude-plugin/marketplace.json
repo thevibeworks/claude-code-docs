@@ -338,7 +338,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/atlassian-labs/twg-plugins.git",
-        "sha": "aa6b0b4aba2a083ba66ac11ac5fd5c03378a4265"
+        "sha": "e19b8bfeea3323c573edd9834fb82fcc19a34999"
       },
       "homepage": "https://developer.atlassian.com/cloud/twg-cli/"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "f29d4c77ed721df034a073eb3b2fffd67973b3d6"
+        "sha": "82af9becd45f79a012570b60022abaa44afbd683"
       },
       "homepage": "https://carta.com"
     },
@@ -778,7 +778,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "f8572f04e4da404f333530854286acc5626efe94"
+        "sha": "345ac9d67849aaf2fca1d825505e9878a715f183"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -1269,7 +1269,7 @@
         "url": "https://github.com/databricks/databricks-agent-skills.git",
         "path": "plugins/databricks/claude",
         "ref": "main",
-        "sha": "e9a5432d2ce08058b4ff39bc5e934c498e250d98"
+        "sha": "97e442f0149583affc4daa340545ea06aac3d23f"
       },
       "homepage": "https://developers.databricks.com/"
     },
@@ -1353,7 +1353,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "d2de18c80a3e3df52e55e8af3b03943a4c5aaaff"
+        "sha": "97304e0edc449f48082eaa9da0a5ac1e28baa8ff"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1484,7 +1484,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "dcff9e7cd61f79ee821e18b5b215d5585eaac441"
+        "sha": "6dfc552dc8675a3c3664de12defb6a78edfe9606"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1645,7 +1645,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/google-cloud-storage.git",
-        "sha": "7a84ccaa96a64d1d2b346d646d29bb370ce01a29"
+        "sha": "278b5968b91ad5cff1266352cb9e8fd4c24fdf58"
       },
       "homepage": "https://cloud.google.com/storage"
     },
@@ -1815,7 +1815,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "3cfacf440d4d0631618df48ed50cd06f42922db6"
+        "sha": "f9a20692f8a0ee10330d0a95de1abd422e92d74a"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -3101,7 +3101,7 @@
         "url": "https://github.com/forcedotcom/sf-skills.git",
         "path": "plugins/builder/salesforce-development",
         "ref": "main",
-        "sha": "870e4afc09bc2ccf9c6c41b045e54492f1f37688"
+        "sha": "81dc38272470fa835cdb19a868f359f548472232"
       },
       "homepage": "https://github.com/forcedotcom/sf-skills/tree/main/plugins/builder/salesforce-development"
     },
@@ -3181,7 +3181,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SAP/mdk-mcp-server.git",
-        "sha": "8e646ba68b704720814d6f2ee76052a6b69729d7"
+        "sha": "a09b67c2c90afa37ecfcb59527d820731c6a63e6"
       },
       "homepage": "https://help.sap.com/docs/MDK"
     },
@@ -3840,7 +3840,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/windsor-ai/claude-windsor-ai-plugin.git",
-        "sha": "8a4fed5425bd43f6f57f4543d7acfc0593616846"
+        "sha": "d7ba1cb036c7ca765536355fb85f13a3237ea3f9"
       },
       "homepage": "https://windsor.ai"
     },
@@ -3851,7 +3851,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "d9b73923907f91989335cf4f26dce52095faeea4"
+        "sha": "cf75308b42ccf83029a8a242a6d4baaa3f4ae160"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3958,7 +3958,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zscaler/zscaler-mcp-server.git",
-        "sha": "080d175246f48d04f0f6b1b2cdacd1c646ffc37b"
+        "sha": "1b9d63a3e00e9bd7878da4dd436ec897c0c425bf"
       },
       "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     },
