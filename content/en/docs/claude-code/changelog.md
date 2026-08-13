@@ -10,6 +10,10 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.231" description="August 13, 2026">
+  * Fixed MCP OAuth sign-in failing with a redirect URI mismatch for servers that use a pre-registered OAuth client, such as Slack
+</Update>
+
 <Update label="2.1.229" description="August 12, 2026">
   * Documented `claude remote-control --continue` for resuming the most recent Remote Control session
   * Added server-supplied Claude Code hook support for self-hosted runner sessions, matching managed-environment behavior

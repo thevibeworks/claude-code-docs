@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.231
+
+- Fixed MCP OAuth sign-in failing with a redirect URI mismatch for servers that use a pre-registered OAuth client, such as Slack
+
 ## 2.1.229
 
 - Documented `claude remote-control --continue` for resuming the most recent Remote Control session
