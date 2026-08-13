@@ -1,3 +1,8 @@
+---
+title: Plugins
+url: https://platform.claude.com/docs/en/api/admin/analytics/plugins
+---
+
 # Plugins
 
 ## Get Plugin Usage

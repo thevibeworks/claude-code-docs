@@ -1,3 +1,8 @@
+---
+title: Get Messages Usage Report
+url: https://platform.claude.com/docs/en/api/admin/usage_report/retrieve_messages
+---
+
 ## Get Messages Usage Report
 
 **get** `/v1/organizations/usage_report/messages`

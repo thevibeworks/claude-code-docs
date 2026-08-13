@@ -58,7 +58,7 @@ The connector fully supports your existing Entra (Azure AD) policies:
 
 - Users cannot bypass SharePoint sharing settings or folder permissions.
 
-- Users cannot access other users' private files or emails. Users can search shared mailboxes they've been granted delegate access to in Microsoft 365, including full access and folder-level delegation. Shared mailbox access remains read-only, via the `Mail.Read.Shared` permission.
+- Users can't access other users' private files or emails. Users can search shared mailboxes they've been granted delegate access to in Microsoft 365, including full access and folder-level delegation. Shared mailbox access remains read-only, via the `Mail.Read.Shared` permission. Email search doesn't reach a user's separate Online Archive (In-Place Archive) mailbox.
 
 - Delegated permissions inherently respect Microsoft 365 data loss prevention (DLP) policies.
 
@@ -255,6 +255,8 @@ Requested as part of the updated consent set; used only when write tools are ena
 - **Teams is read-only**: Claude can't post Teams messages or modify Teams settings. Other write tools require an admin to enable them.
 
 - **User-level access only**: Access with service principal authentication is not supported.
+
+- **Online Archive mailboxes aren't searched**: email search covers each user's primary mailbox, including its Archive folder, and any shared mailboxes they can access. It doesn't cover the separate Online Archive mailbox (also called the In-Place Archive), so messages that a retention policy has moved there won't appear in results.
 
 ## Frequently asked questions
 

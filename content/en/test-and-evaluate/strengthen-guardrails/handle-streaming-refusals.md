@@ -1,13 +1,13 @@
-# Handle streaming refusals
-
-Detect and handle refusal stop reasons in streaming responses, and retry refused requests on a fallback model.
-
+---
+title: Handle streaming refusals
+url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals
+description: Detect and handle refusal stop reasons in streaming responses, and retry refused requests on a fallback model.
 ---
 
 Starting with Claude 4 models, streaming responses from Claude's API return **`stop_reason`: `"refusal"`** when streaming classifiers intervene to handle potential policy violations. This safety feature helps maintain content compliance during real-time streaming.
 
 <Tip>
-  This page covers how refusals appear in streaming responses. For every `stop_reason` value and how to handle it, see [Stop reasons and fallback](/docs/en/build-with-claude/handling-stop-reasons). To retry refused requests on another Claude model, see [Refusals and fallback](/docs/en/build-with-claude/refusals-and-fallback).
+  This page covers how refusals appear in streaming responses. For every `stop_reason` value and how to handle it, see [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons). To retry refused requests on another Claude model, see [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 </Tip>
 
 ## API response format
@@ -35,7 +35,7 @@ When streaming classifiers detect content that violates Anthropic's policies, th
 In the event stream, `stop_details` arrives on the `message_delta` event alongside `stop_reason`.
 
 <Note>
-  A `refusal` response from streaming classifiers includes a `stop_details` object with a `category` and a human-readable `explanation` that you can surface to the user. See [Refusals and fallback](/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the full response shape and the available categories.
+  A `refusal` response from streaming classifiers includes a `stop_details` object with a `category` and a human-readable `explanation` that you can surface to the user. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the full response shape and the available categories.
 
   On a refusal the `stop_details` object is always present, but its `category` and `explanation` fields can be `null`, for example when the refusal maps to no named category. Branch on `stop_reason` or `stop_details.type` rather than assuming `category` and `explanation` are populated, and provide your own user-facing messaging when they are `null`.
 </Note>
@@ -51,7 +51,7 @@ When you receive **`stop_reason`: `refusal`**, you must reset the conversation c
 </Note>
 
 <Tip>
-  Resetting context is not the only way to recover. You can also retry the refused request on a different Claude model, and the [Refusals and fallback](/docs/en/build-with-claude/refusals-and-fallback) page shows how to set that up with server-side fallback, the SDK middleware, or a manual retry.
+  Resetting context is not the only way to recover. You can also retry the refused request on a different Claude model, and the [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) page shows how to set that up with server-side fallback, the SDK middleware, or a manual retry.
 </Tip>
 
 ## Implementation guide
@@ -316,8 +316,8 @@ The API currently handles refusals in three different ways:
 
 * **Monitor for refusals:** Include **`stop_reason`: `refusal`** checks in your error handling
 * **Reset automatically:** Implement automatic context reset when refusals are detected
-* **Fall back to another model:** Configure [server-side fallback or the SDK middleware](/docs/en/build-with-claude/refusals-and-fallback) so refused requests are retried on another Claude model instead of surfacing a refusal to the user
-* **Redeem fallback credit on manual retries:** If you build the retry yourself, pass the refusal's [fallback credit](/docs/en/build-with-claude/fallback-credit) token so the retry doesn't pay the prompt-cache cost twice
+* **Fall back to another model:** Configure [server-side fallback or the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) so refused requests are retried on another Claude model instead of surfacing a refusal to the user
+* **Redeem fallback credit on manual retries:** If you build the retry yourself, pass the refusal's [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) token so the retry doesn't pay the prompt-cache cost twice
 * **Provide custom messaging:** Create user-friendly messages for better UX when refusals occur
 * **Track refusal patterns:** Monitor refusal frequency to identify potential issues with your prompts
 
@@ -326,27 +326,27 @@ The API currently handles refusals in three different ways:
 If you built refusal handling when this feature first shipped, or you're adding it to an existing integration, check the following:
 
 * **Refusals are responses, not errors.** A refusal arrives as a successful HTTP 200 response with `stop_reason`: `"refusal"`, so monitoring built only on error rates won't surface it. Track refusals as their own signal.
-* **Refusals include structured detail.** On every model, a refusal also includes a `stop_details` object that identifies the policy category behind the decline. See [Refusals and fallback](/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the full response shape.
-* **Retry on a different model.** Re-sending a refused request to the same model usually results in another refusal. Instead of only resetting context, retry on a fallback model with [server-side fallback, the SDK middleware, or a manual retry](/docs/en/build-with-claude/refusals-and-fallback), and redeem [fallback credit](/docs/en/build-with-claude/fallback-credit) when you build the retry yourself.
-* **Check batch results for refusals.** A refused request in a [Message Batch](/docs/en/build-with-claude/batch-processing) is returned as a succeeded result with `stop_reason`: `"refusal"`, not as an errored result.
+* **Refusals include structured detail.** On every model, a refusal also includes a `stop_details` object that identifies the policy category behind the decline. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) for the full response shape.
+* **Retry on a different model.** Re-sending a refused request to the same model usually results in another refusal. Instead of only resetting context, retry on a fallback model with [server-side fallback, the SDK middleware, or a manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), and redeem [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) when you build the retry yourself.
+* **Check batch results for refusals.** A refused request in a [Message Batch](https://platform.claude.com/docs/en/build-with-claude/batch-processing) is returned as a succeeded result with `stop_reason`: `"refusal"`, not as an errored result.
 * **Centralize handling on `stop_reason`.** The API continues to consolidate refusal handling around `stop_reason`: `"refusal"`, so branch on the stop reason rather than on model-specific behavior.
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Refusals and fallback" icon="arrows-clockwise" href="/docs/en/build-with-claude/refusals-and-fallback">
+  <Card title="Refusals and fallback" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback">
     Retry refused requests on another Claude model, server-side or in your client.
   </Card>
 
-  <Card title="Stop reasons and fallback" icon="code" href="/docs/en/build-with-claude/handling-stop-reasons">
+  <Card title="Stop reasons and fallback" icon="code" href="https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons">
     Every `stop_reason` value and how to handle it.
   </Card>
 
-  <Card title="Streaming messages" icon="lightning" href="/docs/en/build-with-claude/streaming">
+  <Card title="Streaming messages" icon="lightning" href="https://platform.claude.com/docs/en/build-with-claude/streaming">
     Stream responses and read `stop_reason` from `message_delta` events as they arrive.
   </Card>
 
-  <Card title="Multilingual support" icon="text-aa" href="/docs/en/build-with-claude/multilingual-support">
+  <Card title="Multilingual support" icon="text-aa" href="https://platform.claude.com/docs/en/build-with-claude/multilingual-support">
     Serve users across languages with Claude's cross-lingual capabilities.
   </Card>
 </CardGroup>

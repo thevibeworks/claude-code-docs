@@ -1,14 +1,14 @@
-# Glossary
-
-These concepts are not unique to Claude. This page presents a brief summary of key terms.
-
+---
+title: Glossary
+url: https://platform.claude.com/docs/en/about-claude/glossary
+description: These concepts are not unique to Claude. This page presents a brief summary of key terms.
 ---
 
 ## Context window
 
 The "context window" refers to the amount of text a language model can look back on and reference when generating new text. This is different from the large corpus of data the language model was trained on, and instead represents a "working memory" for the model. A larger context window allows the model to process and respond to more complex and lengthy prompts, while a smaller context window may limit the model's ability to handle longer prompts or maintain coherence over extended conversations.
 
-See the [guide to understanding context windows](/docs/en/build-with-claude/context-windows) to learn more.
+See the [guide to understanding context windows](https://platform.claude.com/docs/en/build-with-claude/context-windows) to learn more.
 
 ## Fine-tuning
 
@@ -32,11 +32,11 @@ Large language models (LLMs) are AI language models with many parameters that ar
 
 ## MCP (Model Context Protocol)
 
-Model Context Protocol (MCP) is an open protocol that standardizes how applications provide context to LLMs. Like a USB-C port for AI applications, MCP provides a unified way to connect AI models to different data sources and tools. MCP enables AI systems to maintain consistent context across interactions and access external resources in a standardized manner. See the [MCP documentation](/docs/en/mcp) to learn more.
+Model Context Protocol (MCP) is an open protocol that standardizes how applications provide context to LLMs. Like a USB-C port for AI applications, MCP provides a unified way to connect AI models to different data sources and tools. MCP enables AI systems to maintain consistent context across interactions and access external resources in a standardized manner. See the [MCP documentation](https://platform.claude.com/docs/en/mcp) to learn more.
 
 ## MCP connector
 
-The MCP connector is a feature that allows API users to connect to MCP servers directly from the Messages API without building an MCP client. This enables seamless integration with MCP-compatible tools and services through the Claude API. The MCP connector supports features such as tool calling and is available in beta. See the [MCP connector](/docs/en/agents-and-tools/mcp-connector) documentation to learn more.
+The MCP connector is a feature that allows API users to connect to MCP servers directly from the Messages API without building an MCP client. This enables seamless integration with MCP-compatible tools and services through the Claude API. The MCP connector supports features such as tool calling and is available in beta. See the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) documentation to learn more.
 
 ## Pretraining
 
@@ -44,7 +44,7 @@ Pretraining is the initial process of training language models on a large unlabe
 
 ## RAG (Retrieval augmented generation)
 
-Retrieval augmented generation (RAG) is a technique that combines information retrieval with language model generation to improve the accuracy and relevance of the generated text, and to better ground the model's response in evidence. In RAG, a language model is augmented with an external knowledge base or a set of documents that is passed into the context window. The data is retrieved at runtime when a query is sent to the model, although the model itself does not necessarily retrieve the data (but can with [tool use](/docs/en/agents-and-tools/tool-use/overview) and a retrieval function). When generating text, relevant information first must be retrieved from the knowledge base based on the input prompt, and then passed to the model along with the original query. The model uses this information to guide the output it generates. This allows the model to access and use information beyond its training data, reducing the reliance on memorization and improving the factual accuracy of the generated text. RAG can be particularly useful for tasks that require up-to-date information, domain-specific knowledge, or explicit citation of sources. However, the effectiveness of RAG depends on the quality and relevance of the external knowledge base and the knowledge that is retrieved at runtime.
+Retrieval augmented generation (RAG) is a technique that combines information retrieval with language model generation to improve the accuracy and relevance of the generated text, and to better ground the model's response in evidence. In RAG, a language model is augmented with an external knowledge base or a set of documents that is passed into the context window. The data is retrieved at runtime when a query is sent to the model, although the model itself does not necessarily retrieve the data (but can with [tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) and a retrieval function). When generating text, relevant information first must be retrieved from the knowledge base based on the input prompt, and then passed to the model along with the original query. The model uses this information to guide the output it generates. This allows the model to access and use information beyond its training data, reducing the reliance on memorization and improving the factual accuracy of the generated text. RAG can be particularly useful for tasks that require up-to-date information, domain-specific knowledge, or explicit citation of sources. However, the effectiveness of RAG depends on the quality and relevance of the external knowledge base and the knowledge that is retrieved at runtime.
 
 ## RLHF
 

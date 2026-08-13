@@ -1,14 +1,14 @@
-# Claude Code Analytics API
-
-Programmatically access your organization's Claude Code usage analytics and productivity metrics with the Claude Code Analytics Admin API.
-
+---
+title: Claude Code Analytics API
+url: https://platform.claude.com/docs/en/manage-claude/claude-code-analytics-api
+description: Programmatically access your organization's Claude Code usage analytics and productivity metrics with the Claude Code Analytics Admin API.
 ---
 
 <Tip>
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization in **Console → Settings → Organization**.
 </Tip>
 
-The Claude Code Analytics Admin API provides programmatic access to daily aggregated usage metrics for Claude Code users, enabling organizations to analyze developer productivity and build custom dashboards. This API provides more detail than the basic [Analytics dashboard](/claude-code) without the complexity of the OpenTelemetry integration.
+The Claude Code Analytics Admin API provides programmatic access to daily aggregated usage metrics for Claude Code users, enabling organizations to analyze developer productivity and build custom dashboards. This API provides more detail than the basic [Analytics dashboard](https://platform.claude.com/claude-code) without the complexity of the OpenTelemetry integration.
 
 This API enables you to better monitor, analyze, and optimize your Claude Code adoption:
 
@@ -19,7 +19,7 @@ This API enables you to better monitor, analyze, and optimize your Claude Code a
 * **Usage justification:** Provide metrics to justify and expand Claude Code adoption internally
 
 <Check>
-  **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
+  **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
 </Check>
 
 <Note>
@@ -27,7 +27,7 @@ This API enables you to better monitor, analyze, and optimize your Claude Code a
 </Note>
 
 <Note>
-  **Claude Enterprise organizations:** Claude Code activity for claude.ai users is reported by the Claude Enterprise Analytics API, which uses an Analytics API key instead of an Admin API key. See [Analytics APIs](/docs/en/manage-claude/analytics-api) to find which API and key type your organization needs.
+  **Claude Enterprise organizations:** Claude Code activity for claude.ai users is reported by the Claude Enterprise Analytics API, which uses an Analytics API key instead of an Admin API key. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api) to find which API and key type your organization needs.
 </Note>
 
 ## Quick start
@@ -65,7 +65,7 @@ Track Claude Code usage, productivity metrics, and developer activity across you
 * **Cursor-based pagination:** Handle large datasets with stable pagination using opaque cursors
 * **Data freshness:** Metrics are available with up to 1-hour delay for consistency
 
-For complete parameter details and response schemas, see the [Claude Code Analytics API reference](/docs/en/api/admin/usage_report/retrieve_claude_code).
+For complete parameter details and response schemas, see the [Claude Code Analytics API reference](https://platform.claude.com/docs/en/api/admin/usage_report/retrieve_claude_code).
 
 ### Basic examples
 
@@ -252,7 +252,7 @@ Historical Claude Code analytics data is retained and accessible through the API
 
 ### Which Claude Code deployments are supported?
 
-This API only tracks Claude Code usage on the Claude API. Usage through [Claude in Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude in Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry), [Claude on Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai), or [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws) is not included.
+This API only tracks Claude Code usage on the Claude API. Usage through [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), or [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) is not included.
 
 ### What does it cost to use this API?
 
@@ -270,10 +270,10 @@ All dates are in UTC. The `starting_at` parameter should be in YYYY-MM-DD format
 
 The Claude Code Analytics API helps you understand and optimize your team's development workflow. Learn more about related features:
 
-* [Admin API](/docs/en/manage-claude/admin-api)
-* [Admin API reference](/docs/en/api/admin)
-* [Claude Code Analytics dashboard](/claude-code)
-* [Usage and Cost API](/docs/en/manage-claude/usage-cost-api) - Track API usage across all Anthropic services
-* [Compliance API](/docs/en/manage-claude/compliance-api) - Retrieve audit and activity data
+* [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
+* [Admin API reference](https://platform.claude.com/docs/en/api/admin)
+* [Claude Code Analytics dashboard](https://platform.claude.com/claude-code)
+* [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) - Track API usage across all Anthropic services
+* [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) - Retrieve audit and activity data
 * [Identity and access management](https://code.claude.com/docs/en/iam)
 * [Monitoring usage with OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage) for custom metrics and alerting

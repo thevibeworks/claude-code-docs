@@ -1,3 +1,8 @@
+---
+title: Create Invite
+url: https://platform.claude.com/docs/en/api/admin/invites/create
+---
+
 ## Create Invite
 
 **post** `/v1/organizations/invites`

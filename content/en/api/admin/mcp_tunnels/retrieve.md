@@ -1,3 +1,8 @@
+---
+title: Get Tunnel
+url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/retrieve
+---
+
 ## Get Tunnel
 
 **get** `/v1/organizations/tunnels/{tunnel_id}`

@@ -1,3 +1,8 @@
+---
+title: Set Spend Limit
+url: https://platform.claude.com/docs/en/api/admin/spend_limits/create
+---
+
 ## Set Spend Limit
 
 **post** `/v1/organizations/spend_limits`

@@ -1,3 +1,8 @@
+---
+title: List chats
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/list
+---
+
 ## List chats
 
 **get** `/v1/compliance/apps/chats`

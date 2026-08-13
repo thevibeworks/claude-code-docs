@@ -1,3 +1,8 @@
+---
+title: Organizations
+url: https://platform.claude.com/docs/en/api/compliance/organizations
+---
+
 # Organizations
 
 ## List organizations

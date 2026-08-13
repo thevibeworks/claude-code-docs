@@ -1,7 +1,7 @@
-# Tool search tool
-
-Scale to hundreds or thousands of tools by letting Claude search your tool catalog and load only the tools it needs.
-
+---
+title: Tool search tool
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool
+description: Scale to hundreds or thousands of tools by letting Claude search your tool catalog and load only the tools it needs.
 ---
 
 The tool search tool lets Claude work with hundreds or thousands of tools by discovering and loading them on demand. Instead of loading all tool definitions into the context window up front, Claude searches your tool catalog (including tool names, descriptions, argument names, and argument descriptions) and loads only the tools it needs.
@@ -11,20 +11,20 @@ Loading every tool definition up front causes two problems as a tool library gro
 * **Context bloat:** A typical multiserver setup (GitHub, Slack, Sentry, Grafana, and Splunk) can consume \~55k tokens in definitions before Claude does any work. Tool search typically reduces this by over 85 percent, loading only the 3–5 tools Claude needs for a given request.
 * **Tool selection accuracy:** Claude's ability to pick the right tool degrades once you exceed 30–50 available tools. Because tool search loads only a focused set of relevant tools on demand, selection accuracy stays high even across thousands of tools.
 
-Tool search is generally available on the Claude API. For supported models, see [Model compatibility](#model-compatibility).
+Tool search is generally available on the Claude API. For supported models, see [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#model-compatibility).
 
 <Tip>
   For background on the scaling challenges that tool search solves, see [Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use). Tool search's on-demand loading is also an instance of the broader just-in-time retrieval principle described in [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents).
 </Tip>
 
-Tool search runs as a server-side tool, but you can also implement your own client-side tool search. See [Custom tool search implementation](#custom-tool-search-implementation) for details.
+Tool search runs as a server-side tool, but you can also implement your own client-side tool search. See [Custom tool search implementation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#custom-tool-search-implementation) for details.
 
 <Note>
   Share feedback on this feature through the [feedback form](https://forms.gle/MhcGFFwLxuwnWTkYA).
 </Note>
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 <Warning>
@@ -32,7 +32,7 @@ Tool search runs as a server-side tool, but you can also implement your own clie
 </Warning>
 
 <Note>
-  On [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws), server-side tool search works identically to the Claude API. Claude Platform on AWS uses the Anthropic Messages API directly, so there is no InvokeModel or Converse distinction.
+  On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), server-side tool search works identically to the Claude API. Claude Platform on AWS uses the Anthropic Messages API directly, so there is no InvokeModel or Converse distinction.
 </Note>
 
 ## Model compatibility
@@ -67,7 +67,7 @@ When you enable the tool search tool:
 2. You provide every tool definition in the `tools` array and set `defer_loading: true` on the tools that shouldn't load up front. At least one tool, normally the tool search tool itself, must stay non-deferred.
 3. Initially, Claude's context contains only the tool search tool and any non-deferred tools.
 4. When Claude needs additional tools, it searches using a tool search tool.
-5. The API runs the search and returns the matching tools as `tool_reference` blocks (up to 5 by default).
+5. The API runs the search and returns the matching tools as `tool_reference` blocks (up to 5 by default; Claude can set a `limit` in its search input).
 6. The API automatically expands these references into full tool definitions.
 7. Claude selects from the discovered tools and calls them.
 
@@ -527,7 +527,7 @@ The following example includes the tool search tool and two deferred tools:
   ```
 </CodeGroup>
 
-Claude searches the catalog, discovers `get_weather`, and calls it. The response ends with `stop_reason: "tool_use"`. Execute the discovered tool and return a `tool_result` as in [Handle tool calls](/docs/en/agents-and-tools/tool-use/handle-tool-calls). [Response format](#response-format) shows the blocks you get back and what to send next.
+Claude searches the catalog, discovers `get_weather`, and calls it. The response ends with `stop_reason: "tool_use"`. Execute the discovered tool and return a `tool_result` as in [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls). [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#response-format) shows the blocks you get back and what to send next.
 
 ## Tool definition
 
@@ -595,7 +595,7 @@ Mark tools for on-demand loading by adding `defer_loading: true`:
 
 Both tool search variants (`regex` and `bm25`) search tool names, descriptions, argument names, and argument descriptions.
 
-Internally, the API excludes deferred tools from the system-prompt prefix. When Claude discovers a deferred tool through tool search, the API appends a `tool_reference` block inline in the conversation, then expands it into the full tool definition before passing it to Claude. The prefix is untouched, so prompt caching is preserved. The grammar for [strict mode](/docs/en/agents-and-tools/tool-use/strict-tool-use) (the rules that constrain tool-call output to match your schemas) builds from the full toolset, so `defer_loading` and strict mode compose without grammar recompilation.
+Internally, the API excludes deferred tools from the system-prompt prefix. When Claude discovers a deferred tool through tool search, the API appends a `tool_reference` block inline in the conversation, then expands it into the full tool definition before passing it to Claude. The prefix is untouched, so prompt caching is preserved. The grammar for [strict mode](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use) (the rules that constrain tool-call output to match your schemas) builds from the full toolset, so `defer_loading` and strict mode compose without grammar recompilation.
 
 ## Response format
 
@@ -614,7 +614,8 @@ When Claude uses the tool search tool, the response includes the following block
       "id": "srvtoolu_01ABC123",
       "name": "tool_search_tool_regex",
       "input": {
-        "pattern": "weather"
+        "pattern": "weather",
+        "limit": 10
       }
     },
     {
@@ -642,7 +643,7 @@ When Claude uses the tool search tool, the response includes the following block
 
 ### Understanding the response
 
-* **`server_tool_use`:** Claude's call to the tool search tool. The search runs on Anthropic's servers. Never return a `tool_result` for its `srvtoolu_...` ID.
+* **`server_tool_use`:** Claude's call to the tool search tool. The search runs on Anthropic's servers. Never return a `tool_result` for its `srvtoolu_...` ID. The `input` holds the search (`pattern` for the regex variant, `query` for BM25) and may include an optional `limit`, an integer from 1 to 10,000 that caps how many matching tools the search returns (default: 5).
 * **`tool_search_tool_result`:** the search results, in a nested `tool_search_tool_search_result` object. Keep it in the message history as is.
 * **`tool_references`:** an array of `tool_reference` objects pointing to discovered tools. The API expands these for Claude. You never expand them yourself.
 * **`tool_use`:** Claude's call to a discovered tool. Execute it and return a `tool_result` exactly as in standard tool use.
@@ -655,7 +656,7 @@ On the next request, pass the assistant's content back unchanged, including the 
 
 ## MCP integration
 
-If your tools come from MCP servers through the [MCP connector](/docs/en/agents-and-tools/mcp-connector), you don't set `defer_loading` on individual tool definitions. Instead, set it once on the `mcp_toolset` entry's `default_config` for the whole server, or per tool in its `configs`. See [MCP toolset configuration](/docs/en/agents-and-tools/mcp-connector#mcp-toolset-configuration).
+If your tools come from MCP servers through the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector), you don't set `defer_loading` on individual tool definitions. Instead, set it once on the `mcp_toolset` entry's `default_config` for the whole server, or per tool in its `configs`. See [MCP toolset configuration](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#mcp-toolset-configuration).
 
 ## Custom tool search implementation
 
@@ -672,7 +673,7 @@ You can implement your own tool search logic (for example, using embeddings or s
 Every tool referenced must have a corresponding tool definition in the top-level `tools` parameter, normally with `defer_loading: true`. This lets you use search methods the built-in variants don't provide, such as embedding-based retrieval, and the API expands the returned `tool_reference` blocks the same way.
 
 <Note>
-  The `tool_search_tool_result` format shown in the [Response format](#response-format) section is the server-side format used internally by Anthropic's built-in tool search. For custom client-side implementations, always use the standard `tool_result` format with `tool_reference` content blocks as shown in the preceding example.
+  The `tool_search_tool_result` format shown in the [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#response-format) section is the server-side format used internally by Anthropic's built-in tool search. For custom client-side implementations, always use the standard `tool_result` format with `tool_reference` content blocks as shown in the preceding example.
 </Note>
 
 For a complete example using embeddings, see the [tool search with embeddings](https://platform.claude.com/cookbook/tool-use-tool-search-with-embeddings) recipe.
@@ -680,7 +681,7 @@ For a complete example using embeddings, see the [tool search with embeddings](h
 ## Error handling
 
 <Note>
-  [Tool use examples](/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) work with tool search: when Claude discovers a deferred tool, the API expands its `input_examples` along with its definition.
+  [Tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) work with tool search: when Claude discovers a deferred tool, the API expands its `input_examples` along with its definition.
 </Note>
 
 ### HTTP errors (400 status)
@@ -781,7 +782,7 @@ The `error_code` field has four possible values:
 
 ## Prompt caching
 
-For how `defer_loading` preserves prompt caching, see [Tool use with prompt caching](/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching).
+For how `defer_loading` preserves prompt caching, see [Tool use with prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching).
 
 A tool with `defer_loading: true` can't also carry `cache_control`: the API returns a 400. Put the cache breakpoint on a non-deferred tool.
 
@@ -808,16 +809,16 @@ data: {"type": "content_block_start", "index": 2, "content_block": {"type": "too
 
 ## Batch requests
 
-You can include the tool search tool in the [Messages Batches API](/docs/en/build-with-claude/batch-processing).
+You can include the tool search tool in the [Messages Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing).
 
 ## Limits and best practices
 
 ### Limits
 
 * **Maximum deferred tools:** 10,000 tools with `defer_loading: true` per request
-* **Search results:** each search returns up to 5 matching tools by default
+* **Search results:** each search returns up to 5 matching tools by default; Claude can set `limit` in its search input to any integer from 1 to 10,000
 * **Pattern and query length:** maximum 200 characters for regex patterns and 500 characters for BM25 queries
-* **Model support:** see [Model compatibility](#model-compatibility)
+* **Model support:** see [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool#model-compatibility)
 
 ### When to use tool search
 
@@ -847,23 +848,23 @@ Tool search isn't metered as a separate server tool. The response's `usage.serve
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Memory tool" icon="brain" href="/docs/en/agents-and-tools/tool-use/memory-tool">
+  <Card title="Memory tool" icon="brain" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool">
     Let Claude store and retrieve information across conversations by implementing the memory tool's file operations in your application.
   </Card>
 
-  <Card title="Tool reference" icon="book" href="/docs/en/agents-and-tools/tool-use/tool-reference">
+  <Card title="Tool reference" icon="book" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference">
     Directory of Anthropic-provided tools and reference for optional tool definition properties.
   </Card>
 
-  <Card title="MCP connector" icon="link" href="/docs/en/agents-and-tools/mcp-connector">
+  <Card title="MCP connector" icon="link" href="https://platform.claude.com/docs/en/agents-and-tools/mcp-connector">
     Configure MCP toolsets with deferred loading.
   </Card>
 
-  <Card title="Tool use with prompt caching" icon="bolt" href="/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching">
+  <Card title="Tool use with prompt caching" icon="bolt" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching">
     Cache tool definitions across turns and understand what invalidates your cache.
   </Card>
 
-  <Card title="Define tools" icon="hammer" href="/docs/en/agents-and-tools/tool-use/define-tools">
+  <Card title="Define tools" icon="hammer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools">
     Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
   </Card>
 </CardGroup>

@@ -1,7 +1,7 @@
-# Streaming messages
-
-Stream Messages API responses incrementally with server-sent events, including text, tool use, and extended thinking deltas.
-
+---
+title: Streaming messages
+url: https://platform.claude.com/docs/en/build-with-claude/streaming
+description: Stream Messages API responses incrementally with server-sent events, including text, tool use, and extended thinking deltas.
 ---
 
 When creating a Message, you can set `"stream": true` to incrementally stream the response using [server-sent events](https://developer.mozilla.org/en-US/Web/API/Server-sent%5Fevents/Using%5Fserver-sent%5Fevents) (SSE).
@@ -298,7 +298,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 Each stream uses the following event flow:
 
 1. `message_start`: contains a `Message` object with empty `content`.
-2. A series of content blocks, each of which has a `content_block_start`, one or more `content_block_delta` events, and a `content_block_stop` event. Each content block has an `index` that corresponds to its index in the final Message `content` array. One exception: during [server-side fallback](/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) responses, a `fallback` content block arrives at each model boundary as a `content_block_start` and `content_block_stop` pair with no deltas in between.
+2. A series of content blocks, each of which has a `content_block_start`, one or more `content_block_delta` events, and a `content_block_stop` event. Each content block has an `index` that corresponds to its index in the final Message `content` array. One exception: during [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) responses, a `fallback` content block arrives at each model boundary as a `content_block_start` and `content_block_stop` pair with no deltas in between.
 3. One or more `message_delta` events, indicating top-level changes to the final `Message` object.
 4. A final `message_stop` event.
 
@@ -312,7 +312,7 @@ Event streams may also include any number of `ping` events.
 
 ### Error events
 
-The API may occasionally send [errors](/docs/en/api/errors) in the event stream. For example, during periods of high usage, you may receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
+The API may occasionally send [errors](https://platform.claude.com/docs/en/api/errors) in the event stream. For example, during periods of high usage, you may receive an `overloaded_error`, which would normally correspond to an HTTP 529 in a non-streaming context:
 
 ```sse Example error
 event: error
@@ -321,7 +321,7 @@ data: {"type": "error", "error": {"type": "overloaded_error", "message": "Overlo
 
 ### Other events
 
-In accordance with the [versioning policy](/docs/en/api/versioning), new event types may be added, and your code should handle unknown event types gracefully.
+In accordance with the [versioning policy](https://platform.claude.com/docs/en/api/versioning), new event types may be added, and your code should handle unknown event types gracefully.
 
 ## Content block delta types
 
@@ -340,7 +340,7 @@ data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", 
 
 The deltas for `tool_use` content blocks correspond to updates for the `input` field of the block. To support maximum granularity, the deltas are *partial JSON strings*, whereas the final `tool_use.input` is always an *object*.
 
-You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library like [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the [SDKs](/docs/en/cli-sdks-libraries/overview), which provide helpers to access parsed incremental values.
+You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library like [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the [SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview), which provide helpers to access parsed incremental values.
 
 A `tool_use` content block delta looks like:
 
@@ -353,11 +353,11 @@ Note: Current models only support emitting one complete key and value property f
 
 ### Thinking delta
 
-When using [thinking](/docs/en/build-with-claude/thinking#streaming-thinking) with streaming enabled, you'll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
+When using [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking) with streaming enabled, you'll receive thinking content through `thinking_delta` events. These deltas correspond to the `thinking` field of the `thinking` content blocks.
 
 For thinking content, a special `signature_delta` event is sent just before the `content_block_stop` event. This signature is used to verify the integrity of the thinking block.
 
-When `display: "omitted"` is set on the thinking configuration, no `thinking_delta` events are sent. The thinking block opens, receives a single `signature_delta`, and closes. See [Controlling thinking display](/docs/en/build-with-claude/thinking#controlling-thinking-display).
+When `display: "omitted"` is set on the thinking configuration, no `thinking_delta` events are sent. The thinking block opens, receives a single `signature_delta`, and closes. See [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
 A typical thinking delta looks like:
 
@@ -375,7 +375,7 @@ data: {"type": "content_block_delta", "index": 0, "delta": {"type": "signature_d
 
 ## Full HTTP stream response
 
-Use the [client SDKs](/docs/en/cli-sdks-libraries/overview) when using streaming mode. However, if you are building a direct API integration, you need to handle these events yourself.
+Use the [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) when using streaming mode. However, if you are building a direct API integration, you need to handle these events yourself.
 
 A stream response consists of:
 
@@ -391,7 +391,7 @@ A stream response consists of:
 
 4. A `message_stop` event
 
-There may be `ping` events dispersed throughout the response as well. See [Event types](#event-types) for more details on the format.
+There may be `ping` events dispersed throughout the response as well. See [Event types](https://platform.claude.com/docs/en/build-with-claude/streaming#event-types) for more details on the format.
 
 ### Basic streaming request
 
@@ -565,7 +565,7 @@ data: {"type": "message_stop"}
 ### Streaming request with tool use
 
 <Tip>
-  Tool use supports [fine-grained streaming](/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming) for parameter values. Enable it per tool with `eager_input_streaming`.
+  Tool use supports [fine-grained streaming](https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming) for parameter values. Enable it per tool with `eager_input_streaming`.
 </Tip>
 
 This request asks Claude to use a tool to report the weather.
@@ -1509,23 +1509,23 @@ For Claude 4.6 and later models, the same capture-and-resume strategy applies, b
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Stop reasons and fallback" icon="list" href="/docs/en/build-with-claude/handling-stop-reasons">
+  <Card title="Stop reasons and fallback" icon="list" href="https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons">
     Handle each `stop_reason` value once a stream completes.
   </Card>
 
-  <Card title="Fine-grained tool streaming" icon="wrench" href="/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming">
+  <Card title="Fine-grained tool streaming" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming">
     Stream tool input JSON without server-side buffering for lower latency.
   </Card>
 
-  <Card title="Thinking" icon="brain" href="/docs/en/build-with-claude/thinking">
+  <Card title="Thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
     Stream thinking output with `thinking_delta` and `signature_delta` events.
   </Card>
 
-  <Card title="Client SDKs" icon="code" href="/docs/en/cli-sdks-libraries/overview">
+  <Card title="Client SDKs" icon="code" href="https://platform.claude.com/docs/en/cli-sdks-libraries/overview">
     Use the official SDKs, which handle streaming, accumulation, and reconnection for you.
   </Card>
 
-  <Card title="Batch processing" icon="stack" href="/docs/en/build-with-claude/batch-processing">
+  <Card title="Batch processing" icon="stack" href="https://platform.claude.com/docs/en/build-with-claude/batch-processing">
     Process large volumes of requests asynchronously when you don't need real-time responses.
   </Card>
 </CardGroup>

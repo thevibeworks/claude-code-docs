@@ -1,17 +1,17 @@
-# Files API
-
-Upload files once, reference them by file_id in Messages requests, and download outputs created by skills or the code execution tool.
+---
+title: Files API
+url: https://platform.claude.com/docs/en/build-with-claude/files
+description: Upload files once, reference them by file_id in Messages requests, and download outputs created by skills or the code execution tool.
+---
 
 ## Compatibility
 - Status: Beta
-- [Beta header](/docs/en/api/beta-headers): `files-api-2025-04-14`
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): not eligible
+- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `files-api-2025-04-14`
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): not eligible
 - Platforms: Claude API (beta), Claude Platform on AWS (beta), Microsoft Foundry (beta) [1]; not available on Amazon Bedrock, Google Cloud
-1. On [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry), the Files API requires a [Hosted on Anthropic deployment](/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
+1. On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), the Files API requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
 
----
-
-The Files API lets you upload and manage files to use with the Claude API without re-uploading content with each request. This is particularly useful when using the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool) to provide inputs (for example, datasets and documents) and then download outputs (for example, charts). You can [explore the API reference directly](/docs/en/api/beta/files/upload), in addition to this guide.
+The Files API lets you upload and manage files to use with the Claude API without re-uploading content with each request. This is particularly useful when using the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) to provide inputs (for example, datasets and documents) and then download outputs (for example, charts). You can [explore the API reference directly](https://platform.claude.com/docs/en/api/beta/files/upload), in addition to this guide.
 
 <Note>
   Reach out through the [feedback form](https://forms.gle/tisHyierGwgN4DUE9) to share your experience with the Files API.
@@ -19,7 +19,7 @@ The Files API lets you upload and manage files to use with the Claude API withou
 
 ## File type support
 
-Referencing a `file_id` in a Messages request is supported on all models that support the given file type. [Images](/docs/en/build-with-claude/vision) are supported on all current Claude models. For [PDFs](/docs/en/build-with-claude/pdf-support) and [other file types with the code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility), see the linked pages for model support.
+Referencing a `file_id` in a Messages request is supported on all models that support the given file type. [Images](https://platform.claude.com/docs/en/build-with-claude/vision) are supported on all current Claude models. For [PDFs](https://platform.claude.com/docs/en/build-with-claude/pdf-support) and [other file types with the code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility), see the linked pages for model support.
 
 ## How the Files API works
 
@@ -27,11 +27,11 @@ The Files API provides a create-once, use-many-times approach for working with f
 
 * **Upload files** to Anthropic's secure storage and receive a unique `file_id`
 * **Download files** that are created by skills or the code execution tool
-* **Reference files** in [Messages](/docs/en/api/messages/create) requests using the `file_id` instead of re-uploading content
+* **Reference files** in [Messages](https://platform.claude.com/docs/en/api/messages/create) requests using the `file_id` instead of re-uploading content
 * **Manage your files** with list, retrieve, and delete operations
 
 <Warning id="workspace-scoped-access">
-  **Uploaded files are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key in the same workspace can access any file uploaded there, and all of your keys share your organization's Default Workspace unless you have assigned them to separate [workspaces](/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping). Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
+  **Uploaded files are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key in the same workspace can access any file uploaded there, and all of your keys share your organization's Default Workspace unless you have assigned them to separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping). Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
 </Warning>
 
 ## How to use the Files API
@@ -167,7 +167,7 @@ The response from uploading a file includes:
 }
 ```
 
-`downloadable` is `false` for files you upload. Only files created by [skills](/docs/en/build-with-claude/skills-guide) or the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool) can be downloaded. See [Downloading a file](#downloading-a-file).
+`downloadable` is `false` for files you upload. Only files created by [skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide) or the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) can be downloaded. See [Downloading a file](https://platform.claude.com/docs/en/build-with-claude/files#downloading-a-file).
 
 ### Using a file in messages
 
@@ -399,12 +399,12 @@ Once uploaded, reference the file by passing the `id` from the upload response a
 
 The Files API supports different file types that correspond to different content block types:
 
-| File type                                                                                                    | MIME type                                            | Content block type | Use case                            |
-| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- | ------------------ | ----------------------------------- |
-| PDF                                                                                                          | `application/pdf`                                    | `document`         | Text analysis, document processing  |
-| Plain text                                                                                                   | `text/plain`                                         | `document`         | Text analysis, processing           |
-| Images                                                                                                       | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks        |
-| [Datasets, others](/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) | Varies                                               | `container_upload` | Analyze data, create visualizations |
+| File type                                                                                                                               | MIME type                                            | Content block type | Use case                            |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ----------------------------------- |
+| PDF                                                                                                                                     | `application/pdf`                                    | `document`         | Text analysis, document processing  |
+| Plain text                                                                                                                              | `text/plain`                                         | `document`         | Text analysis, processing           |
+| Images                                                                                                                                  | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks        |
+| [Datasets, others](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) | Varies                                               | `container_upload` | Analyze data, create visualizations |
 
 #### Document blocks
 
@@ -439,7 +439,7 @@ For images, use the `image` content block:
 
 #### Container upload blocks
 
-To send a file to the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files), use the `container_upload` content block:
+To send a file to the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files), use the `container_upload` content block:
 
 ```json
 {
@@ -450,7 +450,7 @@ To send a file to the [code execution tool](/docs/en/agents-and-tools/tool-use/c
 
 ### Working with other file formats
 
-For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in your message. Files that are already plain text, such as .csv and .md files, can either be read in this way or uploaded through the Files API with an explicit `text/plain` content type. To analyze datasets instead of reading them as text, upload them for the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) using a `container_upload` block.
+For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in your message. Files that are already plain text, such as .csv and .md files, can either be read in this way or uploaded through the Files API with an explicit `text/plain` content type. To analyze datasets instead of reading them as text, upload them for the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files) using a `container_upload` block.
 
 The following examples read a text file and send its contents as plain text:
 
@@ -686,14 +686,14 @@ The following examples read a text file and send its contents as plain text:
 </CodeGroup>
 
 <Note>
-  For .docx files containing images, convert them to PDF format first, then use [PDF support](/docs/en/build-with-claude/pdf-support) to take advantage of the built-in image parsing. This allows using citations from the PDF document.
+  For .docx files containing images, convert them to PDF format first, then use [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support) to take advantage of the built-in image parsing. This allows using citations from the PDF document.
 </Note>
 
 ### Managing files
 
 #### List files
 
-Retrieve a list of your uploaded files. The endpoint is paginated: each request returns up to `limit` files (20 by default), and the `before_id` and `after_id` parameters fetch the adjacent page. See the [List Files API reference](/docs/en/api/beta/files/list). The SDKs return the first page and provide auto-pagination helpers. The CLI example bounds the total with `--max-items`:
+Retrieve a list of your uploaded files. The endpoint is paginated: each request returns up to `limit` files (20 by default), and the `before_id` and `after_id` parameters fetch the adjacent page. See the [List Files API reference](https://platform.claude.com/docs/en/api/beta/files/list). The SDKs return the first page and provide auto-pagination helpers. The CLI example bounds the total with `--max-items`:
 
 <CodeGroup>
   ```bash cURL
@@ -880,7 +880,7 @@ Remove a file from your workspace:
 
 ### Downloading a file
 
-Download files that were created by [skills](/docs/en/build-with-claude/skills-guide) or the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool). Files you upload cannot be downloaded. The `file_id` of a generated file appears in the [`bash_code_execution_tool_result` content block](/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) of the Messages response that created it:
+Download files that were created by [skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide) or the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool). Files you upload cannot be downloaded. The `file_id` of a generated file appears in the [`bash_code_execution_tool_result` content block](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) of the Messages response that created it:
 
 <CodeGroup>
   ```bash cURL
@@ -976,12 +976,12 @@ Download files that were created by [skills](/docs/en/build-with-claude/skills-g
 
 ### File lifecycle
 
-* Files are scoped to the workspace of the API key that uploaded them. Any API key in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](#workspace-scoped-access))
+* Files are scoped to the workspace of the API key that uploaded them. Any API key in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](https://platform.claude.com/docs/en/build-with-claude/files#workspace-scoped-access))
 * Files cannot be modified or renamed after upload. To change a file's content, upload a new file and delete the old one
 * Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint
 * Deleted files cannot be recovered
 * Files are inaccessible through the API shortly after deletion, but they may persist in active Messages API calls and associated tool uses
-* Files that users delete will be deleted in accordance with Anthropic's [data retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data). For ZDR eligibility across all features, see [API and data retention](/docs/en/manage-claude/api-and-data-retention)
+* Files that users delete will be deleted in accordance with Anthropic's [data retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data). For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention)
 
 ## Error handling
 
@@ -1028,15 +1028,15 @@ During the beta period:
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="PDF support" icon="file" href="/docs/en/build-with-claude/pdf-support">
+  <Card title="PDF support" icon="file" href="https://platform.claude.com/docs/en/build-with-claude/pdf-support">
     Process PDFs with Claude. Extract text, analyze charts, and understand visual content from your documents.
   </Card>
 
-  <Card title="Code execution tool" icon="terminal" href="/docs/en/agents-and-tools/tool-use/code-execution-tool">
+  <Card title="Code execution tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool">
     Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 
-  <Card title="Vision" icon="image" href="/docs/en/build-with-claude/vision">
+  <Card title="Vision" icon="image" href="https://platform.claude.com/docs/en/build-with-claude/vision">
     Process and analyze visual input and generate text and code from images.
   </Card>
 </CardGroup>

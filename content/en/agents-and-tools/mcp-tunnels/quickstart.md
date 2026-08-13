@@ -1,23 +1,23 @@
-# MCP tunnels quickstart
-
-Connect Claude to a private MCP server using a local Docker Compose deployment.
-
+---
+title: MCP tunnels quickstart
+url: https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/quickstart
+description: Connect Claude to a private MCP server using a local Docker Compose deployment.
 ---
 
 <Note>
   MCP tunnels are in research preview. [Request access](https://claude.com/form/claude-managed-agents) to try them.
 </Note>
 
-This quickstart takes you from zero to Claude calling a private MCP server through a tunnel. It uses Docker Compose with [manual](/docs/en/agents-and-tools/mcp-tunnels/concepts#credential-provisioning) credential provisioning, which is the shortest path for local testing. For production deployments, see [Deploy with Helm](/docs/en/agents-and-tools/mcp-tunnels/deploy-helm) or [Deploy with Docker Compose](/docs/en/agents-and-tools/mcp-tunnels/deploy-compose).
+This quickstart takes you from zero to Claude calling a private MCP server through a tunnel. It uses Docker Compose with [manual](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#credential-provisioning) credential provisioning, which is the shortest path for local testing. For production deployments, see [Deploy with Helm](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-helm) or [Deploy with Docker Compose](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-compose).
 
 ## What you'll build
 
-A two-container [tunnel stack](/docs/en/agents-and-tools/mcp-tunnels/concepts#components) (the [proxy](/docs/en/agents-and-tools/mcp-tunnels/concepts#components) and [cloudflared](/docs/en/agents-and-tools/mcp-tunnels/concepts#components)) plus a sample MCP server running alongside it. When everything is running, the sample server is reachable from Claude at `https://echo.<your-tunnel-domain>/mcp` even though nothing is listening on a public port.
+A two-container [tunnel stack](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) (the [proxy](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) and [cloudflared](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components)) plus a sample MCP server running alongside it. When everything is running, the sample server is reachable from Claude at `https://echo.<your-tunnel-domain>/mcp` even though nothing is listening on a public port.
 
 ## What you need
 
 * [Docker and Docker Compose](https://docs.docker.com/get-docker/) on a machine with outbound internet access.
-* A role in the [Claude Console](https://platform.claude.com) that can manage MCP tunnels. See the [Console guide prerequisites](/docs/en/agents-and-tools/mcp-tunnels/console#prerequisites).
+* A role in the [Claude Console](https://platform.claude.com) that can manage MCP tunnels. See the [Console guide prerequisites](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#prerequisites).
 * [OpenSSL](https://openssl-library.org/source/) 1.1.1 or later. Preinstalled on macOS and most Linux distributions; on Windows, install it separately (the `openssl` binary must be on your `PATH`).
 
 <Steps>
@@ -53,7 +53,7 @@ A two-container [tunnel stack](/docs/en/agents-and-tools/mcp-tunnels/concepts#co
   </Step>
 
   <Step title="Generate a CA and server certificate">
-    The proxy terminates [inner TLS](/docs/en/agents-and-tools/mcp-tunnels/concepts#components) using a certificate signed by a CA you control. Generate both:
+    The proxy terminates [inner TLS](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#components) using a certificate signed by a CA you control. Generate both:
 
     <Tabs>
       <Tab title="macOS / Linux">
@@ -276,11 +276,11 @@ The tunnel is verified end to end. To swap in your own MCP server, add it to `do
 For production deployments:
 
 <CardGroup cols={2}>
-  <Card title="Deploy with Docker Compose" icon="cube" href="/docs/en/agents-and-tools/mcp-tunnels/deploy-compose">
+  <Card title="Deploy with Docker Compose" icon="cube" href="https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-compose">
     Hardened single-host deployment, with or without programmatic access.
   </Card>
 
-  <Card title="Deploy with Helm" icon="stack" href="/docs/en/agents-and-tools/mcp-tunnels/deploy-helm">
+  <Card title="Deploy with Helm" icon="stack" href="https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/deploy-helm">
     Kubernetes deployment with automatic credential management.
   </Card>
 </CardGroup>

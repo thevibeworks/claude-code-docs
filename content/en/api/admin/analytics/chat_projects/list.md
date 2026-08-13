@@ -1,3 +1,8 @@
+---
+title: Get Chat Project Usage
+url: https://platform.claude.com/docs/en/api/admin/analytics/chat_projects/list
+---
+
 ## Get Chat Project Usage
 
 **get** `/v1/organizations/analytics/apps/chat/projects`

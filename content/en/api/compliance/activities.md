@@ -1,3 +1,8 @@
+---
+title: Activities
+url: https://platform.claude.com/docs/en/api/compliance/activities
+---
+
 # Activities
 
 ## Query compliance activities

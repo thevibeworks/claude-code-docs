@@ -1,3 +1,8 @@
+---
+title: Update API Key
+url: https://platform.claude.com/docs/en/api/admin/api_keys/update
+---
+
 ## Update API Key
 
 **post** `/v1/organizations/api_keys/{api_key_id}`

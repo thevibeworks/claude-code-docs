@@ -1,7 +1,7 @@
-# Remote MCP servers
-
-Connect Claude to third-party remote MCP servers through the MCP connector API. Browse example servers and review the steps to connect.
-
+---
+title: Remote MCP servers
+url: https://platform.claude.com/docs/en/agents-and-tools/remote-mcp-servers
+description: Connect Claude to third-party remote MCP servers through the MCP connector API. Browse example servers and review the steps to connect.
 ---
 
 Several companies have deployed remote MCP servers that developers can connect to by using the Anthropic MCP connector API. These servers expand the capabilities available to developers and end users by providing remote access to various services and tools through the MCP protocol.
@@ -18,10 +18,10 @@ To connect to a remote MCP server:
 2. Ensure you have the necessary authentication credentials.
 3. Follow the server-specific connection instructions provided by each company.
 
-For more information about using remote MCP servers with the Claude API, see [MCP connector](/docs/en/agents-and-tools/mcp-connector).
+For more information about using remote MCP servers with the Claude API, see [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector).
 
 <Note>
-  Once connected, remote MCP tools follow the same triggering behavior as any other tool. See [When Claude uses MCP tools](/docs/en/agents-and-tools/mcp-connector#when-claude-uses-mcp-tools).
+  Once connected, remote MCP tools follow the same triggering behavior as any other tool. See [When Claude uses MCP tools](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#when-claude-uses-mcp-tools).
 </Note>
 
 ## Remote MCP server examples

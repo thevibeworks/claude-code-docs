@@ -1,3 +1,8 @@
+---
+title: Federation Issuers
+url: https://platform.claude.com/docs/en/api/admin/federation_issuers
+---
+
 # Federation Issuers
 
 ## Create Federation Issuer

@@ -1,3 +1,8 @@
+---
+title: Delete File
+url: https://platform.claude.com/docs/en/api/beta/files/delete
+---
+
 ## Delete File
 
 **delete** `/v1/files/{file_id}`
@@ -18,7 +23,7 @@ Delete File
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 29 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -83,6 +88,8 @@ Delete File
     - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 

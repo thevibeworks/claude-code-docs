@@ -1,3 +1,8 @@
+---
+title: Create Enrollment URL
+url: https://platform.claude.com/docs/en/api/beta/user_profiles/create_enrollment_url
+---
+
 ## Create Enrollment URL
 
 **post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
@@ -16,7 +21,7 @@ Create Enrollment URL
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 29 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -81,6 +86,8 @@ Create Enrollment URL
     - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 

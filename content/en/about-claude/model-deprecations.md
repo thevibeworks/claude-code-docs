@@ -1,7 +1,7 @@
-# Model deprecations
-
-See which Claude models are active, deprecated, or retired, and find retirement dates and recommended replacements for models and API parameters.
-
+---
+title: Model deprecations
+url: https://platform.claude.com/docs/en/about-claude/model-deprecations
+description: See which Claude models are active, deprecated, or retired, and find retirement dates and recommended replacements for models and API parameters.
 ---
 
 As safer and more capable models launch, Anthropic regularly retires older ones. Applications relying on Anthropic models may need occasional updates to keep working. Impacted customers will always be notified by email and in the documentation.
@@ -21,7 +21,7 @@ Anthropic uses the following terms to describe the model lifecycle:
   Deprecated models are likely to be less reliable than active models. Move workloads to active models to maintain the highest level of support and reliability.
 </Warning>
 
-The dates on this page apply to Anthropic-operated platforms: the Claude API, [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws), and [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry). Partner-operated platforms (Amazon Bedrock and Google Cloud) set their own retirement schedules, so a model's lifecycle status and dates can differ. See the [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock#supported-models), [Amazon Bedrock (Opus 4.6 and earlier)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids), and [Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai#api-model-ids) model tables.
+The dates on this page apply to Anthropic-operated platforms: the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). Partner-operated platforms (Amazon Bedrock and Google Cloud) set their own retirement schedules, so a model's lifecycle status and dates can differ. See the [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#supported-models), [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids), and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai#api-model-ids) model tables.
 
 ## Migrating to replacements
 
@@ -29,7 +29,7 @@ Once a model is deprecated, migrate all usage to a suitable replacement before t
 
 To help measure the performance of replacement models on your tasks, consider thorough testing of your applications with the new models well before the retirement date.
 
-For specific instructions on migrating to the latest Claude models, see the [Migration guide](/docs/en/about-claude/models/migration-guide).
+For specific instructions on migrating to the latest Claude models, see the [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
 
 ## Notifications
 
@@ -39,7 +39,7 @@ Anthropic notifies customers with active deployments for models with upcoming re
 
 To help identify usage of deprecated models, customers can access an audit of their API usage. Follow these steps:
 
-1. Go to the [Usage](/usage) page in Claude Console.
+1. Go to the [Usage](https://platform.claude.com/usage) page in Claude Console.
 2. Click **Export**.
 3. Review the downloaded CSV to see usage broken down by API key and model.
 
@@ -65,7 +65,7 @@ At some point, Anthropic hopes to make past models publicly available again. In 
 ## Model status
 
 <Note>
-  [Claude Mythos Preview](https://anthropic.com/glasswing) (`claude-mythos-preview`) is deprecated. To migrate to [Claude Mythos 5](https://anthropic.com/glasswing) (`claude-mythos-5`), see the [migration guide](/docs/en/about-claude/models/migration-guide#migrating-from-claude-mythos-preview).
+  [Claude Mythos Preview](https://anthropic.com/glasswing) (`claude-mythos-preview`) is deprecated. To migrate to [Claude Mythos 5](https://anthropic.com/glasswing) (`claude-mythos-5`), see the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-claude-mythos-preview).
 </Note>
 
 Current and recently retired models are listed in the following table with their status:
@@ -215,8 +215,8 @@ On September 4, 2024, Anthropic notified developers using Claude 1 and Instant m
 
 Anthropic occasionally deprecates request parameters that no longer apply to current models. Deprecated parameters remain in the SDK request types so existing code continues to type-check, but their behavior changes per model.
 
-| Parameter                       | Status                                 | Behavior                                                                                                                                         | Recommended replacement                                                                                                          |
-| ------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
-| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). | Omit and use [prompting](/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) to guide model behavior. |
+| Parameter                       | Status                                 | Behavior                                                                                                                                         | Recommended replacement                                                                                                                                     |
+| ------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). | Omit and use [prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) to guide model behavior. |
 
-For migration steps, see the [migration guide](/docs/en/about-claude/models/migration-guide).
+For migration steps, see the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).

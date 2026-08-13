@@ -1,23 +1,23 @@
-# Rate Limits API
-
-Programmatically query your organization's API rate limits with the Rate Limits API.
-
+---
+title: Rate Limits API
+url: https://platform.claude.com/docs/en/manage-claude/rate-limits-api
+description: Programmatically query your organization's API rate limits with the Rate Limits API.
 ---
 
 <Tip>
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization in **Console → Settings → Organization**.
 </Tip>
 
-The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits](/settings/limits) page in the Claude Console.
+The Rate Limits API provides programmatic access to the rate limits configured for your organization and its workspaces. This is the same information shown on the [Rate limits](https://platform.claude.com/settings/limits) page in the Claude Console.
 
 Use this API to:
 
 * **Keep gateways and proxies in sync:** Read your current limits at startup and on a schedule instead of hardcoding values that drift when Anthropic adjusts them.
-* **Power internal alerting:** Compare usage data from the [Usage and Cost API](/docs/en/manage-claude/usage-cost-api) against your configured limits.
+* **Power internal alerting:** Compare usage data from the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) against your configured limits.
 * **Audit workspace configuration:** Verify that workspace overrides match what your provisioning automation expects.
 
 <Check>
-  **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
+  **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
 </Check>
 
 ## Quick start
@@ -32,16 +32,16 @@ curl "https://api.anthropic.com/v1/organizations/rate_limits" \
 
 ## Organization rate limits
 
-The `/v1/organizations/rate_limits` endpoint returns the rate limits applied at the organization level for the Messages API and its supporting resources. Limits for other products, such as [Claude Managed Agents](/docs/en/managed-agents/overview), are not included.
+The `/v1/organizations/rate_limits` endpoint returns the rate limits applied at the organization level for the Messages API and its supporting resources. Limits for other products, such as [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), are not included.
 
 ### Key concepts
 
 * **Rate limit groups:** Each entry in the response represents one rate limit group. Model rate limits are grouped so that several model versions share a single set of limits, and other groups cover resources such as the Message Batches API, the Files API, the Token Counting API, agent skills, and the web search tool.
-* **`group_type`:** Identifies which category of limits the entry covers. See [Filtering by group type](#filtering-by-group-type) for the list of values.
+* **`group_type`:** Identifies which category of limits the entry covers. See [Filtering by group type](https://platform.claude.com/docs/en/manage-claude/rate-limits-api#filtering-by-group-type) for the list of values.
 * **`models` list:** For `model_group` entries, the `models` field lists every model ID and alias that counts against that group's limits. Use this list to look up which group any model string falls under. For other group types, `models` is `null`.
-* **`limits` list:** Each group carries a list of `{type, value}` pairs. The `type` field identifies the limiter (such as `requests_per_minute`, `input_tokens_per_minute`, or `output_tokens_per_minute`) and `value` is the configured limit. See [Rate limits](/docs/en/api/rate-limits) for how each limiter is measured and enforced.
+* **`limits` list:** Each group carries a list of `{type, value}` pairs. The `type` field identifies the limiter (such as `requests_per_minute`, `input_tokens_per_minute`, or `output_tokens_per_minute`) and `value` is the configured limit. See [Rate limits](https://platform.claude.com/docs/en/api/rate-limits) for how each limiter is measured and enforced.
 
-For complete parameter details and response schemas, see the [Organization Rate Limits API reference](/docs/en/api/admin/rate_limits/list).
+For complete parameter details and response schemas, see the [Organization Rate Limits API reference](https://platform.claude.com/docs/en/api/admin/rate_limits/list).
 
 ### List all organization rate limits
 
@@ -113,10 +113,10 @@ The response only includes overrides, so anything missing from it is inherited f
 * Within a group that is present, a limiter type that is absent from `limits[]` has no workspace override for that limiter. The workspace inherits the organization value for it.
 * For each limiter that is present, `org_limit` is the organization-level value for the same limiter, or `null` if the organization has no configured limit for that limiter type.
 
-For complete parameter details and response schemas, see the [Workspace Rate Limits API reference](/docs/en/api/admin/workspaces/rate_limits/list).
+For complete parameter details and response schemas, see the [Workspace Rate Limits API reference](https://platform.claude.com/docs/en/api/admin/workspaces/rate_limits/list).
 
 <Tip>
-  To retrieve your organization's workspace IDs, use the [List Workspaces](/docs/en/api/admin/workspaces/list) endpoint, or find them in the [Claude Console](/settings/workspaces). The default workspace cannot have rate limit overrides, so it has no entry on this endpoint; use the organization endpoint to read its limits.
+  To retrieve your organization's workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/admin/workspaces/list) endpoint, or find them in the [Claude Console](https://platform.claude.com/settings/workspaces). The default workspace cannot have rate limit overrides, so it has no entry on this endpoint; use the organization endpoint to read its limits.
 </Tip>
 
 ```bash cURL
@@ -185,12 +185,12 @@ The workspace has no override for that group and inherits the organization-level
 
 ### Can I update rate limits with this API?
 
-No. To set workspace rate limits, open the workspace in the [Claude Console](/settings/workspaces) and use the **Rate limits** tab.
+No. To set workspace rate limits, open the workspace in the [Claude Console](https://platform.claude.com/settings/workspaces) and use the **Rate limits** tab.
 
 ## See also
 
-* [Rate limits](/docs/en/api/rate-limits)
-* [Admin API](/docs/en/manage-claude/admin-api)
-* [Admin API reference](/docs/en/api/admin)
-* [Workspaces](/docs/en/manage-claude/workspaces)
-* [Usage and Cost API](/docs/en/manage-claude/usage-cost-api)
+* [Rate limits](https://platform.claude.com/docs/en/api/rate-limits)
+* [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)
+* [Admin API reference](https://platform.claude.com/docs/en/api/admin)
+* [Workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces)
+* [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api)

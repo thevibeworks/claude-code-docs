@@ -1,3 +1,8 @@
+---
+title: List Federation Rules
+url: https://platform.claude.com/docs/en/api/admin/federation_rules/list
+---
+
 ## List Federation Rules
 
 **get** `/v1/organizations/federation_rules`

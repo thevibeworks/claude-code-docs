@@ -12,12 +12,13 @@ That makes it a natural fit for code you control — your own repositories, wher
 
 ## Installation
 
-Install from the official Anthropic marketplace, then reload plugins in the same session:
+Install from the official Anthropic marketplace:
 
     /plugin install claude-security@claude-plugins-official
-    /reload-plugins
 
-If Claude Code reports that the marketplace is not found, run `/plugin marketplace add anthropics/claude-plugins-official` first, then retry.
+Claude Code registers the marketplace automatically if it isn't already registered, and the plugin is active as soon as the install finishes — no reload step.
+
+If Claude Code reports that the marketplace is not found (older Claude Code versions), run `/plugin marketplace add anthropics/claude-plugins-official` first, then retry, and finish with `/reload-plugins`.
 
 
 ## Getting started

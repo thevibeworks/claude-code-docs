@@ -1,3 +1,8 @@
+---
+title: List Workspace Members
+url: https://platform.claude.com/docs/en/api/admin/workspaces/members/list
+---
+
 ## List Workspace Members
 
 **get** `/v1/organizations/workspaces/{workspace_id}/members`

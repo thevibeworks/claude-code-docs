@@ -1,13 +1,13 @@
-# Migration
-
-Move an existing agent built on the Messages API or the Claude Agent SDK to Claude Managed Agents.
-
+---
+title: Migration
+url: https://platform.claude.com/docs/en/managed-agents/migration
+description: Move an existing agent built on the Messages API or the Claude Agent SDK to Claude Managed Agents.
 ---
 
-Claude Managed Agents replaces your hand-written agent loop with managed infrastructure. This page covers what changes when you migrate from a custom loop built on the [Messages API](/docs/en/build-with-claude/working-with-messages) or from the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview).
+Claude Managed Agents replaces your hand-written agent loop with managed infrastructure. This page covers what changes when you migrate from a custom loop built on the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) or from the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview).
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## From a Messages API agent loop
@@ -597,8 +597,8 @@ If you built an agent by calling `messages.create` in a `while` loop, executing 
 ### What you still control
 
 * **System prompt and model:** Same fields, now on the agent definition.
-* **Custom tools:** Still declared with JSON Schema. Execution moves from inline handling to responding to `agent.custom_tool_use` events. See [Session event stream](/docs/en/managed-agents/events-and-streaming).
-* **Context:** You can still inject context through the system prompt, [file resources](/docs/en/managed-agents/files), or [skills](/docs/en/managed-agents/skills).
+* **Custom tools:** Still declared with JSON Schema. Execution moves from inline handling to responding to `agent.custom_tool_use` events. See [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
+* **Context:** You can still inject context through the system prompt, [file resources](https://platform.claude.com/docs/en/managed-agents/files), or [skills](https://platform.claude.com/docs/en/managed-agents/skills).
 
 ## From the Claude Agent SDK
 
@@ -606,16 +606,16 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
 
 ### What changes
 
-| Agent SDK                                                       | Managed Agents                                                                                                                                                                                                              |
-| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ClaudeAgentOptions(...)` constructed per run                   | `client.beta.agents.create(...)` once; the Agent is persisted and versioned server-side. See [Agent setup](/docs/en/managed-agents/agent-setup).                                                                            |
-| `async with ClaudeSDKClient(...)` or `query(...)`               | `client.beta.sessions.create(...)` then send and receive [events](/docs/en/managed-agents/events-and-streaming).                                                                                                            |
-| `@tool`-decorated functions dispatched automatically by the SDK | Declare as `{"type": "custom", ...}` on the Agent; your client handles `agent.custom_tool_use` events and replies with `user.custom_tool_result`. See [Tools](/docs/en/managed-agents/tools).                               |
-| Built-in tools run in your process against your filesystem      | `{"type": "agent_toolset_20260401"}` runs the same tools inside the session sandbox against `/workspace`.                                                                                                                   |
-| `cwd`, `add_dirs` point at local paths                          | Upload or mount [files](/docs/en/managed-agents/files) as session resources.                                                                                                                                                |
-| `system_prompt` and the `CLAUDE.md` hierarchy                   | A single `system` string on the Agent. Each update produces a new server-side version; pin sessions to a specific version to promote or roll back without a deploy. See [Agent setup](/docs/en/managed-agents/agent-setup). |
-| `mcp_servers` configured and authenticated in one place         | Declare servers on the Agent; provide credentials through a [Vault](/docs/en/managed-agents/vaults) on the Session.                                                                                                         |
-| `permission_mode`, `can_use_tool`                               | Per-tool [`permission_policy`](/docs/en/managed-agents/permission-policies); send `user.tool_confirmation` events for `always_ask` tools.                                                                                   |
+| Agent SDK                                                       | Managed Agents                                                                                                                                                                                                                                         |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ClaudeAgentOptions(...)` constructed per run                   | `client.beta.agents.create(...)` once; the Agent is persisted and versioned server-side. See [Agent setup](https://platform.claude.com/docs/en/managed-agents/agent-setup).                                                                            |
+| `async with ClaudeSDKClient(...)` or `query(...)`               | `client.beta.sessions.create(...)` then send and receive [events](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).                                                                                                            |
+| `@tool`-decorated functions dispatched automatically by the SDK | Declare as `{"type": "custom", ...}` on the Agent; your client handles `agent.custom_tool_use` events and replies with `user.custom_tool_result`. See [Tools](https://platform.claude.com/docs/en/managed-agents/tools).                               |
+| Built-in tools run in your process against your filesystem      | `{"type": "agent_toolset_20260401"}` runs the same tools inside the session sandbox against `/workspace`.                                                                                                                                              |
+| `cwd`, `add_dirs` point at local paths                          | Upload or mount [files](https://platform.claude.com/docs/en/managed-agents/files) as session resources.                                                                                                                                                |
+| `system_prompt` and the `CLAUDE.md` hierarchy                   | A single `system` string on the Agent. Each update produces a new server-side version; pin sessions to a specific version to promote or roll back without a deploy. See [Agent setup](https://platform.claude.com/docs/en/managed-agents/agent-setup). |
+| `mcp_servers` configured and authenticated in one place         | Declare servers on the Agent; provide credentials through a [Vault](https://platform.claude.com/docs/en/managed-agents/vaults) on the Session.                                                                                                         |
+| `permission_mode`, `can_use_tool`                               | Per-tool [`permission_policy`](https://platform.claude.com/docs/en/managed-agents/permission-policies); send `user.tool_confirmation` events for `always_ask` tools.                                                                                   |
 
 ### Code comparison
 
@@ -1115,7 +1115,7 @@ If you built with the [Claude Agent SDK](https://code.claude.com/docs/en/agent-s
       for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
           if (event.isAgentMessage()) {
               for (var block : event.asAgentMessage().content()) {
-                  IO.println(block.text());
+                  block.text().ifPresent(textBlock -> IO.println(textBlock.text()));
               }
           } else if (event.isAgentCustomToolUse()) {
               var toolUse = event.asAgentCustomToolUse();
@@ -1301,16 +1301,16 @@ The tradeoff for Anthropic running the agent loop is that a few things the SDK h
 
 ## Migration checklist
 
-1. [Create an environment](/docs/en/managed-agents/environments) with the networking and runtimes your agent needs.
-2. Port your system prompt and tool selection to an [agent definition](/docs/en/managed-agents/agent-setup).
-3. Replace your loop with [`sessions.create`](/docs/en/managed-agents/sessions) and [`sessions.events.stream`](/docs/en/managed-agents/events-and-streaming).
-4. For any local files the agent reads, upload them through the [Files API](/docs/en/managed-agents/files) and mount them as `resources`.
+1. [Create an environment](https://platform.claude.com/docs/en/managed-agents/environments) with the networking and runtimes your agent needs.
+2. Port your system prompt and tool selection to an [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup).
+3. Replace your loop with [`sessions.create`](https://platform.claude.com/docs/en/managed-agents/sessions) and [`sessions.events.stream`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
+4. For any local files the agent reads, upload them through the [Files API](https://platform.claude.com/docs/en/managed-agents/files) and mount them as `resources`.
 5. For any custom tool handlers, move execution into your event loop as responses to `agent.custom_tool_use` events.
 6. Verify with a test session before pointing production traffic at the new flow.
 
 ## Migrating between model versions
 
-When a new Claude model is released, migrating a Claude Managed Agents integration is typically a one-field change: update `model` on your [agent definition](/docs/en/managed-agents/agent-setup) and the change takes effect on the next session you create.
+When a new Claude model is released, migrating a Claude Managed Agents integration is typically a one-field change: update `model` on your [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup) and the change takes effect on the next session you create.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -1390,7 +1390,7 @@ When a new Claude model is released, migrating a Claude Managed Agents integrati
   ```
 </CodeGroup>
 
-Most model-level behavior changes documented in the [Messages API migration guide](/docs/en/about-claude/models/migration-guide) do not require action on your side:
+Most model-level behavior changes documented in the [Messages API migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) do not require action on your side:
 
 * **Request parameter changes** (`max_tokens` defaults, `thinking` configuration) are handled by the Claude Managed Agents runtime. These fields are not exposed on the agent definition.
 * **Assistant message prefilling** does not exist in the event-based session model, so its removal on newer models is a no-op.

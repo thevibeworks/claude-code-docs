@@ -1,3 +1,8 @@
+---
+title: Get Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/beta/tunnels/certificates/retrieve
+---
+
 ## Get Tunnel Certificate
 
 **get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
@@ -20,7 +25,7 @@ Fetches a tunnel certificate by ID.
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 29 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -85,6 +90,8 @@ Fetches a tunnel certificate by ID.
     - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 

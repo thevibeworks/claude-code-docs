@@ -1,3 +1,8 @@
+---
+title: Get project details
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/retrieve
+---
+
 ## Get project details
 
 **get** `/v1/compliance/apps/projects/{project_id}`

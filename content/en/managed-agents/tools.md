@@ -1,15 +1,15 @@
-# Tools
-
-Configure tools available to your agent.
-
+---
+title: Tools
+url: https://platform.claude.com/docs/en/managed-agents/tools
+description: Configure tools available to your agent.
 ---
 
-Claude Managed Agents provides a set of built-in tools that Claude can use autonomously within a [session](/docs/en/managed-agents/sessions). You control which tools are available by specifying them in the agent configuration.
+Claude Managed Agents provides a set of built-in tools that Claude can use autonomously within a [session](https://platform.claude.com/docs/en/managed-agents/sessions). You control which tools are available by specifying them in the agent configuration.
 
-Claude Managed Agents also supports custom, user-defined tools. Your application executes these tools separately and returns the results to Claude, which uses them to continue the task. To give the agent tools from an MCP server, use the [MCP connector](/docs/en/managed-agents/mcp-connector) instead.
+Claude Managed Agents also supports custom, user-defined tools. Your application executes these tools separately and returns the results to Claude, which uses them to continue the task. To give the agent tools from an MCP server, use the [MCP connector](https://platform.claude.com/docs/en/managed-agents/mcp-connector) instead.
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Available tools
@@ -27,14 +27,14 @@ The agent toolset includes the following tools. All are enabled by default when 
 | Web fetch  | `web_fetch`  | Fetch content from a URL                       |
 | Web search | `web_search` | Search the web for information                 |
 
-When a tool output exceeds 100,000 characters (about 25,000 tokens), it is automatically written to a file in the [sandbox](/docs/en/managed-agents/environments). The model receives a truncated preview with the file path and can read the full content from there.
+When a tool output exceeds 100,000 characters (about 25,000 tokens), it is automatically written to a file in the [sandbox](https://platform.claude.com/docs/en/managed-agents/environments). The model receives a truncated preview with the file path and can read the full content from there.
 
 ## Configuring the toolset
 
-Enable the full toolset with `agent_toolset_20260401` when creating an agent. Use the `configs` array to disable specific tools or override their settings. Each config entry can also set a `permission_policy` that controls whether the tool's calls are auto-approved or require confirmation. See [Permission policies](/docs/en/managed-agents/permission-policies) for the available policy types.
+Enable the full toolset with `agent_toolset_20260401` when creating an agent. Use the `configs` array to disable specific tools or override their settings. Each config entry can also set a `permission_policy` that controls whether the tool's calls are auto-approved or require confirmation. See [Permission policies](https://platform.claude.com/docs/en/managed-agents/permission-policies) for the available policy types.
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   agent=$(curl -fsSL https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -222,14 +222,14 @@ The `default_config` object sets the baseline for every tool in the set, and per
 
 ## Custom tools
 
-In addition to built-in tools, you can define custom tools. Custom tools are analogous to [user-defined client tools](/docs/en/agents-and-tools/tool-use/how-tool-use-works#user-defined-tools-client-executed) in the Messages API.
+In addition to built-in tools, you can define custom tools. Custom tools are analogous to [user-defined client tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works#user-defined-tools-client-executed) in the Messages API.
 
-Each custom tool defines a contract: you specify what operations are available and what they return, and Claude determines when and how to call them. The model never executes anything on its own. It emits a structured request, your code runs the operation, and the result flows back into the conversation. See [Session event stream](/docs/en/managed-agents/events-and-streaming#handling-custom-tool-calls) for how to receive custom tool calls and return results during a session.
+Each custom tool defines a contract: you specify what operations are available and what they return, and Claude determines when and how to call them. The model never executes anything on its own. It emits a structured request, your code runs the operation, and the result flows back into the conversation. See [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#handling-custom-tool-calls) for how to receive custom tool calls and return results during a session.
 
-If your sessions run in a self-hosted sandbox, the environment worker can [serve custom tools from your sandbox](/docs/en/managed-agents/self-hosted-sandboxes#serve-custom-tools-from-your-sandbox), including tools that wrap an MCP server inside your network.
+If your sessions run in a self-hosted sandbox, the environment worker can [serve custom tools from your sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#serve-custom-tools-from-your-sandbox), including tools that wrap an MCP server inside your network.
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   agent=$(curl -fsSL https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -476,15 +476,15 @@ Once you've defined custom tools on the agent, the agent invokes them during a s
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="MCP connector" icon="link" href="/docs/en/managed-agents/mcp-connector">
+  <Card title="MCP connector" icon="link" href="https://platform.claude.com/docs/en/managed-agents/mcp-connector">
     Connect MCP servers to your agents for access to external tools and data sources.
   </Card>
 
-  <Card title="Permission policies" icon="lock" href="/docs/en/managed-agents/permission-policies">
+  <Card title="Permission policies" icon="lock" href="https://platform.claude.com/docs/en/managed-agents/permission-policies">
     Control when agent and MCP tools execute.
   </Card>
 
-  <Card title="Session event stream" icon="lightning" href="/docs/en/managed-agents/events-and-streaming">
+  <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
     Send events, stream responses, and interrupt or redirect your session mid-execution.
   </Card>
 </CardGroup>

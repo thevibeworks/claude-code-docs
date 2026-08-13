@@ -1,3 +1,8 @@
+---
+title: List project collaborators
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/collaborators/list
+---
+
 ## List project collaborators
 
 **get** `/v1/compliance/apps/projects/{project_id}/collaborators`

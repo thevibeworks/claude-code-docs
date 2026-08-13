@@ -1,3 +1,8 @@
+---
+title: Connectors
+url: https://platform.claude.com/docs/en/api/admin/analytics/connectors
+---
+
 # Connectors
 
 ## Get Connector Usage

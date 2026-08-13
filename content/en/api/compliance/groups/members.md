@@ -1,3 +1,8 @@
+---
+title: Members
+url: https://platform.claude.com/docs/en/api/compliance/groups/members
+---
+
 # Members
 
 ## List Compliance Group Members

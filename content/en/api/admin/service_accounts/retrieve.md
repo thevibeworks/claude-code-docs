@@ -1,3 +1,8 @@
+---
+title: Get Service Account
+url: https://platform.claude.com/docs/en/api/admin/service_accounts/retrieve
+---
+
 ## Get Service Account
 
 **get** `/v1/organizations/service_accounts/{service_account_id}`

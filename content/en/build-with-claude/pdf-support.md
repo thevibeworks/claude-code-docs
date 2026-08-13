@@ -1,12 +1,12 @@
-# PDF support
-
-Process PDFs with Claude: extract text, analyze charts, and understand visual content from your documents.
+---
+title: PDF support
+url: https://platform.claude.com/docs/en/build-with-claude/pdf-support
+description: "Process PDFs with Claude: extract text, analyze charts, and understand visual content from your documents."
+---
 
 ## Compatibility
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Platforms: Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
-
----
 
 You can ask Claude about any text, pictures, charts, and tables in PDFs you provide. Some sample use cases:
 
@@ -21,30 +21,30 @@ You can ask Claude about any text, pictures, charts, and tables in PDFs you prov
 
 Claude works with any standard PDF. Ensure your request size meets these requirements:
 
-| Requirement               | Limit                                                                   |
-| ------------------------- | ----------------------------------------------------------------------- |
-| Maximum request size      | 32 MB ([varies by platform](/docs/en/api/overview#request-size-limits)) |
-| Maximum pages per request | 600 (100 when the request's context window is under 1M tokens)          |
-| Format                    | Standard PDF (no passwords/encryption)                                  |
+| Requirement               | Limit                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------- |
+| Maximum request size      | 32 MB ([varies by platform](https://platform.claude.com/docs/en/api/overview#request-size-limits)) |
+| Maximum pages per request | 600 (100 when the request's context window is under 1M tokens)                                     |
+| Format                    | Standard PDF (no passwords/encryption)                                                             |
 
-Both limits are on the entire request payload, including any other content sent alongside PDFs. For large PDFs, consider uploading with the [Files API](/docs/en/build-with-claude/files) and referencing by `file_id` to keep request payloads small.
+Both limits are on the entire request payload, including any other content sent alongside PDFs. For large PDFs, consider uploading with the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) and referencing by `file_id` to keep request payloads small.
 
 <Tip>
   Dense PDFs (many small-font pages, complex tables, or heavy graphics) can fill the context window before reaching the page limit. Requests with large PDFs can also fail before reaching the page limit, even when using the Files API. Try splitting the document into sections; for large files, because each page is processed as an image, downsampling embedded images can also help.
 </Tip>
 
-Because PDF support relies on Claude's vision capabilities, it is subject to the same [limitations and considerations](/docs/en/build-with-claude/vision#limitations) as other vision tasks.
+Because PDF support relies on Claude's vision capabilities, it is subject to the same [limitations and considerations](https://platform.claude.com/docs/en/build-with-claude/vision#limitations) as other vision tasks.
 
 ### Supported platforms and models
 
-All [active models](/docs/en/about-claude/models/overview) support PDF processing. For PDF support through Amazon Bedrock's Converse API, see [Amazon Bedrock PDF support](#amazon-bedrock-pdf-support).
+All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support PDF processing. For PDF support through Amazon Bedrock's Converse API, see [Amazon Bedrock PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support#amazon-bedrock-pdf-support).
 
 ### Amazon Bedrock PDF support
 
-When using PDF support through the Converse API, part of [Claude on Amazon Bedrock (Opus 4.6 and earlier)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), there are two distinct document processing modes:
+When using PDF support through the Converse API, part of [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), there are two distinct document processing modes:
 
 <Note>
-  **Important:** To access Claude's full visual PDF understanding capabilities in the Converse API, you must enable citations. Without citations enabled, the API falls back to basic text extraction only. Learn more about [working with citations](/docs/en/build-with-claude/citations).
+  **Important:** To access Claude's full visual PDF understanding capabilities in the Converse API, you must enable citations. Without citations enabled, the API falls back to basic text extraction only. Learn more about [working with citations](https://platform.claude.com/docs/en/build-with-claude/citations).
 </Note>
 
 #### Document processing modes
@@ -78,7 +78,7 @@ If Claude isn't seeing images or charts in your PDFs when using the Converse API
 </Note>
 
 <Note>
-  Plain text files such as .txt, .csv, or .md can be used directly in document blocks: upload them to the Files API with MIME type `text/plain` and reference them by `file_id`. Binary formats such as .xlsx or .docx are not supported in document blocks and must be converted to text or PDF first. See [Working with other file formats](/docs/en/build-with-claude/files#working-with-other-file-formats).
+  Plain text files such as .txt, .csv, or .md can be used directly in document blocks: upload them to the Files API with MIME type `text/plain` and reference them by `file_id`. Binary formats such as .xlsx or .docx are not supported in document blocks and must be converted to text or PDF first. See [Working with other file formats](https://platform.claude.com/docs/en/build-with-claude/files#working-with-other-file-formats).
 </Note>
 
 ## Process PDFs with Claude
@@ -89,7 +89,7 @@ Start with a simple example using the Messages API. You can provide PDFs to Clau
 
 1. As a URL reference to a PDF hosted online
 2. As a base64-encoded PDF in `document` content blocks
-3. By a `file_id` from the [Files API](/docs/en/build-with-claude/files)
+3. By a `file_id` from the [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
 
 <Note>
   On Amazon Bedrock and Google Cloud, only base64-encoded sources are currently available. On Microsoft Foundry, the Files API is not supported for deployments hosted on Azure.
@@ -704,7 +704,7 @@ If you need to send PDFs from your local system or when a URL isn't available:
 
 #### Option 3: Files API
 
-For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use the [Files API](/docs/en/build-with-claude/files) (beta):
+For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) (beta):
 
 <CodeGroup>
   ```bash cURL
@@ -1046,9 +1046,9 @@ When you send a PDF to Claude, the following steps occur:
   <Step title="Claude responds, referencing the PDF's contents if relevant.">
     Claude can reference both textual and visual content when it responds. You can further improve performance by integrating PDF support with:
 
-    * [Use prompt caching](#use-prompt-caching): To improve performance for repeated analysis.
-    * [Process document batches](#process-document-batches): For high-volume document processing.
-    * [Tool use](/docs/en/agents-and-tools/tool-use/overview): To extract specific information from documents for use as tool inputs.
+    * [Use prompt caching](https://platform.claude.com/docs/en/build-with-claude/pdf-support#use-prompt-caching): To improve performance for repeated analysis.
+    * [Process document batches](https://platform.claude.com/docs/en/build-with-claude/pdf-support#process-document-batches): For high-volume document processing.
+    * [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview): To extract specific information from documents for use as tool inputs.
   </Step>
 </Steps>
 
@@ -1057,9 +1057,9 @@ When you send a PDF to Claude, the following steps occur:
 The token count of a PDF file depends on the total text extracted from the document and the number of pages:
 
 * Text token costs: Each page typically uses 1,500–3,000 tokens per page depending on content density. Standard API pricing applies with no additional PDF fees.
-* Image token costs: Because each page is converted into an image, the same [image-based cost calculations](/docs/en/build-with-claude/vision#evaluate-image-size) are applied.
+* Image token costs: Because each page is converted into an image, the same [image-based cost calculations](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size) are applied.
 
-You can use [token counting](/docs/en/build-with-claude/token-counting) to estimate costs for your specific PDFs.
+You can use [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) to estimate costs for your specific PDFs.
 
 ## Optimize PDF processing
 
@@ -1081,7 +1081,7 @@ For high-volume processing, consider these approaches:
 
 #### Use prompt caching
 
-Cache PDFs with [prompt caching](/docs/en/build-with-claude/prompt-caching) to improve performance on repeated queries:
+Cache PDFs with [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) to improve performance on repeated queries:
 
 <CodeGroup>
   ```bash cURL
@@ -1407,7 +1407,7 @@ Cache PDFs with [prompt caching](/docs/en/build-with-claude/prompt-caching) to i
 
 #### Process document batches
 
-Use the [Message Batches API](/docs/en/build-with-claude/batch-processing) to process many PDFs in one request:
+Use the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) to process many PDFs in one request:
 
 <CodeGroup>
   ```bash cURL
@@ -1982,12 +1982,12 @@ Use the [Message Batches API](/docs/en/build-with-claude/batch-processing) to pr
   ```
 </CodeGroup>
 
-Batches process asynchronously. To check progress and retrieve results once processing ends, see [Batch processing](/docs/en/build-with-claude/batch-processing).
+Batches process asynchronously. To check progress and retrieve results once processing ends, see [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing).
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Vision" icon="image" href="/docs/en/build-with-claude/vision">
+  <Card title="Vision" icon="image" href="https://platform.claude.com/docs/en/build-with-claude/vision">
     Claude's vision capabilities allow it to understand and analyze images, opening up exciting possibilities for multimodal interaction.
   </Card>
 
@@ -1995,7 +1995,7 @@ Batches process asynchronously. To check progress and retrieve results once proc
     Explore practical examples of PDF processing in the Claude Cookbook recipe.
   </Card>
 
-  <Card title="View API reference" icon="code" href="/docs/en/api/messages/create">
+  <Card title="View API reference" icon="code" href="https://platform.claude.com/docs/en/api/messages/create">
     See complete API documentation for PDF support.
   </Card>
 </CardGroup>

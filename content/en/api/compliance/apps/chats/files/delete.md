@@ -1,3 +1,8 @@
+---
+title: Delete file
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete
+---
+
 ## Delete file
 
 **delete** `/v1/compliance/apps/chats/files/{claude_file_id}`

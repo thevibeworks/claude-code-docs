@@ -1,3 +1,8 @@
+---
+title: Update Workspace
+url: https://platform.claude.com/docs/en/api/admin/workspaces/update
+---
+
 ## Update Workspace
 
 **post** `/v1/organizations/workspaces/{workspace_id}`

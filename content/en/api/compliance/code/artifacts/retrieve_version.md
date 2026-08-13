@@ -1,3 +1,8 @@
+---
+title: Download Code Artifact Version Content
+url: https://platform.claude.com/docs/en/api/compliance/code/artifacts/retrieve_version
+---
+
 ## Download Code Artifact Version Content
 
 **get** `/v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}`

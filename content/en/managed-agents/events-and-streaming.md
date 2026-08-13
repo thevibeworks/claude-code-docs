@@ -1,13 +1,13 @@
-# Session event stream
-
-Send events, stream responses, and interrupt or redirect your session mid-execution.
-
+---
+title: Session event stream
+url: https://platform.claude.com/docs/en/managed-agents/events-and-streaming
+description: Send events, stream responses, and interrupt or redirect your session mid-execution.
 ---
 
 Communication with Claude Managed Agents is event-based. You send user events to the agent, and receive agent and session events back to track status.
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Event types
@@ -15,9 +15,9 @@ Communication with Claude Managed Agents is event-based. You send user events to
 Events flow in two directions.
 
 * **User events** and **system events** are what you send to the agent: `user.*` events start a session and steer it as it progresses; `system.message` appends system-level context that applies to the accompanying turn and all subsequent turns.
-* **Session events**, **span events**, and **agent events** are sent to you for observability into your session state and agent progress. Stream connections that opt in also receive [event deltas](#event-deltas).
+* **Session events**, **span events**, and **agent events** are sent to you for observability into your session state and agent progress. Stream connections that opt in also receive [event deltas](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#event-deltas).
 
-Session, span, agent, user, and system event type strings follow a `{domain}.{action}` naming convention. The stream-only delta preview events (`event_start`, `event_delta`) are the exception. See [Event types](/docs/en/managed-agents/reference#event-types) in the reference for the full catalog.
+Session, span, agent, user, and system event type strings follow a `{domain}.{action}` naming convention. The stream-only delta preview events (`event_start`, `event_delta`) are the exception. See [Event types](https://platform.claude.com/docs/en/managed-agents/reference#event-types) in the reference for the full catalog.
 
 Every persisted event includes a `processed_at` timestamp set when the event finishes processing. On events you send, `processed_at` is null while the event is still queued behind earlier events. The exceptions are `user.define_outcome`, `user.custom_tool_result`, and `user.tool_result`, which are processed on receipt and echoed back with `processed_at` already populated.
 
@@ -28,7 +28,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     Send a `user.message` event to start or continue the agent's work:
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
@@ -179,7 +179,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     Send a `user.interrupt` event to stop the agent mid-execution, then follow up with a `user.message` event to redirect it:
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       # Agent is currently analyzing a file...
       # Interrupt with a new direction:
       curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
@@ -369,7 +369,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     Stream events from the session to receive real-time updates as the agent works. Only events emitted after the stream is opened are delivered, so open the stream before sending events to avoid a race condition.
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       # Open the stream first, then send the user message
       exec {stream}< <(
         curl --fail-with-body -sS -N \
@@ -577,7 +577,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
           Iterable<BetaManagedAgentsStreamSessionEvents> events = stream.stream()::iterator;
           for (var event : events) {
               if (event.isAgentMessage()) {
-                  event.asAgentMessage().content().forEach(block -> IO.print(block.text()));
+                  event.asAgentMessage().content().forEach(block -> block.text().ifPresent(textBlock -> IO.print(textBlock.text())));
               } else if (event.isSessionStatusIdle()) {
                   break;
               } else if (event.isSessionError()) {
@@ -657,7 +657,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     3. Tail the live stream, skipping any events already returned by the history list.
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       exec {stream}< <(
         curl --fail-with-body -sS -N \
           "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true" \
@@ -841,7 +841,8 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
                   && seenEventIds.add(json.values().get("id").asStringOrThrow()))
               .takeWhile(event -> !event.isSessionStatusIdle())
               .filter(BetaManagedAgentsStreamSessionEvents::isAgentMessage)
-              .forEach(event -> event.asAgentMessage().content().forEach(block -> IO.print(block.text())));
+              .forEach(event -> event.asAgentMessage().content()
+                  .forEach(block -> block.text().ifPresent(textBlock -> IO.print(textBlock.text()))));
       }
       ```
 
@@ -901,7 +902,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     Retrieve the full event history for a session:
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
@@ -973,7 +974,7 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
     Pass a `types` filter to return only specific event types:
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true&types[]=agent.tool_use&types[]=agent.tool_result" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
@@ -1064,7 +1065,7 @@ By default, the agent's response text reaches the stream as buffered `agent.mess
 
 ### Opt in to previews
 
-Previews are opt-in per stream connection. Add the `event_deltas[]` query parameter to the stream you're reading, repeating it once for each event type you want previewed. Because `[]` is a shell glob pattern, quote the URL whenever you build the request in a shell; the examples percent-encode the brackets as `%5B%5D`, which also works. Both stream endpoints accept the parameter: the session-level stream at `GET /v1/sessions/{session_id}/events/stream`, and each [session thread](/docs/en/managed-agents/multiagent-orchestration)'s own stream at `GET /v1/sessions/{session_id}/threads/{thread_id}/stream`. The accepted values are `agent.message` and `agent.thinking`; any other value returns a 400 error, as does a request with more than 100 values. A subagent's previews appear on [that subagent's own thread stream](#preview-session-thread-events).
+Previews are opt-in per stream connection. Add the `event_deltas[]` query parameter to the stream you're reading, repeating it once for each event type you want previewed. Because `[]` is a shell glob pattern, quote the URL whenever you build the request in a shell; the examples percent-encode the brackets as `%5B%5D`, which also works. Both stream endpoints accept the parameter: the session-level stream at `GET /v1/sessions/{session_id}/events/stream`, and each [session thread](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)'s own stream at `GET /v1/sessions/{session_id}/threads/{thread_id}/stream`. The accepted values are `agent.message` and `agent.thinking`; any other value returns a 400 error, as does a request with more than 100 values. A subagent's previews appear on [that subagent's own thread stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#preview-session-thread-events).
 
 When a previewed event begins, the stream emits an `event_start` carrying the upcoming event's type and `id`:
 
@@ -1100,14 +1101,14 @@ When an `agent.thinking` event is previewed, only the `event_start` is emitted. 
 Unlike persisted events, `event_start` and `event_delta` have no `id` or `processed_at` of their own. The only identifier they carry is the `id` of the event they preview.
 
 <Note>
-  Event deltas use a different wire format from [Streaming messages](/docs/en/build-with-claude/streaming), and the difference is intentional. A previewed `agent.message` gets a single `event_start` followed only by `event_delta` events. There are no per-content-block start or stop events and no stop event for the previewed event itself. The delta type is `content_delta`, not `content_block_delta`. Accumulator code written for the Messages API does not carry over unchanged.
+  Event deltas use a different wire format from [Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming), and the difference is intentional. A previewed `agent.message` gets a single `event_start` followed only by `event_delta` events. There are no per-content-block start or stop events and no stop event for the previewed event itself. The delta type is `content_delta`, not `content_block_delta`. Accumulator code written for the Messages API does not carry over unchanged.
 </Note>
 
 ### Accumulate and reconcile
 
 Every SDK that supports event deltas includes an accumulator helper that handles the `index` bookkeeping for you. The Go, Java, Ruby, and C# helpers also key the accumulating preview by the event's `id`; with the Python, TypeScript, and PHP helpers you keep that map yourself and fold each delta into the entry for its `id`. The manual pattern also works in every language when you need custom bookkeeping: apply it to the generated event types.
 
-In the manual pattern, treat the preview as a scratch buffer and the buffered event as the record. Key the buffer by `(event_id, index)`. Reconcile per model request: a turn opens with a single `session.status_running` event, then on a turn that completes normally each model request produces, in order, `span.model_request_start`, `event_start`, the `event_delta` events, the buffered `agent.message`, and finally [`span.model_request_end`](/docs/en/managed-agents/reference#event-types) (in the Span events tab). On the wire, this is the previewed portion of that sequence, interleaved with the connection's other buffered events:
+In the manual pattern, treat the preview as a scratch buffer and the buffered event as the record. Key the buffer by `(event_id, index)`. Reconcile per model request: a turn opens with a single `session.status_running` event, then on a turn that completes normally each model request produces, in order, `span.model_request_start`, `event_start`, the `event_delta` events, the buffered `agent.message`, and finally [`span.model_request_end`](https://platform.claude.com/docs/en/managed-agents/reference#event-types) (in the Span events tab). On the wire, this is the previewed portion of that sequence, interleaved with the connection's other buffered events:
 
 ```text wrap
 event_start     {"event": {"type": "agent.message", "id": "sevt_01abc..."}}
@@ -1129,7 +1130,7 @@ Guarantees the pattern relies on:
 * A connection emits at most one `event_start` per `event_id`, and the buffered event is the last thing that connection delivers for that `id`.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   # Opt in to agent.message previews via event_deltas, then accumulate manually.
   exec {stream}< <(
     curl --fail-with-body -sS -N \
@@ -1472,7 +1473,8 @@ Guarantees the pattern relies on:
               var message = event.asAgentMessage();
               previews.remove(message.id());
               var text = message.content().stream()
-                  .map(block -> block.text())
+                  .flatMap(block -> block.text().stream())
+                  .map(textBlock -> textBlock.text())
                   .collect(Collectors.joining());
               IO.println("agent.message           " + message.id() + " " + text);
           } else if (event.isSpanModelRequestEnd()) {
@@ -1541,14 +1543,14 @@ Guarantees the pattern relies on:
 
 ### Preview session thread events
 
-In a [multiagent](/docs/en/managed-agents/multiagent-orchestration) session, every session thread has its own event stream at `GET /v1/sessions/{session_id}/threads/{thread_id}/stream`, and it takes the same `event_deltas[]` parameter with the same values. Previews are thread-scoped by design: a connection previews only the thread it's reading. A child thread's previews are delivered on that child's own stream and are never cross-posted to the session-level stream, whose previews stay scoped to the primary thread. To watch a subagent's text as the model generates it, open that subagent's thread stream.
+In a [multiagent](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) session, every session thread has its own event stream at `GET /v1/sessions/{session_id}/threads/{thread_id}/stream`, and it takes the same `event_deltas[]` parameter with the same values. Previews are thread-scoped by design: a connection previews only the thread it's reading. A child thread's previews are delivered on that child's own stream and are never cross-posted to the session-level stream, whose previews stay scoped to the primary thread. To watch a subagent's text as the model generates it, open that subagent's thread stream.
 
 The thread stream's path is easy to get wrong: it is `/threads/{thread_id}/stream`, not `/events/stream` (which exists only at the session level), and there is no `/threads/{thread_id}/events/stream` endpoint.
 
-The preview events themselves don't change. `event_start` and `event_delta` have the same shape on a thread stream as on the session-level stream, and the [accumulate and reconcile](#accumulate-and-reconcile) pattern applies as written. The one adjustment is bookkeeping: run one accumulator instance per stream connection.
+The preview events themselves don't change. `event_start` and `event_delta` have the same shape on a thread stream as on the session-level stream, and the [accumulate and reconcile](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#accumulate-and-reconcile) pattern applies as written. The one adjustment is bookkeeping: run one accumulator instance per stream connection.
 
-<CodeGroup defaultLanguage="curl">
-  ```bash curl
+<CodeGroup defaultLanguage="cURL">
+  ```bash cURL
   # List the session's threads and pick a child: child threads carry a non-null
   # parent_thread_id, and the primary thread's parent_thread_id is null.
   THREAD_ID=$(
@@ -1798,7 +1800,7 @@ The preview events themselves don't change. `event_start` and `event_delta` have
           } else if (event.isAgentMessage()) {
               // The buffered event is the authoritative record; render its content.
               IO.println();
-              event.asAgentMessage().content().forEach(block -> IO.print(block.text()));
+              event.asAgentMessage().content().forEach(block -> block.text().ifPresent(textBlock -> IO.print(textBlock.text())));
               IO.println();
           } else if (event.isSessionThreadStatusIdle()) {
               break;
@@ -1842,15 +1844,15 @@ The preview events themselves don't change. `event_start` and `event_delta` have
   ```
 </CodeGroup>
 
-The read loop exits on [`session.thread_status_idle`](/docs/en/managed-agents/reference#event-types), the event emitted when the session thread's turn finishes and the thread goes idle.
+The read loop exits on [`session.thread_status_idle`](https://platform.claude.com/docs/en/managed-agents/reference#event-types), the event emitted when the session thread's turn finishes and the thread goes idle.
 
 ### Limitations
 
 Previews are tuned for responsiveness. Build against these constraints:
 
 * **Best effort:** Under load, the server might shed deltas for an event. When it does, you receive a contiguous prefix of the text and then no further deltas for that event. The buffered `agent.message` still arrives complete. Never treat an accumulated preview as final.
-* **No replay on reconnect:** Deltas are delivered only to the connection that opted in, while it is open. This applies to the session-level stream and to each session thread stream alike, and a connection opened after a model request started receives no deltas for that in-flight event. If the stream drops, follow the [reconnect procedure](#integrating-events) in the Streaming events tab: reopen the stream and list the event history. The history includes any buffered events emitted while you were disconnected, including the `agent.message` your preview was waiting for. There is no way to re-request missed deltas.
-* **One thread, text only:** Previews cover assistant text on the thread the connection is reading. Tool use, tool results, MCP results, and activity on any other [session thread](/docs/en/managed-agents/multiagent-orchestration) are never previewed on that connection.
+* **No replay on reconnect:** Deltas are delivered only to the connection that opted in, while it is open. This applies to the session-level stream and to each session thread stream alike, and a connection opened after a model request started receives no deltas for that in-flight event. If the stream drops, follow the [reconnect procedure](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) in the Streaming events tab: reopen the stream and list the event history. The history includes any buffered events emitted while you were disconnected, including the `agent.message` your preview was waiting for. There is no way to re-request missed deltas.
+* **One thread, text only:** Previews cover assistant text on the thread the connection is reading. Tool use, tool results, MCP results, and activity on any other [session thread](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) are never previewed on that connection.
 * **Start-only `agent.thinking`:** An `agent.thinking` preview emits only the `event_start` as a signal that a thinking block has started; no `event_delta` events follow it.
 * **Never persisted:** `event_start` and `event_delta` exist only on the live stream. They do not appear in the session's event history (`GET /v1/sessions/{session_id}/events`) or in any session thread's event history.
 
@@ -1868,7 +1870,7 @@ If the stream doesn't behave as you expect:
 
 ### Handling custom tool calls
 
-When the agent invokes a [custom tool](/docs/en/managed-agents/tools#custom-tools):
+When the agent invokes a [custom tool](https://platform.claude.com/docs/en/managed-agents/tools#custom-tools):
 
 1. The session emits an `agent.custom_tool_use` event containing the tool name and input.
 2. The session pauses with a `session.status_idle` event containing `stop_reason: requires_action`. The blocking event IDs are in the `stop_reason.event_ids` array.
@@ -1876,7 +1878,7 @@ When the agent invokes a [custom tool](/docs/en/managed-agents/tools#custom-tool
 4. Once all blocking events are resolved, the session transitions back to `running`.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   exec {stream_fd}< <(curl --fail-with-body -sS -N \
     "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -2144,7 +2146,7 @@ When the agent invokes a [custom tool](/docs/en/managed-agents/tools#custom-tool
 
 ### Tool confirmation
 
-When a [permission policy](/docs/en/managed-agents/permission-policies) requires confirmation before a tool executes:
+When a [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) requires confirmation before a tool executes:
 
 1. The session emits an `agent.tool_use` or `agent.mcp_tool_use` event.
 2. The session pauses with a `session.status_idle` event containing `stop_reason: requires_action`. The blocking event IDs are in the `stop_reason.event_ids` array.
@@ -2152,7 +2154,7 @@ When a [permission policy](/docs/en/managed-agents/permission-policies) requires
 4. Once all blocking events are resolved, the session transitions back to `running`.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   exec {stream_fd}< <(curl --fail-with-body -sS -N \
     "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -2377,13 +2379,13 @@ When a [permission policy](/docs/en/managed-agents/permission-policies) requires
 Sessions persist between interactions. Conversation history is preserved unless the session is explicitly deleted. When a session goes idle, its sandbox is checkpointed, preserving the full sandbox state, including the filesystem, installed packages, and any files the agent created. This allows you to resume cleanly from inactivity.
 
 <Note>
-  While session history is persisted until deleted, sandbox state is only preserved for 30 days after the sandbox is created. Activity does not extend this window: after 30 days the sandbox state (files, installed tools, and so on) is unrecoverable, and a resumed session starts from a fresh sandbox. If your workflow depends on sandbox contents, have the agent write important artifacts to [outputs](/docs/en/managed-agents/define-outcomes#retrieving-deliverables) before the window ends.
+  While session history is persisted until deleted, sandbox state is only preserved for 30 days after the sandbox is created. Activity does not extend this window: after 30 days the sandbox state (files, installed tools, and so on) is unrecoverable, and a resumed session starts from a fresh sandbox. If your workflow depends on sandbox contents, have the agent write important artifacts to [outputs](https://platform.claude.com/docs/en/managed-agents/define-outcomes#retrieving-deliverables) before the window ends.
 </Note>
 
 To resume a session, send a `user.message` event to it as usual:
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   # In production, pass the stored ID of the session you want to resume.
   curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -2546,7 +2548,7 @@ To resume a session, send a `user.message` event to it as usual:
 
 ### Reaching a session budget
 
-A session created with a [budget](/docs/en/managed-agents/budgets) pauses instead of overspending. When the session's tracked list cost reaches the cap, the platform pauses each thread before its next model request, and the session goes idle with a `stop_reason` of `budget_reached` rather than terminating. The request that carried the total past the cap runs to completion, so the `list_cost` reported by the `session.usage` snapshot can read [at or a fraction past the cap](/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). On the stream, the pause arrives as three events, in order:
+A session created with a [budget](https://platform.claude.com/docs/en/managed-agents/budgets) pauses instead of overspending. When the session's tracked list cost reaches the cap, the platform pauses each thread before its next model request, and the session goes idle with a `stop_reason` of `budget_reached` rather than terminating. The request that carried the total past the cap runs to completion, so the `list_cost` reported by the `session.usage` snapshot can read [at or a fraction past the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). On the stream, the pause arrives as three events, in order:
 
 1. `session.thread_status_idle` with `stop_reason: budget_reached`, for each thread as it pauses.
 2. `session.usage`, a snapshot of the session's cumulative usage and tracked list cost.
@@ -2556,7 +2558,7 @@ A thread whose final request both crosses the cap and completes its turn reports
 
 While the session is at its cap, it accepts only the events that settle work already in flight: `user.tool_confirmation`, `user.tool_result`, `user.custom_tool_result`, and `user.interrupt`. Any event that would start new work, including `user.message`, is rejected with a 400 error naming that list. When a session has both a thread waiting on a tool ask and a thread paused at the cap, the session-level `stop_reason` is `requires_action`, not `budget_reached`: settling the ask doesn't trigger a model request, so respond to it as usual.
 
-No event resumes a session paused at its cap. Instead, update the session's budget: changing the cap to any value above the consumed list cost, or removing the budget by updating the session with `"budget": null`, resumes the paused work automatically. See [Session budgets](/docs/en/managed-agents/budgets) for how list cost is tracked and the full budget update semantics.
+No event resumes a session paused at its cap. Instead, update the session's budget: changing the cap to any value above the consumed list cost, or removing the budget by updating the session with `"budget": null`, resumes the paused work automatically. See [Session budgets](https://platform.claude.com/docs/en/managed-agents/budgets) for how list cost is tracked and the full budget update semantics.
 
 ### Sending system messages
 
@@ -2567,7 +2569,7 @@ No event resumes a session paused at its cap. Instead, update the session's budg
 Send a `system.message` event to give the agent privileged system-level context that applies to the accompanying turn and all subsequent turns. Unlike the `system` field on the agent definition (which sets the top-level system prompt), `system.message` content is appended to the session's system context as a `role: "system"` turn rather than replacing that prompt. Use it when the agent needs updated system-level guidance mid-session: a different persona, revised constraints, or context fetched at runtime that should shape the model's behavior going forward.
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -2743,11 +2745,11 @@ The session object includes a `usage` field with the session's cumulative usage:
 
 `input_tokens` reports uncached input tokens and `output_tokens` reports total output tokens across all model calls in the session. The `cache_read_input_tokens` field reports tokens read from the prompt cache, and the `cache_creation` object breaks down cache-creation tokens by cache lifetime (`ephemeral_5m_input_tokens` and `ephemeral_1h_input_tokens`). Cache entries use a 5-minute TTL by default, so back-to-back turns within that window benefit from cache reads, which reduce per-token cost.
 
-`list_cost` is the session's cumulative consumption priced at public list rates, as a whole number of cents in a string, with a currency code. `active_seconds` is the cumulative time during which the session had at least one thread running; overlapping activity from concurrent threads is counted once, unlike the `active_seconds` in the session's `stats` object, which sums each thread's own active time. This deduplicated figure is the duration the session's runtime cost is priced on. `server_tool_use` counts server-executed tool requests for pricing: web search requests are priced into list cost per request, and web fetch requests carry no per-request charge and aren't metered, so `web_fetch_requests` reads `0`. Each [session thread](/docs/en/managed-agents/multiagent-orchestration)'s own `usage` carries `list_cost` and `active_seconds` too. Per-thread figures are rounded independently and exclude the session's running-time cost, so they don't sum exactly to the session's `list_cost`; the session figure is the authoritative one.
+`list_cost` is the session's cumulative consumption priced at public list rates, as a whole number of cents in a string, with a currency code. `active_seconds` is the cumulative time during which the session had at least one thread running; overlapping activity from concurrent threads is counted once, unlike the `active_seconds` in the session's `stats` object, which sums each thread's own active time. This deduplicated figure is the duration the session's runtime cost is priced on. `server_tool_use` counts server-executed tool requests for pricing: web search requests are priced into list cost per request, and web fetch requests carry no per-request charge and aren't metered, so `web_fetch_requests` reads `0`. Each [session thread](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration)'s own `usage` carries `list_cost` and `active_seconds` too. Per-thread figures are rounded independently and exclude the session's running-time cost, so they don't sum exactly to the session's `list_cost`; the session figure is the authoritative one.
 
-You don't have to poll the session to observe these totals. The `session.usage` event carries the same cumulative snapshot (the `usage` object, plus the session's `budget`, which is `null` when the session has none) on the session stream and in the event history. It is emitted on idle transitions rather than on a timer: the session emits one immediately before it goes idle, whatever the stop reason, and one when a thread pauses at a [session budget](/docs/en/managed-agents/budgets). A stream reader therefore sees the final cost of a turn, or of the work that hit a budget, without an extra fetch.
+You don't have to poll the session to observe these totals. The `session.usage` event carries the same cumulative snapshot (the `usage` object, plus the session's `budget`, which is `null` when the session has none) on the session stream and in the event history. It is emitted on idle transitions rather than on a timer: the session emits one immediately before it goes idle, whatever the stop reason, and one when a thread pauses at a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets). A stream reader therefore sees the final cost of a turn, or of the work that hit a budget, without an extra fetch.
 
-To enforce a spend limit, set a [session budget](/docs/en/managed-agents/budgets) rather than polling usage and stopping the session yourself. The platform prices the session's consumption continuously and pauses each thread before its next model request once the session's list cost reaches the cap; see [Reaching a session budget](#reaching-a-session-budget) for what that looks like on the stream.
+To enforce a spend limit, set a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets) rather than polling usage and stopping the session yourself. The platform prices the session's consumption continuously and pauses each thread before its next model request once the session's list cost reaches the cap; see [Reaching a session budget](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#reaching-a-session-budget) for what that looks like on the stream.
 
 ## Console observability
 
@@ -2763,4 +2765,4 @@ The Claude Console provides a visual timeline view of your agent sessions. Navig
 * **Review tool results:** Tool execution failures often explain unexpected agent behavior
 * **Track token usage:** Monitor token consumption to optimize prompts and reduce costs
 * **Use system prompts:** Add logging instructions to the system prompt to make the agent explain its reasoning
-* **Troubleshoot previews:** If a stream that opts in to event deltas doesn't behave as you expect, see [Troubleshoot previews](#troubleshoot-previews)
+* **Troubleshoot previews:** If a stream that opts in to event deltas doesn't behave as you expect, see [Troubleshoot previews](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#troubleshoot-previews)

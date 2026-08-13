@@ -1,20 +1,20 @@
-# Computer use tool
-
-Give Claude screenshot, mouse, and keyboard control of a desktop environment with the computer use tool.
+---
+title: Computer use tool
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool
+description: Give Claude screenshot, mouse, and keyboard control of a desktop environment with the computer use tool.
+---
 
 ## Compatibility
 - Status: Beta
-- [Beta header](/docs/en/api/beta-headers): `computer-use-2025-11-24`
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `computer-use-2025-11-24`
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Supported models: `claude-opus-5`, `claude-sonnet-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-sonnet-4-6`, `claude-opus-4-5-20251101`
 - Platforms: Claude API (beta), Claude Platform on AWS (beta), Amazon Bedrock (beta), Google Cloud (beta), Microsoft Foundry (beta)
-
----
 
 Claude can interact with computer environments through the computer use tool, which provides screenshot capabilities and mouse/keyboard control for autonomous desktop interaction.
 
 <Note>
-  On Claude Sonnet 4.5, Claude Haiku 4.5, Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations)), Claude Sonnet 4 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations)), and Claude Opus 4 ([retired, except on Google Cloud](/docs/en/about-claude/model-deprecations)), use the earlier `computer-use-2025-01-24` [beta header](/docs/en/api/beta-headers) instead of `computer-use-2025-11-24`.
+  On Claude Sonnet 4.5, Claude Haiku 4.5, Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations)), Claude Sonnet 4 ([retired, except on Bedrock and Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations)), and Claude Opus 4 ([retired, except on Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations)), use the earlier `computer-use-2025-01-24` [beta header](https://platform.claude.com/docs/en/api/beta-headers) instead of `computer-use-2025-11-24`.
 
   Reach out through the [feedback form](https://forms.gle/H6UFuXaaLywri9hz6) to share your feedback on this feature.
 </Note>
@@ -30,7 +30,7 @@ Computer use is a beta feature that enables Claude to interact with desktop envi
 
 While computer use can be augmented with other tools such as bash and text editor for more comprehensive automation workflows, computer use specifically refers to the computer use tool's capability to see and control desktop environments.
 
-For model support, see the [Tool reference](/docs/en/agents-and-tools/tool-use/tool-reference).
+For model support, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
 
 ## Security considerations
 
@@ -404,7 +404,7 @@ A [reference implementation](https://github.com/anthropics/anthropic-quickstarts
 
 ### Understand the agent loop
 
-The core of computer use is the "agent loop": a cycle where Claude requests tool actions, your application runs them, and returns results to Claude. The loop uses the client you created in the [Quick start](#quick-start), a tool list shaped like the Quick start's `tools` array, and the tool-call processing helper defined in [Process Claude's tool calls](#implement-the-computer-use-tool). Here's a simplified example:
+The core of computer use is the "agent loop": a cycle where Claude requests tool actions, your application runs them, and returns results to Claude. The loop uses the client you created in the [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#quick-start), a tool list shaped like the Quick start's `tools` array, and the tool-call processing helper defined in [Process Claude's tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#implement-the-computer-use-tool). Here's a simplified example:
 
 <CodeGroup>
   ```bash cURL
@@ -678,7 +678,7 @@ Here are some tips on how to get the best quality outputs:
 2. Claude sometimes assumes outcomes of its actions without explicitly checking their results. To prevent this you can prompt Claude with `After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. Explicitly show your thinking: "I have evaluated step X..." If not correct, try again. Only when you confirm a step was executed correctly should you move on to the next one.`
 3. Some UI elements (such as dropdowns and scrollbars) might be tricky for Claude to manipulate using mouse movements. If you experience this, try prompting the model to use keyboard shortcuts.
 4. For repeatable tasks or UI interactions, include example screenshots and tool calls of successful outcomes in your prompt.
-5. If you need the model to log in, provide it with the username and password in your prompt inside XML tags such as `<robot_credentials>`. Using computer use within applications that require login increases the risk of bad outcomes as a result of prompt injection. Review [Mitigate jailbreaks and prompt injections](/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks) before providing the model with login credentials.
+5. If you need the model to log in, provide it with the username and password in your prompt inside XML tags such as `<robot_credentials>`. Using computer use within applications that require login increases the risk of bad outcomes as a result of prompt injection. Review [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks) before providing the model with login credentials.
 6. When constructing a user turn's `content` array, place the instruction text *before* the screenshot image. Providing the target description before the image is processed improves click accuracy.
 7. When using `computer_20251124` with `enable_zoom: true` set, Claude zooms in on a region when asked about small text or specific UI elements that aren't legible at the screenshot's default resolution, such as file names in a sidebar, tab titles, status-bar text, line numbers, or button labels. If Claude isn't zooming when you expect, ask about a specific region or element rather than the screen as a whole.
 
@@ -692,7 +692,7 @@ Here are some tips on how to get the best quality outputs:
 
 ### System prompts
 
-When one of the Anthropic-schema tools is requested through the Claude API, a computer use-specific system prompt is generated. It's similar to the [tool use system prompt](/docs/en/agents-and-tools/tool-use/define-tools#tool-use-system-prompt) but starts with:
+When one of the Anthropic-schema tools is requested through the Claude API, a computer use-specific system prompt is generated. It's similar to the [tool use system prompt](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#tool-use-system-prompt) but starts with:
 
 > You have access to a set of functions you can use to answer the user's question. This includes access to a sandboxed computing environment. You do NOT currently have the ability to inspect files or interact with external resources, except by invoking the below functions.
 
@@ -838,7 +838,7 @@ The computer use tool supports these actions:
 
 ### Combining with thinking
 
-For combining computer use with thinking, see [Thinking](/docs/en/build-with-claude/thinking).
+For combining computer use with thinking, see [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking).
 
 <Tip>
   For computer use specifically, internal benchmarking suggests these `effort` settings:
@@ -849,7 +849,7 @@ For combining computer use with thinking, see [Thinking](/docs/en/build-with-cla
 
 ### Augmenting computer use with other tools
 
-To add other tools alongside computer use, include them in the same `tools` array. The [Quick start](#quick-start) section shows this pattern with the [bash tool](/docs/en/agents-and-tools/tool-use/bash-tool) and [text editor tool](/docs/en/agents-and-tools/tool-use/text-editor-tool). You can add your own [custom tool definitions](/docs/en/agents-and-tools/tool-use/define-tools) the same way.
+To add other tools alongside computer use, include them in the same `tools` array. The [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#quick-start) section shows this pattern with the [bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool) and [text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool). You can add your own [custom tool definitions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools) the same way.
 
 ### Build a custom computer use environment
 
@@ -1549,7 +1549,7 @@ When implementing the computer use tool, various errors might occur. Here's how 
 
 #### Size screenshots to fit image limits
 
-Screenshots sent to the computer tool should fit within Claude's image size limits (see [image size limits](/docs/en/build-with-claude/vision#evaluate-image-size)). The API downscales oversized images before Claude sees them, and Claude returns coordinates for the image it sees, so relying on the server-side downscale leaves you without the scale factor you need to map those coordinates back to your screen. Only images over the API's separate [request limits](/docs/en/build-with-claude/vision#request-limits) (for example, more than 8,000 px on a side) are rejected with a validation error rather than downscaled.
+Screenshots sent to the computer tool should fit within Claude's image size limits (see [image size limits](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size)). The API downscales oversized images before Claude sees them, and Claude returns coordinates for the image it sees, so relying on the server-side downscale leaves you without the scale factor you need to map those coordinates back to your screen. Only images over the API's separate [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) (for example, more than 8,000 px on a side) are rejected with a validation error rather than downscaled.
 
 <Note>
   Limits vary by model. Claude Opus 5, Claude Sonnet 5, Claude Opus 4.8, and Claude Opus 4.7 accept up to 2576 pixels on the long edge; earlier models accept up to 1568 pixels on the long edge and approximately 1.15 megapixels total. The following example uses the earlier-model 1568 px / 1.15 MP limits; substitute your model's limit.
@@ -1787,7 +1787,7 @@ If clicks miss their targets, the cause is usually one of the following:
     * Include relevant metadata such as timestamp or display state
     * If using higher resolutions, ensure coordinates are accurately scaled
 
-    A screenshot goes back as an image content block inside the `tool_result` content array (see [Handle tool calls](/docs/en/agents-and-tools/tool-use/handle-tool-calls)):
+    A screenshot goes back as an image content block inside the `tool_result` content array (see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)):
 
     ```json
     {
@@ -1813,7 +1813,7 @@ If clicks miss their targets, the cause is usually one of the following:
   </Accordion>
 
   <Accordion title="Manage screenshot history for prompt caching">
-    Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). To keep [Prompt caching](/docs/en/build-with-claude/prompt-caching) effective while bounding context:
+    Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). To keep [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) effective while bounding context:
 
     * Place one `cache_control` breakpoint after the system prompt and tool definitions, and up to three more on the most recent `tool_result` blocks, advancing them each turn.
     * Prune old screenshots in *batches*, not one each turn. Dropping a screenshot every turn changes the prefix every turn and invalidates the cache. A reasonable default is to keep the last three screenshots and prune every 25 turns, so the prefix stays byte-identical between prune events.
@@ -2135,13 +2135,13 @@ Always carefully review and verify Claude's computer use actions and logs. Do no
 
 ## Data retention
 
-Computer use is a client-side tool. All screenshots, mouse actions, keyboard inputs, and any files involved in a session are captured and stored in your environment, not by Anthropic. Anthropic processes the screenshot images and action requests in real time as part of the API call. Retention for those API requests is governed by [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+Computer use is a client-side tool. All screenshots, mouse actions, keyboard inputs, and any files involved in a session are captured and stored in your environment, not by Anthropic. Anthropic processes the screenshot images and action requests in real time as part of the API call. Retention for those API requests is governed by [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
-Because your application controls where and how computer use data is stored, computer use is ZDR eligible. For ZDR eligibility across all features, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+Because your application controls where and how computer use data is stored, computer use is ZDR eligible. For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## Pricing
 
-Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/tool-use/overview#pricing). When using the computer use tool:
+Computer use follows the standard [tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing). When using the computer use tool:
 
 **System prompt overhead:** The computer use beta adds 466–499 tokens to the system prompt
 
@@ -2153,7 +2153,7 @@ Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/t
 
 **Additional token consumption:**
 
-* Screenshot images (see [Vision pricing](/docs/en/build-with-claude/vision))
+* Screenshot images (see [Vision pricing](https://platform.claude.com/docs/en/build-with-claude/vision))
 * Tool execution results returned to Claude
 
 <Note>
@@ -2163,7 +2163,7 @@ Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/t
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Troubleshooting tool use" icon="wrench" href="/docs/en/agents-and-tools/tool-use/troubleshooting-tool-use">
+  <Card title="Troubleshooting tool use" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/troubleshooting-tool-use">
     Fix the most common tool-use errors with symptom-to-fix diagnostic tables.
   </Card>
 
@@ -2171,7 +2171,7 @@ Computer use follows the standard [tool use pricing](/docs/en/agents-and-tools/t
     Get started with the complete Docker-based implementation
   </Card>
 
-  <Card title="Tool use with Claude" icon="tool" href="/docs/en/agents-and-tools/tool-use/overview">
+  <Card title="Tool use with Claude" icon="tool" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">
     Connect Claude to external tools and APIs. See where tools execute, when Claude calls them, and which tool fits your task.
   </Card>
 

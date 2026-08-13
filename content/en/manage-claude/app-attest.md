@@ -1,12 +1,12 @@
-# App Attest for iOS and macOS apps
-
-Let genuine installations of your iOS or macOS app call the Claude API without shipping an API key or running a proxy, using Apple's App Attest service.
-
+---
+title: App Attest for iOS and macOS apps
+url: https://platform.claude.com/docs/en/manage-claude/app-attest
+description: Let genuine installations of your iOS or macOS app call the Claude API without shipping an API key or running a proxy, using Apple's App Attest service.
 ---
 
 App Attest authenticates iOS and macOS apps that call the Claude API directly from the device, with usage billed to your workspace. This page explains how App Attest works, how to register your app in the Claude Console, and how to revoke an app integration.
 
-Apps use App Attest through the [Claude for Foundation Models](https://github.com/anthropics/ClaudeForFoundationModels) Swift package, which is in beta: it requires the OS 27 betas, and APIs might change before general availability. For the Swift configuration, see [Apple Foundation Models](/docs/en/cli-sdks-libraries/libraries/apple-foundation-models#app-attest-production).
+Apps use App Attest through the [Claude for Foundation Models](https://github.com/anthropics/ClaudeForFoundationModels) Swift package, which is in beta: it requires the OS 27 betas, and APIs might change before general availability. For the Swift configuration, see [Apple Foundation Models](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models#app-attest-production).
 
 ## How App Attest works
 
@@ -16,12 +16,12 @@ App Attest authentication is available only when your app calls the Claude API d
 
 The first time your app uses Claude on a device, the app requests a challenge from Anthropic, attests the device with Apple's `DCAppAttestService`, and exchanges the verified attestation for an access token. The Claude for Foundation Models package runs this flow automatically and requests new tokens as they expire; there is no attestation code for you to write.
 
-Tokens are scoped to your workspace, expire after one hour, and authorize only [Messages API](/docs/en/api/messages/create) calls. They carry no end-user identity: App Attest identifies your app, not the person using it, so handle any per-user logic in your app.
+Tokens are scoped to your workspace, expire after one hour, and authorize only [Messages API](https://platform.claude.com/docs/en/api/messages/create) calls. They carry no end-user identity: App Attest identifies your app, not the person using it, so handle any per-user logic in your app.
 
 ## Set up App Attest
 
 <Note>
-  App Attest requires a physical device. The Simulator, and hardware without a Secure Enclave, cannot perform App Attest. While developing in the Simulator, authenticate with an [API key](/docs/en/manage-claude/authentication#api-keys) instead.
+  App Attest requires a physical device. The Simulator, and hardware without a Secure Enclave, cannot perform App Attest. While developing in the Simulator, authenticate with an [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys) instead.
 </Note>
 
 To set up App Attest, you need your Apple Developer Team ID and the admin, owner, or primary owner role in your organization. Configure your Xcode project and register your app in the [Claude Console](https://platform.claude.com/):
@@ -38,11 +38,11 @@ To stop a compromised or retired app, revoke its integration: in your workspace'
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Apple Foundation Models" icon="code" href="/docs/en/cli-sdks-libraries/libraries/apple-foundation-models#app-attest-production">
+  <Card title="Apple Foundation Models" icon="code" href="https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/apple-foundation-models#app-attest-production">
     Configure App Attest in the Claude for Foundation Models Swift package
   </Card>
 
-  <Card title="Authentication" icon="lock" href="/docs/en/manage-claude/authentication">
+  <Card title="Authentication" icon="lock" href="https://platform.claude.com/docs/en/manage-claude/authentication">
     Compare API keys, Workload Identity Federation, and App Attest
   </Card>
 </CardGroup>

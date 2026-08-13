@@ -1,3 +1,8 @@
+---
+title: Get Compliance Group
+url: https://platform.claude.com/docs/en/api/compliance/groups/retrieve
+---
+
 ## Get Compliance Group
 
 **get** `/v1/compliance/groups/{group_id}`

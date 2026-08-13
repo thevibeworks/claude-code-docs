@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/messages/batches/list
+---
+
 ## List Message Batches
 
 **get** `/v1/messages/batches`

@@ -1,7 +1,7 @@
-# Service tiers
-
-Different tiers of service allow you to balance availability, performance, and predictable costs based on your application's needs.
-
+---
+title: Service tiers
+url: https://platform.claude.com/docs/en/api/service-tiers
+description: Different tiers of service allow you to balance availability, performance, and predictable costs based on your application's needs.
 ---
 
 <Warning>
@@ -20,9 +20,9 @@ The standard tier is the default service tier for all API requests. The API prio
 
 ## Priority Tier
 
-The API prioritizes requests in this tier over all other requests. This prioritization helps minimize ["server overloaded" errors](/docs/en/api/errors#http-errors), even during peak times.
+The API prioritizes requests in this tier over all other requests. This prioritization helps minimize ["server overloaded" errors](https://platform.claude.com/docs/en/api/errors#http-errors), even during peak times.
 
-For more information, see [Existing Priority Tier commitments](#existing-priority-tier-commitments).
+For more information, see [Existing Priority Tier commitments](https://platform.claude.com/docs/en/api/service-tiers#existing-priority-tier-commitments).
 
 ## How requests get assigned tiers
 
@@ -38,12 +38,12 @@ Anthropic counts usage against Priority Tier capacity as follows:
 * Cache reads as 0.1 tokens per token read from the cache
 * Cache writes as 1.25 tokens per token written to the cache with a 5 minute TTL
 * Cache writes as 2.00 tokens per token written to the cache with a 1 hour TTL
-* For [US-only inference](/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude 4.6 and later models, input tokens are 1.1 tokens per token
+* For [US-only inference](https://platform.claude.com/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude 4.6 and later models, input tokens are 1.1 tokens per token
 * All other input tokens are 1 token per token
 
 **Output tokens**
 
-* For [US-only inference](/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude 4.6 and later models, output tokens are 1.1 tokens per token
+* For [US-only inference](https://platform.claude.com/docs/en/manage-claude/data-residency) (`inference_geo: "us"`) requests on Claude 4.6 and later models, output tokens are 1.1 tokens per token
 * All other output tokens are 1 token per token
 
 Otherwise, requests proceed at standard tier.
@@ -231,4 +231,4 @@ Priority Tier targets 99.5% uptime with prioritized computational resources. Req
 
 Priority Tier is supported on all available Claude models except Claude Mythos 5, [Claude Mythos Preview](https://anthropic.com/glasswing), Claude Opus 5, and Claude Sonnet 5.
 
-Check the [Models overview](/docs/en/about-claude/models/overview) for more details on available models.
+Check the [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) for more details on available models.

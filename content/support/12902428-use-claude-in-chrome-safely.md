@@ -2,7 +2,7 @@
 
 This article explains the risks of using Claude in Chrome and provides best practices for protecting yourself and your data.
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
 
 Claude in Chrome allows Claude to interact directly with websites on your behalf, which is guarded by our safety classifiers but still carries inherent risks. Understanding these risks helps you use the extension safely.
 
@@ -42,7 +42,7 @@ We've implemented multiple layers of protection:
 
 - **Action confirmations** for certain high-risk actions such as downloading a file or entering sensitive information.
 
-- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe.
+- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe. This screening runs in "Automatically approve,” the default for the Cowork side panel. Learn more in the **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446)**.
 
 - **Ongoing red teaming:** Human security researchers continuously probe for vulnerabilities. We participate in external challenges that benchmark robustness across the industry.
 
@@ -68,13 +68,13 @@ It’s unlikely that we’ve captured all sites in these categories, so please r
 
 1. **Start with trusted sites:** Begin with websites you trust. Avoid unfamiliar websites or those containing user-generated content from unknown sources.
 
-2. **Understand permissions:** Always confirm before Claude handles sensitive or high-risk tasks. Refer to our **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)** to learn more.
+2. **Understand permissions:** The Cowork side panel defaults to "Automatically approve" mode, where Claude screens its own actions and pauses only when something needs your approval. Switch to "Manually approve" if you want to review every action, and always confirm before Claude handles sensitive or high-risk tasks. Refer to our **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)** to learn more.
 
 3. **Stay alert for suspicious behavior:** If Claude suddenly starts discussing unrelated topics, accessing unexpected websites, or requesting sensitive information, stop the task immediately. This could indicate a prompt injection attempt.
 
 4. **Report issues immediately:** Help us improve by flagging any concerning behavior through the in-chat feedback options.
 
-## Safeguarding personal data
+## Safeguard personal data
 
 When you open the Claude side panel, Claude takes screenshots of your active browser tab to understand webpage content. This means Claude can see any information visible on your screen, including personal data, sensitive documents, or private information belonging to you or others.
 
@@ -101,6 +101,8 @@ When you open the Claude side panel, Claude takes screenshots of your active bro
 - Start with simple tasks like research or form-filling rather than complex multi-step workflows.
 
 - Make sure your prompts are specific and carefully tailored to avoid Claude doing things you didn't intend.
+
+- Side panel sessions are saved to your history and can be reopened on your other devices. Avoid opening the side panel on pages showing information you don't want stored with the session.
 
 ## What to avoid
 

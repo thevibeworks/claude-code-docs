@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel
+url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/archive
+---
+
 ## Archive Tunnel
 
 **post** `/v1/organizations/tunnels/{tunnel_id}/archive`

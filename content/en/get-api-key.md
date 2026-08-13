@@ -1,7 +1,7 @@
-# Get your Claude API key
-
-Find, create, and manage your API keys for the Claude API in the Claude Console.
-
+---
+title: Get your Claude API key
+url: https://platform.claude.com/docs/en/get-api-key
+description: Find, create, and manage your API keys for the Claude API in the Claude Console.
 ---
 
 API keys for the Claude API (also called Anthropic API keys) live in the Claude Console. To view your existing keys or create a new one, go to [Settings → API keys](https://platform.claude.com/settings/keys).
@@ -36,11 +36,11 @@ Set the key as an environment variable:
 export ANTHROPIC_API_KEY="sk-ant-api03-..."
 ```
 
-The [client SDKs](/docs/en/cli-sdks-libraries/overview) read `ANTHROPIC_API_KEY` automatically. Direct HTTP requests send the key in the `x-api-key` header. To make your first request, follow the [Quickstart](/docs/en/get-started), and see [Authentication](/docs/en/manage-claude/authentication) for the full picture, including short-lived credentials with Workload Identity Federation.
+The [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) read `ANTHROPIC_API_KEY` automatically. Direct HTTP requests send the key in the `x-api-key` header. To make your first request, follow the [Quickstart](https://platform.claude.com/docs/en/get-started), and see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication) for the full picture, including short-lived credentials with Workload Identity Federation.
 
 ## API keys and the Admin API
 
-The [Admin API](/docs/en/api/admin) includes endpoints for managing your organization's API keys programmatically, such as [Retrieve API Key](/docs/en/api/admin/api_keys/retrieve) and [List API Keys](/docs/en/api/admin/api_keys/list). These endpoints are for organization admins automating key management. They require a separate [Admin API key](/docs/en/manage-claude/admin-api-keys), and they never return a key's secret value, only a partially redacted hint.
+The [Admin API](https://platform.claude.com/docs/en/api/admin) includes endpoints for managing your organization's API keys programmatically, such as [Retrieve API Key](https://platform.claude.com/docs/en/api/admin/api_keys/retrieve) and [List API Keys](https://platform.claude.com/docs/en/api/admin/api_keys/list). These endpoints are for organization admins automating key management. They require a separate [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), and they never return a key's secret value, only a partially redacted hint.
 
 <Note>
   The Admin API can't recover a lost key or give you a key to call the Claude API with. To get a usable API key, create one in [Settings → API keys](https://platform.claude.com/settings/keys) in the Claude Console.

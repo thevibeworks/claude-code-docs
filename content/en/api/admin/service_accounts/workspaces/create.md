@@ -1,3 +1,8 @@
+---
+title: Add Workspace To Service Account
+url: https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces/create
+---
+
 ## Add Workspace To Service Account
 
 **post** `/v1/organizations/service_accounts/{service_account_id}/workspaces`

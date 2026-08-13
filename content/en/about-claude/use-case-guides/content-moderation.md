@@ -1,7 +1,7 @@
-# Content moderation
-
-Content moderation is a critical aspect of maintaining a safe, respectful, and productive environment in digital applications. This guide discusses how Claude can be used to moderate content within your digital application.
-
+---
+title: Content moderation
+url: https://platform.claude.com/docs/en/about-claude/use-case-guides/content-moderation
+description: Content moderation is a critical aspect of maintaining a safe, respectful, and productive environment in digital applications. This guide discusses how Claude can be used to moderate content within your digital application.
 ---
 
 > Visit the [content moderation cookbook](https://platform.claude.com/cookbook/misc-building-moderation-filter) to see an example content moderation implementation using Claude.
@@ -9,7 +9,7 @@ Content moderation is a critical aspect of maintaining a safe, respectful, and p
 <Tip>
   This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to the 
 
-  [guardrails guide](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
+  [guardrails guide](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
 
   .
 </Tip>
@@ -357,7 +357,7 @@ When selecting a model, it’s important to consider the size of your data. If c
 <Tip>
   Actual costs may differ from these estimates. These estimates are based on the prompt highlighted in the section on 
 
-  [batch processing](#consider-batch-processing)
+  [batch processing](https://platform.claude.com/docs/en/about-claude/use-case-guides/content-moderation#consider-batch-processing)
 
   . Output tokens can be reduced even further by removing the 
 
@@ -1448,7 +1448,7 @@ Once you are confident in the quality of your solution, it's time to deploy it t
 
 ## Improve performance
 
-In complex scenarios, it may be helpful to consider additional strategies to improve performance beyond standard [prompt engineering techniques](/docs/en/build-with-claude/prompt-engineering/overview). Here are some advanced strategies:
+In complex scenarios, it may be helpful to consider additional strategies to improve performance beyond standard [prompt engineering techniques](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview). Here are some advanced strategies:
 
 ### Define topics and provide examples
 
@@ -2734,14 +2734,14 @@ To reduce costs in situations where real-time moderation isn't necessary, consid
   ```
 </CodeGroup>
 
-In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call. Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its `id`, which corresponds to the message's position in the batch. Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](/docs/en/about-claude/models/overview#latest-models-comparison).
+In this example, the `batch_moderate_messages` function handles the moderation of an entire batch of messages with a single Claude API call. Inside the function, a prompt is created that includes the list of messages to evaluate and the unsafe content categories. The prompt directs Claude to return a JSON object listing all messages that contain violations. Each message in the response is identified by its `id`, which corresponds to the message's position in the batch. Keep in mind that finding the optimal batch size for your specific needs may require some experimentation. While larger batch sizes can lower costs, they might also lead to a slight decrease in quality. Additionally, you may need to increase the `max_tokens` parameter in the Claude API call to accommodate longer responses. For details on the maximum number of tokens your chosen model can output, refer to the [model comparison table](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison).
 
 <CardGroup cols={2}>
   <Card title="Content moderation cookbook" icon="link" href="https://platform.claude.com/cookbook/misc-building-moderation-filter">
     View a fully implemented code-based example of how to use Claude for content moderation.
   </Card>
 
-  <Card title="Guardrails guide" icon="link" href="/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">
+  <Card title="Guardrails guide" icon="link" href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">
     Explore the guardrails guide for techniques to moderate interactions with Claude.
   </Card>
 </CardGroup>

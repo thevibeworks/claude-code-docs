@@ -1,16 +1,16 @@
-# Citations
-
-Ground Claude's responses in your source documents. Citations return the exact passages that support each claim, so you can verify answers and surface sources to your users.
+---
+title: Citations
+url: https://platform.claude.com/docs/en/build-with-claude/citations
+description: Ground Claude's responses in your source documents. Citations return the exact passages that support each claim, so you can verify answers and surface sources to your users.
+---
 
 ## Compatibility
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Platforms: Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
-
----
 
 Claude can provide detailed citations when answering questions about documents, helping you track and verify the sources behind each response.
 
-All [active models](/docs/en/about-claude/models/overview) support citations.
+All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support citations.
 
 <Tip>
   Share your feedback and suggestions about the citations feature using the [citations feedback form](https://forms.gle/9n9hSrKnKe3rpowH9).
@@ -318,7 +318,7 @@ Integrate citations with Claude in these steps:
 
 <Steps>
   <Step title="Provide document(s) and enable citations">
-    * Include documents in any of the supported formats: [PDFs](#pdf-documents), [plain text](#plain-text-documents), or [custom content](#custom-content-documents) documents.
+    * Include documents in any of the supported formats: [PDFs](https://platform.claude.com/docs/en/build-with-claude/citations#pdf-documents), [plain text](https://platform.claude.com/docs/en/build-with-claude/citations#plain-text-documents), or [custom content](https://platform.claude.com/docs/en/build-with-claude/citations#custom-content-documents) documents.
     * Set `citations.enabled=true` on each of your documents. Currently, citations must be enabled on all or none of the documents within a request.
     * Only text citations are currently supported. Image citations are not yet possible.
   </Step>
@@ -326,7 +326,7 @@ Integrate citations with Claude in these steps:
   <Step title="Documents get processed">
     * Document contents are "chunked" to define the minimum granularity of possible citations. For example, sentence chunking lets Claude cite a single sentence or chain together multiple consecutive sentences to cite a paragraph or longer passage.
 
-      * **For PDFs:** Text is extracted as described in [PDF support](/docs/en/build-with-claude/pdf-support) and content is chunked into sentences. Citing images from PDFs is not currently supported.
+      * **For PDFs:** Text is extracted as described in [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support) and content is chunked into sentences. Citing images from PDFs is not currently supported.
       * **For plain text documents:** Content is chunked into sentences that can be cited from.
       * **For custom content documents:** Your provided content blocks are used as-is and no further chunking is done.
   </Step>
@@ -347,7 +347,7 @@ Integrate citations with Claude in these steps:
 <Tip>
   **Automatic chunking vs custom content**
 
-  By default, plain text and PDF documents are automatically chunked into sentences. If you need more control over citation granularity (for example, for bullet points or transcripts), use custom content documents instead. See [Document types](#document-types) for more details.
+  By default, plain text and PDF documents are automatically chunked into sentences. If you need more control over citation granularity (for example, for bullet points or transcripts), use custom content documents instead. See [Document types](https://platform.claude.com/docs/en/build-with-claude/citations#document-types) for more details.
 
   For example, if you want Claude to be able to cite specific sentences from your RAG chunks, you should put each RAG chunk into a plain text document. Otherwise, if you do not want any further chunking to be done, or if you want to customize any additional chunking, you can put RAG chunks into custom content document(s).
 </Tip>
@@ -373,12 +373,12 @@ Integrate citations with Claude in these steps:
 
 ### Feature compatibility
 
-Citations work in conjunction with other API features including [prompt caching](/docs/en/build-with-claude/prompt-caching), [token counting](/docs/en/build-with-claude/token-counting), and [batch processing](/docs/en/build-with-claude/batch-processing).
+Citations work in conjunction with other API features including [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting), and [batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing).
 
 <Warning>
   **Citations and structured outputs are incompatible**
 
-  Citations cannot be used together with [structured outputs](/docs/en/build-with-claude/structured-outputs). If you enable citations on any user-provided document (`document` blocks or `search_result` blocks) and also include the `output_config.format` parameter (or the deprecated `output_format` parameter), the API returns a 400 error.
+  Citations cannot be used together with [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). If you enable citations on any user-provided document (`document` blocks or `search_result` blocks) and also include the `output_config.format` parameter (or the deprecated `output_format` parameter), the API returns a 400 error.
 
   This is because citations require interleaving citation blocks with text output, which is incompatible with the strict JSON schema constraints of structured outputs.
 </Warning>
@@ -703,7 +703,7 @@ In this example:
 
 ### Choosing a document type
 
-Three document types are supported for citations. Documents can be provided directly in the message (base64, text, or URL) or uploaded through the [Files API](/docs/en/build-with-claude/files) and referenced by `file_id`:
+Three document types are supported for citations. Documents can be provided directly in the message (base64, text, or URL) or uploaded through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) and referenced by `file_id`:
 
 | Type           | Best for                                                        | Chunking               | Citation format               |
 | -------------- | --------------------------------------------------------------- | ---------------------- | ----------------------------- |
@@ -712,7 +712,7 @@ Three document types are supported for citations. Documents can be provided dire
 | Custom content | Lists, transcripts, special formatting, more granular citations | No additional chunking | Block indices (0-indexed)     |
 
 <Note>
-  For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in message content. Files that are already plain text, such as .csv and .md files, can also be uploaded with an explicit `text/plain` content type. See [Working with other file formats](/docs/en/build-with-claude/files#working-with-other-file-formats).
+  For file types that the `document` block doesn't support (for example, .docx and .xlsx), convert the files to plain text and include the content directly in message content. Files that are already plain text, such as .csv and .md files, can also be uploaded with an explicit `text/plain` content type. See [Working with other file formats](https://platform.claude.com/docs/en/build-with-claude/files#working-with-other-file-formats).
 </Note>
 
 ### Plain text documents
@@ -740,7 +740,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
 
   <Tab title="Files API">
     <Note>
-      Files API document sources are in beta. These examples use the beta client path; see [Files API](/docs/en/build-with-claude/files) for upload details.
+      Files API document sources are in beta. These examples use the beta client path; see [Files API](https://platform.claude.com/docs/en/build-with-claude/files) for upload details.
     </Note>
 
     <CodeGroup>
@@ -984,14 +984,14 @@ Plain text documents are automatically chunked into sentences. You can provide t
 </Tabs>
 
 <Accordion title="Example plain text citation">
-  ```python
+  ```json
   {
-      "type": "char_location",
-      "cited_text": "The exact text being cited",  # not counted toward output tokens
-      "document_index": 0,
-      "document_title": "Document Title",
-      "start_char_index": 0,  # 0-indexed
-      "end_char_index": 50,  # exclusive
+    "type": "char_location",
+    "cited_text": "The exact text being cited", // not counted toward output tokens
+    "document_index": 0,
+    "document_title": "Document Title",
+    "start_char_index": 0, // 0-indexed
+    "end_char_index": 50 // exclusive
   }
   ```
 </Accordion>
@@ -1571,7 +1571,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
 
   <Tab title="Files API">
     <Note>
-      Files API document sources are in beta. These examples use the beta client path; see [Files API](/docs/en/build-with-claude/files) for upload details.
+      Files API document sources are in beta. These examples use the beta client path; see [Files API](https://platform.claude.com/docs/en/build-with-claude/files) for upload details.
     </Note>
 
     <CodeGroup>
@@ -1815,14 +1815,14 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
 </Tabs>
 
 <Accordion title="Example PDF citation">
-  ```python
+  ```json
   {
-      "type": "page_location",
-      "cited_text": "The exact text being cited",  # not counted toward output tokens
-      "document_index": 0,
-      "document_title": "Document Title",
-      "start_page_number": 1,  # 1-indexed
-      "end_page_number": 2,  # exclusive
+    "type": "page_location",
+    "cited_text": "The exact text being cited", // not counted toward output tokens
+    "document_index": 0,
+    "document_title": "Document Title",
+    "start_page_number": 1, // 1-indexed
+    "end_page_number": 2 // exclusive
   }
   ```
 </Accordion>
@@ -2135,14 +2135,14 @@ Custom content documents give you control over citation granularity. No addition
 </CodeGroup>
 
 <Accordion title="Example citation">
-  ```python
+  ```json
   {
-      "type": "content_block_location",
-      "cited_text": "The exact text being cited",  # not counted toward output tokens
-      "document_index": 0,
-      "document_title": "Document Title",
-      "start_block_index": 0,  # 0-indexed
-      "end_block_index": 1,  # exclusive
+    "type": "content_block_location",
+    "cited_text": "The exact text being cited", // not counted toward output tokens
+    "document_index": 0,
+    "document_title": "Document Title",
+    "start_block_index": 0, // 0-indexed
+    "end_block_index": 1 // exclusive
   }
   ```
 </Accordion>
@@ -2153,76 +2153,76 @@ Custom content documents give you control over citation granularity. No addition
 
 When citations are enabled, responses include multiple text blocks with citations:
 
-```python
+```json
 {
-    "content": [
-        {"type": "text", "text": "According to the document, "},
+  "content": [
+    { "type": "text", "text": "According to the document, " },
+    {
+      "type": "text",
+      "text": "the grass is green",
+      "citations": [
         {
-            "type": "text",
-            "text": "the grass is green",
-            "citations": [
-                {
-                    "type": "char_location",
-                    "cited_text": "The grass is green.",
-                    "document_index": 0,
-                    "document_title": "Example Document",
-                    "start_char_index": 0,
-                    "end_char_index": 20,
-                }
-            ],
-        },
-        {"type": "text", "text": " and "},
+          "type": "char_location",
+          "cited_text": "The grass is green.",
+          "document_index": 0,
+          "document_title": "Example Document",
+          "start_char_index": 0,
+          "end_char_index": 20
+        }
+      ]
+    },
+    { "type": "text", "text": " and " },
+    {
+      "type": "text",
+      "text": "the sky is blue",
+      "citations": [
         {
-            "type": "text",
-            "text": "the sky is blue",
-            "citations": [
-                {
-                    "type": "char_location",
-                    "cited_text": "The sky is blue.",
-                    "document_index": 0,
-                    "document_title": "Example Document",
-                    "start_char_index": 20,
-                    "end_char_index": 36,
-                }
-            ],
-        },
+          "type": "char_location",
+          "cited_text": "The sky is blue.",
+          "document_index": 0,
+          "document_title": "Example Document",
+          "start_char_index": 20,
+          "end_char_index": 36
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": ". Information from page 5 states that "
+    },
+    {
+      "type": "text",
+      "text": "water is essential",
+      "citations": [
         {
-            "type": "text",
-            "text": ". Information from page 5 states that ",
-        },
+          "type": "page_location",
+          "cited_text": "Water is essential for life.",
+          "document_index": 1,
+          "document_title": "PDF Document",
+          "start_page_number": 5,
+          "end_page_number": 6
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "text": ". The custom document mentions "
+    },
+    {
+      "type": "text",
+      "text": "important findings",
+      "citations": [
         {
-            "type": "text",
-            "text": "water is essential",
-            "citations": [
-                {
-                    "type": "page_location",
-                    "cited_text": "Water is essential for life.",
-                    "document_index": 1,
-                    "document_title": "PDF Document",
-                    "start_page_number": 5,
-                    "end_page_number": 6,
-                }
-            ],
-        },
-        {
-            "type": "text",
-            "text": ". The custom document mentions ",
-        },
-        {
-            "type": "text",
-            "text": "important findings",
-            "citations": [
-                {
-                    "type": "content_block_location",
-                    "cited_text": "These are important findings.",
-                    "document_index": 2,
-                    "document_title": "Custom Content Document",
-                    "start_block_index": 0,
-                    "end_block_index": 1,
-                }
-            ],
-        },
-    ]
+          "type": "content_block_location",
+          "cited_text": "These are important findings.",
+          "document_index": 2,
+          "document_title": "Custom Content Document",
+          "start_block_index": 0,
+          "end_block_index": 1
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -2265,19 +2265,19 @@ For streaming responses, citations arrive as a `citations_delta` delta type insi
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Streaming messages" icon="wifi-high" href="/docs/en/build-with-claude/streaming">
+  <Card title="Streaming messages" icon="wifi-high" href="https://platform.claude.com/docs/en/build-with-claude/streaming">
     Handle the `citations_delta` delta type alongside text deltas to render cited responses as they stream.
   </Card>
 
-  <Card title="Search results" icon="book-bookmark" href="/docs/en/build-with-claude/search-results">
+  <Card title="Search results" icon="book-bookmark" href="https://platform.claude.com/docs/en/build-with-claude/search-results">
     Pass search results from your RAG pipeline as first-class content blocks with built-in citation support.
   </Card>
 
-  <Card title="PDF support" icon="file" href="/docs/en/build-with-claude/pdf-support">
+  <Card title="PDF support" icon="file" href="https://platform.claude.com/docs/en/build-with-claude/pdf-support">
     Learn how Claude extracts text from PDFs and how page-based citations map back to your source files.
   </Card>
 
-  <Card title="Files API" icon="hard-drives" href="/docs/en/build-with-claude/files">
+  <Card title="Files API" icon="hard-drives" href="https://platform.claude.com/docs/en/build-with-claude/files">
     Upload documents once and reference them by `file_id` across multiple citation requests.
   </Card>
 </CardGroup>

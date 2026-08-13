@@ -1,3 +1,8 @@
+---
+title: List Service Accounts
+url: https://platform.claude.com/docs/en/api/admin/service_accounts/list
+---
+
 ## List Service Accounts
 
 **get** `/v1/organizations/service_accounts`

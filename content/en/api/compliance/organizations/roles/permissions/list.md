@@ -1,3 +1,8 @@
+---
+title: List Compliance Role Permissions
+url: https://platform.claude.com/docs/en/api/compliance/organizations/roles/permissions/list
+---
+
 ## List Compliance Role Permissions
 
 **get** `/v1/compliance/organizations/{org_uuid}/roles/{role_id}/permissions`

@@ -1,3 +1,8 @@
+---
+title: List RBAC Roles
+url: https://platform.claude.com/docs/en/api/admin/rbac_roles/list
+---
+
 ## List RBAC Roles
 
 **get** `/v1/organizations/rbac_roles`

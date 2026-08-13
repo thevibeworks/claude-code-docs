@@ -1,3 +1,8 @@
+---
+title: List projects
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/list
+---
+
 ## List projects
 
 **get** `/v1/compliance/apps/projects`

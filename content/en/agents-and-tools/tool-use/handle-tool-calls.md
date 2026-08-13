@@ -1,16 +1,16 @@
-# Handle tool calls
-
-Parse tool_use blocks, format tool_result responses, and handle errors with is_error.
-
+---
+title: Handle tool calls
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls
+description: Parse tool_use blocks, format tool_result responses, and handle errors with is_error.
 ---
 
-This page covers the tool-call lifecycle: reading `tool_use` blocks from Claude's response, formatting `tool_result` blocks in your reply, and signaling errors. For the SDK abstraction that handles this automatically, see [Tool Runner](/docs/en/agents-and-tools/tool-use/tool-runner).
+This page covers the tool-call lifecycle: reading `tool_use` blocks from Claude's response, formatting `tool_result` blocks in your reply, and signaling errors. For the SDK abstraction that handles this automatically, see [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner).
 
 <Note>
-  **Simpler with Tool Runner**: The manual tool handling described on this page is automatically managed by [Tool Runner](/docs/en/agents-and-tools/tool-use/tool-runner). Use this page when you need custom control over tool execution.
+  **Simpler with Tool Runner**: The manual tool handling described on this page is automatically managed by [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner). Use this page when you need custom control over tool execution.
 </Note>
 
-Claude's response differs based on whether it uses a [client or server tool](/docs/en/agents-and-tools/tool-use/overview#how-tool-use-works).
+Claude's response differs based on whether it uses a [client or server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#how-tool-use-works).
 
 ## Handling results from client tools
 
@@ -52,7 +52,7 @@ When you receive a tool use response for a client tool, you should:
 3. Continue the conversation by sending a new message with the `role` of `user`, and a `content` block containing the `tool_result` type and the following information:
 
    * `tool_use_id`: The `id` of the tool use request this is a result for.
-   * `content` (optional): The result of the tool, as a string (for example, `"content": "15 degrees"`), a list of nested content blocks (for example, `"content": [{"type": "text", "text": "15 degrees"}]`), or a list of document blocks (for example, `"content": [{"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": "15 degrees"}}]`). These content blocks can use the `text`, `image`, `document`, or [`search_result`](/docs/en/build-with-claude/search-results) types.
+   * `content` (optional): The result of the tool, as a string (for example, `"content": "15 degrees"`), a list of nested content blocks (for example, `"content": [{"type": "text", "text": "15 degrees"}]`), or a list of document blocks (for example, `"content": [{"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": "15 degrees"}}]`). These content blocks can use the `text`, `image`, `document`, or [`search_result`](https://platform.claude.com/docs/en/build-with-claude/search-results) types.
    * `is_error` (optional): Set to `true` if the tool execution resulted in an error.
 
 <Note>
@@ -60,7 +60,7 @@ When you receive a tool use response for a client tool, you should:
 
   * Tool result blocks must immediately follow their corresponding tool use blocks in the message history. You cannot include any messages between the assistant's tool use message and the user's tool result message.
   * In the user message containing tool results, the tool\_result blocks must come FIRST in the content array. Any text must come AFTER all tool results.
-  * If the assistant turn also called a [server tool](/docs/en/agents-and-tools/tool-use/server-tools) that has no result block yet, the user message must contain only `tool_result` blocks. Text after the results ends the turn early; for a server tool Claude called directly, the request then fails with a 400 error that names the unresolved server tool. See [Stop reasons and fallback](/docs/en/build-with-claude/handling-stop-reasons#tool-use).
+  * If the assistant turn also called a [server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) that has no result block yet, the user message must contain only `tool_result` blocks. Text after the results ends the turn early; for a server tool Claude called directly, the request then fails with a 400 error that names the unresolved server tool. See [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use).
 
   For example, this will cause a 400 error:
 
@@ -90,7 +90,7 @@ When you receive a tool use response for a client tool, you should:
 </Note>
 
 <Warning>
-  Tool results often carry content from sources outside your control: web pages, inbound email, user uploads, third-party APIs. Treat that content as untrusted: an attacker who can influence it may embed instructions that try to redirect Claude (indirect prompt injection). Keep untrusted content inside `tool_result` blocks rather than `system` prompts or plain user `text` blocks, and see [Mitigate jailbreaks and prompt injections](/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks#indirect-prompt-injection) for further hardening.
+  Tool results often carry content from sources outside your control: web pages, inbound email, user uploads, third-party APIs. Treat that content as untrusted: an attacker who can influence it may embed instructions that try to redirect Claude (indirect prompt injection). Keep untrusted content inside `tool_result` blocks rather than `system` prompts or plain user `text` blocks, and see [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks#indirect-prompt-injection) for further hardening.
 </Warning>
 
 <AccordionGroup>
@@ -181,7 +181,7 @@ After receiving the tool result, Claude will use that information to continue ge
 Claude executes the tool internally and incorporates the results directly into its response without requiring additional user interaction.
 
 <Note>
-  A response can contain both a client `tool_use` block and a `server_tool_use` block that has no result block. That server tool call is not finished yet, and its result block arrives in a later response. Reply with a user message that contains only the `tool_result` blocks for the client tools and keep the same `tools` array; for a server tool Claude called directly, the API runs it on that request and the next response starts with its result block. See [Stop reasons and fallback](/docs/en/build-with-claude/handling-stop-reasons#tool-use).
+  A response can contain both a client `tool_use` block and a `server_tool_use` block that has no result block. That server tool call is not finished yet, and its result block arrives in a later response. Reply with a user message that contains only the `tool_result` blocks for the client tools and keep the same `tools` array; for a server tool Claude called directly, the API runs it on that request and the next response starts with its result block. See [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use).
 </Note>
 
 <Tip>
@@ -243,7 +243,7 @@ There are a few different types of errors that can occur when using tools with C
     If a tool request is invalid or missing parameters, Claude will retry 2-3 times with corrections before apologizing to the user.
 
     <Tip>
-      To eliminate invalid tool calls entirely, use [strict tool use](/docs/en/agents-and-tools/tool-use/strict-tool-use) with `strict: true` on your tool definitions. This guarantees that tool inputs will always match your schema exactly, preventing missing parameters and type mismatches.
+      To eliminate invalid tool calls entirely, use [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use) with `strict: true` on your tool definitions. This guarantees that tool inputs will always match your schema exactly, preventing missing parameters and type mismatches.
     </Tip>
   </Accordion>
 
@@ -263,15 +263,15 @@ There are a few different types of errors that can occur when using tools with C
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="Parallel tool use" icon="grid" href="/docs/en/agents-and-tools/tool-use/parallel-tool-use">
+  <Card title="Parallel tool use" icon="grid" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use">
     Handle responses where Claude calls several tools in a single turn.
   </Card>
 
-  <Card title="Tool Runner (SDK)" icon="wrench" href="/docs/en/agents-and-tools/tool-use/tool-runner">
+  <Card title="Tool Runner (SDK)" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner">
     Let the SDK manage the `tool_use` loop, result formatting, and retries for you.
   </Card>
 
-  <Card title="Define tools" icon="hammer" href="/docs/en/agents-and-tools/tool-use/define-tools">
+  <Card title="Define tools" icon="hammer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools">
     Write schemas and descriptions that steer Claude toward the right tool.
   </Card>
 </CardGroup>

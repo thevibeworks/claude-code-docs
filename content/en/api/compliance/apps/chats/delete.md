@@ -1,3 +1,8 @@
+---
+title: Delete chat
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/delete
+---
+
 ## Delete chat
 
 **delete** `/v1/compliance/apps/chats/{claude_chat_id}`

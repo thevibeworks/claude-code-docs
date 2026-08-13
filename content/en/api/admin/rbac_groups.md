@@ -1,3 +1,8 @@
+---
+title: RBAC Groups
+url: https://platform.claude.com/docs/en/api/admin/rbac_groups
+---
+
 # RBAC Groups
 
 ## List RBAC Groups

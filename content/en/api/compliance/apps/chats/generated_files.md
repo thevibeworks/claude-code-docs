@@ -1,3 +1,8 @@
+---
+title: Generated Files
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files
+---
+
 # Generated Files
 
 ## Get Claude-generated file metadata

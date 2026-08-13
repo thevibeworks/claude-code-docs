@@ -1,10 +1,10 @@
-# Strict tool use
-
-Enforce JSON Schema compliance on Claude's tool inputs with grammar-constrained sampling.
-
+---
+title: Strict tool use
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use
+description: Enforce JSON Schema compliance on Claude's tool inputs with grammar-constrained sampling.
 ---
 
-Setting `strict: true` on a tool definition guarantees Claude's tool inputs match your JSON Schema by constraining the model's token sampling to schema-valid outputs (a technique called grammar-constrained sampling). This page covers why strict mode matters for agents, how to enable it, and common use cases. For the supported JSON Schema subset, see [JSON Schema limitations](/docs/en/build-with-claude/structured-outputs#json-schema-limitations). For non-strict schema guidance, see [Define tools](/docs/en/agents-and-tools/tool-use/define-tools).
+Setting `strict: true` on a tool definition guarantees Claude's tool inputs match your JSON Schema by constraining the model's token sampling to schema-valid outputs (a technique called grammar-constrained sampling). This page covers why strict mode matters for agents, how to enable it, and common use cases. For the supported JSON Schema subset, see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations). For non-strict schema guidance, see [Define tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools).
 
 Strict tool use validates tool parameters, ensuring Claude calls your functions with correctly-typed arguments. Use strict tool use when you need to:
 
@@ -368,7 +368,7 @@ For example, suppose a booking system needs `passengers: int`. Without strict mo
 
 <Steps>
   <Step title="Define your tool schema">
-    Create a JSON schema for your tool's `input_schema`. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](/docs/en/build-with-claude/structured-outputs#json-schema-limitations)).
+    Create a JSON schema for your tool's `input_schema`. The schema uses standard JSON Schema format with some limitations (see [JSON Schema limitations](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations)).
   </Step>
 
   <Step title="Add strict: true">
@@ -1115,28 +1115,28 @@ For example, suppose a booking system needs `passengers: int`. Without strict mo
 
 ## Data retention
 
-Strict tool use compiles tool `input_schema` definitions into grammars using the same pipeline as [structured outputs](/docs/en/build-with-claude/structured-outputs). Tool schemas are temporarily cached for up to 24 hours since last use. Prompts and responses are not retained beyond the API response.
+Strict tool use compiles tool `input_schema` definitions into grammars using the same pipeline as [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). Tool schemas are temporarily cached for up to 24 hours since last use. Prompts and responses are not retained beyond the API response.
 
 Strict tool use is HIPAA eligible, but **PHI must not be included in tool schema definitions**. The API caches compiled schemas separately from message content, and these cached schemas do not receive the same PHI protections as prompts and responses. Do not include PHI in `input_schema` property names, `enum` values, `const` values, or `pattern` regular expressions. PHI should only appear in message content (prompts and responses), where it is protected under HIPAA safeguards.
 
-For ZDR and HIPAA eligibility across all features, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+For ZDR and HIPAA eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Web fetch tool" icon="link" href="/docs/en/agents-and-tools/tool-use/web-fetch-tool">
+  <Card title="Web fetch tool" icon="link" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool">
     Fetch and read content from specific URLs to bring live web content into Claude's context.
   </Card>
 
-  <Card title="Tool use with prompt caching" icon="database" href="/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching">
+  <Card title="Tool use with prompt caching" icon="database" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching">
     Cache tool definitions across turns to reduce cost and latency.
   </Card>
 
-  <Card title="Structured outputs" icon="code-brackets" href="/docs/en/build-with-claude/structured-outputs">
+  <Card title="Structured outputs" icon="code-brackets" href="https://platform.claude.com/docs/en/build-with-claude/structured-outputs">
     Get validated JSON responses using the same grammar-constrained sampling.
   </Card>
 
-  <Card title="Define tools" icon="hammer" href="/docs/en/agents-and-tools/tool-use/define-tools">
+  <Card title="Define tools" icon="hammer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools">
     Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
   </Card>
 </CardGroup>

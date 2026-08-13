@@ -1,3 +1,8 @@
+---
+title: List organization users
+url: https://platform.claude.com/docs/en/api/compliance/organizations/users/list
+---
+
 ## List organization users
 
 **get** `/v1/compliance/organizations/{org_uuid}/users`

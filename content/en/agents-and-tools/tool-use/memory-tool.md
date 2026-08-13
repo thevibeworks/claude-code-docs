@@ -1,7 +1,7 @@
-# Memory tool
-
-Let Claude store and retrieve information across conversations by implementing the memory tool's file operations in your application.
-
+---
+title: Memory tool
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool
+description: Let Claude store and retrieve information across conversations by implementing the memory tool's file operations in your application.
 ---
 
 The memory tool lets Claude store and retrieve information across conversations in a directory of memory files. Claude can create, read, update, and delete files that persist between sessions, building up knowledge over time without keeping everything in the context window.
@@ -15,7 +15,7 @@ The memory tool operates client-side: Claude requests file operations, and your 
 </Note>
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 ## Use cases
@@ -28,7 +28,7 @@ The memory tool operates client-side: Claude requests file operations, and your 
 
 When the memory tool is enabled, Claude automatically checks its memory directory before starting a task. As it works, Claude stores what it learns in files under `/memories` and reads them back in later conversations to continue earlier work.
 
-Because the memory tool is client-side, Claude only requests memory operations. Your application executes each request against storage you control and returns the result in a `tool_result` block (see [Handle tool calls](/docs/en/agents-and-tools/tool-use/handle-tool-calls)). The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory (see [Path traversal protection](#path-traversal-protection)).
+Because the memory tool is client-side, Claude only requests memory operations. Your application executes each request against storage you control and returns the result in a `tool_result` block (see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)). The `/memories` path is a prefix that your handler maps onto real storage, such as a per-user directory or keys in a database. Memory lives entirely in your application. A later conversation continues from the same memory when it sends the same `tools` entry and your handler serves the same store. For security, restrict all memory operations to the `/memories` directory (see [Path traversal protection](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#path-traversal-protection)).
 
 ### Example: How memory tool calls work
 
@@ -100,14 +100,14 @@ Claude calls the memory tool:
 "Based on your customer service guidelines, I can help you craft a response. Please share the ticket details..."
 ```
 
-The memory tool is available on all Claude 4 and later models. For the full list of Anthropic-provided tools, see the [Tool reference](/docs/en/agents-and-tools/tool-use/tool-reference).
+The memory tool is available on all Claude 4 and later models. For the full list of Anthropic-provided tools, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
 
 ## Getting started
 
 The memory tool is generally available on the Messages API: no beta header is required. Using it takes two steps:
 
 1. Add the memory tool to your request. The `tools` entry `{"type": "memory_20250818", "name": "memory"}` is the entire configuration: the `name` must be `memory`, and you don't define an input schema for an Anthropic-provided tool.
-2. Implement a client-side handler for each memory command. Your handler must reject paths outside `/memories`, so read [Path traversal protection](#path-traversal-protection) before you write it.
+2. Implement a client-side handler for each memory command. Your handler must reject paths outside `/memories`, so read [Path traversal protection](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#path-traversal-protection) before you write it.
 
 ## Basic usage
 
@@ -283,7 +283,7 @@ The memory tool is generally available on the Messages API: no beta header is re
 
 ## Implement the memory handler
 
-Claude's reply to a request like the previous one ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard [tool-use loop](/docs/en/agents-and-tools/tool-use/handle-tool-calls).
+Claude's reply to a request like the previous one ends with a `tool_use` block that requests a memory operation, such as `view /memories`. Your application executes the operation and returns the result in a `tool_result` block, then sends the conversation back so Claude can continue: the standard [tool-use loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls).
 
 Four SDKs provide memory tool helpers that handle the tool interface and the loop. Subclass `BetaAbstractMemoryTool` (Python and C#), use `betaMemoryTool` (TypeScript), or implement `BetaMemoryToolHandler` (Java) to back memory with your own storage, such as files on disk, a database, cloud storage, or encrypted files. Python and TypeScript also ship a ready-made local-filesystem implementation, `BetaLocalFilesystemMemoryTool`. The helper and tool-runner surfaces live in each SDK's beta namespace even though the memory tool itself is generally available. The Go and Ruby SDKs have no memory helper, so those examples run the tool-use loop themselves, and PHP wraps your handler closure in its generic `BetaRunnableTool`. All three use an in-memory store that you replace with your own storage.
 
@@ -710,7 +710,7 @@ Four SDKs provide memory tool helpers that handle the tool interface and the loo
   ```
 </CodeGroup>
 
-The in-memory stores in the Go, PHP, and Ruby examples keep them self-contained: each one dispatches on the `command` field in the `tool_use` block's `input` and returns the strings described under [Tool commands](#tool-commands). A production handler also needs the [path validation](#path-traversal-protection) these demonstration stores skip. For the SDKs' own complete examples, see:
+The in-memory stores in the Go, PHP, and Ruby examples keep them self-contained: each one dispatches on the `command` field in the `tool_use` block's `input` and returns the strings described under [Tool commands](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#tool-commands). A production handler also needs the [path validation](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#path-traversal-protection) these demonstration stores skip. For the SDKs' own complete examples, see:
 
 * Python: [examples/memory/basic.py](https://github.com/anthropics/anthropic-sdk-python/blob/main/examples/memory/basic.py)
 * TypeScript: [examples/tools-helpers-memory.ts](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/examples/tools-helpers-memory.ts)
@@ -963,7 +963,7 @@ Consider these safeguards:
 
 ## Error handling
 
-The memory tool uses similar error-handling patterns to the [text editor tool](/docs/en/agents-and-tools/tool-use/text-editor-tool#handle-errors). Each command's error messages are listed under [Tool commands](#tool-commands). To return an error to Claude, set `is_error` to `true` on the tool result and put the message in `content`:
+The memory tool uses similar error-handling patterns to the [text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool#handle-errors). Each command's error messages are listed under [Tool commands](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#tool-commands). To return an error to Claude, set `is_error` to `true` on the tool result and put the message in `content`:
 
 ```json
 {
@@ -976,11 +976,11 @@ The memory tool uses similar error-handling patterns to the [text editor tool](/
 
 ## Context editing integration
 
-The memory tool pairs with context editing to manage long-running conversations. For details, see [Context editing](/docs/en/build-with-claude/context-editing).
+The memory tool pairs with context editing to manage long-running conversations. For details, see [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing).
 
 ## Using with compaction
 
-The memory tool can also be paired with [compaction](/docs/en/build-with-claude/compaction), which summarizes older conversation context server-side. Context editing clears specific tool results on the client. Compaction automatically summarizes the whole conversation on the server when the conversation approaches the context window limit.
+The memory tool can also be paired with [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction), which summarizes older conversation context server-side. Context editing clears specific tool results on the client. Compaction automatically summarizes the whole conversation on the server when the conversation approaches the context window limit.
 
 For long-running agents, consider using both: compaction keeps the active context small without client-side bookkeeping, and memory preserves the information that must survive summarization.
 
@@ -1007,19 +1007,19 @@ Work on one feature at a time. Mark a feature complete only after end-to-end ver
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Bash tool" icon="terminal" href="/docs/en/agents-and-tools/tool-use/bash-tool">
+  <Card title="Bash tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool">
     Execute shell commands in a persistent bash session.
   </Card>
 
-  <Card title="Context editing" icon="edit" href="/docs/en/build-with-claude/context-editing">
+  <Card title="Context editing" icon="edit" href="https://platform.claude.com/docs/en/build-with-claude/context-editing">
     Automatically manage conversation context as it grows with context editing.
   </Card>
 
-  <Card title="Compaction" icon="stack" href="/docs/en/build-with-claude/compaction">
+  <Card title="Compaction" icon="stack" href="https://platform.claude.com/docs/en/build-with-claude/compaction">
     Server-side context compaction for managing long conversations that approach context window limits.
   </Card>
 
-  <Card title="Tool reference" icon="book" href="/docs/en/agents-and-tools/tool-use/tool-reference">
+  <Card title="Tool reference" icon="book" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference">
     Directory of Anthropic-provided tools and reference for optional tool definition properties.
   </Card>
 </CardGroup>

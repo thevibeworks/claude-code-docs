@@ -1,3 +1,8 @@
+---
+title: Projects
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects
+---
+
 # Projects
 
 ## List projects

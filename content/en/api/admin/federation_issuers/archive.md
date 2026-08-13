@@ -1,3 +1,8 @@
+---
+title: Archive Federation Issuer
+url: https://platform.claude.com/docs/en/api/admin/federation_issuers/archive
+---
+
 ## Archive Federation Issuer
 
 **post** `/v1/organizations/federation_issuers/{federation_issuer_id}/archive`

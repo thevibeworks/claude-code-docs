@@ -1,3 +1,8 @@
+---
+title: External Keys
+url: https://platform.claude.com/docs/en/api/admin/external_keys
+---
+
 # External Keys
 
 ## Create External Key

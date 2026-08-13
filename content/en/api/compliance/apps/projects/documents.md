@@ -1,3 +1,8 @@
+---
+title: Documents
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents
+---
+
 # Documents
 
 ## Get project document content

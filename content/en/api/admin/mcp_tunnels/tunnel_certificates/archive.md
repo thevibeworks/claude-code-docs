@@ -1,3 +1,8 @@
+---
+title: Archive Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/archive
+---
+
 ## Archive Tunnel Certificate
 
 **post** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`

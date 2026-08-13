@@ -1,3 +1,8 @@
+---
+title: List Service Account Workspace Members
+url: https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/list
+---
+
 ## List Service Account Workspace Members
 
 **get** `/v1/organizations/workspaces/{workspace_id}/service_accounts`

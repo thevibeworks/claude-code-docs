@@ -1,3 +1,8 @@
+---
+title: Get project document content
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/retrieve
+---
+
 ## Get project document content
 
 **get** `/v1/compliance/apps/projects/documents/{document_id}`

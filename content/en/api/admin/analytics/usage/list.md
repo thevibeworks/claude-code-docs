@@ -1,3 +1,8 @@
+---
+title: Get Token Usage Over Time
+url: https://platform.claude.com/docs/en/api/admin/analytics/usage/list
+---
+
 ## Get Token Usage Over Time
 
 **get** `/v1/organizations/analytics/usage_report`

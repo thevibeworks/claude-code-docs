@@ -1,3 +1,8 @@
+---
+title: Cost
+url: https://platform.claude.com/docs/en/api/admin/analytics/cost
+---
+
 # Cost
 
 ## Get Cost Over Time

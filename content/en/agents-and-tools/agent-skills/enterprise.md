@@ -1,16 +1,16 @@
-# Skills for enterprise
-
-Governance, security review, evaluation, and organizational guidance for deploying Agent Skills at enterprise scale.
-
+---
+title: Skills for enterprise
+url: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise
+description: Governance, security review, evaluation, and organizational guidance for deploying Agent Skills at enterprise scale.
 ---
 
-This guide is for enterprise admins and architects who need to govern Agent Skills across an organization. It covers how to vet, evaluate, deploy, and manage Skills at scale. For authoring guidance, see [best practices](/docs/en/agents-and-tools/agent-skills/best-practices). For architecture details, see the [Skills overview](/docs/en/agents-and-tools/agent-skills/overview).
+This guide is for enterprise admins and architects who need to govern Agent Skills across an organization. It covers how to vet, evaluate, deploy, and manage Skills at scale. For authoring guidance, see [best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices). For architecture details, see the [Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview).
 
 ## Security review and vetting
 
 Deploying Skills in an enterprise requires answering two distinct questions:
 
-1. **Are Skills safe in general?** See the [security considerations](/docs/en/agents-and-tools/agent-skills/overview#security-considerations) section in the overview for platform-level security details.
+1. **Are Skills safe in general?** See the [security considerations](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#security-considerations) section in the overview for platform-level security details.
 2. **How do I vet a specific Skill?** Use the following risk assessment and review checklist.
 
 ### Risk tier assessment
@@ -64,7 +64,7 @@ Establish approval gates for these dimensions before deploying any Skill:
 
 Require Skill authors to submit evaluation suites with 3–5 representative queries per Skill, covering cases where the Skill should trigger, should not trigger, and ambiguous edge cases. Require testing across the models your organization uses (Haiku, Sonnet, Opus), because Skill effectiveness varies by model.
 
-For detailed guidance on building evaluations, see [evaluation and iteration](/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration) in best practices. For general evaluation methodology, see [develop test cases](/docs/en/test-and-evaluate/develop-tests).
+For detailed guidance on building evaluations, see [evaluation and iteration](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#evaluation-and-iteration) in best practices. For general evaluation methodology, see [develop test cases](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
 ### Using evaluations for lifecycle decisions
 
@@ -83,7 +83,7 @@ Evaluation results signal when to act:
   </Step>
 
   <Step title="Create and review">
-    Ensure the Skill author follows [best practices](/docs/en/agents-and-tools/agent-skills/best-practices). Require a security review using the [review checklist](#review-checklist). Require an evaluation suite before approval. Establish separation of duties: Skill authors should not be their own reviewers.
+    Ensure the Skill author follows [best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices). Require a security review using the [review checklist](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/enterprise#review-checklist). Require an evaluation suite before approval. Establish separation of duties: Skill authors should not be their own reviewers.
   </Step>
 
   <Step title="Test">
@@ -91,7 +91,7 @@ Evaluation results signal when to act:
   </Step>
 
   <Step title="Deploy">
-    Upload through the Skills API for workspace-wide access. See [Using Skills with the API](/docs/en/build-with-claude/skills-guide) for upload and version management. Document the Skill in your internal registry with purpose, owner, and version.
+    Upload through the Skills API for workspace-wide access. See [Using Skills with the API](https://platform.claude.com/docs/en/build-with-claude/skills-guide) for upload and version management. Document the Skill in your internal registry with purpose, owner, and version.
   </Step>
 
   <Step title="Monitor">
@@ -109,7 +109,7 @@ Evaluation results signal when to act:
 
 As a general guideline, limit the number of Skills loaded simultaneously to maintain reliable recall accuracy. Each Skill's metadata (name and description) competes for attention in the system prompt. With too many Skills active, Claude may fail to select the right Skill or miss relevant ones entirely. Use your evaluation suite to measure recall accuracy as you add Skills, and stop adding when performance degrades.
 
-Note that API requests support a maximum of 8 Skills for each request (see [Using Skills with the API](/docs/en/build-with-claude/skills-guide)). If a role requires more Skills than a single request supports, consider consolidating narrow Skills into broader ones or routing requests to different Skill sets based on task type.
+Note that API requests support a maximum of 8 Skills for each request (see [Using Skills with the API](https://platform.claude.com/docs/en/build-with-claude/skills-guide)). If a role requires more Skills than a single request supports, consider consolidating narrow Skills into broader ones or routing requests to different Skill sets based on task type.
 
 ### Start specific, consolidate later
 
@@ -126,7 +126,7 @@ Encourage teams to start with narrow, workflow-specific Skills rather than broad
 
 ### Naming and cataloging
 
-Use consistent naming conventions across your organization. The [naming conventions](/docs/en/agents-and-tools/agent-skills/best-practices#naming-conventions) section in best practices provides formatting guidance.
+Use consistent naming conventions across your organization. The [naming conventions](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices#naming-conventions) section in best practices provides formatting guidance.
 
 Maintain an internal registry for each Skill with:
 
@@ -154,7 +154,7 @@ Store Skill directories in Git for history tracking, code review through pull re
 
 ### API-based distribution
 
-The Skills API provides workspace-scoped distribution. Skills uploaded through the API are available to all workspace members. See [Using Skills with the API](/docs/en/build-with-claude/skills-guide) for upload, versioning, and management endpoints.
+The Skills API provides workspace-scoped distribution. Skills uploaded through the API are available to all workspace members. See [Using Skills with the API](https://platform.claude.com/docs/en/build-with-claude/skills-guide) for upload, versioning, and management endpoints.
 
 ### Versioning strategy
 
@@ -169,20 +169,20 @@ The Skills API provides workspace-scoped distribution. Skills uploaded through t
   Custom Skills do not sync across surfaces. Skills uploaded to the API are not available on claude.ai or in Claude Code, and vice versa. Each surface requires separate uploads and management.
 </Warning>
 
-Maintain Skill source files in Git as the single source of truth. If your organization deploys Skills across multiple surfaces, implement your own synchronization process to keep them consistent. For full details, see [cross-surface availability](/docs/en/agents-and-tools/agent-skills/overview#cross-surface-availability).
+Maintain Skill source files in Git as the single source of truth. If your organization deploys Skills across multiple surfaces, implement your own synchronization process to keep them consistent. For full details, see [cross-surface availability](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#cross-surface-availability).
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Agent Skills overview" icon="book-open" href="/docs/en/agents-and-tools/agent-skills/overview">
+  <Card title="Agent Skills overview" icon="book-open" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview">
     Architecture and platform details
   </Card>
 
-  <Card title="Best practices" icon="lightbulb" href="/docs/en/agents-and-tools/agent-skills/best-practices">
+  <Card title="Best practices" icon="lightbulb" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">
     Authoring guidance for Skill creators
   </Card>
 
-  <Card title="Using Skills with the API" icon="code" href="/docs/en/build-with-claude/skills-guide">
+  <Card title="Using Skills with the API" icon="code" href="https://platform.claude.com/docs/en/build-with-claude/skills-guide">
     Upload and manage Skills programmatically
   </Card>
 </CardGroup>

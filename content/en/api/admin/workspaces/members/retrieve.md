@@ -1,3 +1,8 @@
+---
+title: Get Workspace Member
+url: https://platform.claude.com/docs/en/api/admin/workspaces/members/retrieve
+---
+
 ## Get Workspace Member
 
 **get** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`

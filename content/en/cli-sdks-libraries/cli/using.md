@@ -1,10 +1,10 @@
-# Using the CLI
-
-Command structure, output formats, GJSON transforms, request bodies, and debugging for the ant CLI.
-
+---
+title: Using the CLI
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using
+description: Command structure, output formats, GJSON transforms, request bodies, and debugging for the ant CLI.
 ---
 
-This page covers the `ant` CLI's input and output mechanics that apply across every endpoint. For installing and authenticating, see the [Quickstart](/docs/en/cli-sdks-libraries/cli/quickstart). For chaining commands and version-controlling resources, see [CLI scripting and automation](/docs/en/cli-sdks-libraries/cli/scripting).
+This page covers the `ant` CLI's input and output mechanics that apply across every endpoint. For installing and authenticating, see the [Quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart). For chaining commands and version-controlling resources, see [CLI scripting and automation](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting).
 
 ## Command structure
 
@@ -27,19 +27,19 @@ ant beta:sessions:events list --session-id session_01...
 
 ### Global flags
 
-| Flag                                  | Description                                                                                                                                                                                      |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--profile`                           | Named profile to use for this invocation (equivalent to setting `ANTHROPIC_PROFILE`). See [Switch between workspaces](/docs/en/cli-sdks-libraries/cli/authentication#switch-between-workspaces). |
-| `--format`                            | Output format: `auto`, `json`, `jsonl`, `yaml`, `pretty`, `raw`, `explore`                                                                                                                       |
-| `--transform`                         | Filter or reshape the response with a [GJSON path](#transform-output-with-gjson)                                                                                                                 |
-| `-r`, `--raw-output`                  | Print string results without surrounding quotes, like `jq -r`                                                                                                                                    |
-| `--base-url`                          | Override the API base URL                                                                                                                                                                        |
-| `--debug`                             | Print full HTTP request and response to stderr                                                                                                                                                   |
-| `--format-error`, `--transform-error` | Same as `--format` and `--transform` but applied to [error responses](/docs/en/cli-sdks-libraries/cli/scripting#inspect-errors)                                                                  |
+| Flag                                  | Description                                                                                                                                                                                                                 |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--profile`                           | Named profile to use for this invocation (equivalent to setting `ANTHROPIC_PROFILE`). See [Switch between workspaces](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#switch-between-workspaces). |
+| `--format`                            | Output format: `auto`, `json`, `jsonl`, `yaml`, `pretty`, `raw`, `explore`                                                                                                                                                  |
+| `--transform`                         | Filter or reshape the response with a [GJSON path](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using#transform-output-with-gjson)                                                                            |
+| `-r`, `--raw-output`                  | Print string results without surrounding quotes, like `jq -r`                                                                                                                                                               |
+| `--base-url`                          | Override the API base URL                                                                                                                                                                                                   |
+| `--debug`                             | Print full HTTP request and response to stderr                                                                                                                                                                              |
+| `--format-error`, `--transform-error` | Same as `--format` and `--transform` but applied to [error responses](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting#inspect-errors)                                                                  |
 
 ## Output formats
 
-`auto` pretty-prints JSON and is the default for commands that create or modify resources. List and retrieve commands default to the [interactive explorer](#interactive-explorer) when writing to a terminal, and to pretty-printed JSON when piped. Override either default with `--format`:
+`auto` pretty-prints JSON and is the default for commands that create or modify resources. List and retrieve commands default to the [interactive explorer](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using#interactive-explorer) when writing to a terminal, and to pretty-printed JSON when piped. Override either default with `--format`:
 
 ```bash
 ant models retrieve --model-id claude-opus-5 --format yaml
@@ -127,7 +127,7 @@ ant beta:agents create \
 
 ### Stdin
 
-Pipe a JSON or YAML document to stdin to supply the full request body. Fields from stdin are merged with flags, with flags taking precedence. Here `version` is the optimistic-locking token returned by an earlier `retrieve`, and `$AGENT_ID` was captured as in [Extract a scalar](#extract-a-scalar):
+Pipe a JSON or YAML document to stdin to supply the full request body. Fields from stdin are merged with flags, with flags taking precedence. Here `version` is the optimistic-locking token returned by an earlier `retrieve`, and `$AGENT_ID` was captured as in [Extract a scalar](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using#extract-a-scalar):
 
 ```bash
 echo '{"description": "Updated test agent.", "version": 1}' | \
@@ -197,20 +197,20 @@ X-Api-Key: <REDACTED>
 
 ## Available resources
 
-Every API resource the CLI exposes is documented in the [API reference](/docs/en/api/cli/messages/create). For a local listing, run `ant --help`, and append `--help` to any subcommand for its flags and parameters.
+Every API resource the CLI exposes is documented in the [API reference](https://platform.claude.com/docs/en/api/cli/messages/create). For a local listing, run `ant --help`, and append `--help` to any subcommand for its flags and parameters.
 
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="CLI scripting and automation" icon="code" href="/docs/en/cli-sdks-libraries/cli/scripting">
+  <Card title="CLI scripting and automation" icon="code" href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting">
     Version-control API resources, scripting patterns, and use from Claude Code
   </Card>
 
-  <Card title="API reference" icon="book" href="/docs/en/api/cli/messages/create">
+  <Card title="API reference" icon="book" href="https://platform.claude.com/docs/en/api/cli/messages/create">
     Endpoint-specific parameters, request fields, and response schemas
   </Card>
 
-  <Card title="CLI authentication options" icon="lock" href="/docs/en/cli-sdks-libraries/cli/authentication">
+  <Card title="CLI authentication options" icon="lock" href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication">
     API keys, headless hosts, multiple workspaces, and named profiles
   </Card>
 </CardGroup>

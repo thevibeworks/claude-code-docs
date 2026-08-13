@@ -1,23 +1,23 @@
-# Thinking in tool and multi-turn workflows
-
-Walk through a complete two-turn tool-use round trip that preserves thinking blocks correctly, and see how interleaved thinking changes the flow.
-
+---
+title: Thinking in tool and multi-turn workflows
+url: https://platform.claude.com/docs/en/build-with-claude/thinking-tool-workflows
+description: Walk through a complete two-turn tool-use round trip that preserves thinking blocks correctly, and see how interleaved thinking changes the flow.
 ---
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
-This page walks through a complete two-turn tool-use round trip with thinking enabled: Claude thinks, requests a tool call, receives the result, and finishes its answer, with the thinking blocks handled correctly at every step. The full rules live on the [Thinking](/docs/en/build-with-claude/thinking) page, in [Thinking with tool use](/docs/en/build-with-claude/thinking#thinking-with-tool-use) and [Preserving thinking blocks](/docs/en/build-with-claude/thinking#preserving-thinking-blocks); this page shows those rules applied in runnable code.
+This page walks through a complete two-turn tool-use round trip with thinking enabled: Claude thinks, requests a tool call, receives the result, and finishes its answer, with the thinking blocks handled correctly at every step. The full rules live on the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) page, in [Thinking with tool use](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-with-tool-use) and [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks); this page shows those rules applied in runnable code.
 
 ## The rules this walkthrough applies
 
 Each link leads to the full statement on the Thinking page:
 
-* [Limit tool choice to `auto` or `none` in manual mode](/docs/en/build-with-claude/thinking#thinking-with-tool-use): `tool_choice` options that force tool use return an error with manual extended thinking (`thinking: {type: "enabled"}`); adaptive thinking supports forced tool use.
-* [Keep one thinking configuration per assistant turn](/docs/en/build-with-claude/thinking#thinking-with-tool-use): a tool-use loop is one assistant turn, so change the configuration only between turns.
-* [Pass thinking blocks back complete and unmodified](/docs/en/build-with-claude/thinking#preserving-thinking-blocks): when you return a tool result, the thinking blocks from the assistant message must come back with it.
-* [Echo the assistant message exactly as received](/docs/en/build-with-claude/thinking#preserving-thinking-blocks): rebuilding the message or filtering out `redacted_thinking` blocks triggers a 400 error.
+* [Limit tool choice to `auto` or `none` in manual mode](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-with-tool-use): `tool_choice` options that force tool use return an error with manual extended thinking (`thinking: {type: "enabled"}`); adaptive thinking supports forced tool use.
+* [Keep one thinking configuration per assistant turn](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-with-tool-use): a tool-use loop is one assistant turn, so change the configuration only between turns.
+* [Pass thinking blocks back complete and unmodified](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks): when you return a tool result, the thinking blocks from the assistant message must come back with it.
+* [Echo the assistant message exactly as received](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks): rebuilding the message or filtering out `redacted_thinking` blocks triggers a 400 error.
 
 The samples use adaptive thinking; on models that support only extended thinking, substitute `thinking: {type: "enabled", budget_tokens: N}`. The round-trip rules are identical.
 
@@ -27,7 +27,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
 
 <Steps>
   <Step title="Make the first request with a tool available">
-    Send a request with adaptive thinking enabled and the tool defined. Apart from the `thinking` parameter, this is a standard [tool use](/docs/en/agents-and-tools/tool-use/overview) request:
+    Send a request with adaptive thinking enabled and the tool defined. Apart from the `thinking` parameter, this is a standard [tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) request:
 
     <CodeGroup>
       ```bash CLI
@@ -260,7 +260,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
     You should see `thinking`, `text`, and `tool_use` blocks in the response content on a run where Claude chose to think (on simpler requests, adaptive mode may skip the thinking block). Keep this content array intact: the next step sends it back verbatim.
 
     <Note>
-      To see thinking text like this output, add `display: "summarized"` to the request. On models where display defaults to omitted, including claude-opus-4-8, the `thinking` field otherwise comes back as an empty string with only the `signature` populated. Either way, echo the content array back unchanged; see [Controlling thinking display](/docs/en/build-with-claude/thinking#controlling-thinking-display).
+      To see thinking text like this output, add `display: "summarized"` to the request. On models where display defaults to omitted, including claude-opus-4-8, the `thinking` field otherwise comes back as an empty string with only the `signature` populated. Either way, echo the content array back unchanged; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
     </Note>
 
     ```json Output
@@ -786,7 +786,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
   </Step>
 
   <Step title="Read the final response">
-    You should see Claude complete the turn with text. Because [interleaved thinking](/docs/en/build-with-claude/thinking#interleaved-thinking) is automatic in adaptive mode, the continuation can also open with a new thinking block before the final text:
+    You should see Claude complete the turn with text. Because [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking) is automatic in adaptive mode, the continuation can also open with a new thinking block before the final text:
 
     ```json Output
     {
@@ -803,7 +803,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
 
 ## How interleaved thinking changes the flow
 
-Interleaved thinking lets Claude think between tool calls, reasoning about each tool result before acting on it. The concept and per-model availability are covered in [Interleaved thinking](/docs/en/build-with-claude/thinking#interleaved-thinking) on the Thinking page; interleaving changes where thinking blocks appear, not whether tool calls can chain. The following comparison shows what interleaved thinking changes in a two-tool workflow:
+Interleaved thinking lets Claude think between tool calls, reasoning about each tool result before acting on it. The concept and per-model availability are covered in [Interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking) on the Thinking page; interleaving changes where thinking blocks appear, not whether tool calls can chain. The following comparison shows what interleaved thinking changes in a two-tool workflow:
 
 <AccordionGroup>
   <Accordion title="Tool use without interleaved thinking">
@@ -854,15 +854,15 @@ Interleaved thinking lets Claude think between tool calls, reasoning about each 
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="Thinking" icon="brain" href="/docs/en/build-with-claude/thinking">
+  <Card title="Thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
     The overview: turn thinking on, read thinking output, and review the full rules for tool use, caching, and streaming.
   </Card>
 
-  <Card title="Steering thinking" icon="compass" href="/docs/en/build-with-claude/thinking-steering-and-cost">
+  <Card title="Steering thinking" icon="compass" href="https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost">
     Steer how often and how deeply Claude thinks with effort levels and prompt-based guidance.
   </Card>
 
-  <Card title="Extended thinking" icon="clock" href="/docs/en/build-with-claude/extended-thinking">
+  <Card title="Extended thinking" icon="clock" href="https://platform.claude.com/docs/en/build-with-claude/extended-thinking">
     Manual thinking budgets on older models: `budget_tokens` mechanics and migration to adaptive.
   </Card>
 </CardGroup>
