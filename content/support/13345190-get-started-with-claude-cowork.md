@@ -4,19 +4,19 @@ This article explains how to use **[Claude Cowork](https://claude.com/product/co
 
 ## Availability
 
-Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
+Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availability varies by surface:
 
-- **Claude Desktop for macOS** — **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download
+- **Claude Desktop for macOS** — Available on all paid plans. **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download.
 
-- **Claude Desktop for Windows** —  Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
+- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](http://claude.com/download)**..
 
-- **Web**, at claude.ai
+- **Web**, at claude.ai — Available on Pro, Max, and Team plans. On Enterprise plans, available where an admin has enabled it.
 
-- **Claude Mobile**, in the latest version of Claude for iOS and Claude for Android
+- **Claude Mobile** — Available on Pro, Max, and Team plans, in the latest version of Claude for iOS and Claude for Android. On Enterprise plans, available where an admin has enabled it.
 
-Chat and Cowork share one home, so you start both from the same place. On any surface, find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat."
+- **Claude in Chrome side panel** — Available on Max and Team plans, and rolling out to Pro plans. On Enterprise plans, available where an admin has enabled it. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)** for more information.
 
-Claude Cowork is in beta on web and mobile for Max, Team, and Enterprise plans, and will be rolling out to Pro plans over the next several weeks.
+On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat." In the Chrome side panel, opening the panel starts a Cowork session directly.
 
 ---
 
@@ -68,7 +68,7 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 - **Projects:** Group related tasks into separate workspaces with their own files, context, instructions, and memory. See **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork).**
 
-- **Browser actions:** Claude can open Chrome and work on websites—clicking, typing, navigating, and filling forms—for tasks that touch websites. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
+- **Browser actions:** Claude can open Chrome and work on websites—clicking, typing, navigating, and filling forms—for tasks that touch websites. On Max and Team plans, Pro plans as it rolls out, and Enterprise plans where an admin has enabled it, you can also run a Cowork session directly in the Chrome side panel. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
 
 ---
 
@@ -178,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1786554900&amp;signature=d91c995afbc185cef65a63fdb938a2a93381292855da24141787e141f04850f1&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t7pM1W58iWjaktE940TtJ025G4IyFZyDFC9%0AJDRLCk8sII9TNJPPZ%2Fg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1786665600&amp;signature=16ed455a0e590449c2d2817dfb1e83f298f830a6441eafa1c092afc250ce4b50&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD2rDableMqW%2FkK1eYnr%2Blc0pR3rVSoyHb%0AN%2FXPz54RAuJd3HuhB95zDcHO55A%3D%0A)
 
 ### Folder instructions
 

@@ -1,3 +1,8 @@
+---
+title: Get RBAC Role
+url: https://platform.claude.com/docs/en/api/admin/rbac_roles/retrieve
+---
+
 ## Get RBAC Role
 
 **get** `/v1/organizations/rbac_roles/{role_id}`

@@ -1,3 +1,8 @@
+---
+title: Query compliance activities
+url: https://platform.claude.com/docs/en/api/compliance/activities/list
+---
+
 ## Query compliance activities
 
 **get** `/v1/compliance/activities`

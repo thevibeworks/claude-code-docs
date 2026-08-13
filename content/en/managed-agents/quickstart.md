@@ -1,7 +1,7 @@
-# Get started with Claude Managed Agents
-
-Create your first autonomous agent.
-
+---
+title: Get started with Claude Managed Agents
+url: https://platform.claude.com/docs/en/managed-agents/quickstart
+description: Create your first autonomous agent.
 ---
 
 This guide walks you through creating an agent, setting up an environment, starting a session, and streaming agent responses.
@@ -22,7 +22,7 @@ This guide walks you through creating an agent, setting up an environment, start
 ## Prerequisites
 
 * A [Claude Console account](https://platform.claude.com)
-* An [API key](/settings/keys)
+* An [API key](https://platform.claude.com/settings/keys)
 
 ## Install the CLI
 
@@ -37,7 +37,7 @@ This guide walks you through creating an agent, setting up an environment, start
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=1.21.0
+    VERSION=1.22.1
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -88,7 +88,7 @@ ant --version
 
   <Tab title="Java">
     ```groovy Gradle
-    implementation("com.anthropic:anthropic-java:2.52.0")
+    implementation("com.anthropic:anthropic-java:2.53.0")
     ```
   </Tab>
 
@@ -126,7 +126,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
 ## Create your first session
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 <Steps>
@@ -134,7 +134,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     Create an agent that defines the model, system prompt, and available tools.
 
     <CodeGroup defaultLanguage="CLI">
-      ```bash curl
+      ```bash cURL
       set -euo pipefail
 
       agent=$(
@@ -326,7 +326,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       ```
     </CodeGroup>
 
-    The `agent_toolset_20260401` tool type enables the full set of pre-built agent tools (bash, file operations, web search, and more). See [Tools](/docs/en/managed-agents/tools) for the complete list and per-tool configuration options.
+    The `agent_toolset_20260401` tool type enables the full set of pre-built agent tools (bash, file operations, web search, and more). See [Tools](https://platform.claude.com/docs/en/managed-agents/tools) for the complete list and per-tool configuration options.
 
     Save the returned `agent.id`. You'll reference it in every session you create.
   </Step>
@@ -335,7 +335,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     An environment defines the sandbox where your agent runs.
 
     <CodeGroup defaultLanguage="CLI">
-      ```bash curl
+      ```bash cURL
       environment=$(
         curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
           -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -454,7 +454,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     <Tip>
       To run the sandbox on your own infrastructure instead of a cloud sandbox, see 
 
-      [Self-hosted sandboxes](/docs/en/managed-agents/self-hosted-sandboxes)
+      [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes)
 
       .
     </Tip>
@@ -464,7 +464,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     Create a session that references your agent and environment.
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       session=$(
         curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
           -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -575,7 +575,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     Open a stream, send a user event, then process events as they arrive:
 
     <CodeGroup>
-      ```bash curl
+      ```bash cURL
       # This workflow does not translate well to a one-off shell command.
       # Use one of the SDK examples in this code group instead.
       ```
@@ -749,7 +749,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           // Process streaming events
           for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
               if (event.isAgentMessage()) {
-                  event.asAgentMessage().content().forEach(block -> IO.print(block.text()));
+                  event.asAgentMessage().content().forEach(block -> block.text().ifPresent(textBlock -> IO.print(textBlock.text())));
               } else if (event.isAgentToolUse()) {
                   IO.println("\n[Using tool: " + event.asAgentToolUse().name() + "]");
               } else if (event.isSessionStatusIdle()) {
@@ -865,23 +865,23 @@ Each of these quickstarts pairs Claude Managed Agents with a popular chat framew
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Define your agent" icon="brain" href="/docs/en/managed-agents/agent-setup">
+  <Card title="Define your agent" icon="brain" href="https://platform.claude.com/docs/en/managed-agents/agent-setup">
     Create reusable, versioned agent configurations
   </Card>
 
-  <Card title="Configure environments" icon="settings" href="/docs/en/managed-agents/environments">
+  <Card title="Configure environments" icon="settings" href="https://platform.claude.com/docs/en/managed-agents/environments">
     Customize networking and sandbox settings
   </Card>
 
-  <Card title="Agent tools" icon="tool" href="/docs/en/managed-agents/tools">
+  <Card title="Agent tools" icon="tool" href="https://platform.claude.com/docs/en/managed-agents/tools">
     Enable specific tools for your agent
   </Card>
 
-  <Card title="Session event stream" icon="lightning" href="/docs/en/managed-agents/events-and-streaming">
+  <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
     Handle events and steer the agent mid-execution
   </Card>
 
-  <Card title="Scheduled deployments" icon="arrows-clockwise" href="/docs/en/managed-agents/scheduled-deployments">
+  <Card title="Scheduled deployments" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/managed-agents/scheduled-deployments">
     Run your agent on a recurring cron schedule
   </Card>
 

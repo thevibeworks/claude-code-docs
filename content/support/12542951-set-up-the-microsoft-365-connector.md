@@ -188,13 +188,15 @@ During authentication, the integration requests the following permissions:
 
 - `Mail.Read.Shared`: Read emails in mailboxes the user has access to
 
+  - **Note:** Shared mailbox access is included through the `Mail.Read.Shared` permission. Users can search shared mailboxes they have delegate access to in Microsoft 365, including full access and folder-level delegation. No setup is needed beyond standard admin consent and the delegate permissions already configured in Microsoft 365.
+
 - `MailboxFolder.Read`: Read mailbox folder structure
 
 - `MailboxItem.Read`: Read items in mailbox
 
 - `MailboxSettings.Read`: Read mailbox settings, like the user's timezone
 
-**Note:** Shared mailbox access is included through the `Mail.Read.Shared` permission. Members can search shared mailboxes they have delegate access to in Microsoft 365, including full access and folder-level delegation. No setup is needed beyond standard admin consent and the delegate permissions already configured in Microsoft 365.
+**Note:** Email search covers each user's primary mailbox, including its Archive folder, and any shared mailboxes they can access. It doesn't cover the separate Online Archive mailbox (also called the In-Place Archive), so messages that a retention policy has moved there won't appear in results.
 
 **Calendar**
 

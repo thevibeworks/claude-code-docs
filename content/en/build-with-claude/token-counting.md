@@ -1,12 +1,12 @@
-# Token counting
-
-Count the tokens in a message before you send it to Claude. Use token counts to manage rate limits and costs, make model routing decisions, and fit prompts to a target length.
+---
+title: Token counting
+url: https://platform.claude.com/docs/en/build-with-claude/token-counting
+description: Count the tokens in a message before you send it to Claude. Use token counts to manage rate limits and costs, make model routing decisions, and fit prompts to a target length.
+---
 
 ## Compatibility
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Platforms: Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
-
----
 
 Token counting lets you determine the number of tokens in a message before you send it to Claude. This helps you make informed decisions about your prompts and usage. With token counting, you can:
 
@@ -18,7 +18,7 @@ Token counting lets you determine the number of tokens in a message before you s
 
 ## How to count message tokens
 
-The [token counting](/docs/en/api/messages-count-tokens) endpoint accepts the same structured list of inputs for creating a message, including support for system prompts, [tools](/docs/en/agents-and-tools/tool-use/overview), [images](/docs/en/build-with-claude/vision), and [PDFs](/docs/en/build-with-claude/pdf-support). The response contains the total number of input tokens.
+The [token counting](https://platform.claude.com/docs/en/api/messages-count-tokens) endpoint accepts the same structured list of inputs for creating a message, including support for system prompts, [tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), [images](https://platform.claude.com/docs/en/build-with-claude/vision), and [PDFs](https://platform.claude.com/docs/en/build-with-claude/pdf-support). The response contains the total number of input tokens.
 
 <Note>
   The token count is an **estimate**. In some cases, the actual number of input tokens used when creating a message might differ by a small amount.
@@ -28,7 +28,7 @@ The [token counting](/docs/en/api/messages-count-tokens) endpoint accepts the sa
 
 ### Supported models
 
-All [active models](/docs/en/about-claude/models/overview) support token counting, including Claude Opus 5 and Claude Sonnet 5.
+All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support token counting, including Claude Opus 5 and Claude Sonnet 5.
 
 <Note>
   Claude 4.7 and later models and Claude Mythos Preview use a newer tokenizer. The same input text produces approximately 30 percent more tokens than on earlier models. The exact increase depends on the content and workload shape. Recount prompts against the model you plan to use rather than reusing counts measured against earlier models.
@@ -184,7 +184,7 @@ All [active models](/docs/en/about-claude/models/overview) support token countin
 ### Count tokens in messages with tools
 
 <Note>
-  [Server tool](/docs/en/agents-and-tools/tool-use/server-tools) token counts only apply to the first sampling call.
+  [Server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) token counts only apply to the first sampling call.
 </Note>
 
 <CodeGroup>
@@ -775,7 +775,7 @@ All [active models](/docs/en/about-claude/models/overview) support token countin
 ### Count tokens in messages with thinking
 
 <Note>
-  See [Thinking and the context window](/docs/en/build-with-claude/thinking#thinking-and-the-context-window) for more details.
+  See [Thinking and the context window](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-the-context-window) for more details.
 
   * Thinking blocks from **previous** assistant turns are ignored and **do not** count toward your input tokens
   * **Current** assistant turn thinking **does** count toward your input tokens
@@ -1110,7 +1110,7 @@ All [active models](/docs/en/about-claude/models/overview) support token countin
 ### Count tokens in messages with PDFs
 
 <Note>
-  Token counting supports PDFs with the same [PDF support limitations](/docs/en/build-with-claude/pdf-support#pdf-support-limitations) as the Messages API.
+  Token counting supports PDFs with the same [PDF support limitations](https://platform.claude.com/docs/en/build-with-claude/pdf-support#pdf-support-limitations) as the Messages API.
 </Note>
 
 <CodeGroup>
@@ -1404,7 +1404,7 @@ Claude Fable 5 and Claude Mythos 5 use the tokenizer introduced with Claude Opus
 
 ## Pricing and rate limits
 
-Token counting is **free to use** but subject to requests per minute rate limits based on your [usage tier](/docs/en/api/rate-limits#rate-limits). If you need higher limits, use **Request rate limit increase** on the [Rate limits](/settings/limits) page.
+Token counting is **free to use** but subject to requests per minute rate limits based on your [usage tier](https://platform.claude.com/docs/en/api/rate-limits#rate-limits). If you need higher limits, use **Request rate limit increase** on the [Rate limits](https://platform.claude.com/settings/limits) page.
 
 | Usage tier | Requests per minute (RPM) |
 | ---------- | ------------------------- |
@@ -1431,19 +1431,19 @@ Token counting is **free to use** but subject to requests per minute rate limits
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Count message tokens" icon="code" href="/docs/en/api/messages-count-tokens">
+  <Card title="Count message tokens" icon="code" href="https://platform.claude.com/docs/en/api/messages-count-tokens">
     Read the full API reference for the token counting endpoint.
   </Card>
 
-  <Card title="Context windows" icon="arrows-maximize" href="/docs/en/build-with-claude/context-windows">
+  <Card title="Context windows" icon="arrows-maximize" href="https://platform.claude.com/docs/en/build-with-claude/context-windows">
     Use token counts to keep prompts within a model's context window.
   </Card>
 
-  <Card title="Rate limits" icon="gauge" href="/docs/en/api/rate-limits">
+  <Card title="Rate limits" icon="gauge" href="https://platform.claude.com/docs/en/api/rate-limits">
     Check token counts before you send a request to stay within your usage tier.
   </Card>
 
-  <Card title="Prompt caching" icon="database" href="/docs/en/build-with-claude/prompt-caching">
+  <Card title="Prompt caching" icon="database" href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">
     Reduce cost and latency on repeated prompts by caching prompt prefixes.
   </Card>
 </CardGroup>

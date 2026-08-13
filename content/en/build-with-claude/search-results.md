@@ -1,16 +1,16 @@
-# Search results
-
-Enable natural citations for RAG applications by providing search results with source attribution
-
+---
+title: Search results
+url: https://platform.claude.com/docs/en/build-with-claude/search-results
+description: Enable natural citations for RAG applications by providing search results with source attribution
 ---
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 Search result content blocks let Claude cite your own content the same way it cites web search results: each citation carries the source and title you provided. Use them in RAG (Retrieval-Augmented Generation) applications where Claude needs to attribute answers to your documents.
 
-All [active models](/docs/en/about-claude/models/overview) support search results with citations, with the exception of Claude Haiku 3. No beta header is required: search results are part of the standard Messages API.
+All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support search results with citations, with the exception of Claude Haiku 3. No beta header is required: search results are part of the standard Messages API.
 
 ## How it works
 
@@ -55,10 +55,10 @@ Search results use the following structure:
 
 ### Optional fields
 
-| Field           | Type   | Description                                                                                                                                                                                                                                                 |
-| --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `citations`     | object | Citation configuration with `enabled` Boolean field. Citations are disabled by default; every example on this page sets `"enabled": true` explicitly. All search results in a request must use the same setting (see [Citation control](#citation-control)) |
-| `cache_control` | object | Cache control settings (for example, `{"type": "ephemeral"}`)                                                                                                                                                                                               |
+| Field           | Type   | Description                                                                                                                                                                                                                                                                                                                     |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `citations`     | object | Citation configuration with `enabled` Boolean field. Citations are disabled by default; every example on this page sets `"enabled": true` explicitly. All search results in a request must use the same setting (see [Citation control](https://platform.claude.com/docs/en/build-with-claude/search-results#citation-control)) |
+| `cache_control` | object | Cache control settings (for example, `{"type": "ephemeral"}`)                                                                                                                                                                                                                                                                   |
 
 Each item in the `content` array must be a text block with:
 
@@ -69,7 +69,7 @@ Search results hold text only. Images and other media are not supported inside t
 
 ## Method 1: Search results from tool calls
 
-Returning search results from your custom tools enables dynamic RAG applications: tools fetch content at runtime, and Claude cites it in the response. The following example forces the tool call with [`tool_choice`](/docs/en/agents-and-tools/tool-use/define-tools#forcing-tool-use), so the retrieval step runs every time.
+Returning search results from your custom tools enables dynamic RAG applications: tools fetch content at runtime, and Claude cites it in the response. The following example forces the tool call with [`tool_choice`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#forcing-tool-use), so the retrieval step runs every time.
 
 ### Example: Knowledge base tool
 
@@ -1250,7 +1250,7 @@ Each citation includes:
 | `start_block_index`   | integer        | 0-based index of the first cited block in the search result's `content` array.                                                                                            |
 | `end_block_index`     | integer        | Exclusive end index of the cited block range in the search result's `content` array. Always greater than `start_block_index`.                                             |
 
-The block indices identify a slice of the search result's `content` array, and `cited_text` is the full text of that slice. The text block is the minimal citable unit: Claude cites whole blocks, not substrings within a block. To get finer-grained citations, split your search result content into smaller blocks (see [Multiple content blocks](#multiple-content-blocks)).
+The block indices identify a slice of the search result's `content` array, and `cited_text` is the full text of that slice. The text block is the minimal citable unit: Claude cites whole blocks, not substrings within a block. To get finer-grained citations, split your search result content into smaller blocks (see [Multiple content blocks](https://platform.claude.com/docs/en/build-with-claude/search-results#multiple-content-blocks)).
 
 ## Multiple content blocks
 
@@ -1293,7 +1293,7 @@ A citation referencing the rate limits block looks like:
 }
 ```
 
-When this search result is cited, `start_block_index` and `end_block_index` identify which of these blocks the citation covers, and `cited_text` contains exactly those blocks' text. Splitting content into smaller, focused blocks gives Claude finer citation boundaries; combining content into one block means every citation returns the full text. This is the same model used by [custom content documents](/docs/en/build-with-claude/citations#custom-content-documents) in the Citations feature.
+When this search result is cited, `start_block_index` and `end_block_index` identify which of these blocks the citation covers, and `cited_text` contains exactly those blocks' text. Splitting content into smaller, focused blocks gives Claude finer citation boundaries; combining content into one block means every citation returns the full text. This is the same model used by [custom content documents](https://platform.claude.com/docs/en/build-with-claude/citations#custom-content-documents) in the Citations feature.
 
 ## Advanced usage
 
@@ -2087,7 +2087,7 @@ Add `cache_control` on the search result block to cache it for reuse across requ
 }
 ```
 
-See [Prompt caching](/docs/en/build-with-claude/prompt-caching) for minimum cacheable lengths and other requirements.
+See [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for minimum cacheable lengths and other requirements.
 
 ### Citation control
 
@@ -2146,28 +2146,28 @@ When `citations.enabled` is set to `true`, Claude attaches citation references t
 * Search result content blocks are available on Claude API, Amazon Bedrock, and Google Cloud.
 * Only text content is supported within search results (no images or other media).
 * `search_result` blocks can only appear in user messages (including inside tool results). Assistant messages with search results are rejected.
-* When the [web search tool](/docs/en/agents-and-tools/tool-use/web-search-tool) is enabled in the same request, citations must be enabled on all `search_result` blocks.
+* When the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) is enabled in the same request, citations must be enabled on all `search_result` blocks.
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Streaming refusals" icon="lock" href="/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals">
+  <Card title="Streaming refusals" icon="lock" href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals">
     Detect and handle refusal stop reasons in streaming responses, and retry refused requests on a fallback model.
   </Card>
 
-  <Card title="Citations" icon="book" href="/docs/en/build-with-claude/citations">
+  <Card title="Citations" icon="book" href="https://platform.claude.com/docs/en/build-with-claude/citations">
     Ground Claude's responses in your source documents. Citations return the exact passages that support each claim, so you can verify answers and surface sources to your users.
   </Card>
 
-  <Card title="Web search tool" icon="browser" href="/docs/en/agents-and-tools/tool-use/web-search-tool">
+  <Card title="Web search tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">
     Give Claude access to current web content with cited sources, optional dynamic filtering, and domain controls.
   </Card>
 
-  <Card title="Messages API reference" icon="code" href="/docs/en/api/messages/create">
+  <Card title="Messages API reference" icon="code" href="https://platform.claude.com/docs/en/api/messages/create">
     See the complete Messages API documentation, including content block types.
   </Card>
 
-  <Card title="Prompt caching" icon="database" href="/docs/en/build-with-claude/prompt-caching">
+  <Card title="Prompt caching" icon="database" href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">
     Cache search results with `cache_control` to reduce cost and latency on repeated requests.
   </Card>
 </CardGroup>

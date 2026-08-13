@@ -1,3 +1,8 @@
+---
+title: Usage Report
+url: https://platform.claude.com/docs/en/api/admin/usage_report
+---
+
 # Usage Report
 
 ## Get Messages Usage Report

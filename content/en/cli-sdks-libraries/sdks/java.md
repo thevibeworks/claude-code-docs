@@ -1,13 +1,13 @@
-# Java SDK
-
-Install and configure the Anthropic Java SDK with builder patterns and async support
-
+---
+title: Java SDK
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java
+description: Install and configure the Anthropic Java SDK with builder patterns and async support
 ---
 
 The Anthropic Java SDK provides convenient access to the Anthropic REST API from applications written in Java. It uses the builder pattern for creating requests and supports both synchronous and asynchronous operations.
 
 <Info>
-  For API feature documentation with code examples, see the [API reference](/docs/en/api/overview). This page covers Java-specific SDK features and configuration.
+  For API feature documentation with code examples, see the [API reference](https://platform.claude.com/docs/en/api/overview). This page covers Java-specific SDK features and configuration.
 </Info>
 
 ## Installation
@@ -15,7 +15,7 @@ The Anthropic Java SDK provides convenient access to the Anthropic REST API from
 <Tabs>
   <Tab title="Gradle">
     ```kotlin
-    implementation("com.anthropic:anthropic-java:2.52.0")
+    implementation("com.anthropic:anthropic-java:2.53.0")
     ```
   </Tab>
 
@@ -24,7 +24,7 @@ The Anthropic Java SDK provides convenient access to the Anthropic REST API from
     <dependency>
         <groupId>com.anthropic</groupId>
         <artifactId>anthropic-java</artifactId>
-        <version>2.52.0</version>
+        <version>2.53.0</version>
     </dependency>
     ```
   </Tab>
@@ -99,7 +99,7 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
   .build();
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](/docs/en/manage-claude/authentication).
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication).
 
 ### Configuration options
 
@@ -310,11 +310,11 @@ A `BetaMessageAccumulator` is also available for the accumulation of a `BetaMess
 
 ## Structured outputs
 
-For complete structured outputs documentation including Java examples, see [Structured outputs](/docs/en/build-with-claude/structured-outputs).
+For complete structured outputs documentation including Java examples, see [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
 
 ## Tool use
 
-[Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
+[Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) lets you integrate external tools and functions directly into the AI model's responses. Instead of producing plain text, the model can output instructions (with parameters) for calling a tool or function when appropriate. You define JSON schemas for tools, and the model uses the schemas to determine when and how to use these tools.
 
 The tool use feature supports a "strict" mode that guarantees that the JSON output from the AI model will conform to the JSON schema you provide in the input parameters.
 
@@ -458,7 +458,7 @@ You can use annotations to add further information about tools to the JSON schem
 
 ## Message batches
 
-The SDK provides support for [Batch processing](/docs/en/build-with-claude/batch-processing) under the `client.messages().batches()` namespace. See [Pagination](#pagination) for how to list and paginate through batches.
+The SDK provides support for [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) under the `client.messages().batches()` namespace. See [Pagination](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#pagination) for how to list and paginate through batches.
 
 ## File uploads
 
@@ -604,7 +604,7 @@ try {
 
 ## Request IDs
 
-When using [raw responses](#raw-response-access), you can access the `request-id` response header using the `requestId()` method:
+When using [raw responses](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#raw-response-access), you can access the `request-id` response header using the `requestId()` method:
 
 ```java
 import com.anthropic.core.http.HttpResponseFor;
@@ -615,7 +615,7 @@ HttpResponseFor<Message> message = client.messages().withRawResponse().create(pa
 Optional<String> requestId = message.requestId();
 ```
 
-This can be used to quickly log failing requests and report them back to Anthropic. For more information on debugging requests, see [Request ID](/docs/en/api/errors#request-id).
+This can be used to quickly log failing requests and report them back to Anthropic. For more information on debugging requests, see [Request ID](https://platform.claude.com/docs/en/api/errors#request-id).
 
 ## Retries
 
@@ -687,12 +687,12 @@ AnthropicClient client = AnthropicOkHttpClient.builder()
 ## Long requests
 
 <Warning>
-  Consider using [streaming](#streaming) for longer running requests.
+  Consider using [streaming](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#streaming) for longer running requests.
 </Warning>
 
-Avoid setting a large `maxTokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [timeout](#timeouts) without receiving a response from Anthropic. The SDK periodically pings the API to keep the connection alive and reduce the impact of these networks.
+Avoid setting a large `maxTokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#timeouts) without receiving a response from Anthropic. The SDK periodically pings the API to keep the connection alive and reduce the impact of these networks.
 
-The SDK throws an error if a non-streaming request is expected to take longer than 10 minutes. Using a [streaming method](#streaming) or [overriding the timeout](#timeouts) at the client or request level disables the error.
+The SDK throws an error if a non-streaming request is expected to take longer than 10 minutes. Using a [streaming method](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#streaming) or [overriding the timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#timeouts) at the client or request level disables the error.
 
 ## Pagination
 
@@ -1046,7 +1046,7 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 #### Customized OkHttpClient
 
 <Tip>
-  Try the available [network options](#retries) before replacing the default client.
+  Try the available [network options](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#retries) before replacing the default client.
 </Tip>
 
 To use a customized `OkHttpClient`:
@@ -1068,11 +1068,11 @@ To use a completely custom HTTP client:
 <Note>
   For detailed platform setup guides with code examples, see:
 
-  * [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
-  * [Amazon Bedrock (Opus 4.6 and earlier)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
-  * [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
-  * [Google Cloud](/docs/en/build-with-claude/claude-on-vertex-ai)
-  * [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
+  * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
+  * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+  * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
+  * [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)
+  * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
 </Note>
 
 The Java SDK supports the following platforms through separate dependencies that provide platform-specific `Backend` implementations:
@@ -1162,11 +1162,11 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 
 #### Undocumented request parameters
 
-To set undocumented request parameters, use the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods as described in [Undocumented parameters](#undocumented-parameters).
+To set undocumented request parameters, use the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods as described in [Undocumented parameters](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#undocumented-parameters).
 
 #### Undocumented response properties
 
-To access undocumented response properties, use the `_additionalProperties()` method as described in [Response properties](#response-properties).
+To access undocumented response properties, use the `_additionalProperties()` method as described in [Response properties](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#response-properties).
 
 #### New or unreleased enum values
 
@@ -1196,11 +1196,11 @@ Prefer the well-typed constants (for example, `Model.CLAUDE_OPUS_5`) so you get 
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [build with Claude overview](/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [build with Claude overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
-You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](/docs/en/api/beta-headers) with `.addBeta()` when building the message params.
+You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) with `.addBeta()` when building the message params.
 
-For example, to use the [Files API](/docs/en/build-with-claude/files):
+For example, to use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
 
 ```java
 import com.anthropic.models.beta.AnthropicBeta;
@@ -1237,7 +1237,7 @@ void main() {
   <Accordion title="Why doesn't the SDK use plain enum classes?">
     Java `enum` classes are not trivially forward compatible. Using them in the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.
 
-    Because these classes are open, you can also construct them with any string value through their `of(String)` factory method. See [New or unreleased enum values](#new-or-unreleased-enum-values) if you need to use a value that isn't in your SDK version yet.
+    Because these classes are open, you can also construct them with any string value through their `of(String)` factory method. See [New or unreleased enum values](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#new-or-unreleased-enum-values) if you need to use a value that isn't in your SDK version yet.
   </Accordion>
 
   <Accordion title="Why are fields represented using JsonField<T> instead of just plain T?">
@@ -1275,6 +1275,6 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 * [GitHub repository](https://github.com/anthropics/anthropic-sdk-java)
 * [Javadocs](https://javadoc.io/doc/com.anthropic/anthropic-java)
-* [API reference](/docs/en/api/overview)
-* [Streaming Messages](/docs/en/build-with-claude/streaming)
-* [Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview)
+* [API reference](https://platform.claude.com/docs/en/api/overview)
+* [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming)
+* [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)

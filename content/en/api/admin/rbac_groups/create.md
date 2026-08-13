@@ -1,3 +1,8 @@
+---
+title: Create RBAC Group
+url: https://platform.claude.com/docs/en/api/admin/rbac_groups/create
+---
+
 ## Create RBAC Group
 
 **post** `/v1/organizations/rbac_groups`

@@ -1,3 +1,8 @@
+---
+title: Download file content
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files/download
+---
+
 ## Download file content
 
 **get** `/v1/compliance/apps/chats/files/{claude_file_id}/content`

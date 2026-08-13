@@ -1,10 +1,10 @@
-# Tool runner (SDK)
-
-Use the SDK's tool runner to handle the agentic loop, error wrapping, and type safety automatically.
-
+---
+title: Tool runner (SDK)
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner
+description: Use the SDK's tool runner to handle the agentic loop, error wrapping, and type safety automatically.
 ---
 
-The tool runner handles the agentic loop, error wrapping, and type safety so you don't have to. When you need human-in-the-loop approval, custom logging, or conditional execution, use the [manual loop](/docs/en/agents-and-tools/tool-use/handle-tool-calls) instead.
+The tool runner handles the agentic loop, error wrapping, and type safety so you don't have to. When you need human-in-the-loop approval, custom logging, or conditional execution, use the [manual loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) instead.
 
 Instead of manually handling tool calls, tool results, and conversation management, the tool runner automatically:
 
@@ -350,7 +350,7 @@ Depending on the SDK's tool signature, a tool returns its result as a string or 
   </Tab>
 
   <Tab title="Java">
-    Define each tool as a class implementing `Supplier<String>`. Annotate the class with `@JsonClassDescription` for the tool description, and each public field with `@JsonPropertyDescription` for parameter descriptions. The SDK derives the JSON schema, tool name (snake-cased class name), and input parsing from the class, and marks the tool with `strict: true` ([strict tool use](/docs/en/agents-and-tools/tool-use/strict-tool-use)).
+    Define each tool as a class implementing `Supplier<String>`. Annotate the class with `@JsonClassDescription` for the tool description, and each public field with `@JsonPropertyDescription` for parameter descriptions. The SDK derives the JSON schema, tool name (snake-cased class name), and input parsing from the class, and marks the tool with `strict: true` ([strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use)).
 
     ```java
     import com.anthropic.client.AnthropicClient;
@@ -775,7 +775,7 @@ Within the loop, you can read each response message and modify the runner's stat
 4. When your loop body returns, the runner checks whether you modified its message history.
 
    * **If you did not modify message history:** If the message contains tool calls, the runner appends the assistant message and the tool results, then continues. If there are no tool calls, the loop exits.
-   * **If you modified message history:** The runner skips its automatic append and uses your state unchanged. See [Taking over message history](#taking-over-message-history).
+   * **If you modified message history:** The runner skips its automatic append and uses your state unchanged. See [Taking over message history](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner#taking-over-message-history).
 
 ```mermaid
 sequenceDiagram
@@ -1088,7 +1088,7 @@ When you take over for an iteration, the runner does not append the assistant me
 
 ### Automatic context management
 
-For long-running agentic tasks, the Python, TypeScript, and Ruby tool runners support automatic [compaction](/docs/en/build-with-claude/context-editing#client-side-compaction-sdk), which generates summaries when token usage exceeds a threshold so the conversation can continue beyond context window limits. All three SDKs have deprecated this client-side option in favor of server-side [context editing](/docs/en/build-with-claude/context-editing), which is available in every SDK. The Go, Java, C#, and PHP tool runners don't include client-side compaction.
+For long-running agentic tasks, the Python, TypeScript, and Ruby tool runners support automatic [compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk), which generates summaries when token usage exceeds a threshold so the conversation can continue beyond context window limits. All three SDKs have deprecated this client-side option in favor of server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing), which is available in every SDK. The Go, Java, C#, and PHP tool runners don't include client-side compaction.
 
 ### Debugging tool execution
 
@@ -1241,7 +1241,7 @@ In the Python and TypeScript SDKs, use the tool response method (`generate_tool_
   </Tab>
 
   <Tab title="PHP">
-    The PHP tool runner does not currently expose tool results before they are appended. Exceptions thrown from a tool's `run` closure are caught and sent to Claude as tool results with `is_error: true` automatically. To inspect or replace error content, use the manual `pushMessages()` pattern shown in [Modifying tool results](#modifying-tool-results).
+    The PHP tool runner does not currently expose tool results before they are appended. Exceptions thrown from a tool's `run` closure are caught and sent to Claude as tool results with `is_error: true` automatically. To inspect or replace error content, use the manual `pushMessages()` pattern shown in [Modifying tool results](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner#modifying-tool-results).
   </Tab>
 
   <Tab title="Ruby">
@@ -1285,7 +1285,7 @@ In the Python and TypeScript SDKs, use the tool response method (`generate_tool_
 
 ### Modifying tool results
 
-You can modify tool results before they're sent back to Claude. This is useful for adding metadata such as `cache_control` to enable [prompt caching](/docs/en/build-with-claude/prompt-caching) on tool results, or for transforming the tool output.
+You can modify tool results before they're sent back to Claude. This is useful for adding metadata such as `cache_control` to enable [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) on tool results, or for transforming the tool output.
 
 In the Python and TypeScript SDKs, use the tool response method to get the tool result, then modify it before the runner proceeds. Whether you explicitly append the modified result or mutate it in place depends on the SDK. See the code comments in each tab.
 
@@ -1511,7 +1511,7 @@ In the Python and TypeScript SDKs, use the tool response method to get the tool 
 </Tabs>
 
 <Tip>
-  Adding `cache_control` to tool results is particularly useful when tools return large amounts of data (such as document search results) that you want to cache for subsequent API calls. See [Prompt caching](/docs/en/build-with-claude/prompt-caching) for more details on caching strategies.
+  Adding `cache_control` to tool results is particularly useful when tools return large amounts of data (such as document search results) that you want to cache for subsequent API calls. See [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for more details on caching strategies.
 </Tip>
 
 ## Streaming
@@ -1710,19 +1710,19 @@ Enable streaming to process each turn's response incrementally. Each iteration y
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Strict tool use" icon="check" href="/docs/en/agents-and-tools/tool-use/strict-tool-use">
+  <Card title="Strict tool use" icon="check" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use">
     Enforce JSON Schema compliance on Claude's tool inputs with grammar-constrained sampling.
   </Card>
 
-  <Card title="Handle tool calls" icon="arrows-left-right" href="/docs/en/agents-and-tools/tool-use/handle-tool-calls">
+  <Card title="Handle tool calls" icon="arrows-left-right" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls">
     Parse `tool_use` blocks, format `tool_result` responses, and handle errors with `is_error`.
   </Card>
 
-  <Card title="Parallel tool use" icon="grid" href="/docs/en/agents-and-tools/tool-use/parallel-tool-use">
+  <Card title="Parallel tool use" icon="grid" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use">
     Enable, format, and disable parallel tool calls, with message-history guidance and troubleshooting.
   </Card>
 
-  <Card title="Define tools" icon="hammer" href="/docs/en/agents-and-tools/tool-use/define-tools">
+  <Card title="Define tools" icon="hammer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools">
     Specify tool schemas, write effective descriptions, and control when Claude calls your tools.
   </Card>
 </CardGroup>

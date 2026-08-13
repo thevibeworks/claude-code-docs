@@ -1,3 +1,8 @@
+---
+title: Files
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files
+---
+
 # Files
 
 ## Get file metadata

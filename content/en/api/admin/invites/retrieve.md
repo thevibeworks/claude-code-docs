@@ -1,3 +1,8 @@
+---
+title: Get Invite
+url: https://platform.claude.com/docs/en/api/admin/invites/retrieve
+---
+
 ## Get Invite
 
 **get** `/v1/organizations/invites/{invite_id}`

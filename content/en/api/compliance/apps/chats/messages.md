@@ -1,3 +1,8 @@
+---
+title: Messages
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/messages
+---
+
 # Messages
 
 ## Get chat messages

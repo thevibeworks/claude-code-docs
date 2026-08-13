@@ -1,3 +1,8 @@
+---
+title: Get Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/retrieve
+---
+
 ## Get Tunnel Certificate
 
 **get** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}`

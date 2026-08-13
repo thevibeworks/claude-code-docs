@@ -1,17 +1,17 @@
-# Configure Azure Key Vault for CMEK
-
-Use Azure Key Vault to provide an encryption key for your organization.
-
+---
+title: Configure Azure Key Vault for CMEK
+url: https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault
+description: Use Azure Key Vault to provide an encryption key for your organization.
 ---
 
 ```bash Configure with the /claude-api skill in Claude Code
 claude "/claude-api help me configure a customer-managed encryption key with Azure Key Vault"
 ```
 
-This guide walks through configuring an Azure Key Vault key as a [customer-managed encryption key (CMEK)](/docs/en/manage-claude/cmek) for your Anthropic organization.
+This guide walks through configuring an Azure Key Vault key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) for your Anthropic organization.
 
 <Warning>
-  Enabling CMEK is permanent. If your Key Vault key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](/docs/en/manage-claude/cmek) before you start.
+  Enabling CMEK is permanent. If your Key Vault key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you start.
 </Warning>
 
 ## Prerequisites
@@ -66,7 +66,7 @@ To have Anthropic use your encryption key, you must configure an Anthropic multi
     This step has no Portal equivalent. If you do not have the Azure CLI installed locally, open Cloud Shell from the Portal's top navigation bar. After the command succeeds, you can find the service principal's object ID in **Microsoft Entra ID > Enterprise applications** by clearing the default application-type filter and searching for `anthropic-cmek-client-us`.
 
     <Frame caption="Find the service principal's Object ID on its Entra enterprise application overview.">
-      ![Microsoft Entra enterprise application overview for anthropic-cmek-client-us, showing its Application ID and Object ID.](/docs/images/cmek/azure-service-principal.png)
+      ![Microsoft Entra enterprise application overview for anthropic-cmek-client-us, showing its Application ID and Object ID.](https://platform.claude.com/docs/images/cmek/azure-service-principal.png)
     </Frame>
   </Step>
 
@@ -86,11 +86,11 @@ To have Anthropic use your encryption key, you must configure an Anthropic multi
     From the Portal, open your Key Vault, select **Keys**, then **Generate/Import**. Set the key type to RSA and the size to 3072 or larger. To restrict the key to wrap and unwrap only, open the key version, scroll to **Permitted operations**, and uncheck everything except **Wrap Key** and **Unwrap Key**.
 
     <Frame caption="Create an RSA key sized 3072 or larger.">
-      ![Azure Key Vault Create a key page with the Generate option, RSA key type, and 3072 RSA key size selected.](/docs/images/cmek/azure-create-key.png)
+      ![Azure Key Vault Create a key page with the Generate option, RSA key type, and 3072 RSA key size selected.](https://platform.claude.com/docs/images/cmek/azure-create-key.png)
     </Frame>
 
     <Frame caption="Restrict permitted operations to Wrap Key and Unwrap Key.">
-      ![Azure Key Vault key version with Permitted operations limited to Wrap Key and Unwrap Key.](/docs/images/cmek/azure-permitted-operations.png)
+      ![Azure Key Vault key version with Permitted operations limited to Wrap Key and Unwrap Key.](https://platform.claude.com/docs/images/cmek/azure-permitted-operations.png)
     </Frame>
   </Step>
 
@@ -116,7 +116,7 @@ To have Anthropic use your encryption key, you must configure an Anthropic multi
     </Note>
 
     <Frame caption="Assign Key Vault Crypto User to the Anthropic service principal, scoped to the key.">
-      ![Key Vault IAM role assignments showing anthropic-cmek-client-us assigned the Key Vault Crypto User role.](/docs/images/cmek/azure-role-assignment.png)
+      ![Key Vault IAM role assignments showing anthropic-cmek-client-us assigned the Key Vault Crypto User role.](https://platform.claude.com/docs/images/cmek/azure-role-assignment.png)
     </Frame>
   </Step>
 

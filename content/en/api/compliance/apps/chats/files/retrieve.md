@@ -1,3 +1,8 @@
+---
+title: Get file metadata
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve
+---
+
 ## Get file metadata
 
 **get** `/v1/compliance/apps/chats/files/{claude_file_id}`

@@ -1,3 +1,8 @@
+---
+title: Increase Requests
+url: https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests
+---
+
 # Increase Requests
 
 ## List Spend Limit Increase Requests

@@ -1,3 +1,8 @@
+---
+title: Get Activity Summaries
+url: https://platform.claude.com/docs/en/api/admin/analytics/retrieve_summaries
+---
+
 ## Get Activity Summaries
 
 **get** `/v1/organizations/analytics/summaries`

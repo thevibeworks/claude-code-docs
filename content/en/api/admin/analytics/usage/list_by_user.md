@@ -1,3 +1,8 @@
+---
+title: Get Per-User Token Usage
+url: https://platform.claude.com/docs/en/api/admin/analytics/usage/list_by_user
+---
+
 ## Get Per-User Token Usage
 
 **get** `/v1/organizations/analytics/user_usage_report`

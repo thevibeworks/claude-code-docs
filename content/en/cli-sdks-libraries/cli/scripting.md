@@ -1,17 +1,17 @@
-# CLI scripting and automation
-
-Version-control API resources as YAML, chain ant CLI commands in scripts, operate on resources from Claude Code, and authenticate curl calls with CLI credentials.
-
+---
+title: CLI scripting and automation
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting
+description: Version-control API resources as YAML, chain ant CLI commands in scripts, operate on resources from Claude Code, and authenticate curl calls with CLI credentials.
 ---
 
-This page covers task-oriented workflows built on the `ant` CLI. For the underlying flags and output options, see [Using the CLI](/docs/en/cli-sdks-libraries/cli/using).
+This page covers task-oriented workflows built on the `ant` CLI. For the underlying flags and output options, see [Using the CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using).
 
 ## Version-controlling API resources
 
 You can use the CLI to version control API resources such as skills, agents, environments, or deployments as YAML files in your repository and keep them in sync with the Claude API.
 
 <Note>
-  For more information on these resources, see [Managed Agents](/docs/en/managed-agents/overview).
+  For more information on these resources, see [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview).
 </Note>
 
 <Steps>
@@ -55,7 +55,7 @@ You can use the CLI to version control API resources such as skills, agents, env
   </Step>
 
   <Step title="Define the environment">
-    A session runs in an [environment](/docs/en/api/cli/beta/environments), which defines the sandbox it executes in. Write the environment definition to `summarizer.environment.yaml`:
+    A session runs in an [environment](https://platform.claude.com/docs/en/api/cli/beta/environments), which defines the sandbox it executes in. Write the environment definition to `summarizer.environment.yaml`:
 
     ```yaml summarizer.environment.yaml
     name: summarizer-env
@@ -182,7 +182,7 @@ Claude Code shells out to `ant`, parses the structured output, and reasons over 
 
 ## Authenticate curl requests with CLI credentials
 
-Scripts that call the API with `curl` or another HTTP client can use the credentials stored by [`ant auth login`](/docs/en/cli-sdks-libraries/cli/quickstart#authentication) instead of a static API key. The OAuth access token goes in the `Authorization` header as a bearer token; the `x-api-key` header is only for static API keys.
+Scripts that call the API with `curl` or another HTTP client can use the credentials stored by [`ant auth login`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#authentication) instead of a static API key. The OAuth access token goes in the `Authorization` header as a bearer token; the `x-api-key` header is only for static API keys.
 
 `ant auth print-credentials --access-token` prints the active profile's access token, refreshing it first if it is expired or near expiry:
 
@@ -199,7 +199,7 @@ curl https://api.anthropic.com/v1/messages \
 ```
 
 <Note>
-  Keep `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` unset when working from a CLI login. Either variable takes precedence over the login for `ant` commands (see [Credential precedence](/docs/en/manage-claude/wif-reference#credential-precedence)) and can silently route them to a different organization or workspace.
+  Keep `ANTHROPIC_API_KEY` and `ANTHROPIC_AUTH_TOKEN` unset when working from a CLI login. Either variable takes precedence over the login for `ant` commands (see [Credential precedence](https://platform.claude.com/docs/en/manage-claude/wif-reference#credential-precedence)) and can silently route them to a different organization or workspace.
 </Note>
 
-Run [`ant auth status`](/docs/en/cli-sdks-libraries/cli/authentication#check-authentication-status) to confirm which organization and workspace you are logged in to; it warns when an environment variable is overriding your login.
+Run [`ant auth status`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#check-authentication-status) to confirm which organization and workspace you are logged in to; it warns when an environment variable is overriding your login.

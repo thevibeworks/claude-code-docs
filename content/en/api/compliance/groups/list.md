@@ -1,3 +1,8 @@
+---
+title: List Compliance Groups
+url: https://platform.claude.com/docs/en/api/compliance/groups/list
+---
+
 ## List Compliance Groups
 
 **get** `/v1/compliance/groups`

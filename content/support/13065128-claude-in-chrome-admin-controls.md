@@ -1,12 +1,12 @@
 # Claude in Chrome admin controls
 
-Claude in Chrome admin controls are available for Team and Enterprise plans.
-
 This article explains how Team and Enterprise owners can manage Claude in Chrome for their organization.
+
+Claude in Chrome admin controls are available for Team and Enterprise plans.
 
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites on behalf of your users. As an owner, you control whether the extension is available for users to install and which sites they can access.
 
-**Important:** Before enabling Claude in Chrome for your organization, review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** to understand the risks of browser-based AI, including the prompt injection classifiers, the safeguards in place, and remaining risks.
+**Note:** On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once you've enabled it for your organization—see **[Enable the Cowork side panel](#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
 
 ## Access Claude in Chrome settings
 
@@ -18,7 +18,9 @@ To manage Claude in Chrome settings for your organization:
 
 ## Enable or disable the extension
 
-Use the toggle to enable or disable Claude in Chrome for your entire organization.
+**Important:** Before enabling Claude in Chrome for your organization, review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)** to understand the risks of browser-based AI, including the prompt injection classifiers, the safeguards in place, and remaining risks.
+
+Use the **Enable for your team** toggle to enable or disable Claude in Chrome for your entire organization.
 
 - **Team plans:** The extension is enabled by default. Disable it if you prefer users not to have access.
 
@@ -37,6 +39,20 @@ Use allowlists and blocklists to control which websites Claude can access when u
 **Blocklist:** Specify sites Claude should never access, regardless of other settings, by adding them to the blocklist. This adds an extra layer of protection beyond **[Claude's default blocked categories](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely#h_34f8d5ca87)**.
 
 **Recommendation:** Start with a more restrictive allowlist for the security of your organization's data, then expand access over time as you become comfortable with the extension's behavior.
+
+## Enable the Cowork side panel
+
+On Enterprise plans, the Claude in Chrome side panel can run as a Claude Cowork session once it’s enabled for your organization. Side panel sessions are saved to users' history, move with them across surfaces, and support their skills, plugins, and connectors. Until you enable it, users see the classic side panel.
+
+**To turn on the Cowork side panel for your organization:**
+
+1. Enable Cowork in the cloud for your organization in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. See **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879)**.
+
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)** and toggle **Enable for your team** on.
+
+3. Deploy the extension through your Chrome management tools, or have users install it from the **Chrome Web Store**.
+
+If your organization already uses Claude in Chrome, users will see the Cowork side panel automatically once you enable Cowork in the cloud. Users don’t need to reinstall anything.
 
 ## Control password manager access
 

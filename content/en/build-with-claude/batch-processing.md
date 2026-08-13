@@ -1,7 +1,7 @@
-# Batch processing
-
-Process large volumes of Messages requests asynchronously with the Message Batches API, cutting costs by 50% and increasing throughput.
-
+---
+title: Batch processing
+url: https://platform.claude.com/docs/en/build-with-claude/batch-processing
+description: Process large volumes of Messages requests asynchronously with the Message Batches API, cutting costs by 50% and increasing throughput.
 ---
 
 Batch processing is a powerful approach for handling large volumes of requests efficiently. Instead of processing requests one at a time with immediate responses, batch processing allows you to submit multiple requests together for asynchronous processing. This pattern is particularly useful when:
@@ -14,14 +14,14 @@ Batch processing is a powerful approach for handling large volumes of requests e
 The Message Batches API is Anthropic's first implementation of this pattern.
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 # Message Batches API
 
-The Message Batches API is a powerful, cost-effective way to asynchronously process large volumes of [Messages](/docs/en/api/messages/create) requests. This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
+The Message Batches API is a powerful, cost-effective way to asynchronously process large volumes of [Messages](https://platform.claude.com/docs/en/api/messages/create) requests. This approach is well-suited to tasks that do not require immediate responses, with most batches finishing in less than 1 hour while reducing costs by 50% and increasing throughput.
 
-You can [explore the API reference directly](/docs/en/api/messages/batches/create), in addition to this guide.
+You can [explore the API reference directly](https://platform.claude.com/docs/en/api/messages/batches/create), in addition to this guide.
 
 ## How the Message Batches API works
 
@@ -43,21 +43,21 @@ This is especially useful for bulk operations that don't require immediate resul
 * A Message Batch is limited to either 100,000 Message requests or 256 MB in size, whichever is reached first.
 * The system processes each batch as fast as possible, with most batches completing within 1 hour. You can access batch results when all messages have completed or after 24 hours, whichever comes first. Batches expire if processing does not complete within 24 hours.
 * Batch results are available for 29 days after creation. After that, you may still view the Batch, but its results will no longer be available for download.
-* Batches are scoped to a [Workspace](/settings/workspaces). You may view all batches (and their results) that were created within the Workspace that your API key belongs to.
-* Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. See [Message Batches API rate limits](/docs/en/api/rate-limits#message-batches-api). Additionally, processing may be slowed down based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.
-* Because of high throughput and concurrent processing, batches may go slightly over your Workspace's configured [spend limit](/settings/billing).
-* Each batched request must have `max_tokens` of at least `1`. `max_tokens: 0` ([cache pre-warming](/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
+* Batches are scoped to a [Workspace](https://platform.claude.com/settings/workspaces). You may view all batches (and their results) that were created within the Workspace that your API key belongs to.
+* Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. See [Message Batches API rate limits](https://platform.claude.com/docs/en/api/rate-limits#message-batches-api). Additionally, processing may be slowed down based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.
+* Because of high throughput and concurrent processing, batches may go slightly over your Workspace's configured [spend limit](https://platform.claude.com/settings/billing).
+* Each batched request must have `max_tokens` of at least `1`. `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
 
 ### Supported models
 
-All [active models](/docs/en/about-claude/models/overview) support the Message Batches API.
+All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support the Message Batches API.
 
 ### What can be batched
 
 Almost any request you can make to the Messages API can be included in a batch. This includes:
 
 * Vision
-* Tool use, including all [server tools](/docs/en/agents-and-tools/tool-use/server-tools) (web search, web fetch, code execution, MCP connectors, advisor, and tool search)
+* Tool use, including all [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) (web search, web fetch, code execution, MCP connectors, advisor, and tool search)
 * System messages
 * Multi-turn conversations
 * Extended thinking
@@ -67,40 +67,40 @@ Because each request in the batch is processed independently, you can mix differ
 
 A small number of Messages API parameters are **not** supported in batch requests. Including any of these returns a validation error:
 
-| Parameter                                                   | Why                                                                                        |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `stream: true`                                              | Batch results come back as a single file, not a stream.                                    |
-| `speed` ([Fast mode](/docs/en/build-with-claude/fast-mode)) | Fast mode tunes synchronous latency, which doesn't apply to asynchronous batch processing. |
-| `store` / `previous_thread_event_id` (Threads)              | Threads are stateful; batch requests are not.                                              |
-| `cache_hint` / `context_hint`                               | These routing hints apply to synchronous request scheduling only.                          |
-| `max_tokens: 0`                                             | See [Batch limitations](#batch-limitations).                                               |
-| `research_preview_2026_02: "active"`                        | Research preview mode is not available on the batch path.                                  |
+| Parameter                                                                              | Why                                                                                                                |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `stream: true`                                                                         | Batch results come back as a single file, not a stream.                                                            |
+| `speed` ([Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode)) | Fast mode tunes synchronous latency, which doesn't apply to asynchronous batch processing.                         |
+| `store` / `previous_thread_event_id` (Threads)                                         | Threads are stateful; batch requests are not.                                                                      |
+| `cache_hint` / `context_hint`                                                          | These routing hints apply to synchronous request scheduling only.                                                  |
+| `max_tokens: 0`                                                                        | See [Batch limitations](https://platform.claude.com/docs/en/build-with-claude/batch-processing#batch-limitations). |
+| `research_preview_2026_02: "active"`                                                   | Research preview mode is not available on the batch path.                                                          |
 
 <Tip>
-  Because batches can take longer than 5 minutes to process, consider using the [1-hour cache duration](/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration) with prompt caching for better cache hit rates when processing batches with shared context.
+  Because batches can take longer than 5 minutes to process, consider using the [1-hour cache duration](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration) with prompt caching for better cache hit rates when processing batches with shared context.
 </Tip>
 
 ## Pricing
 
 The Batches API offers significant cost savings. All usage is charged at 50% of the standard API prices.
 
-| Model                                                                                                      | Batch input  | Batch output  |
-| ---------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
-| Claude Fable 5                                                                                             | $5 / MTok    | $25 / MTok    |
-| Claude Mythos 5 ([limited availability](https://anthropic.com/glasswing))                                  | $5 / MTok    | $25 / MTok    |
-| Claude Opus 5                                                                                              | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.8                                                                                            | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.7                                                                                            | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.6                                                                                            | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.5                                                                                            | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations))  | $7.50 / MTok | $37.50 / MTok |
-| Claude Opus 4 ([retired, except on Google Cloud](/docs/en/about-claude/model-deprecations))                | $7.50 / MTok | $37.50 / MTok |
-| Claude Sonnet 5                                                                                            | $1 / MTok    | $5 / MTok     |
-| Claude Sonnet 4.6                                                                                          | $1.50 / MTok | $7.50 / MTok  |
-| Claude Sonnet 4.5                                                                                          | $1.50 / MTok | $7.50 / MTok  |
-| Claude Sonnet 4 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations))  | $1.50 / MTok | $7.50 / MTok  |
-| Claude Haiku 4.5                                                                                           | $0.50 / MTok | $2.50 / MTok  |
-| Claude Haiku 3.5 ([retired, except on Bedrock and Google Cloud](/docs/en/about-claude/model-deprecations)) | $0.40 / MTok | $2 / MTok     |
+| Model                                                                                                                                 | Batch input  | Batch output  |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------------- |
+| Claude Fable 5                                                                                                                        | $5 / MTok    | $25 / MTok    |
+| Claude Mythos 5 ([limited availability](https://anthropic.com/glasswing))                                                             | $5 / MTok    | $25 / MTok    |
+| Claude Opus 5                                                                                                                         | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.8                                                                                                                       | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.7                                                                                                                       | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.6                                                                                                                       | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.5                                                                                                                       | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.1 ([retired, except on Bedrock and Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | $7.50 / MTok | $37.50 / MTok |
+| Claude Opus 4 ([retired, except on Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations))                | $7.50 / MTok | $37.50 / MTok |
+| Claude Sonnet 5                                                                                                                       | $1 / MTok    | $5 / MTok     |
+| Claude Sonnet 4.6                                                                                                                     | $1.50 / MTok | $7.50 / MTok  |
+| Claude Sonnet 4.5                                                                                                                     | $1.50 / MTok | $7.50 / MTok  |
+| Claude Sonnet 4 ([retired, except on Bedrock and Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | $1.50 / MTok | $7.50 / MTok  |
+| Claude Haiku 4.5                                                                                                                      | $0.50 / MTok | $2.50 / MTok  |
+| Claude Haiku 3.5 ([retired, except on Bedrock and Google Cloud](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | $0.40 / MTok | $2 / MTok     |
 
 ## How to use the Message Batches API
 
@@ -109,9 +109,9 @@ The Batches API offers significant cost savings. All usage is charged at 50% of 
 A Message Batch is composed of a list of requests to create a Message. The shape of an individual request comprises:
 
 * A unique `custom_id` for identifying the Messages request. Must be 1 to 64 characters and contain only alphanumeric characters, hyphens, and underscores (matching `^[a-zA-Z0-9_-]{1,64}$`).
-* A `params` object with the standard [Messages API](/docs/en/api/messages/create) parameters
+* A `params` object with the standard [Messages API](https://platform.claude.com/docs/en/api/messages/create) parameters
 
-You can [create a batch](/docs/en/api/messages/batches/create) by passing this list into the `requests` parameter:
+You can [create a batch](https://platform.claude.com/docs/en/api/messages/batches/create) by passing this list into the `requests` parameter:
 
 <CodeGroup>
   ```bash cURL
@@ -415,7 +415,7 @@ In this example, two separate requests are batched together for asynchronous pro
 <Tip>
   **Test your batch requests with the Messages API**
 
-  Validation of the `params` object for each message request is performed asynchronously, and validation errors are returned when processing of the entire batch has ended. You can ensure that you are building your input correctly by verifying your request shape with the [Messages API](/docs/en/api/messages/create) first.
+  Validation of the `params` object for each message request is performed asynchronously, and validation errors are returned when processing of the entire batch has ended. You can ensure that you are building your input correctly by verifying your request shape with the [Messages API](https://platform.claude.com/docs/en/api/messages/create) first.
 </Tip>
 
 When a batch is first created, the response has a processing status of `in_progress`.
@@ -442,7 +442,7 @@ When a batch is first created, the response has a processing status of `in_progr
 
 ### Tracking your batch
 
-The Message Batch's `processing_status` field indicates the stage of processing the batch is in. It starts as `in_progress`, then updates to `ended` once all the requests in the batch have finished processing, and results are ready. You can monitor the state of your batch by visiting the [Console](/settings/workspaces/default/batches), or using the [retrieval endpoint](/docs/en/api/retrieving-message-batches).
+The Message Batch's `processing_status` field indicates the stage of processing the batch is in. It starts as `in_progress`, then updates to `ended` once all the requests in the batch have finished processing, and results are ready. You can monitor the state of your batch by visiting the [Console](https://platform.claude.com/settings/workspaces/default/batches), or using the [retrieval endpoint](https://platform.claude.com/docs/en/api/retrieving-message-batches).
 
 #### Polling for Message Batch completion
 
@@ -600,7 +600,7 @@ To poll a Message Batch, you'll need its `id`, which is provided in the response
 
 ### Listing all Message Batches
 
-You can list all Message Batches in your Workspace using the [list endpoint](/docs/en/api/listing-message-batches). The API supports pagination, automatically fetching additional pages as needed:
+You can list all Message Batches in your Workspace using the [list endpoint](https://platform.claude.com/docs/en/api/listing-message-batches). The API supports pagination, automatically fetching additional pages as needed:
 
 <CodeGroup>
   ```bash cURL
@@ -716,7 +716,7 @@ Once batch processing has ended, each Messages request in the batch has a result
 
 The batch's `request_counts` shows an overview of your results, indicating how many requests reached each of these four states.
 
-Results of the batch are available for download at the `results_url` property on the Message Batch, and if the organization permission allows, in the Console. Because of the potentially large size of the results, it's recommended to [stream results](/docs/en/api/messages/batches/results) back rather than download them all at once.
+Results of the batch are available for download at the `results_url` property on the Message Batch, and if the organization permission allows, in the Console. Because of the potentially large size of the results, it's recommended to [stream results](https://platform.claude.com/docs/en/api/messages/batches/results) back rather than download them all at once.
 
 <CodeGroup>
   ```bash cURL
@@ -930,7 +930,7 @@ The results are in `.jsonl` format, where each line is a valid JSON object repre
 {"custom_id":"my-first-request","result":{"type":"succeeded","message":{"id":"msg_01FqfsLoHwgeFbguDgpz48m7","type":"message","role":"assistant","model":"claude-opus-5","content":[{"type":"text","text":"Hello! How can I assist you today? Feel free to ask me any questions or let me know if there's anything you'd like to chat about."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":10,"output_tokens":34}}}}
 ```
 
-If your result has an error, its `result.error` will be set to the standard [error shape](/docs/en/api/errors#error-shapes).
+If your result has an error, its `result.error` will be set to the standard [error shape](https://platform.claude.com/docs/en/api/errors#error-shapes).
 
 <Tip>
   **Batch results may not match input order**
@@ -940,7 +940,7 @@ If your result has an error, its `result.error` will be set to the standard [err
 
 ### Canceling a Message Batch
 
-You can cancel a Message Batch that is currently processing using the [cancel endpoint](/docs/en/api/canceling-message-batches). Immediately after cancellation, a batch's `processing_status` will be `canceling`. You can use the same polling technique described earlier to wait until cancellation is finalized. Canceled batches end up with a status of `ended` and may contain partial results for requests that were processed before cancellation.
+You can cancel a Message Batch that is currently processing using the [cancel endpoint](https://platform.claude.com/docs/en/api/canceling-message-batches). Immediately after cancellation, a batch's `processing_status` will be `canceling`. You can use the same polling technique described earlier to wait until cancellation is finalized. Canceled batches end up with a status of `ended` and may contain partial results for requests that were processed before cancellation.
 
 <CodeGroup>
   ```bash cURL
@@ -1551,9 +1551,9 @@ In this example, both requests in the batch include identical system messages an
 
 ### Server tools and the agentic loop
 
-All [server tools](/docs/en/agents-and-tools/tool-use/server-tools) (web search, web fetch, code execution, MCP connectors, advisor, and tool search) work in batch requests. The batch worker runs the same server-side agentic loop as the synchronous Messages API.
+All [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) (web search, web fetch, code execution, MCP connectors, advisor, and tool search) work in batch requests. The batch worker runs the same server-side agentic loop as the synchronous Messages API.
 
-Because there is no open connection to maintain, the batch loop runs **more iterations per turn** than a synchronous request before it returns `stop_reason: "pause_turn"`. If a batch result comes back with `pause_turn`, the turn did not finish; you can continue it by submitting the paused assistant content in a follow-up request (batch or synchronous) exactly as shown in the [pause\_turn continuation pattern](/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn).
+Because there is no open connection to maintain, the batch loop runs **more iterations per turn** than a synchronous request before it returns `stop_reason: "pause_turn"`. If a batch result comes back with `pause_turn`, the turn did not finish; you can continue it by submitting the paused assistant content in a follow-up request (batch or synchronous) exactly as shown in the [pause\_turn continuation pattern](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools#the-server-side-loop-and-pause-turn).
 
 The batch worker additionally throttles `web_search` per organization so that highly concurrent batch processing does not exhaust your organization's web-search rate limit. The batch retries throttled requests automatically; you don't need to handle this yourself, but very large web-search batches might take longer to complete.
 
@@ -1810,7 +1810,7 @@ To get the most out of the Batches API:
 If experiencing unexpected behavior:
 
 * Verify that the total batch request size doesn't exceed 256 MB. If the request size is too large, you may get a 413 `request_too_large` error.
-* Check that you're using [supported models](#supported-models) for all requests in the batch.
+* Check that you're using [supported models](https://platform.claude.com/docs/en/build-with-claude/batch-processing#supported-models) for all requests in the batch.
 * Ensure each request in the batch has a unique `custom_id`.
 * Ensure that it has been less than 29 days since batch `created_at` (not processing `ended_at`) time. If over 29 days have passed, results will no longer be viewable.
 * Confirm that the batch has not been canceled.
@@ -1827,7 +1827,7 @@ Note that the failure of one request in a batch does not affect the processing o
 
 Batch processing stores request and response data for up to 29 days after batch creation. You can delete a message batch at any time after processing using the `DELETE /v1/messages/batches/{batch_id}` endpoint. To delete an in-progress batch, cancel it first. Asynchronous processing requires server-side storage of both inputs and outputs until batch completion and result retrieval.
 
-For ZDR eligibility across all features, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## FAQ
 
@@ -1837,11 +1837,11 @@ For ZDR eligibility across all features, see [API and data retention](/docs/en/m
   </Accordion>
 
   <Accordion title="Is the Batches API available for all models?">
-    See [Supported models](#supported-models) for the list of supported models.
+    See [Supported models](https://platform.claude.com/docs/en/build-with-claude/batch-processing#supported-models) for the list of supported models.
   </Accordion>
 
   <Accordion title="Can I use the Message Batches API with other API features?">
-    Yes, the Message Batches API supports nearly all features available in the Messages API, including most beta features. A small number of parameters (`stream`, `speed`, `store`, `previous_thread_event_id`, `cache_hint`, `context_hint`, `max_tokens: 0`, and `research_preview_2026_02`) are not supported. See [What can be batched](#what-can-be-batched) for the full list.
+    Yes, the Message Batches API supports nearly all features available in the Messages API, including most beta features. A small number of parameters (`stream`, `speed`, `store`, `previous_thread_event_id`, `cache_hint`, `context_hint`, `max_tokens: 0`, and `research_preview_2026_02`) are not supported. See [What can be batched](https://platform.claude.com/docs/en/build-with-claude/batch-processing#what-can-be-batched) for the full list.
   </Accordion>
 
   <Accordion title="How does the Message Batches API affect pricing?">
@@ -1853,11 +1853,11 @@ For ZDR eligibility across all features, see [API and data retention](/docs/en/m
   </Accordion>
 
   <Accordion title="Are there Message Batches API rate limits and do they interact with the Messages API rate limits?">
-    The Message Batches API has HTTP requests-based rate limits in addition to limits on the number of requests in need of processing. See [Message Batches API rate limits](/docs/en/api/rate-limits#message-batches-api). Usage of the Batches API does not affect rate limits in the Messages API.
+    The Message Batches API has HTTP requests-based rate limits in addition to limits on the number of requests in need of processing. See [Message Batches API rate limits](https://platform.claude.com/docs/en/api/rate-limits#message-batches-api). Usage of the Batches API does not affect rate limits in the Messages API.
   </Accordion>
 
   <Accordion title="How do I handle errors in my batch requests?">
-    When you retrieve the results, each request has a `result` field indicating whether it `succeeded`, `errored`, was `canceled`, or `expired`. For `errored` results, additional error information is provided. View the error response object in the [API reference](/docs/en/api/messages/batches/create).
+    When you retrieve the results, each request has a `result` field indicating whether it `succeeded`, `errored`, was `canceled`, or `expired`. For `errored` results, additional error information is provided. View the error response object in the [API reference](https://platform.claude.com/docs/en/api/messages/batches/create).
   </Accordion>
 
   <Accordion title="How does the Message Batches API handle privacy and data separation?">
@@ -1877,11 +1877,11 @@ For ZDR eligibility across all features, see [API and data retention](/docs/en/m
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Search results" icon="magnifying-glass" href="/docs/en/build-with-claude/search-results">
+  <Card title="Search results" icon="magnifying-glass" href="https://platform.claude.com/docs/en/build-with-claude/search-results">
     Enable natural citations for RAG applications by providing search results with source attribution.
   </Card>
 
-  <Card title="Prompt caching" icon="database" href="/docs/en/build-with-claude/prompt-caching">
+  <Card title="Prompt caching" icon="database" href="https://platform.claude.com/docs/en/build-with-claude/prompt-caching">
     Reduce cost and latency by caching prompt prefixes shared across requests in a batch.
   </Card>
 </CardGroup>

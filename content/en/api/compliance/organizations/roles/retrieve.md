@@ -1,3 +1,8 @@
+---
+title: Get Compliance Role
+url: https://platform.claude.com/docs/en/api/compliance/organizations/roles/retrieve
+---
+
 ## Get Compliance Role
 
 **get** `/v1/compliance/organizations/{org_uuid}/roles/{role_id}`

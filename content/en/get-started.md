@@ -1,13 +1,13 @@
-# Get started with Claude
-
-Make your first API call to Claude and build a simple web search assistant.
-
+---
+title: Get started with Claude
+url: https://platform.claude.com/docs/en/get-started
+description: Make your first API call to Claude and build a simple web search assistant.
 ---
 
 ## Prerequisites
 
 * A [Claude Console account](https://platform.claude.com)
-* An [API key](/settings/keys)
+* An [API key](https://platform.claude.com/settings/keys)
 
 ## Call the API
 
@@ -78,7 +78,7 @@ Make your first API call to Claude and build a simple web search assistant.
         brew install anthropics/tap/ant
         ```
 
-        For other installation methods, see [Installation](/docs/en/cli-sdks-libraries/cli/quickstart#installation) in the CLI quickstart.
+        For other installation methods, see [Installation](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#installation) in the CLI quickstart.
       </Step>
 
       <Step title="Authenticate">
@@ -94,7 +94,7 @@ Make your first API call to Claude and build a simple web search assistant.
         ant auth status
         ```
 
-        On a remote host without a browser, pass `--no-browser` to get a URL you can open on another device, then paste the returned code back into the terminal. If `ANTHROPIC_API_KEY` is set in your environment, it takes precedence over the login credentials. For non-interactive environments such as CI, see [CLI authentication options](/docs/en/cli-sdks-libraries/cli/authentication).
+        On a remote host without a browser, pass `--no-browser` to get a URL you can open on another device, then paste the returned code back into the terminal. If `ANTHROPIC_API_KEY` is set in your environment, it takes precedence over the login credentials. For non-interactive environments such as CI, see [CLI authentication options](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication).
       </Step>
 
       <Step title="Make your first API call">
@@ -436,7 +436,7 @@ Make your first API call to Claude and build a simple web search assistant.
             }
 
             dependencies {
-                implementation("com.anthropic:anthropic-java:2.52.0")
+                implementation("com.anthropic:anthropic-java:2.53.0")
             }
 
             application {
@@ -462,7 +462,7 @@ Make your first API call to Claude and build a simple web search assistant.
                 <dependency>
                   <groupId>com.anthropic</groupId>
                   <artifactId>anthropic-java</artifactId>
-                  <version>2.52.0</version>
+                  <version>2.53.0</version>
                 </dependency>
               </dependencies>
             </project>
@@ -654,26 +654,26 @@ Make your first API call to Claude and build a simple web search assistant.
 
 You made your first API call. Next, learn the Messages API patterns you'll use in every Claude integration.
 
-<Card title="Working with the Messages API" icon="messages" href="/docs/en/build-with-claude/working-with-messages">
+<Card title="Working with the Messages API" icon="messages" href="https://platform.claude.com/docs/en/build-with-claude/working-with-messages">
   Learn multi-turn conversations, system prompts, stop reasons, and other core patterns.
 </Card>
 
 Once you're comfortable with the basics, explore further:
 
 <CardGroup cols={2}>
-  <Card title="Models overview" icon="brain" href="/docs/en/about-claude/models/overview">
+  <Card title="Models overview" icon="brain" href="https://platform.claude.com/docs/en/about-claude/models/overview">
     Compare Claude models by capability and cost.
   </Card>
 
-  <Card title="Features overview" icon="list" href="/docs/en/build-with-claude/overview">
+  <Card title="Features overview" icon="list" href="https://platform.claude.com/docs/en/build-with-claude/overview">
     Browse all Claude capabilities: tools, context management, structured outputs, and more.
   </Card>
 
-  <Card title="Client SDKs" icon="code-brackets" href="/docs/en/cli-sdks-libraries/overview">
+  <Card title="Client SDKs" icon="code-brackets" href="https://platform.claude.com/docs/en/cli-sdks-libraries/overview">
     Reference documentation for Python, TypeScript, C#, and other client libraries.
   </Card>
 
-  <Card title="Authentication" icon="lock" href="/docs/en/manage-claude/authentication">
+  <Card title="Authentication" icon="lock" href="https://platform.claude.com/docs/en/manage-claude/authentication">
     Compare API keys and Workload Identity Federation, and set key expiration.
   </Card>
 </CardGroup>

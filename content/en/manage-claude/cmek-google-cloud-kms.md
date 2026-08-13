@@ -1,17 +1,17 @@
-# Configure Google Cloud KMS for CMEK
-
-Use Google Cloud KMS to provide an encryption key for your organization.
-
+---
+title: Configure Google Cloud KMS for CMEK
+url: https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms
+description: Use Google Cloud KMS to provide an encryption key for your organization.
 ---
 
 ```bash Configure with the /claude-api skill in Claude Code
 claude "/claude-api help me configure a customer-managed encryption key with Google Cloud KMS"
 ```
 
-This guide walks through configuring a Google Cloud KMS key as a [customer-managed encryption key (CMEK)](/docs/en/manage-claude/cmek) for your Anthropic organization.
+This guide walks through configuring a Google Cloud KMS key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) for your Anthropic organization.
 
 <Warning>
-  Enabling CMEK is permanent. If your KMS key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](/docs/en/manage-claude/cmek) before you begin.
+  Enabling CMEK is permanent. If your KMS key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you begin.
 </Warning>
 
 ## Prerequisites
@@ -69,7 +69,7 @@ anthropic-cmek-client-us@gcp-anthropic-cmek-clients.iam.gserviceaccount.com
     You can also create the key from the Google Cloud Console. Open the key ring, click **Create key**, select **Generated key**, set the purpose and algorithm to symmetric encrypt and decrypt, and choose **HSM** under protection level.
 
     <Frame caption="Create an HSM-protected symmetric encrypt/decrypt key.">
-      ![Google Cloud KMS Create key page with HSM protection level and a Symmetric encrypt/decrypt purpose.](/docs/images/cmek/gcp-create-key.png)
+      ![Google Cloud KMS Create key page with HSM protection level and a Symmetric encrypt/decrypt purpose.](https://platform.claude.com/docs/images/cmek/gcp-create-key.png)
     </Frame>
   </Step>
 
@@ -101,7 +101,7 @@ anthropic-cmek-client-us@gcp-anthropic-cmek-clients.iam.gserviceaccount.com
     From the Console, select the key, open the **Permissions** panel, click **Grant access**, and add the service account with both the Cloud KMS CryptoKey Encrypter/Decrypter and Cloud KMS Viewer roles. Make sure you are on the key's permissions page, not the key ring or project, so the grant is scoped to this key only.
 
     <Frame caption="Grant the Anthropic service account both roles, scoped to the key.">
-      ![Grant access dialog with the Anthropic service account assigned Cloud KMS CryptoKey Encrypter/Decrypter and Viewer roles.](/docs/images/cmek/gcp-grant-access.png)
+      ![Grant access dialog with the Anthropic service account assigned Cloud KMS CryptoKey Encrypter/Decrypter and Viewer roles.](https://platform.claude.com/docs/images/cmek/gcp-grant-access.png)
     </Frame>
   </Step>
 
@@ -125,7 +125,7 @@ anthropic-cmek-client-us@gcp-anthropic-cmek-clients.iam.gserviceaccount.com
     From the Console, open the key's details page and click **Copy resource name**.
 
     <Frame caption="Copy the key's full resource name from the actions menu.">
-      ![Google Cloud key ring details with the Copy resource name action highlighted in the key's actions menu.](/docs/images/cmek/gcp-copy-resource-name.png)
+      ![Google Cloud key ring details with the Copy resource name action highlighted in the key's actions menu.](https://platform.claude.com/docs/images/cmek/gcp-copy-resource-name.png)
     </Frame>
   </Step>
 </Steps>

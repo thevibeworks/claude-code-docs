@@ -1,7 +1,7 @@
-# Customer-managed encryption keys
-
-Encrypt Claude workspace data at rest with a key you control.
-
+---
+title: Customer-managed encryption keys
+url: https://platform.claude.com/docs/en/manage-claude/cmek
+description: Encrypt Claude workspace data at rest with a key you control.
 ---
 
 ```bash Learn more with the /claude-api skill in Claude Code
@@ -25,21 +25,21 @@ The use of CMEK is optional. Eligible organizations can **opt in** to use custom
 
 Only Organization Admins (on Claude Platform) or Owners and the Primary Owner (on Claude Enterprise) can configure CMEK. On Claude Platform, CMEK is scoped per workspace and configured with the Admin API. On Claude Enterprise, CMEK is scoped per organization and configured in [claude.ai > Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls). On either product, CMEK protects data written after the key is enabled. Existing data (prior chats, files, and sessions) remains encrypted with Anthropic-managed keys and is not re-encrypted under your key.
 
-CMEK configuration events appear in the [Compliance API Activity Feed](/docs/en/manage-claude/compliance-activity-feed). The key operations Anthropic performs against your key (such as wrapping and unwrapping data keys) do not appear in the Compliance API; they appear in your cloud provider's audit logs.
+CMEK configuration events appear in the [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed). The key operations Anthropic performs against your key (such as wrapping and unwrapping data keys) do not appear in the Compliance API; they appear in your cloud provider's audit logs.
 
-Anthropic calls your key management service from its standard public IP range. If you restrict access to your key management service by IP, allow the addresses listed in [IP addresses](/docs/en/api/ip-addresses).
+Anthropic calls your key management service from its standard public IP range. If you restrict access to your key management service by IP, allow the addresses listed in [IP addresses](https://platform.claude.com/docs/en/api/ip-addresses).
 
 ## Prerequisites
 
 * Permissions to create encryption keys and manage key access in the account, project, or subscription that will host the encryption key.
 * An Organization Admin role in the Claude Console on Claude Platform, or an Owner or Primary Owner role on Claude Enterprise.
-* Data retention configuration: CMEK is allowed with [Zero data retention (ZDR)](/docs/en/manage-claude/api-and-data-retention) for both Claude Platform and Claude Enterprise.
+* Data retention configuration: CMEK is allowed with [Zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) for both Claude Platform and Claude Enterprise.
 
 ## Availability and regions
 
 CMEK is currently available in US regions only, and all encryption operations are processed in US regions.
 
-On [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. Create, validate, and attach keys in the Claude Console; the `external_keys` API endpoints are not currently available on Claude Platform on AWS. The key must be in the same AWS region as the workspace it is attached to.
+On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. Create, validate, and attach keys in the Claude Console; the `external_keys` API endpoints are not currently available on Claude Platform on AWS. The key must be in the same AWS region as the workspace it is attached to.
 
 For minimal latency, choose a region close to Anthropic's US infrastructure:
 
@@ -58,7 +58,7 @@ What CMEK covers depends on which product you use.
 **Claude Platform**
 
 * Message content, files and attachments (both inline attachments sent with a request and Files API uploads), and MCP and tool configuration.
-* [Claude Managed Agents](/docs/en/managed-agents/overview) data, including agent configurations, environments, webhooks, and sessions and their events.
+* [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) data, including agent configurations, environments, webhooks, and sessions and their events.
 
 **Claude Enterprise**
 
@@ -79,19 +79,18 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 
 * Workbench in the Claude Console is disabled.
 * Portions of the Compliance API that return raw content, such as prompts, responses, and files, are disabled.
-* In Claude Managed Agents, [memory stores](/docs/en/managed-agents/memory) and [dreams](/docs/en/managed-agents/dreams) are disabled. Requests to these endpoints from a CMEK-protected workspace return an `invalid_request_error` (HTTP 400). To use memory stores or dreams, send requests from a workspace without CMEK.
+* In Claude Managed Agents, [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) and [dreams](https://platform.claude.com/docs/en/managed-agents/dreams) are disabled. Requests to these endpoints from a CMEK-protected workspace return an `invalid_request_error` (HTTP 400). To use memory stores or dreams, send requests from a workspace without CMEK.
 * Other beta and research preview features may not be covered by CMEK.
 
 **Claude Enterprise**
 
 * Conversation history search is disabled. Conversation titles are encrypted, so searching by title or content returns no results.
 * Search across large numbers of files is slower.
-* Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
+* Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
 * Audit log exports are disabled.
 * Signed URLs for temporary file exchanges are disabled. These back organization data exports in claude.ai and Claude Code Remote file flows such as screenshot updates.
 * Personal preferences are disabled for users who belong to a CMEK-protected organization, across all organizations under the same parent. Users who do not belong to a CMEK-protected organization can still use them across all organizations.
-
-- Compliance API [local session transcripts](/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions) for Cowork and Claude Code currently return no message content. Session metadata is listed as usual, and the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`) returns each message with its content marked unavailable; see [Retrieve a local session transcript](/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript) for the response shape.
+* Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions) for Cowork and Claude Code currently return no message content. Session metadata is listed as usual, and the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`) returns each message with its content marked unavailable; see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript) for the response shape.
 
 ### Not encrypted
 
@@ -101,8 +100,8 @@ These features remain available, but their data is not encrypted under your key.
 
 * Data that is not at rest (such as cache) and data with a TTL shorter than 24 hours.
 * Activity Feed, audit logs, and telemetry network traffic such as OTEL, so customers can maintain compliance even if a key is revoked.
-* Claude Managed Agents [vault credential](/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
-* [User profiles](/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
+* Claude Managed Agents [vault credential](https://platform.claude.com/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
+* [User profiles](https://platform.claude.com/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
 
 **Claude Enterprise**
 
@@ -137,7 +136,7 @@ In three narrow cases, Anthropic may preserve specific records under Anthropic-m
 * Exigent risk of serious harm (for example, CBRNE weapons development, offensive cyberattacks, or imminent threats of violence).
 * Violations of Section D.4 of Anthropic's [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) or equivalent terms in a customer's other applicable agreement with Anthropic.
 
-Outside of [CSAM screening](https://support.claude.com/en/articles/9020328-csam-detection-and-reporting), preservation requires a human reviewer's explicit decision and follows Anthropic's [retention policy for commercial data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data). For every instance of preservation, a corresponding [Compliance API Activity Feed](/docs/en/manage-claude/compliance-activity-feed) event is generated with a reason code conveying the purpose of the preservation. See [CMEK content preservation](/docs/en/manage-claude/access-transparency#cmek-content-preservation) for details. Safety screening metadata (records derived from Anthropic's automated safety scans, such as pattern identifiers and match indicators, not conversation content) is retained under Anthropic-managed encryption and remains readable after key revocation.
+Outside of [CSAM screening](https://support.claude.com/en/articles/9020328-csam-detection-and-reporting), preservation requires a human reviewer's explicit decision and follows Anthropic's [retention policy for commercial data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data). For every instance of preservation, a corresponding [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) event is generated with a reason code conveying the purpose of the preservation. See [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation) for details. Safety screening metadata (records derived from Anthropic's automated safety scans, such as pattern identifiers and match indicators, not conversation content) is retained under Anthropic-managed encryption and remains readable after key revocation.
 
 ## Limitations
 
@@ -152,15 +151,15 @@ Outside of [CSAM screening](https://support.claude.com/en/articles/9020328-csam-
 Follow the guide for the key management service you use.
 
 <CardGroup cols={3}>
-  <Card href="/docs/en/manage-claude/cmek-aws-kms" title="AWS KMS">
+  <Card href="https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms" title="AWS KMS">
     Create an AWS KMS key with a cross-account key policy, then register and validate it.
   </Card>
 
-  <Card href="/docs/en/manage-claude/cmek-google-cloud-kms" title="Google Cloud KMS">
+  <Card href="https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms" title="Google Cloud KMS">
     Create a Cloud KMS crypto key, grant Anthropic's service account access, then register it.
   </Card>
 
-  <Card href="/docs/en/manage-claude/cmek-azure-key-vault" title="Azure Key Vault">
+  <Card href="https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault" title="Azure Key Vault">
     Create an RSA key, grant the Anthropic service principal access, then register and validate it.
   </Card>
 </CardGroup>

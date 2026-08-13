@@ -1,3 +1,8 @@
+---
+title: Get Federation Issuer
+url: https://platform.claude.com/docs/en/api/admin/federation_issuers/retrieve
+---
+
 ## Get Federation Issuer
 
 **get** `/v1/organizations/federation_issuers/{federation_issuer_id}`

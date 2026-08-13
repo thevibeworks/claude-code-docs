@@ -1,7 +1,7 @@
-# Using Agent Skills with the API
-
-Learn how to use Agent Skills to extend Claude's capabilities through the API.
-
+---
+title: Using Agent Skills with the API
+url: https://platform.claude.com/docs/en/build-with-claude/skills-guide
+description: Learn how to use Agent Skills to extend Claude's capabilities through the API.
 ---
 
 Agent Skills extend Claude's capabilities through organized folders of instructions, scripts, and resources. This guide shows you how to use both pre-built and custom Skills with the Claude API.
@@ -9,22 +9,22 @@ Agent Skills extend Claude's capabilities through organized folders of instructi
 <Note>
   For complete API reference including request/response schemas and all parameters, see:
 
-  * [Skill Management API Reference](/docs/en/api/beta/skills/list) - CRUD operations for Skills
-  * [Skill Versions API Reference](/docs/en/api/beta/skills/versions/list) - Version management
+  * [Skill Management API Reference](https://platform.claude.com/docs/en/api/beta/skills/list) - CRUD operations for Skills
+  * [Skill Versions API Reference](https://platform.claude.com/docs/en/api/beta/skills/versions/list) - Version management
 </Note>
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 ## Quick links
 
 <CardGroup cols={2}>
-  <Card title="Get started with Agent Skills in the API" icon="rocket" href="/docs/en/agents-and-tools/agent-skills/quickstart">
+  <Card title="Get started with Agent Skills in the API" icon="rocket" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart">
     Learn how to use Agent Skills to create documents with the Claude API in under 10 minutes.
   </Card>
 
-  <Card title="Skill authoring best practices" icon="hammer" href="/docs/en/agents-and-tools/agent-skills/best-practices">
+  <Card title="Skill authoring best practices" icon="hammer" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">
     Learn how to write effective Skills that Claude can discover and use successfully.
   </Card>
 </CardGroup>
@@ -35,7 +35,7 @@ Agent Skills extend Claude's capabilities through organized folders of instructi
   For a detailed look at the architecture and real-world applications of Agent Skills, read the engineering blog post: [Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills).
 </Note>
 
-Skills integrate with the Messages API through the [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool). Whether using pre-built Skills managed by Anthropic or custom Skills you've uploaded, the integration shape is identical: both require code execution and use the same `container` structure.
+Skills integrate with the Messages API through the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool). Whether using pre-built Skills managed by Anthropic or custom Skills you've uploaded, the integration shape is identical: both require code execution and use the same `container` structure.
 
 ### Using Skills
 
@@ -43,31 +43,31 @@ Skills integrate identically in the Messages API regardless of source. You speci
 
 You can use Skills from two sources:
 
-| Aspect             | Anthropic Skills                           | Custom Skills                                                               |
-| ------------------ | ------------------------------------------ | --------------------------------------------------------------------------- |
-| **Type value**     | `anthropic`                                | `custom`                                                                    |
-| **Skill IDs**      | Short names: `pptx`, `xlsx`, `docx`, `pdf` | Generated: `skill_01AbCdEfGhIjKlMnOpQrStUv`                                 |
-| **Version format** | Date-based: `20251013` or `latest`         | Epoch timestamp: `1759178010641129` or `latest`                             |
-| **Management**     | Pre-built and maintained by Anthropic      | Upload and manage through the [Skills API](/docs/en/api/beta/skills/create) |
-| **Availability**   | Available to all users                     | Private to your workspace                                                   |
+| Aspect             | Anthropic Skills                           | Custom Skills                                                                                          |
+| ------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| **Type value**     | `anthropic`                                | `custom`                                                                                               |
+| **Skill IDs**      | Short names: `pptx`, `xlsx`, `docx`, `pdf` | Generated: `skill_01AbCdEfGhIjKlMnOpQrStUv`                                                            |
+| **Version format** | Date-based: `20251013` or `latest`         | Epoch timestamp: `1759178010641129` or `latest`                                                        |
+| **Management**     | Pre-built and maintained by Anthropic      | Upload and manage through the [Skills API](https://platform.claude.com/docs/en/api/beta/skills/create) |
+| **Availability**   | Available to all users                     | Private to your workspace                                                                              |
 
-Both skill sources are returned by the [List Skills endpoint](/docs/en/api/beta/skills/list) (use the `source` parameter to filter). The integration shape and execution environment are identical. The only difference is where the Skills come from and how they're managed.
+Both skill sources are returned by the [List Skills endpoint](https://platform.claude.com/docs/en/api/beta/skills/list) (use the `source` parameter to filter). The integration shape and execution environment are identical. The only difference is where the Skills come from and how they're managed.
 
 ### Prerequisites
 
 To use Skills, you need:
 
-1. **Claude API key** from the [Claude Console](/settings/keys)
+1. **Claude API key** from the [Claude Console](https://platform.claude.com/settings/keys)
 
 2. **Beta headers:**
 
    * `code-execution-2025-08-25` - Enables code execution (required for Skills)
    * `skills-2025-10-02` - Enables Skills API
-   * `files-api-2025-04-14` - Required only when you use the [Files API](/docs/en/build-with-claude/files) to upload input files or download files a Skill produces
+   * `files-api-2025-04-14` - Required only when you use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to upload input files or download files a Skill produces
 
-3. **[Code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool)** enabled in your requests
+3. **[Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool)** enabled in your requests
 
-Skills require the code execution tool, so use a model from its [model compatibility list](/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility).
+Skills require the code execution tool, so use a model from its [model compatibility list](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility).
 
 ***
 
@@ -328,11 +328,11 @@ When Skills create documents (Excel, PowerPoint, PDF, Word), they return `file_i
 **How it works:**
 
 1. Skills create files during code execution.
-2. The response includes a `file_id` for each created file, inside code-execution tool result blocks (see [Response format](/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format)).
+2. The response includes a `file_id` for each created file, inside code-execution tool result blocks (see [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format)).
 3. Use the Files API to download the actual file content.
 4. Save locally or process as needed.
 
-To provide input files for Skills to work on, [upload them with the Files API](/docs/en/build-with-claude/files#uploading-a-file) and reference them in your request with a [container upload block](/docs/en/build-with-claude/files#container-upload-blocks).
+To provide input files for Skills to work on, [upload them with the Files API](https://platform.claude.com/docs/en/build-with-claude/files#uploading-a-file) and reference them in your request with a [container upload block](https://platform.claude.com/docs/en/build-with-claude/files#container-upload-blocks).
 
 **Example: creating and downloading an Excel file**
 
@@ -969,12 +969,12 @@ To provide input files for Skills to work on, [upload them with the Files API](/
 </CodeGroup>
 
 <Note>
-  For complete details, see [Files API](/docs/en/build-with-claude/files).
+  For complete details, see [Files API](https://platform.claude.com/docs/en/build-with-claude/files).
 </Note>
 
 ### Multi-turn conversations
 
-The response's `container` object carries the container's `id` and `expires_at` timestamp (see [Container reuse](/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) for lifetime details). Reuse the same container across multiple messages by specifying the container ID:
+The response's `container` object carries the container's `id` and `expires_at` timestamp (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) for lifetime details). Reuse the same container across multiple messages by specifying the container ID:
 
 <CodeGroup>
   ```bash cURL
@@ -2246,7 +2246,7 @@ Combine multiple Skills in a single request to handle complex workflows:
 
 ### Creating a Skill
 
-A Skill bundle is a directory containing a `SKILL.md` file at the top level with `name` and `description` YAML frontmatter, plus any supporting scripts or resources. See [Get started with Agent Skills in the API](/docs/en/agents-and-tools/agent-skills/quickstart) to author one, and the **Requirements** list following the examples for the full constraints.
+A Skill bundle is a directory containing a `SKILL.md` file at the top level with `name` and `description` YAML frontmatter, plus any supporting scripts or resources. See [Get started with Agent Skills in the API](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart) to author one, and the **Requirements** list following the examples for the full constraints.
 
 Upload your custom Skill to make it available in your workspace. You can upload a zip archive or individual file objects. The Python SDK also provides a `files_from_dir` helper that accepts a directory path.
 
@@ -2535,7 +2535,7 @@ Files are identified by the filename you attach. Per-file uploads must keep a co
   * `name`: Maximum 64 characters, lowercase letters/numbers/hyphens only, no XML tags, no reserved words ("anthropic", "claude")
   * `description`: Maximum 1024 characters, non-empty, no XML tags
 
-For complete request/response schemas, see the [Create Skill API reference](/docs/en/api/beta/skills/create).
+For complete request/response schemas, see the [Create Skill API reference](https://platform.claude.com/docs/en/api/beta/skills/create).
 
 ### Listing Skills
 
@@ -2685,7 +2685,7 @@ Retrieve all Skills available to your workspace, including both Anthropic pre-bu
   ```
 </CodeGroup>
 
-See the [List Skills API reference](/docs/en/api/beta/skills/list) for pagination and filtering options.
+See the [List Skills API reference](https://platform.claude.com/docs/en/api/beta/skills/list) for pagination and filtering options.
 
 ### Retrieving a Skill
 
@@ -2997,7 +2997,7 @@ Skills support versioning to manage updates safely:
 * Use `"latest"` to always get the most recent version
 * Create new versions when updating Skill files
 
-A new version is a complete snapshot, not a delta: upload the Skill's full file set each time, under the same top-level directory name used at creation. Files you omit are not carried over. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](#creating-a-skill).
+A new version is a complete snapshot, not a delta: upload the Skill's full file set each time, under the same top-level directory name used at creation. Files you omit are not carried over. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](https://platform.claude.com/docs/en/build-with-claude/skills-guide#creating-a-skill).
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -3531,7 +3531,7 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
   ```
 </CodeGroup>
 
-See the [Create Skill Version API reference](/docs/en/api/beta/skills/versions/create) for complete details.
+See the [Create Skill Version API reference](https://platform.claude.com/docs/en/api/beta/skills/versions/create) for complete details.
 
 ***
 
@@ -3913,7 +3913,7 @@ Skills run in the code execution container with these limitations:
 * **No runtime package installation:** Only pre-installed packages available
 * **Isolated environment:** A fresh container is created unless you specify an existing container ID
 
-See [Code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool) for available packages.
+See [Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) for available packages.
 
 ***
 
@@ -3937,7 +3937,7 @@ Combine Skills when tasks involve multiple document types or domains:
 
 The SDK tabs in this section show the `container` value to include in a Messages request. The cURL and CLI tabs show the full request.
 
-**For production:** pin a specific version, so Skill updates never change your deployed behavior. The version ID comes from the create-version response in [Versioning](#versioning) or from the [List Skill Versions API](/docs/en/api/beta/skills/versions/list). The ID is always a string: quote epoch-timestamp IDs in JSON or YAML.
+**For production:** pin a specific version, so Skill updates never change your deployed behavior. The version ID comes from the create-version response in [Versioning](https://platform.claude.com/docs/en/build-with-claude/skills-guide#versioning) or from the [List Skill Versions API](https://platform.claude.com/docs/en/api/beta/skills/versions/list). The ID is always a string: quote epoch-timestamp IDs in JSON or YAML.
 
 <CodeGroup>
   ```bash cURL
@@ -4225,7 +4225,7 @@ The SDK tabs in this section show the `container` value to include in a Messages
 
 ### Prompt caching considerations
 
-If you use [Prompt caching](/docs/en/build-with-claude/prompt-caching), changing the Skills list in your container breaks the cache. Skills render into the system prompt in a fixed order, so the same list produces the same cacheable prefix:
+If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), changing the Skills list in your container breaks the cache. Skills render into the system prompt in a fixed order, so the same list produces the same cacheable prefix:
 
 <CodeGroup>
   ```bash cURL
@@ -4947,20 +4947,20 @@ Handle Skill-related errors gracefully:
 
 Agent Skills are not covered by ZDR arrangements. Skill definitions and execution data are retained according to Anthropic's standard data retention policy.
 
-For ZDR eligibility across all features, see [API and data retention](/docs/en/manage-claude/api-and-data-retention).
+For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="API reference" icon="book" href="/docs/en/api/beta/skills/create">
+  <Card title="API reference" icon="book" href="https://platform.claude.com/docs/en/api/beta/skills/create">
     Complete API reference with all endpoints
   </Card>
 
-  <Card title="Skill authoring best practices" icon="edit" href="/docs/en/agents-and-tools/agent-skills/best-practices">
+  <Card title="Skill authoring best practices" icon="edit" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">
     Learn how to write effective Skills that Claude can discover and use successfully.
   </Card>
 
-  <Card title="Code execution tool" icon="terminal" href="/docs/en/agents-and-tools/tool-use/code-execution-tool">
+  <Card title="Code execution tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool">
     Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
   </Card>
 </CardGroup>

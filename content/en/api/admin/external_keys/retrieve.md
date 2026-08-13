@@ -1,3 +1,8 @@
+---
+title: Get External Key
+url: https://platform.claude.com/docs/en/api/admin/external_keys/retrieve
+---
+
 ## Get External Key
 
 **get** `/v1/organizations/external_keys/{external_key_id}`

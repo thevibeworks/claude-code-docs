@@ -1,15 +1,15 @@
-# Get started with Agent Skills in the API
-
-Learn how to use Agent Skills to create documents with the Claude API in under 10 minutes.
-
+---
+title: Get started with Agent Skills in the API
+url: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart
+description: Learn how to use Agent Skills to create documents with the Claude API in under 10 minutes.
 ---
 
 This tutorial shows you how to use Agent Skills to create a PowerPoint presentation. You'll learn how to enable Skills, make a request, and access the generated file.
 
 ## Prerequisites
 
-* A [Claude API key](/settings/keys) or a logged-in [ant CLI](/docs/en/cli-sdks-libraries/cli/authentication)
-* A [client SDK](/docs/en/cli-sdks-libraries/overview) for your language, or `curl` and `jq`
+* A [Claude API key](https://platform.claude.com/settings/keys) or a logged-in [ant CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication)
+* A [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) for your language, or `curl` and `jq`
 * Basic familiarity with making API requests
 
 ## Agent Skills overview
@@ -358,7 +358,7 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
 The request includes the following parts:
 
-* **`model`:** A [model that supports the code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility)
+* **`model`:** A [model that supports the code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility)
 * **`container.skills`:** Specifies which Skills Claude can use
 * **`type: "anthropic"`:** Indicates this is an Anthropic-managed Skill
 * **`skill_id: "pptx"`:** The PowerPoint Skill identifier
@@ -367,7 +367,7 @@ The request includes the following parts:
 * **Beta header:** `skills-2025-10-02`
 
 <Note>
-  The examples on this page use the `code_execution_20260521` tool version, which is generally available and needs only the `skills-2025-10-02` beta header. The Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement. If you use a different version, keep its tool `type` and any beta header consistent with the code execution tool page, and always include `skills-2025-10-02`.
+  The examples on this page use the `code_execution_20260521` tool version, which is generally available and needs only the `skills-2025-10-02` beta header. The Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement. If you use a different version, keep its tool `type` and any beta header consistent with the code execution tool page, and always include `skills-2025-10-02`.
 </Note>
 
 When you make this request, Claude automatically matches your task to the relevant Skill. Because you asked for a presentation, Claude determines the PowerPoint Skill is relevant and loads its full instructions: the second level of progressive disclosure. Then Claude runs the Skill's code to create your presentation.
@@ -611,7 +611,7 @@ The presentation was created in the code execution container and saved as a file
 </CodeGroup>
 
 <Note>
-  For complete details on working with generated files, see [Retrieve generated files](/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) in the code execution tool documentation.
+  For complete details on working with generated files, see [Retrieve generated files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) in the code execution tool documentation.
 </Note>
 
 ## Try more examples
@@ -1233,15 +1233,15 @@ Try these variations:
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Skill authoring best practices" icon="edit" href="/docs/en/agents-and-tools/agent-skills/best-practices">
+  <Card title="Skill authoring best practices" icon="edit" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices">
     Learn how to write effective Skills that Claude can discover and use successfully.
   </Card>
 
-  <Card title="Using Agent Skills with the API" icon="book" href="/docs/en/build-with-claude/skills-guide">
+  <Card title="Using Agent Skills with the API" icon="book" href="https://platform.claude.com/docs/en/build-with-claude/skills-guide">
     Learn how to use Agent Skills to extend Claude's capabilities through the API.
   </Card>
 
-  <Card title="Create custom Skills" icon="code" href="/docs/en/api/skills/create-skill">
+  <Card title="Create custom Skills" icon="code" href="https://platform.claude.com/docs/en/api/skills/create-skill">
     Upload your own Skills for specialized tasks.
   </Card>
 

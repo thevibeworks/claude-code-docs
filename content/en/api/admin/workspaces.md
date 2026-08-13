@@ -1,3 +1,8 @@
+---
+title: Workspaces
+url: https://platform.claude.com/docs/en/api/admin/workspaces
+---
+
 # Workspaces
 
 ## Create Workspace

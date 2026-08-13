@@ -1,3 +1,8 @@
+---
+title: Create Tunnel Certificate
+url: https://platform.claude.com/docs/en/api/beta/tunnels/certificates/create
+---
+
 ## Create Tunnel Certificate
 
 **post** `/v1/tunnels/{tunnel_id}/certificates`
@@ -18,7 +23,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 29 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -83,6 +88,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
     - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Body Parameters
 

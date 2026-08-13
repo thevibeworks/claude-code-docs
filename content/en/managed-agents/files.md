@@ -1,21 +1,21 @@
-# Adding files
-
-Upload files and mount them in your sandbox for reading and processing.
-
+---
+title: Adding files
+url: https://platform.claude.com/docs/en/managed-agents/files
+description: Upload files and mount them in your sandbox for reading and processing.
 ---
 
 You can provide files to your agent by uploading them through the Files API and mounting them in the session's sandbox.
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Uploading files
 
-First, upload a file using the [Files API](/docs/en/build-with-claude/files):
+First, upload a file using the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   file=$(curl --fail-with-body -sS "${auth[@]}" \
     "${base_url}/files" \
     -F file=@data.csv)
@@ -92,7 +92,7 @@ Mount uploaded files into the sandbox by adding them to the `resources` array wh
 </Tip>
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   session=$(
     jq -n \
       --arg agent_id "${agent_id}" \
@@ -235,16 +235,16 @@ Mount uploaded files into the sandbox by adding them to the `resources` array wh
   ```
 </CodeGroup>
 
-With the preceding `mount_path`, the agent reads the file at `/mnt/session/uploads/data.csv` (see [File paths](#file-paths)).
+With the preceding `mount_path`, the agent reads the file at `/mnt/session/uploads/data.csv` (see [File paths](https://platform.claude.com/docs/en/managed-agents/files#file-paths)).
 
-A new `file_id` is created that references the instance of the file in the session. These copies do not count against your [storage limits](/docs/en/build-with-claude/files).
+A new `file_id` is created that references the instance of the file in the session. These copies do not count against your [storage limits](https://platform.claude.com/docs/en/build-with-claude/files).
 
 ## Multiple files
 
 Mount multiple files by adding entries to the `resources` array:
 
 <CodeGroup>
-  ```json curl
+  ```json cURL
   "resources": [
     { "type": "file", "file_id": "file_abc123", "mount_path": "/data.csv" },
     { "type": "file", "file_id": "file_def456", "mount_path": "/config.json" },
@@ -338,7 +338,7 @@ A maximum of 500 files is supported per session.
 You can add or remove files from a session after creation using the session resources API. Each resource has an `id` returned when it is added (or listed), which you use for deletes.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   resource=$(
     jq -n --arg file_id "${file_id}" '{type: "file", file_id: $file_id}' \
       | curl --fail-with-body -sS "${auth[@]}" \
@@ -435,7 +435,7 @@ You can add or remove files from a session after creation using the session reso
 List all resources on a session with `resources.list`. To remove a file, call `resources.delete` with the resource ID:
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   curl --fail-with-body -sS "${auth[@]}" \
     "${base_url}/sessions/${session_id}/resources" \
     | jq -r '.data[] | "\(.id) \(.type)"'
@@ -537,10 +537,10 @@ List all resources on a session with `resources.list`. To remove a file, call `r
 
 ## Listing and downloading session files
 
-Use the [Files API](/docs/en/build-with-claude/files) to list files scoped to a session and download them.
+Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to list files scoped to a session and download them.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   # List files associated with a session
   curl -fsSL "https://api.anthropic.com/v1/files?scope_id=sesn_abc123" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \

@@ -1,16 +1,18 @@
 # Get started with Claude in Chrome
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
-
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. You can launch Claude in Chrome tasks from the side panel in your Chrome browser, or through Claude Cowork or Claude Code.
 
-**Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is now enhanced with our safety classifiers but is still risky. Please review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome side panel. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+
+**Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is enhanced with our safety classifiers but is still risky. Please review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
+
+---
 
 ## Where you can use Claude in Chrome
 
 ### Claude Code integration
 
-Claude Code and the Chrome extension now work together for a build-test-verify workflow:
+Claude Code and the Chrome extension work together for a build-test-verify workflow:
 
 - Build with Claude Code in your terminal, then deploy to a URL Claude can reach.
 
@@ -34,13 +36,21 @@ Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1786554900&amp;signature=b9d8ec50cc6d32a9d95fc41276375cd2eb3f496d0613a4a38cb0a1e0d2900cfe&amp;req=dSguFM93m4RfW%2FMW1HO4zdOezI1Z7bdwhnw73Y7ib%2BeoWz96tbw%2FHRMFTgCq%0AkHn9OFPV5VxIw9Rsr14%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1786730400&amp;signature=b5fbfff2ccc721328bb57ae5b6b3e9d59d22e2186fdab74b8865d94938c3404b&amp;req=diYnEsB9noleWPMW3nq%2BgYRoBvFK8OHHMNFouCD7O2i30gZim5upy9Oj0pkX%0A6%2FAJd0yg%2BBOnH%2B%2FO90%2BfUdXDcMs%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
 ### Chat with Claude in the browser side panel
 
-Open the Claude side panel to work with Claude right next to the page you're on. Claude sees what's on the page and can act on it—reading, clicking, typing, navigating, and filling forms—so you can get help without leaving your browser window.
+Open the Claude side panel to work with Claude right next to the page you're on. Claude sees what's on the page and can act on it, reading, clicking, typing, navigating, and filling forms, so you can get help without leaving your browser window.
+
+On Max and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where your admin has enabled it, the side panel runs as a Claude Cowork session, which means:
+
+- **Your conversations are saved.** Every side panel session appears in your history like any other Cowork session.
+
+- **Sessions move with you.** Start a session in the side panel and pick it up on the web, in Claude Desktop, or on Claude Mobile. Sessions live with your Claude account rather than with the machine you started on.
+
+- **Your skills, plugins, and connectors work here.** They behave the same way they do in Cowork on desktop. Save a skill in the side panel and run it from any surface.
 
 The side panel is a good fit for in-the-moment browsing tasks:
 
@@ -50,7 +60,25 @@ The side panel is a good fit for in-the-moment browsing tasks:
 
 - Walk through a task on a site step by step while you watch.
 
-To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Installing Claude in Chrome](#h_e0aabae2db)** below.
+The side panel starts in "Automatically approve" mode: Claude works continuously, reviews each action for safety, and pauses to ask you when something needs your approval. If you switch to a different mode, **the side panel keeps your choice for future sessions**. Learn more in the[**Claude in Chrome permissions guide**](https://support.claude.com/en/articles/12902446).
+
+**Note:** On Enterprise plans, the Cowork side panel requires your admin to enable Cowork in the cloud and Claude in Chrome for your organization. If you see the classic side panel, contact your admin. Learn more in **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
+
+To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](#h_e0aabae2db)** below.
+
+**Note:** The side panel reads the tab you're on with no extra setup. Tasks that need your local files, your computer, or Claude driving Chrome from another surface still need the Claude Desktop app open and connected, even though your session runs in the cloud.
+
+**To switch back to the classic side panel:**
+
+If you'd rather use the previous side panel, you can switch back at any time:
+
+1. Open the side panel in Chrome.
+
+2. Click the three dots in the upper right corner.
+
+3. Select "Switch back to classic."
+
+**Note:** Recorded workflows are available in the classic side panel only.
 
 ## Model selection
 
@@ -58,7 +86,7 @@ Claude in Chrome is available on all public models.
 
 ---
 
-## Installing Claude in Chrome
+## Install Claude in Chrome
 
 1. Open a Google Chrome browser window.
 
@@ -82,7 +110,7 @@ The Claude icon will appear in your Chrome toolbar. Click it to open Claude in a
 
 You will need to grant Claude in Chrome the following permissions to install and use the extension:
 
-| **Permission**                      | **Why Claude Needs This**                                                                                                                                              |
+| **Permission**                      | **Why Claude needs this**                                                                                                                                              |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sidePanel                           | This lets Claude appear as a panel on the side of your browser, so you can chat with Claude while browsing any website.                                                |
 | storage                             | This lets Claude save your preferences so they're still there when you close and reopen your browser.                                                                  |
@@ -104,9 +132,9 @@ Refer to the **[Google Chrome Permissions documentation](https://developer.chrom
 
 ## Core capabilities
 
-### Record a workflow
+### Record a workflow (classic side panel)
 
-Teach Claude a workflow by recording the steps yourself, and Claude learns to repeat them. This is useful for repetitive browser tasks that follow the same pattern each time. To record a workflow:
+In the classic side panel, you can teach Claude a workflow by recording the steps yourself, and Claude learns to repeat them. This is useful for repetitive browser tasks that follow the same pattern each time. Recording isn't available when the side panel runs as a Cowork session. To record a workflow in the classic side panel:
 
 1. Click the record icon in the extension panel.
 
@@ -177,15 +205,3 @@ If you're using Claude in Chrome on a Team or Enterprise plan, your admin may ha
 - **Site access:** Your admin can restrict which websites Claude is allowed to access using allowlists and blocklists.
 
 If you're unable to install or use the extension, contact your organization's admin. For admin documentation, see **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-for-chrome-admin-controls)**.
-
----
-
-## Next steps
-
-- **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide)**: Learn how to control what Claude can access and do within the extension.
-
-- **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)**: Understand risks and best practices.
-
-- **[Claude in Chrome troubleshooting](https://support.claude.com/en/articles/12902405-claude-in-chrome-troubleshooting)**: Get help with common issues.
-
-- **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-for-chrome-admin-controls)**: For Team and Enterprise admins managing the extension for their organization.

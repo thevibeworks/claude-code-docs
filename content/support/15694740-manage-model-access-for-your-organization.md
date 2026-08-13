@@ -2,7 +2,7 @@
 
 This guide explains how to control which Claude models members of your organization can use, and how to cap the effort level each role can select per model. You can manage model access for your whole organization or for specific custom roles.
 
-Model access settings are available in beta for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+Model access settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
 To set the model new conversations start on, see **[Set a default model for your organization](https://support.claude.com/en/articles/15330088)**.
 
@@ -42,9 +42,9 @@ The organization setting is the ceiling, so a role can’t grant access to a mod
 
 If any custom role uses the model you’re disabling as its default, you’ll be prompted to change that role’s default before the change can be saved.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1786554900&amp;signature=b386c4ae82201448d68a2a1ae2a76a82f39a8bf3ccba88221b3c495229dd4877&amp;req=diUmEs93nohdWPMW1HO4zXlxEuG8UtVeQf5Pb7M2Q0skxEH5B2ajUDK4xj03%0AbK3qJoFnFDaUsFQJQ7s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1786665600&amp;signature=bf84194e848b4028ba13eed3c5d4866c87c11bf862b1ffb1521d2e950173df07&amp;req=diUmEs93nohdWPMW3nq%2BgbIU8QSugM4Rwcc%2BDYxHAZIPfcILy9R9qJthwvsV%0APvKjx7IQuuuYV6GHytPvjwv%2BKr0%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1786554900&amp;signature=b438988f5d90ca1cf76c7b07e790c865b94ec3151f43c919d490575bfd0c3c8c&amp;req=diUmEs93nohdW%2FMW1HO4zTqNsY%2FAQ1xeAod9uc510lxpkNwtesGbiEMYZfaT%0AbJx369AdfglLqIYDYvg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1786665600&amp;signature=1493845ddae558738d768195ce0c5b88b676cd9e6fc66e88f93ecf507d4a2751&amp;req=diUmEs93nohdW%2FMW3nq%2BgdxbSC3E3%2F5M4nzNVA%2FChTQ8Oh3zxvSZ7UhO0FhY%0A7ROkZ3LNKjYakqW%2Fr5yE1aj05co%3D%0A)
 
 ---
 
@@ -62,7 +62,7 @@ If any custom role uses the model you’re disabling as its default, you’ll be
 
 Only models the role grants access to can be selected as that role’s default model.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1786554900&amp;signature=d36ceca5f10d4d4262e13182ae7016d12dd8d19cdc0221e686b729b1ebad0e79&amp;req=diUmEs93nohdWvMW1HO4zYj9SfMG6IW0XsqpNqvyFRKtQsgtW5N8HcTPzf%2Fq%0Aaf%2FhzDpIuxUyyhWT94U%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1786665600&amp;signature=b44156b6f3c64ca7a9e5829cccb1a769d67ff34f205966caf1ddaea7e3ed3c88&amp;req=diUmEs93nohdWvMW3nq%2BgXC%2FpuFTWFso%2Bb3jFSFH8bF4U2mJCpXr3AnqsJiD%0A1FN%2F7ari1Fn0oTEDHy9iJUzX8rI%3D%0A)
 
 ---
 
@@ -80,7 +80,7 @@ Effort limits determine how much computation members on a role can apply per res
 
 5. Click "Save" to save your changes.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1786554900&amp;signature=72196eccc0e5ea978384aa62143338efc5d6cc1ff247a1ba896c19066f3069b2&amp;req=diUmEs93nohdXvMW1HO4ze1xBjW5dr0QDeA1RkowXUEu6E7%2B%2FkoSKbUeKeWh%0AzbUE9sXb7LPJzFgw%2F60%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1786665600&amp;signature=5d81a7303b2d7331fd0f338b4450ef04488747daee734e64f49b42ceb604c42a&amp;req=diUmEs93nohdXvMW3nq%2BgebDzDuRhPTR%2BnFtKcQFB8oy9qxnZjZq2CJ0yVin%0AE%2F5jS00cUqHlkkx8tDTcO0DSjjE%3D%0A)
 
 Members on the role see only effort levels at or below the cap in their model menu. Note that available effort levels differ depending on the model, and some models don’t support effort level settings at all. For an explanation of each level, see **[Change the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
 

@@ -1,19 +1,19 @@
-# CLI quickstart
-
-Install the ant command-line tool, authenticate, and send your first request to the Claude API.
-
+---
+title: CLI quickstart
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart
+description: Install the ant command-line tool, authenticate, and send your first request to the Claude API.
 ---
 
 The `ant` CLI provides access to the Claude API from your terminal. Every API resource is exposed as a subcommand, with output formatting, response filtering, and YAML or JSON file input.
 
 <Frame caption="The ant CLI in action.">
-  [](/docs/videos/ant-cli-demo.webm)
+  [](https://platform.claude.com/docs/videos/ant-cli-demo.webm)
 </Frame>
 
 Compared to `curl`, `ant` builds request bodies from typed flags or piped YAML instead of hand-written JSON, and inlines file contents into string fields with an `@path` reference. It extracts response fields with a built-in `--transform` query, so you don't need a separate tool such as `jq`, and it paginates list endpoints automatically.
 
 <Info>
-  For endpoint-specific parameters and response schemas, see the [API reference](/docs/en/api/cli/messages/create). This page gets you to a working command. For everything else the CLI does, see [Using the CLI](/docs/en/cli-sdks-libraries/cli/using) and [CLI scripting and automation](/docs/en/cli-sdks-libraries/cli/scripting).
+  For endpoint-specific parameters and response schemas, see the [API reference](https://platform.claude.com/docs/en/api/cli/messages/create). This page gets you to a working command. For everything else the CLI does, see [Using the CLI](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using) and [CLI scripting and automation](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting).
 </Info>
 
 ## Installation
@@ -29,7 +29,7 @@ Compared to `curl`, `ant` builds request bodies from typed flags or piped YAML i
     For Linux environments, download the release binary directly.
 
     ```bash
-    VERSION=1.21.0
+    VERSION=1.22.1
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')
     case $(uname -m) in
       x86_64) ARCH=amd64 ;;
@@ -72,12 +72,12 @@ ant auth login
 ```
 
 <Note>
-  For other ways to authenticate (API key environment variable, headless hosts, multiple workspaces, named profiles, and Workload Identity Federation), see [CLI authentication options](/docs/en/cli-sdks-libraries/cli/authentication).
+  For other ways to authenticate (API key environment variable, headless hosts, multiple workspaces, named profiles, and Workload Identity Federation), see [CLI authentication options](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication).
 </Note>
 
 ## Send your first request
 
-With the binary installed and authenticated, call the [Messages API](/docs/en/api/cli/messages/create):
+With the binary installed and authenticated, call the [Messages API](https://platform.claude.com/docs/en/api/cli/messages/create):
 
 ```bash
 ant messages create \
@@ -141,15 +141,15 @@ The CLI ships completion scripts for bash, zsh, fish, and PowerShell. Generate a
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="CLI authentication options" icon="lock" href="/docs/en/cli-sdks-libraries/cli/authentication">
+  <Card title="CLI authentication options" icon="lock" href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication">
     API keys, headless hosts, multiple workspaces, and named profiles
   </Card>
 
-  <Card title="Using the CLI" icon="terminal" href="/docs/en/cli-sdks-libraries/cli/using">
+  <Card title="Using the CLI" icon="terminal" href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using">
     Command structure, output formats, GJSON transforms, and request bodies
   </Card>
 
-  <Card title="CLI scripting and automation" icon="code" href="/docs/en/cli-sdks-libraries/cli/scripting">
+  <Card title="CLI scripting and automation" icon="code" href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/scripting">
     Version-control API resources, scripting patterns, and use from Claude Code
   </Card>
 </CardGroup>

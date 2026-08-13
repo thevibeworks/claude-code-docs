@@ -1,7 +1,7 @@
-# Accessing GitHub
-
-Connect your agent to GitHub repositories for cloning, reading, and creating pull requests.
-
+---
+title: Accessing GitHub
+url: https://platform.claude.com/docs/en/managed-agents/github
+description: Connect your agent to GitHub repositories for cloning, reading, and creating pull requests.
 ---
 
 You can mount a GitHub repository to your session sandbox and connect to the GitHub MCP for making pull requests.
@@ -9,7 +9,7 @@ You can mount a GitHub repository to your session sandbox and connect to the Git
 GitHub repositories are cached, so future sessions that use the same repository start faster.
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## GitHub MCP and session resources
@@ -17,7 +17,7 @@ GitHub repositories are cached, so future sessions that use the same repository 
 First, create an agent that declares the GitHub MCP server. The agent definition holds the server URL but no authentication token:
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   agent_id=$(curl -fsS https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -228,7 +228,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
 Then create a session that mounts the GitHub repository:
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   session_id=$(curl -fsS https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -379,7 +379,7 @@ Then create a session that mounts the GitHub repository:
 
 The `resources[].authorization_token` authenticates the repository clone operation and is not echoed in API responses.
 
-Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once per session, from the repository state checked out at session start. See [Load skills from a GitHub repository](/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
+Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once per session, from the repository state checked out at session start. See [Load skills from a GitHub repository](https://platform.claude.com/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
 
 ## Token permissions
 
@@ -401,7 +401,7 @@ When providing a GitHub token, use the minimum required permissions:
 Mount multiple repositories by adding entries to the `resources` array:
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   resources='[
     {
       "type": "github_repository",
@@ -564,7 +564,7 @@ Mount multiple repositories by adding entries to the `resources` array:
 After a session is created, you can list its repository resources and rotate their authorization tokens. Each resource has an `id` returned at session creation time (or through `resources.list`) that you use for updates. Repositories are attached for the lifetime of the session; to change which repositories are mounted, create a new session.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   # List resources on the session
   repo_resource_id=$(curl -fsS "https://api.anthropic.com/v1/sessions/$session_id/resources" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -708,7 +708,7 @@ After a session is created, you can list its repository resources and rotate the
 With the GitHub MCP server, the agent can create branches, commit changes, and push them:
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   curl -fsS "https://api.anthropic.com/v1/sessions/$session_id/events" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -871,15 +871,15 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Session event stream" icon="lightning" href="/docs/en/managed-agents/events-and-streaming">
+  <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
     Stream events and steer the agent while it opens the pull request
   </Card>
 
-  <Card title="MCP connector" icon="link" href="/docs/en/managed-agents/mcp-connector">
+  <Card title="MCP connector" icon="link" href="https://platform.claude.com/docs/en/managed-agents/mcp-connector">
     Connect more MCP servers to give the agent additional tools
   </Card>
 
-  <Card title="Adding files" icon="file" href="/docs/en/managed-agents/files">
+  <Card title="Adding files" icon="file" href="https://platform.claude.com/docs/en/managed-agents/files">
     Mount files in the sandbox alongside your repositories
   </Card>
 </CardGroup>

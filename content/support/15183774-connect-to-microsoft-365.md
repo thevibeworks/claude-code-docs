@@ -206,7 +206,7 @@ Yes. Claude can search shared mailboxes you have delegate access to in Microsoft
 
 ### Can Claude search archived emails?
 
-Yes. Claude can search any email you have access to in Outlook, including archived messages.
+Yes, but only if they're in your primary mailbox. Claude can search every folder in your primary Outlook mailbox, including its Archive folder. Claude doesn't search the separate Online Archive mailbox (also called the In-Place Archive), so messages that a retention policy has moved there won't appear in results. To work with one of those messages, move it back into a folder in your primary mailbox, or open it in Outlook and paste the content into your chat.
 
 ### Can Claude summarize long email threads?
 

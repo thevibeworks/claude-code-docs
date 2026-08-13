@@ -1,3 +1,8 @@
+---
+title: Attachments
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/attachments
+---
+
 # Attachments
 
 ## List project attachments

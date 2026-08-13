@@ -1,3 +1,8 @@
+---
+title: Workspaces
+url: https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces
+---
+
 # Workspaces
 
 ## List Federation Rule Workspaces

@@ -1,3 +1,8 @@
+---
+title: API Keys
+url: https://platform.claude.com/docs/en/api/admin/api_keys
+---
+
 # API Keys
 
 ## Retrieve API Key (Admin API)

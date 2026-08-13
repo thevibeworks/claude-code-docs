@@ -1,17 +1,17 @@
-# Configure AWS KMS for CMEK
-
-Use AWS KMS to provide an encryption key for your organization.
-
+---
+title: Configure AWS KMS for CMEK
+url: https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms
+description: Use AWS KMS to provide an encryption key for your organization.
 ---
 
 ```bash Configure with the /claude-api skill in Claude Code
 claude "/claude-api help me configure a customer-managed encryption key with AWS KMS"
 ```
 
-This guide walks through configuring an [AWS KMS](https://aws.amazon.com/kms/) key as a [customer-managed encryption key (CMEK)](/docs/en/manage-claude/cmek) for your Anthropic organization.
+This guide walks through configuring an [AWS KMS](https://aws.amazon.com/kms/) key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) for your Anthropic organization.
 
 <Warning>
-  Enabling CMEK is permanent. If your KMS key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](/docs/en/manage-claude/cmek) before you begin.
+  Enabling CMEK is permanent. If your KMS key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you begin.
 </Warning>
 
 ## Prerequisites
@@ -96,19 +96,19 @@ arn:aws:iam::915198916910:role/anthropic-cmek-client-us
     You can also create the key from the AWS Console. Choose a symmetric key with the encrypt and decrypt key usage, a single-region key, and KMS key material origin. The Create-key wizard commits a key policy at its **Review** step: If you add Anthropic's account ID `915198916910` under key usage permissions there, the generated policy grants the whole Anthropic account broader actions (such as `kms:ReEncrypt*` and `kms:GenerateDataKey*`) with no `EncryptionContext` condition, and validation would still succeed against it. To avoid leaving an over-permissive key, finish the wizard with administrative permissions only, then open the key's **Key policy** tab and replace the JSON with the role-scoped policy shown earlier (the three statements scoped to the `anthropic-cmek-client-us` role, with the `EncryptionContext` condition).
 
     <Frame caption="Configure key: symmetric, encrypt and decrypt, single-region key.">
-      ![AWS KMS Create key wizard on the Configure key step, with Symmetric key type, Encrypt and decrypt key usage, and Single-Region key selected.](/docs/images/cmek/aws-configure-key.png)
+      ![AWS KMS Create key wizard on the Configure key step, with Symmetric key type, Encrypt and decrypt key usage, and Single-Region key selected.](https://platform.claude.com/docs/images/cmek/aws-configure-key.png)
     </Frame>
 
     <Frame caption="Add an alias and description for the key.">
-      ![AWS KMS Add labels step with an alias of anthropic-cmek and a description of Anthropic CMEK.](/docs/images/cmek/aws-add-labels.png)
+      ![AWS KMS Add labels step with an alias of anthropic-cmek and a description of Anthropic CMEK.](https://platform.claude.com/docs/images/cmek/aws-add-labels.png)
     </Frame>
 
     <Frame caption="Define key administrative permissions (optional). Your account retains full admin control.">
-      ![AWS KMS Define key administrative permissions step listing IAM roles that can administer the key.](/docs/images/cmek/aws-admin-permissions.png)
+      ![AWS KMS Define key administrative permissions step listing IAM roles that can administer the key.](https://platform.claude.com/docs/images/cmek/aws-admin-permissions.png)
     </Frame>
 
     <Frame caption="Do not add Anthropic's account ID here. This wizard step produces an over-permissive policy. Leave usage permissions empty and edit the Key policy JSON after creation (see the preceding key policy).">
-      ![AWS KMS Define key usage permissions step with Anthropic's account ID entered under Other AWS accounts.](/docs/images/cmek/aws-usage-permissions.png)
+      ![AWS KMS Define key usage permissions step with Anthropic's account ID entered under Other AWS accounts.](https://platform.claude.com/docs/images/cmek/aws-usage-permissions.png)
     </Frame>
   </Step>
 </Steps>
@@ -120,7 +120,7 @@ How you register the key depends on which product you use.
 <Tabs>
   <Tab title="Claude Platform">
     <Note>
-      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. Find it in the Claude Console under **Workspace > Security > Encryption keys** (the **Compartment ID** field), or read the `compartment_id` field returned by the [Get Workspace](/docs/en/api/admin-api/workspaces/get-workspace) endpoint. Substitute that value for `<compartment-uuid>` in the preceding key policy.
+      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. Find it in the Claude Console under **Workspace > Security > Encryption keys** (the **Compartment ID** field), or read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/admin-api/workspaces/get-workspace) endpoint. Substitute that value for `<compartment-uuid>` in the preceding key policy.
 
       Key validation always sends the all-zeros compartment UUID (`00000000-0000-0000-0000-000000000000`) as the encryption context, because validation runs before the key is attached to any workspace. Live traffic sends the compartment ID of each attached workspace.
 
@@ -134,7 +134,7 @@ How you register the key depends on which product you use.
         Create an external key configuration through the Admin API.
 
         <Note>
-          For organizations on [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws), the external key endpoints are not yet available. Register, validate, and attach your key in the Claude Console instead.
+          For organizations on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the external key endpoints are not yet available. Register, validate, and attach your key in the Claude Console instead.
         </Note>
 
         ```bash

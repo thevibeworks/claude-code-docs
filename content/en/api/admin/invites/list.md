@@ -1,3 +1,8 @@
+---
+title: List Invites
+url: https://platform.claude.com/docs/en/api/admin/invites/list
+---
+
 ## List Invites
 
 **get** `/v1/organizations/invites`

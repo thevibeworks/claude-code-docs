@@ -1,16 +1,16 @@
-# Authentication
-
-Authenticate to the Claude API with API keys, Workload Identity Federation, or App Attest.
-
+---
+title: Authentication
+url: https://platform.claude.com/docs/en/manage-claude/authentication
+description: Authenticate to the Claude API with API keys, Workload Identity Federation, or App Attest.
 ---
 
 The Claude API supports three ways to authenticate requests:
 
-| Method                                                        | Credential                                                                                              | Best for                                                                                                                                        |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| [API key](#api-keys)                                          | Static `sk-ant-api...` secret in the `x-api-key` header                                                 | Local development, prototyping, scripts, and single-tenant servers where you control secret storage                                             |
-| [Workload Identity Federation](#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider's identity token                         | Production workloads on cloud platforms (AWS, Google Cloud, Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
-| [App Attest](#app-attest)                                     | Short-lived access token issued to a genuine, attested installation of your registered iOS or macOS app | iOS and macOS apps distributed to end users, where the app calls the Claude API directly with no back end or proxy                              |
+| Method                                                                                                                        | Credential                                                                                              | Best for                                                                                                                                        |
+| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys)                                          | Static `sk-ant-api...` secret in the `x-api-key` header                                                 | Local development, prototyping, scripts, and single-tenant servers where you control secret storage                                             |
+| [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/authentication#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider's identity token                         | Production workloads on cloud platforms (AWS, Google Cloud, Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
+| [App Attest](https://platform.claude.com/docs/en/manage-claude/authentication#app-attest)                                     | Short-lived access token issued to a genuine, attested installation of your registered iOS or macOS app | iOS and macOS apps distributed to end users, where the app calls the Claude API directly with no back end or proxy                              |
 
 API keys and Workload Identity Federation grant the same access to Claude API endpoints. Choose API keys to get started quickly, and move to Workload Identity Federation when your workload already has a platform-issued identity you can federate. Use App Attest for iOS and macOS apps you distribute to end users.
 
@@ -18,8 +18,8 @@ API keys and Workload Identity Federation grant the same access to Claude API en
 
 API keys are static secrets that you generate in the Claude Console and pass on every request.
 
-* **Create a key:** Go to [Settings → API keys](https://platform.claude.com/settings/keys) in the Claude Console. You choose an [expiration](#key-expiration) as part of creation. Use [workspaces](https://platform.claude.com/settings/workspaces) to scope keys by project or environment.
-* **Send the key:** Set the `x-api-key` header on direct HTTP requests, or set the `ANTHROPIC_API_KEY` environment variable and the [client SDKs](/docs/en/cli-sdks-libraries/overview) pick it up automatically.
+* **Create a key:** Go to [Settings → API keys](https://platform.claude.com/settings/keys) in the Claude Console. You choose an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) as part of creation. Use [workspaces](https://platform.claude.com/settings/workspaces) to scope keys by project or environment.
+* **Send the key:** Set the `x-api-key` header on direct HTTP requests, or set the `ANTHROPIC_API_KEY` environment variable and the [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) pick it up automatically.
 
 ```http
 POST /v1/messages
@@ -28,7 +28,7 @@ anthropic-version: 2023-06-01
 content-type: application/json
 ```
 
-Store API keys in a secrets manager, rotate them periodically, and revoke any key you suspect has leaked. You can also set an [expiration](#key-expiration) when you create a key to limit how long a leaked credential stays usable.
+Store API keys in a secrets manager, rotate them periodically, and revoke any key you suspect has leaked. You can also set an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create a key to limit how long a leaked credential stays usable.
 
 <CodeGroup>
   ```bash cURL
@@ -103,13 +103,13 @@ Store API keys in a secrets manager, rotate them periodically, and revoke any ke
 
 ### Key expiration
 
-When you create an API key from the [API keys page](https://platform.claude.com/settings/keys) in the Claude Console, you choose an expiration: a preset (3 hours, 1 day, 7 days, or 30 days), a custom duration, or **Never** for keys you store in a secrets manager and rotate yourself. If your organization has a maximum expiration policy, the Console limits presets and custom durations to the policy maximum, and **Never** is unavailable. Existing keys keep their current behavior; expiration is set at creation time and cannot be changed afterward. The same expiration choice applies when you [create an Admin API key](/docs/en/manage-claude/admin-api-keys) in the Claude Console.
+When you create an API key from the [API keys page](https://platform.claude.com/settings/keys) in the Claude Console, you choose an expiration: a preset (3 hours, 1 day, 7 days, or 30 days), a custom duration, or **Never** for keys you store in a secrets manager and rotate yourself. If your organization has a maximum expiration policy, the Console limits presets and custom durations to the policy maximum, and **Never** is unavailable. Existing keys keep their current behavior; expiration is set at creation time and cannot be changed afterward. The same expiration choice applies when you [create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) in the Claude Console.
 
 Anthropic emails the key's creator as the expiration approaches: 7 days before expiration for keys created with a lifetime of at least 14 days, and 1 day before for keys with a lifetime of at least 7 days. Keys with shorter lifetimes expire without a warning email.
 
 After a key expires, requests made with it return a `401 authentication_error`. Create a new key to restore access; expired keys cannot be reactivated.
 
-The Console API keys table shows each key's expiration, and the Admin API reports each key's `expires_at` timestamp on the [List API Keys](/docs/en/api/admin/api_keys/list) and [Retrieve API Key](/docs/en/api/admin/api_keys/retrieve) endpoints, so you can audit and rotate keys before they expire. The field is `null` for keys without an expiration.
+The Console API keys table shows each key's expiration, and the Admin API reports each key's `expires_at` timestamp on the [List API Keys](https://platform.claude.com/docs/en/api/admin/api_keys/list) and [Retrieve API Key](https://platform.claude.com/docs/en/api/admin/api_keys/retrieve) endpoints, so you can audit and rotate keys before they expire. The field is `null` for keys without an expiration.
 
 Expiration limits the lifetime of a leaked credential, but it is not a substitute for secret hygiene. Regardless of expiration, store keys in a secrets manager and revoke any key you suspect has leaked.
 
@@ -119,34 +119,34 @@ Workload Identity Federation (WIF) lets a workload authenticate with a short-liv
 
 Federation removes long-lived Claude API keys from your environment, which shrinks the blast radius of a leaked credential and lets you manage access with the same IdP controls you already use for cloud resources. It does not, on its own, guarantee end-to-end security: the trust chain is only as strong as your identity provider's configuration, and a long-lived secret one hop upstream (for example, a static cloud credential that can mint IdP tokens) can still undermine it. Pair federation with your provider's controls, such as IP allowlists, MFA, and audit logging.
 
-To configure federation, you create three resources in the Claude Console (a service account, a federation issuer, and a federation rule) and then point your SDK at the rule. See [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation) for the full setup walkthrough.
+To configure federation, you create three resources in the Claude Console (a service account, a federation issuer, and a federation rule) and then point your SDK at the rule. See [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) for the full setup walkthrough.
 
 ## App Attest
 
-App Attest authenticates iOS and macOS apps that call the Claude API directly from the device. Each installation proves that it is a genuine, unmodified build of an app you registered in the Claude Console, using Apple's App Attest service. Anthropic then issues the device a short-lived access token that bills usage to your workspace. Tokens are scoped to your workspace, expire after one hour, and authorize only [Messages API](/docs/en/api/messages/create) calls.
+App Attest authenticates iOS and macOS apps that call the Claude API directly from the device. Each installation proves that it is a genuine, unmodified build of an app you registered in the Claude Console, using Apple's App Attest service. Anthropic then issues the device a short-lived access token that bills usage to your workspace. Tokens are scoped to your workspace, expire after one hour, and authorize only [Messages API](https://platform.claude.com/docs/en/api/messages/create) calls.
 
-To register your app and get a client ID, see [App Attest for iOS and macOS apps](/docs/en/manage-claude/app-attest).
+To register your app and get a client ID, see [App Attest for iOS and macOS apps](https://platform.claude.com/docs/en/manage-claude/app-attest).
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Set up Workload Identity Federation" icon="lock" href="/docs/en/manage-claude/workload-identity-federation">
+  <Card title="Set up Workload Identity Federation" icon="lock" href="https://platform.claude.com/docs/en/manage-claude/workload-identity-federation">
     Configure issuers, rules, and service accounts, then exchange tokens
   </Card>
 
-  <Card title="Identity provider guides" icon="cloud" href="/docs/en/manage-claude/workload-identity-federation#identity-providers">
+  <Card title="Identity provider guides" icon="cloud" href="https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#identity-providers">
     Step-by-step guides for AWS, Google Cloud, Azure, GitHub Actions, Kubernetes, SPIFFE, and Okta
   </Card>
 
-  <Card title="WIF reference" icon="book" href="/docs/en/manage-claude/wif-reference">
+  <Card title="WIF reference" icon="book" href="https://platform.claude.com/docs/en/manage-claude/wif-reference">
     Environment variables, validation rules, profile configuration, and error reference
   </Card>
 
-  <Card title="App Attest for iOS and macOS apps" icon="fingerprint" href="/docs/en/manage-claude/app-attest">
+  <Card title="App Attest for iOS and macOS apps" icon="fingerprint" href="https://platform.claude.com/docs/en/manage-claude/app-attest">
     Let genuine installations of your app call the Claude API without shipping an API key
   </Card>
 
-  <Card title="Client SDKs" icon="code" href="/docs/en/cli-sdks-libraries/overview">
+  <Card title="Client SDKs" icon="code" href="https://platform.claude.com/docs/en/cli-sdks-libraries/overview">
     Python, TypeScript, C#, Go, Java, PHP, Ruby, and the CLI
   </Card>
 </CardGroup>

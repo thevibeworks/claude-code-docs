@@ -1,3 +1,8 @@
+---
+title: Get Artifact Activity
+url: https://platform.claude.com/docs/en/api/admin/analytics/artifacts/list
+---
+
 ## Get Artifact Activity
 
 **get** `/v1/organizations/analytics/artifacts`

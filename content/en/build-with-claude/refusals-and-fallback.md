@@ -1,7 +1,7 @@
-# Refusals and fallback
-
-How Claude Fable 5 and Claude Opus 5 return classifier refusals and how to retry refused requests on a fallback model.
-
+---
+title: Refusals and fallback
+url: https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback
+description: How Claude Fable 5 and Claude Opus 5 return classifier refusals and how to retry refused requests on a fallback model.
 ---
 
 Claude Fable 5 and Claude Opus 5 include safety classifiers that can decline a request. When that happens, you receive a normal response, not an error, with `stop_reason: "refusal"`. You can usually still get an answer by sending the same request to another Claude model. This page shows you how to recognize a refusal and how to set up that retry.
@@ -10,9 +10,9 @@ Read this page when you build on Claude Fable 5 or Claude Opus 5 and want declin
 
 Related pages:
 
-* [Stop reasons and fallback](/docs/en/build-with-claude/handling-stop-reasons): the full list of `stop_reason` values.
-* [Fallback credit](/docs/en/build-with-claude/fallback-credit): how refused requests are billed, and how to avoid paying twice for prompt caching on a retry.
-* [SDK middleware](/docs/en/cli-sdks-libraries/middleware): the SDK helper that wraps all of this.
+* [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons): the full list of `stop_reason` values.
+* [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit): how refused requests are billed, and how to avoid paying twice for prompt caching on a retry.
+* [SDK middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware): the SDK helper that wraps all of this.
 * [Fallback and billing cookbook](https://platform.claude.com/cookbook/fable-5-fallback-billing-guide): a worked end-to-end example.
 
 The simplest setup, in beta on the Claude API: set `fallbacks` to `"default"`, and the API retries a declined request on the fallback model Anthropic recommends for its refusal category. For categories with no recommended fallback, the refusal stands.
@@ -185,7 +185,7 @@ The `stop_details` object explains the decline:
 | `"cyber"`                | The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.                                                                                                    |
 | `"bio"`                  | The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.                                                                                                    |
 | `"frontier_llm"`         | The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category. |
-| `"reasoning_extraction"` | The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](/docs/en/build-with-claude/thinking).                                         |
+| `"reasoning_extraction"` | The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking).              |
 | `"general_harms"`        | The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.                                                                                                                |
 
 A refusal can arrive before any output, or mid-stream after partial output. In either case, treat any partial output as incomplete and discard it.
@@ -198,20 +198,20 @@ A refusal can arrive before any output, or mid-stream after partial output. In e
 
 There are three ways to retry a refused request on another model. The right one depends on where you are running and how much control you need.
 
-| Your situation                       | Use                                                                             | Why                                                         |
-| ------------------------------------ | ------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| Claude API, simplest setup           | [Server-side fallback](#server-side-fallback)                                   | One request, one response. The API handles the retry.       |
-| Any platform, using an Anthropic SDK | [The SDK middleware](#client-side-fallback)                                     | Configure once on the client. Retries happen automatically. |
-| Raw HTTP or custom retry logic       | Manual retry with [fallback credit](/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down.          |
+| Your situation                       | Use                                                                                                                      | Why                                                         |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| Claude API, simplest setup           | [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) | One request, one response. The API handles the retry.       |
+| Any platform, using an Anthropic SDK | [The SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback)   | Configure once on the client. Retries happen automatically. |
+| Raw HTTP or custom retry logic       | Manual retry with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit)               | Full control. Fallback credit keeps the cost down.          |
 
-Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself.
+Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself.
 
 ## Server-side fallback
 
 Server-side fallback retries a refused request inside a single API call. In the default mode, when the primary model declines and the refusal category has a recommended fallback, the API runs the same request on the model Anthropic recommends for that category. You can instead name up to three fallback models of your own (below). Either way, you get back one response that names the model that answered, so your user gets an answer in one round trip.
 
 <Note>
-  Server-side fallback is in beta on the Claude API. The `fallbacks` parameter is not supported on the [Message Batches API](/docs/en/build-with-claude/batch-processing) (a batch item that includes it comes back as an errored result) and is not available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. On those platforms, use [client-side fallback with the SDK middleware](#client-side-fallback) instead.
+  Server-side fallback is in beta on the Claude API. The `fallbacks` parameter is not supported on the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) (a batch item that includes it comes back as an errored result) and is not available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. On those platforms, use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead.
 </Note>
 
 ### Making the request
@@ -473,7 +473,7 @@ Set the `fallbacks` parameter to the string `"default"` and send the `server-sid
 
 Anthropic sets safeguards for each model individually and for each policy category, in line with the model's capability: depending on the category, a flagged request may fall back to a less capable model or be declined. The `"default"` mode encodes these per-model, per-category recommendations for you, so a refused request is retried on the model Anthropic recommends for that category. Fallbacks are visible either way: the response names the model that served it, and the `fallback` content block marks the handoff.
 
-The routing is applied server-side and is not published per model on the [Models API](/docs/en/api/models/list). To see which model served a refused request, check the response's top-level `model` field and look for a `fallback_message` entry in `usage.iterations`, as this page's samples do.
+The routing is applied server-side and is not published per model on the [Models API](https://platform.claude.com/docs/en/api/models/list). To see which model served a refused request, check the response's top-level `model` field and look for a `fallback_message` entry in `usage.iterations`, as this page's samples do.
 
 Only a safety classifier decline triggers the fallback. A rate limit, overload, or server error on the requested model is returned to you as-is.
 
@@ -622,7 +622,7 @@ Instead of default routing, you can set `fallbacks` to a list of up to three mod
 A few rules apply to the `fallbacks` list:
 
 * Entries are tried in order. Each must be distinct from the other entries and from the requested model.
-* Each entry must be one of the requested model's permitted targets. With the beta header set, that list is published as `allowed_fallback_models` on the model's entry in the [Models API](/docs/en/api/models/list).
+* Each entry must be one of the requested model's permitted targets. With the beta header set, that list is published as `allowed_fallback_models` on the model's entry in the [Models API](https://platform.claude.com/docs/en/api/models/list).
 * Each entry names a `model` and can override `max_tokens`, `thinking`, `output_config`, and `speed` for that attempt only.
 * The request must be valid as a direct request to every model named. If a fallback model does not support a feature the request uses, the API rejects the request up front.
 * As with the default mode, only a safety classifier decline triggers the fallback. A rate limit, overload, or server error on the requested model is returned to you as-is.
@@ -1107,7 +1107,7 @@ Pass the middleware to the client constructor, and share one `BetaFallbackState`
 
 * Retries walk your fallback list in order. A fallback model that itself refuses passes the request to the next entry.
 * When every model in the list has declined, the middleware returns the final refusal (the last model's refusal response) rather than raising an error.
-* [Thinking blocks from Claude Fable 5](/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5) pass through unchanged: each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself.
+* [Thinking blocks from Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5) pass through unchanged: each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself.
 * Responses served through the middleware include a `fallback` content block at each model boundary, the same as server-side fallback responses. The middleware manages those blocks for you on later requests.
 * The model that accepted is recorded in `BetaFallbackState`, so follow-up requests that share the state stay pinned to it rather than re-asking a model that refused.
 
@@ -1124,9 +1124,9 @@ Pass the middleware to the client constructor, and share one `BetaFallbackState`
     </Step>
 
     <Step title="Re-send on a fallback model">
-      Send the same request with `model` set to a fallback model, such as Claude Opus 4.8. A request that Claude Fable 5's classifiers decline can normally be served by another model. How you handle the conversation history depends on whether you redeem a [fallback credit](/docs/en/build-with-claude/fallback-credit):
+      Send the same request with `model` set to a fallback model, such as Claude Opus 4.8. A request that Claude Fable 5's classifiers decline can normally be served by another model. How you handle the conversation history depends on whether you redeem a [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit):
 
-      * **Not redeeming a credit:** you can first strip the [thinking blocks from Claude Fable 5](/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5) out of the conversation history. Other models ignore them, and stripping keeps cross-model requests minimal.
+      * **Not redeeming a credit:** you can first strip the [thinking blocks from Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-output-on-claude-fable-5-and-claude-mythos-5) out of the conversation history. Other models ignore them, and stripping keeps cross-model requests minimal.
       * **Redeeming a credit:** send the body unchanged, because redemption requires an exact match.
     </Step>
 
@@ -1135,12 +1135,12 @@ Pass the middleware to the client constructor, and share one `BetaFallbackState`
     </Step>
   </Steps>
 
-  A manual retry writes the fallback model's prompt cache from scratch, which costs more than reading an existing cache. [Fallback credit](/docs/en/build-with-claude/fallback-credit) refunds that cost; redeem it on every retry you build yourself.
+  A manual retry writes the fallback model's prompt cache from scratch, which costs more than reading an existing cache. [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) refunds that cost; redeem it on every retry you build yourself.
 </Accordion>
 
 ## Refusals in Message Batches
 
-A refused request in a [Message Batch](/docs/en/build-with-claude/batch-processing) comes back as `result.type: "succeeded"` with `stop_reason: "refusal"`. Batch results carry the same `stop_details` object as synchronous responses, so you can detect refusals through either `stop_reason` or `stop_details.type`. One difference: batch refusals don't mint fallback credits, so `stop_details` on a batch result never includes a `fallback_credit_token`.
+A refused request in a [Message Batch](https://platform.claude.com/docs/en/build-with-claude/batch-processing) comes back as `result.type: "succeeded"` with `stop_reason: "refusal"`. Batch results carry the same `stop_details` object as synchronous responses, so you can detect refusals through either `stop_reason` or `stop_details.type`. One difference: batch refusals don't mint fallback credits, so `stop_details` on a batch result never includes a `fallback_credit_token`.
 
 Server-side fallback is not available for batches (a batch request that includes `fallbacks` produces a per-item errored result). To retry refused batch items:
 
@@ -1161,19 +1161,19 @@ Server-side fallback is not available for batches (a batch request that includes
 ## Next steps
 
 <CardGroup>
-  <Card title="Fallback credit" icon="scales" href="/docs/en/build-with-claude/fallback-credit">
+  <Card title="Fallback credit" icon="scales" href="https://platform.claude.com/docs/en/build-with-claude/fallback-credit">
     Avoid paying the prompt-cache cost twice when you build the retry yourself.
   </Card>
 
-  <Card title="Stop reasons and fallback" icon="code" href="/docs/en/build-with-claude/handling-stop-reasons">
+  <Card title="Stop reasons and fallback" icon="code" href="https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons">
     Every `stop_reason` value and how to handle it.
   </Card>
 
-  <Card title="SDK middleware" icon="settings" href="/docs/en/cli-sdks-libraries/middleware">
+  <Card title="SDK middleware" icon="settings" href="https://platform.claude.com/docs/en/cli-sdks-libraries/middleware">
     How SDK middleware works, including the refusal-fallback helper.
   </Card>
 
-  <Card title="Migration guide" icon="arrow-right" href="/docs/en/about-claude/models/migration-guide">
+  <Card title="Migration guide" icon="arrow-right" href="https://platform.claude.com/docs/en/about-claude/models/migration-guide">
     Move an existing application to Claude Fable 5.
   </Card>
 </CardGroup>

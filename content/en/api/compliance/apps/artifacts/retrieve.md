@@ -1,3 +1,8 @@
+---
+title: Get artifact metadata
+url: https://platform.claude.com/docs/en/api/compliance/apps/artifacts/retrieve
+---
+
 ## Get artifact metadata
 
 **get** `/v1/compliance/apps/artifacts/{artifact_version_id}`

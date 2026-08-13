@@ -1,19 +1,19 @@
-# Build an orchestration mode
-
-Build a session-level mode that grants standing consent for multiagent fan-out, switched on and off with mid-conversation system messages.
-
+---
+title: Build an orchestration mode
+url: https://platform.claude.com/docs/en/build-with-claude/mid-conversation-effort-example
+description: Build a session-level mode that grants standing consent for multiagent fan-out, switched on and off with mid-conversation system messages.
 ---
 
 An orchestration mode is a session-level switch: when it is on, the model puts maximum thoroughness behind every substantive request, scouting the task itself and then fanning work out to parallel subagents by default. When it is off, the same orchestration tool goes back to per-request opt-in.
 
 The mode is not an API parameter. It is built entirely from documented pieces:
 
-1. **An effort level:** requests run at a documented [Effort](/docs/en/build-with-claude/effort) value such as `xhigh`. There is no hidden level above the ones on that page. This example sets effort at the top level of each request, which needs no beta header.
-2. **A mode reminder:** a [mid-conversation system message](/docs/en/build-with-claude/mid-conversation-system-messages) tells the model the mode is active, with a one-line refresher every several turns and an exit notice when the mode is turned off. The top-level `system` field never changes, so the cached prefix stays intact.
+1. **An effort level:** requests run at a documented [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) value such as `xhigh`. There is no hidden level above the ones on that page. This example sets effort at the top level of each request, which needs no beta header.
+2. **A mode reminder:** a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) tells the model the mode is active, with a one-line refresher every several turns and an exit notice when the mode is turned off. The top-level `system` field never changes, so the cached prefix stays intact.
 3. **Standing consent in the tool description:** the orchestration tool's description states that while the mode is on, the model should author and run a workflow for every substantive task without asking first.
 
 <Note>
-  This example uses mid-conversation system messages; for the models and platforms that support them, see [Mid-conversation system messages](/docs/en/build-with-claude/mid-conversation-system-messages). The fan-out itself multiplies token usage: a single request can spawn many subagent conversations, so reserve the mode for work that justifies the cost.
+  This example uses mid-conversation system messages; for the models and platforms that support them, see [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages). The fan-out itself multiplies token usage: a single request can spawn many subagent conversations, so reserve the mode for work that justifies the cost.
 </Note>
 
 ## Set up the loop
@@ -3945,19 +3945,19 @@ The patterns in this example (the mode reminders, standing consent in the tool d
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Mid-conversation system messages" icon="message" href="/docs/en/build-with-claude/mid-conversation-system-messages">
+  <Card title="Mid-conversation system messages" icon="message" href="https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages">
     The mechanism the mode reminders use, and how it interacts with prompt caching.
   </Card>
 
-  <Card title="Effort" icon="gauge" href="/docs/en/build-with-claude/effort">
+  <Card title="Effort" icon="gauge" href="https://platform.claude.com/docs/en/build-with-claude/effort">
     The effort levels the API accepts and how to choose one.
   </Card>
 
-  <Card title="Tool use with Claude" icon="wrench" href="/docs/en/agents-and-tools/tool-use/overview">
+  <Card title="Tool use with Claude" icon="wrench" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">
     Defining tools, handling tool calls, and tool results.
   </Card>
 
-  <Card title="Bash tool" icon="terminal" href="/docs/en/agents-and-tools/tool-use/bash-tool">
+  <Card title="Bash tool" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool">
     The Anthropic-defined bash tool this example executes locally.
   </Card>
 </CardGroup>

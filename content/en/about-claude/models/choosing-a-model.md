@@ -1,7 +1,7 @@
-# Choosing the right model
-
-Selecting the optimal Claude model for your application involves balancing three key considerations: capabilities, speed, and cost. This guide helps you make an informed decision based on your specific requirements.
-
+---
+title: Choosing the right model
+url: https://platform.claude.com/docs/en/about-claude/models/choosing-a-model
+description: "Selecting the optimal Claude model for your application involves balancing three key considerations: capabilities, speed, and cost. This guide helps you make an informed decision based on your specific requirements."
 ---
 
 ## Establish key criteria
@@ -9,9 +9,9 @@ Selecting the optimal Claude model for your application involves balancing three
 When choosing a Claude model, consider first evaluating these factors:
 
 * **Capabilities:** What specific features or capabilities will you need the model to have to meet your needs?
-* **Speed:** How quickly does the model need to respond in your application? Claude Opus 5 and Claude Opus 4.8 support [fast mode](/docs/en/build-with-claude/fast-mode) (research preview), which delivers up to 2.5x higher output speed at premium pricing.
+* **Speed:** How quickly does the model need to respond in your application? Claude Opus 5 and Claude Opus 4.8 support [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (research preview), which delivers up to 2.5x higher output speed at premium pricing.
 * **Cost:** What's your budget for both development and production usage?
-* **Effort:** Recent Opus and Sonnet models support an [effort parameter](/docs/en/build-with-claude/effort) that trades intelligence for latency and cost within a single model. Tuning effort is often a better lever than switching models. On Claude Opus 5, start with the default (`high`) and adjust up or down based on your evals. On Claude Opus 4.8 and Claude Opus 4.7, the `xhigh` effort level, between `high` and `max`, is the best setting for most coding and agentic use cases.
+* **Effort:** Recent Opus and Sonnet models support an [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) that trades intelligence for latency and cost within a single model. Tuning effort is often a better lever than switching models. On Claude Opus 5, start with the default (`high`) and adjust up or down based on your evals. On Claude Opus 4.8 and Claude Opus 4.7, the `xhigh` effort level, between `high` and `max`, is the best setting for most coding and agentic use cases.
 
 Knowing these answers in advance will make narrowing down and deciding which model to use much easier.
 
@@ -42,9 +42,9 @@ This approach allows for quick iteration, lower development costs, and is often 
 For complex tasks where intelligence and advanced capabilities are paramount, you may want to start capability-first: implement with the strongest starting point for your task, then optimize to more efficient models down the line:
 
 1. Implement with Claude Opus 5.
-2. [Optimize your prompts](/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) for this model.
+2. [Optimize your prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) for this model.
 3. Evaluate if performance meets your requirements.
-4. Consider increasing efficiency by lowering [effort](/docs/en/build-with-claude/effort) or downgrading models over time with greater workflow optimization.
+4. Consider increasing efficiency by lowering [effort](https://platform.claude.com/docs/en/build-with-claude/effort) or downgrading models over time with greater workflow optimization.
 
 This approach is best for:
 
@@ -55,12 +55,12 @@ This approach is best for:
 * Advanced coding and high-autonomy agentic work
 
 <Note>
-  The [effort parameter](/docs/en/build-with-claude/effort) defaults to `high` on Claude Opus 5 and Claude Opus 4.8, including in Claude Code and the Messages API. On Claude Opus 5, start at the default and step up to `xhigh` for the most demanding coding and agentic work. On Claude Opus 4.8, use `xhigh` for coding, high-autonomy work, and the most intelligence-demanding tasks.
+  The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) defaults to `high` on Claude Opus 5 and Claude Opus 4.8, including in Claude Code and the Messages API. On Claude Opus 5, start at the default and step up to `xhigh` for the most demanding coding and agentic work. On Claude Opus 4.8, use `xhigh` for coding, high-autonomy work, and the most intelligence-demanding tasks.
 </Note>
 
 **Claude Opus 5** (`claude-opus-5`) is a step-change improvement over Claude Opus 4.8, strong on deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. Claude Opus 5 supports a 1M token context window by default and up to 128k output tokens, and is priced at $5 USD per million input tokens and $25 USD per million output tokens.
 
-**Claude Fable 5** (`claude-fable-5`) is Anthropic's most capable widely released model, delivering next-generation intelligence for long-running agents. **Claude Mythos 5** (`claude-mythos-5`) is available through [Project Glasswing](https://anthropic.com/glasswing). Both models support a 1M token context window by default, up to 128k output tokens, and always-on [adaptive thinking](/docs/en/build-with-claude/thinking). See [Introducing Claude Fable 5 and Claude Mythos 5](/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details.
+**Claude Fable 5** (`claude-fable-5`) is Anthropic's most capable widely released model, delivering next-generation intelligence for long-running agents. **Claude Mythos 5** (`claude-mythos-5`) is available through [Project Glasswing](https://anthropic.com/glasswing). Both models support a 1M token context window by default, up to 128k output tokens, and always-on [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Introducing Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details.
 
 Claude Fable 5 and Claude Mythos 5 are priced at $10 USD per million input tokens and $50 USD per million output tokens.
 
@@ -79,7 +79,7 @@ Claude Fable 5 and Claude Mythos 5 are priced at $10 USD per million input token
 
 To determine if you need to upgrade or change models, you should:
 
-1. [Create benchmark tests](/docs/en/test-and-evaluate/develop-tests) specific to your use case - having a good evaluation set is the most important step in the process.
+1. [Create benchmark tests](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) specific to your use case - having a good evaluation set is the most important step in the process.
 
 2. Test with your actual prompts and data.
 
@@ -94,19 +94,19 @@ To determine if you need to upgrade or change models, you should:
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Model comparison chart" icon="settings" href="/docs/en/about-claude/models/overview">
+  <Card title="Model comparison chart" icon="settings" href="https://platform.claude.com/docs/en/about-claude/models/overview">
     See detailed specifications and pricing for the latest Claude models
   </Card>
 
-  <Card title="What's new in Claude Opus 5" icon="sparkle" href="/docs/en/about-claude/models/whats-new-opus-5">
+  <Card title="What's new in Claude Opus 5" icon="sparkle" href="https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5">
     Explore the latest improvements in Claude Opus 5
   </Card>
 
-  <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="/docs/en/about-claude/models/whats-new-sonnet-5">
+  <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5">
     The best combination of speed and intelligence
   </Card>
 
-  <Card title="Start building" icon="code" href="/docs/en/get-started">
+  <Card title="Start building" icon="code" href="https://platform.claude.com/docs/en/get-started">
     Get started with your first API call
   </Card>
 </CardGroup>

@@ -1,3 +1,8 @@
+---
+title: Get effective organization settings
+url: https://platform.claude.com/docs/en/api/compliance/organizations/settings/retrieve
+---
+
 ## Get effective organization settings
 
 **get** `/v1/compliance/organizations/{organization_id}/settings`

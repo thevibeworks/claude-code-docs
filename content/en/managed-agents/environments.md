@@ -1,21 +1,21 @@
-# Cloud environment setup
-
-Customize cloud sandboxes for your sessions.
-
+---
+title: Cloud environment setup
+url: https://platform.claude.com/docs/en/managed-agents/environments
+description: Customize cloud sandboxes for your sessions.
 ---
 
 Environments define the sandbox configuration where your agent runs. You create an environment once, then reference its ID each time you start a session. Multiple sessions can share the same environment, but each session gets its own isolated sandbox (a fresh Linux container).
 
-This page covers `type: cloud` environments. To run sandboxes on your own infrastructure, see [Self-hosted sandboxes](/docs/en/managed-agents/self-hosted-sandboxes).
+This page covers `type: cloud` environments. To run sandboxes on your own infrastructure, see [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes).
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Create an environment
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   environment=$(curl -fsS https://api.anthropic.com/v1/environments \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -132,10 +132,10 @@ Use a unique, descriptive `name` so you can tell environments apart.
 
 ## Use the environment in a session
 
-Pass the environment ID as a string when [creating a session](/docs/en/managed-agents/sessions).
+Pass the environment ID as a string when [creating a session](https://platform.claude.com/docs/en/managed-agents/sessions).
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   session=$(curl -fsS https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -219,7 +219,7 @@ Pass the environment ID as a string when [creating a session](/docs/en/managed-a
 The `packages` field pre-installs packages into the sandbox before the agent starts. Packages are installed by their respective package managers and cached across sessions that share the same environment. When multiple package managers are specified, they run in alphabetical order (apt, cargo, gem, go, npm, pip). You can optionally pin specific versions. Unpinned packages install the latest version.
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   environment=$(curl -fsS https://api.anthropic.com/v1/environments \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -393,7 +393,7 @@ The `networking` field controls the sandbox's outbound network access. It does n
 The following example creates an environment with `limited` networking:
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   curl -fsS https://api.anthropic.com/v1/environments \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -562,7 +562,7 @@ When using `limited` networking:
 ## Manage environments
 
 <CodeGroup defaultLanguage="CLI">
-  ```bash curl
+  ```bash cURL
   # List environments
   environments=$(curl -fsS https://api.anthropic.com/v1/environments \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -700,16 +700,16 @@ When using `limited` networking:
 
 ## Pre-installed runtimes
 
-Cloud sandboxes include common runtimes out of the box. See [Cloud sandbox reference](/docs/en/managed-agents/cloud-sandboxes-reference) for the full list of pre-installed languages, databases, and utilities.
+Cloud sandboxes include common runtimes out of the box. See [Cloud sandbox reference](https://platform.claude.com/docs/en/managed-agents/cloud-sandboxes-reference) for the full list of pre-installed languages, databases, and utilities.
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Cloud sandbox reference" icon="book" href="/docs/en/managed-agents/cloud-sandboxes-reference">
+  <Card title="Cloud sandbox reference" icon="book" href="https://platform.claude.com/docs/en/managed-agents/cloud-sandboxes-reference">
     Pre-installed packages, databases, and utilities available in cloud sandboxes.
   </Card>
 
-  <Card title="Start a session" icon="play" href="/docs/en/managed-agents/sessions">
+  <Card title="Start a session" icon="play" href="https://platform.claude.com/docs/en/managed-agents/sessions">
     Create a session to run your agent and start running tasks.
   </Card>
 </CardGroup>

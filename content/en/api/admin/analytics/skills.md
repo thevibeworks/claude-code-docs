@@ -1,3 +1,8 @@
+---
+title: Skills
+url: https://platform.claude.com/docs/en/api/admin/analytics/skills
+---
+
 # Skills
 
 ## Get Skill Usage

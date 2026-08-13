@@ -1,3 +1,8 @@
+---
+title: List RBAC Role Permissions
+url: https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions/list
+---
+
 ## List RBAC Role Permissions
 
 **get** `/v1/organizations/rbac_roles/{role_id}/permissions`

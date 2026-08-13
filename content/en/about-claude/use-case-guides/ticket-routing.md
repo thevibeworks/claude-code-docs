@@ -1,7 +1,7 @@
-# Ticket routing
-
-This guide walks through how to harness Claude's advanced natural language understanding capabilities to classify customer support tickets at scale based on customer intent, urgency, prioritization, customer profile, and more.
-
+---
+title: Ticket routing
+url: https://platform.claude.com/docs/en/about-claude/use-case-guides/ticket-routing
+description: This guide walks through how to harness Claude's advanced natural language understanding capabilities to classify customer support tickets at scale based on customer intent, urgency, prioritization, customer profile, and more.
 ---
 
 ## Prerequisites
@@ -153,7 +153,7 @@ In addition to intent, ticket routing and prioritization may also be influenced 
 
 ### Establish success criteria
 
-Work with your support team to [define clear success criteria](/docs/en/test-and-evaluate/develop-tests) with measurable benchmarks, thresholds, and goals.
+Work with your support team to [define clear success criteria](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests) with measurable benchmarks, thresholds, and goals.
 
 Here are some standard criteria and benchmarks when using LLMs for support ticket routing:
 
@@ -235,7 +235,7 @@ Here are some common success criteria that may be useful regardless of whether a
 
 The choice of model depends on the trade-offs between cost, accuracy, and response time.
 
-Many customers have found `claude-haiku-4-5-20251001` an ideal model for ticket routing, as it is the fastest and most cost-effective model in the Claude 4 family while still delivering excellent results. If your classification problem requires deep subject matter expertise or a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](/docs/en/about-claude/models).
+Many customers have found `claude-haiku-4-5-20251001` an ideal model for ticket routing, as it is the fastest and most cost-effective model in the Claude 4 family while still delivering excellent results. If your classification problem requires deep subject matter expertise or a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](https://platform.claude.com/docs/en/about-claude/models).
 
 ### Build a strong prompt
 
@@ -318,7 +318,7 @@ Having Claude split its response into separate XML tag sections lets you use reg
 
 ### Deploy your prompt
 
-It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](/docs/en/test-and-evaluate/develop-tests).
+It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
 Build the deployment structure. Start by defining the method signature for wrapping the call to Claude. Extend the method you began writing earlier, which takes `ticket_contents` as input, so that it now returns a tuple of `reasoning` and `intent` as output. If you have an existing automation using traditional ML, you'll want to follow that method signature instead.
 
@@ -376,7 +376,7 @@ Because the entire reasoning and intent text must be generated before parsing, t
 
 Prompting often requires testing and optimization for it to be production ready. To determine the readiness of your solution, evaluate performance based on the success criteria and thresholds you established earlier.
 
-To run your evaluation, you need test cases to run it on. The rest of this guide assumes you have already [developed your test cases](/docs/en/test-and-evaluate/develop-tests).
+To run your evaluation, you need test cases to run it on. The rest of this guide assumes you have already [developed your test cases](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
 ### Build an evaluation function
 
@@ -450,7 +450,7 @@ Having these thresholds allows you to quickly and easily tell at scale, and with
 
 ## Improve performance
 
-In complex scenarios, it may be helpful to consider additional strategies to improve performance beyond standard [prompt engineering techniques](/docs/en/build-with-claude/prompt-engineering/overview) & [guardrail implementation strategies](/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations). Here are some common scenarios:
+In complex scenarios, it may be helpful to consider additional strategies to improve performance beyond standard [prompt engineering techniques](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) & [guardrail implementation strategies](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations). Here are some common scenarios:
 
 ### Use a taxonomic hierarchy for cases with 20+ intent categories
 
@@ -461,7 +461,7 @@ As the number of classes grows, the number of examples required also expands, po
 
 For example, you might have a top-level classifier that broadly categorizes tickets into "Technical Issues," "Billing Questions," and "General Inquiries." Each of these categories can then have its own sub-classifier to further refine the classification.
 
-![](/docs/images/ticket-hierarchy.png)
+![](https://platform.claude.com/docs/images/ticket-hierarchy.png)
 
 * **Pros - greater nuance and accuracy:** You can create different prompts for each parent path, allowing for more targeted and context-specific classification. This can lead to improved accuracy and more nuanced handling of customer requests.
 
@@ -519,7 +519,7 @@ For either of these approaches, you need to wrap your script in a service. The c
     Visit the classification cookbook for more example code and detailed eval guidance.
   </Card>
 
-  <Card title="Claude Console" icon="link" href="/dashboard">
+  <Card title="Claude Console" icon="link" href="https://platform.claude.com/dashboard">
     Begin building and evaluating your workflow on the Claude Console.
   </Card>
 </CardGroup>

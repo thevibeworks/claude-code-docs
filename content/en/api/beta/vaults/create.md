@@ -1,3 +1,8 @@
+---
+title: Create Vault
+url: https://platform.claude.com/docs/en/api/beta/vaults/create
+---
+
 ## Create Vault
 
 **post** `/v1/vaults`
@@ -12,7 +17,7 @@ Create Vault
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 29 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -77,6 +82,8 @@ Create Vault
     - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Body Parameters
 

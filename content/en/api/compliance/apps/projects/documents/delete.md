@@ -1,3 +1,8 @@
+---
+title: Delete project document
+url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/delete
+---
+
 ## Delete project document
 
 **delete** `/v1/compliance/apps/projects/documents/{document_id}`

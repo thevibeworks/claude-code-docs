@@ -1,7 +1,7 @@
-# Define outcomes
-
-Tell the agent what 'done' looks like, and let it iterate until it gets there.
-
+---
+title: Define outcomes
+url: https://platform.claude.com/docs/en/managed-agents/define-outcomes
+description: Tell the agent what 'done' looks like, and let it iterate until it gets there.
 ---
 
 An outcome tells the session what the end result should look like and how to measure its quality. The agent works toward that target, self-evaluating and iterating until the outcome is met.
@@ -11,7 +11,7 @@ When you define an outcome, the harness automatically provisions a *grader* to e
 The grader returns an explanation summarizing which criteria passed or failed, or confirming that the artifact satisfies the rubric. That feedback is handed back to the agent for the next iteration.
 
 <Note>
-  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](/docs/en/api/beta-headers#endpoint-specific-headers).
+  Managed Agents API requests require the `managed-agents-2026-04-01` beta header, except memory store endpoints, which use `agent-memory-2026-07-22` instead. The SDK sets the correct beta header automatically. See [Beta headers](https://platform.claude.com/docs/en/api/beta-headers#endpoint-specific-headers).
 </Note>
 
 ## Create a rubric
@@ -52,14 +52,14 @@ Example rubric:
 - Sensitivity analysis on WACC and terminal growth rate is included
 ```
 
-Pass the rubric as inline text on `user.define_outcome` (see [Create a session with an outcome](#create-a-session-with-an-outcome)), or upload it through the Files API for reuse across sessions.
+Pass the rubric as inline text on `user.define_outcome` (see [Create a session with an outcome](https://platform.claude.com/docs/en/managed-agents/define-outcomes#create-a-session-with-an-outcome)), or upload it through the Files API for reuse across sessions.
 
 <Note>
   Uploading through the Files API requires a beta header that grants Files API access. Your Managed Agents beta header grants this on its own, so you don't need to send `files-api-2025-04-14` alongside it. The curl example passes its headers explicitly.
 </Note>
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   rubric=$(curl -fsSL https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -290,10 +290,10 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
 
 ## Create a session with an outcome
 
-The following examples create a [session](/docs/en/managed-agents/sessions) for an existing [agent](/docs/en/managed-agents/agent-setup) and [environment](/docs/en/managed-agents/environments) (both created separately), then send a `user.define_outcome` event. The agent begins work immediately. No additional user message event is required.
+The following examples create a [session](https://platform.claude.com/docs/en/managed-agents/sessions) for an existing [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup) and [environment](https://platform.claude.com/docs/en/managed-agents/environments) (both created separately), then send a `user.define_outcome` event. The agent begins work immediately. No additional user message event is required.
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   # Create a session
   session=$(curl -fsSL https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -537,16 +537,16 @@ The following examples create a [session](/docs/en/managed-agents/sessions) for 
 </CodeGroup>
 
 <Note>
-  You can also define the outcome in the create request itself: pass a single `user.define_outcome` event in [`initial_events`](/docs/en/managed-agents/sessions#seed-the-session-with-initial-events) to create the session and start work toward the outcome in one call.
+  You can also define the outcome in the create request itself: pass a single `user.define_outcome` event in [`initial_events`](https://platform.claude.com/docs/en/managed-agents/sessions#seed-the-session-with-initial-events) to create the session and start work toward the outcome in one call.
 </Note>
 
 ## Outcome events
 
-Progress on an outcome-oriented session is surfaced on the events [stream](/docs/en/managed-agents/events-and-streaming).
+Progress on an outcome-oriented session is surfaced on the events [stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
 
 * `agent.*` events (such as messages and tool use) show progress toward the outcome.
 * `span.outcome_evaluation_*` events are only emitted for outcome-oriented sessions and show the number of iteration loops and the grader's feedback process.
-* You can also send `user.message` [events](/docs/en/managed-agents/reference#event-types) to an outcome-oriented session to direct the agent's work as it progresses, but it isn't required: the agent works toward the outcome on its own, iterating until it succeeds or runs out of iterations.
+* You can also send `user.message` [events](https://platform.claude.com/docs/en/managed-agents/reference#event-types) to an outcome-oriented session to direct the agent's work as it progresses, but it isn't required: the agent works toward the outcome on its own, iterating until it succeeds or runs out of iterations.
 * A `user.interrupt` event pauses work on the current outcome and marks the `span.outcome_evaluation_end.result` as `interrupted`, allowing you to kick off a new outcome.
 * After the final outcome evaluation, the session can be continued as a conversational session, or a new outcome can be started. The session retains history of the prior outcome.
 
@@ -628,10 +628,10 @@ Emitted when an outcome evaluation cycle ends: after the grader finishes evaluat
 
 ## Check outcome status
 
-You can either listen on the [event stream](/docs/en/managed-agents/events-and-streaming) for `span.outcome_evaluation_end`, or poll `GET /v1/sessions/{session_id}` and read `outcome_evaluations[].result`. Until an evaluation completes, `result` reports `pending`, `running`, or `evaluating`:
+You can either listen on the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) for `span.outcome_evaluation_end`, or poll `GET /v1/sessions/{session_id}` and read `outcome_evaluations[].result`. Until an evaluation completes, `result` reports `pending`, `running`, or `evaluating`:
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   session=$(curl -fsSL "https://api.anthropic.com/v1/sessions/$session_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -715,14 +715,14 @@ You can either listen on the [event stream](/docs/en/managed-agents/events-and-s
 
 ## Retrieve deliverables
 
-The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Once the session is idle, fetch them through the [Files API](/docs/en/build-with-claude/files) scoped to the session.
+The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Once the session is idle, fetch them through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) scoped to the session.
 
 <Note>
   Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header on the files request. The SDK files methods send only the files beta automatically, so the examples pass it explicitly.
 </Note>
 
 <CodeGroup>
-  ```bash curl
+  ```bash cURL
   # List files produced by this session
   # scope_id filtering requires the managed-agents beta
   files=$(curl -fsSL "https://api.anthropic.com/v1/files?scope_id=$session_id" \
@@ -896,15 +896,15 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 ## Next steps
 
 <CardGroup cols={3}>
-  <Card title="Authenticate with vaults" icon="fingerprint" href="/docs/en/managed-agents/vaults">
+  <Card title="Authenticate with vaults" icon="fingerprint" href="https://platform.claude.com/docs/en/managed-agents/vaults">
     Register per-user credentials when creating sessions.
   </Card>
 
-  <Card title="Session event stream" icon="lightning" href="/docs/en/managed-agents/events-and-streaming">
+  <Card title="Session event stream" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/events-and-streaming">
     Send events, stream responses, and interrupt or redirect your session mid-execution.
   </Card>
 
-  <Card title="Adding files" icon="file" href="/docs/en/managed-agents/files">
+  <Card title="Adding files" icon="file" href="https://platform.claude.com/docs/en/managed-agents/files">
     Upload files and mount them in your sandbox for reading and processing.
   </Card>
 </CardGroup>

@@ -1,7 +1,7 @@
-# Use WIF with GitHub Actions
-
-Authenticate GitHub Actions workflows to the Claude API with short-lived identity tokens instead of long-lived API keys.
-
+---
+title: Use WIF with GitHub Actions
+url: https://platform.claude.com/docs/en/manage-claude/wif-providers/github-actions
+description: Authenticate GitHub Actions workflows to the Claude API with short-lived identity tokens instead of long-lived API keys.
 ---
 
 Every GitHub Actions workflow run can request a signed identity token from GitHub's hosted issuer at `https://token.actions.githubusercontent.com`. With Workload Identity Federation, your workflow exchanges that token for a short-lived Anthropic access token, so your CI jobs can call the Claude API without an `ANTHROPIC_API_KEY` secret stored in your repository.
@@ -10,7 +10,7 @@ The token's `sub` claim encodes the repository and trigger context. For a push t
 
 ## Prerequisites
 
-* Familiarity with [WIF concepts](/docs/en/manage-claude/workload-identity-federation#concepts): service accounts, federation issuers, and federation rules.
+* Familiarity with [WIF concepts](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#concepts): service accounts, federation issuers, and federation rules.
 * A GitHub repository where you can edit workflow files and grant the `id-token: write` permission.
 * Permission to create service accounts, federation issuers, and federation rules in the Claude Console for your Anthropic organization.
 * Your Anthropic organization ID. You can find it in the Claude Console under **Settings → Organization**.
@@ -70,7 +70,7 @@ See [GitHub's OIDC subject claim reference](https://docs.github.com/en/actions/d
 
 In the Claude Console, open **Settings → Workload identity**, click **Connect workload**, and select the **GitHub Actions** tile. The wizard walks you through registering the issuer, creating a service account, and creating a federation rule.
 
-The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](/docs/en/manage-claude/wif-admin-api):
+The wizard creates these resources for you. Use the following values whether you enter them in the wizard or send them to the [Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api):
 
 **Federation issuer:** GitHub publishes its OIDC discovery document and JWKS publicly, so use discovery mode. Anthropic refreshes the keys automatically when GitHub rotates them.
 
@@ -82,7 +82,7 @@ The wizard creates these resources for you. Use the following values whether you
 }
 ```
 
-**Federation rule:** Match only the workflow runs you intend to trust. See [Restrict which workflows can authenticate](#restrict-which-workflows-can-authenticate) for how to scope these claims safely.
+**Federation rule:** Match only the workflow runs you intend to trust. See [Restrict which workflows can authenticate](https://platform.claude.com/docs/en/manage-claude/wif-providers/github-actions#restrict-which-workflows-can-authenticate) for how to scope these claims safely.
 
 ```json
 {
@@ -312,7 +312,7 @@ Each GitHub-issued identity token expires roughly five minutes after issuance. T
 
 ## Verify the setup
 
-A successful exchange returns an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. On `400 invalid_grant`, see [Troubleshoot a failed exchange](/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common GitHub Actions-side cause is the `sub` claim format not matching (its trailing segment varies between `ref:...`, `environment:...`, and `pull_request` events).
+A successful exchange returns an `access_token` beginning with `sk-ant-oat01-` and an `expires_in` value in seconds. On `400 invalid_grant`, see [Troubleshoot a failed exchange](https://platform.claude.com/docs/en/manage-claude/wif-reference#troubleshoot-a-failed-exchange); the most common GitHub Actions-side cause is the `sub` claim format not matching (its trailing segment varies between `ref:...`, `environment:...`, and `pull_request` events).
 
 ## Restrict which workflows can authenticate
 
@@ -329,5 +329,5 @@ Lock the rule's `match` block to the narrowest scope that fits your use case:
 
 ## Next steps
 
-* [Workload Identity Federation](/docs/en/manage-claude/workload-identity-federation): full setup walkthrough, environment variables, and credential precedence.
-* [Authentication](/docs/en/manage-claude/authentication): how federation compares to API keys.
+* [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation): full setup walkthrough, environment variables, and credential precedence.
+* [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication): how federation compares to API keys.

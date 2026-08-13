@@ -1,18 +1,18 @@
-# Effort
-
-Control how many tokens Claude uses when responding with the effort parameter, trading off between response thoroughness and token efficiency.
+---
+title: Effort
+url: https://platform.claude.com/docs/en/build-with-claude/effort
+description: Control how many tokens Claude uses when responding with the effort parameter, trading off between response thoroughness and token efficiency.
+---
 
 ## Compatibility
-- [ZDR](/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Supported models: `claude-fable-5`, `claude-mythos-5`, `claude-mythos-preview`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-opus-4-5-20251101`
 - Platforms: Claude API, Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
-
----
 
 The effort parameter lets you control how many tokens Claude spends when responding to requests. You can trade off between response thoroughness and token efficiency with a single model. The effort parameter is available on all supported models with no beta header required.
 
 <Tip>
-  For how effort interacts with thinking and which control to reach for, see [Thinking and effort](/docs/en/build-with-claude/thinking#thinking-and-effort). Where adaptive thinking is available, effort is the recommended way to control thinking depth.
+  For how effort interacts with thinking and which control to reach for, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort). Where adaptive thinking is available, effort is the recommended way to control thinking depth.
 </Tip>
 
 ## How effort works
@@ -55,7 +55,7 @@ This approach has two major advantages:
 Claude Sonnet 5 defaults to `high` effort on the Claude API and Claude Code.
 
 * **High effort (default):** Suitable for complex reasoning, coding, and agentic tasks where quality matters more than speed or cost.
-* **Xhigh effort:** For the hardest coding and agentic tasks. See [Prompting Claude Sonnet 5](/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5#calibrating-effort-and-thinking-depth).
+* **Xhigh effort:** For the hardest coding and agentic tasks. See [Prompting Claude Sonnet 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5#calibrating-effort-and-thinking-depth).
 * **Medium effort:** Cost-saving step-down from the default. Comparable to Claude Sonnet 4.6 at high effort.
 * **Low effort:** For high-volume or latency-sensitive workloads. Suitable for chat and non-coding use cases where faster turnaround is prioritized.
 * **Max effort:** For tasks requiring the absolute highest capability with no constraints on token spending.
@@ -99,19 +99,19 @@ When running Claude Opus 4.8 at `xhigh` or `max` effort, set a large `max_tokens
 
 Claude Opus 5 supports all five effort levels. **Start with `high`, the default**, and adjust based on your evals: step up to `xhigh` for demanding coding and agentic work, or to `max` when a task justifies unconstrained token spending, and use `low` and `medium` liberally as your primary control for token cost and response time wherever your evals show quality holds. If you carried effort settings over from an earlier model, run a fresh effort sweep on your evals rather than reusing them.
 
-Effort controls thinking volume, not visible response length: on Claude Opus 5, changing effort does not reliably shorten responses, so [prompt for length](/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5#response-length-and-verbosity) instead.
+Effort controls thinking volume, not visible response length: on Claude Opus 5, changing effort does not reliably shorten responses, so [prompt for length](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5#response-length-and-verbosity) instead.
 
 The API default is `high`. Set `effort` explicitly to use a different level; the value you pass overrides the default.
 
-On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort: requests that set `thinking: {"type": "disabled"}` at those levels return a 400 error. See [Effort with thinking](#effort-with-thinking).
+On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort: requests that set `thinking: {"type": "disabled"}` at those levels return a 400 error. See [Effort with thinking](https://platform.claude.com/docs/en/build-with-claude/effort#effort-with-thinking).
 
 When running Claude Opus 5 at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls. Starting at 64k tokens and tuning from there is a reasonable default.
 
 ### Recommended effort levels for Claude Fable 5
 
-Effort is the primary control for trading off intelligence, latency, and cost on Claude Fable 5. **Start with `high`, the default, for most tasks**, use `xhigh` for the most capability-sensitive workloads, and step down to `medium` or `low` for routine work. Lower effort settings on Claude Fable 5 still perform well and often exceed `xhigh` performance on prior models. At `high` and `xhigh`, set a large `max_tokens`: it is a hard limit on total output, thinking plus response text. See [Cost control](/docs/en/build-with-claude/thinking-steering-and-cost#cost-control).
+Effort is the primary control for trading off intelligence, latency, and cost on Claude Fable 5. **Start with `high`, the default, for most tasks**, use `xhigh` for the most capability-sensitive workloads, and step down to `medium` or `low` for routine work. Lower effort settings on Claude Fable 5 still perform well and often exceed `xhigh` performance on prior models. At `high` and `xhigh`, set a large `max_tokens`: it is a hard limit on total output, thinking plus response text. See [Cost control](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#cost-control).
 
-Reduce effort if a task completes but takes longer than necessary, or if you want a faster, more interactive working style. The same recommendations apply to Claude Mythos 5. For fuller guidance, see [Prompting Claude Fable 5](/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5).
+Reduce effort if a task completes but takes longer than necessary, or if you want a faster, more interactive working style. The same recommendations apply to Claude Mythos 5. For fuller guidance, see [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5).
 
 ## Basic usage
 
@@ -320,17 +320,17 @@ Higher effort levels may:
 
 ## Effort with thinking
 
-The `thinking` parameter controls whether Claude thinks in [thinking blocks](/docs/en/build-with-claude/thinking) before answering; the `effort` parameter controls how much work Claude puts into the whole response, which in adaptive mode includes how often and how deeply it thinks. Don't pass `adaptive` as an `effort` value: `adaptive` is a thinking mode, not an effort level.
+The `thinking` parameter controls whether Claude thinks in [thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking) before answering; the `effort` parameter controls how much work Claude puts into the whole response, which in adaptive mode includes how often and how deeply it thinks. Don't pass `adaptive` as an `effort` value: `adaptive` is a thinking mode, not an effort level.
 
-At higher effort levels, Claude thinks on most requests and at greater length; at lower levels, it can skip thinking entirely for simpler problems. See [Thinking and effort](/docs/en/build-with-claude/thinking#thinking-and-effort) for full guidance on how the two controls work together.
+At higher effort levels, Claude thinks on most requests and at greater length; at lower levels, it can skip thinking entirely for simpler problems. See [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort) for full guidance on how the two controls work together.
 
-On Claude Opus 4.5, the only extended-thinking-only model that supports effort, it works alongside [`budget_tokens`](/docs/en/build-with-claude/extended-thinking): set the effort level for your task, then set the thinking token budget based on how much reasoning depth the task needs.
+On Claude Opus 4.5, the only extended-thinking-only model that supports effort, it works alongside [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking): set the effort level for your task, then set the thinking token budget based on how much reasoning depth the task needs.
 
-For per-model thinking availability, see the [per-model configuration table](/docs/en/build-with-claude/thinking-troubleshooting#supported-models). Effort works with or without thinking; see [How effort works](#how-effort-works).
+For per-model thinking availability, see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#supported-models). Effort works with or without thinking; see [How effort works](https://platform.claude.com/docs/en/build-with-claude/effort#how-effort-works).
 
 ## Changing effort mid-conversation
 
-`output_config.effort` is a request-level setting: each request carries its own value, so to run a later part of a conversation at a different effort level, set the new value on the next request. The effort level applies to the whole request. Because effort shapes the rendered prompt, changing it between requests does not preserve cached prefixes from earlier turns; if you rely on [prompt caching](/docs/en/build-with-claude/prompt-caching) across a long session, pick an effort level at the start and keep it constant.
+`output_config.effort` is a request-level setting: each request carries its own value, so to run a later part of a conversation at a different effort level, set the new value on the next request. The effort level applies to the whole request. Because effort shapes the rendered prompt, changing it between requests does not preserve cached prefixes from earlier turns; if you rely on [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) across a long session, pick an effort level at the start and keep it constant.
 
 ## Best practices
 
@@ -338,20 +338,20 @@ For per-model thinking availability, see the [per-model configuration table](/do
 2. **Use low for speed-sensitive or simple tasks:** When latency matters or tasks are straightforward, low effort can significantly reduce response times and costs.
 3. **Test your use case:** The impact of effort levels varies by task type. Evaluate performance on your specific use cases before deploying.
 4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries may warrant low effort while agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.
-5. **Hold effort constant within cached conversations:** Changing the effort value between requests invalidates [prompt caching](/docs/en/build-with-claude/prompt-caching), so vary effort across workloads rather than within a conversation that relies on cache hits. See [Thinking and prompt caching](/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
+5. **Hold effort constant within cached conversations:** Changing the effort value between requests invalidates [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary effort across workloads rather than within a conversation that relies on cache hits. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
 
 ## Next steps
 
 <CardGroup>
-  <Card title="Task budgets" icon="gauge" href="/docs/en/build-with-claude/task-budgets">
+  <Card title="Task budgets" icon="gauge" href="https://platform.claude.com/docs/en/build-with-claude/task-budgets">
     Give Claude an advisory token budget for the full agentic loop to help the model self-regulate on long agentic tasks.
   </Card>
 
-  <Card title="Steering thinking" icon="compass" href="/docs/en/build-with-claude/thinking-steering-and-cost">
+  <Card title="Steering thinking" icon="compass" href="https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost">
     Understand adaptive thinking, where Claude decides when and how much to think, and steer it with effort and prompting.
   </Card>
 
-  <Card title="Thinking" icon="brain" href="/docs/en/build-with-claude/thinking">
+  <Card title="Thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
     Understand how thinking works, when Claude thinks by default, and how thinking interacts with effort.
   </Card>
 </CardGroup>

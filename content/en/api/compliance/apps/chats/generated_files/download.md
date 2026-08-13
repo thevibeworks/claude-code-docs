@@ -1,3 +1,8 @@
+---
+title: Download a Claude-generated file
+url: https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download
+---
+
 ## Download a Claude-generated file
 
 **get** `/v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`

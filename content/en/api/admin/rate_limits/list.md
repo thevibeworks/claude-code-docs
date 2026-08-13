@@ -1,3 +1,8 @@
+---
+title: List Organization Rate Limits
+url: https://platform.claude.com/docs/en/api/admin/rate_limits/list
+---
+
 ## List Organization Rate Limits
 
 **get** `/v1/organizations/rate_limits`

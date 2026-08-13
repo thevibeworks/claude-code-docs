@@ -1,7 +1,7 @@
-# Tutorial: Build a tool-using agent
-
-A guided walkthrough from a single tool call to a production-ready agentic loop.
-
+---
+title: "Tutorial: Build a tool-using agent"
+url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent
+description: A guided walkthrough from a single tool call to a production-ready agentic loop.
 ---
 
 This tutorial builds a calendar-management agent in five concentric rings. Each ring is a complete, runnable program that adds exactly one concept to the ring before it. By the end you will have written the agentic loop by hand and then replaced it with the Tool Runner SDK abstraction.
@@ -14,7 +14,7 @@ The example tool is `create_calendar_event`. Its schema uses nested objects, arr
 
 ## Ring 1: Single tool, single turn
 
-The smallest possible tool-using program: one tool, one user message, one tool call, one result. The code is heavily commented so you can map each line to the [tool use lifecycle](/docs/en/agents-and-tools/tool-use/how-tool-use-works).
+The smallest possible tool-using program: one tool, one user message, one tool call, one result. The code is heavily commented so you can map each line to the [tool use lifecycle](https://platform.claude.com/docs/en/agents-and-tools/tool-use/how-tool-use-works).
 
 The request sends a `tools` array alongside the user message. When Claude determines that a tool call is needed, the response comes back with `stop_reason: "tool_use"` and a `tool_use` content block containing the tool name, a unique `id`, and the structured `input`. Your code runs the tool, then sends the result back in a `tool_result` block whose `tool_use_id` matches the `id` from the call.
 
@@ -2925,7 +2925,7 @@ When Claude has multiple independent tool calls to make, it might return several
 I checked your calendar for next Monday and found an existing meeting from 2pm to 3pm. I've scheduled the planning session for 10am to 11am to avoid the conflict.
 ```
 
-For more on concurrent execution and ordering guarantees, see [Parallel tool use](/docs/en/agents-and-tools/tool-use/parallel-tool-use).
+For more on concurrent execution and ordering guarantees, see [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use).
 
 ## Ring 4: Error handling
 
@@ -4011,7 +4011,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
 I tried to schedule the all-hands but the calendar only allows 10 attendees per event. I can split this into two sessions, or you can let me know which 10 people to prioritize.
 ```
 
-The `is_error` flag is the only difference from a successful result. Claude sees the flag and the error text, and responds accordingly. See [Handle tool calls](/docs/en/agents-and-tools/tool-use/handle-tool-calls) for the full error-handling reference.
+The `is_error` flag is the only difference from a successful result. Claude sees the flag and the error text, and responds accordingly. See [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls) for the full error-handling reference.
 
 ## Ring 5: The Tool Runner SDK abstraction
 
@@ -4020,7 +4020,7 @@ Rings 2 through 4 wrote the same loop by hand: call the API, check `stop_reason`
 Each SDK provides a helper that turns an ordinary function into a runnable tool and derives the input schema from its signature; the tabs below show the idiomatic form for each language.
 
 <Note>
-  Tool Runner is available in all seven SDKs: Python, TypeScript, C#, Go, Java, PHP, and Ruby. See [Tool Runner](/docs/en/agents-and-tools/tool-use/tool-runner) for the full reference. The cURL and CLI tabs show a note instead of code; keep the Ring 4 loop for curl- or CLI-based scripts.
+  Tool Runner is available in all seven SDKs: Python, TypeScript, C#, Go, Java, PHP, and Ruby. See [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) for the full reference. The cURL and CLI tabs show a note instead of code; keep the Ring 4 loop for curl- or CLI-based scripts.
 </Note>
 
 <CodeGroup>
@@ -4660,15 +4660,15 @@ You started with a single hardcoded tool call and ended with a production-shaped
 ## Next steps
 
 <CardGroup>
-  <Card href="/docs/en/agents-and-tools/tool-use/define-tools" title="Define tools">
+  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools" title="Define tools">
     Schema specification and best practices.
   </Card>
 
-  <Card href="/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool Runner">
+  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner" title="Tool Runner">
     The full SDK abstraction reference.
   </Card>
 
-  <Card href="/docs/en/agents-and-tools/tool-use/troubleshooting-tool-use" title="Troubleshooting">
+  <Card href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/troubleshooting-tool-use" title="Troubleshooting">
     Fix common tool-use errors.
   </Card>
 </CardGroup>
