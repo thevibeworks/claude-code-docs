@@ -96,7 +96,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"text"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -119,7 +119,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"1h"`
 
-        - `citations: optional array of TextCitationParam`
+        - `citations: optional array of TextCitationParam or null`
 
           - `CitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -127,7 +127,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -143,7 +143,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -163,7 +163,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -185,7 +185,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -219,7 +219,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -259,7 +259,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"image"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -319,17 +319,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"document"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional CitationsConfigParam`
+        - `citations: optional CitationsConfigParam or null`
 
           - `enabled: optional boolean`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `SearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -339,11 +339,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text"`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of TextCitationParam`
+          - `citations: optional array of TextCitationParam or null`
 
         - `source: string`
 
@@ -353,7 +353,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"search_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -397,7 +397,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_use"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -439,7 +439,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -467,7 +467,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `"tool_reference"`
 
-              - `cache_control: optional CacheControlEphemeral`
+              - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -499,7 +499,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"server_tool_use"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -533,7 +533,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `url: string`
 
-            - `page_age: optional string`
+            - `page_age: optional string or null`
 
           - `WebSearchToolRequestError object { error_code, type }`
 
@@ -561,7 +561,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"web_search_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -621,7 +621,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Fetched content URL
 
-            - `retrieved_at: optional string`
+            - `retrieved_at: optional string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -631,7 +631,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"web_fetch_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -717,7 +717,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"code_execution_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -769,7 +769,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"bash_code_execution_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -795,7 +795,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `TextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -813,11 +813,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_view_result"`
 
-            - `num_lines: optional number`
+            - `num_lines: optional number or null`
 
-            - `start_line: optional number`
+            - `start_line: optional number or null`
 
-            - `total_lines: optional number`
+            - `total_lines: optional number or null`
 
           - `TextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -833,15 +833,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_str_replace_result"`
 
-            - `lines: optional array of string`
+            - `lines: optional array of string or null`
 
-            - `new_lines: optional number`
+            - `new_lines: optional number or null`
 
-            - `new_start: optional number`
+            - `new_start: optional number or null`
 
-            - `old_lines: optional number`
+            - `old_lines: optional number or null`
 
-            - `old_start: optional number`
+            - `old_start: optional number or null`
 
         - `tool_use_id: string`
 
@@ -849,7 +849,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"text_editor_code_execution_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -873,7 +873,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"tool_search_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `ToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -883,7 +883,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type: "tool_reference"`
 
-              - `cache_control: optional CacheControlEphemeral`
+              - `cache_control: optional CacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -897,7 +897,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_search_tool_result"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -912,7 +912,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"container_upload"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -931,17 +931,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text"`
 
-          - `cache_control: optional CacheControlEphemeral`
+          - `cache_control: optional CacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of TextCitationParam`
+          - `citations: optional array of TextCitationParam or null`
 
         - `type: "mid_conv_system"`
 
           - `"mid_conv_system"`
 
-        - `cache_control: optional CacheControlEphemeral`
+        - `cache_control: optional CacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1027,15 +1027,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `string`
 
-- `cache_control: optional CacheControlEphemeral`
+- `cache_control: optional CacheControlEphemeral or null`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `container: optional string`
+- `container: optional string or null`
 
   Container identifier for reuse across requests.
 
-- `inference_geo: optional string`
+- `inference_geo: optional string or null`
 
   Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
@@ -1043,7 +1043,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   An object describing metadata about the request.
 
-  - `user_id: optional string`
+  - `user_id: optional string or null`
 
     An external identifier for the user who is associated with the request.
 
@@ -1053,7 +1053,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-  - `effort: optional "low" or "medium" or "high" or 2 more`
+  - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
     All possible effort levels.
 
@@ -1067,7 +1067,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"max"`
 
-  - `format: optional JSONOutputFormat`
+  - `format: optional JSONOutputFormat or null`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -1117,11 +1117,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: "text"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional array of TextCitationParam`
+    - `citations: optional array of TextCitationParam or null`
 
 - `temperature: optional number`
 
@@ -1153,7 +1153,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"enabled"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -1173,7 +1173,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"adaptive"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -1315,9 +1315,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -1335,7 +1335,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1349,7 +1349,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `eager_input_streaming: optional boolean`
+    - `eager_input_streaming: optional boolean or null`
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -1359,7 +1359,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom"`
+    - `type: optional "custom" or null`
 
       - `"custom"`
 
@@ -1387,7 +1387,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1425,7 +1425,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1461,7 +1461,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1499,7 +1499,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1537,7 +1537,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1573,7 +1573,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1611,7 +1611,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1649,7 +1649,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1687,7 +1687,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1697,7 +1697,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `input_examples: optional array of map[unknown]`
 
-    - `max_characters: optional number`
+    - `max_characters: optional number or null`
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -1729,15 +1729,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1745,7 +1745,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -1753,7 +1753,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -1761,19 +1761,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"approximate"`
 
-      - `city: optional string`
+      - `city: optional string or null`
 
         The city of the user.
 
-      - `country: optional string`
+      - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      - `region: optional string`
+      - `region: optional string or null`
 
         The region of the user.
 
-      - `timezone: optional string`
+      - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -1801,19 +1801,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -1821,11 +1821,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -1857,15 +1857,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -1873,7 +1873,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -1881,7 +1881,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -1909,19 +1909,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -1929,11 +1929,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -1967,19 +1967,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -1987,11 +1987,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2027,15 +2027,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -2043,7 +2043,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2059,7 +2059,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional UserLocation`
+    - `user_location: optional UserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2087,19 +2087,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional CitationsConfigParam`
+    - `citations: optional CitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2107,11 +2107,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -2157,7 +2157,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -2195,7 +2195,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional CacheControlEphemeral`
+    - `cache_control: optional CacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -2233,7 +2233,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The format and length of IDs may change over time.
 
-  - `container: Container`
+  - `container: Container or null`
 
     Information about the container used in the request (for the code execution tool)
 
@@ -2276,7 +2276,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `TextBlock object { citations, text, type }`
 
-      - `citations: array of TextCitation`
+      - `citations: array of TextCitation or null`
 
         Citations supporting the text block.
 
@@ -2288,11 +2288,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -2306,11 +2306,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -2328,7 +2328,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -2336,7 +2336,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -2352,7 +2352,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -2386,7 +2386,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -2554,7 +2554,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_content: string`
 
-          - `page_age: string`
+          - `page_age: string or null`
 
           - `title: string`
 
@@ -2618,7 +2618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `content: DocumentBlock`
 
-            - `citations: CitationsConfig`
+            - `citations: CitationsConfig or null`
 
               Citation configuration for the document
 
@@ -2650,7 +2650,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `"text"`
 
-            - `title: string`
+            - `title: string or null`
 
               The title of the document
 
@@ -2658,7 +2658,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"document"`
 
-          - `retrieved_at: string`
+          - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
 
@@ -2810,7 +2810,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"file_not_found"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -2828,11 +2828,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"pdf"`
 
-          - `num_lines: number`
+          - `num_lines: number or null`
 
-          - `start_line: number`
+          - `start_line: number or null`
 
-          - `total_lines: number`
+          - `total_lines: number or null`
 
           - `type: "text_editor_code_execution_view_result"`
 
@@ -2848,15 +2848,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `TextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-          - `lines: array of string`
+          - `lines: array of string or null`
 
-          - `new_lines: number`
+          - `new_lines: number or null`
 
-          - `new_start: number`
+          - `new_start: number or null`
 
-          - `old_lines: number`
+          - `old_lines: number or null`
 
-          - `old_start: number`
+          - `old_start: number or null`
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -2884,7 +2884,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"execution_time_exceeded"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -3002,11 +3002,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"assistant"`
 
-  - `stop_details: RefusalStopDetails`
+  - `stop_details: RefusalStopDetails or null`
 
     Structured information about a refusal.
 
-    - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+    - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
 
@@ -3030,7 +3030,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Human-readable explanation of the refusal.
 
@@ -3040,7 +3040,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"refusal"`
 
-  - `stop_reason: StopReason`
+  - `stop_reason: StopReason or null`
 
     The reason that we stopped.
 
@@ -3070,7 +3070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"model_context_window_exceeded"`
 
-  - `stop_sequence: string`
+  - `stop_sequence: string or null`
 
     Which custom stop sequence was generated, if any.
 
@@ -3096,7 +3096,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: CacheCreation`
+    - `cache_creation: CacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -3108,15 +3108,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of input tokens used to create the 5 minute cache entry.
 
-    - `cache_creation_input_tokens: number`
+    - `cache_creation_input_tokens: number or null`
 
       The number of input tokens used to create the cache entry.
 
-    - `cache_read_input_tokens: number`
+    - `cache_read_input_tokens: number or null`
 
       The number of input tokens read from the cache.
 
-    - `inference_geo: string`
+    - `inference_geo: string or null`
 
       The geographic region where inference was performed for this request.
 
@@ -3128,7 +3128,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of output tokens which were used.
 
-    - `output_tokens_details: OutputTokensDetails`
+    - `output_tokens_details: OutputTokensDetails or null`
 
       Breakdown of output tokens by category.
 
@@ -3148,7 +3148,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: ServerToolUsage`
+    - `server_tool_use: ServerToolUsage or null`
 
       The number of server tool requests.
 
@@ -3160,7 +3160,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of web search tool requests.
 
-    - `service_tier: "standard" or "priority" or "batch"`
+    - `service_tier: "standard" or "priority" or "batch" or null`
 
       If the request used the priority, standard, or batch tier.
 

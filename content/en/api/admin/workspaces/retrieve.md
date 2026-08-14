@@ -23,7 +23,7 @@ Get Workspace
 
     ID of the Workspace.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
 
@@ -66,7 +66,7 @@ Get Workspace
 
     Hex color code representing the Workspace in the Anthropic Console.
 
-  - `external_key_id: string`
+  - `external_key_id: string or null`
 
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your

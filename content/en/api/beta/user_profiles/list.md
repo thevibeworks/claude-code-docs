@@ -155,15 +155,15 @@ List User Profiles
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Cursor for the next page, or `null` when there are no more results.
 

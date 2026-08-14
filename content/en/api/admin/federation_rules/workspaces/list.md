@@ -47,7 +47,7 @@ rules with `applies_to_all_workspaces` or a legacy single
 
     When this workspace was enabled for the rule.
 
-  - `created_by_actor_id: string`
+  - `created_by_actor_id: string or null`
 
     Tagged ID (`user_...` or `svac_...`) of the actor that enabled this workspace for the rule, if known.
 
@@ -63,11 +63,11 @@ rules with `applies_to_all_workspaces` or a legacy single
 
     Tagged ID of the workspace this rule is enabled for.
 
-  - `workspace_name: string`
+  - `workspace_name: string or null`
 
     Workspace display name. Populated when listing; null in the enable response.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Opaque cursor for the next page; null when there are no more results.
 

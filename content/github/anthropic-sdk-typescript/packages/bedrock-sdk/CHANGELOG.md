@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.32.4 (2026-08-13)
+
+Full Changelog: [bedrock-sdk-v0.32.3...bedrock-sdk-v0.32.4](https://github.com/anthropics/anthropic-sdk-typescript/compare/bedrock-sdk-v0.32.3...bedrock-sdk-v0.32.4)
+
+### Chores
+
+* **internal:** empty commit to trigger builds ([#1148](https://github.com/anthropics/anthropic-sdk-typescript/issues/1148)) ([c5c1d5c](https://github.com/anthropics/anthropic-sdk-typescript/commit/c5c1d5c0f84c564dd25ea2a65488ad8b282cb603))
+* **internal:** empty commit to trigger builds ([#1148](https://github.com/anthropics/anthropic-sdk-typescript/issues/1148)) ([366ca73](https://github.com/anthropics/anthropic-sdk-typescript/commit/366ca73374e8577b5c8c453ce2344a388e021a68))
+
+## 0.32.3 (2026-08-13)
+
+Full Changelog: [bedrock-sdk-v0.32.2...bedrock-sdk-v0.32.3](https://github.com/anthropics/anthropic-sdk-typescript/compare/bedrock-sdk-v0.32.2...bedrock-sdk-v0.32.3)
+
+### Chores
+
+* **internal:** empty commit to trigger builds ([#1148](https://github.com/anthropics/anthropic-sdk-typescript/issues/1148)) ([940dab8](https://github.com/anthropics/anthropic-sdk-typescript/commit/940dab810542b38bf73aeae84d6e9ceaf2a44730))
+
+## 0.32.2 (2026-08-13)
+
+Full Changelog: [bedrock-sdk-v0.32.1...bedrock-sdk-v0.32.2](https://github.com/anthropics/anthropic-sdk-typescript/compare/bedrock-sdk-v0.32.1...bedrock-sdk-v0.32.2)
+
+### Bug Fixes
+
+* **vertex,bedrock:** never send ambient first-party credentials to provider endpoints ([#287](https://github.com/anthropics/anthropic-sdk-typescript/issues/287)) ([75e5eed](https://github.com/anthropics/anthropic-sdk-typescript/commit/75e5eedc265f1ff339ae7de1e97a0f26b284a2eb))
+
 ## 0.32.1 (2026-08-07)
 
 Full Changelog: [bedrock-sdk-v0.32.0...bedrock-sdk-v0.32.1](https://github.com/anthropics/anthropic-sdk-typescript/compare/bedrock-sdk-v0.32.0...bedrock-sdk-v0.32.1)

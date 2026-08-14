@@ -124,13 +124,13 @@ List Skills
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string`
+  - `display_title: string or null`
 
     Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `latest_version: string`
+  - `latest_version: string or null`
 
     The latest version identifier for the skill.
 
@@ -161,7 +161,7 @@ List Skills
 
   If `true`, there are additional results that can be fetched using the `next_page` token.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token for fetching the next page of results.
 

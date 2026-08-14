@@ -101,7 +101,7 @@ Retrieves message history and file metadata for a specific chat.
 
     Unique identifier for the message e.g. 'claude_chat_msg_abcd1234'
 
-  - `artifacts: array of object { id, artifact_type, title, version_id }`
+  - `artifacts: array of object { id, artifact_type, title, version_id }  or null`
 
     Versioned documents generated or updated by the assistant in this message. Download via `GET /v1/compliance/apps/artifacts/{artifact_version_id}/content`.
 
@@ -109,11 +109,11 @@ Retrieves message history and file metadata for a specific chat.
 
       Artifact ID e.g. 'claude_artifact_abc123'
 
-    - `artifact_type: string`
+    - `artifact_type: string or null`
 
       MIME-like artifact type e.g. 'application/vnd.ant.code'
 
-    - `title: string`
+    - `title: string or null`
 
       Artifact title
 
@@ -121,17 +121,21 @@ Retrieves message history and file metadata for a specific chat.
 
       Artifact version ID e.g. 'claude_artifact_version_abc123'
 
-  - `content: array of object { text, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
+  - `content: array of object { text, thinking_redacted, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
 
     Content blocks within the message
 
-    - `Text object { text, truncated, type }`
+    - `Text object { text, thinking_redacted, truncated, type }`
 
       Text content block.
 
       - `text: string`
 
         Text content from human or assistant
+
+      - `thinking_redacted: boolean`
+
+        True when content enclosed in the assistant's internal-reasoning tags (or the tag markup itself) was removed from `text` during export. Removal never occurs with this field false. Always false on human messages, whose text is exported verbatim.
 
       - `truncated: boolean`
 
@@ -145,7 +149,7 @@ Retrieves message history and file metadata for a specific chat.
 
       Tool invocation requested by the assistant.
 
-      - `id: string`
+      - `id: string or null`
 
         Tool-use ID, e.g. 'toolu_01AbC...'
 
@@ -153,11 +157,11 @@ Retrieves message history and file metadata for a specific chat.
 
         Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
 
-      - `integration_name: string`
+      - `integration_name: string or null`
 
         Name of the integration that provides this tool, when applicable
 
-      - `mcp_server_url: string`
+      - `mcp_server_url: string or null`
 
         Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
 
@@ -189,7 +193,7 @@ Retrieves message history and file metadata for a specific chat.
 
           - `"text"`
 
-      - `integration_name: string`
+      - `integration_name: string or null`
 
         Name of the integration that provides this tool, when applicable
 
@@ -197,7 +201,7 @@ Retrieves message history and file metadata for a specific chat.
 
         True when the tool reported an error
 
-      - `mcp_server_url: string`
+      - `mcp_server_url: string or null`
 
         Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
 
@@ -205,7 +209,7 @@ Retrieves message history and file metadata for a specific chat.
 
         Name of the tool that produced this result
 
-      - `tool_use_id: string`
+      - `tool_use_id: string or null`
 
         ID of the tool_use block this result responds to
 
@@ -221,7 +225,7 @@ Retrieves message history and file metadata for a specific chat.
 
     Message creation timestamp - For human: when they sent the message, For assistant: when it completed the last content block
 
-  - `files: array of object { id, created_at, filename, 3 more }`
+  - `files: array of object { id, created_at, filename, 3 more }  or null`
 
     Binary file attachments uploaded by the user. Download via `GET /v1/compliance/apps/chats/files/{claude_file_id}/content`.
 
@@ -237,19 +241,19 @@ Retrieves message history and file metadata for a specific chat.
 
       Display name of the file
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the file's preferred downloadable variant, as recorded at upload time. Null when no stored hash is available.
 
-    - `mime_type: string`
+    - `mime_type: string or null`
 
       MIME type of the file's preferred downloadable variant (e.g. 'application/pdf')
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the file's preferred downloadable variant, if known. Null for older files uploaded before size was recorded.
 
-  - `generated_files: array of object { id, filename, md5, 2 more }`
+  - `generated_files: array of object { id, filename, md5, 2 more }  or null`
 
     Downloadable files the assistant created via tool use (e.g. PDF, spreadsheet, slide deck). Distinct from `files`, which are uploads attached to the message. Download via `GET /v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`.
 
@@ -261,15 +265,15 @@ Retrieves message history and file metadata for a specific chat.
 
       Display name of the generated file
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the generated file, when available. Null when no stored hash is available.
 
-    - `mime_type: string`
+    - `mime_type: string or null`
 
       MIME type reported by the tool that produced the file
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the generated file, when available. Null when the file has expired or size is not recorded.
 
@@ -285,11 +289,11 @@ Retrieves message history and file metadata for a specific chat.
 
   Creation timestamp
 
-- `deleted_at: string`
+- `deleted_at: string or null`
 
   Deletion timestamp if deleted
 
-- `first_id: string`
+- `first_id: string or null`
 
   Opaque pagination cursor for the first message in the current result set. Pass as `before_id` on the next request to page backwards. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
@@ -301,11 +305,11 @@ Retrieves message history and file metadata for a specific chat.
 
   URL to view this chat in claude.ai
 
-- `last_id: string`
+- `last_id: string or null`
 
   Opaque pagination cursor for the last message in the current result set. Pass as `after_id` on the next request to page forwards. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `model: string`
+- `model: string or null`
 
   Model selected for this chat (e.g. 'claude-opus-4-7'). May be null for legacy chats that never had a model recorded.
 
@@ -321,7 +325,7 @@ Retrieves message history and file metadata for a specific chat.
 
   Organization UUID this chat belongs to
 
-- `project_id: string`
+- `project_id: string or null`
 
   Project ID this chat belongs to
 
@@ -329,7 +333,7 @@ Retrieves message history and file metadata for a specific chat.
 
   Last update timestamp
 
-- `user: object { id, email_address }`
+- `user: object { id, email_address }  or null`
 
   User information for compliance responses.
 
@@ -425,7 +429,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
     Unique identifier for the message e.g. 'claude_chat_msg_abcd1234'
 
-  - `artifacts: array of object { id, artifact_type, title, version_id }`
+  - `artifacts: array of object { id, artifact_type, title, version_id }  or null`
 
     Versioned documents generated or updated by the assistant in this message. Download via `GET /v1/compliance/apps/artifacts/{artifact_version_id}/content`.
 
@@ -433,11 +437,11 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
       Artifact ID e.g. 'claude_artifact_abc123'
 
-    - `artifact_type: string`
+    - `artifact_type: string or null`
 
       MIME-like artifact type e.g. 'application/vnd.ant.code'
 
-    - `title: string`
+    - `title: string or null`
 
       Artifact title
 
@@ -445,17 +449,21 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
       Artifact version ID e.g. 'claude_artifact_version_abc123'
 
-  - `content: array of object { text, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
+  - `content: array of object { text, thinking_redacted, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
 
     Content blocks within the message
 
-    - `Text object { text, truncated, type }`
+    - `Text object { text, thinking_redacted, truncated, type }`
 
       Text content block.
 
       - `text: string`
 
         Text content from human or assistant
+
+      - `thinking_redacted: boolean`
+
+        True when content enclosed in the assistant's internal-reasoning tags (or the tag markup itself) was removed from `text` during export. Removal never occurs with this field false. Always false on human messages, whose text is exported verbatim.
 
       - `truncated: boolean`
 
@@ -469,7 +477,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
       Tool invocation requested by the assistant.
 
-      - `id: string`
+      - `id: string or null`
 
         Tool-use ID, e.g. 'toolu_01AbC...'
 
@@ -477,11 +485,11 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
         Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
 
-      - `integration_name: string`
+      - `integration_name: string or null`
 
         Name of the integration that provides this tool, when applicable
 
-      - `mcp_server_url: string`
+      - `mcp_server_url: string or null`
 
         Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
 
@@ -513,7 +521,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
           - `"text"`
 
-      - `integration_name: string`
+      - `integration_name: string or null`
 
         Name of the integration that provides this tool, when applicable
 
@@ -521,7 +529,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
         True when the tool reported an error
 
-      - `mcp_server_url: string`
+      - `mcp_server_url: string or null`
 
         Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
 
@@ -529,7 +537,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
         Name of the tool that produced this result
 
-      - `tool_use_id: string`
+      - `tool_use_id: string or null`
 
         ID of the tool_use block this result responds to
 
@@ -545,7 +553,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
     Message creation timestamp - For human: when they sent the message, For assistant: when it completed the last content block
 
-  - `files: array of object { id, created_at, filename, 3 more }`
+  - `files: array of object { id, created_at, filename, 3 more }  or null`
 
     Binary file attachments uploaded by the user. Download via `GET /v1/compliance/apps/chats/files/{claude_file_id}/content`.
 
@@ -561,19 +569,19 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
       Display name of the file
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the file's preferred downloadable variant, as recorded at upload time. Null when no stored hash is available.
 
-    - `mime_type: string`
+    - `mime_type: string or null`
 
       MIME type of the file's preferred downloadable variant (e.g. 'application/pdf')
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the file's preferred downloadable variant, if known. Null for older files uploaded before size was recorded.
 
-  - `generated_files: array of object { id, filename, md5, 2 more }`
+  - `generated_files: array of object { id, filename, md5, 2 more }  or null`
 
     Downloadable files the assistant created via tool use (e.g. PDF, spreadsheet, slide deck). Distinct from `files`, which are uploads attached to the message. Download via `GET /v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`.
 
@@ -585,15 +593,15 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
       Display name of the generated file
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the generated file, when available. Null when no stored hash is available.
 
-    - `mime_type: string`
+    - `mime_type: string or null`
 
       MIME type reported by the tool that produced the file
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the generated file, when available. Null when the file has expired or size is not recorded.
 

@@ -33,7 +33,7 @@ Use the sibling `/content` endpoint to download the bytes.
 
   The chat this generated file belongs to
 
-- `created_at: string`
+- `created_at: string or null`
 
   File creation timestamp, when available
 
@@ -41,15 +41,15 @@ Use the sibling `/content` endpoint to download the bytes.
 
   Display name of the generated file
 
-- `md5: string`
+- `md5: string or null`
 
   Lowercase hex MD5 of the stored file. Null when no stored hash is available. The sibling `/content` endpoint also sets a `Content-MD5` header (base64 per RFC 1864) computed over the exact served bytes.
 
-- `mime_type: string`
+- `mime_type: string or null`
 
   MIME type of the stored file, when available
 
-- `size_bytes: number`
+- `size_bytes: number or null`
 
   Size in bytes of the stored file, when available
 
@@ -119,7 +119,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/generated-files/$CLAUDE_
 
     The chat this generated file belongs to
 
-  - `created_at: string`
+  - `created_at: string or null`
 
     File creation timestamp, when available
 
@@ -127,14 +127,14 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/generated-files/$CLAUDE_
 
     Display name of the generated file
 
-  - `md5: string`
+  - `md5: string or null`
 
     Lowercase hex MD5 of the stored file. Null when no stored hash is available. The sibling `/content` endpoint also sets a `Content-MD5` header (base64 per RFC 1864) computed over the exact served bytes.
 
-  - `mime_type: string`
+  - `mime_type: string or null`
 
     MIME type of the stored file, when available
 
-  - `size_bytes: number`
+  - `size_bytes: number or null`
 
     Size in bytes of the stored file, when available

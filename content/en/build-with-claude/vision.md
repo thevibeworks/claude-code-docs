@@ -203,14 +203,15 @@ On the API, provide images to Claude as `image` content blocks using one of thre
 
   ```java Java
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-  String imageData = ""; // Base64-encoded image data as string
+  String imageData =
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";
 
   List<ContentBlockParam> contentBlockParams = List.of(
     ContentBlockParam.ofImage(
       ImageBlockParam.builder()
         .source(
           Base64ImageSource.builder()
-            .mediaType(Base64ImageSource.MediaType.IMAGE_JPEG)
+            .mediaType(Base64ImageSource.MediaType.IMAGE_PNG)
             .data(imageData)
             .build()
         )
@@ -228,7 +229,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
         .build()
     );
 
-  System.out.println(message);
+  IO.println(message);
   ```
 
   ```php PHP

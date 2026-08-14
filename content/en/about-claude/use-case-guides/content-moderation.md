@@ -7,9 +7,9 @@ description: Content moderation is a critical aspect of maintaining a safe, resp
 > Visit the [content moderation cookbook](https://platform.claude.com/cookbook/misc-building-moderation-filter) to see an example content moderation implementation using Claude.
 
 <Tip>
-  This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to the 
+  This guide is focused on moderating user-generated content within your application. If you're looking for guidance on moderating interactions with Claude, refer to 
 
-  [guardrails guide](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations)
+  [Mitigate jailbreaks and prompt injections](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks)
 
   .
 </Tip>
@@ -2741,7 +2741,7 @@ In this example, the `batch_moderate_messages` function handles the moderation o
     View a fully implemented code-based example of how to use Claude for content moderation.
   </Card>
 
-  <Card title="Guardrails guide" icon="link" href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">
-    Explore the guardrails guide for techniques to moderate interactions with Claude.
+  <Card title="Mitigate jailbreaks" icon="link" href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks">
+    Explore guardrail techniques to moderate interactions with Claude.
   </Card>
 </CardGroup>

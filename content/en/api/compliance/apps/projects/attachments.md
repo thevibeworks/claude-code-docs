@@ -62,7 +62,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Display name of the file (e.g., 'document.pdf')
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
@@ -70,7 +70,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
@@ -108,7 +108,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       - `"project_doc"`
 
-    - `updated_at: string`
+    - `updated_at: string or null`
 
       Last-modified timestamp of the document. Reserved for future use — currently always null.
 
@@ -116,7 +116,7 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
   Whether more records exist beyond the current result set
 
-- `next_page: string`
+- `next_page: string or null`
 
   To get the next page, use the 'next_page' from the current response as the 'page' in your next request
 
@@ -171,7 +171,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       Display name of the file (e.g., 'document.pdf')
 
-    - `md5: string`
+    - `md5: string or null`
 
       Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
@@ -179,7 +179,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
 
-    - `size_bytes: number`
+    - `size_bytes: number or null`
 
       Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
 
@@ -217,6 +217,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 
       - `"project_doc"`
 
-    - `updated_at: string`
+    - `updated_at: string or null`
 
       Last-modified timestamp of the document. Reserved for future use — currently always null.

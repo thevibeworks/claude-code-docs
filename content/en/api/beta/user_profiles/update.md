@@ -91,7 +91,7 @@ Update User Profile
 
 ### Body Parameters
 
-- `external_id: optional string`
+- `external_id: optional string or null`
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
@@ -99,11 +99,11 @@ Update User Profile
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
 
-- `name: optional string`
+- `name: optional string or null`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
-- `relationship: optional "external" or "resold" or "internal"`
+- `relationship: optional "external" or "resold" or "internal" or null`
 
   How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
@@ -163,11 +163,11 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 

@@ -109,7 +109,7 @@ List environments with pagination support.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -241,7 +241,7 @@ List environments with pagination support.
 
     - `"account"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
 

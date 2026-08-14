@@ -63,7 +63,7 @@ The quickest way to see a workflow in action is to run `/deep-research`, the [bu
   <Step title="Read the report">
     When the run finishes, the report lands in your session. It cites the sources each claim came from, with claims that didn't survive cross-checking already filtered out.
 
-    As of v2.1.196, when the verifier agents can't check a claim, such as after a rate limit or API error, the report lists that claim as unverified instead of counting it as refuted.
+    When the verifier agents can't check a claim, such as after a rate limit or API error, the report lists that claim as unverified instead of counting it as refuted.
   </Step>
 </Steps>
 
@@ -77,7 +77,7 @@ Claude Code includes `/deep-research` as a built-in workflow:
 | :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/deep-research <question>` | Fans out web searches on a question across several angles, fetches and cross-checks the sources it finds, votes on each claim, and returns a cited report with claims that didn't survive cross-checking filtered out. Requires the [WebSearch tool](/docs/en/tools-reference#websearch-tool-behavior) to be available |
 
-`/deep-research` runs only when you invoke it. Before v2.1.218, Claude could also start it on its own.
+`/deep-research` runs only when you invoke it.
 
 [Workflows you save](#save-the-workflow-for-reuse) yourself become commands the same way and appear in `/` autocomplete alongside the bundled ones.
 
@@ -191,7 +191,7 @@ Run `/workflows`, select the run you want to keep, and press `s`. In the save di
 * `.claude/workflows/` in your project: shared with everyone who clones the repo
 * `~/.claude/workflows/` in your home directory: available in every project, visible only to you. If you set [`CLAUDE_CONFIG_DIR`](/docs/en/env-vars), this location is the `workflows/` directory under that path.
 
-The save dialog shows the resolved path for the personal location. Before v2.1.208, it showed `~/.claude/workflows/` even when `CLAUDE_CONFIG_DIR` was set; the file was still saved under the configured directory.
+The save dialog shows the resolved path for the personal location.
 
 Press Enter to save. The workflow runs as `/<name>` in future sessions from either location.
 
@@ -311,17 +311,24 @@ Every run writes its script to a file under your session's directory in `~/.clau
 
 The runtime tracks each agent's result as the run progresses, which is what makes a run [resumable](#resume-after-a-pause) within the same session.
 
+### Prompt caching in a fan-out
+
+Agents in the same run can read each other's [prompt cache](/docs/en/prompt-caching#subagents-and-the-cache). Two agents that run with the same model, effort level, agent type, tools, output schema, and working directory build the same tools-and-system-prompt prefix, so an agent that starts after a matching sibling's response has begun reads that sibling's cache on its first request.
+
+When a fan-out starts several matching agents at once, Claude Code holds all but the first until the first agent's response begins, then releases the held agents together so their first requests read the shared prefix instead of each processing it uncached. Claude Code caps the hold at [`CLAUDE_CODE_WORKFLOW_PREFIX_STAGGER_MS`](/docs/en/env-vars) milliseconds, `5000` by default. Set it to `0` to disable the hold.
+
 ### Behavior and limits
 
 The runtime applies the following constraints:
 
-| Constraint                                                                       | Why                                                                                                            |
-| :------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------- |
-| No mid-run user input                                                            | Only agent permission prompts can pause a run. For sign-off between stages, run each stage as its own workflow |
-| No direct filesystem or shell access from the workflow itself                    | Agents read, write, and run commands. The script coordinates the agents                                        |
-| No module loading: a script that contains `import()` fails before the run starts | The script body is plain JavaScript. Put work that needs a library in an agent's task                          |
-| Up to 16 concurrent agents, fewer on machines with limited CPU cores             | Bounds local resource use                                                                                      |
-| 1,000 agents total per run                                                       | Prevents runaway loops                                                                                         |
+| Constraint                                                                                                            | Why                                                                                                                             |
+| :-------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| No mid-run user input                                                                                                 | Only agent permission prompts can pause a run. For sign-off between stages, run each stage as its own workflow                  |
+| No direct filesystem or shell access from the workflow itself                                                         | Agents read, write, and run commands. The script coordinates the agents                                                         |
+| No module loading: a script that contains `import()` fails before the run starts                                      | The script body is plain JavaScript. Put work that needs a library in an agent's task                                           |
+| Up to 16 concurrent agents, fewer when Claude Code has fewer CPUs available, including inside a CPU-limited container | Bounds local resource use                                                                                                       |
+| In a fan-out, agents that share the first agent's prompt-cache prefix start up to 5 seconds after it by default       | All but the first read the [prefix the first agent cached](#prompt-caching-in-a-fan-out) instead of each processing it uncached |
+| 1,000 agents total per run                                                                                            | Prevents runaway loops                                                                                                          |
 
 ## Manage runs
 
@@ -350,7 +357,7 @@ A workflow spawns many agents, so a single run can use meaningfully more tokens 
 
 To gauge the spend before committing to a large task, run the workflow on a small slice first: one directory instead of the whole repo, or a narrow question instead of a broad one. The `/workflows` view shows each agent's token usage as the run progresses, and you can stop the run there at any time, usually without losing completed work. [Resume after a pause](#resume-after-a-pause) covers what a stopped run keeps. The runtime's [agent caps](#behavior-and-limits) limit how many agents a single run can spawn, which bounds the cost of a runaway script. To keep runs to fewer agents, choose the `small` [size guideline](#set-a-size-guideline).
 
-Claude Code also flags a run that grows unusually large. When a workflow schedules more than 25 agents, or its projected token total passes 1.5 million, its progress line in the task panel below the input box shows a `Large workflow` warning. The warning points you to [`/workflows`](#watch-the-run), where you can stop the run. Requires Claude Code v2.1.203 or later.
+Claude Code also flags a run that grows unusually large. When a workflow schedules more than 25 agents, or its projected token total passes 1.5 million, its progress line in the task panel below the input box shows a `Large workflow` warning. The warning points you to [`/workflows`](#watch-the-run), where you can stop the run.
 
 The warning is advisory: it doesn't pause or limit the run. Two settings change when you see it:
 

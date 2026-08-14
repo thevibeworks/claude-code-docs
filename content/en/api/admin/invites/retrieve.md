@@ -23,7 +23,7 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     ID of the Invite.
 
-  - `accepted_at: string`
+  - `accepted_at: string or null`
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 

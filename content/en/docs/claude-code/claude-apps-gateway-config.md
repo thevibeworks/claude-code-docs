@@ -608,7 +608,7 @@ Every key is optional; Claude Desktop applies its own default for any key you om
 If a device also has a local `managed-settings.json` or MDM-delivered policy, the managed sources don't merge, with two per-key exceptions while no [policy helper](/docs/en/settings#compute-managed-settings-with-a-policy-helper) is supplying managed settings, since a helper's output replaces the managed sources entirely:
 
 * The `env` block, in Claude Code v2.1.223 or later
-* The [cross-source lock keys](/docs/en/settings#settings-precedence)
+* The [cross-source lock keys](/docs/en/settings#precedence-within-the-managed-tier)
 
 Both are covered in the list later in this section. The highest-priority source provides all policy settings, ranked in this order with highest priority first:
 
@@ -690,7 +690,7 @@ Telemetry is off in the CLI by default. Configuring `telemetry.forward_to` toget
 * `OTEL_EXPORTER_OTLP_ENDPOINT=<public_url>`
 * `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`
 
-The pushed endpoint is built from the public URL, so metrics and logs need no OTEL configuration from developers or policies. The pushed configuration is applied at the managed tier, overriding `OTEL_*` variables a developer sets locally. Independently of the push, a signed-in CLI that has OTLP/HTTP export enabled sends those exports to the gateway rather than to a locally configured endpoint, and without a `forward_to` destination for a signal the gateway accepts and discards it; if you already collect Claude Code telemetry directly, add your collector as a `forward_to` destination.
+The pushed endpoint is built from the public URL, so metrics and logs need no OTEL configuration from developers or policies. The pushed configuration is applied at the managed tier, overriding `OTEL_*` variables a developer sets locally. Whether or not the gateway pushes these variables, a CLI signed in through `/login` that has OTLP/HTTP export enabled sends its exports to the gateway rather than to a locally configured endpoint, and without a `forward_to` destination for a signal the gateway accepts and discards it; if you already collect Claude Code telemetry directly, add your collector as a `forward_to` destination.
 
 [Traces](/docs/en/monitoring-usage#traces-beta) additionally require `CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` on each client. The gateway doesn't push that variable, so set it through a managed policy's `env` block. It isn't among the variables Claude Code applies without the developer's approval, so delivering it through a policy is covered by the same [security approval dialog](#managed) that the pushed OTLP endpoint already triggers.
 

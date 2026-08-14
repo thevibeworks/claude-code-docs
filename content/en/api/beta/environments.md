@@ -93,7 +93,7 @@ Create a new environment with the specified configuration.
 
   Human-readable name for the environment
 
-- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Environment configuration
 
@@ -110,7 +110,7 @@ Create a new environment with the specified configuration.
 
       - `"cloud"`
 
-    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -137,45 +137,45 @@ Create a new environment with the specified configuration.
 
           - `"limited"`
 
-        - `allow_mcp_servers: optional boolean`
+        - `allow_mcp_servers: optional boolean or null`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional boolean`
+        - `allow_package_managers: optional boolean or null`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allowed_hosts: optional array of string`
+        - `allowed_hosts: optional array of string or null`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams or null`
 
       Specify packages (and optionally their versions) available in this environment.
 
       When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-      - `apt: optional array of string`
+      - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional array of string`
+      - `cargo: optional array of string or null`
 
         Rust packages to install
 
-      - `gem: optional array of string`
+      - `gem: optional array of string or null`
 
         Ruby packages to install
 
-      - `go: optional array of string`
+      - `go: optional array of string or null`
 
         Go packages to install
 
-      - `npm: optional array of string`
+      - `npm: optional array of string or null`
 
         Node.js packages to install
 
-      - `pip: optional array of string`
+      - `pip: optional array of string or null`
 
         Python packages to install
 
@@ -195,7 +195,7 @@ Create a new environment with the specified configuration.
 
       - `"self_hosted"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Optional description of the environment
 
@@ -203,7 +203,7 @@ Create a new environment with the specified configuration.
 
   User-provided metadata key-value pairs
 
-- `scope: optional "organization" or "account"`
+- `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
 
@@ -221,7 +221,7 @@ Create a new environment with the specified configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -538,7 +538,7 @@ List environments with pagination support.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -670,7 +670,7 @@ List environments with pagination support.
 
     - `"account"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
 
@@ -833,7 +833,7 @@ Retrieve a specific environment by ID.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -1111,7 +1111,7 @@ Update an existing environment's configuration.
 
 ### Body Parameters
 
-- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Updated environment configuration
 
@@ -1128,7 +1128,7 @@ Update an existing environment's configuration.
 
       - `"cloud"`
 
-    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -1155,45 +1155,45 @@ Update an existing environment's configuration.
 
           - `"limited"`
 
-        - `allow_mcp_servers: optional boolean`
+        - `allow_mcp_servers: optional boolean or null`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional boolean`
+        - `allow_package_managers: optional boolean or null`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allowed_hosts: optional array of string`
+        - `allowed_hosts: optional array of string or null`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams or null`
 
       Specify packages (and optionally their versions) available in this environment.
 
       When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-      - `apt: optional array of string`
+      - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional array of string`
+      - `cargo: optional array of string or null`
 
         Rust packages to install
 
-      - `gem: optional array of string`
+      - `gem: optional array of string or null`
 
         Ruby packages to install
 
-      - `go: optional array of string`
+      - `go: optional array of string or null`
 
         Go packages to install
 
-      - `npm: optional array of string`
+      - `npm: optional array of string or null`
 
         Node.js packages to install
 
-      - `pip: optional array of string`
+      - `pip: optional array of string or null`
 
         Python packages to install
 
@@ -1213,7 +1213,7 @@ Update an existing environment's configuration.
 
       - `"self_hosted"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Updated description of the environment
 
@@ -1221,11 +1221,11 @@ Update an existing environment's configuration.
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name: optional string`
+- `name: optional string or null`
 
   Updated name for the environment
 
-- `scope: optional "organization" or "account"`
+- `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -1243,7 +1243,7 @@ Update an existing environment's configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -1654,7 +1654,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -1944,7 +1944,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     - `"cloud"`
 
-  - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+  - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
     Network configuration policy. Omit on update to preserve the existing value.
 
@@ -1971,45 +1971,45 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
         - `"limited"`
 
-      - `allow_mcp_servers: optional boolean`
+      - `allow_mcp_servers: optional boolean or null`
 
         Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-      - `allow_package_managers: optional boolean`
+      - `allow_package_managers: optional boolean or null`
 
         Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-      - `allowed_hosts: optional array of string`
+      - `allowed_hosts: optional array of string or null`
 
         Specifies domains the container can reach.
 
-  - `packages: optional BetaPackagesParams`
+  - `packages: optional BetaPackagesParams or null`
 
     Specify packages (and optionally their versions) available in this environment.
 
     When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-    - `apt: optional array of string`
+    - `apt: optional array of string or null`
 
       Ubuntu/Debian packages to install
 
-    - `cargo: optional array of string`
+    - `cargo: optional array of string or null`
 
       Rust packages to install
 
-    - `gem: optional array of string`
+    - `gem: optional array of string or null`
 
       Ruby packages to install
 
-    - `go: optional array of string`
+    - `go: optional array of string or null`
 
       Go packages to install
 
-    - `npm: optional array of string`
+    - `npm: optional array of string or null`
 
       Node.js packages to install
 
-    - `pip: optional array of string`
+    - `pip: optional array of string or null`
 
       Python packages to install
 
@@ -2029,7 +2029,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -2216,15 +2216,15 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     - `"limited"`
 
-  - `allow_mcp_servers: optional boolean`
+  - `allow_mcp_servers: optional boolean or null`
 
     Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-  - `allow_package_managers: optional boolean`
+  - `allow_package_managers: optional boolean or null`
 
     Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-  - `allowed_hosts: optional array of string`
+  - `allowed_hosts: optional array of string or null`
 
     Specifies domains the container can reach.
 
@@ -2272,27 +2272,27 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
   When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-  - `apt: optional array of string`
+  - `apt: optional array of string or null`
 
     Ubuntu/Debian packages to install
 
-  - `cargo: optional array of string`
+  - `cargo: optional array of string or null`
 
     Rust packages to install
 
-  - `gem: optional array of string`
+  - `gem: optional array of string or null`
 
     Ruby packages to install
 
-  - `go: optional array of string`
+  - `go: optional array of string or null`
 
     Go packages to install
 
-  - `npm: optional array of string`
+  - `npm: optional array of string or null`
 
     Node.js packages to install
 
-  - `pip: optional array of string`
+  - `pip: optional array of string or null`
 
     Python packages to install
 
@@ -2444,7 +2444,7 @@ Retrieve detailed information about a specific work item.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -2470,7 +2470,7 @@ Retrieve detailed information about a specific work item.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -2478,11 +2478,11 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -2500,11 +2500,11 @@ Retrieve detailed information about a specific work item.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -2664,7 +2664,7 @@ Long poll for work items in the queue.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -2690,7 +2690,7 @@ Long poll for work items in the queue.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -2698,11 +2698,11 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -2720,11 +2720,11 @@ Long poll for work items in the queue.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -2872,7 +2872,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -2898,7 +2898,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -2906,11 +2906,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -2928,11 +2928,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -3247,7 +3247,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -3273,7 +3273,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -3281,11 +3281,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -3303,11 +3303,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -3465,7 +3465,7 @@ List work items in an environment.
 
       Work identifier (e.g., 'work_...')
 
-    - `acknowledged_at: string`
+    - `acknowledged_at: string or null`
 
       RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -3491,7 +3491,7 @@ List work items in an environment.
 
       Environment identifier this work belongs to (e.g., `env_...`)
 
-    - `latest_heartbeat_at: string`
+    - `latest_heartbeat_at: string or null`
 
       RFC 3339 timestamp of the most recent heartbeat
 
@@ -3499,11 +3499,11 @@ List work items in an environment.
 
       User-provided metadata key-value pairs associated with this work item
 
-    - `secret: string`
+    - `secret: string or null`
 
       Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-    - `started_at: string`
+    - `started_at: string or null`
 
       RFC 3339 timestamp when work execution started
 
@@ -3521,11 +3521,11 @@ List work items in an environment.
 
       - `"stopped"`
 
-    - `stop_requested_at: string`
+    - `stop_requested_at: string or null`
 
       RFC 3339 timestamp when stop was requested
 
-    - `stopped_at: string`
+    - `stopped_at: string or null`
 
       RFC 3339 timestamp when work execution stopped
 
@@ -3535,7 +3535,7 @@ List work items in an environment.
 
       - `"work"`
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor for fetching the next page of results
 
@@ -3688,7 +3688,7 @@ Update work item metadata with merge semantics.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -3714,7 +3714,7 @@ Update work item metadata with merge semantics.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -3722,11 +3722,11 @@ Update work item metadata with merge semantics.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -3744,11 +3744,11 @@ Update work item metadata with merge semantics.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -3896,7 +3896,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items waiting to be picked up (lag from consumer group)
 
-  - `oldest_queued_at: string`
+  - `oldest_queued_at: string or null`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -3910,7 +3910,7 @@ Get statistics about the work queue for an environment.
 
     - `"work_queue_stats"`
 
-  - `workers_polling: number`
+  - `workers_polling: number or null`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
@@ -3951,7 +3951,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -3977,7 +3977,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -3985,11 +3985,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -4007,11 +4007,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -4073,7 +4073,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       Work identifier (e.g., 'work_...')
 
-    - `acknowledged_at: string`
+    - `acknowledged_at: string or null`
 
       RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -4099,7 +4099,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       Environment identifier this work belongs to (e.g., `env_...`)
 
-    - `latest_heartbeat_at: string`
+    - `latest_heartbeat_at: string or null`
 
       RFC 3339 timestamp of the most recent heartbeat
 
@@ -4107,11 +4107,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       User-provided metadata key-value pairs associated with this work item
 
-    - `secret: string`
+    - `secret: string or null`
 
       Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-    - `started_at: string`
+    - `started_at: string or null`
 
       RFC 3339 timestamp when work execution started
 
@@ -4129,11 +4129,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       - `"stopped"`
 
-    - `stop_requested_at: string`
+    - `stop_requested_at: string or null`
 
       RFC 3339 timestamp when stop was requested
 
-    - `stopped_at: string`
+    - `stopped_at: string or null`
 
       RFC 3339 timestamp when work execution stopped
 
@@ -4143,7 +4143,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       - `"work"`
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor for fetching the next page of results
 
@@ -4159,7 +4159,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Number of work items waiting to be picked up (lag from consumer group)
 
-  - `oldest_queued_at: string`
+  - `oldest_queued_at: string or null`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -4173,7 +4173,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     - `"work_queue_stats"`
 
-  - `workers_polling: number`
+  - `workers_polling: number or null`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 

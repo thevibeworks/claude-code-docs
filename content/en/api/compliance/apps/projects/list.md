@@ -82,7 +82,7 @@ are sorted chronologically (time ascending) by created_at.
 
     Project creation timestamp
 
-  - `deleted_at: string`
+  - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
 
@@ -106,13 +106,13 @@ are sorted chronologically (time ascending) by created_at.
 
     Project last update timestamp
 
-  - `user: object { id, email_address }`
+  - `user: object { id, email_address }  or null`
 
     The user who created a project or project document.
 
     Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of any organization
-    under the parent organization.
+    been deleted or the creator is no longer a member of an organization the
+    key may read.
 
     - `id: string`
 
@@ -126,7 +126,7 @@ are sorted chronologically (time ascending) by created_at.
 
   Whether more records exist beyond the current result set
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 

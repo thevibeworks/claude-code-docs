@@ -87,7 +87,7 @@ Create User Profile
 
 ### Body Parameters
 
-- `external_id: optional string`
+- `external_id: optional string or null`
 
   Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
@@ -95,7 +95,7 @@ Create User Profile
 
   Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
-- `name: optional string`
+- `name: optional string or null`
 
   Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
 
@@ -159,11 +159,11 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 

@@ -109,7 +109,7 @@ List Vaults
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -133,7 +133,7 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Pagination token for the next page, or null if no more results.
 

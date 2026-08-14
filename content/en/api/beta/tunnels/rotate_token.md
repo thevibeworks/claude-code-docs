@@ -93,7 +93,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Body Parameters
 
-- `reason: optional string`
+- `reason: optional string or null`
 
   Optional free-text reason for the rotation, recorded for audit.
 

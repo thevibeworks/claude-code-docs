@@ -128,48 +128,35 @@ Enable compaction by adding the `compact_20260112` strategy to `context_manageme
   ```
 
   ```csharp C#
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Threading.Tasks;
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
+  AnthropicClient client = new();
 
-  class Program
+  var messages = new List<BetaMessageParam>
   {
-      static async Task Main(string[] args)
+      new() { Role = Role.User, Content = "Help me build a website" }
+  };
+
+  var parameters = new MessageCreateParams
+  {
+      Betas = ["compact-2026-01-12"],
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      Messages = messages,
+      ContextManagement = new BetaContextManagementConfig
       {
-          AnthropicClient client = new();
-
-          var messages = new List<BetaMessageParam>
-          {
-              new() { Role = Role.User, Content = "Help me build a website" }
-          };
-
-          var parameters = new MessageCreateParams
-          {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Messages = messages,
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit()]
-              }
-          };
-
-          var response = await client.Beta.Messages.Create(parameters);
-
-          // Append the response (including any compaction block) to continue the conversation
-          messages.Add(new BetaMessageParam
-          {
-              Role = Role.Assistant,
-              Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
-          });
-
-          Console.WriteLine(response);
+          Edits = [new BetaCompact20260112Edit()]
       }
-  }
+  };
+
+  var response = await client.Beta.Messages.Create(parameters);
+
+  // Append the response (including any compaction block) to continue the conversation
+  messages.Add(new BetaMessageParam
+  {
+      Role = Role.Assistant,
+      Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
+  });
+
+  Console.WriteLine(response);
   ```
 
   ```go Go
@@ -592,41 +579,30 @@ You can provide custom instructions through the `instructions` parameter. Custom
   ```
 
   ```csharp C#
-  using System;
-  using System.Threading.Tasks;
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
+  AnthropicClient client = new();
 
-  class Program
+  var parameters = new MessageCreateParams
   {
-      static async Task Main(string[] args)
+      Betas = ["compact-2026-01-12"],
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      Messages =
+      [
+          new BetaMessageParam { Role = Role.User, Content = "Help me build a Python web scraper" },
+          new BetaMessageParam { Role = Role.Assistant, Content = "I'll help you build a web scraper..." },
+          new BetaMessageParam { Role = Role.User, Content = "Add support for JavaScript-rendered pages" }
+      ],
+      ContextManagement = new BetaContextManagementConfig
       {
-          AnthropicClient client = new();
-
-          var parameters = new MessageCreateParams
+          Edits = [new BetaCompact20260112Edit
           {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Messages =
-              [
-                  new BetaMessageParam { Role = Role.User, Content = "Help me build a Python web scraper" },
-                  new BetaMessageParam { Role = Role.Assistant, Content = "I'll help you build a web scraper..." },
-                  new BetaMessageParam { Role = Role.User, Content = "Add support for JavaScript-rendered pages" }
-              ],
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit
-                  {
-                      Instructions = "Focus on preserving code snippets, variable names, and technical decisions."
-                  }]
-              }
-          };
-
-          var message = await client.Beta.Messages.Create(parameters);
-          Console.WriteLine(message);
+              Instructions = "Focus on preserving code snippets, variable names, and technical decisions."
+          }]
       }
-  }
+  };
+
+  var message = await client.Beta.Messages.Create(parameters);
+  Console.WriteLine(message);
   ```
 
   ```go Go
@@ -859,66 +835,53 @@ When enabled, the API returns a message with the `compaction` stop reason after 
   ```
 
   ```csharp C#
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Threading.Tasks;
-
-  class Program
+  var client = new AnthropicClient();
+  var messages = new List<BetaMessageParam>
   {
-      static async Task Main(string[] args)
+      new() { Role = Role.User, Content = "Hello, Claude" }
+  };
+
+  var parameters = new MessageCreateParams
+  {
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      Betas = ["compact-2026-01-12"],
+      Messages = messages,
+      ContextManagement = new BetaContextManagementConfig
       {
-          var client = new AnthropicClient();
-          var messages = new List<BetaMessageParam>
+          Edits = [new BetaCompact20260112Edit
           {
-              new() { Role = Role.User, Content = "Hello, Claude" }
-          };
-
-          var parameters = new MessageCreateParams
-          {
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Betas = ["compact-2026-01-12"],
-              Messages = messages,
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit
-                  {
-                      PauseAfterCompaction = true
-                  }]
-              }
-          };
-
-          var response = await client.Beta.Messages.Create(parameters);
-
-          if (response.StopReason == BetaStopReason.Compaction)
-          {
-              messages.Add(new BetaMessageParam
-              {
-                  Role = Role.Assistant,
-                  Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
-              });
-
-              parameters = new()
-              {
-                  Model = "claude-opus-5",
-                  MaxTokens = 4096,
-                  Betas = ["compact-2026-01-12"],
-                  Messages = messages,
-                  ContextManagement = new BetaContextManagementConfig
-                  {
-                      Edits = [new BetaCompact20260112Edit()]
-                  }
-              };
-
-              response = await client.Beta.Messages.Create(parameters);
-          }
-
-          Console.WriteLine(response);
+              PauseAfterCompaction = true
+          }]
       }
+  };
+
+  var response = await client.Beta.Messages.Create(parameters);
+
+  if (response.StopReason == BetaStopReason.Compaction)
+  {
+      messages.Add(new BetaMessageParam
+      {
+          Role = Role.Assistant,
+          Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
+      });
+
+      parameters = new()
+      {
+          Model = "claude-opus-5",
+          MaxTokens = 4096,
+          Betas = ["compact-2026-01-12"],
+          Messages = messages,
+          ContextManagement = new BetaContextManagementConfig
+          {
+              Edits = [new BetaCompact20260112Edit()]
+          }
+      };
+
+      response = await client.Beta.Messages.Create(parameters);
   }
+
+  Console.WriteLine(response);
   ```
 
   ```go Go
@@ -1535,59 +1498,46 @@ You must pass the `compaction` block back to the API on subsequent requests to c
   ```
 
   ```csharp C#
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Threading.Tasks;
+  AnthropicClient client = new();
 
-  class Program
+  var messages = new List<BetaMessageParam>
   {
-      static async Task Main(string[] args)
+      new() { Role = Role.User, Content = "Help me build a web scraper" }
+  };
+
+  var response = await client.Beta.Messages.Create(new()
+  {
+      Betas = ["compact-2026-01-12"],
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      Messages = messages,
+      ContextManagement = new BetaContextManagementConfig
       {
-          AnthropicClient client = new();
-
-          var messages = new List<BetaMessageParam>
-          {
-              new() { Role = Role.User, Content = "Help me build a web scraper" }
-          };
-
-          var response = await client.Beta.Messages.Create(new()
-          {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Messages = messages,
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit()]
-              }
-          });
-
-          messages.Add(new BetaMessageParam
-          {
-              Role = Role.Assistant,
-              Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
-          });
-
-          messages.Add(new BetaMessageParam { Role = Role.User, Content = "Now add error handling" });
-
-          var nextResponse = await client.Beta.Messages.Create(new()
-          {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Messages = messages,
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit()]
-              }
-          });
-
-          Console.WriteLine(nextResponse);
+          Edits = [new BetaCompact20260112Edit()]
       }
-  }
+  });
+
+  messages.Add(new BetaMessageParam
+  {
+      Role = Role.Assistant,
+      Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
+  });
+
+  messages.Add(new BetaMessageParam { Role = Role.User, Content = "Now add error handling" });
+
+  var nextResponse = await client.Beta.Messages.Create(new()
+  {
+      Betas = ["compact-2026-01-12"],
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      Messages = messages,
+      ContextManagement = new BetaContextManagementConfig
+      {
+          Edits = [new BetaCompact20260112Edit()]
+      }
+  });
+
+  Console.WriteLine(nextResponse);
   ```
 
   ```go Go
@@ -2175,42 +2125,30 @@ To maximize cache hit rates, add a `cache_control` breakpoint at the end of your
   ```
 
   ```csharp C#
-  using System;
-  using System.Collections.Generic;
-  using System.Threading.Tasks;
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
+  var client = new AnthropicClient();
 
-  class Program
+  var parameters = new MessageCreateParams
   {
-      static async Task Main(string[] args)
+      Betas = ["compact-2026-01-12"],
+      Model = "claude-opus-5",
+      MaxTokens = 4096,
+      System = new List<BetaTextBlockParam>
       {
-          var client = new AnthropicClient();
-
-          var parameters = new MessageCreateParams
+          new()
           {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              System = new List<BetaTextBlockParam>
-              {
-                  new()
-                  {
-                      Text = "You are a helpful coding assistant...",
-                      CacheControl = new BetaCacheControlEphemeral()
-                  }
-              },
-              Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
-              ContextManagement = new BetaContextManagementConfig
-              {
-                  Edits = [new BetaCompact20260112Edit()]
-              }
-          };
-
-          var response = await client.Beta.Messages.Create(parameters);
-          Console.WriteLine(response);
+              Text = "You are a helpful coding assistant...",
+              CacheControl = new BetaCacheControlEphemeral()
+          }
+      },
+      Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+      ContextManagement = new BetaContextManagementConfig
+      {
+          Edits = [new BetaCompact20260112Edit()]
       }
-  }
+  };
+
+  var response = await client.Beta.Messages.Create(parameters);
+  Console.WriteLine(response);
   ```
 
   ```go Go
@@ -2683,58 +2621,45 @@ Here's a complete example of a long-running conversation with compaction:
   ```
 
   ```csharp C#
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Threading.Tasks;
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
+  AnthropicClient client = new();
+  List<BetaMessageParam> messages = new();
 
-  public class Program
+  Console.WriteLine(await Chat(client, messages, "Help me build a Python web scraper"));
+  Console.WriteLine(await Chat(client, messages, "Add support for JavaScript-rendered pages"));
+  Console.WriteLine(await Chat(client, messages, "Now add rate limiting and error handling"));
+
+  static async Task<string> Chat(AnthropicClient client, List<BetaMessageParam> messages, string userMessage)
   {
-      static async Task Main(string[] args)
+      messages.Add(new() { Role = Role.User, Content = userMessage });
+
+      var parameters = new MessageCreateParams
       {
-          AnthropicClient client = new();
-          List<BetaMessageParam> messages = new();
-
-          Console.WriteLine(await Chat(client, messages, "Help me build a Python web scraper"));
-          Console.WriteLine(await Chat(client, messages, "Add support for JavaScript-rendered pages"));
-          Console.WriteLine(await Chat(client, messages, "Now add rate limiting and error handling"));
-      }
-
-      static async Task<string> Chat(AnthropicClient client, List<BetaMessageParam> messages, string userMessage)
-      {
-          messages.Add(new() { Role = Role.User, Content = userMessage });
-
-          var parameters = new MessageCreateParams
+          Betas = ["compact-2026-01-12"],
+          Model = "claude-opus-5",
+          MaxTokens = 4096,
+          Messages = messages,
+          ContextManagement = new BetaContextManagementConfig
           {
-              Betas = ["compact-2026-01-12"],
-              Model = "claude-opus-5",
-              MaxTokens = 4096,
-              Messages = messages,
-              ContextManagement = new BetaContextManagementConfig
+              Edits = [new BetaCompact20260112Edit
               {
-                  Edits = [new BetaCompact20260112Edit
-                  {
-                      Trigger = new BetaInputTokensTrigger(100000)
-                  }]
-              }
-          };
+                  Trigger = new BetaInputTokensTrigger(100000)
+              }]
+          }
+      };
 
-          var response = await client.Beta.Messages.Create(parameters);
+      var response = await client.Beta.Messages.Create(parameters);
 
-          messages.Add(new()
-          {
-              Role = Role.Assistant,
-              Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
-          });
+      messages.Add(new()
+      {
+          Role = Role.Assistant,
+          Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
+      });
 
-          return response.Content
-              .Select(b => b.Value)
-              .OfType<BetaTextBlock>()
-              .Select(tb => tb.Text)
-              .FirstOrDefault() ?? "";
-      }
+      return response.Content
+          .Select(block => block.Value)
+          .OfType<BetaTextBlock>()
+          .Select(tb => tb.Text)
+          .FirstOrDefault() ?? "";
   }
   ```
 
@@ -3018,7 +2943,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
               context_management={"edits": [{"type": "compact_20260112"}]},
           )
 
-          # Update our message list to reflect the compaction
+          # Update the message list to reflect the compaction
           messages.clear()
           messages.extend(messages_after_compaction)
 
@@ -3086,7 +3011,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
         }
       });
 
-      // Update our message list to reflect the compaction
+      // Update the message list to reflect the compaction
       messages = messagesAfterCompaction;
     }
 
@@ -3106,91 +3031,78 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
   ```
 
   ```csharp C#
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Threading.Tasks;
-  using Anthropic;
-  using Anthropic.Models.Beta.Messages;
+  AnthropicClient client = new();
+  List<BetaMessageParam> messages = new();
 
-  public class CompactionExample
+  Console.WriteLine(await Chat("Help me build a Python web scraper"));
+  Console.WriteLine(await Chat("Add support for JavaScript-rendered pages"));
+  Console.WriteLine(await Chat("Now add rate limiting and error handling"));
+
+  async Task<string> Chat(string userMessage)
   {
-      private static AnthropicClient client = new();
-      private static List<BetaMessageParam> messages = new();
+      messages.Add(new() { Role = Role.User, Content = userMessage });
 
-      static async Task<string> Chat(string userMessage)
+      var response = await client.Beta.Messages.Create(new()
       {
-          messages.Add(new() { Role = Role.User, Content = userMessage });
+          Betas = ["compact-2026-01-12"],
+          Model = "claude-opus-5",
+          MaxTokens = 4096,
+          Messages = messages,
+          ContextManagement = new BetaContextManagementConfig
+          {
+              Edits = [new BetaCompact20260112Edit
+              {
+                  Trigger = new BetaInputTokensTrigger(100000),
+                  PauseAfterCompaction = true
+              }]
+          }
+      });
 
-          var response = await client.Beta.Messages.Create(new()
+      if (response.StopReason == BetaStopReason.Compaction)
+      {
+          if (!response.Content[0].TryPickCompaction(out _))
+              throw new InvalidOperationException("Expected compaction block");
+
+          var preserved = messages.Count >= 3
+              ? messages.Skip(messages.Count - 3).ToList()
+              : new List<BetaMessageParam>(messages);
+
+          var messagesAfterCompaction = new List<BetaMessageParam>
+          {
+              new()
+              {
+                  Role = Role.Assistant,
+                  Content = new List<BetaContentBlockParam> { new BetaContentBlockParam(response.Content[0].Json) }
+              }
+          };
+          messagesAfterCompaction.AddRange(preserved);
+
+          response = await client.Beta.Messages.Create(new()
           {
               Betas = ["compact-2026-01-12"],
               Model = "claude-opus-5",
               MaxTokens = 4096,
-              Messages = messages,
+              Messages = messagesAfterCompaction,
               ContextManagement = new BetaContextManagementConfig
               {
-                  Edits = [new BetaCompact20260112Edit
-                  {
-                      Trigger = new BetaInputTokensTrigger(100000),
-                      PauseAfterCompaction = true
-                  }]
+                  Edits = [new BetaCompact20260112Edit()]
               }
           });
 
-          if (response.StopReason == BetaStopReason.Compaction)
-          {
-              if (!response.Content[0].TryPickCompaction(out _))
-                  throw new InvalidOperationException("Expected compaction block");
-
-              var preserved = messages.Count >= 3
-                  ? messages.Skip(messages.Count - 3).ToList()
-                  : new List<BetaMessageParam>(messages);
-
-              var messagesAfterCompaction = new List<BetaMessageParam>
-              {
-                  new()
-                  {
-                      Role = Role.Assistant,
-                      Content = new List<BetaContentBlockParam> { new BetaContentBlockParam(response.Content[0].Json) }
-                  }
-              };
-              messagesAfterCompaction.AddRange(preserved);
-
-              response = await client.Beta.Messages.Create(new()
-              {
-                  Betas = ["compact-2026-01-12"],
-                  Model = "claude-opus-5",
-                  MaxTokens = 4096,
-                  Messages = messagesAfterCompaction,
-                  ContextManagement = new BetaContextManagementConfig
-                  {
-                      Edits = [new BetaCompact20260112Edit()]
-                  }
-              });
-
-              messages = messagesAfterCompaction;
-          }
-
-          messages.Add(new()
-          {
-              Role = Role.Assistant,
-              Content = response.Content.Select(b => new BetaContentBlockParam(b.Json)).ToList()
-          });
-
-          return response.Content
-              .Select(b => b.Value)
-              .OfType<BetaTextBlock>()
-              .Select(tb => tb.Text)
-              .FirstOrDefault() ?? "";
+          messages = messagesAfterCompaction;
       }
 
-      static async Task Main()
+      messages.Add(new()
       {
-          Console.WriteLine(await Chat("Help me build a Python web scraper"));
-          Console.WriteLine(await Chat("Add support for JavaScript-rendered pages"));
-          Console.WriteLine(await Chat("Now add rate limiting and error handling"));
-      }
+          Role = Role.Assistant,
+          Content = response.Content.Select(block => new BetaContentBlockParam(block.Json)).ToList()
+      });
+
+      return response.Content
+          .Select(block => block.Value)
+          .OfType<BetaTextBlock>()
+          .Select(tb => tb.Text)
+          .FirstOrDefault() ?? "";
   }
   ```
 
@@ -3341,7 +3253,7 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
 
               response = client.beta().messages().create(continueParams);
 
-              // Update our message list to reflect the compaction
+              // Update the message list to reflect the compaction
               messages.clear();
               messages.addAll(messagesAfterCompaction);
           }

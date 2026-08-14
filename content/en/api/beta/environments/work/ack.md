@@ -107,7 +107,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -133,7 +133,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -141,11 +141,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -163,11 +163,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 

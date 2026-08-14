@@ -99,7 +99,7 @@ Add Session Resource
 
   - `"file"`
 
-- `mount_path: optional string`
+- `mount_path: optional string or null`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 

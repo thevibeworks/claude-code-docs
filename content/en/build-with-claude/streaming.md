@@ -1482,7 +1482,7 @@ data: {"type":"message_stop"}
 
 ### Claude 4.5 and earlier
 
-For Claude 4.5 models and earlier, you can recover a streaming request that was interrupted due to network issues, timeouts, or other errors by resuming from where the stream was interrupted. This approach saves you from re-processing the entire response.
+For Claude 4.5 models and earlier, you can recover a streaming request that was interrupted because of network issues, timeouts, or other errors by resuming from where the stream was interrupted. This approach saves you from re-processing the entire response.
 
 The basic recovery strategy involves:
 

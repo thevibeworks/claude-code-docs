@@ -77,7 +77,7 @@ and contains the set of limiter values that apply to it.
 
       The configured limit value for this limiter type.
 
-  - `models: array of string`
+  - `models: array of string or null`
 
     Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
 
@@ -87,7 +87,7 @@ and contains the set of limiter values that apply to it.
 
     - `"rate_limit"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token to provide in as `page` in the subsequent request to retrieve the next page of data.
 

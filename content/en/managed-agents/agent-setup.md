@@ -180,6 +180,7 @@ The response echoes your configuration and adds `id`, `type`, `version`, `create
   ],
   "skills": [],
   "mcp_servers": [],
+  "multiagent": null,
   "metadata": {},
   "version": 1,
   "created_at": "2026-04-03T18:24:10.412Z",

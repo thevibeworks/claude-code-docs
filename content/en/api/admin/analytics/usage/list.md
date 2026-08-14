@@ -112,11 +112,19 @@ key with the `read:analytics` scope.
 
   - `data: array of object { ending_at, results, starting_at }`
 
+    Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
+
     - `ending_at: string`
+
+      End of the time bucket (exclusive) in RFC 3339 format.
 
     - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 10 more }`
 
+      Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+
       - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+
+        The number of input tokens for cache creation.
 
         - `ephemeral_1h_input_tokens: number`
 
@@ -130,47 +138,57 @@ key with the `read:analytics` scope.
 
         The number of input tokens read from the cache.
 
-      - `context_window: "0-200k" or "200k-1M"`
+      - `context_window: "0-200k" or "200k-1M" or null`
+
+        Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
 
         - `"0-200k"`
 
         - `"200k-1M"`
 
-      - `inference_geo: "global" or "us"`
+      - `inference_geo: "global" or "us" or null`
+
+        Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
 
         - `"global"`
 
         - `"us"`
 
-      - `model: string`
+      - `model: string or null`
+
+        Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-4-6`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
       - `output_tokens: number`
 
         The number of output tokens generated.
 
-      - `product: string`
+      - `product: string or null`
 
-        Product surface that produced the usage or cost. Null unless product is in group_by[]; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include "chat", "claude_code", "cowork", "office_agent", "claude_in_chrome", "claude_design", and "claude-in-slack". "claude-in-slack" (with hyphens) is Claude Tag, the Claude product in Slack. A similarly spelled legacy value (underscores instead of hyphens) identifies the retiring v1 Slack chat bot and appears only for organizations that used it. Some unattributed usage is reported as "other".
+        Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include "chat", "claude_code", "cowork", "office_agent", "claude_in_chrome", "claude_design", and "claude-in-slack". "claude-in-slack" (with hyphens) is Claude Tag, the Claude product in Slack. A similarly spelled legacy value (underscores instead of hyphens) identifies the retiring v1 Slack chat bot and appears only for organizations that used it. Some unattributed usage is reported as "other".
 
-      - `rbac_group_id: string`
+      - `rbac_group_id: string or null`
 
         RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has ONE id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query with no group_by.
 
-      - `requests: number`
+      - `requests: number or null`
 
         Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
       - `server_tool_use: object { web_search_requests }`
 
+        Server-side tool usage metrics.
+
         - `web_search_requests: number`
 
           The number of web search requests made.
 
-      - `slack_channel_id: string`
+      - `slack_channel_id: string or null`
 
         Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
 
-      - `speed: "fast" or "standard"`
+      - `speed: "fast" or "standard" or null`
+
+        Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
 
         - `"fast"`
 
@@ -182,13 +200,19 @@ key with the `read:analytics` scope.
 
     - `starting_at: string`
 
-  - `data_refreshed_at: string`
+      Start of the time bucket (inclusive) in RFC 3339 format.
 
-    RFC 3339 timestamp of the export this response was served from. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+  - `data_refreshed_at: string or null`
+
+    RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
 
   - `has_more: boolean`
 
-  - `next_page: string`
+    Whether another page is available. When true, pass `next_page` as the `page` parameter to fetch it.
+
+  - `next_page: string or null`
+
+    Opaque cursor for the next page, or null when `has_more` is false. Pass it as the `page` parameter, keeping the other parameters unchanged. A cursor can expire after the underlying data refreshes; the request then returns HTTP 410 and pagination must restart from the first page.
 
   - `organization_id: string`
 
@@ -218,9 +242,9 @@ curl https://api.anthropic.com/v1/organizations/analytics/usage_report \
           "cache_read_input_tokens": 0,
           "context_window": "0-200k",
           "inference_geo": "global",
-          "model": "model",
+          "model": "claude-opus-4-6",
           "output_tokens": 0,
-          "product": "product",
+          "product": "chat",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
           "requests": 0,
           "server_tool_use": {

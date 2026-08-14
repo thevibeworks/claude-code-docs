@@ -42,7 +42,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     When the key was created.
 
-  - `created_by_id: string`
+  - `created_by_id: string or null`
 
     Identifier of the user who created the key, or null when the key was created by automation or its creator's account no longer exists.
 
@@ -58,7 +58,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     The permission scopes granted to the key.
 
-  - `expires_at: optional string`
+  - `expires_at: optional string or null`
 
     When the key will stop authenticating, or null when the key does not expire.
 
@@ -91,8 +91,6 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"claude_ai_feedback_collection_enabled"`
 
       - `"claude_ai_integration_sharing_enabled"`
-
-      - `"claude_code_desktop_auto_permissions_enabled"`
 
       - `"claude_code_desktop_bypass_permissions_enabled"`
 
@@ -127,6 +125,8 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"connector_tools_default_always_allow"`
 
       - `"content_redaction_enabled"`
+
+      - `"cowork_trusted_devices_required"`
 
       - `"desktop_extension_allowlist_enabled"`
 
@@ -183,7 +183,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       - `"account_session_duration_seconds"`
 
-    - `value: number`
+    - `value: number or null`
 
     - `type: optional "integer"`
 
@@ -200,7 +200,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       - `"claude_code_default_worker_pool_id"`
 
-    - `value: string`
+    - `value: string or null`
 
     - `type: optional "string"`
 

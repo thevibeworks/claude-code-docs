@@ -109,7 +109,7 @@ Here's how to detect and handle streaming refusals in your application:
 
   ```typescript TypeScript
   const client = new Anthropic();
-  let messages: any[] = [];
+  let messages: Anthropic.MessageParam[] = [];
 
   function resetConversation() {
     // Reset conversation context after refusal
@@ -149,9 +149,12 @@ Here's how to detect and handle streaming refusals in your application:
 
   try
   {
-      await foreach (var msg in client.Messages.CreateStreaming(parameters))
+      await foreach (var streamEvent in client.Messages.CreateStreaming(parameters))
       {
-          if (msg.Type == "message_delta" && msg.Delta?.StopReason == "refusal")
+          if (
+              streamEvent.TryPickDelta(out var deltaEvent)
+              && deltaEvent.Delta.StopReason == StopReason.Refusal
+          )
           {
               ResetConversation();
               break;
@@ -193,7 +196,7 @@ Here's how to detect and handle streaming refusals in your application:
   		event := stream.Current()
   		switch eventVariant := event.AsAny().(type) {
   		case anthropic.MessageDeltaEvent:
-  			if eventVariant.Delta.StopReason == "refusal" {
+  			if eventVariant.Delta.StopReason == anthropic.StopReasonRefusal {
   				resetConversation()
   				break streamLoop
   			}
@@ -262,11 +265,9 @@ Here's how to detect and handle streaming refusals in your application:
       );
 
       foreach ($stream as $event) {
-          if (isset($event->type) && $event->type === 'message_delta') {
-              if (isset($event->delta->stopReason) && $event->delta->stopReason === 'refusal') {
-                  resetConversation($messages);
-                  break;
-              }
+          if ($event->type === 'message_delta' && $event->delta->stopReason === 'refusal') {
+              resetConversation($messages);
+              break;
           }
       }
   } catch (Exception $e) {

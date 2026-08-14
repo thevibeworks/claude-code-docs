@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go
 description: Install and configure the Anthropic Go SDK with context-based cancellation and functional options
 ---
 
-The Anthropic Go library provides convenient access to the Anthropic REST API from applications written in Go.
+The Anthropic Go library provides convenient access to the Claude API from applications written in Go.
 
 <Info>
   For API feature documentation with code examples, see the [API reference](https://platform.claude.com/docs/en/api/overview). This page covers Go-specific SDK features and configuration.
@@ -244,9 +244,9 @@ For authentication options including Workload Identity Federation, see [Authenti
 
 The anthropic library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson) semantics from the Go 1.24+ `encoding/json` release for request fields.
 
-Required primitive fields (`int64`, `string`, etc.) feature the tag `` `json:"...,required"` ``. These fields are always serialized, even their zero values.
+Required primitive fields (such as `int64` or `string`) feature the tag `` `json:"...,required"` ``. These fields are always serialized, even their zero values.
 
-Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, `anthropic.String(string)`, `anthropic.Int(int64)`, etc.
+Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, such as `anthropic.String(string)` or `anthropic.Int(int64)`.
 
 Any `param.Opt[T]`, map, slice, struct or string enum uses the tag `` `json:"...,omitzero"` ``. Its zero value is considered omitted.
 
@@ -451,7 +451,7 @@ default:
 
 ## Error handling
 
-When the API returns a non-success status code, the SDK returns an error with type `*anthropic.Error`. This contains the `StatusCode`, `*http.Request`, and `*http.Response` values of the request, as well as the JSON of the error body (much like other response objects in the SDK). The error also includes the `RequestID` from the response headers, which is useful for troubleshooting with Anthropic support.
+When the API returns a non-success status code, the SDK returns an error with type `*anthropic.Error`. This contains the `StatusCode`, `*http.Request`, and `*http.Response` values of the request, along with the JSON of the error body (much like other response objects in the SDK). The error also includes the `RequestID` from the response headers, which is useful for troubleshooting with Anthropic support.
 
 To handle errors, use the `errors.As` pattern:
 
@@ -585,7 +585,7 @@ iter := client.Messages.Batches.ListAutoPaging(context.TODO(), anthropic.Message
 // Automatically fetches more pages as needed.
 for iter.Next() {
 	messageBatch := iter.Current()
-	fmt.Printf("%+v\n", messageBatch)
+	fmt.Println(messageBatch.ID)
 }
 if err := iter.Err(); err != nil {
 	panic(err.Error())
@@ -600,7 +600,7 @@ page, err := client.Messages.Batches.List(context.TODO(), anthropic.MessageBatch
 })
 for page != nil {
 	for _, batch := range page.Data {
-		fmt.Printf("%+v\n", batch)
+		fmt.Println(batch.ID)
 	}
 	page, err = page.GetNextPage()
 }
@@ -683,7 +683,7 @@ message, err := client.Messages.New(
 if err != nil {
 	// handle error
 }
-fmt.Printf("%+v\n", message)
+fmt.Printf("%+v\n", message.Content)
 
 fmt.Printf("Status Code: %d\n", response.StatusCode)
 fmt.Printf("Headers: %+#v\n", response.Header)
@@ -735,12 +735,12 @@ Any fields that are not present on the response struct are saved and can be acce
 
 ## Semantic versioning
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 Your feedback is welcome; open an [issue](https://github.com/anthropics/anthropic-sdk-go/issues) with questions, bugs, or suggestions.
 

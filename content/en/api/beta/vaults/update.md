@@ -91,11 +91,11 @@ Update Vault
 
 ### Body Parameters
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Updated human-readable name for the vault. 1-255 characters.
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -109,7 +109,7 @@ Update Vault
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 

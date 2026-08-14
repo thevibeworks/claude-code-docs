@@ -43,7 +43,7 @@ The Claude Code Analytics API is available to every organization with access to 
     ```bash
     curl "https://api.anthropic.com/v1/organizations/usage_report/claude_code?starting_at=2025-09-08" \
       --header "anthropic-version: 2023-06-01" \
-      --header "x-api-key: $ADMIN_API_KEY"
+      --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
     ```
   </Step>
 </Steps>

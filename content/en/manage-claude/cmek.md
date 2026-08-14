@@ -90,7 +90,7 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 * Audit log exports are disabled.
 * Signed URLs for temporary file exchanges are disabled. These back organization data exports in claude.ai and Claude Code Remote file flows such as screenshot updates.
 * Personal preferences are disabled for users who belong to a CMEK-protected organization, across all organizations under the same parent. Users who do not belong to a CMEK-protected organization can still use them across all organizations.
-* Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions) for Cowork and Claude Code currently return no message content. Session metadata is listed as usual, and the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`) returns each message with its content marked unavailable; see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript) for the response shape.
+* Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) (Cowork and Claude Code on users' machines) currently return no message content. Session metadata is listed as usual, and the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`) returns each message with its content marked unavailable; see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript) for the response shape.
 
 ### Not encrypted
 

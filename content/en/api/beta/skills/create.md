@@ -97,13 +97,13 @@ Create Skill
 
   ISO 8601 timestamp of when the skill was created.
 
-- `display_title: string`
+- `display_title: string or null`
 
   Display title for the skill.
 
   This is a human-readable label that is not included in the prompt sent to the model.
 
-- `latest_version: string`
+- `latest_version: string or null`
 
   The latest version identifier for the skill.
 

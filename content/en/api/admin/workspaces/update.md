@@ -15,11 +15,11 @@ Update Workspace
 
 ### Body Parameters
 
-- `data_residency: optional object { allowed_inference_geos, default_inference_geo }`
+- `data_residency: optional object { allowed_inference_geos, default_inference_geo }  or null`
 
   Data residency configuration for the workspace.
 
-  - `allowed_inference_geos: optional array of "global" or "us" or "unrestricted"`
+  - `allowed_inference_geos: optional array of "global" or "us" or "unrestricted" or null`
 
     Permitted inference geo values. Use 'unrestricted' to allow all geos, or a list of specific geos.
 
@@ -33,7 +33,7 @@ Update Workspace
 
       - `"unrestricted"`
 
-  - `default_inference_geo: optional "global" or "us"`
+  - `default_inference_geo: optional "global" or "us" or null`
 
     Default inference geo applied when requests omit the parameter. Must be a member of allowed_inference_geos unless allowed_inference_geos is `"unrestricted"`.
 
@@ -55,7 +55,7 @@ Update Workspace
 
   Name of the Workspace.
 
-- `tags: optional map[string]`
+- `tags: optional map[string] or null`
 
   User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
 
@@ -67,7 +67,7 @@ Update Workspace
 
     ID of the Workspace.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
 
@@ -110,7 +110,7 @@ Update Workspace
 
     Hex color code representing the Workspace in the Anthropic Console.
 
-  - `external_key_id: string`
+  - `external_key_id: string or null`
 
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your

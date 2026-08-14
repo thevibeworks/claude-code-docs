@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript
 description: Install and configure the Anthropic TypeScript SDK for Node.js, Deno, Bun, and browser environments
 ---
 
-This library provides convenient access to the Anthropic REST API from TypeScript or JavaScript.
+This library provides convenient access to the Claude API from TypeScript or JavaScript.
 
 <Info>
   For API feature documentation with code examples, see the [API reference](https://platform.claude.com/docs/en/api/overview). This page covers TypeScript-specific SDK features and configuration.
@@ -279,7 +279,7 @@ The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn't 
 
 ## Message batches
 
-This SDK provides support for the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing) under the `client.messages.batches` namespace.
+This SDK provides support for [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) under the `client.messages.batches` namespace.
 
 ### Creating a batch
 
@@ -792,13 +792,13 @@ Use `AnthropicBedrockMantle` for new projects; `AnthropicBedrock` remains for ex
 
 ## Semantic versioning
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
 2. Changes to library internals which are technically public but not intended or documented for external use.
 3. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 ## Frequently asked questions
 

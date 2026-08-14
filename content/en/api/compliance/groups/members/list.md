@@ -35,7 +35,7 @@ List Compliance Group Members
 
   List of group members
 
-  - `created_at: string`
+  - `created_at: string or null`
 
     Membership creation timestamp (ISO 8601)
 
@@ -43,7 +43,7 @@ List Compliance Group Members
 
     Member email address
 
-  - `updated_at: string`
+  - `updated_at: string or null`
 
     Membership last-updated timestamp (ISO 8601)
 
@@ -55,7 +55,7 @@ List Compliance Group Members
 
   Whether more records exist beyond the current result set
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 

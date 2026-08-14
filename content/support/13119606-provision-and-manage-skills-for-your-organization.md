@@ -42,30 +42,40 @@ To set this up, see **[Manage plugins for your organization](https://support.cla
 
 ## Control skill sharing between members
 
-In addition to provisioning skills top-down, you can let members share skills they've built with each other. Two independent toggles control this:
+In addition to provisioning skills top-down, you can let members share skills they've built with each other. Three independent toggles control this:
 
 - **Skill sharing:** Members can share a skill with specific colleagues. Recipients see the skill in the **Shared with you** section of their skills list.
 
 - **Share with organization:** Members can publish a skill to the organization directory, where anyone can find and install it.
 
-Both toggles are off by default. You can enable either or both in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+- **Share with groups:** Members can share a skill with an entire group. Recipients see the skill in the **Shared with you** section of their skills list, the same as skills shared with individuals.
+
+Group and organization sharing toggles are off by default. You can enable them in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
 
 **Note:** Shared skills are view-only. Recipients can enable and use a shared skill but can't edit its contents.
 
+### Share skills with a group
+
+Before you can share with a group, an admin needs to turn on **Share resources with this group** in the group's visibility settings. See **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)**.
+
+If you use custom roles, also make sure the **Share skills with groups** capability is enabled for their role. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)**.
+
+Once your organization’s settings allow skill sharing, users can begin sharing skills with groups.
+
 ### How shared skills differ from provisioned skills
 
-|                               | **Owner-provisioned**  | **Shared peer-to-peer**               | **Shared org-wide**     |
-| ----------------------------- | ---------------------- | ------------------------------------- | ----------------------- |
-| **Who can share**             | Owners only            | Any member (if enabled)               | Any member (if enabled) |
-| **Where it appears**          | Everyone's skills list | Recipient's "Shared with you" section | Organization directory  |
-| **Can recipients remove it?** | Disable only           | Disable or delete                     | Disable only            |
-| **Requires owner approval?**  | Owner uploads directly | No                                    | No                      |
+|                               | **Owner-provisioned**  | **Shared peer-to-peer**               | **Shared org-wide**     | **Shared with a group**               |
+| ----------------------------- | ---------------------- | ------------------------------------- | ----------------------- | ------------------------------------- |
+| **Who can share**             | Owners only            | Any member (if enabled)               | Any member (if enabled) | Any member (if enabled)               |
+| **Where it appears**          | Everyone's skills list | Recipient's "Shared with you" section | Organization directory  | Recipient's "Shared with you" section |
+| **Can recipients remove it?** | Disable only           | Disable or delete                     | Disable only            | Disable only                          |
+| **Requires owner approval?**  | Owner uploads directly | No                                    | No                      | No                                    |
 
 **Important:** There's no approval workflow for org-wide sharing. If you enable **Share with organization**, any member can publish a skill to the directory without review. Consider enabling peer-to-peer sharing only if this is a concern.
 
 ### Monitor sharing activity
 
-Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill, with whom, and whether it was peer-to-peer or organization-wide.
+Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill, with whom, and whether it was peer-to-peer, organization-wide, or group.
 
 The audit log doesn't capture the contents of shared skills—only the share event itself. There's no admin dashboard to browse or inspect the contents of skills shared between members.
 

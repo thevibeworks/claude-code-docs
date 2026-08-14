@@ -81,7 +81,7 @@ bucket_width=1d" \
 <Tip>
   **Set a User-Agent header for integrations**
 
-  If you're building an integration, set your User-Agent header to help us understand usage patterns:
+  If you're building an integration, set your User-Agent header to help Anthropic understand usage patterns:
 
   ```text wrap
   User-Agent: YourApp/1.0.0 (https://yourapp.com)

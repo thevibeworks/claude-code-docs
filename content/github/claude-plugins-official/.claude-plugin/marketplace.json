@@ -463,7 +463,7 @@
         "url": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups.git",
         "path": "plugins/aws-dev-toolkit",
         "ref": "main",
-        "sha": "05a3889e765521a450e50f4cc2b35d770c40e8d9"
+        "sha": "3360d439a94e59fbf13eb0019eaf5735e4a23d8a"
       },
       "homepage": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups"
     },
@@ -519,7 +519,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-skills.git",
-        "sha": "19290671e4f061b2a8c54fa2d42cdbc979000106"
+        "sha": "db28f0ed1d05d23056b86d536d9a5e6967f68ef3"
       },
       "homepage": "https://github.com/microsoft/azure-skills"
     },
@@ -705,7 +705,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "f29d4c77ed721df034a073eb3b2fffd67973b3d6"
+        "sha": "49150339f8246e846eb668e375fa96dbe9c24581"
       },
       "homepage": "https://carta.com"
     },
@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "f29d4c77ed721df034a073eb3b2fffd67973b3d6"
+        "sha": "49150339f8246e846eb668e375fa96dbe9c24581"
       },
       "homepage": "https://carta.com"
     },
@@ -737,7 +737,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "82af9becd45f79a012570b60022abaa44afbd683"
+        "sha": "c4fbb077199631504a7c95c7b760b0a188d9eb4c"
       },
       "homepage": "https://carta.com"
     },
@@ -778,7 +778,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
-        "sha": "345ac9d67849aaf2fca1d825505e9878a715f183"
+        "sha": "614b4ebe23196dc0c657671ee52e7138f6d09017"
       },
       "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
     },
@@ -794,7 +794,7 @@
         "url": "https://github.com/circlefin/skills.git",
         "path": "plugins/circle",
         "ref": "master",
-        "sha": "c7d269a2025e26410e0e23fb5a73c769dc07d088"
+        "sha": "26dc09ea0746a038c969c6f197feee1267f834b5"
       },
       "homepage": "https://www.circle.com"
     },
@@ -1071,7 +1071,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/confidence-ai-plugins.git",
-        "sha": "9bb21eaefdf6fd1dae5795275b4a54dcf1c253d3"
+        "sha": "9e8bc1dccbfa3ee70725a2aa5bebeb1faceb8f35"
       },
       "homepage": "https://confidence.spotify.com"
     },
@@ -1205,7 +1205,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "04df55f006b3185a8c62cadf0565fe5661f6f022"
+        "sha": "67003e69ebe5be15f36323a490cf7fa414dc38aa"
       },
       "homepage": "https://dash0.com/"
     },
@@ -1230,7 +1230,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack.git",
-        "sha": "db28b191f5db0bf751d2b44e23e422d5ba2a4930"
+        "sha": "7bf06017dafaa52088ab4516c97be6f7f735d99a"
       },
       "homepage": "https://github.com/gemini-cli-extensions/data-agent-kit-starter-pack"
     },
@@ -1353,7 +1353,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/confident-ai/deepeval.git",
-        "sha": "97304e0edc449f48082eaa9da0a5ac1e28baa8ff"
+        "sha": "390c57eccf81498082c81770e29ede148d015043"
       },
       "homepage": "https://github.com/confident-ai/deepeval"
     },
@@ -1484,7 +1484,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "6dfc552dc8675a3c3664de12defb6a78edfe9606"
+        "sha": "948115e9e0148af1a966531530e9e948c804a3e7"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1645,7 +1645,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/google-cloud-storage.git",
-        "sha": "278b5968b91ad5cff1266352cb9e8fd4c24fdf58"
+        "sha": "fd5bfad63f86b4f314e9faafe1a0f317be0b3a55"
       },
       "homepage": "https://cloud.google.com/storage"
     },
@@ -1815,7 +1815,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "f9a20692f8a0ee10330d0a95de1abd422e92d74a"
+        "sha": "9ba528914dafc05c54e2191c19f99847c8f4420a"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2175,7 +2175,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mattpocock/skills.git",
-        "sha": "84fdeffd12f2ee307994d1eb6feb48173b6e0502"
+        "sha": "8b78b531ab965735c5dc74f6f7a219e1e37326df"
       },
       "homepage": "https://github.com/mattpocock/skills"
     },
@@ -2243,7 +2243,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/mergifyio/mergify-cli.git",
-        "sha": "7daf2eabaa0ec67b0db4dc83b6291a8c71ff9f32"
+        "sha": "83095a7928107cdf682989f70b9611599c1679c6"
       },
       "homepage": "https://mergify.com"
     },
@@ -2833,7 +2833,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/qdrant/skills.git",
-        "sha": "1047aa8d8ac9ada13caead755d62a4d485969869"
+        "sha": "864f969fc7f8c6c02e0133f37e4f0840fe0f1fab"
       },
       "homepage": "https://skills.qdrant.tech"
     },
@@ -3414,7 +3414,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/spotify/ads-claude-plugin.git",
-        "sha": "b3c75c848240fd5d5fad0a6f2a56a68ddd6ed5ce"
+        "sha": "2ed6058851e02564c43d8ddeebb86a6662aada73"
       },
       "homepage": "https://github.com/spotify/ads-claude-plugin"
     },
@@ -3430,7 +3430,7 @@
         "url": "https://github.com/stackhawk/agent-skills.git",
         "path": "plugins/hawkscan",
         "ref": "main",
-        "sha": "2afbfaebe5f3c9c93c81347cf2826e05f1331826"
+        "sha": "19c14577b7e0360262d02f7a232055c67e9c46a6"
       },
       "homepage": "https://docs.stackhawk.com/ai-security/"
     },
@@ -3446,7 +3446,7 @@
         "url": "https://github.com/stackhawk/agent-skills.git",
         "path": "plugins/api",
         "ref": "main",
-        "sha": "ba4bab433d31dc313de2ac6e72a43318b31f28dd"
+        "sha": "19c14577b7e0360262d02f7a232055c67e9c46a6"
       },
       "homepage": "https://docs.stackhawk.com/ai-security/"
     },
@@ -3584,7 +3584,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/JetBrains/teamcity-cli.git",
-        "sha": "d0c3bf929a4f803405e727fcf07a10abdd2fe0c4"
+        "sha": "d8eff9844666f3deb75f172aa303aa5903e4b9d3"
       },
       "homepage": "https://www.jetbrains.com/teamcity/"
     },
@@ -3629,7 +3629,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/twilio/ai.git",
-        "sha": "d7b0f231468cd9a6a0bab9ebcde8c1a5c9220bba"
+        "sha": "8aba46fb65dc8d9a20f4b301a68352064b4159a5"
       },
       "homepage": "https://www.twilio.com"
     },
@@ -3826,7 +3826,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/villagesql/villagesql-skills.git",
-        "sha": "81882a74595fa721642a51c4446656bef4bcc8f7"
+        "sha": "288ed3324bbe733881ee8ba43deccdc7eb15075b"
       },
       "homepage": "https://villagesql.com"
     },
@@ -3851,7 +3851,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "cf75308b42ccf83029a8a242a6d4baaa3f4ae160"
+        "sha": "6a19174cd727ea6faf6e23f0584261c6d32ddbeb"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },

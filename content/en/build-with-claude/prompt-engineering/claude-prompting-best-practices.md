@@ -847,8 +847,7 @@ systematically until you have completed this task.
 * **Emphasize incremental progress:** Explicitly ask Claude to keep track of its progress and focus on incremental work.
 
 <Accordion title="Example: State tracking">
-  ```json
-  // Structured state file (tests.json)
+  ```json tests.json
   {
     "tests": [
       { "id": 1, "name": "authentication_flow", "status": "passing" },

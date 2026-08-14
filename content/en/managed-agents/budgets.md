@@ -14,9 +14,9 @@ A session budget is an optional hard spend ceiling you set when you [create a se
 
 Pass the optional `budget` field when you create the session:
 
-<CodeGroup>
+<CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  session=$(curl -fsSL https://api.anthropic.com/v1/sessions \
+  session=$(curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -27,19 +27,125 @@ Pass the optional `budget` field when you create the session:
     "environment_id": "$ENVIRONMENT_ID",
     "budget": {
       "type": "limit",
-      "max_list_cost": {"amount": "2500", "currency": "USD"}
+      "max_list_cost": {"amount": "125", "currency": "USD"}
     }
   }
   EOF
   )
   SESSION_ID=$(jq -r '.id' <<< "$session")
   ```
+
+  ```bash CLI
+  # Keep the amount quoted so it is sent as a string, not a number.
+  SESSION_ID=$(ant beta:sessions create \
+    --agent "$AGENT_ID" \
+    --environment-id "$ENVIRONMENT_ID" \
+    --budget '{type: limit, max_list_cost: {amount: "125", currency: USD}}' \
+    --transform id --raw-output)
+  ```
+
+  ```python Python
+  session = client.beta.sessions.create(
+      agent=agent.id,
+      environment_id=environment.id,
+      budget={
+          "type": "limit",
+          "max_list_cost": {"amount": "125", "currency": "USD"},
+      },
+  )
+  print(session.id, session.budget.max_list_cost.amount)  # sesn_01... 125
+  ```
+
+  ```typescript TypeScript
+  const session = await client.beta.sessions.create({
+    agent: agent.id,
+    environment_id: environment.id,
+    budget: {
+      type: "limit",
+      max_list_cost: { amount: "125", currency: "USD" }
+    }
+  });
+  console.log(session.id, session.budget?.max_list_cost.amount); // sesn_01... 125
+  ```
+
+  ```csharp C#
+  var session = await client.Beta.Sessions.Create(new()
+  {
+      Agent = agent.ID,
+      EnvironmentID = environment.ID,
+      Budget = new()
+      {
+          Type = BetaManagedAgentsBudgetLimitType.Limit,
+          MaxListCost = new() { Amount = "125", Currency = BetaCurrency.Usd },
+      },
+  });
+  Console.WriteLine($"{session.ID} {session.Budget?.MaxListCost.Amount}");  // sesn_01... 125
+  ```
+
+  ```go Go
+  session, err := client.Beta.Sessions.New(ctx, anthropic.BetaSessionNewParams{
+  	Agent: anthropic.BetaSessionNewParamsAgentUnion{
+  		OfString: anthropic.String(agent.ID),
+  	},
+  	EnvironmentID: environment.ID,
+  	Budget: anthropic.BetaManagedAgentsBudgetLimitParam{
+  		Type: anthropic.BetaManagedAgentsBudgetLimitTypeLimit,
+  		MaxListCost: anthropic.BetaMonetaryAmountParam{
+  			Amount:   "125",
+  			Currency: anthropic.BetaCurrencyUsd,
+  		},
+  	},
+  })
+  if err != nil {
+  	panic(err)
+  }
+  fmt.Println(session.ID, session.Budget.MaxListCost.Amount) // sesn_01... 125
+  ```
+
+  ```java Java
+  var session = client.beta().sessions().create(SessionCreateParams.builder()
+      .agent(agent.id())
+      .environmentId(environment.id())
+      .budget(BetaManagedAgentsBudgetLimit.builder()
+          .type(BetaManagedAgentsBudgetLimit.Type.LIMIT)
+          .maxListCost(BetaMonetaryAmount.builder()
+              .amount("125")
+              .currency(BetaCurrency.USD)
+              .build())
+          .build())
+      .build());
+  IO.println(session.id() + " " + session.budget().orElseThrow().maxListCost().amount());  // sesn_01... 125
+  ```
+
+  ```php PHP
+  $session = $client->beta->sessions->create(
+      agent: $agent->id,
+      environmentID: $environment->id,
+      budget: [
+          'type' => 'limit',
+          'max_list_cost' => ['amount' => '125', 'currency' => 'USD'],
+      ],
+  );
+  echo "{$session->id} {$session->budget->maxListCost->amount}\n"; // sesn_01... 125
+  ```
+
+  ```ruby Ruby
+  session = client.beta.sessions.create(
+    agent: agent.id,
+    environment_id: environment.id,
+    budget: {
+      type: "limit",
+      max_list_cost: {amount: "125", currency: "USD"}
+    }
+  )
+  puts "#{session.id} #{session.budget.max_list_cost.amount}" # sesn_01... 125
+  ```
 </CodeGroup>
 
 The `budget` object has two fields:
 
 * `type` is always `"limit"`.
-* `max_list_cost` is the cap itself: `amount` is a whole number of US cents written as a string with no leading zeros (`"2500"` is $25.00 and `"50"` is 50 cents) and must be greater than zero. Decimal forms such as `"25.00"` are rejected. The amount is a string rather than a number so no float rounding is ever applied to it. `currency` is an uppercase ISO-4217 currency code; `USD` is the only supported currency.
+* `max_list_cost` is the cap itself: `amount` is a whole number of US cents written as a string with no leading zeros (`"125"` is $1.25 and `"50"` is 50 cents) and must be greater than zero. Decimal forms such as `"25.00"` are rejected. The amount is a string rather than a number so no float rounding is ever applied to it. `currency` is an uppercase ISO-4217 currency code; `USD` is the only supported currency.
 
 A budget can only be attached when the session is created. Adding a budget to an existing session that doesn't have one is rejected with a 400 error. A budgeted session's cap can be [changed](https://platform.claude.com/docs/en/managed-agents/budgets#change-the-budget) or [removed](https://platform.claude.com/docs/en/managed-agents/budgets#remove-the-budget) at any time.
 
@@ -88,21 +194,109 @@ Change or remove the budget with a session update. An accepted update resumes th
 
 Update the session with a new `max_list_cost`. The new value can be higher or lower than the current cap, but it must be strictly greater than the session's consumed list cost; otherwise the update is rejected with a 400 error: `budget.max_list_cost must be greater than the session's consumed list cost`. Because the consumed cost usually sits [a fraction past the old cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) when the session pauses, base the new value on the session's reported `usage.list_cost`, not on the old `max_list_cost`. Set it a cent or more above that figure: the reported value is rounded and can sit a fraction below the exact consumed cost the check uses.
 
-<CodeGroup>
+<CodeGroup defaultLanguage="CLI">
   ```bash cURL
   curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "budget": {
-      "type": "limit",
-      "max_list_cost": {"amount": "4000", "currency": "USD"}
+    -d '{
+      "budget": {
+        "type": "limit",
+        "max_list_cost": {"amount": "500", "currency": "USD"}
+      }
+    }'
+  ```
+
+  ```bash CLI
+  ant beta:sessions update \
+    --session-id "$SESSION_ID" \
+    --budget '{type: limit, max_list_cost: {amount: "500", currency: USD}}'
+  ```
+
+  ```python Python
+  updated_session = client.beta.sessions.update(
+      session.id,
+      budget={
+          "type": "limit",
+          "max_list_cost": {"amount": "500", "currency": "USD"},
+      },
+  )
+  print(updated_session.budget.max_list_cost.amount)  # 500
+  ```
+
+  ```typescript TypeScript
+  const updatedSession = await client.beta.sessions.update(session.id, {
+    budget: {
+      type: "limit",
+      max_list_cost: { amount: "500", currency: "USD" }
     }
+  });
+  console.log(updatedSession.budget?.max_list_cost.amount); // 500
+  ```
+
+  ```csharp C#
+  var updatedSession = await client.Beta.Sessions.Update(session.ID, new()
+  {
+      Budget = new()
+      {
+          Type = BetaManagedAgentsBudgetLimitType.Limit,
+          MaxListCost = new() { Amount = "500", Currency = BetaCurrency.Usd },
+      },
+  });
+  Console.WriteLine(updatedSession.Budget?.MaxListCost.Amount);  // 500
+  ```
+
+  ```go Go
+  updatedSession, err := client.Beta.Sessions.Update(ctx, session.ID, anthropic.BetaSessionUpdateParams{
+  	Budget: anthropic.BetaManagedAgentsBudgetLimitParam{
+  		Type: anthropic.BetaManagedAgentsBudgetLimitTypeLimit,
+  		MaxListCost: anthropic.BetaMonetaryAmountParam{
+  			Amount:   "500",
+  			Currency: anthropic.BetaCurrencyUsd,
+  		},
+  	},
+  })
+  if err != nil {
+  	panic(err)
   }
-  EOF
+  fmt.Println(updatedSession.Budget.MaxListCost.Amount) // 500
+  ```
+
+  ```java Java
+  var updatedSession = client.beta().sessions().update(session.id(), SessionUpdateParams.builder()
+      .budget(BetaManagedAgentsBudgetLimit.builder()
+          .type(BetaManagedAgentsBudgetLimit.Type.LIMIT)
+          .maxListCost(BetaMonetaryAmount.builder()
+              .amount("500")
+              .currency(BetaCurrency.USD)
+              .build())
+          .build())
+      .build());
+  IO.println(updatedSession.budget().orElseThrow().maxListCost().amount());  // 500
+  ```
+
+  ```php PHP
+  $updatedSession = $client->beta->sessions->update(
+      $session->id,
+      budget: [
+          'type' => 'limit',
+          'max_list_cost' => ['amount' => '500', 'currency' => 'USD'],
+      ],
+  );
+  echo "{$updatedSession->budget->maxListCost->amount}\n"; // 500
+  ```
+
+  ```ruby Ruby
+  updated_session = client.beta.sessions.update(
+    session.id,
+    budget: {
+      type: "limit",
+      max_list_cost: {amount: "500", currency: "USD"}
+    }
+  )
+  puts updated_session.budget.max_list_cost.amount # 500
   ```
 </CodeGroup>
 
@@ -110,7 +304,7 @@ Update the session with a new `max_list_cost`. The new value can be higher or lo
 
 Set `budget` to `null` to remove the cap entirely. The session's paused work resumes, and the resulting `session.updated` event carries `budget` set to `null`.
 
-<CodeGroup>
+<CodeGroup defaultLanguage="CLI">
   ```bash cURL
   curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -118,6 +312,59 @@ Set `budget` to `null` to remove the cap entirely. The session's paused work res
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
     -d '{"budget": null}'
+  ```
+
+  ```bash CLI
+  ant beta:sessions update --session-id "$SESSION_ID" --budget null
+  ```
+
+  ```python Python
+  unbudgeted_session = client.beta.sessions.update(session.id, budget=None)
+  print(unbudgeted_session.budget)  # None
+  ```
+
+  ```typescript TypeScript
+  const unbudgetedSession = await client.beta.sessions.update(session.id, { budget: null });
+  console.log(unbudgetedSession.budget); // null
+  ```
+
+  ```csharp C#
+  // Assigning null sends an explicit null; leaving Budget unset would omit the field.
+  var unbudgetedSession = await client.Beta.Sessions.Update(session.ID, new() { Budget = null });
+  Console.WriteLine(unbudgetedSession.Budget is null);  // True: the session no longer has a budget
+  ```
+
+  ```go Go
+  // A zero-value Budget is omitted from the request; param.NullStruct (from
+  // github.com/anthropics/anthropic-sdk-go/packages/param) sends an explicit null.
+  unbudgetedSession, err := client.Beta.Sessions.Update(ctx, session.ID, anthropic.BetaSessionUpdateParams{
+  	Budget: param.NullStruct[anthropic.BetaManagedAgentsBudgetLimitParam](),
+  })
+  if err != nil {
+  	panic(err)
+  }
+  fmt.Println(unbudgetedSession.JSON.Budget.Valid()) // false: the session no longer has a budget
+  ```
+
+  ```java Java
+  // An empty Optional sends an explicit null; leaving budget unset would omit the field.
+  var unbudgetedSession = client.beta().sessions().update(session.id(), SessionUpdateParams.builder()
+      .budget(Optional.empty())
+      .build());
+  IO.println(unbudgetedSession.budget().isPresent());  // false: the session no longer has a budget
+  ```
+
+  ```php PHP
+  // update(budget: null) omits the field, so send the explicit null through the raw client.
+  $unbudgetedSession = $client->beta->sessions->raw
+      ->update($session->id, ['budget' => null])
+      ->parse();
+  echo json_encode($unbudgetedSession->budget), "\n"; // null
+  ```
+
+  ```ruby Ruby
+  unbudgeted_session = client.beta.sessions.update(session.id, budget: nil)
+  p unbudgeted_session.budget # nil
   ```
 </CodeGroup>
 

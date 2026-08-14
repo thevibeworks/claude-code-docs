@@ -76,11 +76,11 @@ returned.
 
     Organization UUID this Artifact belongs to
 
-  - `owner_user_id: string`
+  - `owner_user_id: string or null`
 
-    Artifact owner's user identifier (tagged ID). Always set, so attribution survives after the owner's account is deleted or the owner leaves every organization under the parent.
+    Artifact owner's user identifier (tagged ID), or null for Artifacts published by an agent session rather than a user account. When set, it survives after the owner's account is deleted or the owner leaves every organization under the parent.
 
-  - `published_version_id: string`
+  - `published_version_id: string or null`
 
     Identifier of the version a non-owner viewer would render when `read_mode` permits them — the version the owner has pinned for non-owner readers if one is pinned, otherwise the owner's latest. When `read_mode` is `owner` no non-owner renders any version; the field still reports which version would be served were read_mode widened.
 
@@ -96,17 +96,18 @@ returned.
 
     - `"users"`
 
-  - `updated_at: string`
+  - `updated_at: string or null`
 
     Artifact last update timestamp, or null for Artifacts published before this field was recorded
 
-  - `user: object { id, email_address }`
+  - `user: object { id, email_address }  or null`
 
     The user who owns a Code Artifact.
 
-    Fields that reference this type are null when the owner's account has
-    been deleted or the owner is no longer a member of any organization
-    under the parent organization.
+    Fields that reference this type are null when the Artifact was
+    published by an agent session rather than a user account, when the
+    owner's account has been deleted, or when the owner is no longer a
+    member of an organization the key may read.
 
     - `id: string`
 
@@ -124,7 +125,7 @@ returned.
 
       Opaque version identifier
 
-    - `created_at: string`
+    - `created_at: string or null`
 
       When this version was published
 
@@ -136,7 +137,7 @@ returned.
 
   Whether `next_page` is set. May be true for a page whose next page is empty — continue until `next_page` is absent.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 
@@ -283,11 +284,11 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID \
 
     Organization UUID this Artifact belongs to
 
-  - `owner_user_id: string`
+  - `owner_user_id: string or null`
 
-    Artifact owner's user identifier (tagged ID). Always set, so attribution survives after the owner's account is deleted or the owner leaves every organization under the parent.
+    Artifact owner's user identifier (tagged ID), or null for Artifacts published by an agent session rather than a user account. When set, it survives after the owner's account is deleted or the owner leaves every organization under the parent.
 
-  - `published_version_id: string`
+  - `published_version_id: string or null`
 
     Identifier of the version a non-owner viewer would render when `read_mode` permits them — the version the owner has pinned for non-owner readers if one is pinned, otherwise the owner's latest. When `read_mode` is `owner` no non-owner renders any version; the field still reports which version would be served were read_mode widened.
 
@@ -303,17 +304,18 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID \
 
     - `"users"`
 
-  - `updated_at: string`
+  - `updated_at: string or null`
 
     Artifact last update timestamp, or null for Artifacts published before this field was recorded
 
-  - `user: object { id, email_address }`
+  - `user: object { id, email_address }  or null`
 
     The user who owns a Code Artifact.
 
-    Fields that reference this type are null when the owner's account has
-    been deleted or the owner is no longer a member of any organization
-    under the parent organization.
+    Fields that reference this type are null when the Artifact was
+    published by an agent session rather than a user account, when the
+    owner's account has been deleted, or when the owner is no longer a
+    member of an organization the key may read.
 
     - `id: string`
 
@@ -331,7 +333,7 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID \
 
       Opaque version identifier
 
-    - `created_at: string`
+    - `created_at: string or null`
 
       When this version was published
 

@@ -91,7 +91,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ### Body Parameters
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Optional human-readable name for the tunnel (1-255 characters).
 
@@ -105,7 +105,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -113,7 +113,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -247,7 +247,7 @@ Fetches a tunnel by ID.
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -255,7 +255,7 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -397,7 +397,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -405,7 +405,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -417,7 +417,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"tunnel"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Pagination cursor for the next page, or null if no more results.
 
@@ -546,7 +546,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -554,7 +554,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -805,7 +805,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Body Parameters
 
-- `reason: optional string`
+- `reason: optional string or null`
 
   Optional free-text reason for the rotation, recorded for audit.
 
@@ -860,7 +860,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/rotate_token \
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -868,7 +868,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/rotate_token \
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -1004,7 +1004,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1012,7 +1012,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1155,7 +1155,7 @@ Fetches a tunnel certificate by ID.
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1163,7 +1163,7 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1314,7 +1314,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1322,7 +1322,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1338,7 +1338,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `"tunnel_certificate"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Pagination cursor for the next page, or null if no more results.
 
@@ -1470,7 +1470,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1478,7 +1478,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1530,7 +1530,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_I
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -1538,7 +1538,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_I
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 

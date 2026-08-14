@@ -104,7 +104,7 @@ Editing your MCP config does not by itself change the cache. The new config take
 
 The exception is a plugin that provides [MCP servers](/docs/en/plugins-reference#mcp-servers). Enabling or disabling one follows the same rules as [connecting or disconnecting an MCP server](#connecting-or-disconnecting-an-mcp-server): the cache survives when the server's tools are deferred, and the next request re-reads the entire conversation when they load into the prefix.
 
-Plugin changes apply when you run [`/reload-plugins`](/docs/en/discover-plugins#apply-plugin-changes-without-restarting) or start a new session. Claude Code can also activate a plugin you [install from the `/plugin` interface](/docs/en/discover-plugins#install-plugins) during the install; the install summary tells you whether it did or whether to run `/reload-plugins`. If that reload would trigger the full re-read below, the command warns first and applies when you rerun it with `--force`.
+Plugin changes apply when you run [`/reload-plugins`](/docs/en/discover-plugins#apply-plugin-changes-without-restarting) or start a new session. For a plugin with a `command` source, Claude Code [can reload the plugin itself](/docs/en/plugin-marketplaces#when-claude-code-re-runs-the-command). Claude Code can also activate a plugin you [install from the `/plugin` interface](/docs/en/discover-plugins#install-plugins) during the install; the install summary tells you whether it did or whether to run `/reload-plugins`. If that reload would trigger the full re-read below, the command warns first and applies when you rerun it with `--force`.
 
 The cost, whether appended announcements or a full re-read, shows up on the first turn after the change applies, not when you run `/plugin enable` or `/plugin disable`. When a reload would trigger the full re-read, `/reload-plugins` shows a warning and doesn't apply the reload. Pass `--force` to apply anyway.
 
@@ -228,11 +228,11 @@ For visibility across an organization, the OpenTelemetry exporter reports cache 
 
 ## Subagents and the cache
 
-A [subagent](/docs/en/sub-agents) starts its own conversation with its own system prompt and tool set, separate from the parent's. It builds its own cache, starting with no cache hits on its first call and warming up across its own turns. Subagents use the five-minute TTL even on a subscription, since the automatic one-hour TTL applies to the main conversation.
+A [subagent](/docs/en/sub-agents) starts its own conversation with its own system prompt and tool set, separate from the parent's. Its first request doesn't read the parent's cache, because the two prefixes differ, and it warms a cache of its own across its turns. Subagents use the five-minute TTL even on a subscription, since the automatic one-hour TTL applies to the main conversation.
 
 The parent's cache is unaffected. From the parent's side, the subagent's call and result append to the conversation, leaving the parent's prefix intact.
 
-A [fork](/docs/en/sub-agents#fork-the-current-conversation), by contrast, inherits the parent's system prompt, tools, and conversation history exactly, so its first request reads the parent's cache. The compaction summarization call described in [Compacting the conversation](#compacting-the-conversation) uses the same prefix-sharing approach.
+A [fork](/docs/en/sub-agents#fork-the-current-conversation), by contrast, inherits the parent's system prompt, tools, and conversation history exactly, so its first request reads the parent's cache. The compaction summarization call described in [Compacting the conversation](#compacting-the-conversation) uses the same prefix-sharing approach. In a [workflow fan-out](/docs/en/workflows#prompt-caching-in-a-fan-out) of same-prefix agents, Claude Code briefly holds all but the first so their first requests can read the prefix the first agent cached.
 
 ## Disable prompt caching
 
