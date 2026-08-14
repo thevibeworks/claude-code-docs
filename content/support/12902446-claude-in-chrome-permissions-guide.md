@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786692600&amp;signature=c149902e08458421eb9a6225acbc8d51c456770123484a1912443cfefaa80a20&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRL9YCxgN0ADj5oqFAPtvUbSz7JMgWEBjbd%0A%2F7DJBaR%2BfpOXs9ij7Q8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786708800&amp;signature=1475699678d792c8e539aa67a270e25b2586d0a539e4fd27a115f08ea7e6bc48&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRK%2FIq%2FgN0ADj5oqFAB1XSP6O%2B0pvB3dAMy%0AQoyPUlTStJwz1oMH10I%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786692600&amp;signature=e1e02562546ed397131919dcc1da4229c175e026db89e4269490ca1d55d41fba&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB2gS7q7A4lHPBihAVhPdU5PP%2B4v8xb19vD%0ADV5GdFxBvP%2BcIGXqxio%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786708800&amp;signature=ef30dd2c8afc9ede4599b2b8f30b19991d581fbb96759ace0052dedddb317997&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB3iCTk7A4lHPBihAX6iG%2BxrQ%2Bem159MDZX%0AGnN74aHkD6bTLXRNr28%3D%0A)
 
 ### Permission options
 
