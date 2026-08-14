@@ -1378,7 +1378,7 @@ Example of implementing prompt caching in a batch:
   if err != nil {
   	log.Fatal(err)
   }
-  log.Printf("%+v\n", messageBatch)
+  fmt.Println(messageBatch)
   ```
 
   ```java Java
@@ -1845,7 +1845,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   </Accordion>
 
   <Accordion title="How does the Message Batches API affect pricing?">
-    The Message Batches API offers a 50% discount on all usage compared to standard API prices. This applies to input tokens, output tokens, and any special tokens. For more on pricing, visit the [pricing page](https://claude.com/pricing#anthropic-api).
+    The Message Batches API offers a 50% discount on all usage compared to standard API prices. This applies to input tokens, output tokens, and any special tokens. For more on pricing, visit [Pricing](https://claude.com/pricing#anthropic-api).
   </Accordion>
 
   <Accordion title="Can I update a batch after it's been submitted?">

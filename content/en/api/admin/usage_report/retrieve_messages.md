@@ -142,6 +142,8 @@ Get Messages Usage Report
 
   - `data: array of object { ending_at, results, starting_at }`
 
+    List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
+
     - `ending_at: string`
 
       End of the time bucket (exclusive) in RFC 3339 format.
@@ -150,11 +152,11 @@ Get Messages Usage Report
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
-      - `account_id: string`
+      - `account_id: string or null`
 
         ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
 
-      - `api_key_id: string`
+      - `api_key_id: string or null`
 
         ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
 
@@ -174,7 +176,7 @@ Get Messages Usage Report
 
         The number of input tokens read from the cache.
 
-      - `context_window: "0-200k" or "200k-1M"`
+      - `context_window: "0-200k" or "200k-1M" or null`
 
         Context window used. `null` if not grouping by context window.
 
@@ -182,9 +184,10 @@ Get Messages Usage Report
 
         - `"200k-1M"`
 
-      - `inference_geo: "global" or "not_available" or "us"`
+      - `inference_geo: "global" or "not_available" or "us" or null`
 
-        InferenceGeo values extended with NOT_AVAILABLE for filtering usage data.
+        Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`.
+        For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
 
         - `"global"`
 
@@ -192,7 +195,7 @@ Get Messages Usage Report
 
         - `"us"`
 
-      - `model: string`
+      - `model: string or null`
 
         Model used. `null` if not grouping by model.
 
@@ -208,11 +211,11 @@ Get Messages Usage Report
 
           The number of web search requests made.
 
-      - `service_account_id: string`
+      - `service_account_id: string or null`
 
         ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
 
-      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more`
+      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more or null`
 
         Service tier used. `null` if not grouping by service tier.
 
@@ -232,7 +235,7 @@ Get Messages Usage Report
 
         The number of uncached input tokens processed.
 
-      - `workspace_id: string`
+      - `workspace_id: string or null`
 
         ID of the Workspace used. `null` if not grouping by workspace or for the default workspace.
 
@@ -244,9 +247,9 @@ Get Messages Usage Report
 
     Indicates if there are more results.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
-    Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+    Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
 
 ### Example
 

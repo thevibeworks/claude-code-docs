@@ -101,7 +101,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items waiting to be picked up (lag from consumer group)
 
-  - `oldest_queued_at: string`
+  - `oldest_queued_at: string or null`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -115,7 +115,7 @@ Get statistics about the work queue for an environment.
 
     - `"work_queue_stats"`
 
-  - `workers_polling: number`
+  - `workers_polling: number or null`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 

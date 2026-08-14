@@ -91,7 +91,7 @@ Create a new environment with the specified configuration.
 
   Human-readable name for the environment
 
-- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Environment configuration
 
@@ -108,7 +108,7 @@ Create a new environment with the specified configuration.
 
       - `"cloud"`
 
-    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -135,45 +135,45 @@ Create a new environment with the specified configuration.
 
           - `"limited"`
 
-        - `allow_mcp_servers: optional boolean`
+        - `allow_mcp_servers: optional boolean or null`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional boolean`
+        - `allow_package_managers: optional boolean or null`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allowed_hosts: optional array of string`
+        - `allowed_hosts: optional array of string or null`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams or null`
 
       Specify packages (and optionally their versions) available in this environment.
 
       When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-      - `apt: optional array of string`
+      - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional array of string`
+      - `cargo: optional array of string or null`
 
         Rust packages to install
 
-      - `gem: optional array of string`
+      - `gem: optional array of string or null`
 
         Ruby packages to install
 
-      - `go: optional array of string`
+      - `go: optional array of string or null`
 
         Go packages to install
 
-      - `npm: optional array of string`
+      - `npm: optional array of string or null`
 
         Node.js packages to install
 
-      - `pip: optional array of string`
+      - `pip: optional array of string or null`
 
         Python packages to install
 
@@ -193,7 +193,7 @@ Create a new environment with the specified configuration.
 
       - `"self_hosted"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Optional description of the environment
 
@@ -201,7 +201,7 @@ Create a new environment with the specified configuration.
 
   User-provided metadata key-value pairs
 
-- `scope: optional "organization" or "account"`
+- `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
 
@@ -219,7 +219,7 @@ Create a new environment with the specified configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 

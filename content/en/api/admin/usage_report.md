@@ -144,6 +144,8 @@ Get Messages Usage Report
 
   - `data: array of object { ending_at, results, starting_at }`
 
+    List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
+
     - `ending_at: string`
 
       End of the time bucket (exclusive) in RFC 3339 format.
@@ -152,11 +154,11 @@ Get Messages Usage Report
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
-      - `account_id: string`
+      - `account_id: string or null`
 
         ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
 
-      - `api_key_id: string`
+      - `api_key_id: string or null`
 
         ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
 
@@ -176,7 +178,7 @@ Get Messages Usage Report
 
         The number of input tokens read from the cache.
 
-      - `context_window: "0-200k" or "200k-1M"`
+      - `context_window: "0-200k" or "200k-1M" or null`
 
         Context window used. `null` if not grouping by context window.
 
@@ -184,9 +186,10 @@ Get Messages Usage Report
 
         - `"200k-1M"`
 
-      - `inference_geo: "global" or "not_available" or "us"`
+      - `inference_geo: "global" or "not_available" or "us" or null`
 
-        InferenceGeo values extended with NOT_AVAILABLE for filtering usage data.
+        Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`.
+        For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
 
         - `"global"`
 
@@ -194,7 +197,7 @@ Get Messages Usage Report
 
         - `"us"`
 
-      - `model: string`
+      - `model: string or null`
 
         Model used. `null` if not grouping by model.
 
@@ -210,11 +213,11 @@ Get Messages Usage Report
 
           The number of web search requests made.
 
-      - `service_account_id: string`
+      - `service_account_id: string or null`
 
         ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
 
-      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more`
+      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more or null`
 
         Service tier used. `null` if not grouping by service tier.
 
@@ -234,7 +237,7 @@ Get Messages Usage Report
 
         The number of uncached input tokens processed.
 
-      - `workspace_id: string`
+      - `workspace_id: string or null`
 
         ID of the Workspace used. `null` if not grouping by workspace or for the default workspace.
 
@@ -246,9 +249,9 @@ Get Messages Usage Report
 
     Indicates if there are more results.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
-    Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+    Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.
 
 ### Example
 
@@ -320,7 +323,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
 - `ClaudeCodeUsageReport object { data, has_more, next_page }`
 
-  - `data: array of object { actor, core_metrics, customer_type, 6 more }`
+  - `data: array of object { actor, core_metrics, customer_type, 7 more }`
 
     List of Claude Code usage records for the requested date.
 
@@ -336,6 +339,8 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         - `type: "user_actor"`
 
+          Actor type. Always `"user_actor"` for a user.
+
           - `"user_actor"`
 
       - `APIActor object { api_key_name, type }`
@@ -345,6 +350,8 @@ Enables organizations to analyze developer productivity and build custom dashboa
           Name of the API key used to perform Claude Code actions.
 
         - `type: "api_actor"`
+
+          Actor type. Always `"api_actor"` for an API key.
 
           - `"api_actor"`
 
@@ -388,6 +395,11 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
       UTC day the usage metrics cover, as an RFC 3339 timestamp at midnight UTC
       (for example `2025-08-08T00:00:00Z`).
+
+    - `is_remote: boolean`
+
+      Whether the usage came from remote Claude Code sessions, such as Claude Code
+      on the web. Remote and local usage are reported as separate rows.
 
     - `model_breakdown: array of object { estimated_cost, model, tokens }`
 
@@ -449,7 +461,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         Number of tool action proposals that the user rejected.
 
-    - `subscription_type: optional "enterprise" or "team"`
+    - `subscription_type: optional "enterprise" or "team" or null`
 
       Subscription tier for subscription customers. `null` for API customers.
 
@@ -461,7 +473,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
     True if there are more records available beyond the current page.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor token for fetching the next page of results, or null if no more pages are available.
 
@@ -494,6 +506,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
       },
       "customer_type": "api",
       "date": "2025-08-08T00:00:00Z",
+      "is_remote": false,
       "model_breakdown": [
         {
           "estimated_cost": {
@@ -556,7 +569,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
 - `ClaudeCodeUsageReport object { data, has_more, next_page }`
 
-  - `data: array of object { actor, core_metrics, customer_type, 6 more }`
+  - `data: array of object { actor, core_metrics, customer_type, 7 more }`
 
     List of Claude Code usage records for the requested date.
 
@@ -572,6 +585,8 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         - `type: "user_actor"`
 
+          Actor type. Always `"user_actor"` for a user.
+
           - `"user_actor"`
 
       - `APIActor object { api_key_name, type }`
@@ -581,6 +596,8 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
           Name of the API key used to perform Claude Code actions.
 
         - `type: "api_actor"`
+
+          Actor type. Always `"api_actor"` for an API key.
 
           - `"api_actor"`
 
@@ -624,6 +641,11 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       UTC day the usage metrics cover, as an RFC 3339 timestamp at midnight UTC
       (for example `2025-08-08T00:00:00Z`).
+
+    - `is_remote: boolean`
+
+      Whether the usage came from remote Claude Code sessions, such as Claude Code
+      on the web. Remote and local usage are reported as separate rows.
 
     - `model_breakdown: array of object { estimated_cost, model, tokens }`
 
@@ -685,7 +707,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         Number of tool action proposals that the user rejected.
 
-    - `subscription_type: optional "enterprise" or "team"`
+    - `subscription_type: optional "enterprise" or "team" or null`
 
       Subscription tier for subscription customers. `null` for API customers.
 
@@ -697,7 +719,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
     True if there are more records available beyond the current page.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor token for fetching the next page of results, or null if no more pages are available.
 
@@ -707,6 +729,8 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
   - `data: array of object { ending_at, results, starting_at }`
 
+    List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
+
     - `ending_at: string`
 
       End of the time bucket (exclusive) in RFC 3339 format.
@@ -715,11 +739,11 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
-      - `account_id: string`
+      - `account_id: string or null`
 
         ID of the user account that made the request. `null` if not grouping by account or for non-OAuth requests.
 
-      - `api_key_id: string`
+      - `api_key_id: string or null`
 
         ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
 
@@ -739,7 +763,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         The number of input tokens read from the cache.
 
-      - `context_window: "0-200k" or "200k-1M"`
+      - `context_window: "0-200k" or "200k-1M" or null`
 
         Context window used. `null` if not grouping by context window.
 
@@ -747,9 +771,10 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         - `"200k-1M"`
 
-      - `inference_geo: "global" or "not_available" or "us"`
+      - `inference_geo: "global" or "not_available" or "us" or null`
 
-        InferenceGeo values extended with NOT_AVAILABLE for filtering usage data.
+        Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`.
+        For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
 
         - `"global"`
 
@@ -757,7 +782,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         - `"us"`
 
-      - `model: string`
+      - `model: string or null`
 
         Model used. `null` if not grouping by model.
 
@@ -773,11 +798,11 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
           The number of web search requests made.
 
-      - `service_account_id: string`
+      - `service_account_id: string or null`
 
         ID of the service account that made the request. `null` if not grouping by service account or for non-OIDC-federation requests.
 
-      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more`
+      - `service_tier: "batch" or "flex" or "flex_discount" or 3 more or null`
 
         Service tier used. `null` if not grouping by service tier.
 
@@ -797,7 +822,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         The number of uncached input tokens processed.
 
-      - `workspace_id: string`
+      - `workspace_id: string or null`
 
         ID of the Workspace used. `null` if not grouping by workspace or for the default workspace.
 
@@ -809,6 +834,6 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
     Indicates if there are more results.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
-    Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+    Opaque cursor for the next page, or `null` when `has_more` is false. Pass it as the `page` parameter in the next request.

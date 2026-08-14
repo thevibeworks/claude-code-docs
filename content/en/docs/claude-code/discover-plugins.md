@@ -41,7 +41,7 @@ To install a plugin from the official marketplace, use `/plugin install <name>@c
 If the install fails, match the message Claude Code reports:
 
 * `Marketplace "claude-plugins-official" not found`: add the marketplace with `/plugin marketplace add anthropics/claude-plugins-official`, then retry the install.
-* The plugin is not found in the marketplace: check the plugin name. Claude Code [refreshes a stale marketplace catalog and retries](#install-plugins) before reporting this, so if you turned off [marketplace auto-update](#configure-auto-updates), refresh manually with `/plugin marketplace update claude-plugins-official` and retry the install.
+* The plugin is [not found in the marketplace](#install-plugins): check the plugin name.
 
 <Note>
   The official marketplace is curated by Anthropic, and inclusion is at Anthropic's discretion. The in-app submission forms add plugins to the [community marketplace](#community-marketplace), not the official one. To distribute plugins independently, [create your own marketplace](/docs/en/plugin-marketplaces) and share it with users.
@@ -289,16 +289,20 @@ The command opens that plugin's details, where you choose an [installation scope
 * **Project scope**: install for all collaborators on this repository, which adds the plugin to `.claude/settings.json`
 * **Local scope**: install for yourself in this repository only, not shared with collaborators
 
-To install without an interactive step, use the [`claude plugin install`](/docs/en/plugins-reference#plugin-install) shell command, which installs to user scope unless you pass `--scope`.
+To install without an interactive step, use the [`claude plugin install`](/docs/en/plugins-reference#plugin-install) shell command, which installs to user scope unless you pass `--scope`. For a plugin with a [`command` source](/docs/en/plugin-marketplaces#how-users-accept-the-command), pass `--yes` to accept the command it displays.
 
 You may also see plugins with **managed** scope. These are installed by administrators via [managed settings](/docs/en/settings#settings-files) and can't be modified.
 
-If the plugin isn't in your local copy of the marketplace catalog, what happens depends on [marketplace auto-update](#configure-auto-updates):
+Claude Code looks the plugin up in its local copy of the marketplace catalog. How you name the plugin controls whether Claude Code refreshes that copy first:
 
-* **Auto-update on**: Claude Code refreshes the catalog once and retries the lookup before reporting that the plugin is not found.
-* **Auto-update off**: refresh the catalog yourself with `/plugin marketplace update <marketplace-name>` and retry the install.
+* **With a marketplace name**: when you install `plugin-name@marketplace-name`, in a session or with `claude plugin install`, Claude Code refreshes that marketplace before the lookup, whether or not you turned on [auto-update](#configure-auto-updates) for it and even if you set `DISABLE_AUTOUPDATER`. Before v2.1.232, Claude Code didn't refresh the marketplace before the lookup. Claude Code skips this refresh in four cases:
+  * The marketplace wasn't [added from GitHub, another Git host, or a remote URL](#add-marketplaces).
+  * A [seed directory](/docs/en/plugin-marketplaces#pre-populate-plugins-for-containers) supplies the marketplace.
+  * Claude Code refreshed the marketplace within the last 30 seconds.
+  * You set [`CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`](/docs/en/env-vars).
+* **Plugin name only**: when you run `/plugin install plugin-name` in a session, Claude Code refreshes only the marketplaces it also [updates in the background](#configure-auto-updates), and only after the lookup misses. `claude plugin install plugin-name` reads the cached catalogs without refreshing. To install a plugin that was published after your last refresh, run `/plugin marketplace update <marketplace-name>` in a session or [`claude plugin marketplace update <marketplace-name>`](/docs/en/plugin-marketplaces#plugin-marketplace-update) in your shell, then retry the install.
 
-Before v2.1.221, Claude Code reported the plugin as not found without refreshing, so run the manual update on those versions too.
+If the refresh before a named install fails, for example because you're offline, Claude Code looks the plugin up in the cached catalog anyway. `claude plugin install` reports `marketplace not refreshed` in its success message, and `/plugin install` shows the failure above the plugin's details or in its not-found message.
 
 When you install from the `/plugin` interface, the install summary tells you whether the plugin is active in your current session:
 
@@ -444,6 +448,8 @@ Claude Code can automatically update marketplaces and their installed plugins in
 
 Claude Code checks for marketplace and plugin updates after your session starts, with a random delay of up to ten minutes, so the running session keeps using the versions it loaded at launch. If any plugins were updated, you'll see a notification prompting you to run `/reload-plugins`, or the new versions load on your next launch.
 
+Claude Code updates plugins that have a [`command` source](/docs/en/plugin-marketplaces#command-sources) on a separate cadence from the marketplace auto-update setting and from `DISABLE_AUTOUPDATER`. Instead, it [re-runs the command once per session](/docs/en/plugin-marketplaces#when-claude-code-re-runs-the-command) and installs the output as a new plugin version when its [hash](/docs/en/plugins-reference#version-management) has changed.
+
 Toggle auto-update for individual marketplaces through the UI:
 
 1. Run `/plugin` to open the plugin manager
@@ -455,7 +461,7 @@ Official Anthropic marketplaces have auto-update enabled by default. Third-party
 
 Administrators can also set `"autoUpdate": true` on each [`extraKnownMarketplaces`](/docs/en/settings#extraknownmarketplaces) entry in managed settings to enable auto-update for an organization marketplace without requiring each user to toggle it.
 
-To disable all automatic updates entirely for both Claude Code and all plugins, set the `DISABLE_AUTOUPDATER` environment variable. See [Auto updates](/docs/en/setup#auto-updates) for details.
+To disable automatic updates for Claude Code and for plugins fetched from marketplaces, set the `DISABLE_AUTOUPDATER` environment variable. Plugins with a [`command` source](/docs/en/plugin-marketplaces#command-sources) follow their own once-per-session re-resolve. See [Auto updates](/docs/en/setup#auto-updates) for details.
 
 To keep plugin auto-updates enabled while disabling Claude Code auto-updates, set `FORCE_AUTOUPDATE_PLUGINS=1` along with `DISABLE_AUTOUPDATER`:
 
@@ -466,9 +472,9 @@ export FORCE_AUTOUPDATE_PLUGINS=1
 
 ## Configure team marketplaces
 
-Team admins can set up automatic marketplace installation for projects by adding marketplace configuration to `.claude/settings.json`. When team members trust the repository folder, Claude Code prompts them to install these marketplaces and plugins.
+Team admins can set up automatic marketplace installation for projects by adding marketplace configuration to `.claude/settings.json`. Once a team member [trusts the repository folder](/docs/en/permissions#what-runs-before-you-trust-a-folder), Claude Code adds these marketplaces without a further prompt.
 
-As of Claude Code v2.1.195, this install step applies on every path that loads plugins. A plugin that only the project's `.claude/settings.json` enables, and that comes from an external source such as a GitHub repository or npm package, doesn't load until the team member installs it. Until then, Claude Code reports the plugin as not installed and shows the `claude plugin install` command to run.
+As of Claude Code v2.1.195, adding the marketplace doesn't install plugins that come from an external source, on any path that loads plugins. A plugin that only the project's `.claude/settings.json` enables, and that comes from an external source such as a GitHub repository or npm package, doesn't load until the team member installs it. Until then, Claude Code reports the plugin as not installed and shows the `claude plugin install` command to run.
 
 Add `extraKnownMarketplaces` to your project's `.claude/settings.json`:
 

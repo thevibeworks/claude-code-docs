@@ -79,15 +79,15 @@ the `read:analytics` scope.
 
         Number of distinct artifacts created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
 
-      - `distinct_connectors_used_count: number`
+      - `distinct_connectors_used_count: number or null`
 
         Distinct claude.ai connectors this user used. Excludes calls whose connector could not be identified and all calls from organizations with zero data retention. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_conversation_count: number`
+      - `distinct_conversation_count: number or null`
 
         Number of distinct conversations the user participated in. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_files_uploaded_count: number`
+      - `distinct_files_uploaded_count: number or null`
 
         Number of distinct files uploaded. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -95,15 +95,15 @@ the `read:analytics` scope.
 
         Number of distinct projects created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
 
-      - `distinct_projects_used_count: number`
+      - `distinct_projects_used_count: number or null`
 
         Number of distinct projects used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_shared_artifacts_viewed_count: number`
+      - `distinct_shared_artifacts_viewed_count: number or null`
 
         Number of distinct shared artifacts the user viewed. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_skills_used_count: number`
+      - `distinct_skills_used_count: number or null`
 
         Number of distinct skills used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -131,7 +131,7 @@ the `read:analytics` scope.
 
           Number of commits made via Claude Code
 
-        - `distinct_session_count: number`
+        - `distinct_session_count: number or null`
 
           Number of distinct Claude Code sessions. On aggregated rows and in date-range mode: summed per-day distinct counts. A session essentially never spans a UTC day, so the sum is in practice the true distinct count.
 
@@ -195,15 +195,15 @@ the `read:analytics` scope.
 
         Number of Dispatch (background agent) turns completed
 
-      - `distinct_connectors_used_count: number`
+      - `distinct_connectors_used_count: number or null`
 
         Number of distinct connectors used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_session_count: number`
+      - `distinct_session_count: number or null`
 
         Number of distinct Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_skills_used_count: number`
+      - `distinct_skills_used_count: number or null`
 
         Number of distinct skills used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -215,35 +215,35 @@ the `read:analytics` scope.
 
         Total number of skill invocations in Cowork sessions
 
-      - `distinct_plugins_used_count: optional number`
+      - `distinct_plugins_used_count: optional number or null`
 
         Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `edit_tool_count: optional number`
+      - `edit_tool_count: optional number or null`
 
         Number of successful Edit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
-      - `file_edit_count: optional number`
+      - `file_edit_count: optional number or null`
 
         Number of successful file-edit tool calls (Edit, MultiEdit, Write, NotebookEdit) in Cowork sessions. Null, never 0, while the file-edit metrics are not enabled for this organization.
 
-      - `multi_edit_tool_count: optional number`
+      - `multi_edit_tool_count: optional number or null`
 
         Number of successful MultiEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
-      - `notebook_edit_tool_count: optional number`
+      - `notebook_edit_tool_count: optional number or null`
 
         Number of successful NotebookEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
-      - `plugins_used_count: optional number`
+      - `plugins_used_count: optional number or null`
 
         Total number of plugin invocations in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization.
 
-      - `sessions_with_file_edits_count: optional number`
+      - `sessions_with_file_edits_count: optional number or null`
 
         Number of distinct Cowork sessions with at least one successful file-edit tool call. Null while the file-edit metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `write_tool_count: optional number`
+      - `write_tool_count: optional number or null`
 
         Number of successful Write tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
@@ -255,11 +255,11 @@ the `read:analytics` scope.
 
         Number of distinct Claude Design projects created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
 
-      - `distinct_projects_used_count: number`
+      - `distinct_projects_used_count: number or null`
 
         Number of distinct Claude Design projects the user worked in. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_session_count: number`
+      - `distinct_session_count: number or null`
 
         Number of distinct Claude Design sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -279,15 +279,15 @@ the `read:analytics` scope.
 
           Number of MCP connector invocations
 
-        - `distinct_connectors_used_count: number`
+        - `distinct_connectors_used_count: number or null`
 
           Number of distinct MCP connectors used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-        - `distinct_session_count: number`
+        - `distinct_session_count: number or null`
 
           Number of distinct Office Agent sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-        - `distinct_skills_used_count: number`
+        - `distinct_skills_used_count: number or null`
 
           Number of distinct skills used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -319,7 +319,7 @@ the `read:analytics` scope.
 
         Number of delegations (handoffs to a specialized agent) in Claude Science sessions
 
-      - `distinct_session_count: number`
+      - `distinct_session_count: number or null`
 
         Number of distinct Claude Science sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
@@ -339,29 +339,29 @@ the `read:analytics` scope.
 
       Number of web searches performed
 
-    - `distinct_user_count: optional number`
+    - `distinct_user_count: optional number or null`
 
-      Number of distinct active users represented by this row. Only set for grouped rollups (group_by[]); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
+      Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
 
-    - `last_activity_date: optional string`
+    - `last_activity_date: optional string or null`
 
-      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested date in single-day mode, and to the latest active day in [starting_date, ending_date) in date-range rollup mode — never a day earlier than the window start. On filtered requests (filter[]) only days matching the filter count: with filter[]=rbac_group_id it is the last day the user was active while a member of that group, consistent with the row's other metrics. Null on grouped (group_by[]) rows. Omitted from the response while last-activity reporting is not enabled for this organization.
+      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested date in single-day mode, and to the latest active day in [starting_date, ending_date) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id` it is the last day the user was active while a member of that group, consistent with the row's other metrics. Null on grouped (`group_by[]`) rows. Omitted from the response while last-activity reporting is not enabled for this organization.
 
-    - `rbac_group_id: optional string`
+    - `rbac_group_id: optional string or null`
 
-      Tagged RBAC group identifier (rbac_group_...), matching the spend-limits API spelling. Present only when the request grouped by rbac_group_id.
+      Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
 
-    - `rbac_group_name: optional string`
+    - `rbac_group_name: optional string or null`
 
-      Resolved RBAC group display name, alongside rbac_group_id when name resolution is available. Null if the group has been deleted or its name could not be resolved; rbac_group_id remains the stable key.
+      Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
 
-    - `user: optional AnalyticsUser`
+    - `user: optional AnalyticsUser or null`
 
       User identifier.
 
       - `id: string`
 
-        Tagged user identifier (e.g. user_...)
+        Tagged user identifier (e.g. `user_...`)
 
       - `email_address: string`
 
@@ -373,7 +373,7 @@ the `read:analytics` scope.
 
         - `"user"`
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor for the next page, or null if no more results
 

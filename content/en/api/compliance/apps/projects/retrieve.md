@@ -37,7 +37,7 @@ Get detailed information for a specific project.
 
   Project creation timestamp
 
-- `deleted_at: string`
+- `deleted_at: string or null`
 
   Timestamp when the project was deleted by an end user, or null otherwise
 
@@ -69,13 +69,13 @@ Get detailed information for a specific project.
 
   Project last update timestamp
 
-- `user: object { id, email_address }`
+- `user: object { id, email_address }  or null`
 
   The user who created a project or project document.
 
   Fields that reference this type are null when the creator's account has
-  been deleted or the creator is no longer a member of any organization
-  under the parent organization.
+  been deleted or the creator is no longer a member of an organization the
+  key may read.
 
   - `id: string`
 

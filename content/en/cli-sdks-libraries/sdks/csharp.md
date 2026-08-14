@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp
 description: Install and configure the Anthropic C# SDK for .NET applications with IChatClient integration
 ---
 
-The Anthropic C# SDK provides convenient access to the Anthropic REST API from applications written in C#.
+The Anthropic C# SDK provides convenient access to the Claude API from applications written in C#.
 
 <Info>
   The C# SDK is currently in beta. APIs may change between versions.
@@ -452,12 +452,12 @@ Use `AnthropicBedrockMantleClient` for new projects; `AnthropicBedrockClient` re
   Although this package is versioned as 10+, it's currently in beta. During the beta period, breaking changes may occur in minor or patch releases. Once the library reaches stable release, SemVer conventions will be followed more strictly. Share feedback by [filing an issue](https://github.com/anthropics/anthropic-sdk-csharp/issues/new).
 </Warning>
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 ## Additional resources
 

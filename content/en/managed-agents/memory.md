@@ -20,7 +20,7 @@ Each Managed Agents session starts with a fresh context by default. When a sessi
 
 A **memory store** is a workspace-scoped collection of text documents optimized for Claude. When you attach a store to a session, it is mounted as a directory inside the session's sandbox. The agent reads and writes it with the same file tools it uses for the rest of the filesystem, and a note describing each mount is automatically added to the system prompt, telling the agent where to look. The [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools) is required for these interactions; make sure to enable it during [agent creation](https://platform.claude.com/docs/en/managed-agents/agent-setup).
 
-Each **memory** in a store is addressed by a path and can be read and edited directly through the API or Console, allowing for tuning, importing, and exporting.
+Each **memory** in a store is addressed by a path and can be read and edited directly through the API or the Claude Console, allowing for tuning, importing, and exporting.
 
 Every change to a memory creates an immutable **memory version**, giving you an audit trail and point-in-time recovery for everything the agent writes.
 
@@ -208,7 +208,7 @@ Pre-load a store with reference material before any agent runs:
 
 ## Attach a memory store to a session
 
-Memory stores are attached in the session's `resources[]` array when the session is created. Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported.
+Memory stores are attached in the session's `resources[]` array when the [session is created](https://platform.claude.com/docs/en/managed-agents/sessions#creating-a-session). Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported.
 
 Optionally include `instructions` to provide session-specific guidance for how the agent should use this store. It is shown to the agent alongside the store's `name` and `description`, and is capped at 4,096 characters.
 
@@ -946,8 +946,8 @@ List version history for a store, newest first. The example filters to a single 
       store.id,
       memory_id=mem.id,
   )
-  for v in versions:
-      print(f"{v.id}: {v.operation}")
+  for version in versions:
+      print(f"{version.id}: {version.operation}")
 
   version_id = versions.data[1].id
   ```
@@ -1028,8 +1028,8 @@ List version history for a store, newest first. The example filters to a single 
     store.id,
     memory_id: mem.id
   )
-  versions.auto_paging_each do |v|
-    puts "#{v.id}: #{v.operation}"
+  versions.auto_paging_each do |version|
+    puts "#{version.id}: #{version.operation}"
   end
 
   version_id = versions.data[1].id
@@ -1212,8 +1212,8 @@ List stores in the workspace. Archived stores are excluded by default; pass `inc
   ```
 
   ```python Python
-  for s in client.beta.memory_stores.list(include_archived=True):
-      print(s.id, s.name, s.archived_at)
+  for memory_store in client.beta.memory_stores.list(include_archived=True):
+      print(memory_store.id, memory_store.name, memory_store.archived_at)
   ```
 
   ```typescript TypeScript
@@ -1260,8 +1260,8 @@ List stores in the workspace. Archived stores are excluded by default; pass `inc
   ```
 
   ```ruby Ruby
-  client.beta.memory_stores.list(include_archived: true).auto_paging_each do |s|
-    puts "#{s.id} #{s.name} #{s.archived_at}"
+  client.beta.memory_stores.list(include_archived: true).auto_paging_each do |memory_store|
+    puts "#{memory_store.id} #{memory_store.name} #{memory_store.archived_at}"
   end
   ```
 </CodeGroup>

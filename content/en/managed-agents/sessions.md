@@ -12,7 +12,7 @@ A session is an agent instance within an environment. Each session references an
 
 ## Creating a session
 
-A session requires an `agent` ID and an `environment` ID. Agents are versioned resources; passing in the `agent` ID as a string starts the session with the latest agent version.
+A session requires an `agent` ID and an `environment` ID. Agents are versioned resources; passing in the `agent` ID as a string creates the session with the latest agent version.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL

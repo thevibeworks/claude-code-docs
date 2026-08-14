@@ -578,7 +578,13 @@ The following examples read a text file and send its contents as plain text:
   };
 
   var message = await client.Messages.Create(parameters);
-  Console.WriteLine(message);
+  foreach (var block in message.Content)
+  {
+      if (block.TryPickText(out var textBlock))
+      {
+          Console.WriteLine(textBlock.Text);
+      }
+  }
   ```
 
   ```go Go
@@ -752,7 +758,7 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
   $client = new Client();
 
   $files = $client->beta->files->list();
-  print_r($files);
+  echo $files;
   ```
 
   ```ruby Ruby

@@ -88,12 +88,12 @@ To page through activities:
 * Pass `first_id` as `before_id` to return to the previous page.
 * Stop when `has_more` is `false`.
 
-The cursor parameter sets the page direction; the endpoint's sort order sets the time direction. The same `after_id` parameter reaches older activities here. Chats sort oldest first; see [Retrieve and delete chats, files, projects, and sessions](https://platform.claude.com/docs/en/manage-claude/compliance-content-data) for the cursor semantics there.
+The cursor parameter sets the page direction; the endpoint's sort order sets the time direction. The same `after_id` parameter reaches older activities here. Chats sort oldest first; see [Retrieve and delete chats, files, and projects](https://platform.claude.com/docs/en/manage-claude/compliance-content-data) for the cursor semantics there.
 
 <Note>
   **Cursors are safe to reuse on retry.** A cursor or page token from a successfully returned page remains valid; a request that fails (5xx, timeout, network error) does not advance your position. Retry the same request with the same cursor. Only move to the next cursor after you have stored the page it points past.
 
-  Page tokens on the local session endpoints are the exception over longer pauses. On the [local session messages endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-a-local-session-transcript), a walk's `page` tokens expire 24 hours after its first page (a walk is one pass through the pages), so finish or resume within that window, or restart without the `page` parameter. On the [local session list](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-local-sessions), an older `page` token is still accepted but is re-evaluated against the current retention boundary and can skip sessions, so complete list walks within 24 hours as well.
+  Page tokens on the local session endpoints are the exception over longer pauses. On the [local session messages endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript), a walk's `page` tokens expire 24 hours after its first page (a walk is one pass through the pages), so finish or resume within that window, or restart without the `page` parameter. On the [local session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions), an older `page` token is still accepted but is re-evaluated against the current retention boundary and can skip sessions, so complete list walks within 24 hours as well.
 </Note>
 
 ```bash cURL
@@ -166,7 +166,7 @@ The `actor` field is a discriminated union. The `type` discriminator tells you w
     The full request and response schema for `GET /v1/compliance/activities`, including every supported `activity_types[]` value.
   </Card>
 
-  <Card title="Retrieve and delete chats, files, projects, and sessions" href="https://platform.claude.com/docs/en/manage-claude/compliance-content-data">
+  <Card title="Retrieve and delete chats, files, and projects" href="https://platform.claude.com/docs/en/manage-claude/compliance-content-data">
     Query and delete the underlying content for activities you find in the feed (Compliance Access Key required).
   </Card>
 

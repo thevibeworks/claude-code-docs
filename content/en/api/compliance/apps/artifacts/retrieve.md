@@ -30,7 +30,7 @@ without downloading every artifact.
 
   Artifact ID e.g. 'claude_artifact_abc123'
 
-- `artifact_type: string`
+- `artifact_type: string or null`
 
   MIME-like artifact type e.g. 'application/vnd.ant.code'
 
@@ -50,7 +50,7 @@ without downloading every artifact.
 
   Size in bytes of the artifact content (UTF-8 encoded)
 
-- `title: string`
+- `title: string or null`
 
   Artifact title
 

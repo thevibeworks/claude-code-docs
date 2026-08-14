@@ -28,7 +28,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
 - `ClaudeCodeUsageReport object { data, has_more, next_page }`
 
-  - `data: array of object { actor, core_metrics, customer_type, 6 more }`
+  - `data: array of object { actor, core_metrics, customer_type, 7 more }`
 
     List of Claude Code usage records for the requested date.
 
@@ -44,6 +44,8 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         - `type: "user_actor"`
 
+          Actor type. Always `"user_actor"` for a user.
+
           - `"user_actor"`
 
       - `APIActor object { api_key_name, type }`
@@ -53,6 +55,8 @@ Enables organizations to analyze developer productivity and build custom dashboa
           Name of the API key used to perform Claude Code actions.
 
         - `type: "api_actor"`
+
+          Actor type. Always `"api_actor"` for an API key.
 
           - `"api_actor"`
 
@@ -96,6 +100,11 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
       UTC day the usage metrics cover, as an RFC 3339 timestamp at midnight UTC
       (for example `2025-08-08T00:00:00Z`).
+
+    - `is_remote: boolean`
+
+      Whether the usage came from remote Claude Code sessions, such as Claude Code
+      on the web. Remote and local usage are reported as separate rows.
 
     - `model_breakdown: array of object { estimated_cost, model, tokens }`
 
@@ -157,7 +166,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         Number of tool action proposals that the user rejected.
 
-    - `subscription_type: optional "enterprise" or "team"`
+    - `subscription_type: optional "enterprise" or "team" or null`
 
       Subscription tier for subscription customers. `null` for API customers.
 
@@ -169,7 +178,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
     True if there are more records available beyond the current page.
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor token for fetching the next page of results, or null if no more pages are available.
 
@@ -202,6 +211,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
       },
       "customer_type": "api",
       "date": "2025-08-08T00:00:00Z",
+      "is_remote": false,
       "model_breakdown": [
         {
           "estimated_cost": {

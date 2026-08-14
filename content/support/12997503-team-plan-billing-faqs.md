@@ -18,11 +18,13 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1786641300&amp;signature=a5c7fa3027020a6c39945f57c8a0e3f1a3c2154f33d41290df67e145e5f3fb0c&amp;req=dSklFMh6mINaWvMW1HO4zRZTxFzHv8rQKAqLF4ERnlUSaa%2FSZXd80Wfi8Mta%0AbGszs%2F88yW%2F5vxA%2BtCY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1786795200&amp;signature=45d6cd5bf1eb6f1e41ca405def61c9eb0868a9244afacc4129a667499ce1fd3a&amp;req=dSklFMh6mINaWvMW3nq%2BgVr9wWuEX9v2PNHEXNYt8DVqMStqbz%2F6tUFcic0i%0AAfFAAVbA3Auq2LyKy%2FICDNNKxjg%3D%0A)
 
 ## When will I be billed?
 
-Your payment method on file will be charged at the beginning of your billing cycle. The amount will be based on the number of members on your team at the beginning of the billing cycle. If you add or remove members from your team during the billing cycle, you will be credited or charged the prorated amount immediately. See **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated)** for more information about Team plan pricing.
+Your payment method on file will be charged at the beginning of your billing cycle. The amount is based on the number of members on your team at the beginning of the billing cycle. If you add members or upgrade seats during the billing cycle, you'll be charged the prorated amount immediately. Removing members doesn't generate a credit or refund. The seat becomes available to assign to someone else.
+
+See **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated)** for more information about Team plan pricing.
 
 ## Where can I find the invoice or receipt for my Team plan payment?
 

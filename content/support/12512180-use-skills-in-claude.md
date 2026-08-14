@@ -68,9 +68,9 @@ You can also create and upload your own skills to teach Claude your specific wor
 
 ## Share a skill
 
-On Team and Enterprise plans, you can share skills you've created with specific colleagues or with your entire organization. Skill sharing works in both chat and Cowork.
+On Team and Enterprise plans, you can share skills you've created with specific colleagues, groups, or with your entire organization. Skill sharing works in both chat and Cowork.
 
-**Note:** Sharing is off by default. An owner must navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and enable the **Share with organization** toggle, the **Skill sharing** toggle, or both before the “Share” button appears. If you don't see the option to share, check with your organization owner.
+**Note:** Sharing is off by default. An owner must navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and enable the **Share with organization** toggle, the **Skill sharing** toggle, the **Share with groups toggle**, or some combination of the three before the “Share” button appears. If your organization uses custom roles, your role must also have the **Share skills with groups** capability enabled. If you don't see the option to share, check with your organization owner.
 
 To share a skill:
 
@@ -83,6 +83,8 @@ To share a skill:
 4. Choose who to share with:
 
   - **Specific people:** Enter names or emails to share directly. The skill appears in each recipient's skills list, grayed out until they enable it.
+
+  - **A group:** Share with a group your organization has already set up. The skill appears in every group member's skills list, grayed out until they enable it. Requires the **Share with groups** toggle.
 
   - **Entire organization:** The skill is published to your organization's directory, where anyone can find and install it.
 
@@ -164,7 +166,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1786641300&amp;signature=e31496eaf96d7aca2c2606e4a5d7306aa9e77b7c971175236a69e99f5d7e7327&amp;req=diEnE8p3nINYWvMW1HO4zSOgDy0uxueuH%2BdCnFXB0ujngjGpjKKLmUibhicT%0APt%2Bt%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1786795200&amp;signature=6f51f7621fca6c2a3c2bf95bca976d882f4a2be975314304858f2cf2822495d2&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bphmZFwVMT2ztkCRhOYYi%2Fs9zkSOB3wVme%0AXnSYf89h%2F%2B1mGVN8ZtcwRnzRRRs%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 
@@ -222,9 +224,13 @@ Common reasons for upload failures:
 
 If skills appear greyed out, code execution may be disabled at the organization level (for Team and Enterprise plans) or individually. Check with your organization's Owner (Team, Enterprise) or make sure to enable code execution in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max).
 
+### Group doesn't appear when I try to share a skill
+
+The group needs the **Share resources with this group** visibility setting turned on by an organization owner. Contact your organization owner if a group you expect to see is missing.
+
 ### Share button not visible
 
-Skill sharing for Team and Enterprise plans is off by default. An organization owner must enable peer-to-peer or peer-to-org sharing before you can share skills. Contact your organization owner if you'd like sharing enabled.
+Skill sharing for Team and Enterprise plans is off by default. An organization owner must enable peer-to-peer, peer-to-org, or group sharing before you can share skills. If your organization uses custom roles, make sure your role also has this capability enabled. Contact your organization owner if you'd like sharing enabled.
 
 ---
 

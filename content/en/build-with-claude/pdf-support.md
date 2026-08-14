@@ -931,7 +931,7 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
   // Use the uploaded file in a message
   MessageCreateParams params = MessageCreateParams.builder()
     .model(Model.CLAUDE_OPUS_5)
-    .addBeta("files-api-2025-04-14")
+    .addBeta(AnthropicBeta.FILES_API_2025_04_14)
     .maxTokens(1024)
     .addUserMessageOfBetaContentBlockParams(
       List.of(

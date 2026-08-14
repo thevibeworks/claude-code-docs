@@ -1,10 +1,10 @@
 ---
 title: Compliance API
 url: https://platform.claude.com/docs/en/manage-claude/compliance-api
-description: Programmatic access to your organization's Claude activity, chats, files, projects, sessions, and users for compliance, audit, and governance.
+description: Programmatic access to your organization's Claude activity, chats, files, projects, Claude Cowork and Claude Code sessions, and users for compliance, audit, and governance.
 ---
 
-The Compliance API gives Claude Enterprise and Claude Console customers programmatic access to their organization's Activity Feed. For Claude Enterprise organizations, it also covers the directory of users, roles, and groups across every linked organization, the effective settings in force for each organization, and, for claude.ai organizations, the underlying chats, files, projects, and sessions. Security, legal, and compliance teams use it to audit activity, retrieve or delete content, and feed events into downstream tooling.
+The Compliance API gives Claude Enterprise and Claude Console customers programmatic access to their organization's Activity Feed. For Claude Enterprise organizations, it also covers the directory of users, roles, and groups across every linked organization; the effective settings in force for each organization; the underlying chats, files, and projects in claude.ai organizations; and Cowork and Claude Code sessions. Security, legal, and compliance teams use it to audit activity, retrieve or delete content, and feed events into downstream tooling.
 
 <Note>
   Two key types unlock the Compliance API. A **Compliance Access Key** (created in claude.ai) reaches every endpoint, and an **Admin API key** (created in Claude Console) reaches the Activity Feed only. See [Which key do you need?](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#which-key-do-you-need) for the full key-type comparison.
@@ -54,9 +54,9 @@ Every endpoint lives under `/v1/compliance/*` on `https://api.anthropic.com` and
 
 The Activity Feed (`GET /v1/compliance/activities`) is available to any key that carries the `read:compliance_activities` scope; see [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) for filters, pagination, and the full `Activity` object. The remaining endpoints require a Compliance Access Key carrying the relevant scope.
 
-A Claude Enterprise tenant has one parent organization (the top-level container that centralizes identity) with linked organizations of two kinds: claude.ai organizations, where users chat and store content, and Claude Console organizations, where users manage Claude API workloads. For a key that covers the parent organization, the directory endpoints (organizations, users, roles, and groups) return data from every linked organization of either kind. The content endpoints (chats, files, projects, project attachments, and local and remote sessions) serve Claude Enterprise data only: claude.ai chats, files, and projects; local session transcripts, from Cowork and Claude Code sessions that run on users' machines while they are signed in with their Claude Enterprise account; and remote session transcripts, from Cowork sessions that run in Anthropic-managed cloud environments. A standalone Claude Console organization (one with no parent organization) is not part of a Claude Enterprise tenant; it uses Admin API keys and can query the Activity Feed only.
+A Claude Enterprise tenant has one parent organization (the top-level container that centralizes identity) with linked organizations of two kinds: claude.ai organizations, where users chat and store content, and Claude Console organizations, where users manage Claude API workloads. For a key that covers the parent organization, the directory endpoints (organizations, users, roles, and groups) return data from every linked organization of either kind. The content endpoints (chats, files, projects, project attachments, and sessions) serve Claude Enterprise data only. The chat, file, and project endpoints return claude.ai chats, files, and projects. The session endpoints return transcripts of Cowork and Claude Code sessions on users' machines (local sessions), captured while users are signed in with their Claude Enterprise account. They also return transcripts of Cowork sessions started on claude.ai web or mobile, which run in the cloud in Anthropic-managed environments (remote sessions). A standalone Claude Console organization (one with no parent organization) is not part of a Claude Enterprise tenant; it uses Admin API keys and can query the Activity Feed only.
 
-All `/v1/compliance/*` endpoints share a rate limit of 600 requests per minute per parent organization (for a standalone Claude Console organization, per organization); the remote session endpoints carry an additional request budget on top (the local session endpoints do not). See [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
+All `/v1/compliance/*` endpoints share a rate limit of 600 requests per minute per parent organization (for a standalone Claude Console organization, per organization). The local session endpoints count only against that shared limit, and the remote session endpoints carry a second request budget on top. See [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
 
 ***
 
@@ -93,8 +93,12 @@ Anthropic provides two analytics APIs: the Claude Enterprise Analytics API and t
     Retrieve, filter, and paginate the shared Activity Feed. Supported by both key types.
   </Card>
 
-  <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-content-data" title="Retrieve and delete chats, files, projects, and sessions">
-    Read chat content, attachments, and Cowork and Claude Code session transcripts; delete chats, files, and projects on demand. Compliance Access Key required.
+  <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-content-data" title="Retrieve and delete chats, files, and projects">
+    Read chat content, files, and project attachments; delete chats, files, and projects on demand. Compliance Access Key required.
+  </Card>
+
+  <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-sessions" title="Retrieve session transcripts">
+    List the sessions your users run in Claude apps and agents, such as Cowork and Claude Code, and retrieve their transcripts. Compliance Access Key required.
   </Card>
 
   <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-org-data" title="List organizations, users, roles, groups, and settings">

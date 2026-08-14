@@ -49,11 +49,11 @@ If you decide to implement leak-resistant techniques, be sure to test your promp
   ```
 </Accordion>
 
-* **Use post-processing**: Filter Claude's outputs for keywords that might indicate a leak. Techniques include using regular expressions, keyword filtering, or other text processing methods.
+* **Use post-processing:** Filter Claude's outputs for keywords that might indicate a leak. Techniques include using regular expressions, keyword filtering, or other text processing methods.
   <Note>
     You can also use a prompted LLM to filter outputs for more nuanced leaks.
   </Note>
-* **Avoid unnecessary proprietary details**: If Claude doesn't need it to perform the task, don't include it. Extra content distracts Claude from focusing on "no leak" instructions.
-* **Regular audits**: Periodically review your prompts and Claude's outputs for potential leaks.
+* **Avoid unnecessary proprietary details:** If Claude doesn't need it to perform the task, don't include it. Extra content distracts Claude from focusing on "no leak" instructions.
+* **Regular audits:** Periodically review your prompts and Claude's outputs for potential leaks.
 
 Remember, the goal is not just to prevent leaks but to maintain Claude's performance. Overly complex leak-prevention can degrade results. Balance is key.

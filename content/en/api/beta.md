@@ -271,7 +271,7 @@ url: https://platform.claude.com/docs/en/api/beta
 
         - `"overloaded_error"`
 
-  - `request_id: string`
+  - `request_id: string or null`
 
   - `type: "error"`
 
@@ -463,11 +463,11 @@ The Models API response can be used to determine which models are available for 
 
     Unique model identifier.
 
-  - `allowed_fallback_models: array of string`
+  - `allowed_fallback_models: array of string or null`
 
     Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
 
-  - `capabilities: BetaModelCapabilities`
+  - `capabilities: BetaModelCapabilities or null`
 
     Model capability information.
 
@@ -491,15 +491,15 @@ The Models API response can be used to determine which models are available for 
 
       Context management support and available strategies.
 
-      - `clear_thinking_20251015: BetaCapabilitySupport`
+      - `clear_thinking_20251015: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `clear_tool_uses_20250919: BetaCapabilitySupport`
+      - `clear_tool_uses_20250919: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `compact_20260112: BetaCapabilitySupport`
+      - `compact_20260112: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -531,7 +531,7 @@ The Models API response can be used to determine which models are available for 
 
         Whether this capability is supported by the model.
 
-      - `xhigh: BetaCapabilitySupport`
+      - `xhigh: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -575,11 +575,11 @@ The Models API response can be used to determine which models are available for 
 
     A human-readable name for the model.
 
-  - `max_input_tokens: number`
+  - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
 
-  - `max_tokens: number`
+  - `max_tokens: number or null`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
@@ -591,7 +591,7 @@ The Models API response can be used to determine which models are available for 
 
     - `"model"`
 
-- `first_id: string`
+- `first_id: string or null`
 
   First ID in the `data` list. Can be used as the `before_id` for the previous page.
 
@@ -599,7 +599,7 @@ The Models API response can be used to determine which models are available for 
 
   Indicates if there are more results in the requested page direction.
 
-- `last_id: string`
+- `last_id: string or null`
 
   Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
@@ -793,11 +793,11 @@ The Models API response can be used to determine information about a specific mo
 
     Unique model identifier.
 
-  - `allowed_fallback_models: array of string`
+  - `allowed_fallback_models: array of string or null`
 
     Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
 
-  - `capabilities: BetaModelCapabilities`
+  - `capabilities: BetaModelCapabilities or null`
 
     Model capability information.
 
@@ -821,15 +821,15 @@ The Models API response can be used to determine information about a specific mo
 
       Context management support and available strategies.
 
-      - `clear_thinking_20251015: BetaCapabilitySupport`
+      - `clear_thinking_20251015: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `clear_tool_uses_20250919: BetaCapabilitySupport`
+      - `clear_tool_uses_20250919: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `compact_20260112: BetaCapabilitySupport`
+      - `compact_20260112: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -861,7 +861,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-      - `xhigh: BetaCapabilitySupport`
+      - `xhigh: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -905,11 +905,11 @@ The Models API response can be used to determine information about a specific mo
 
     A human-readable name for the model.
 
-  - `max_input_tokens: number`
+  - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
 
-  - `max_tokens: number`
+  - `max_tokens: number or null`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
@@ -1024,7 +1024,7 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
   Context management capability details.
 
-  - `clear_thinking_20251015: BetaCapabilitySupport`
+  - `clear_thinking_20251015: BetaCapabilitySupport or null`
 
     Indicates whether a capability is supported.
 
@@ -1032,11 +1032,11 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
       Whether this capability is supported by the model.
 
-  - `clear_tool_uses_20250919: BetaCapabilitySupport`
+  - `clear_tool_uses_20250919: BetaCapabilitySupport or null`
 
     Indicates whether a capability is supported.
 
-  - `compact_20260112: BetaCapabilitySupport`
+  - `compact_20260112: BetaCapabilitySupport or null`
 
     Indicates whether a capability is supported.
 
@@ -1074,7 +1074,7 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
     Whether this capability is supported by the model.
 
-  - `xhigh: BetaCapabilitySupport`
+  - `xhigh: BetaCapabilitySupport or null`
 
     Indicates whether a capability is supported.
 
@@ -1104,15 +1104,15 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
     Context management support and available strategies.
 
-    - `clear_thinking_20251015: BetaCapabilitySupport`
+    - `clear_thinking_20251015: BetaCapabilitySupport or null`
 
       Indicates whether a capability is supported.
 
-    - `clear_tool_uses_20250919: BetaCapabilitySupport`
+    - `clear_tool_uses_20250919: BetaCapabilitySupport or null`
 
       Indicates whether a capability is supported.
 
-    - `compact_20260112: BetaCapabilitySupport`
+    - `compact_20260112: BetaCapabilitySupport or null`
 
       Indicates whether a capability is supported.
 
@@ -1144,7 +1144,7 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
       Whether this capability is supported by the model.
 
-    - `xhigh: BetaCapabilitySupport`
+    - `xhigh: BetaCapabilitySupport or null`
 
       Indicates whether a capability is supported.
 
@@ -1188,11 +1188,11 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
     Unique model identifier.
 
-  - `allowed_fallback_models: array of string`
+  - `allowed_fallback_models: array of string or null`
 
     Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
 
-  - `capabilities: BetaModelCapabilities`
+  - `capabilities: BetaModelCapabilities or null`
 
     Model capability information.
 
@@ -1216,15 +1216,15 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
       Context management support and available strategies.
 
-      - `clear_thinking_20251015: BetaCapabilitySupport`
+      - `clear_thinking_20251015: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `clear_tool_uses_20250919: BetaCapabilitySupport`
+      - `clear_tool_uses_20250919: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
-      - `compact_20260112: BetaCapabilitySupport`
+      - `compact_20260112: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -1256,7 +1256,7 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
         Whether this capability is supported by the model.
 
-      - `xhigh: BetaCapabilitySupport`
+      - `xhigh: BetaCapabilitySupport or null`
 
         Indicates whether a capability is supported.
 
@@ -1300,11 +1300,11 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
     A human-readable name for the model.
 
-  - `max_input_tokens: number`
+  - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
 
-  - `max_tokens: number`
+  - `max_tokens: number or null`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
@@ -1529,7 +1529,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1552,7 +1552,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"1h"`
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
           - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -1560,7 +1560,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -1576,7 +1576,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -1596,7 +1596,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -1618,7 +1618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -1652,7 +1652,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -1700,7 +1700,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"image"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1768,17 +1768,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"document"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           - `enabled: optional boolean`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `BetaSearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -1788,11 +1788,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of BetaTextCitationParam`
+          - `citations: optional array of BetaTextCitationParam or null`
 
         - `source: string`
 
@@ -1802,7 +1802,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"search_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1846,7 +1846,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1888,7 +1888,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1916,7 +1916,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `"tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -1950,7 +1950,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"server_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -1984,7 +1984,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `url: string`
 
-            - `page_age: optional string`
+            - `page_age: optional string or null`
 
           - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -2012,7 +2012,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"web_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2072,7 +2072,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Fetched content URL
 
-            - `retrieved_at: optional string`
+            - `retrieved_at: optional string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -2082,7 +2082,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"web_fetch_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2134,7 +2134,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"advisor_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
           - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -2146,7 +2146,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"advisor_redacted_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
         - `tool_use_id: string`
 
@@ -2154,7 +2154,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"advisor_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2226,7 +2226,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2278,7 +2278,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"bash_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2304,7 +2304,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -2322,11 +2322,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_view_result"`
 
-            - `num_lines: optional number`
+            - `num_lines: optional number or null`
 
-            - `start_line: optional number`
+            - `start_line: optional number or null`
 
-            - `total_lines: optional number`
+            - `total_lines: optional number or null`
 
           - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -2342,15 +2342,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"text_editor_code_execution_str_replace_result"`
 
-            - `lines: optional array of string`
+            - `lines: optional array of string or null`
 
-            - `new_lines: optional number`
+            - `new_lines: optional number or null`
 
-            - `new_start: optional number`
+            - `new_start: optional number or null`
 
-            - `old_lines: optional number`
+            - `old_lines: optional number or null`
 
-            - `old_start: optional number`
+            - `old_start: optional number or null`
 
         - `tool_use_id: string`
 
@@ -2358,7 +2358,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"text_editor_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2382,7 +2382,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"tool_search_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -2392,7 +2392,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type: "tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -2406,7 +2406,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2426,7 +2426,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"mcp_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2438,7 +2438,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"mcp_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2452,11 +2452,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "text"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional array of BetaTextCitationParam`
+            - `citations: optional array of BetaTextCitationParam or null`
 
         - `is_error: optional boolean`
 
@@ -2471,7 +2471,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"container_upload"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2489,15 +2489,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"compaction"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `content: optional string`
+        - `content: optional string or null`
 
           Summary of previously compacted content, or null if compaction failed
 
-        - `encrypted_content: optional string`
+        - `encrypted_content: optional string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -2569,7 +2569,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"tool_addition"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -2608,7 +2608,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"tool_removal"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -2616,7 +2616,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"mid_conv_system"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -2756,11 +2756,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `cache_control: optional BetaCacheControlEphemeral`
+- `cache_control: optional BetaCacheControlEphemeral or null`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `container: optional BetaContainerParams or string`
+- `container: optional BetaContainerParams or string or null`
 
   Container identifier for reuse across requests.
 
@@ -2768,11 +2768,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Container parameters with skills to be loaded.
 
-    - `id: optional string`
+    - `id: optional string or null`
 
       Container id
 
-    - `skills: optional array of BetaSkillParams`
+    - `skills: optional array of BetaSkillParams or null`
 
       List of skills to load in the container
 
@@ -2794,7 +2794,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `string`
 
-- `context_management: optional BetaContextManagementConfig`
+- `context_management: optional BetaContextManagementConfig or null`
 
   Context management configuration.
 
@@ -2810,7 +2810,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"clear_tool_uses_20250919"`
 
-      - `clear_at_least: optional BetaInputTokensClearAtLeast`
+      - `clear_at_least: optional BetaInputTokensClearAtLeast or null`
 
         Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
@@ -2820,7 +2820,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `value: number`
 
-      - `clear_tool_inputs: optional boolean or array of string`
+      - `clear_tool_inputs: optional boolean or array of string or null`
 
         Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
 
@@ -2828,7 +2828,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `array of string`
 
-      - `exclude_tools: optional array of string`
+      - `exclude_tools: optional array of string or null`
 
         Tool names whose uses are preserved from clearing
 
@@ -2898,7 +2898,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"compact_20260112"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Additional instructions for summarization.
 
@@ -2906,20 +2906,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Whether to pause after compaction and return the compaction block to the user.
 
-      - `trigger: optional BetaInputTokensTrigger`
+      - `trigger: optional BetaInputTokensTrigger or null`
 
         When to trigger compaction. Defaults to 150000 input tokens.
 
-- `diagnostics: optional BetaDiagnosticsParam`
+- `diagnostics: optional BetaDiagnosticsParam or null`
 
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
 
-  - `previous_message_id: optional string`
+  - `previous_message_id: optional string or null`
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
-- `fallback_credit_token: optional string or BetaFallbackCreditTokenParam`
+- `fallback_credit_token: optional string or BetaFallbackCreditTokenParam or null`
 
   The `fallback_credit_token` from a prior refusal's `stop_details`.
 
@@ -2966,7 +2966,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"best_effort"`
 
-- `fallbacks: optional BetaFallbacksParam`
+- `fallbacks: optional BetaFallbacksParam or null`
 
   Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
 
@@ -2978,11 +2978,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `max_tokens: optional number`
+    - `max_tokens: optional number or null`
 
-    - `output_config: optional BetaOutputConfig`
+    - `output_config: optional BetaOutputConfig or null`
 
-      - `effort: optional "low" or "medium" or "high" or 2 more`
+      - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
         All possible effort levels.
 
@@ -2996,7 +2996,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"max"`
 
-      - `format: optional BetaJSONOutputFormat`
+      - `format: optional BetaJSONOutputFormat or null`
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -3008,7 +3008,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"json_schema"`
 
-      - `task_budget: optional BetaTokenTaskBudget`
+      - `task_budget: optional BetaTokenTaskBudget or null`
 
         User-configurable total token budget across contexts.
 
@@ -3022,11 +3022,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tokens"`
 
-        - `remaining: optional number`
+        - `remaining: optional number or null`
 
           Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -3034,7 +3034,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"fast"`
 
-    - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
+    - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive or null`
 
       - `BetaThinkingConfigEnabled object { budget_tokens, type, display }`
 
@@ -3050,7 +3050,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"enabled"`
 
-        - `display: optional "summarized" or "omitted"`
+        - `display: optional "summarized" or "omitted" or null`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -3070,7 +3070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"adaptive"`
 
-        - `display: optional "summarized" or "omitted"`
+        - `display: optional "summarized" or "omitted" or null`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -3082,7 +3082,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"default"`
 
-- `inference_geo: optional string`
+- `inference_geo: optional string or null`
 
   Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
@@ -3098,19 +3098,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `url: string`
 
-  - `authorization_token: optional string`
+  - `authorization_token: optional string or null`
 
-  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration`
+  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration or null`
 
-    - `allowed_tools: optional array of string`
+    - `allowed_tools: optional array of string or null`
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
 - `metadata: optional BetaMetadata`
 
   An object describing metadata about the request.
 
-  - `user_id: optional string`
+  - `user_id: optional string or null`
 
     An external identifier for the user who is associated with the request.
 
@@ -3120,7 +3120,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-- `output_format: optional BetaJSONOutputFormat`
+- `output_format: optional BetaJSONOutputFormat or null`
 
   Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -3136,7 +3136,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `"standard_only"`
 
-- `speed: optional "standard" or "fast"`
+- `speed: optional "standard" or "fast" or null`
 
   Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -3172,11 +3172,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: "text"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional array of BetaTextCitationParam`
+    - `citations: optional array of BetaTextCitationParam or null`
 
 - `temperature: optional number`
 
@@ -3334,9 +3334,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -3354,7 +3354,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3368,7 +3368,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `eager_input_streaming: optional boolean`
+    - `eager_input_streaming: optional boolean or null`
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -3378,7 +3378,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom"`
+    - `type: optional "custom" or null`
 
       - `"custom"`
 
@@ -3406,7 +3406,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3444,7 +3444,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3482,7 +3482,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3518,7 +3518,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3556,7 +3556,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3594,7 +3594,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3638,7 +3638,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3646,7 +3646,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -3680,7 +3680,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3726,7 +3726,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3734,7 +3734,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -3768,7 +3768,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3814,7 +3814,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3822,7 +3822,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -3860,7 +3860,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3898,7 +3898,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3936,7 +3936,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3946,7 +3946,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `input_examples: optional array of map[unknown]`
 
-    - `max_characters: optional number`
+    - `max_characters: optional number or null`
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -3978,15 +3978,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -3994,7 +3994,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4002,7 +4002,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -4010,19 +4010,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"approximate"`
 
-      - `city: optional string`
+      - `city: optional string or null`
 
         The city of the user.
 
-      - `country: optional string`
+      - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      - `region: optional string`
+      - `region: optional string or null`
 
         The region of the user.
 
-      - `timezone: optional string`
+      - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -4050,19 +4050,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -4070,11 +4070,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4106,15 +4106,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -4122,7 +4122,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4130,7 +4130,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -4158,19 +4158,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -4178,11 +4178,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4216,19 +4216,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -4236,11 +4236,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4276,15 +4276,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -4292,7 +4292,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4308,7 +4308,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -4336,19 +4336,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -4356,11 +4356,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4410,11 +4410,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `caching: optional BetaCacheControlEphemeral`
+    - `caching: optional BetaCacheControlEphemeral or null`
 
       Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -4422,11 +4422,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_tokens: optional number`
+    - `max_tokens: optional number or null`
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -4460,7 +4460,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -4498,7 +4498,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -4525,11 +4525,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"mcp_toolset"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: optional map[BetaMCPToolConfig]`
+    - `configs: optional map[BetaMCPToolConfig] or null`
 
       Configuration overrides for specific tools, keyed by tool name
 
@@ -4571,7 +4571,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The format and length of IDs may change over time.
 
-  - `container: BetaContainer`
+  - `container: BetaContainer or null`
 
     Information about the container used in the request (for the code execution tool)
 
@@ -4583,7 +4583,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The time at which the container will expire.
 
-    - `skills: array of BetaSkill`
+    - `skills: array of BetaSkill or null`
 
       Skills loaded in the container
 
@@ -4634,7 +4634,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `BetaTextBlock object { citations, text, type }`
 
-      - `citations: array of BetaTextCitation`
+      - `citations: array of BetaTextCitation or null`
 
         Citations supporting the text block.
 
@@ -4646,11 +4646,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -4664,11 +4664,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -4686,7 +4686,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -4694,7 +4694,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -4710,7 +4710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -4744,7 +4744,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -4900,7 +4900,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `encrypted_content: string`
 
-          - `page_age: string`
+          - `page_age: string or null`
 
           - `title: string`
 
@@ -4964,7 +4964,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `content: BetaDocumentBlock`
 
-            - `citations: BetaCitationConfig`
+            - `citations: BetaCitationConfig or null`
 
               Citation configuration for the document
 
@@ -4996,7 +4996,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `"text"`
 
-            - `title: string`
+            - `title: string or null`
 
               The title of the document
 
@@ -5004,7 +5004,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"document"`
 
-          - `retrieved_at: string`
+          - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
 
@@ -5064,7 +5064,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -5080,7 +5080,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -5228,7 +5228,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"file_not_found"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -5246,11 +5246,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"pdf"`
 
-          - `num_lines: number`
+          - `num_lines: number or null`
 
-          - `start_line: number`
+          - `start_line: number or null`
 
-          - `total_lines: number`
+          - `total_lines: number or null`
 
           - `type: "text_editor_code_execution_view_result"`
 
@@ -5266,15 +5266,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-          - `lines: array of string`
+          - `lines: array of string or null`
 
-          - `new_lines: number`
+          - `new_lines: number or null`
 
-          - `new_start: number`
+          - `new_start: number or null`
 
-          - `old_lines: number`
+          - `old_lines: number or null`
 
-          - `old_start: number`
+          - `old_start: number or null`
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -5302,7 +5302,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"execution_time_exceeded"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -5354,7 +5354,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-          - `citations: array of BetaTextCitation`
+          - `citations: array of BetaTextCitation or null`
 
             Citations supporting the text block.
 
@@ -5390,11 +5390,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
-      - `content: string`
+      - `content: string or null`
 
         Summary of compacted content, or null if compaction failed
 
-      - `encrypted_content: string`
+      - `encrypted_content: string or null`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -5502,7 +5502,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         What caused the `from` model to hand over at this hop.
 
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
 
@@ -5534,7 +5534,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"fallback"`
 
-  - `context_management: BetaContextManagementResponse`
+  - `context_management: BetaContextManagementResponse or null`
 
     Context management response.
 
@@ -5576,12 +5576,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"clear_thinking_20251015"`
 
-  - `diagnostics: BetaDiagnostics`
+  - `diagnostics: BetaDiagnostics or null`
 
     Response envelope for request-level diagnostics. Present (possibly
     null) whenever the caller supplied `diagnostics` on the request.
 
-    - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+    - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -5651,11 +5651,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"assistant"`
 
-  - `stop_details: BetaRefusalStopDetails`
+  - `stop_details: BetaRefusalStopDetails or null`
 
     Structured information about a refusal.
 
-    - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+    - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
 
@@ -5679,13 +5679,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Human-readable explanation of the refusal.
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-    - `fallback_credit_token: string`
+    - `fallback_credit_token: string or null`
 
       Opaque code that refunds the cache-miss cost when retrying this refused
       request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -5706,7 +5706,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       `null` when the refused model isn't eligible for a fallback credit.
 
-    - `fallback_has_prefill_claim: boolean`
+    - `fallback_has_prefill_claim: boolean or null`
 
       Whether the accompanying `fallback_credit_token` may be redeemed with the
       appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -5730,7 +5730,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Advisory: if an appended-assistant retry is rejected with a 400 despite
       `true`, fall back to resending the original request body with the token.
 
-    - `recommended_model: string`
+    - `recommended_model: string or null`
 
       The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -5738,7 +5738,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"refusal"`
 
-  - `stop_reason: BetaStopReason`
+  - `stop_reason: BetaStopReason or null`
 
     The reason that we stopped.
 
@@ -5770,7 +5770,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"model_context_window_exceeded"`
 
-  - `stop_sequence: string`
+  - `stop_sequence: string or null`
 
     Which custom stop sequence was generated, if any.
 
@@ -5796,7 +5796,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -5808,15 +5808,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of input tokens used to create the 5 minute cache entry.
 
-    - `cache_creation_input_tokens: number`
+    - `cache_creation_input_tokens: number or null`
 
       The number of input tokens used to create the cache entry.
 
-    - `cache_read_input_tokens: number`
+    - `cache_read_input_tokens: number or null`
 
       The number of input tokens read from the cache.
 
-    - `fallback_credit: BetaFallbackCreditUsage`
+    - `fallback_credit: BetaFallbackCreditUsage or null`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -5877,7 +5877,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"not_applied"`
 
-          - `remove_to_redeem: optional array of string`
+          - `remove_to_redeem: optional array of string or null`
 
             Request fields to remove before retrying, so the retry can redeem this
             token.
@@ -5888,7 +5888,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             been billed at normal price; nothing redeems retroactively, but a corrected
             re-send inside the token's five-minute window can still redeem.
 
-    - `inference_geo: string`
+    - `inference_geo: string or null`
 
       The geographic region where inference was performed for this request.
 
@@ -5896,7 +5896,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of input tokens which were used.
 
-    - `iterations: BetaIterationsUsage`
+    - `iterations: BetaIterationsUsage or null`
 
       Per-iteration token usage breakdown.
 
@@ -5910,7 +5910,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -5946,7 +5946,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -5976,7 +5976,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -6017,7 +6017,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -6053,7 +6053,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of output tokens which were used.
 
-    - `output_tokens_details: BetaOutputTokensDetails`
+    - `output_tokens_details: BetaOutputTokensDetails or null`
 
       Breakdown of output tokens by category.
 
@@ -6073,7 +6073,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: BetaServerToolUsage`
+    - `server_tool_use: BetaServerToolUsage or null`
 
       The number of server tool requests.
 
@@ -6085,7 +6085,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of web search tool requests.
 
-    - `service_tier: "standard" or "priority" or "batch"`
+    - `service_tier: "standard" or "priority" or "batch" or null`
 
       If the request used the priority, standard, or batch tier.
 
@@ -6095,7 +6095,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"batch"`
 
-    - `speed: "standard" or "fast"`
+    - `speed: "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -6411,7 +6411,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6434,7 +6434,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `"1h"`
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
           - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -6442,7 +6442,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -6458,7 +6458,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -6478,7 +6478,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -6500,7 +6500,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -6534,7 +6534,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -6582,7 +6582,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"image"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6650,17 +6650,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"document"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           - `enabled: optional boolean`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `BetaSearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -6670,11 +6670,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "text"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of BetaTextCitationParam`
+          - `citations: optional array of BetaTextCitationParam or null`
 
         - `source: string`
 
@@ -6684,7 +6684,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"search_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6728,7 +6728,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6770,7 +6770,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6798,7 +6798,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `"tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -6832,7 +6832,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"server_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6866,7 +6866,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `url: string`
 
-            - `page_age: optional string`
+            - `page_age: optional string or null`
 
           - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -6894,7 +6894,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"web_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -6954,7 +6954,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Fetched content URL
 
-            - `retrieved_at: optional string`
+            - `retrieved_at: optional string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -6964,7 +6964,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"web_fetch_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7016,7 +7016,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"advisor_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
           - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -7028,7 +7028,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"advisor_redacted_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
         - `tool_use_id: string`
 
@@ -7036,7 +7036,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"advisor_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7108,7 +7108,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7160,7 +7160,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"bash_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7186,7 +7186,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"text_editor_code_execution_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -7204,11 +7204,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"text_editor_code_execution_view_result"`
 
-            - `num_lines: optional number`
+            - `num_lines: optional number or null`
 
-            - `start_line: optional number`
+            - `start_line: optional number or null`
 
-            - `total_lines: optional number`
+            - `total_lines: optional number or null`
 
           - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -7224,15 +7224,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"text_editor_code_execution_str_replace_result"`
 
-            - `lines: optional array of string`
+            - `lines: optional array of string or null`
 
-            - `new_lines: optional number`
+            - `new_lines: optional number or null`
 
-            - `new_start: optional number`
+            - `new_start: optional number or null`
 
-            - `old_lines: optional number`
+            - `old_lines: optional number or null`
 
-            - `old_start: optional number`
+            - `old_start: optional number or null`
 
         - `tool_use_id: string`
 
@@ -7240,7 +7240,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"text_editor_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7264,7 +7264,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"tool_search_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -7274,7 +7274,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -7288,7 +7288,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"tool_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7308,7 +7308,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"mcp_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7320,7 +7320,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"mcp_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7334,11 +7334,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: "text"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional array of BetaTextCitationParam`
+            - `citations: optional array of BetaTextCitationParam or null`
 
         - `is_error: optional boolean`
 
@@ -7353,7 +7353,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"container_upload"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7371,15 +7371,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"compaction"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `content: optional string`
+        - `content: optional string or null`
 
           Summary of previously compacted content, or null if compaction failed
 
-        - `encrypted_content: optional string`
+        - `encrypted_content: optional string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -7451,7 +7451,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"tool_addition"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -7490,7 +7490,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `"tool_removal"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -7498,7 +7498,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `"mid_conv_system"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -7638,11 +7638,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `cache_control: optional BetaCacheControlEphemeral`
+- `cache_control: optional BetaCacheControlEphemeral or null`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `context_management: optional BetaContextManagementConfig`
+- `context_management: optional BetaContextManagementConfig or null`
 
   Context management configuration.
 
@@ -7658,7 +7658,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `"clear_tool_uses_20250919"`
 
-      - `clear_at_least: optional BetaInputTokensClearAtLeast`
+      - `clear_at_least: optional BetaInputTokensClearAtLeast or null`
 
         Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
@@ -7668,7 +7668,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `value: number`
 
-      - `clear_tool_inputs: optional boolean or array of string`
+      - `clear_tool_inputs: optional boolean or array of string or null`
 
         Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
 
@@ -7676,7 +7676,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `array of string`
 
-      - `exclude_tools: optional array of string`
+      - `exclude_tools: optional array of string or null`
 
         Tool names whose uses are preserved from clearing
 
@@ -7746,7 +7746,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `"compact_20260112"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Additional instructions for summarization.
 
@@ -7754,7 +7754,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Whether to pause after compaction and return the compaction block to the user.
 
-      - `trigger: optional BetaInputTokensTrigger`
+      - `trigger: optional BetaInputTokensTrigger or null`
 
         When to trigger compaction. Defaults to 150000 input tokens.
 
@@ -7770,19 +7770,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `url: string`
 
-  - `authorization_token: optional string`
+  - `authorization_token: optional string or null`
 
-  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration`
+  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration or null`
 
-    - `allowed_tools: optional array of string`
+    - `allowed_tools: optional array of string or null`
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
 - `output_config: optional BetaOutputConfig`
 
   Configuration options for the model's output, such as the output format.
 
-  - `effort: optional "low" or "medium" or "high" or 2 more`
+  - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
     All possible effort levels.
 
@@ -7796,7 +7796,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"max"`
 
-  - `format: optional BetaJSONOutputFormat`
+  - `format: optional BetaJSONOutputFormat or null`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -7808,7 +7808,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"json_schema"`
 
-  - `task_budget: optional BetaTokenTaskBudget`
+  - `task_budget: optional BetaTokenTaskBudget or null`
 
     User-configurable total token budget across contexts.
 
@@ -7822,17 +7822,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"tokens"`
 
-    - `remaining: optional number`
+    - `remaining: optional number or null`
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-- `output_format: optional BetaJSONOutputFormat`
+- `output_format: optional BetaJSONOutputFormat or null`
 
   Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
   A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
-- `speed: optional "standard" or "fast"`
+- `speed: optional "standard" or "fast" or null`
 
   Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -7854,11 +7854,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: "text"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional array of BetaTextCitationParam`
+    - `citations: optional array of BetaTextCitationParam or null`
 
 - `thinking: optional BetaThinkingConfigParam`
 
@@ -7882,7 +7882,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"enabled"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -7902,7 +7902,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"adaptive"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -8044,9 +8044,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -8064,7 +8064,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8078,7 +8078,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `eager_input_streaming: optional boolean`
+    - `eager_input_streaming: optional boolean or null`
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -8088,7 +8088,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom"`
+    - `type: optional "custom" or null`
 
       - `"custom"`
 
@@ -8116,7 +8116,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8154,7 +8154,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8192,7 +8192,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8228,7 +8228,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8266,7 +8266,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8304,7 +8304,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8348,7 +8348,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8356,7 +8356,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -8390,7 +8390,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8436,7 +8436,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8444,7 +8444,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -8478,7 +8478,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8524,7 +8524,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8532,7 +8532,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -8570,7 +8570,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8608,7 +8608,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8646,7 +8646,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8656,7 +8656,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `input_examples: optional array of map[unknown]`
 
-    - `max_characters: optional number`
+    - `max_characters: optional number or null`
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -8688,15 +8688,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8704,7 +8704,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -8712,7 +8712,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -8720,19 +8720,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `"approximate"`
 
-      - `city: optional string`
+      - `city: optional string or null`
 
         The city of the user.
 
-      - `country: optional string`
+      - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      - `region: optional string`
+      - `region: optional string or null`
 
         The region of the user.
 
-      - `timezone: optional string`
+      - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -8760,19 +8760,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -8780,11 +8780,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -8816,15 +8816,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -8832,7 +8832,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -8840,7 +8840,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -8868,19 +8868,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -8888,11 +8888,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -8926,19 +8926,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -8946,11 +8946,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -8986,15 +8986,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -9002,7 +9002,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -9018,7 +9018,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -9046,19 +9046,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -9066,11 +9066,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -9120,11 +9120,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `caching: optional BetaCacheControlEphemeral`
+    - `caching: optional BetaCacheControlEphemeral or null`
 
       Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -9132,11 +9132,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_tokens: optional number`
+    - `max_tokens: optional number or null`
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -9170,7 +9170,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -9208,7 +9208,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -9235,11 +9235,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"mcp_toolset"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: optional map[BetaMCPToolConfig]`
+    - `configs: optional map[BetaMCPToolConfig] or null`
 
       Configuration overrides for specific tools, keyed by tool name
 
@@ -9259,7 +9259,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `BetaMessageTokensCount object { context_management, input_tokens }`
 
-  - `context_management: BetaCountTokensContextManagementResponse`
+  - `context_management: BetaCountTokensContextManagementResponse or null`
 
     Information about context management applied to the message.
 
@@ -9332,7 +9332,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Token usage for an advisor sub-inference iteration.
 
-  - `cache_creation: BetaCacheCreation`
+  - `cache_creation: BetaCacheCreation or null`
 
     Breakdown of cached tokens by TTL
 
@@ -9448,7 +9448,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-  - `stop_reason: string`
+  - `stop_reason: string or null`
 
     The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -9468,13 +9468,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"advisor_redacted_result"`
 
-  - `stop_reason: optional string`
+  - `stop_reason: optional string or null`
 
 ### Beta Advisor Result Block
 
 - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-  - `stop_reason: string`
+  - `stop_reason: string or null`
 
     The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -9494,7 +9494,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"advisor_result"`
 
-  - `stop_reason: optional string`
+  - `stop_reason: optional string or null`
 
 ### Beta Advisor Tool 20260301
 
@@ -9596,7 +9596,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -9619,7 +9619,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `caching: optional BetaCacheControlEphemeral`
+  - `caching: optional BetaCacheControlEphemeral or null`
 
     Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -9627,11 +9627,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_tokens: optional number`
+  - `max_tokens: optional number or null`
 
     Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -9669,7 +9669,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-      - `stop_reason: string`
+      - `stop_reason: string or null`
 
         The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -9685,7 +9685,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-      - `stop_reason: string`
+      - `stop_reason: string or null`
 
         The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -9735,7 +9735,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"advisor_result"`
 
-      - `stop_reason: optional string`
+      - `stop_reason: optional string or null`
 
     - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -9747,7 +9747,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"advisor_redacted_result"`
 
-      - `stop_reason: optional string`
+      - `stop_reason: optional string or null`
 
   - `tool_use_id: string`
 
@@ -9755,7 +9755,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"advisor_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -10032,7 +10032,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"bash_code_execution_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -10202,11 +10202,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_char_index: number`
 
-  - `file_id: string`
+  - `file_id: string or null`
 
   - `start_char_index: number`
 
@@ -10222,7 +10222,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_char_index: number`
 
@@ -10250,7 +10250,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_block_index: number`
 
@@ -10258,7 +10258,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-  - `file_id: string`
+  - `file_id: string or null`
 
   - `start_block_index: number`
 
@@ -10280,7 +10280,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_block_index: number`
 
@@ -10304,11 +10304,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_page_number: number`
 
-  - `file_id: string`
+  - `file_id: string or null`
 
   - `start_page_number: number`
 
@@ -10324,7 +10324,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `document_index: number`
 
-  - `document_title: string`
+  - `document_title: string or null`
 
   - `end_page_number: number`
 
@@ -10362,7 +10362,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     0-based index of the first cited block in the source's `content` array.
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "search_result_location"`
 
@@ -10396,7 +10396,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     0-based index of the first cited block in the source's `content` array.
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "search_result_location"`
 
@@ -10410,7 +10410,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `encrypted_index: string`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "web_search_result_location"`
 
@@ -10436,11 +10436,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_char_index: number`
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_char_index: number`
 
@@ -10454,11 +10454,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_page_number: number`
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_page_number: number`
 
@@ -10476,7 +10476,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_block_index: number`
 
@@ -10484,7 +10484,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_block_index: number`
 
@@ -10500,7 +10500,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `encrypted_index: string`
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "web_search_result_location"`
 
@@ -10534,7 +10534,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "search_result_location"`
 
@@ -10552,7 +10552,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `encrypted_index: string`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "web_search_result_location"`
 
@@ -10616,7 +10616,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"clear_tool_uses_20250919"`
 
-  - `clear_at_least: optional BetaInputTokensClearAtLeast`
+  - `clear_at_least: optional BetaInputTokensClearAtLeast or null`
 
     Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
@@ -10626,7 +10626,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `value: number`
 
-  - `clear_tool_inputs: optional boolean or array of string`
+  - `clear_tool_inputs: optional boolean or array of string or null`
 
     Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
 
@@ -10634,7 +10634,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `array of string`
 
-  - `exclude_tools: optional array of string`
+  - `exclude_tools: optional array of string or null`
 
     Tool names whose uses are preserved from clearing
 
@@ -10776,7 +10776,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -10833,7 +10833,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -10892,7 +10892,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -10951,7 +10951,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -11184,7 +11184,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -11327,7 +11327,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"compact_20260112"`
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Additional instructions for summarization.
 
@@ -11335,7 +11335,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Whether to pause after compaction and return the compaction block to the user.
 
-  - `trigger: optional BetaInputTokensTrigger`
+  - `trigger: optional BetaInputTokensTrigger or null`
 
     When to trigger compaction. Defaults to 150000 input tokens.
 
@@ -11355,11 +11355,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   summary (e.g., malformed output from the model). Clients may round-trip
   compaction blocks with null content; the server treats them as no-ops.
 
-  - `content: string`
+  - `content: string or null`
 
     Summary of compacted content, or null if compaction failed
 
-  - `encrypted_content: string`
+  - `encrypted_content: string or null`
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -11383,7 +11383,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"compaction"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -11406,11 +11406,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     Summary of previously compacted content, or null if compaction failed
 
-  - `encrypted_content: optional string`
+  - `encrypted_content: optional string or null`
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -11418,9 +11418,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaCompactionContentBlockDelta object { content, encrypted_content, type }`
 
-  - `content: string`
+  - `content: string or null`
 
-  - `encrypted_content: string`
+  - `encrypted_content: string or null`
 
     Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -11434,7 +11434,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Token usage for a compaction iteration.
 
-  - `cache_creation: BetaCacheCreation`
+  - `cache_creation: BetaCacheCreation or null`
 
     Breakdown of cached tokens by TTL
 
@@ -11482,7 +11482,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The time at which the container will expire.
 
-  - `skills: array of BetaSkill`
+  - `skills: array of BetaSkill or null`
 
     Skills loaded in the container
 
@@ -11508,11 +11508,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Container parameters with skills to be loaded.
 
-  - `id: optional string`
+  - `id: optional string or null`
 
     Container id
 
-  - `skills: optional array of BetaSkillParams`
+  - `skills: optional array of BetaSkillParams or null`
 
     List of skills to load in the container
 
@@ -11557,7 +11557,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"container_upload"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -11588,7 +11588,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `BetaTextBlock object { citations, text, type }`
 
-    - `citations: array of BetaTextCitation`
+    - `citations: array of BetaTextCitation or null`
 
       Citations supporting the text block.
 
@@ -11600,11 +11600,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_char_index: number`
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_char_index: number`
 
@@ -11618,11 +11618,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_page_number: number`
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_page_number: number`
 
@@ -11640,7 +11640,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_block_index: number`
 
@@ -11648,7 +11648,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_block_index: number`
 
@@ -11664,7 +11664,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_index: string`
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "web_search_result_location"`
 
@@ -11698,7 +11698,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "search_result_location"`
 
@@ -11854,7 +11854,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_content: string`
 
-        - `page_age: string`
+        - `page_age: string or null`
 
         - `title: string`
 
@@ -11918,7 +11918,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `content: BetaDocumentBlock`
 
-          - `citations: BetaCitationConfig`
+          - `citations: BetaCitationConfig or null`
 
             Citation configuration for the document
 
@@ -11950,7 +11950,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"text"`
 
-          - `title: string`
+          - `title: string or null`
 
             The title of the document
 
@@ -11958,7 +11958,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"document"`
 
-        - `retrieved_at: string`
+        - `retrieved_at: string or null`
 
           ISO 8601 timestamp when the content was retrieved
 
@@ -12018,7 +12018,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-        - `stop_reason: string`
+        - `stop_reason: string or null`
 
           The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -12034,7 +12034,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-        - `stop_reason: string`
+        - `stop_reason: string or null`
 
           The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -12182,7 +12182,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"file_not_found"`
 
-        - `error_message: string`
+        - `error_message: string or null`
 
         - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -12200,11 +12200,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"pdf"`
 
-        - `num_lines: number`
+        - `num_lines: number or null`
 
-        - `start_line: number`
+        - `start_line: number or null`
 
-        - `total_lines: number`
+        - `total_lines: number or null`
 
         - `type: "text_editor_code_execution_view_result"`
 
@@ -12220,15 +12220,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-        - `lines: array of string`
+        - `lines: array of string or null`
 
-        - `new_lines: number`
+        - `new_lines: number or null`
 
-        - `new_start: number`
+        - `new_start: number or null`
 
-        - `old_lines: number`
+        - `old_lines: number or null`
 
-        - `old_start: number`
+        - `old_start: number or null`
 
         - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -12256,7 +12256,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"execution_time_exceeded"`
 
-        - `error_message: string`
+        - `error_message: string or null`
 
         - `type: "tool_search_tool_result_error"`
 
@@ -12308,7 +12308,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-        - `citations: array of BetaTextCitation`
+        - `citations: array of BetaTextCitation or null`
 
           Citations supporting the text block.
 
@@ -12344,11 +12344,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     summary (e.g., malformed output from the model). Clients may round-trip
     compaction blocks with null content; the server treats them as no-ops.
 
-    - `content: string`
+    - `content: string or null`
 
       Summary of compacted content, or null if compaction failed
 
-    - `encrypted_content: string`
+    - `encrypted_content: string or null`
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -12456,7 +12456,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       What caused the `from` model to hand over at this hop.
 
-      - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+      - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
         The policy category that triggered a refusal.
 
@@ -12502,7 +12502,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"text"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12525,7 +12525,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"1h"`
 
-    - `citations: optional array of BetaTextCitationParam`
+    - `citations: optional array of BetaTextCitationParam or null`
 
       - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -12533,7 +12533,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_char_index: number`
 
@@ -12549,7 +12549,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_page_number: number`
 
@@ -12569,7 +12569,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_block_index: number`
 
@@ -12591,7 +12591,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_index: string`
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "web_search_result_location"`
 
@@ -12625,7 +12625,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "search_result_location"`
 
@@ -12673,7 +12673,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"image"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12741,17 +12741,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"document"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       - `enabled: optional boolean`
 
-    - `context: optional string`
+    - `context: optional string or null`
 
-    - `title: optional string`
+    - `title: optional string or null`
 
   - `BetaSearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -12761,11 +12761,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `type: "text"`
 
-      - `cache_control: optional BetaCacheControlEphemeral`
+      - `cache_control: optional BetaCacheControlEphemeral or null`
 
         Create a cache control breakpoint at this content block.
 
-      - `citations: optional array of BetaTextCitationParam`
+      - `citations: optional array of BetaTextCitationParam or null`
 
     - `source: string`
 
@@ -12775,7 +12775,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"search_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12819,7 +12819,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_use"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12861,7 +12861,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12889,7 +12889,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"tool_reference"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
@@ -12923,7 +12923,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"server_tool_use"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -12957,7 +12957,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `url: string`
 
-        - `page_age: optional string`
+        - `page_age: optional string or null`
 
       - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -12985,7 +12985,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"web_search_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13045,7 +13045,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Fetched content URL
 
-        - `retrieved_at: optional string`
+        - `retrieved_at: optional string or null`
 
           ISO 8601 timestamp when the content was retrieved
 
@@ -13055,7 +13055,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"web_fetch_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13107,7 +13107,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"advisor_result"`
 
-        - `stop_reason: optional string`
+        - `stop_reason: optional string or null`
 
       - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -13119,7 +13119,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"advisor_redacted_result"`
 
-        - `stop_reason: optional string`
+        - `stop_reason: optional string or null`
 
     - `tool_use_id: string`
 
@@ -13127,7 +13127,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"advisor_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13199,7 +13199,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13251,7 +13251,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"bash_code_execution_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13277,7 +13277,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text_editor_code_execution_tool_result_error"`
 
-        - `error_message: optional string`
+        - `error_message: optional string or null`
 
       - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -13295,11 +13295,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text_editor_code_execution_view_result"`
 
-        - `num_lines: optional number`
+        - `num_lines: optional number or null`
 
-        - `start_line: optional number`
+        - `start_line: optional number or null`
 
-        - `total_lines: optional number`
+        - `total_lines: optional number or null`
 
       - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -13315,15 +13315,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text_editor_code_execution_str_replace_result"`
 
-        - `lines: optional array of string`
+        - `lines: optional array of string or null`
 
-        - `new_lines: optional number`
+        - `new_lines: optional number or null`
 
-        - `new_start: optional number`
+        - `new_start: optional number or null`
 
-        - `old_lines: optional number`
+        - `old_lines: optional number or null`
 
-        - `old_start: optional number`
+        - `old_start: optional number or null`
 
     - `tool_use_id: string`
 
@@ -13331,7 +13331,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"text_editor_code_execution_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13355,7 +13355,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_search_tool_result_error"`
 
-        - `error_message: optional string`
+        - `error_message: optional string or null`
 
       - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -13365,7 +13365,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `type: "tool_reference"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
@@ -13379,7 +13379,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_search_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13399,7 +13399,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"mcp_tool_use"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13411,7 +13411,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"mcp_tool_result"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13425,11 +13425,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `type: "text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
     - `is_error: optional boolean`
 
@@ -13444,7 +13444,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"container_upload"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13462,15 +13462,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"compaction"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `content: optional string`
+    - `content: optional string or null`
 
       Summary of previously compacted content, or null if compaction failed
 
-    - `encrypted_content: optional string`
+    - `encrypted_content: optional string or null`
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -13542,7 +13542,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_addition"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -13581,7 +13581,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_removal"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -13589,7 +13589,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"mid_conv_system"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13733,7 +13733,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -13756,7 +13756,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"1h"`
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
           - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -13764,7 +13764,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -13780,7 +13780,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -13800,7 +13800,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -13822,7 +13822,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -13856,7 +13856,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -13904,7 +13904,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"image"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -13924,7 +13924,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"text"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -13947,7 +13947,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"1h"`
 
-    - `citations: optional array of BetaTextCitationParam`
+    - `citations: optional array of BetaTextCitationParam or null`
 
       - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -13955,7 +13955,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_char_index: number`
 
@@ -13971,7 +13971,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_page_number: number`
 
@@ -13991,7 +13991,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_block_index: number`
 
@@ -14013,7 +14013,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_index: string`
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "web_search_result_location"`
 
@@ -14047,7 +14047,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "search_result_location"`
 
@@ -14095,7 +14095,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"image"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -14113,7 +14113,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"clear_tool_uses_20250919"`
 
-      - `clear_at_least: optional BetaInputTokensClearAtLeast`
+      - `clear_at_least: optional BetaInputTokensClearAtLeast or null`
 
         Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
@@ -14123,7 +14123,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `value: number`
 
-      - `clear_tool_inputs: optional boolean or array of string`
+      - `clear_tool_inputs: optional boolean or array of string or null`
 
         Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
 
@@ -14131,7 +14131,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `array of string`
 
-      - `exclude_tools: optional array of string`
+      - `exclude_tools: optional array of string or null`
 
         Tool names whose uses are preserved from clearing
 
@@ -14201,7 +14201,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"compact_20260112"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Additional instructions for summarization.
 
@@ -14209,7 +14209,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Whether to pause after compaction and return the compaction block to the user.
 
-      - `trigger: optional BetaInputTokensTrigger`
+      - `trigger: optional BetaInputTokensTrigger or null`
 
         When to trigger compaction. Defaults to 150000 input tokens.
 
@@ -14268,7 +14268,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   Response envelope for request-level diagnostics. Present (possibly
   null) whenever the caller supplied `diagnostics` on the request.
 
-  - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+  - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
     Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -14331,7 +14331,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
 
-  - `previous_message_id: optional string`
+  - `previous_message_id: optional string or null`
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
@@ -14349,7 +14349,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaDocumentBlock object { citations, source, title, type }`
 
-  - `citations: BetaCitationConfig`
+  - `citations: BetaCitationConfig or null`
 
     Citation configuration for the document
 
@@ -14381,7 +14381,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text"`
 
-  - `title: string`
+  - `title: string or null`
 
     The title of the document
 
@@ -14539,7 +14539,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     What caused the `from` model to hand over at this hop.
 
-    - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+    - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
 
@@ -14720,7 +14720,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"not_applied"`
 
-  - `remove_to_redeem: optional array of string`
+  - `remove_to_redeem: optional array of string or null`
 
     Request fields to remove before retrying, so the retry can redeem this
     token.
@@ -14829,7 +14829,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"not_applied"`
 
-      - `remove_to_redeem: optional array of string`
+      - `remove_to_redeem: optional array of string or null`
 
         Request fields to remove before retrying, so the retry can redeem this
         token.
@@ -15011,7 +15011,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
   a fallback model served the response is signalled by the presence of this
   entry in `usage.iterations`.
 
-  - `cache_creation: BetaCacheCreation`
+  - `cache_creation: BetaCacheCreation or null`
 
     Breakdown of cached tokens by TTL
 
@@ -15204,11 +15204,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `string`
 
-  - `max_tokens: optional number`
+  - `max_tokens: optional number or null`
 
-  - `output_config: optional BetaOutputConfig`
+  - `output_config: optional BetaOutputConfig or null`
 
-    - `effort: optional "low" or "medium" or "high" or 2 more`
+    - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
       All possible effort levels.
 
@@ -15222,7 +15222,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"max"`
 
-    - `format: optional BetaJSONOutputFormat`
+    - `format: optional BetaJSONOutputFormat or null`
 
       A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -15234,7 +15234,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"json_schema"`
 
-    - `task_budget: optional BetaTokenTaskBudget`
+    - `task_budget: optional BetaTokenTaskBudget or null`
 
       User-configurable total token budget across contexts.
 
@@ -15248,11 +15248,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tokens"`
 
-      - `remaining: optional number`
+      - `remaining: optional number or null`
 
         Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-  - `speed: optional "standard" or "fast"`
+  - `speed: optional "standard" or "fast" or null`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -15260,7 +15260,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"fast"`
 
-  - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
+  - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive or null`
 
     - `BetaThinkingConfigEnabled object { budget_tokens, type, display }`
 
@@ -15276,7 +15276,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"enabled"`
 
-      - `display: optional "summarized" or "omitted"`
+      - `display: optional "summarized" or "omitted" or null`
 
         Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -15296,7 +15296,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"adaptive"`
 
-      - `display: optional "summarized" or "omitted"`
+      - `display: optional "summarized" or "omitted" or null`
 
         Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -15310,7 +15310,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   The `from` model declined for policy reasons.
 
-  - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+  - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
     The policy category that triggered a refusal.
 
@@ -15420,11 +15420,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `string`
 
-    - `max_tokens: optional number`
+    - `max_tokens: optional number or null`
 
-    - `output_config: optional BetaOutputConfig`
+    - `output_config: optional BetaOutputConfig or null`
 
-      - `effort: optional "low" or "medium" or "high" or 2 more`
+      - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
         All possible effort levels.
 
@@ -15438,7 +15438,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"max"`
 
-      - `format: optional BetaJSONOutputFormat`
+      - `format: optional BetaJSONOutputFormat or null`
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -15450,7 +15450,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"json_schema"`
 
-      - `task_budget: optional BetaTokenTaskBudget`
+      - `task_budget: optional BetaTokenTaskBudget or null`
 
         User-configurable total token budget across contexts.
 
@@ -15464,11 +15464,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tokens"`
 
-        - `remaining: optional number`
+        - `remaining: optional number or null`
 
           Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -15476,7 +15476,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"fast"`
 
-    - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
+    - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive or null`
 
       - `BetaThinkingConfigEnabled object { budget_tokens, type, display }`
 
@@ -15492,7 +15492,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"enabled"`
 
-        - `display: optional "summarized" or "omitted"`
+        - `display: optional "summarized" or "omitted" or null`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -15512,7 +15512,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"adaptive"`
 
-        - `display: optional "summarized" or "omitted"`
+        - `display: optional "summarized" or "omitted" or null`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -15588,7 +15588,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"image"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -15657,7 +15657,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Token usage for a sampling iteration.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -15769,7 +15769,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Token usage for a compaction iteration.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -15799,7 +15799,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Token usage for an advisor sub-inference iteration.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -15840,7 +15840,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     a fallback model served the response is signalled by the presence of this
     entry in `usage.iterations`.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -15914,7 +15914,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-      - `citations: array of BetaTextCitation`
+      - `citations: array of BetaTextCitation or null`
 
         Citations supporting the text block.
 
@@ -15926,11 +15926,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -15944,11 +15944,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -15966,7 +15966,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -15974,7 +15974,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -15990,7 +15990,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -16024,7 +16024,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -16082,7 +16082,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"mcp_tool_use"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -16122,7 +16122,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"mcp_toolset"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -16145,7 +16145,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `configs: optional map[BetaMCPToolConfig]`
+  - `configs: optional map[BetaMCPToolConfig] or null`
 
     Configuration overrides for specific tools, keyed by tool name
 
@@ -16187,7 +16187,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -16446,7 +16446,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The format and length of IDs may change over time.
 
-  - `container: BetaContainer`
+  - `container: BetaContainer or null`
 
     Information about the container used in the request (for the code execution tool)
 
@@ -16458,7 +16458,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The time at which the container will expire.
 
-    - `skills: array of BetaSkill`
+    - `skills: array of BetaSkill or null`
 
       Skills loaded in the container
 
@@ -16509,7 +16509,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaTextBlock object { citations, text, type }`
 
-      - `citations: array of BetaTextCitation`
+      - `citations: array of BetaTextCitation or null`
 
         Citations supporting the text block.
 
@@ -16521,11 +16521,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -16539,11 +16539,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -16561,7 +16561,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -16569,7 +16569,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -16585,7 +16585,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -16619,7 +16619,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -16775,7 +16775,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_content: string`
 
-          - `page_age: string`
+          - `page_age: string or null`
 
           - `title: string`
 
@@ -16839,7 +16839,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `content: BetaDocumentBlock`
 
-            - `citations: BetaCitationConfig`
+            - `citations: BetaCitationConfig or null`
 
               Citation configuration for the document
 
@@ -16871,7 +16871,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"text"`
 
-            - `title: string`
+            - `title: string or null`
 
               The title of the document
 
@@ -16879,7 +16879,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"document"`
 
-          - `retrieved_at: string`
+          - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
 
@@ -16939,7 +16939,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -16955,7 +16955,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -17103,7 +17103,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"file_not_found"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -17121,11 +17121,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"pdf"`
 
-          - `num_lines: number`
+          - `num_lines: number or null`
 
-          - `start_line: number`
+          - `start_line: number or null`
 
-          - `total_lines: number`
+          - `total_lines: number or null`
 
           - `type: "text_editor_code_execution_view_result"`
 
@@ -17141,15 +17141,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-          - `lines: array of string`
+          - `lines: array of string or null`
 
-          - `new_lines: number`
+          - `new_lines: number or null`
 
-          - `new_start: number`
+          - `new_start: number or null`
 
-          - `old_lines: number`
+          - `old_lines: number or null`
 
-          - `old_start: number`
+          - `old_start: number or null`
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -17177,7 +17177,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"execution_time_exceeded"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -17229,7 +17229,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-          - `citations: array of BetaTextCitation`
+          - `citations: array of BetaTextCitation or null`
 
             Citations supporting the text block.
 
@@ -17265,11 +17265,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
-      - `content: string`
+      - `content: string or null`
 
         Summary of compacted content, or null if compaction failed
 
-      - `encrypted_content: string`
+      - `encrypted_content: string or null`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -17377,7 +17377,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         What caused the `from` model to hand over at this hop.
 
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
 
@@ -17409,7 +17409,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"fallback"`
 
-  - `context_management: BetaContextManagementResponse`
+  - `context_management: BetaContextManagementResponse or null`
 
     Context management response.
 
@@ -17451,12 +17451,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"clear_thinking_20251015"`
 
-  - `diagnostics: BetaDiagnostics`
+  - `diagnostics: BetaDiagnostics or null`
 
     Response envelope for request-level diagnostics. Present (possibly
     null) whenever the caller supplied `diagnostics` on the request.
 
-    - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+    - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -17526,11 +17526,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"assistant"`
 
-  - `stop_details: BetaRefusalStopDetails`
+  - `stop_details: BetaRefusalStopDetails or null`
 
     Structured information about a refusal.
 
-    - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+    - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
       The policy category that triggered a refusal.
 
@@ -17554,13 +17554,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Human-readable explanation of the refusal.
 
       This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-    - `fallback_credit_token: string`
+    - `fallback_credit_token: string or null`
 
       Opaque code that refunds the cache-miss cost when retrying this refused
       request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -17581,7 +17581,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       `null` when the refused model isn't eligible for a fallback credit.
 
-    - `fallback_has_prefill_claim: boolean`
+    - `fallback_has_prefill_claim: boolean or null`
 
       Whether the accompanying `fallback_credit_token` may be redeemed with the
       appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -17605,7 +17605,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       Advisory: if an appended-assistant retry is rejected with a 400 despite
       `true`, fall back to resending the original request body with the token.
 
-    - `recommended_model: string`
+    - `recommended_model: string or null`
 
       The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -17613,7 +17613,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"refusal"`
 
-  - `stop_reason: BetaStopReason`
+  - `stop_reason: BetaStopReason or null`
 
     The reason that we stopped.
 
@@ -17645,7 +17645,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"model_context_window_exceeded"`
 
-  - `stop_sequence: string`
+  - `stop_sequence: string or null`
 
     Which custom stop sequence was generated, if any.
 
@@ -17671,7 +17671,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: BetaCacheCreation`
+    - `cache_creation: BetaCacheCreation or null`
 
       Breakdown of cached tokens by TTL
 
@@ -17683,15 +17683,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The number of input tokens used to create the 5 minute cache entry.
 
-    - `cache_creation_input_tokens: number`
+    - `cache_creation_input_tokens: number or null`
 
       The number of input tokens used to create the cache entry.
 
-    - `cache_read_input_tokens: number`
+    - `cache_read_input_tokens: number or null`
 
       The number of input tokens read from the cache.
 
-    - `fallback_credit: BetaFallbackCreditUsage`
+    - `fallback_credit: BetaFallbackCreditUsage or null`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -17752,7 +17752,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"not_applied"`
 
-          - `remove_to_redeem: optional array of string`
+          - `remove_to_redeem: optional array of string or null`
 
             Request fields to remove before retrying, so the retry can redeem this
             token.
@@ -17763,7 +17763,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             been billed at normal price; nothing redeems retroactively, but a corrected
             re-send inside the token's five-minute window can still redeem.
 
-    - `inference_geo: string`
+    - `inference_geo: string or null`
 
       The geographic region where inference was performed for this request.
 
@@ -17771,7 +17771,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The number of input tokens which were used.
 
-    - `iterations: BetaIterationsUsage`
+    - `iterations: BetaIterationsUsage or null`
 
       Per-iteration token usage breakdown.
 
@@ -17785,7 +17785,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -17821,7 +17821,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -17851,7 +17851,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -17892,7 +17892,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -17928,7 +17928,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The number of output tokens which were used.
 
-    - `output_tokens_details: BetaOutputTokensDetails`
+    - `output_tokens_details: BetaOutputTokensDetails or null`
 
       Breakdown of output tokens by category.
 
@@ -17948,7 +17948,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: BetaServerToolUsage`
+    - `server_tool_use: BetaServerToolUsage or null`
 
       The number of server tool requests.
 
@@ -17960,7 +17960,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The number of web search tool requests.
 
-    - `service_tier: "standard" or "priority" or "batch"`
+    - `service_tier: "standard" or "priority" or "batch" or null`
 
       If the request used the priority, standard, or batch tier.
 
@@ -17970,7 +17970,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"batch"`
 
-    - `speed: "standard" or "fast"`
+    - `speed: "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -17982,15 +17982,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaMessageDeltaUsage object { cache_creation_input_tokens, cache_read_input_tokens, fallback_credit, 5 more }`
 
-  - `cache_creation_input_tokens: number`
+  - `cache_creation_input_tokens: number or null`
 
     The cumulative number of input tokens used to create the cache entry.
 
-  - `cache_read_input_tokens: number`
+  - `cache_read_input_tokens: number or null`
 
     The cumulative number of input tokens read from the cache.
 
-  - `fallback_credit: BetaFallbackCreditUsage`
+  - `fallback_credit: BetaFallbackCreditUsage or null`
 
     Outcome of the `fallback_credit_token` presented on this request.
 
@@ -18051,7 +18051,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"not_applied"`
 
-        - `remove_to_redeem: optional array of string`
+        - `remove_to_redeem: optional array of string or null`
 
           Request fields to remove before retrying, so the retry can redeem this
           token.
@@ -18062,11 +18062,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           been billed at normal price; nothing redeems retroactively, but a corrected
           re-send inside the token's five-minute window can still redeem.
 
-  - `input_tokens: number`
+  - `input_tokens: number or null`
 
     The cumulative number of input tokens which were used.
 
-  - `iterations: BetaIterationsUsage`
+  - `iterations: BetaIterationsUsage or null`
 
     Per-iteration token usage breakdown.
 
@@ -18080,7 +18080,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for a sampling iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -18192,7 +18192,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for a compaction iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -18222,7 +18222,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for an advisor sub-inference iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -18263,7 +18263,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -18299,7 +18299,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The cumulative number of output tokens which were used.
 
-  - `output_tokens_details: BetaOutputTokensDetails`
+  - `output_tokens_details: BetaOutputTokensDetails or null`
 
     Breakdown of output tokens by category.
 
@@ -18319,7 +18319,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-  - `server_tool_use: BetaServerToolUsage`
+  - `server_tool_use: BetaServerToolUsage or null`
 
     The number of server tool requests.
 
@@ -18337,7 +18337,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Token usage for a sampling iteration.
 
-  - `cache_creation: BetaCacheCreation`
+  - `cache_creation: BetaCacheCreation or null`
 
     Breakdown of cached tokens by TTL
 
@@ -18463,7 +18463,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18486,7 +18486,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"1h"`
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
           - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -18494,7 +18494,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -18510,7 +18510,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -18530,7 +18530,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -18552,7 +18552,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -18586,7 +18586,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -18634,7 +18634,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"image"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18702,17 +18702,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"document"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           - `enabled: optional boolean`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `BetaSearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -18722,11 +18722,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `type: "text"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of BetaTextCitationParam`
+          - `citations: optional array of BetaTextCitationParam or null`
 
         - `source: string`
 
@@ -18736,7 +18736,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"search_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18780,7 +18780,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18822,7 +18822,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18850,7 +18850,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -18884,7 +18884,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"server_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -18918,7 +18918,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `url: string`
 
-            - `page_age: optional string`
+            - `page_age: optional string or null`
 
           - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -18946,7 +18946,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"web_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19006,7 +19006,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Fetched content URL
 
-            - `retrieved_at: optional string`
+            - `retrieved_at: optional string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -19016,7 +19016,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"web_fetch_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19068,7 +19068,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"advisor_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
           - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -19080,7 +19080,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"advisor_redacted_result"`
 
-            - `stop_reason: optional string`
+            - `stop_reason: optional string or null`
 
         - `tool_use_id: string`
 
@@ -19088,7 +19088,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"advisor_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19160,7 +19160,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19212,7 +19212,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"bash_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19238,7 +19238,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"text_editor_code_execution_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -19256,11 +19256,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"text_editor_code_execution_view_result"`
 
-            - `num_lines: optional number`
+            - `num_lines: optional number or null`
 
-            - `start_line: optional number`
+            - `start_line: optional number or null`
 
-            - `total_lines: optional number`
+            - `total_lines: optional number or null`
 
           - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -19276,15 +19276,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"text_editor_code_execution_str_replace_result"`
 
-            - `lines: optional array of string`
+            - `lines: optional array of string or null`
 
-            - `new_lines: optional number`
+            - `new_lines: optional number or null`
 
-            - `new_start: optional number`
+            - `new_start: optional number or null`
 
-            - `old_lines: optional number`
+            - `old_lines: optional number or null`
 
-            - `old_start: optional number`
+            - `old_start: optional number or null`
 
         - `tool_use_id: string`
 
@@ -19292,7 +19292,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text_editor_code_execution_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19316,7 +19316,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"tool_search_tool_result_error"`
 
-            - `error_message: optional string`
+            - `error_message: optional string or null`
 
           - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -19326,7 +19326,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `type: "tool_reference"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -19340,7 +19340,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_search_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19360,7 +19360,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"mcp_tool_use"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19372,7 +19372,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"mcp_tool_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19386,11 +19386,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `type: "text"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional array of BetaTextCitationParam`
+            - `citations: optional array of BetaTextCitationParam or null`
 
         - `is_error: optional boolean`
 
@@ -19405,7 +19405,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"container_upload"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19423,15 +19423,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"compaction"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `content: optional string`
+        - `content: optional string or null`
 
           Summary of previously compacted content, or null if compaction failed
 
-        - `encrypted_content: optional string`
+        - `encrypted_content: optional string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -19503,7 +19503,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"tool_addition"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -19542,7 +19542,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"tool_removal"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -19550,7 +19550,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"mid_conv_system"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -19688,7 +19688,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaMessageTokensCount object { context_management, input_tokens }`
 
-  - `context_management: BetaCountTokensContextManagementResponse`
+  - `context_management: BetaCountTokensContextManagementResponse or null`
 
     Information about context management applied to the message.
 
@@ -19704,7 +19704,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaMetadata object { user_id }`
 
-  - `user_id: optional string`
+  - `user_id: optional string or null`
 
     An external identifier for the user who is associated with the request.
 
@@ -19731,7 +19731,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text"`
 
-      - `cache_control: optional BetaCacheControlEphemeral`
+      - `cache_control: optional BetaCacheControlEphemeral or null`
 
         Create a cache control breakpoint at this content block.
 
@@ -19754,7 +19754,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"1h"`
 
-      - `citations: optional array of BetaTextCitationParam`
+      - `citations: optional array of BetaTextCitationParam or null`
 
         - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -19762,7 +19762,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
@@ -19778,7 +19778,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
@@ -19798,7 +19798,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -19820,7 +19820,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -19854,7 +19854,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -19915,7 +19915,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tool_addition"`
 
-      - `cache_control: optional BetaCacheControlEphemeral`
+      - `cache_control: optional BetaCacheControlEphemeral or null`
 
         Create a cache control breakpoint at this content block.
 
@@ -19954,7 +19954,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tool_removal"`
 
-      - `cache_control: optional BetaCacheControlEphemeral`
+      - `cache_control: optional BetaCacheControlEphemeral or null`
 
         Create a cache control breakpoint at this content block.
 
@@ -19962,7 +19962,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"mid_conv_system"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -19970,7 +19970,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaOutputConfig object { effort, format, task_budget }`
 
-  - `effort: optional "low" or "medium" or "high" or 2 more`
+  - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
     All possible effort levels.
 
@@ -19984,7 +19984,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"max"`
 
-  - `format: optional BetaJSONOutputFormat`
+  - `format: optional BetaJSONOutputFormat or null`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -19996,7 +19996,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"json_schema"`
 
-  - `task_budget: optional BetaTokenTaskBudget`
+  - `task_budget: optional BetaTokenTaskBudget or null`
 
     User-configurable total token budget across contexts.
 
@@ -20010,7 +20010,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tokens"`
 
-    - `remaining: optional number`
+    - `remaining: optional number or null`
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
@@ -20073,11 +20073,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_char_index: number`
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_char_index: number`
 
@@ -20091,11 +20091,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_page_number: number`
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_page_number: number`
 
@@ -20113,7 +20113,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_block_index: number`
 
@@ -20121,7 +20121,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-        - `file_id: string`
+        - `file_id: string or null`
 
         - `start_block_index: number`
 
@@ -20137,7 +20137,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_index: string`
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "web_search_result_location"`
 
@@ -20171,7 +20171,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "search_result_location"`
 
@@ -20183,7 +20183,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `BetaThinkingDelta object { estimated_tokens, thinking, type }`
 
-    - `estimated_tokens: number`
+    - `estimated_tokens: number or null`
 
       Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
 
@@ -20207,9 +20207,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `BetaCompactionContentBlockDelta object { content, encrypted_content, type }`
 
-    - `content: string`
+    - `content: string or null`
 
-    - `encrypted_content: string`
+    - `encrypted_content: string or null`
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -20249,11 +20249,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -20267,11 +20267,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -20289,7 +20289,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -20297,7 +20297,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -20313,7 +20313,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -20347,7 +20347,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -20359,7 +20359,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaThinkingDelta object { estimated_tokens, thinking, type }`
 
-      - `estimated_tokens: number`
+      - `estimated_tokens: number or null`
 
         Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
 
@@ -20383,9 +20383,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaCompactionContentBlockDelta object { content, encrypted_content, type }`
 
-      - `content: string`
+      - `content: string or null`
 
-      - `encrypted_content: string`
+      - `encrypted_content: string or null`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -20409,7 +20409,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaTextBlock object { citations, text, type }`
 
-      - `citations: array of BetaTextCitation`
+      - `citations: array of BetaTextCitation or null`
 
         Citations supporting the text block.
 
@@ -20421,11 +20421,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_char_index: number`
 
@@ -20439,11 +20439,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_page_number: number`
 
@@ -20461,7 +20461,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -20469,7 +20469,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-          - `file_id: string`
+          - `file_id: string or null`
 
           - `start_block_index: number`
 
@@ -20485,7 +20485,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -20519,7 +20519,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -20675,7 +20675,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_content: string`
 
-          - `page_age: string`
+          - `page_age: string or null`
 
           - `title: string`
 
@@ -20739,7 +20739,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `content: BetaDocumentBlock`
 
-            - `citations: BetaCitationConfig`
+            - `citations: BetaCitationConfig or null`
 
               Citation configuration for the document
 
@@ -20771,7 +20771,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"text"`
 
-            - `title: string`
+            - `title: string or null`
 
               The title of the document
 
@@ -20779,7 +20779,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"document"`
 
-          - `retrieved_at: string`
+          - `retrieved_at: string or null`
 
             ISO 8601 timestamp when the content was retrieved
 
@@ -20839,7 +20839,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -20855,7 +20855,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-          - `stop_reason: string`
+          - `stop_reason: string or null`
 
             The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -21003,7 +21003,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"file_not_found"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -21021,11 +21021,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"pdf"`
 
-          - `num_lines: number`
+          - `num_lines: number or null`
 
-          - `start_line: number`
+          - `start_line: number or null`
 
-          - `total_lines: number`
+          - `total_lines: number or null`
 
           - `type: "text_editor_code_execution_view_result"`
 
@@ -21041,15 +21041,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-          - `lines: array of string`
+          - `lines: array of string or null`
 
-          - `new_lines: number`
+          - `new_lines: number or null`
 
-          - `new_start: number`
+          - `new_start: number or null`
 
-          - `old_lines: number`
+          - `old_lines: number or null`
 
-          - `old_start: number`
+          - `old_start: number or null`
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -21077,7 +21077,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"execution_time_exceeded"`
 
-          - `error_message: string`
+          - `error_message: string or null`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -21129,7 +21129,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-          - `citations: array of BetaTextCitation`
+          - `citations: array of BetaTextCitation or null`
 
             Citations supporting the text block.
 
@@ -21165,11 +21165,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       summary (e.g., malformed output from the model). Clients may round-trip
       compaction blocks with null content; the server treats them as no-ops.
 
-      - `content: string`
+      - `content: string or null`
 
         Summary of compacted content, or null if compaction failed
 
-      - `encrypted_content: string`
+      - `encrypted_content: string or null`
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -21277,7 +21277,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         What caused the `from` model to hand over at this hop.
 
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
 
@@ -21329,7 +21329,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaRawMessageDeltaEvent object { context_management, delta, type, usage }`
 
-  - `context_management: BetaContextManagementResponse`
+  - `context_management: BetaContextManagementResponse or null`
 
     Information about context management strategies applied during the request
 
@@ -21371,7 +21371,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `delta: object { container, stop_details, stop_reason, stop_sequence }`
 
-    - `container: BetaContainer`
+    - `container: BetaContainer or null`
 
       Information about the container used in the request (for the code execution tool)
 
@@ -21383,7 +21383,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The time at which the container will expire.
 
-      - `skills: array of BetaSkill`
+      - `skills: array of BetaSkill or null`
 
         Skills loaded in the container
 
@@ -21403,11 +21403,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Skill version or 'latest' for most recent version
 
-    - `stop_details: BetaRefusalStopDetails`
+    - `stop_details: BetaRefusalStopDetails or null`
 
       Structured information about a refusal.
 
-      - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+      - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
         The policy category that triggered a refusal.
 
@@ -21431,13 +21431,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-      - `explanation: string`
+      - `explanation: string or null`
 
         Human-readable explanation of the refusal.
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `fallback_credit_token: string`
+      - `fallback_credit_token: string or null`
 
         Opaque code that refunds the cache-miss cost when retrying this refused
         request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -21458,7 +21458,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         `null` when the refused model isn't eligible for a fallback credit.
 
-      - `fallback_has_prefill_claim: boolean`
+      - `fallback_has_prefill_claim: boolean or null`
 
         Whether the accompanying `fallback_credit_token` may be redeemed with the
         appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -21482,7 +21482,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         Advisory: if an appended-assistant retry is rejected with a 400 despite
         `true`, fall back to resending the original request body with the token.
 
-      - `recommended_model: string`
+      - `recommended_model: string or null`
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -21490,7 +21490,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"refusal"`
 
-    - `stop_reason: BetaStopReason`
+    - `stop_reason: BetaStopReason or null`
 
       - `"end_turn"`
 
@@ -21508,7 +21508,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"model_context_window_exceeded"`
 
-    - `stop_sequence: string`
+    - `stop_sequence: string or null`
 
   - `type: "message_delta"`
 
@@ -21526,15 +21526,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation_input_tokens: number`
+    - `cache_creation_input_tokens: number or null`
 
       The cumulative number of input tokens used to create the cache entry.
 
-    - `cache_read_input_tokens: number`
+    - `cache_read_input_tokens: number or null`
 
       The cumulative number of input tokens read from the cache.
 
-    - `fallback_credit: BetaFallbackCreditUsage`
+    - `fallback_credit: BetaFallbackCreditUsage or null`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -21595,7 +21595,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"not_applied"`
 
-          - `remove_to_redeem: optional array of string`
+          - `remove_to_redeem: optional array of string or null`
 
             Request fields to remove before retrying, so the retry can redeem this
             token.
@@ -21606,11 +21606,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             been billed at normal price; nothing redeems retroactively, but a corrected
             re-send inside the token's five-minute window can still redeem.
 
-    - `input_tokens: number`
+    - `input_tokens: number or null`
 
       The cumulative number of input tokens which were used.
 
-    - `iterations: BetaIterationsUsage`
+    - `iterations: BetaIterationsUsage or null`
 
       Per-iteration token usage breakdown.
 
@@ -21624,7 +21624,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -21736,7 +21736,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -21766,7 +21766,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -21807,7 +21807,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -21843,7 +21843,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The cumulative number of output tokens which were used.
 
-    - `output_tokens_details: BetaOutputTokensDetails`
+    - `output_tokens_details: BetaOutputTokensDetails or null`
 
       Breakdown of output tokens by category.
 
@@ -21863,7 +21863,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: BetaServerToolUsage`
+    - `server_tool_use: BetaServerToolUsage or null`
 
       The number of server tool requests.
 
@@ -21887,7 +21887,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The format and length of IDs may change over time.
 
-    - `container: BetaContainer`
+    - `container: BetaContainer or null`
 
       Information about the container used in the request (for the code execution tool)
 
@@ -21899,7 +21899,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The time at which the container will expire.
 
-      - `skills: array of BetaSkill`
+      - `skills: array of BetaSkill or null`
 
         Skills loaded in the container
 
@@ -21950,7 +21950,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaTextBlock object { citations, text, type }`
 
-        - `citations: array of BetaTextCitation`
+        - `citations: array of BetaTextCitation or null`
 
           Citations supporting the text block.
 
@@ -21962,11 +21962,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_char_index: number`
 
@@ -21980,11 +21980,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_page_number: number`
 
@@ -22002,7 +22002,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -22010,7 +22010,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_block_index: number`
 
@@ -22026,7 +22026,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -22060,7 +22060,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -22216,7 +22216,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `encrypted_content: string`
 
-            - `page_age: string`
+            - `page_age: string or null`
 
             - `title: string`
 
@@ -22280,7 +22280,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `content: BetaDocumentBlock`
 
-              - `citations: BetaCitationConfig`
+              - `citations: BetaCitationConfig or null`
 
                 Citation configuration for the document
 
@@ -22312,7 +22312,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `"text"`
 
-              - `title: string`
+              - `title: string or null`
 
                 The title of the document
 
@@ -22320,7 +22320,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"document"`
 
-            - `retrieved_at: string`
+            - `retrieved_at: string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -22380,7 +22380,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-            - `stop_reason: string`
+            - `stop_reason: string or null`
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -22396,7 +22396,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-            - `stop_reason: string`
+            - `stop_reason: string or null`
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -22544,7 +22544,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"file_not_found"`
 
-            - `error_message: string`
+            - `error_message: string or null`
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -22562,11 +22562,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"pdf"`
 
-            - `num_lines: number`
+            - `num_lines: number or null`
 
-            - `start_line: number`
+            - `start_line: number or null`
 
-            - `total_lines: number`
+            - `total_lines: number or null`
 
             - `type: "text_editor_code_execution_view_result"`
 
@@ -22582,15 +22582,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-            - `lines: array of string`
+            - `lines: array of string or null`
 
-            - `new_lines: number`
+            - `new_lines: number or null`
 
-            - `new_start: number`
+            - `new_start: number or null`
 
-            - `old_lines: number`
+            - `old_lines: number or null`
 
-            - `old_start: number`
+            - `old_start: number or null`
 
             - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -22618,7 +22618,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"execution_time_exceeded"`
 
-            - `error_message: string`
+            - `error_message: string or null`
 
             - `type: "tool_search_tool_result_error"`
 
@@ -22670,7 +22670,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-            - `citations: array of BetaTextCitation`
+            - `citations: array of BetaTextCitation or null`
 
               Citations supporting the text block.
 
@@ -22706,11 +22706,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
-        - `content: string`
+        - `content: string or null`
 
           Summary of compacted content, or null if compaction failed
 
-        - `encrypted_content: string`
+        - `encrypted_content: string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -22818,7 +22818,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           What caused the `from` model to hand over at this hop.
 
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+          - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
             The policy category that triggered a refusal.
 
@@ -22850,7 +22850,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"fallback"`
 
-    - `context_management: BetaContextManagementResponse`
+    - `context_management: BetaContextManagementResponse or null`
 
       Context management response.
 
@@ -22892,12 +22892,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"clear_thinking_20251015"`
 
-    - `diagnostics: BetaDiagnostics`
+    - `diagnostics: BetaDiagnostics or null`
 
       Response envelope for request-level diagnostics. Present (possibly
       null) whenever the caller supplied `diagnostics` on the request.
 
-      - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+      - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -22967,11 +22967,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"assistant"`
 
-    - `stop_details: BetaRefusalStopDetails`
+    - `stop_details: BetaRefusalStopDetails or null`
 
       Structured information about a refusal.
 
-      - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+      - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
         The policy category that triggered a refusal.
 
@@ -22995,13 +22995,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-      - `explanation: string`
+      - `explanation: string or null`
 
         Human-readable explanation of the refusal.
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `fallback_credit_token: string`
+      - `fallback_credit_token: string or null`
 
         Opaque code that refunds the cache-miss cost when retrying this refused
         request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -23022,7 +23022,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         `null` when the refused model isn't eligible for a fallback credit.
 
-      - `fallback_has_prefill_claim: boolean`
+      - `fallback_has_prefill_claim: boolean or null`
 
         Whether the accompanying `fallback_credit_token` may be redeemed with the
         appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -23046,7 +23046,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         Advisory: if an appended-assistant retry is rejected with a 400 despite
         `true`, fall back to resending the original request body with the token.
 
-      - `recommended_model: string`
+      - `recommended_model: string or null`
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -23054,7 +23054,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"refusal"`
 
-    - `stop_reason: BetaStopReason`
+    - `stop_reason: BetaStopReason or null`
 
       The reason that we stopped.
 
@@ -23086,7 +23086,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"model_context_window_exceeded"`
 
-    - `stop_sequence: string`
+    - `stop_sequence: string or null`
 
       Which custom stop sequence was generated, if any.
 
@@ -23112,7 +23112,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -23124,15 +23124,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The number of input tokens used to create the 5 minute cache entry.
 
-      - `cache_creation_input_tokens: number`
+      - `cache_creation_input_tokens: number or null`
 
         The number of input tokens used to create the cache entry.
 
-      - `cache_read_input_tokens: number`
+      - `cache_read_input_tokens: number or null`
 
         The number of input tokens read from the cache.
 
-      - `fallback_credit: BetaFallbackCreditUsage`
+      - `fallback_credit: BetaFallbackCreditUsage or null`
 
         Outcome of the `fallback_credit_token` presented on this request.
 
@@ -23193,7 +23193,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"not_applied"`
 
-            - `remove_to_redeem: optional array of string`
+            - `remove_to_redeem: optional array of string or null`
 
               Request fields to remove before retrying, so the retry can redeem this
               token.
@@ -23204,7 +23204,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               been billed at normal price; nothing redeems retroactively, but a corrected
               re-send inside the token's five-minute window can still redeem.
 
-      - `inference_geo: string`
+      - `inference_geo: string or null`
 
         The geographic region where inference was performed for this request.
 
@@ -23212,7 +23212,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The number of input tokens which were used.
 
-      - `iterations: BetaIterationsUsage`
+      - `iterations: BetaIterationsUsage or null`
 
         Per-iteration token usage breakdown.
 
@@ -23226,7 +23226,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Token usage for a sampling iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -23262,7 +23262,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Token usage for a compaction iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -23292,7 +23292,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           Token usage for an advisor sub-inference iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -23333,7 +23333,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           a fallback model served the response is signalled by the presence of this
           entry in `usage.iterations`.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -23369,7 +23369,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The number of output tokens which were used.
 
-      - `output_tokens_details: BetaOutputTokensDetails`
+      - `output_tokens_details: BetaOutputTokensDetails or null`
 
         Breakdown of output tokens by category.
 
@@ -23389,7 +23389,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-      - `server_tool_use: BetaServerToolUsage`
+      - `server_tool_use: BetaServerToolUsage or null`
 
         The number of server tool requests.
 
@@ -23401,7 +23401,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The number of web search tool requests.
 
-      - `service_tier: "standard" or "priority" or "batch"`
+      - `service_tier: "standard" or "priority" or "batch" or null`
 
         If the request used the priority, standard, or batch tier.
 
@@ -23411,7 +23411,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"batch"`
 
-      - `speed: "standard" or "fast"`
+      - `speed: "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -23445,7 +23445,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The format and length of IDs may change over time.
 
-      - `container: BetaContainer`
+      - `container: BetaContainer or null`
 
         Information about the container used in the request (for the code execution tool)
 
@@ -23457,7 +23457,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The time at which the container will expire.
 
-        - `skills: array of BetaSkill`
+        - `skills: array of BetaSkill or null`
 
           Skills loaded in the container
 
@@ -23508,7 +23508,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `BetaTextBlock object { citations, text, type }`
 
-          - `citations: array of BetaTextCitation`
+          - `citations: array of BetaTextCitation or null`
 
             Citations supporting the text block.
 
@@ -23520,11 +23520,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_char_index: number`
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_char_index: number`
 
@@ -23538,11 +23538,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_page_number: number`
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_page_number: number`
 
@@ -23560,7 +23560,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_block_index: number`
 
@@ -23568,7 +23568,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_block_index: number`
 
@@ -23584,7 +23584,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `encrypted_index: string`
 
-              - `title: string`
+              - `title: string or null`
 
               - `type: "web_search_result_location"`
 
@@ -23618,7 +23618,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 0-based index of the first cited block in the source's `content` array.
 
-              - `title: string`
+              - `title: string or null`
 
               - `type: "search_result_location"`
 
@@ -23774,7 +23774,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `encrypted_content: string`
 
-              - `page_age: string`
+              - `page_age: string or null`
 
               - `title: string`
 
@@ -23838,7 +23838,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `content: BetaDocumentBlock`
 
-                - `citations: BetaCitationConfig`
+                - `citations: BetaCitationConfig or null`
 
                   Citation configuration for the document
 
@@ -23870,7 +23870,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `"text"`
 
-                - `title: string`
+                - `title: string or null`
 
                   The title of the document
 
@@ -23878,7 +23878,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"document"`
 
-              - `retrieved_at: string`
+              - `retrieved_at: string or null`
 
                 ISO 8601 timestamp when the content was retrieved
 
@@ -23938,7 +23938,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-              - `stop_reason: string`
+              - `stop_reason: string or null`
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -23954,7 +23954,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-              - `stop_reason: string`
+              - `stop_reason: string or null`
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -24102,7 +24102,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"file_not_found"`
 
-              - `error_message: string`
+              - `error_message: string or null`
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -24120,11 +24120,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"pdf"`
 
-              - `num_lines: number`
+              - `num_lines: number or null`
 
-              - `start_line: number`
+              - `start_line: number or null`
 
-              - `total_lines: number`
+              - `total_lines: number or null`
 
               - `type: "text_editor_code_execution_view_result"`
 
@@ -24140,15 +24140,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-              - `lines: array of string`
+              - `lines: array of string or null`
 
-              - `new_lines: number`
+              - `new_lines: number or null`
 
-              - `new_start: number`
+              - `new_start: number or null`
 
-              - `old_lines: number`
+              - `old_lines: number or null`
 
-              - `old_start: number`
+              - `old_start: number or null`
 
               - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -24176,7 +24176,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"execution_time_exceeded"`
 
-              - `error_message: string`
+              - `error_message: string or null`
 
               - `type: "tool_search_tool_result_error"`
 
@@ -24228,7 +24228,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-              - `citations: array of BetaTextCitation`
+              - `citations: array of BetaTextCitation or null`
 
                 Citations supporting the text block.
 
@@ -24264,11 +24264,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           summary (e.g., malformed output from the model). Clients may round-trip
           compaction blocks with null content; the server treats them as no-ops.
 
-          - `content: string`
+          - `content: string or null`
 
             Summary of compacted content, or null if compaction failed
 
-          - `encrypted_content: string`
+          - `encrypted_content: string or null`
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -24376,7 +24376,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             What caused the `from` model to hand over at this hop.
 
-            - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+            - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
               The policy category that triggered a refusal.
 
@@ -24408,7 +24408,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `"fallback"`
 
-      - `context_management: BetaContextManagementResponse`
+      - `context_management: BetaContextManagementResponse or null`
 
         Context management response.
 
@@ -24450,12 +24450,12 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"clear_thinking_20251015"`
 
-      - `diagnostics: BetaDiagnostics`
+      - `diagnostics: BetaDiagnostics or null`
 
         Response envelope for request-level diagnostics. Present (possibly
         null) whenever the caller supplied `diagnostics` on the request.
 
-        - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+        - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -24525,11 +24525,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"assistant"`
 
-      - `stop_details: BetaRefusalStopDetails`
+      - `stop_details: BetaRefusalStopDetails or null`
 
         Structured information about a refusal.
 
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
 
@@ -24553,13 +24553,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `explanation: string`
+        - `explanation: string or null`
 
           Human-readable explanation of the refusal.
 
           This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-        - `fallback_credit_token: string`
+        - `fallback_credit_token: string or null`
 
           Opaque code that refunds the cache-miss cost when retrying this refused
           request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -24580,7 +24580,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           `null` when the refused model isn't eligible for a fallback credit.
 
-        - `fallback_has_prefill_claim: boolean`
+        - `fallback_has_prefill_claim: boolean or null`
 
           Whether the accompanying `fallback_credit_token` may be redeemed with the
           appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -24604,7 +24604,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           Advisory: if an appended-assistant retry is rejected with a 400 despite
           `true`, fall back to resending the original request body with the token.
 
-        - `recommended_model: string`
+        - `recommended_model: string or null`
 
           The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -24612,7 +24612,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"refusal"`
 
-      - `stop_reason: BetaStopReason`
+      - `stop_reason: BetaStopReason or null`
 
         The reason that we stopped.
 
@@ -24644,7 +24644,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"model_context_window_exceeded"`
 
-      - `stop_sequence: string`
+      - `stop_sequence: string or null`
 
         Which custom stop sequence was generated, if any.
 
@@ -24670,7 +24670,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -24682,15 +24682,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             The number of input tokens used to create the 5 minute cache entry.
 
-        - `cache_creation_input_tokens: number`
+        - `cache_creation_input_tokens: number or null`
 
           The number of input tokens used to create the cache entry.
 
-        - `cache_read_input_tokens: number`
+        - `cache_read_input_tokens: number or null`
 
           The number of input tokens read from the cache.
 
-        - `fallback_credit: BetaFallbackCreditUsage`
+        - `fallback_credit: BetaFallbackCreditUsage or null`
 
           Outcome of the `fallback_credit_token` presented on this request.
 
@@ -24751,7 +24751,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"not_applied"`
 
-              - `remove_to_redeem: optional array of string`
+              - `remove_to_redeem: optional array of string or null`
 
                 Request fields to remove before retrying, so the retry can redeem this
                 token.
@@ -24762,7 +24762,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
                 been billed at normal price; nothing redeems retroactively, but a corrected
                 re-send inside the token's five-minute window can still redeem.
 
-        - `inference_geo: string`
+        - `inference_geo: string or null`
 
           The geographic region where inference was performed for this request.
 
@@ -24770,7 +24770,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The number of input tokens which were used.
 
-        - `iterations: BetaIterationsUsage`
+        - `iterations: BetaIterationsUsage or null`
 
           Per-iteration token usage breakdown.
 
@@ -24784,7 +24784,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Token usage for a sampling iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -24820,7 +24820,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Token usage for a compaction iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -24850,7 +24850,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             Token usage for an advisor sub-inference iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -24891,7 +24891,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             a fallback model served the response is signalled by the presence of this
             entry in `usage.iterations`.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -24927,7 +24927,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           The number of output tokens which were used.
 
-        - `output_tokens_details: BetaOutputTokensDetails`
+        - `output_tokens_details: BetaOutputTokensDetails or null`
 
           Breakdown of output tokens by category.
 
@@ -24947,7 +24947,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-        - `server_tool_use: BetaServerToolUsage`
+        - `server_tool_use: BetaServerToolUsage or null`
 
           The number of server tool requests.
 
@@ -24959,7 +24959,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             The number of web search tool requests.
 
-        - `service_tier: "standard" or "priority" or "batch"`
+        - `service_tier: "standard" or "priority" or "batch" or null`
 
           If the request used the priority, standard, or batch tier.
 
@@ -24969,7 +24969,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"batch"`
 
-        - `speed: "standard" or "fast"`
+        - `speed: "standard" or "fast" or null`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -24983,23 +24983,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `BetaRawMessageDeltaEvent object { context_management, delta, type, usage }`
 
-    - `context_management: BetaContextManagementResponse`
+    - `context_management: BetaContextManagementResponse or null`
 
       Information about context management strategies applied during the request
 
     - `delta: object { container, stop_details, stop_reason, stop_sequence }`
 
-      - `container: BetaContainer`
+      - `container: BetaContainer or null`
 
         Information about the container used in the request (for the code execution tool)
 
-      - `stop_details: BetaRefusalStopDetails`
+      - `stop_details: BetaRefusalStopDetails or null`
 
         Structured information about a refusal.
 
-      - `stop_reason: BetaStopReason`
+      - `stop_reason: BetaStopReason or null`
 
-      - `stop_sequence: string`
+      - `stop_sequence: string or null`
 
     - `type: "message_delta"`
 
@@ -25017,23 +25017,23 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-      - `cache_creation_input_tokens: number`
+      - `cache_creation_input_tokens: number or null`
 
         The cumulative number of input tokens used to create the cache entry.
 
-      - `cache_read_input_tokens: number`
+      - `cache_read_input_tokens: number or null`
 
         The cumulative number of input tokens read from the cache.
 
-      - `fallback_credit: BetaFallbackCreditUsage`
+      - `fallback_credit: BetaFallbackCreditUsage or null`
 
         Outcome of the `fallback_credit_token` presented on this request.
 
-      - `input_tokens: number`
+      - `input_tokens: number or null`
 
         The cumulative number of input tokens which were used.
 
-      - `iterations: BetaIterationsUsage`
+      - `iterations: BetaIterationsUsage or null`
 
         Per-iteration token usage breakdown.
 
@@ -25047,7 +25047,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         The cumulative number of output tokens which were used.
 
-      - `output_tokens_details: BetaOutputTokensDetails`
+      - `output_tokens_details: BetaOutputTokensDetails or null`
 
         Breakdown of output tokens by category.
 
@@ -25056,7 +25056,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
         how many of the billed output tokens were spent on internal reasoning that may
         have been summarized before being returned to you.
 
-      - `server_tool_use: BetaServerToolUsage`
+      - `server_tool_use: BetaServerToolUsage or null`
 
         The number of server tool requests.
 
@@ -25172,7 +25172,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaThinkingDelta object { estimated_tokens, thinking, type }`
 
-        - `estimated_tokens: number`
+        - `estimated_tokens: number or null`
 
           Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
 
@@ -25196,9 +25196,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `BetaCompactionContentBlockDelta object { content, encrypted_content, type }`
 
-        - `content: string`
+        - `content: string or null`
 
-        - `encrypted_content: string`
+        - `encrypted_content: string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -25254,7 +25254,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   Structured information about a refusal.
 
-  - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+  - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
     The policy category that triggered a refusal.
 
@@ -25278,13 +25278,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-  - `explanation: string`
+  - `explanation: string or null`
 
     Human-readable explanation of the refusal.
 
     This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-  - `fallback_credit_token: string`
+  - `fallback_credit_token: string or null`
 
     Opaque code that refunds the cache-miss cost when retrying this refused
     request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -25305,7 +25305,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     `null` when the refused model isn't eligible for a fallback credit.
 
-  - `fallback_has_prefill_claim: boolean`
+  - `fallback_has_prefill_claim: boolean or null`
 
     Whether the accompanying `fallback_credit_token` may be redeemed with the
     appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -25329,7 +25329,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     Advisory: if an appended-assistant retry is rejected with a 400 despite
     `true`, fall back to resending the original request body with the token.
 
-  - `recommended_model: string`
+  - `recommended_model: string or null`
 
     The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -25383,7 +25383,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"text"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -25406,7 +25406,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"1h"`
 
-            - `citations: optional array of BetaTextCitationParam`
+            - `citations: optional array of BetaTextCitationParam or null`
 
               - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -25414,7 +25414,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_char_index: number`
 
@@ -25430,7 +25430,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_page_number: number`
 
@@ -25450,7 +25450,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_block_index: number`
 
@@ -25472,7 +25472,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `encrypted_index: string`
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "web_search_result_location"`
 
@@ -25506,7 +25506,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "search_result_location"`
 
@@ -25554,7 +25554,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"image"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -25582,25 +25582,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"document"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
-  - `citations: optional BetaCitationsConfigParam`
+  - `citations: optional BetaCitationsConfigParam or null`
 
     - `enabled: optional boolean`
 
-  - `context: optional string`
+  - `context: optional string or null`
 
-  - `title: optional string`
+  - `title: optional string or null`
 
 ### Beta Request MCP Server Tool Configuration
 
 - `BetaRequestMCPServerToolConfiguration object { allowed_tools, enabled }`
 
-  - `allowed_tools: optional array of string`
+  - `allowed_tools: optional array of string or null`
 
-  - `enabled: optional boolean`
+  - `enabled: optional boolean or null`
 
 ### Beta Request MCP Server URL Definition
 
@@ -25614,13 +25614,13 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url: string`
 
-  - `authorization_token: optional string`
+  - `authorization_token: optional string or null`
 
-  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration`
+  - `tool_configuration: optional BetaRequestMCPServerToolConfiguration or null`
 
-    - `allowed_tools: optional array of string`
+    - `allowed_tools: optional array of string or null`
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
 ### Beta Request MCP Tool Result Block Param
 
@@ -25632,7 +25632,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"mcp_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -25667,11 +25667,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text"`
 
-      - `cache_control: optional BetaCacheControlEphemeral`
+      - `cache_control: optional BetaCacheControlEphemeral or null`
 
         Create a cache control breakpoint at this content block.
 
-      - `citations: optional array of BetaTextCitationParam`
+      - `citations: optional array of BetaTextCitationParam or null`
 
         - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -25679,7 +25679,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_char_index: number`
 
@@ -25695,7 +25695,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_page_number: number`
 
@@ -25715,7 +25715,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `document_index: number`
 
-          - `document_title: string`
+          - `document_title: string or null`
 
           - `end_block_index: number`
 
@@ -25737,7 +25737,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `encrypted_index: string`
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "web_search_result_location"`
 
@@ -25771,7 +25771,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `title: string`
+          - `title: string or null`
 
           - `type: "search_result_location"`
 
@@ -25836,7 +25836,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_addition"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -25916,7 +25916,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_removal"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -25951,7 +25951,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"text"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -25974,7 +25974,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"1h"`
 
-    - `citations: optional array of BetaTextCitationParam`
+    - `citations: optional array of BetaTextCitationParam or null`
 
       - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -25982,7 +25982,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_char_index: number`
 
@@ -25998,7 +25998,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_page_number: number`
 
@@ -26018,7 +26018,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `document_index: number`
 
-        - `document_title: string`
+        - `document_title: string or null`
 
         - `end_block_index: number`
 
@@ -26040,7 +26040,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `encrypted_index: string`
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "web_search_result_location"`
 
@@ -26074,7 +26074,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `title: string`
+        - `title: string or null`
 
         - `type: "search_result_location"`
 
@@ -26088,7 +26088,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"search_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -26220,7 +26220,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"server_tool_use"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -26353,7 +26353,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaTextBlock object { citations, text, type }`
 
-  - `citations: array of BetaTextCitation`
+  - `citations: array of BetaTextCitation or null`
 
     Citations supporting the text block.
 
@@ -26365,11 +26365,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_char_index: number`
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_char_index: number`
 
@@ -26383,11 +26383,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_page_number: number`
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_page_number: number`
 
@@ -26405,7 +26405,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_block_index: number`
 
@@ -26413,7 +26413,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-      - `file_id: string`
+      - `file_id: string or null`
 
       - `start_block_index: number`
 
@@ -26429,7 +26429,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `encrypted_index: string`
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "web_search_result_location"`
 
@@ -26463,7 +26463,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "search_result_location"`
 
@@ -26485,7 +26485,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"text"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -26508,7 +26508,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `citations: optional array of BetaTextCitationParam`
+  - `citations: optional array of BetaTextCitationParam or null`
 
     - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -26516,7 +26516,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_char_index: number`
 
@@ -26532,7 +26532,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_page_number: number`
 
@@ -26552,7 +26552,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `document_index: number`
 
-      - `document_title: string`
+      - `document_title: string or null`
 
       - `end_block_index: number`
 
@@ -26574,7 +26574,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `encrypted_index: string`
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "web_search_result_location"`
 
@@ -26608,7 +26608,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `title: string`
+      - `title: string or null`
 
       - `type: "search_result_location"`
 
@@ -26624,11 +26624,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_char_index: number`
 
-    - `file_id: string`
+    - `file_id: string or null`
 
     - `start_char_index: number`
 
@@ -26642,11 +26642,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_page_number: number`
 
-    - `file_id: string`
+    - `file_id: string or null`
 
     - `start_page_number: number`
 
@@ -26664,7 +26664,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_block_index: number`
 
@@ -26672,7 +26672,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-    - `file_id: string`
+    - `file_id: string or null`
 
     - `start_block_index: number`
 
@@ -26688,7 +26688,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `encrypted_index: string`
 
-    - `title: string`
+    - `title: string or null`
 
     - `type: "web_search_result_location"`
 
@@ -26722,7 +26722,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       0-based index of the first cited block in the source's `content` array.
 
-    - `title: string`
+    - `title: string or null`
 
     - `type: "search_result_location"`
 
@@ -26738,7 +26738,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_char_index: number`
 
@@ -26754,7 +26754,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_page_number: number`
 
@@ -26774,7 +26774,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `document_index: number`
 
-    - `document_title: string`
+    - `document_title: string or null`
 
     - `end_block_index: number`
 
@@ -26796,7 +26796,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `encrypted_index: string`
 
-    - `title: string`
+    - `title: string or null`
 
     - `type: "web_search_result_location"`
 
@@ -26830,7 +26830,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       0-based index of the first cited block in the source's `content` array.
 
-    - `title: string`
+    - `title: string or null`
 
     - `type: "search_result_location"`
 
@@ -26870,15 +26870,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-  - `lines: array of string`
+  - `lines: array of string or null`
 
-  - `new_lines: number`
+  - `new_lines: number or null`
 
-  - `new_start: number`
+  - `new_start: number or null`
 
-  - `old_lines: number`
+  - `old_lines: number or null`
 
-  - `old_start: number`
+  - `old_start: number or null`
 
   - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -26892,15 +26892,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"text_editor_code_execution_str_replace_result"`
 
-  - `lines: optional array of string`
+  - `lines: optional array of string or null`
 
-  - `new_lines: optional number`
+  - `new_lines: optional number or null`
 
-  - `new_start: optional number`
+  - `new_start: optional number or null`
 
-  - `old_lines: optional number`
+  - `old_lines: optional number or null`
 
-  - `old_start: optional number`
+  - `old_start: optional number or null`
 
 ### Beta Text Editor Code Execution Tool Result Block
 
@@ -26922,7 +26922,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"file_not_found"`
 
-      - `error_message: string`
+      - `error_message: string or null`
 
       - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -26940,11 +26940,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"pdf"`
 
-      - `num_lines: number`
+      - `num_lines: number or null`
 
-      - `start_line: number`
+      - `start_line: number or null`
 
-      - `total_lines: number`
+      - `total_lines: number or null`
 
       - `type: "text_editor_code_execution_view_result"`
 
@@ -26960,15 +26960,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-      - `lines: array of string`
+      - `lines: array of string or null`
 
-      - `new_lines: number`
+      - `new_lines: number or null`
 
-      - `new_start: number`
+      - `new_start: number or null`
 
-      - `old_lines: number`
+      - `old_lines: number or null`
 
-      - `old_start: number`
+      - `old_start: number or null`
 
       - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -27004,7 +27004,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text_editor_code_execution_tool_result_error"`
 
-      - `error_message: optional string`
+      - `error_message: optional string or null`
 
     - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -27022,11 +27022,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text_editor_code_execution_view_result"`
 
-      - `num_lines: optional number`
+      - `num_lines: optional number or null`
 
-      - `start_line: optional number`
+      - `start_line: optional number or null`
 
-      - `total_lines: optional number`
+      - `total_lines: optional number or null`
 
     - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -27042,15 +27042,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"text_editor_code_execution_str_replace_result"`
 
-      - `lines: optional array of string`
+      - `lines: optional array of string or null`
 
-      - `new_lines: optional number`
+      - `new_lines: optional number or null`
 
-      - `new_start: optional number`
+      - `new_start: optional number or null`
 
-      - `old_lines: optional number`
+      - `old_lines: optional number or null`
 
-      - `old_start: optional number`
+      - `old_start: optional number or null`
 
   - `tool_use_id: string`
 
@@ -27058,7 +27058,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"text_editor_code_execution_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27097,7 +27097,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"file_not_found"`
 
-  - `error_message: string`
+  - `error_message: string or null`
 
   - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -27123,7 +27123,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"text_editor_code_execution_tool_result_error"`
 
-  - `error_message: optional string`
+  - `error_message: optional string or null`
 
 ### Beta Text Editor Code Execution View Result Block
 
@@ -27139,11 +27139,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"pdf"`
 
-  - `num_lines: number`
+  - `num_lines: number or null`
 
-  - `start_line: number`
+  - `start_line: number or null`
 
-  - `total_lines: number`
+  - `total_lines: number or null`
 
   - `type: "text_editor_code_execution_view_result"`
 
@@ -27167,11 +27167,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"text_editor_code_execution_view_result"`
 
-  - `num_lines: optional number`
+  - `num_lines: optional number or null`
 
-  - `start_line: optional number`
+  - `start_line: optional number or null`
 
-  - `total_lines: optional number`
+  - `total_lines: optional number or null`
 
 ### Beta Thinking Block
 
@@ -27219,7 +27219,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"adaptive"`
 
-  - `display: optional "summarized" or "omitted"`
+  - `display: optional "summarized" or "omitted" or null`
 
     Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -27251,7 +27251,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"enabled"`
 
-  - `display: optional "summarized" or "omitted"`
+  - `display: optional "summarized" or "omitted" or null`
 
     Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -27283,7 +27283,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"enabled"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -27303,7 +27303,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"adaptive"`
 
-    - `display: optional "summarized" or "omitted"`
+    - `display: optional "summarized" or "omitted" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -27315,7 +27315,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaThinkingDelta object { estimated_tokens, thinking, type }`
 
-  - `estimated_tokens: number`
+  - `estimated_tokens: number or null`
 
     Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
 
@@ -27353,7 +27353,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tokens"`
 
-  - `remaining: optional number`
+  - `remaining: optional number or null`
 
     Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
@@ -27371,9 +27371,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"object"`
 
-    - `properties: optional map[unknown]`
+    - `properties: optional map[unknown] or null`
 
-    - `required: optional array of string`
+    - `required: optional array of string or null`
 
   - `name: string`
 
@@ -27391,7 +27391,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27424,7 +27424,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-  - `eager_input_streaming: optional boolean`
+  - `eager_input_streaming: optional boolean or null`
 
     Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -27434,7 +27434,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `type: optional "custom"`
+  - `type: optional "custom" or null`
 
     - `"custom"`
 
@@ -27464,7 +27464,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27523,7 +27523,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27754,7 +27754,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27781,7 +27781,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `display_number: optional number`
+  - `display_number: optional number or null`
 
     The X11 display number (e.g. 0, 1) for the display.
 
@@ -27825,7 +27825,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27852,7 +27852,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `display_number: optional number`
+  - `display_number: optional number or null`
 
     The X11 display number (e.g. 0, 1) for the display.
 
@@ -27896,7 +27896,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27923,7 +27923,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `display_number: optional number`
+  - `display_number: optional number or null`
 
     The X11 display number (e.g. 0, 1) for the display.
 
@@ -27959,7 +27959,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_reference"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -27992,7 +27992,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28029,11 +28029,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
           - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -28041,7 +28041,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
@@ -28057,7 +28057,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
@@ -28077,7 +28077,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -28099,7 +28099,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -28133,7 +28133,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -28181,7 +28181,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"image"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -28193,11 +28193,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `type: "text"`
 
-          - `cache_control: optional BetaCacheControlEphemeral`
+          - `cache_control: optional BetaCacheControlEphemeral or null`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional array of BetaTextCitationParam`
+          - `citations: optional array of BetaTextCitationParam or null`
 
         - `source: string`
 
@@ -28207,7 +28207,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"search_result"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -28279,15 +28279,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"document"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `BetaToolReferenceBlockParam object { tool_name, type, cache_control }`
 
@@ -28299,7 +28299,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_reference"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -28333,7 +28333,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28392,7 +28392,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28441,7 +28441,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"execution_time_exceeded"`
 
-      - `error_message: string`
+      - `error_message: string or null`
 
       - `type: "tool_search_tool_result_error"`
 
@@ -28489,7 +28489,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"tool_search_tool_result_error"`
 
-      - `error_message: optional string`
+      - `error_message: optional string or null`
 
     - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -28501,7 +28501,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"tool_reference"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -28534,7 +28534,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_search_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28552,7 +28552,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"execution_time_exceeded"`
 
-  - `error_message: string`
+  - `error_message: string or null`
 
   - `type: "tool_search_tool_result_error"`
 
@@ -28576,7 +28576,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_search_tool_result_error"`
 
-  - `error_message: optional string`
+  - `error_message: optional string or null`
 
 ### Beta Tool Search Tool Search Result Block
 
@@ -28606,7 +28606,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"tool_reference"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -28659,7 +28659,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28718,7 +28718,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28777,7 +28777,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28836,7 +28836,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -28865,7 +28865,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `input_examples: optional array of map[unknown]`
 
-  - `max_characters: optional number`
+  - `max_characters: optional number or null`
 
     Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -28891,9 +28891,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -28911,7 +28911,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -28944,7 +28944,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-    - `eager_input_streaming: optional boolean`
+    - `eager_input_streaming: optional boolean or null`
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -28954,7 +28954,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `type: optional "custom"`
+    - `type: optional "custom" or null`
 
       - `"custom"`
 
@@ -28982,7 +28982,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29020,7 +29020,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29058,7 +29058,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29094,7 +29094,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29132,7 +29132,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29170,7 +29170,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29214,7 +29214,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29222,7 +29222,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -29256,7 +29256,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29302,7 +29302,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29310,7 +29310,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -29344,7 +29344,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29390,7 +29390,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29398,7 +29398,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `display_number: optional number`
+    - `display_number: optional number or null`
 
       The X11 display number (e.g. 0, 1) for the display.
 
@@ -29436,7 +29436,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29474,7 +29474,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29512,7 +29512,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29522,7 +29522,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `input_examples: optional array of map[unknown]`
 
-    - `max_characters: optional number`
+    - `max_characters: optional number or null`
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -29554,15 +29554,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29570,7 +29570,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29578,7 +29578,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29586,19 +29586,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `"approximate"`
 
-      - `city: optional string`
+      - `city: optional string or null`
 
         The city of the user.
 
-      - `country: optional string`
+      - `country: optional string or null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-      - `region: optional string`
+      - `region: optional string or null`
 
         The region of the user.
 
-      - `timezone: optional string`
+      - `timezone: optional string or null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -29626,19 +29626,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -29648,11 +29648,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29684,15 +29684,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29700,7 +29700,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29708,7 +29708,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29736,19 +29736,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -29756,11 +29756,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29794,19 +29794,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -29814,11 +29814,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29854,15 +29854,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -29870,7 +29870,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -29886,7 +29886,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional BetaUserLocation`
+    - `user_location: optional BetaUserLocation or null`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29914,19 +29914,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: optional array of string`
+    - `allowed_domains: optional array of string or null`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: optional array of string`
+    - `blocked_domains: optional array of string or null`
 
       List of domains to block fetching from
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -29934,11 +29934,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_content_tokens: optional number`
+    - `max_content_tokens: optional number or null`
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -30056,11 +30056,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `caching: optional BetaCacheControlEphemeral`
+    - `caching: optional BetaCacheControlEphemeral or null`
 
       Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -30068,11 +30068,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `max_tokens: optional number`
+    - `max_tokens: optional number or null`
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
-    - `max_uses: optional number`
+    - `max_uses: optional number or null`
 
       Maximum number of times the tool can be used in the API request.
 
@@ -30106,7 +30106,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -30144,7 +30144,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
@@ -30171,11 +30171,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"mcp_toolset"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: optional map[BetaMCPToolConfig]`
+    - `configs: optional map[BetaMCPToolConfig] or null`
 
       Configuration overrides for specific tools, keyed by tool name
 
@@ -30249,7 +30249,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"tool_use"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -30346,7 +30346,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 - `BetaUsage object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
 
-  - `cache_creation: BetaCacheCreation`
+  - `cache_creation: BetaCacheCreation or null`
 
     Breakdown of cached tokens by TTL
 
@@ -30358,15 +30358,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The number of input tokens used to create the 5 minute cache entry.
 
-  - `cache_creation_input_tokens: number`
+  - `cache_creation_input_tokens: number or null`
 
     The number of input tokens used to create the cache entry.
 
-  - `cache_read_input_tokens: number`
+  - `cache_read_input_tokens: number or null`
 
     The number of input tokens read from the cache.
 
-  - `fallback_credit: BetaFallbackCreditUsage`
+  - `fallback_credit: BetaFallbackCreditUsage or null`
 
     Outcome of the `fallback_credit_token` presented on this request.
 
@@ -30427,7 +30427,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"not_applied"`
 
-        - `remove_to_redeem: optional array of string`
+        - `remove_to_redeem: optional array of string or null`
 
           Request fields to remove before retrying, so the retry can redeem this
           token.
@@ -30438,7 +30438,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
           been billed at normal price; nothing redeems retroactively, but a corrected
           re-send inside the token's five-minute window can still redeem.
 
-  - `inference_geo: string`
+  - `inference_geo: string or null`
 
     The geographic region where inference was performed for this request.
 
@@ -30446,7 +30446,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The number of input tokens which were used.
 
-  - `iterations: BetaIterationsUsage`
+  - `iterations: BetaIterationsUsage or null`
 
     Per-iteration token usage breakdown.
 
@@ -30460,7 +30460,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for a sampling iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -30564,7 +30564,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for a compaction iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -30594,7 +30594,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       Token usage for an advisor sub-inference iteration.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -30635,7 +30635,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -30671,7 +30671,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     The number of output tokens which were used.
 
-  - `output_tokens_details: BetaOutputTokensDetails`
+  - `output_tokens_details: BetaOutputTokensDetails or null`
 
     Breakdown of output tokens by category.
 
@@ -30691,7 +30691,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-  - `server_tool_use: BetaServerToolUsage`
+  - `server_tool_use: BetaServerToolUsage or null`
 
     The number of server tool requests.
 
@@ -30703,7 +30703,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       The number of web search tool requests.
 
-  - `service_tier: "standard" or "priority" or "batch"`
+  - `service_tier: "standard" or "priority" or "batch" or null`
 
     If the request used the priority, standard, or batch tier.
 
@@ -30713,7 +30713,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"batch"`
 
-  - `speed: "standard" or "fast"`
+  - `speed: "standard" or "fast" or null`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -30729,19 +30729,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"approximate"`
 
-  - `city: optional string`
+  - `city: optional string or null`
 
     The city of the user.
 
-  - `country: optional string`
+  - `country: optional string or null`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-  - `region: optional string`
+  - `region: optional string or null`
 
     The region of the user.
 
-  - `timezone: optional string`
+  - `timezone: optional string or null`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -30751,7 +30751,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `content: BetaDocumentBlock`
 
-    - `citations: BetaCitationConfig`
+    - `citations: BetaCitationConfig or null`
 
       Citation configuration for the document
 
@@ -30783,7 +30783,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"text"`
 
-    - `title: string`
+    - `title: string or null`
 
       The title of the document
 
@@ -30791,7 +30791,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"document"`
 
-  - `retrieved_at: string`
+  - `retrieved_at: string or null`
 
     ISO 8601 timestamp when the content was retrieved
 
@@ -30851,7 +30851,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"text"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -30874,7 +30874,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `"1h"`
 
-              - `citations: optional array of BetaTextCitationParam`
+              - `citations: optional array of BetaTextCitationParam or null`
 
                 - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -30882,7 +30882,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_index: number`
 
-                  - `document_title: string`
+                  - `document_title: string or null`
 
                   - `end_char_index: number`
 
@@ -30898,7 +30898,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_index: number`
 
-                  - `document_title: string`
+                  - `document_title: string or null`
 
                   - `end_page_number: number`
 
@@ -30918,7 +30918,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `document_index: number`
 
-                  - `document_title: string`
+                  - `document_title: string or null`
 
                   - `end_block_index: number`
 
@@ -30940,7 +30940,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                   - `encrypted_index: string`
 
-                  - `title: string`
+                  - `title: string or null`
 
                   - `type: "web_search_result_location"`
 
@@ -30974,7 +30974,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `title: string`
+                  - `title: string or null`
 
                   - `type: "search_result_location"`
 
@@ -31022,7 +31022,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                 - `"image"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
@@ -31050,17 +31050,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"document"`
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: optional BetaCitationsConfigParam`
+    - `citations: optional BetaCitationsConfigParam or null`
 
       - `enabled: optional boolean`
 
-    - `context: optional string`
+    - `context: optional string or null`
 
-    - `title: optional string`
+    - `title: optional string or null`
 
   - `type: "web_fetch_result"`
 
@@ -31070,7 +31070,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Fetched content URL
 
-  - `retrieved_at: optional string`
+  - `retrieved_at: optional string or null`
 
     ISO 8601 timestamp when the content was retrieved
 
@@ -31100,15 +31100,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     List of domains to allow fetching from
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     List of domains to block fetching from
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -31131,7 +31131,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `citations: optional BetaCitationsConfigParam`
+  - `citations: optional BetaCitationsConfigParam or null`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -31141,11 +31141,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_content_tokens: optional number`
+  - `max_content_tokens: optional number or null`
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -31179,15 +31179,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     List of domains to allow fetching from
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     List of domains to block fetching from
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -31210,7 +31210,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `citations: optional BetaCitationsConfigParam`
+  - `citations: optional BetaCitationsConfigParam or null`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -31220,11 +31220,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_content_tokens: optional number`
+  - `max_content_tokens: optional number or null`
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -31260,15 +31260,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     List of domains to allow fetching from
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     List of domains to block fetching from
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -31291,7 +31291,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `citations: optional BetaCitationsConfigParam`
+  - `citations: optional BetaCitationsConfigParam or null`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -31301,11 +31301,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_content_tokens: optional number`
+  - `max_content_tokens: optional number or null`
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -31343,15 +31343,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     List of domains to allow fetching from
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     List of domains to block fetching from
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -31374,7 +31374,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-  - `citations: optional BetaCitationsConfigParam`
+  - `citations: optional BetaCitationsConfigParam or null`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -31384,11 +31384,11 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_content_tokens: optional number`
+  - `max_content_tokens: optional number or null`
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -31444,7 +31444,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `content: BetaDocumentBlock`
 
-        - `citations: BetaCitationConfig`
+        - `citations: BetaCitationConfig or null`
 
           Citation configuration for the document
 
@@ -31476,7 +31476,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `"text"`
 
-        - `title: string`
+        - `title: string or null`
 
           The title of the document
 
@@ -31484,7 +31484,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"document"`
 
-      - `retrieved_at: string`
+      - `retrieved_at: string or null`
 
         ISO 8601 timestamp when the content was retrieved
 
@@ -31610,7 +31610,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `"text"`
 
-                  - `cache_control: optional BetaCacheControlEphemeral`
+                  - `cache_control: optional BetaCacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
 
@@ -31633,7 +31633,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `"1h"`
 
-                  - `citations: optional array of BetaTextCitationParam`
+                  - `citations: optional array of BetaTextCitationParam or null`
 
                     - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -31641,7 +31641,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_index: number`
 
-                      - `document_title: string`
+                      - `document_title: string or null`
 
                       - `end_char_index: number`
 
@@ -31657,7 +31657,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_index: number`
 
-                      - `document_title: string`
+                      - `document_title: string or null`
 
                       - `end_page_number: number`
 
@@ -31677,7 +31677,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `document_index: number`
 
-                      - `document_title: string`
+                      - `document_title: string or null`
 
                       - `end_block_index: number`
 
@@ -31699,7 +31699,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                       - `encrypted_index: string`
 
-                      - `title: string`
+                      - `title: string or null`
 
                       - `type: "web_search_result_location"`
 
@@ -31733,7 +31733,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                         0-based index of the first cited block in the source's `content` array.
 
-                      - `title: string`
+                      - `title: string or null`
 
                       - `type: "search_result_location"`
 
@@ -31781,7 +31781,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
                     - `"image"`
 
-                  - `cache_control: optional BetaCacheControlEphemeral`
+                  - `cache_control: optional BetaCacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
 
@@ -31809,17 +31809,17 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `"document"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           - `enabled: optional boolean`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
-        - `title: optional string`
+        - `title: optional string or null`
 
       - `type: "web_fetch_result"`
 
@@ -31829,7 +31829,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         Fetched content URL
 
-      - `retrieved_at: optional string`
+      - `retrieved_at: optional string or null`
 
         ISO 8601 timestamp when the content was retrieved
 
@@ -31839,7 +31839,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"web_fetch_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -31957,7 +31957,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `encrypted_content: string`
 
-  - `page_age: string`
+  - `page_age: string or null`
 
   - `title: string`
 
@@ -31981,7 +31981,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `url: string`
 
-  - `page_age: optional string`
+  - `page_age: optional string or null`
 
 ### Beta Web Search Tool 20250305
 
@@ -32009,15 +32009,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -32044,7 +32044,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -32052,7 +32052,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional BetaUserLocation`
+  - `user_location: optional BetaUserLocation or null`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -32060,19 +32060,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"approximate"`
 
-    - `city: optional string`
+    - `city: optional string or null`
 
       The city of the user.
 
-    - `country: optional string`
+    - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-    - `region: optional string`
+    - `region: optional string or null`
 
       The region of the user.
 
-    - `timezone: optional string`
+    - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -32102,15 +32102,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -32137,7 +32137,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -32145,7 +32145,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional BetaUserLocation`
+  - `user_location: optional BetaUserLocation or null`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -32153,19 +32153,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"approximate"`
 
-    - `city: optional string`
+    - `city: optional string or null`
 
       The city of the user.
 
-    - `country: optional string`
+    - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-    - `region: optional string`
+    - `region: optional string or null`
 
       The region of the user.
 
-    - `timezone: optional string`
+    - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -32195,15 +32195,15 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"code_execution_20260521"`
 
-  - `allowed_domains: optional array of string`
+  - `allowed_domains: optional array of string or null`
 
     If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-  - `blocked_domains: optional array of string`
+  - `blocked_domains: optional array of string or null`
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -32230,7 +32230,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-  - `max_uses: optional number`
+  - `max_uses: optional number or null`
 
     Maximum number of times the tool can be used in the API request.
 
@@ -32246,7 +32246,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional BetaUserLocation`
+  - `user_location: optional BetaUserLocation or null`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -32254,19 +32254,19 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"approximate"`
 
-    - `city: optional string`
+    - `city: optional string or null`
 
       The city of the user.
 
-    - `country: optional string`
+    - `country: optional string or null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-    - `region: optional string`
+    - `region: optional string or null`
 
       The region of the user.
 
-    - `timezone: optional string`
+    - `timezone: optional string or null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -32322,7 +32322,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `encrypted_content: string`
 
-      - `page_age: string`
+      - `page_age: string or null`
 
       - `title: string`
 
@@ -32396,7 +32396,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `encrypted_content: string`
 
-    - `page_age: string`
+    - `page_age: string or null`
 
     - `title: string`
 
@@ -32424,7 +32424,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `url: string`
 
-      - `page_age: optional string`
+      - `page_age: optional string or null`
 
     - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -32452,7 +32452,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `"web_search_tool_result"`
 
-  - `cache_control: optional BetaCacheControlEphemeral`
+  - `cache_control: optional BetaCacheControlEphemeral or null`
 
     Create a cache control breakpoint at this content block.
 
@@ -32521,7 +32521,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `url: string`
 
-    - `page_age: optional string`
+    - `page_age: optional string or null`
 
   - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -32766,7 +32766,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"text"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -32789,7 +32789,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"1h"`
 
-            - `citations: optional array of BetaTextCitationParam`
+            - `citations: optional array of BetaTextCitationParam or null`
 
               - `BetaCitationCharLocationParam object { cited_text, document_index, document_title, 3 more }`
 
@@ -32797,7 +32797,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_char_index: number`
 
@@ -32813,7 +32813,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_page_number: number`
 
@@ -32833,7 +32833,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_block_index: number`
 
@@ -32855,7 +32855,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `encrypted_index: string`
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "web_search_result_location"`
 
@@ -32889,7 +32889,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "search_result_location"`
 
@@ -32937,7 +32937,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"image"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33005,17 +33005,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"document"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional BetaCitationsConfigParam`
+            - `citations: optional BetaCitationsConfigParam or null`
 
               - `enabled: optional boolean`
 
-            - `context: optional string`
+            - `context: optional string or null`
 
-            - `title: optional string`
+            - `title: optional string or null`
 
           - `BetaSearchResultBlockParam object { content, source, title, 3 more }`
 
@@ -33025,11 +33025,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "text"`
 
-              - `cache_control: optional BetaCacheControlEphemeral`
+              - `cache_control: optional BetaCacheControlEphemeral or null`
 
                 Create a cache control breakpoint at this content block.
 
-              - `citations: optional array of BetaTextCitationParam`
+              - `citations: optional array of BetaTextCitationParam or null`
 
             - `source: string`
 
@@ -33039,7 +33039,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"search_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33083,7 +33083,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_use"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33125,7 +33125,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33153,7 +33153,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `"tool_reference"`
 
-                  - `cache_control: optional BetaCacheControlEphemeral`
+                  - `cache_control: optional BetaCacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
 
@@ -33187,7 +33187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"server_tool_use"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33221,7 +33221,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `url: string`
 
-                - `page_age: optional string`
+                - `page_age: optional string or null`
 
               - `BetaWebSearchToolRequestError object { error_code, type }`
 
@@ -33249,7 +33249,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"web_search_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33309,7 +33309,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Fetched content URL
 
-                - `retrieved_at: optional string`
+                - `retrieved_at: optional string or null`
 
                   ISO 8601 timestamp when the content was retrieved
 
@@ -33319,7 +33319,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"web_fetch_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33371,7 +33371,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"advisor_result"`
 
-                - `stop_reason: optional string`
+                - `stop_reason: optional string or null`
 
               - `BetaAdvisorRedactedResultBlockParam object { encrypted_content, type, stop_reason }`
 
@@ -33383,7 +33383,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"advisor_redacted_result"`
 
-                - `stop_reason: optional string`
+                - `stop_reason: optional string or null`
 
             - `tool_use_id: string`
 
@@ -33391,7 +33391,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"advisor_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33463,7 +33463,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"code_execution_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33515,7 +33515,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"bash_code_execution_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33541,7 +33541,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"text_editor_code_execution_tool_result_error"`
 
-                - `error_message: optional string`
+                - `error_message: optional string or null`
 
               - `BetaTextEditorCodeExecutionViewResultBlockParam object { content, file_type, type, 3 more }`
 
@@ -33559,11 +33559,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"text_editor_code_execution_view_result"`
 
-                - `num_lines: optional number`
+                - `num_lines: optional number or null`
 
-                - `start_line: optional number`
+                - `start_line: optional number or null`
 
-                - `total_lines: optional number`
+                - `total_lines: optional number or null`
 
               - `BetaTextEditorCodeExecutionCreateResultBlockParam object { is_file_update, type }`
 
@@ -33579,15 +33579,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"text_editor_code_execution_str_replace_result"`
 
-                - `lines: optional array of string`
+                - `lines: optional array of string or null`
 
-                - `new_lines: optional number`
+                - `new_lines: optional number or null`
 
-                - `new_start: optional number`
+                - `new_start: optional number or null`
 
-                - `old_lines: optional number`
+                - `old_lines: optional number or null`
 
-                - `old_start: optional number`
+                - `old_start: optional number or null`
 
             - `tool_use_id: string`
 
@@ -33595,7 +33595,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"text_editor_code_execution_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33619,7 +33619,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"tool_search_tool_result_error"`
 
-                - `error_message: optional string`
+                - `error_message: optional string or null`
 
               - `BetaToolSearchToolSearchResultBlockParam object { tool_references, type }`
 
@@ -33629,7 +33629,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "tool_reference"`
 
-                  - `cache_control: optional BetaCacheControlEphemeral`
+                  - `cache_control: optional BetaCacheControlEphemeral or null`
 
                     Create a cache control breakpoint at this content block.
 
@@ -33643,7 +33643,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tool_search_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33663,7 +33663,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"mcp_tool_use"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33675,7 +33675,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"mcp_tool_result"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33689,11 +33689,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text"`
 
-                - `cache_control: optional BetaCacheControlEphemeral`
+                - `cache_control: optional BetaCacheControlEphemeral or null`
 
                   Create a cache control breakpoint at this content block.
 
-                - `citations: optional array of BetaTextCitationParam`
+                - `citations: optional array of BetaTextCitationParam or null`
 
             - `is_error: optional boolean`
 
@@ -33708,7 +33708,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"container_upload"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33726,15 +33726,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"compaction"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
-            - `content: optional string`
+            - `content: optional string or null`
 
               Summary of previously compacted content, or null if compaction failed
 
-            - `encrypted_content: optional string`
+            - `encrypted_content: optional string or null`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -33806,7 +33806,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"tool_addition"`
 
-                - `cache_control: optional BetaCacheControlEphemeral`
+                - `cache_control: optional BetaCacheControlEphemeral or null`
 
                   Create a cache control breakpoint at this content block.
 
@@ -33845,7 +33845,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"tool_removal"`
 
-                - `cache_control: optional BetaCacheControlEphemeral`
+                - `cache_control: optional BetaCacheControlEphemeral or null`
 
                   Create a cache control breakpoint at this content block.
 
@@ -33853,7 +33853,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"mid_conv_system"`
 
-            - `cache_control: optional BetaCacheControlEphemeral`
+            - `cache_control: optional BetaCacheControlEphemeral or null`
 
               Create a cache control breakpoint at this content block.
 
@@ -33993,11 +33993,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `cache_control: optional BetaCacheControlEphemeral`
+    - `cache_control: optional BetaCacheControlEphemeral or null`
 
       Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-    - `container: optional BetaContainerParams or string`
+    - `container: optional BetaContainerParams or string or null`
 
       Container identifier for reuse across requests.
 
@@ -34005,11 +34005,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Container parameters with skills to be loaded.
 
-        - `id: optional string`
+        - `id: optional string or null`
 
           Container id
 
-        - `skills: optional array of BetaSkillParams`
+        - `skills: optional array of BetaSkillParams or null`
 
           List of skills to load in the container
 
@@ -34031,7 +34031,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `string`
 
-    - `context_management: optional BetaContextManagementConfig`
+    - `context_management: optional BetaContextManagementConfig or null`
 
       Context management configuration.
 
@@ -34047,7 +34047,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"clear_tool_uses_20250919"`
 
-          - `clear_at_least: optional BetaInputTokensClearAtLeast`
+          - `clear_at_least: optional BetaInputTokensClearAtLeast or null`
 
             Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
@@ -34057,7 +34057,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `value: number`
 
-          - `clear_tool_inputs: optional boolean or array of string`
+          - `clear_tool_inputs: optional boolean or array of string or null`
 
             Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
 
@@ -34065,7 +34065,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `array of string`
 
-          - `exclude_tools: optional array of string`
+          - `exclude_tools: optional array of string or null`
 
             Tool names whose uses are preserved from clearing
 
@@ -34135,7 +34135,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"compact_20260112"`
 
-          - `instructions: optional string`
+          - `instructions: optional string or null`
 
             Additional instructions for summarization.
 
@@ -34143,20 +34143,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Whether to pause after compaction and return the compaction block to the user.
 
-          - `trigger: optional BetaInputTokensTrigger`
+          - `trigger: optional BetaInputTokensTrigger or null`
 
             When to trigger compaction. Defaults to 150000 input tokens.
 
-    - `diagnostics: optional BetaDiagnosticsParam`
+    - `diagnostics: optional BetaDiagnosticsParam or null`
 
       Request-level diagnostics. Currently carries the previous response
       id for prompt-cache divergence reporting.
 
-      - `previous_message_id: optional string`
+      - `previous_message_id: optional string or null`
 
         The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
-    - `fallback_credit_token: optional string or BetaFallbackCreditTokenParam`
+    - `fallback_credit_token: optional string or BetaFallbackCreditTokenParam or null`
 
       The `fallback_credit_token` from a prior refusal's `stop_details`.
 
@@ -34203,7 +34203,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"best_effort"`
 
-    - `fallbacks: optional BetaFallbacksParam`
+    - `fallbacks: optional BetaFallbacksParam or null`
 
       Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
 
@@ -34215,11 +34215,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `max_tokens: optional number`
+        - `max_tokens: optional number or null`
 
-        - `output_config: optional BetaOutputConfig`
+        - `output_config: optional BetaOutputConfig or null`
 
-          - `effort: optional "low" or "medium" or "high" or 2 more`
+          - `effort: optional "low" or "medium" or "high" or 2 more or null`
 
             All possible effort levels.
 
@@ -34233,7 +34233,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"max"`
 
-          - `format: optional BetaJSONOutputFormat`
+          - `format: optional BetaJSONOutputFormat or null`
 
             A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -34245,7 +34245,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"json_schema"`
 
-          - `task_budget: optional BetaTokenTaskBudget`
+          - `task_budget: optional BetaTokenTaskBudget or null`
 
             User-configurable total token budget across contexts.
 
@@ -34259,11 +34259,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"tokens"`
 
-            - `remaining: optional number`
+            - `remaining: optional number or null`
 
               Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-        - `speed: optional "standard" or "fast"`
+        - `speed: optional "standard" or "fast" or null`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -34271,7 +34271,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"fast"`
 
-        - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
+        - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive or null`
 
           - `BetaThinkingConfigEnabled object { budget_tokens, type, display }`
 
@@ -34287,7 +34287,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"enabled"`
 
-            - `display: optional "summarized" or "omitted"`
+            - `display: optional "summarized" or "omitted" or null`
 
               Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -34307,7 +34307,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"adaptive"`
 
-            - `display: optional "summarized" or "omitted"`
+            - `display: optional "summarized" or "omitted" or null`
 
               Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -34319,7 +34319,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `"default"`
 
-    - `inference_geo: optional string`
+    - `inference_geo: optional string or null`
 
       Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
@@ -34335,19 +34335,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `url: string`
 
-      - `authorization_token: optional string`
+      - `authorization_token: optional string or null`
 
-      - `tool_configuration: optional BetaRequestMCPServerToolConfiguration`
+      - `tool_configuration: optional BetaRequestMCPServerToolConfiguration or null`
 
-        - `allowed_tools: optional array of string`
+        - `allowed_tools: optional array of string or null`
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
     - `metadata: optional BetaMetadata`
 
       An object describing metadata about the request.
 
-      - `user_id: optional string`
+      - `user_id: optional string or null`
 
         An external identifier for the user who is associated with the request.
 
@@ -34357,7 +34357,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Configuration options for the model's output, such as the output format.
 
-    - `output_format: optional BetaJSONOutputFormat`
+    - `output_format: optional BetaJSONOutputFormat or null`
 
       Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -34373,7 +34373,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `"standard_only"`
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -34409,11 +34409,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: "text"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional array of BetaTextCitationParam`
+        - `citations: optional array of BetaTextCitationParam or null`
 
     - `temperature: optional number`
 
@@ -34571,9 +34571,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"object"`
 
-          - `properties: optional map[unknown]`
+          - `properties: optional map[unknown] or null`
 
-          - `required: optional array of string`
+          - `required: optional array of string or null`
 
         - `name: string`
 
@@ -34591,7 +34591,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34605,7 +34605,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-        - `eager_input_streaming: optional boolean`
+        - `eager_input_streaming: optional boolean or null`
 
           Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
@@ -34615,7 +34615,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `type: optional "custom"`
+        - `type: optional "custom" or null`
 
           - `"custom"`
 
@@ -34643,7 +34643,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34681,7 +34681,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34719,7 +34719,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34755,7 +34755,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34793,7 +34793,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34831,7 +34831,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34875,7 +34875,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34883,7 +34883,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `display_number: optional number`
+        - `display_number: optional number or null`
 
           The X11 display number (e.g. 0, 1) for the display.
 
@@ -34917,7 +34917,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34963,7 +34963,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -34971,7 +34971,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `display_number: optional number`
+        - `display_number: optional number or null`
 
           The X11 display number (e.g. 0, 1) for the display.
 
@@ -35005,7 +35005,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35051,7 +35051,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35059,7 +35059,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `display_number: optional number`
+        - `display_number: optional number or null`
 
           The X11 display number (e.g. 0, 1) for the display.
 
@@ -35097,7 +35097,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35135,7 +35135,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35173,7 +35173,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35183,7 +35183,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `input_examples: optional array of map[unknown]`
 
-        - `max_characters: optional number`
+        - `max_characters: optional number or null`
 
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
@@ -35215,15 +35215,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35231,7 +35231,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35239,7 +35239,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `user_location: optional BetaUserLocation`
+        - `user_location: optional BetaUserLocation or null`
 
           Parameters for the user's location. Used to provide more relevant search results.
 
@@ -35247,19 +35247,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"approximate"`
 
-          - `city: optional string`
+          - `city: optional string or null`
 
             The city of the user.
 
-          - `country: optional string`
+          - `country: optional string or null`
 
             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-          - `region: optional string`
+          - `region: optional string or null`
 
             The region of the user.
 
-          - `timezone: optional string`
+          - `timezone: optional string or null`
 
             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
@@ -35287,19 +35287,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           List of domains to allow fetching from
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           List of domains to block fetching from
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -35307,11 +35307,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_content_tokens: optional number`
+        - `max_content_tokens: optional number or null`
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35343,15 +35343,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35359,7 +35359,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35367,7 +35367,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `user_location: optional BetaUserLocation`
+        - `user_location: optional BetaUserLocation or null`
 
           Parameters for the user's location. Used to provide more relevant search results.
 
@@ -35395,19 +35395,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           List of domains to allow fetching from
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           List of domains to block fetching from
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -35415,11 +35415,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_content_tokens: optional number`
+        - `max_content_tokens: optional number or null`
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35453,19 +35453,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           List of domains to allow fetching from
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           List of domains to block fetching from
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -35473,11 +35473,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_content_tokens: optional number`
+        - `max_content_tokens: optional number or null`
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35513,15 +35513,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35529,7 +35529,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35545,7 +35545,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-        - `user_location: optional BetaUserLocation`
+        - `user_location: optional BetaUserLocation or null`
 
           Parameters for the user's location. Used to provide more relevant search results.
 
@@ -35573,19 +35573,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `allowed_domains: optional array of string`
+        - `allowed_domains: optional array of string or null`
 
           List of domains to allow fetching from
 
-        - `blocked_domains: optional array of string`
+        - `blocked_domains: optional array of string or null`
 
           List of domains to block fetching from
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional BetaCitationsConfigParam`
+        - `citations: optional BetaCitationsConfigParam or null`
 
           Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -35593,11 +35593,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_content_tokens: optional number`
+        - `max_content_tokens: optional number or null`
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35647,11 +35647,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `caching: optional BetaCacheControlEphemeral`
+        - `caching: optional BetaCacheControlEphemeral or null`
 
           Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -35659,11 +35659,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-        - `max_tokens: optional number`
+        - `max_tokens: optional number or null`
 
           Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
-        - `max_uses: optional number`
+        - `max_uses: optional number or null`
 
           Maximum number of times the tool can be used in the API request.
 
@@ -35697,7 +35697,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35735,7 +35735,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"code_execution_20260521"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
@@ -35762,11 +35762,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"mcp_toolset"`
 
-        - `cache_control: optional BetaCacheControlEphemeral`
+        - `cache_control: optional BetaCacheControlEphemeral or null`
 
           Create a cache control breakpoint at this content block.
 
-        - `configs: optional map[BetaMCPToolConfig]`
+        - `configs: optional map[BetaMCPToolConfig] or null`
 
           Configuration overrides for specific tools, keyed by tool name
 
@@ -35808,11 +35808,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-  - `cancel_initiated_at: string`
+  - `cancel_initiated_at: string or null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
@@ -35820,7 +35820,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -35874,7 +35874,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
-  - `results_url: string`
+  - `results_url: string or null`
 
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
@@ -36038,11 +36038,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-  - `cancel_initiated_at: string`
+  - `cancel_initiated_at: string or null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
@@ -36050,7 +36050,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -36104,7 +36104,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
-  - `results_url: string`
+  - `results_url: string or null`
 
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
@@ -36260,11 +36260,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-  - `cancel_initiated_at: string`
+  - `cancel_initiated_at: string or null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
@@ -36272,7 +36272,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -36326,7 +36326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
-  - `results_url: string`
+  - `results_url: string or null`
 
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
@@ -36340,7 +36340,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"message_batch"`
 
-- `first_id: string`
+- `first_id: string or null`
 
   First ID in the `data` list. Can be used as the `before_id` for the previous page.
 
@@ -36348,7 +36348,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Indicates if there are more results in the requested page direction.
 
-- `last_id: string`
+- `last_id: string or null`
 
   Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
@@ -36493,11 +36493,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     The format and length of IDs may change over time.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-  - `cancel_initiated_at: string`
+  - `cancel_initiated_at: string or null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
@@ -36505,7 +36505,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -36559,7 +36559,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
-  - `results_url: string`
+  - `results_url: string or null`
 
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
@@ -36853,7 +36853,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The format and length of IDs may change over time.
 
-        - `container: BetaContainer`
+        - `container: BetaContainer or null`
 
           Information about the container used in the request (for the code execution tool)
 
@@ -36865,7 +36865,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
-          - `skills: array of BetaSkill`
+          - `skills: array of BetaSkill or null`
 
             Skills loaded in the container
 
@@ -36916,7 +36916,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `BetaTextBlock object { citations, text, type }`
 
-            - `citations: array of BetaTextCitation`
+            - `citations: array of BetaTextCitation or null`
 
               Citations supporting the text block.
 
@@ -36928,11 +36928,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_char_index: number`
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_char_index: number`
 
@@ -36946,11 +36946,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_page_number: number`
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_page_number: number`
 
@@ -36968,7 +36968,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_block_index: number`
 
@@ -36976,7 +36976,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_block_index: number`
 
@@ -36992,7 +36992,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `encrypted_index: string`
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "web_search_result_location"`
 
@@ -37026,7 +37026,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "search_result_location"`
 
@@ -37182,7 +37182,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `encrypted_content: string`
 
-                - `page_age: string`
+                - `page_age: string or null`
 
                 - `title: string`
 
@@ -37246,7 +37246,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `content: BetaDocumentBlock`
 
-                  - `citations: BetaCitationConfig`
+                  - `citations: BetaCitationConfig or null`
 
                     Citation configuration for the document
 
@@ -37278,7 +37278,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `"text"`
 
-                  - `title: string`
+                  - `title: string or null`
 
                     The title of the document
 
@@ -37286,7 +37286,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `"document"`
 
-                - `retrieved_at: string`
+                - `retrieved_at: string or null`
 
                   ISO 8601 timestamp when the content was retrieved
 
@@ -37346,7 +37346,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-                - `stop_reason: string`
+                - `stop_reason: string or null`
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -37362,7 +37362,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-                - `stop_reason: string`
+                - `stop_reason: string or null`
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -37510,7 +37510,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"file_not_found"`
 
-                - `error_message: string`
+                - `error_message: string or null`
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -37528,11 +37528,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"pdf"`
 
-                - `num_lines: number`
+                - `num_lines: number or null`
 
-                - `start_line: number`
+                - `start_line: number or null`
 
-                - `total_lines: number`
+                - `total_lines: number or null`
 
                 - `type: "text_editor_code_execution_view_result"`
 
@@ -37548,15 +37548,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-                - `lines: array of string`
+                - `lines: array of string or null`
 
-                - `new_lines: number`
+                - `new_lines: number or null`
 
-                - `new_start: number`
+                - `new_start: number or null`
 
-                - `old_lines: number`
+                - `old_lines: number or null`
 
-                - `old_start: number`
+                - `old_start: number or null`
 
                 - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -37584,7 +37584,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"execution_time_exceeded"`
 
-                - `error_message: string`
+                - `error_message: string or null`
 
                 - `type: "tool_search_tool_result_error"`
 
@@ -37636,7 +37636,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-                - `citations: array of BetaTextCitation`
+                - `citations: array of BetaTextCitation or null`
 
                   Citations supporting the text block.
 
@@ -37672,11 +37672,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             summary (e.g., malformed output from the model). Clients may round-trip
             compaction blocks with null content; the server treats them as no-ops.
 
-            - `content: string`
+            - `content: string or null`
 
               Summary of compacted content, or null if compaction failed
 
-            - `encrypted_content: string`
+            - `encrypted_content: string or null`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -37784,7 +37784,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               What caused the `from` model to hand over at this hop.
 
-              - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+              - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
                 The policy category that triggered a refusal.
 
@@ -37816,7 +37816,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"fallback"`
 
-        - `context_management: BetaContextManagementResponse`
+        - `context_management: BetaContextManagementResponse or null`
 
           Context management response.
 
@@ -37858,12 +37858,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"clear_thinking_20251015"`
 
-        - `diagnostics: BetaDiagnostics`
+        - `diagnostics: BetaDiagnostics or null`
 
           Response envelope for request-level diagnostics. Present (possibly
           null) whenever the caller supplied `diagnostics` on the request.
 
-          - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+          - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -37933,11 +37933,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"assistant"`
 
-        - `stop_details: BetaRefusalStopDetails`
+        - `stop_details: BetaRefusalStopDetails or null`
 
           Structured information about a refusal.
 
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+          - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
             The policy category that triggered a refusal.
 
@@ -37961,13 +37961,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-          - `explanation: string`
+          - `explanation: string or null`
 
             Human-readable explanation of the refusal.
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-          - `fallback_credit_token: string`
+          - `fallback_credit_token: string or null`
 
             Opaque code that refunds the cache-miss cost when retrying this refused
             request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -37988,7 +37988,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             `null` when the refused model isn't eligible for a fallback credit.
 
-          - `fallback_has_prefill_claim: boolean`
+          - `fallback_has_prefill_claim: boolean or null`
 
             Whether the accompanying `fallback_credit_token` may be redeemed with the
             appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -38012,7 +38012,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Advisory: if an appended-assistant retry is rejected with a 400 despite
             `true`, fall back to resending the original request body with the token.
 
-          - `recommended_model: string`
+          - `recommended_model: string or null`
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -38020,7 +38020,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"refusal"`
 
-        - `stop_reason: BetaStopReason`
+        - `stop_reason: BetaStopReason or null`
 
           The reason that we stopped.
 
@@ -38052,7 +38052,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"model_context_window_exceeded"`
 
-        - `stop_sequence: string`
+        - `stop_sequence: string or null`
 
           Which custom stop sequence was generated, if any.
 
@@ -38078,7 +38078,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -38090,15 +38090,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 5 minute cache entry.
 
-          - `cache_creation_input_tokens: number`
+          - `cache_creation_input_tokens: number or null`
 
             The number of input tokens used to create the cache entry.
 
-          - `cache_read_input_tokens: number`
+          - `cache_read_input_tokens: number or null`
 
             The number of input tokens read from the cache.
 
-          - `fallback_credit: BetaFallbackCreditUsage`
+          - `fallback_credit: BetaFallbackCreditUsage or null`
 
             Outcome of the `fallback_credit_token` presented on this request.
 
@@ -38159,7 +38159,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `"not_applied"`
 
-                - `remove_to_redeem: optional array of string`
+                - `remove_to_redeem: optional array of string or null`
 
                   Request fields to remove before retrying, so the retry can redeem this
                   token.
@@ -38170,7 +38170,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   been billed at normal price; nothing redeems retroactively, but a corrected
                   re-send inside the token's five-minute window can still redeem.
 
-          - `inference_geo: string`
+          - `inference_geo: string or null`
 
             The geographic region where inference was performed for this request.
 
@@ -38178,7 +38178,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
-          - `iterations: BetaIterationsUsage`
+          - `iterations: BetaIterationsUsage or null`
 
             Per-iteration token usage breakdown.
 
@@ -38192,7 +38192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for a sampling iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -38228,7 +38228,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for a compaction iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -38258,7 +38258,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Token usage for an advisor sub-inference iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -38299,7 +38299,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -38335,7 +38335,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of output tokens which were used.
 
-          - `output_tokens_details: BetaOutputTokensDetails`
+          - `output_tokens_details: BetaOutputTokensDetails or null`
 
             Breakdown of output tokens by category.
 
@@ -38355,7 +38355,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-          - `server_tool_use: BetaServerToolUsage`
+          - `server_tool_use: BetaServerToolUsage or null`
 
             The number of server tool requests.
 
@@ -38367,7 +38367,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web search tool requests.
 
-          - `service_tier: "standard" or "priority" or "batch"`
+          - `service_tier: "standard" or "priority" or "batch" or null`
 
             If the request used the priority, standard, or batch tier.
 
@@ -38377,7 +38377,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"batch"`
 
-          - `speed: "standard" or "fast"`
+          - `speed: "standard" or "fast" or null`
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -38467,7 +38467,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `"overloaded_error"`
 
-        - `request_id: string`
+        - `request_id: string or null`
 
         - `type: "error"`
 
@@ -38526,11 +38526,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
     The format and length of IDs may change over time.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-  - `cancel_initiated_at: string`
+  - `cancel_initiated_at: string or null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
@@ -38538,7 +38538,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
@@ -38592,7 +38592,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       This is zero until processing of the entire Message Batch has ended.
 
-  - `results_url: string`
+  - `results_url: string or null`
 
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
@@ -38694,7 +38694,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"overloaded_error"`
 
-    - `request_id: string`
+    - `request_id: string or null`
 
     - `type: "error"`
 
@@ -38740,7 +38740,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The format and length of IDs may change over time.
 
-        - `container: BetaContainer`
+        - `container: BetaContainer or null`
 
           Information about the container used in the request (for the code execution tool)
 
@@ -38752,7 +38752,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The time at which the container will expire.
 
-          - `skills: array of BetaSkill`
+          - `skills: array of BetaSkill or null`
 
             Skills loaded in the container
 
@@ -38803,7 +38803,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `BetaTextBlock object { citations, text, type }`
 
-            - `citations: array of BetaTextCitation`
+            - `citations: array of BetaTextCitation or null`
 
               Citations supporting the text block.
 
@@ -38815,11 +38815,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_char_index: number`
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_char_index: number`
 
@@ -38833,11 +38833,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_page_number: number`
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_page_number: number`
 
@@ -38855,7 +38855,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `document_index: number`
 
-                - `document_title: string`
+                - `document_title: string or null`
 
                 - `end_block_index: number`
 
@@ -38863,7 +38863,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                - `file_id: string`
+                - `file_id: string or null`
 
                 - `start_block_index: number`
 
@@ -38879,7 +38879,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `encrypted_index: string`
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "web_search_result_location"`
 
@@ -38913,7 +38913,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `title: string`
+                - `title: string or null`
 
                 - `type: "search_result_location"`
 
@@ -39069,7 +39069,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `encrypted_content: string`
 
-                - `page_age: string`
+                - `page_age: string or null`
 
                 - `title: string`
 
@@ -39133,7 +39133,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `content: BetaDocumentBlock`
 
-                  - `citations: BetaCitationConfig`
+                  - `citations: BetaCitationConfig or null`
 
                     Citation configuration for the document
 
@@ -39165,7 +39165,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                         - `"text"`
 
-                  - `title: string`
+                  - `title: string or null`
 
                     The title of the document
 
@@ -39173,7 +39173,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                     - `"document"`
 
-                - `retrieved_at: string`
+                - `retrieved_at: string or null`
 
                   ISO 8601 timestamp when the content was retrieved
 
@@ -39233,7 +39233,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-                - `stop_reason: string`
+                - `stop_reason: string or null`
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -39249,7 +39249,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-                - `stop_reason: string`
+                - `stop_reason: string or null`
 
                   The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -39397,7 +39397,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"file_not_found"`
 
-                - `error_message: string`
+                - `error_message: string or null`
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -39415,11 +39415,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"pdf"`
 
-                - `num_lines: number`
+                - `num_lines: number or null`
 
-                - `start_line: number`
+                - `start_line: number or null`
 
-                - `total_lines: number`
+                - `total_lines: number or null`
 
                 - `type: "text_editor_code_execution_view_result"`
 
@@ -39435,15 +39435,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-                - `lines: array of string`
+                - `lines: array of string or null`
 
-                - `new_lines: number`
+                - `new_lines: number or null`
 
-                - `new_start: number`
+                - `new_start: number or null`
 
-                - `old_lines: number`
+                - `old_lines: number or null`
 
-                - `old_start: number`
+                - `old_start: number or null`
 
                 - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -39471,7 +39471,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"execution_time_exceeded"`
 
-                - `error_message: string`
+                - `error_message: string or null`
 
                 - `type: "tool_search_tool_result_error"`
 
@@ -39523,7 +39523,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-                - `citations: array of BetaTextCitation`
+                - `citations: array of BetaTextCitation or null`
 
                   Citations supporting the text block.
 
@@ -39559,11 +39559,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
             summary (e.g., malformed output from the model). Clients may round-trip
             compaction blocks with null content; the server treats them as no-ops.
 
-            - `content: string`
+            - `content: string or null`
 
               Summary of compacted content, or null if compaction failed
 
-            - `encrypted_content: string`
+            - `encrypted_content: string or null`
 
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -39671,7 +39671,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               What caused the `from` model to hand over at this hop.
 
-              - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+              - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
                 The policy category that triggered a refusal.
 
@@ -39703,7 +39703,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"fallback"`
 
-        - `context_management: BetaContextManagementResponse`
+        - `context_management: BetaContextManagementResponse or null`
 
           Context management response.
 
@@ -39745,12 +39745,12 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"clear_thinking_20251015"`
 
-        - `diagnostics: BetaDiagnostics`
+        - `diagnostics: BetaDiagnostics or null`
 
           Response envelope for request-level diagnostics. Present (possibly
           null) whenever the caller supplied `diagnostics` on the request.
 
-          - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+          - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -39820,11 +39820,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"assistant"`
 
-        - `stop_details: BetaRefusalStopDetails`
+        - `stop_details: BetaRefusalStopDetails or null`
 
           Structured information about a refusal.
 
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+          - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
             The policy category that triggered a refusal.
 
@@ -39848,13 +39848,13 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-          - `explanation: string`
+          - `explanation: string or null`
 
             Human-readable explanation of the refusal.
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-          - `fallback_credit_token: string`
+          - `fallback_credit_token: string or null`
 
             Opaque code that refunds the cache-miss cost when retrying this refused
             request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -39875,7 +39875,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             `null` when the refused model isn't eligible for a fallback credit.
 
-          - `fallback_has_prefill_claim: boolean`
+          - `fallback_has_prefill_claim: boolean or null`
 
             Whether the accompanying `fallback_credit_token` may be redeemed with the
             appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -39899,7 +39899,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
             Advisory: if an appended-assistant retry is rejected with a 400 despite
             `true`, fall back to resending the original request body with the token.
 
-          - `recommended_model: string`
+          - `recommended_model: string or null`
 
             The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -39907,7 +39907,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"refusal"`
 
-        - `stop_reason: BetaStopReason`
+        - `stop_reason: BetaStopReason or null`
 
           The reason that we stopped.
 
@@ -39939,7 +39939,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"model_context_window_exceeded"`
 
-        - `stop_sequence: string`
+        - `stop_sequence: string or null`
 
           Which custom stop sequence was generated, if any.
 
@@ -39965,7 +39965,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -39977,15 +39977,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               The number of input tokens used to create the 5 minute cache entry.
 
-          - `cache_creation_input_tokens: number`
+          - `cache_creation_input_tokens: number or null`
 
             The number of input tokens used to create the cache entry.
 
-          - `cache_read_input_tokens: number`
+          - `cache_read_input_tokens: number or null`
 
             The number of input tokens read from the cache.
 
-          - `fallback_credit: BetaFallbackCreditUsage`
+          - `fallback_credit: BetaFallbackCreditUsage or null`
 
             Outcome of the `fallback_credit_token` presented on this request.
 
@@ -40046,7 +40046,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"not_applied"`
 
-                - `remove_to_redeem: optional array of string`
+                - `remove_to_redeem: optional array of string or null`
 
                   Request fields to remove before retrying, so the retry can redeem this
                   token.
@@ -40057,7 +40057,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
                   been billed at normal price; nothing redeems retroactively, but a corrected
                   re-send inside the token's five-minute window can still redeem.
 
-          - `inference_geo: string`
+          - `inference_geo: string or null`
 
             The geographic region where inference was performed for this request.
 
@@ -40065,7 +40065,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The number of input tokens which were used.
 
-          - `iterations: BetaIterationsUsage`
+          - `iterations: BetaIterationsUsage or null`
 
             Per-iteration token usage breakdown.
 
@@ -40079,7 +40079,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               Token usage for a sampling iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -40115,7 +40115,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               Token usage for a compaction iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -40145,7 +40145,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               Token usage for an advisor sub-inference iteration.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -40186,7 +40186,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
-              - `cache_creation: BetaCacheCreation`
+              - `cache_creation: BetaCacheCreation or null`
 
                 Breakdown of cached tokens by TTL
 
@@ -40222,7 +40222,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The number of output tokens which were used.
 
-          - `output_tokens_details: BetaOutputTokensDetails`
+          - `output_tokens_details: BetaOutputTokensDetails or null`
 
             Breakdown of output tokens by category.
 
@@ -40242,7 +40242,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-          - `server_tool_use: BetaServerToolUsage`
+          - `server_tool_use: BetaServerToolUsage or null`
 
             The number of server tool requests.
 
@@ -40254,7 +40254,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               The number of web search tool requests.
 
-          - `service_tier: "standard" or "priority" or "batch"`
+          - `service_tier: "standard" or "priority" or "batch" or null`
 
             If the request used the priority, standard, or batch tier.
 
@@ -40264,7 +40264,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"batch"`
 
-          - `speed: "standard" or "fast"`
+          - `speed: "standard" or "fast" or null`
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -40354,7 +40354,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"overloaded_error"`
 
-        - `request_id: string`
+        - `request_id: string or null`
 
         - `type: "error"`
 
@@ -40426,7 +40426,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         The format and length of IDs may change over time.
 
-      - `container: BetaContainer`
+      - `container: BetaContainer or null`
 
         Information about the container used in the request (for the code execution tool)
 
@@ -40438,7 +40438,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The time at which the container will expire.
 
-        - `skills: array of BetaSkill`
+        - `skills: array of BetaSkill or null`
 
           Skills loaded in the container
 
@@ -40489,7 +40489,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         - `BetaTextBlock object { citations, text, type }`
 
-          - `citations: array of BetaTextCitation`
+          - `citations: array of BetaTextCitation or null`
 
             Citations supporting the text block.
 
@@ -40501,11 +40501,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_char_index: number`
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_char_index: number`
 
@@ -40519,11 +40519,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_page_number: number`
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_page_number: number`
 
@@ -40541,7 +40541,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `document_index: number`
 
-              - `document_title: string`
+              - `document_title: string or null`
 
               - `end_block_index: number`
 
@@ -40549,7 +40549,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-              - `file_id: string`
+              - `file_id: string or null`
 
               - `start_block_index: number`
 
@@ -40565,7 +40565,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `encrypted_index: string`
 
-              - `title: string`
+              - `title: string or null`
 
               - `type: "web_search_result_location"`
 
@@ -40599,7 +40599,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 0-based index of the first cited block in the source's `content` array.
 
-              - `title: string`
+              - `title: string or null`
 
               - `type: "search_result_location"`
 
@@ -40755,7 +40755,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `encrypted_content: string`
 
-              - `page_age: string`
+              - `page_age: string or null`
 
               - `title: string`
 
@@ -40819,7 +40819,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `content: BetaDocumentBlock`
 
-                - `citations: BetaCitationConfig`
+                - `citations: BetaCitationConfig or null`
 
                   Citation configuration for the document
 
@@ -40851,7 +40851,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                       - `"text"`
 
-                - `title: string`
+                - `title: string or null`
 
                   The title of the document
 
@@ -40859,7 +40859,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                   - `"document"`
 
-              - `retrieved_at: string`
+              - `retrieved_at: string or null`
 
                 ISO 8601 timestamp when the content was retrieved
 
@@ -40919,7 +40919,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-              - `stop_reason: string`
+              - `stop_reason: string or null`
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -40935,7 +40935,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-              - `stop_reason: string`
+              - `stop_reason: string or null`
 
                 The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -41083,7 +41083,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"file_not_found"`
 
-              - `error_message: string`
+              - `error_message: string or null`
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -41101,11 +41101,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"pdf"`
 
-              - `num_lines: number`
+              - `num_lines: number or null`
 
-              - `start_line: number`
+              - `start_line: number or null`
 
-              - `total_lines: number`
+              - `total_lines: number or null`
 
               - `type: "text_editor_code_execution_view_result"`
 
@@ -41121,15 +41121,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-              - `lines: array of string`
+              - `lines: array of string or null`
 
-              - `new_lines: number`
+              - `new_lines: number or null`
 
-              - `new_start: number`
+              - `new_start: number or null`
 
-              - `old_lines: number`
+              - `old_lines: number or null`
 
-              - `old_start: number`
+              - `old_start: number or null`
 
               - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -41157,7 +41157,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"execution_time_exceeded"`
 
-              - `error_message: string`
+              - `error_message: string or null`
 
               - `type: "tool_search_tool_result_error"`
 
@@ -41209,7 +41209,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-              - `citations: array of BetaTextCitation`
+              - `citations: array of BetaTextCitation or null`
 
                 Citations supporting the text block.
 
@@ -41245,11 +41245,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
           summary (e.g., malformed output from the model). Clients may round-trip
           compaction blocks with null content; the server treats them as no-ops.
 
-          - `content: string`
+          - `content: string or null`
 
             Summary of compacted content, or null if compaction failed
 
-          - `encrypted_content: string`
+          - `encrypted_content: string or null`
 
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -41357,7 +41357,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             What caused the `from` model to hand over at this hop.
 
-            - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+            - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
               The policy category that triggered a refusal.
 
@@ -41389,7 +41389,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"fallback"`
 
-      - `context_management: BetaContextManagementResponse`
+      - `context_management: BetaContextManagementResponse or null`
 
         Context management response.
 
@@ -41431,12 +41431,12 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"clear_thinking_20251015"`
 
-      - `diagnostics: BetaDiagnostics`
+      - `diagnostics: BetaDiagnostics or null`
 
         Response envelope for request-level diagnostics. Present (possibly
         null) whenever the caller supplied `diagnostics` on the request.
 
-        - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+        - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -41506,11 +41506,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         - `"assistant"`
 
-      - `stop_details: BetaRefusalStopDetails`
+      - `stop_details: BetaRefusalStopDetails or null`
 
         Structured information about a refusal.
 
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
           The policy category that triggered a refusal.
 
@@ -41534,13 +41534,13 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-        - `explanation: string`
+        - `explanation: string or null`
 
           Human-readable explanation of the refusal.
 
           This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-        - `fallback_credit_token: string`
+        - `fallback_credit_token: string or null`
 
           Opaque code that refunds the cache-miss cost when retrying this refused
           request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -41561,7 +41561,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           `null` when the refused model isn't eligible for a fallback credit.
 
-        - `fallback_has_prefill_claim: boolean`
+        - `fallback_has_prefill_claim: boolean or null`
 
           Whether the accompanying `fallback_credit_token` may be redeemed with the
           appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -41585,7 +41585,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
           Advisory: if an appended-assistant retry is rejected with a 400 despite
           `true`, fall back to resending the original request body with the token.
 
-        - `recommended_model: string`
+        - `recommended_model: string or null`
 
           The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -41593,7 +41593,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"refusal"`
 
-      - `stop_reason: BetaStopReason`
+      - `stop_reason: BetaStopReason or null`
 
         The reason that we stopped.
 
@@ -41625,7 +41625,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         - `"model_context_window_exceeded"`
 
-      - `stop_sequence: string`
+      - `stop_sequence: string or null`
 
         Which custom stop sequence was generated, if any.
 
@@ -41651,7 +41651,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-        - `cache_creation: BetaCacheCreation`
+        - `cache_creation: BetaCacheCreation or null`
 
           Breakdown of cached tokens by TTL
 
@@ -41663,15 +41663,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The number of input tokens used to create the 5 minute cache entry.
 
-        - `cache_creation_input_tokens: number`
+        - `cache_creation_input_tokens: number or null`
 
           The number of input tokens used to create the cache entry.
 
-        - `cache_read_input_tokens: number`
+        - `cache_read_input_tokens: number or null`
 
           The number of input tokens read from the cache.
 
-        - `fallback_credit: BetaFallbackCreditUsage`
+        - `fallback_credit: BetaFallbackCreditUsage or null`
 
           Outcome of the `fallback_credit_token` presented on this request.
 
@@ -41732,7 +41732,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"not_applied"`
 
-              - `remove_to_redeem: optional array of string`
+              - `remove_to_redeem: optional array of string or null`
 
                 Request fields to remove before retrying, so the retry can redeem this
                 token.
@@ -41743,7 +41743,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
                 been billed at normal price; nothing redeems retroactively, but a corrected
                 re-send inside the token's five-minute window can still redeem.
 
-        - `inference_geo: string`
+        - `inference_geo: string or null`
 
           The geographic region where inference was performed for this request.
 
@@ -41751,7 +41751,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The number of input tokens which were used.
 
-        - `iterations: BetaIterationsUsage`
+        - `iterations: BetaIterationsUsage or null`
 
           Per-iteration token usage breakdown.
 
@@ -41765,7 +41765,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             Token usage for a sampling iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -41801,7 +41801,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             Token usage for a compaction iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -41831,7 +41831,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             Token usage for an advisor sub-inference iteration.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -41872,7 +41872,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
             a fallback model served the response is signalled by the presence of this
             entry in `usage.iterations`.
 
-            - `cache_creation: BetaCacheCreation`
+            - `cache_creation: BetaCacheCreation or null`
 
               Breakdown of cached tokens by TTL
 
@@ -41908,7 +41908,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The number of output tokens which were used.
 
-        - `output_tokens_details: BetaOutputTokensDetails`
+        - `output_tokens_details: BetaOutputTokensDetails or null`
 
           Breakdown of output tokens by category.
 
@@ -41928,7 +41928,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-        - `server_tool_use: BetaServerToolUsage`
+        - `server_tool_use: BetaServerToolUsage or null`
 
           The number of server tool requests.
 
@@ -41940,7 +41940,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             The number of web search tool requests.
 
-        - `service_tier: "standard" or "priority" or "batch"`
+        - `service_tier: "standard" or "priority" or "batch" or null`
 
           If the request used the priority, standard, or batch tier.
 
@@ -41950,7 +41950,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"batch"`
 
-        - `speed: "standard" or "fast"`
+        - `speed: "standard" or "fast" or null`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -42040,7 +42040,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"overloaded_error"`
 
-      - `request_id: string`
+      - `request_id: string or null`
 
       - `type: "error"`
 
@@ -42074,7 +42074,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       The format and length of IDs may change over time.
 
-    - `container: BetaContainer`
+    - `container: BetaContainer or null`
 
       Information about the container used in the request (for the code execution tool)
 
@@ -42086,7 +42086,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         The time at which the container will expire.
 
-      - `skills: array of BetaSkill`
+      - `skills: array of BetaSkill or null`
 
         Skills loaded in the container
 
@@ -42137,7 +42137,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       - `BetaTextBlock object { citations, text, type }`
 
-        - `citations: array of BetaTextCitation`
+        - `citations: array of BetaTextCitation or null`
 
           Citations supporting the text block.
 
@@ -42149,11 +42149,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_char_index: number`
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_char_index: number`
 
@@ -42167,11 +42167,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_page_number: number`
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_page_number: number`
 
@@ -42189,7 +42189,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `document_index: number`
 
-            - `document_title: string`
+            - `document_title: string or null`
 
             - `end_block_index: number`
 
@@ -42197,7 +42197,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-            - `file_id: string`
+            - `file_id: string or null`
 
             - `start_block_index: number`
 
@@ -42213,7 +42213,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `encrypted_index: string`
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "web_search_result_location"`
 
@@ -42247,7 +42247,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `title: string`
+            - `title: string or null`
 
             - `type: "search_result_location"`
 
@@ -42403,7 +42403,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `encrypted_content: string`
 
-            - `page_age: string`
+            - `page_age: string or null`
 
             - `title: string`
 
@@ -42467,7 +42467,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `content: BetaDocumentBlock`
 
-              - `citations: BetaCitationConfig`
+              - `citations: BetaCitationConfig or null`
 
                 Citation configuration for the document
 
@@ -42499,7 +42499,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                     - `"text"`
 
-              - `title: string`
+              - `title: string or null`
 
                 The title of the document
 
@@ -42507,7 +42507,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
                 - `"document"`
 
-            - `retrieved_at: string`
+            - `retrieved_at: string or null`
 
               ISO 8601 timestamp when the content was retrieved
 
@@ -42567,7 +42567,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `BetaAdvisorResultBlock object { stop_reason, text, type }`
 
-            - `stop_reason: string`
+            - `stop_reason: string or null`
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
 
@@ -42583,7 +42583,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
 
-            - `stop_reason: string`
+            - `stop_reason: string or null`
 
               The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
 
@@ -42731,7 +42731,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"file_not_found"`
 
-            - `error_message: string`
+            - `error_message: string or null`
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -42749,11 +42749,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"pdf"`
 
-            - `num_lines: number`
+            - `num_lines: number or null`
 
-            - `start_line: number`
+            - `start_line: number or null`
 
-            - `total_lines: number`
+            - `total_lines: number or null`
 
             - `type: "text_editor_code_execution_view_result"`
 
@@ -42769,15 +42769,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `BetaTextEditorCodeExecutionStrReplaceResultBlock object { lines, new_lines, new_start, 3 more }`
 
-            - `lines: array of string`
+            - `lines: array of string or null`
 
-            - `new_lines: number`
+            - `new_lines: number or null`
 
-            - `new_start: number`
+            - `new_start: number or null`
 
-            - `old_lines: number`
+            - `old_lines: number or null`
 
-            - `old_start: number`
+            - `old_start: number or null`
 
             - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -42805,7 +42805,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"execution_time_exceeded"`
 
-            - `error_message: string`
+            - `error_message: string or null`
 
             - `type: "tool_search_tool_result_error"`
 
@@ -42857,7 +42857,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `BetaMCPToolResultBlockContent = array of BetaTextBlock`
 
-            - `citations: array of BetaTextCitation`
+            - `citations: array of BetaTextCitation or null`
 
               Citations supporting the text block.
 
@@ -42893,11 +42893,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
         summary (e.g., malformed output from the model). Clients may round-trip
         compaction blocks with null content; the server treats them as no-ops.
 
-        - `content: string`
+        - `content: string or null`
 
           Summary of compacted content, or null if compaction failed
 
-        - `encrypted_content: string`
+        - `encrypted_content: string or null`
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
@@ -43005,7 +43005,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           What caused the `from` model to hand over at this hop.
 
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+          - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
             The policy category that triggered a refusal.
 
@@ -43037,7 +43037,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           - `"fallback"`
 
-    - `context_management: BetaContextManagementResponse`
+    - `context_management: BetaContextManagementResponse or null`
 
       Context management response.
 
@@ -43079,12 +43079,12 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
             - `"clear_thinking_20251015"`
 
-    - `diagnostics: BetaDiagnostics`
+    - `diagnostics: BetaDiagnostics or null`
 
       Response envelope for request-level diagnostics. Present (possibly
       null) whenever the caller supplied `diagnostics` on the request.
 
-      - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
+      - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more or null`
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
@@ -43154,11 +43154,11 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       - `"assistant"`
 
-    - `stop_details: BetaRefusalStopDetails`
+    - `stop_details: BetaRefusalStopDetails or null`
 
       Structured information about a refusal.
 
-      - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+      - `category: "cyber" or "bio" or "frontier_llm" or 2 more or null`
 
         The policy category that triggered a refusal.
 
@@ -43182,13 +43182,13 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
-      - `explanation: string`
+      - `explanation: string or null`
 
         Human-readable explanation of the refusal.
 
         This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-      - `fallback_credit_token: string`
+      - `fallback_credit_token: string or null`
 
         Opaque code that refunds the cache-miss cost when retrying this refused
         request on the fallback model. Pass it as `fallback_credit_token` on the
@@ -43209,7 +43209,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         `null` when the refused model isn't eligible for a fallback credit.
 
-      - `fallback_has_prefill_claim: boolean`
+      - `fallback_has_prefill_claim: boolean or null`
 
         Whether the accompanying `fallback_credit_token` may be redeemed with the
         appended-assistant retry form. Only set when `fallback_credit_token` is
@@ -43233,7 +43233,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
         Advisory: if an appended-assistant retry is rejected with a 400 despite
         `true`, fall back to resending the original request body with the token.
 
-      - `recommended_model: string`
+      - `recommended_model: string or null`
 
         The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
 
@@ -43241,7 +43241,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         - `"refusal"`
 
-    - `stop_reason: BetaStopReason`
+    - `stop_reason: BetaStopReason or null`
 
       The reason that we stopped.
 
@@ -43273,7 +43273,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       - `"model_context_window_exceeded"`
 
-    - `stop_sequence: string`
+    - `stop_sequence: string or null`
 
       Which custom stop sequence was generated, if any.
 
@@ -43299,7 +43299,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-      - `cache_creation: BetaCacheCreation`
+      - `cache_creation: BetaCacheCreation or null`
 
         Breakdown of cached tokens by TTL
 
@@ -43311,15 +43311,15 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The number of input tokens used to create the 5 minute cache entry.
 
-      - `cache_creation_input_tokens: number`
+      - `cache_creation_input_tokens: number or null`
 
         The number of input tokens used to create the cache entry.
 
-      - `cache_read_input_tokens: number`
+      - `cache_read_input_tokens: number or null`
 
         The number of input tokens read from the cache.
 
-      - `fallback_credit: BetaFallbackCreditUsage`
+      - `fallback_credit: BetaFallbackCreditUsage or null`
 
         Outcome of the `fallback_credit_token` presented on this request.
 
@@ -43380,7 +43380,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
               - `"not_applied"`
 
-            - `remove_to_redeem: optional array of string`
+            - `remove_to_redeem: optional array of string or null`
 
               Request fields to remove before retrying, so the retry can redeem this
               token.
@@ -43391,7 +43391,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
               been billed at normal price; nothing redeems retroactively, but a corrected
               re-send inside the token's five-minute window can still redeem.
 
-      - `inference_geo: string`
+      - `inference_geo: string or null`
 
         The geographic region where inference was performed for this request.
 
@@ -43399,7 +43399,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         The number of input tokens which were used.
 
-      - `iterations: BetaIterationsUsage`
+      - `iterations: BetaIterationsUsage or null`
 
         Per-iteration token usage breakdown.
 
@@ -43413,7 +43413,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           Token usage for a sampling iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -43449,7 +43449,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           Token usage for a compaction iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -43479,7 +43479,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           Token usage for an advisor sub-inference iteration.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -43520,7 +43520,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
           a fallback model served the response is signalled by the presence of this
           entry in `usage.iterations`.
 
-          - `cache_creation: BetaCacheCreation`
+          - `cache_creation: BetaCacheCreation or null`
 
             Breakdown of cached tokens by TTL
 
@@ -43556,7 +43556,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         The number of output tokens which were used.
 
-      - `output_tokens_details: BetaOutputTokensDetails`
+      - `output_tokens_details: BetaOutputTokensDetails or null`
 
         Breakdown of output tokens by category.
 
@@ -43576,7 +43576,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-      - `server_tool_use: BetaServerToolUsage`
+      - `server_tool_use: BetaServerToolUsage or null`
 
         The number of server tool requests.
 
@@ -43588,7 +43588,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
           The number of web search tool requests.
 
-      - `service_tier: "standard" or "priority" or "batch"`
+      - `service_tier: "standard" or "priority" or "batch" or null`
 
         If the request used the priority, standard, or batch tier.
 
@@ -43598,7 +43598,7 @@ curl https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/results \
 
         - `"batch"`
 
-      - `speed: "standard" or "fast"`
+      - `speed: "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -43776,7 +43776,7 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more`
+    - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more or null`
 
       How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -43834,11 +43834,11 @@ Create Agent
 
           - `"max"`
 
-    - `inference_geo: optional string`
+    - `inference_geo: optional string or null`
 
       Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -43850,7 +43850,7 @@ Create Agent
 
   Human-readable name for the agent.
 
-- `description: optional string`
+- `description: optional string or null`
 
   Description of what the agent does.
 
@@ -43874,7 +43874,7 @@ Create Agent
 
   Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-- `multiagent: optional BetaManagedAgentsMultiagentParams`
+- `multiagent: optional BetaManagedAgentsMultiagentParams or null`
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
@@ -43940,7 +43940,7 @@ Create Agent
 
       - `"anthropic"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -43956,11 +43956,11 @@ Create Agent
 
       - `"custom"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
-- `system: optional string`
+- `system: optional string or null`
 
   System prompt for the agent.
 
@@ -44000,11 +44000,11 @@ Create Agent
 
         - `"web_search"`
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -44024,15 +44024,15 @@ Create Agent
 
             - `"always_ask"`
 
-    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
       Default configuration for all tools in a toolset.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -44064,11 +44064,11 @@ Create Agent
 
         Name of the MCP tool to configure. 1-128 characters.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -44080,15 +44080,15 @@ Create Agent
 
           Tool calls require user confirmation before execution.
 
-    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
       Default configuration for all tools from an MCP server.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -44116,9 +44116,9 @@ Create Agent
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -44136,7 +44136,7 @@ Create Agent
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -44144,7 +44144,7 @@ Create Agent
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -44284,7 +44284,7 @@ Create Agent
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -44348,7 +44348,7 @@ Create Agent
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -44478,9 +44478,9 @@ Create Agent
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -44712,7 +44712,7 @@ List Agents
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -44720,7 +44720,7 @@ List Agents
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -44860,7 +44860,7 @@ List Agents
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -44924,7 +44924,7 @@ List Agents
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -45054,9 +45054,9 @@ List Agents
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -45076,7 +45076,7 @@ List Agents
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -45270,7 +45270,7 @@ Get Agent
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -45278,7 +45278,7 @@ Get Agent
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -45418,7 +45418,7 @@ Get Agent
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -45482,7 +45482,7 @@ Get Agent
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -45612,9 +45612,9 @@ Get Agent
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -45807,11 +45807,11 @@ Update Agent
 
 ### Body Parameters
 
-- `description: optional string`
+- `description: optional string or null`
 
   Description. Omit to preserve; send empty string or null to clear.
 
-- `mcp_servers: optional array of BetaManagedAgentsURLMCPServerParams`
+- `mcp_servers: optional array of BetaManagedAgentsURLMCPServerParams or null`
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
@@ -45827,7 +45827,7 @@ Update Agent
 
     Endpoint URL for the MCP server.
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
@@ -45911,7 +45911,7 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more`
+    - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more or null`
 
       How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -45969,11 +45969,11 @@ Update Agent
 
           - `"max"`
 
-    - `inference_geo: optional string`
+    - `inference_geo: optional string or null`
 
       Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -45981,7 +45981,7 @@ Update Agent
 
       - `"fast"`
 
-- `multiagent: optional BetaManagedAgentsMultiagentParams`
+- `multiagent: optional BetaManagedAgentsMultiagentParams or null`
 
   A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
@@ -46035,7 +46035,7 @@ Update Agent
 
   Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
-- `skills: optional array of BetaManagedAgentsSkillParams`
+- `skills: optional array of BetaManagedAgentsSkillParams or null`
 
   Skills. Full replacement. Omit to preserve; send empty array or null to clear.
 
@@ -46051,7 +46051,7 @@ Update Agent
 
       - `"anthropic"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -46067,15 +46067,15 @@ Update Agent
 
       - `"custom"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
-- `system: optional string`
+- `system: optional string or null`
 
   System prompt. Omit to preserve; send empty string or null to clear.
 
-- `tools: optional array of BetaManagedAgentsAgentToolset20260401Params or BetaManagedAgentsMCPToolsetParams or BetaManagedAgentsCustomToolParams`
+- `tools: optional array of BetaManagedAgentsAgentToolset20260401Params or BetaManagedAgentsMCPToolsetParams or BetaManagedAgentsCustomToolParams or null`
 
   Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
 
@@ -46111,11 +46111,11 @@ Update Agent
 
         - `"web_search"`
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -46135,15 +46135,15 @@ Update Agent
 
             - `"always_ask"`
 
-    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
       Default configuration for all tools in a toolset.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -46175,11 +46175,11 @@ Update Agent
 
         Name of the MCP tool to configure. 1-128 characters.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether this tool is enabled. Overrides the `default_config` setting.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -46191,15 +46191,15 @@ Update Agent
 
           Tool calls require user confirmation before execution.
 
-    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+    - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
       Default configuration for all tools from an MCP server.
 
-      - `enabled: optional boolean`
+      - `enabled: optional boolean or null`
 
         Whether tools are enabled by default. Defaults to true if not specified.
 
-      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+      - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
         Permission policy for tool execution.
 
@@ -46227,9 +46227,9 @@ Update Agent
 
         - `"object"`
 
-      - `properties: optional map[unknown]`
+      - `properties: optional map[unknown] or null`
 
-      - `required: optional array of string`
+      - `required: optional array of string or null`
 
     - `name: string`
 
@@ -46251,7 +46251,7 @@ Update Agent
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -46259,7 +46259,7 @@ Update Agent
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -46399,7 +46399,7 @@ Update Agent
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -46463,7 +46463,7 @@ Update Agent
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -46593,9 +46593,9 @@ Update Agent
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -46800,7 +46800,7 @@ Archive Agent
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -46808,7 +46808,7 @@ Archive Agent
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -46948,7 +46948,7 @@ Archive Agent
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -47012,7 +47012,7 @@ Archive Agent
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -47142,9 +47142,9 @@ Archive Agent
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -47274,7 +47274,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -47282,7 +47282,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -47422,7 +47422,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -47486,7 +47486,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -47616,9 +47616,9 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -47726,11 +47726,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     - `"web_search"`
 
-  - `enabled: optional boolean`
+  - `enabled: optional boolean or null`
 
     Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
     Permission policy for tool execution.
 
@@ -47784,11 +47784,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
   Default configuration for all tools in a toolset.
 
-  - `enabled: optional boolean`
+  - `enabled: optional boolean or null`
 
     Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
     Permission policy for tool execution.
 
@@ -47995,11 +47995,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"web_search"`
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
       Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
       Permission policy for tool execution.
 
@@ -48019,15 +48019,15 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
           - `"always_ask"`
 
-  - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+  - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
     Default configuration for all tools in a toolset.
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
       Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
       Permission policy for tool execution.
 
@@ -48120,7 +48120,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     - `"anthropic"`
 
-  - `version: optional string`
+  - `version: optional string or null`
 
     Version to pin. Defaults to latest if omitted.
 
@@ -48152,7 +48152,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     - `"custom"`
 
-  - `version: optional string`
+  - `version: optional string or null`
 
     Version to pin. Defaults to latest if omitted.
 
@@ -48172,9 +48172,9 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"object"`
 
-    - `properties: optional map[unknown]`
+    - `properties: optional map[unknown] or null`
 
-    - `required: optional array of string`
+    - `required: optional array of string or null`
 
   - `name: string`
 
@@ -48192,9 +48192,9 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     - `"object"`
 
-  - `properties: optional map[unknown]`
+  - `properties: optional map[unknown] or null`
 
-  - `required: optional array of string`
+  - `required: optional array of string or null`
 
 ### Beta Managed Agents Custom Tool Params
 
@@ -48214,9 +48214,9 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"object"`
 
-    - `properties: optional map[unknown]`
+    - `properties: optional map[unknown] or null`
 
-    - `required: optional array of string`
+    - `required: optional array of string or null`
 
   - `name: string`
 
@@ -48330,11 +48330,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     Name of the MCP tool to configure. 1-128 characters.
 
-  - `enabled: optional boolean`
+  - `enabled: optional boolean or null`
 
     Whether this tool is enabled. Overrides the `default_config` setting.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
     Permission policy for tool execution.
 
@@ -48442,11 +48442,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
   Default configuration for all tools from an MCP server.
 
-  - `enabled: optional boolean`
+  - `enabled: optional boolean or null`
 
     Whether tools are enabled by default. Defaults to true if not specified.
 
-  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+  - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
     Permission policy for tool execution.
 
@@ -48488,11 +48488,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       Name of the MCP tool to configure. 1-128 characters.
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
       Whether this tool is enabled. Overrides the `default_config` setting.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
       Permission policy for tool execution.
 
@@ -48512,15 +48512,15 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
           - `"always_ask"`
 
-  - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+  - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
     Default configuration for all tools from an MCP server.
 
-    - `enabled: optional boolean`
+    - `enabled: optional boolean or null`
 
       Whether tools are enabled by default. Defaults to true if not specified.
 
-    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+    - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
       Permission policy for tool execution.
 
@@ -48800,7 +48800,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
     - `string`
 
-  - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more`
+  - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more or null`
 
     How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -48858,11 +48858,11 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
         - `"max"`
 
-  - `inference_geo: optional string`
+  - `inference_geo: optional string or null`
 
     Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-  - `speed: optional "standard" or "fast"`
+  - `speed: optional "standard" or "fast" or null`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -48978,7 +48978,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
   - `id: string`
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -49144,7 +49144,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -49274,9 +49274,9 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -49308,7 +49308,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"anthropic"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -49324,7 +49324,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
 
       - `"custom"`
 
-    - `version: optional string`
+    - `version: optional string or null`
 
       Version to pin. Defaults to latest if omitted.
 
@@ -49452,7 +49452,7 @@ List Agent Versions
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -49460,7 +49460,7 @@ List Agent Versions
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -49600,7 +49600,7 @@ List Agent Versions
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsMultiagent`
+  - `multiagent: BetaManagedAgentsMultiagent or null`
 
     Resolved coordinator topology with a concrete agent roster.
 
@@ -49664,7 +49664,7 @@ List Agent Versions
 
       - `version: string`
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -49794,9 +49794,9 @@ List Agent Versions
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -49816,7 +49816,7 @@ List Agent Versions
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -50000,7 +50000,7 @@ Create a new environment with the specified configuration.
 
   Human-readable name for the environment
 
-- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Environment configuration
 
@@ -50017,7 +50017,7 @@ Create a new environment with the specified configuration.
 
       - `"cloud"`
 
-    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -50044,45 +50044,45 @@ Create a new environment with the specified configuration.
 
           - `"limited"`
 
-        - `allow_mcp_servers: optional boolean`
+        - `allow_mcp_servers: optional boolean or null`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional boolean`
+        - `allow_package_managers: optional boolean or null`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allowed_hosts: optional array of string`
+        - `allowed_hosts: optional array of string or null`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams or null`
 
       Specify packages (and optionally their versions) available in this environment.
 
       When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-      - `apt: optional array of string`
+      - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional array of string`
+      - `cargo: optional array of string or null`
 
         Rust packages to install
 
-      - `gem: optional array of string`
+      - `gem: optional array of string or null`
 
         Ruby packages to install
 
-      - `go: optional array of string`
+      - `go: optional array of string or null`
 
         Go packages to install
 
-      - `npm: optional array of string`
+      - `npm: optional array of string or null`
 
         Node.js packages to install
 
-      - `pip: optional array of string`
+      - `pip: optional array of string or null`
 
         Python packages to install
 
@@ -50102,7 +50102,7 @@ Create a new environment with the specified configuration.
 
       - `"self_hosted"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Optional description of the environment
 
@@ -50110,7 +50110,7 @@ Create a new environment with the specified configuration.
 
   User-provided metadata key-value pairs
 
-- `scope: optional "organization" or "account"`
+- `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
 
@@ -50128,7 +50128,7 @@ Create a new environment with the specified configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -50445,7 +50445,7 @@ List environments with pagination support.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -50577,7 +50577,7 @@ List environments with pagination support.
 
     - `"account"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
 
@@ -50740,7 +50740,7 @@ Retrieve a specific environment by ID.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -51018,7 +51018,7 @@ Update an existing environment's configuration.
 
 ### Body Parameters
 
-- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
+- `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Updated environment configuration
 
@@ -51035,7 +51035,7 @@ Update an existing environment's configuration.
 
       - `"cloud"`
 
-    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+    - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
@@ -51062,45 +51062,45 @@ Update an existing environment's configuration.
 
           - `"limited"`
 
-        - `allow_mcp_servers: optional boolean`
+        - `allow_mcp_servers: optional boolean or null`
 
           Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allow_package_managers: optional boolean`
+        - `allow_package_managers: optional boolean or null`
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-        - `allowed_hosts: optional array of string`
+        - `allowed_hosts: optional array of string or null`
 
           Specifies domains the container can reach.
 
-    - `packages: optional BetaPackagesParams`
+    - `packages: optional BetaPackagesParams or null`
 
       Specify packages (and optionally their versions) available in this environment.
 
       When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-      - `apt: optional array of string`
+      - `apt: optional array of string or null`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: optional array of string`
+      - `cargo: optional array of string or null`
 
         Rust packages to install
 
-      - `gem: optional array of string`
+      - `gem: optional array of string or null`
 
         Ruby packages to install
 
-      - `go: optional array of string`
+      - `go: optional array of string or null`
 
         Go packages to install
 
-      - `npm: optional array of string`
+      - `npm: optional array of string or null`
 
         Node.js packages to install
 
-      - `pip: optional array of string`
+      - `pip: optional array of string or null`
 
         Python packages to install
 
@@ -51120,7 +51120,7 @@ Update an existing environment's configuration.
 
       - `"self_hosted"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Updated description of the environment
 
@@ -51128,11 +51128,11 @@ Update an existing environment's configuration.
 
   User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-- `name: optional string`
+- `name: optional string or null`
 
   Updated name for the environment
 
-- `scope: optional "organization" or "account"`
+- `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -51150,7 +51150,7 @@ Update an existing environment's configuration.
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -51561,7 +51561,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -51851,7 +51851,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     - `"cloud"`
 
-  - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams`
+  - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
     Network configuration policy. Omit on update to preserve the existing value.
 
@@ -51878,45 +51878,45 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
         - `"limited"`
 
-      - `allow_mcp_servers: optional boolean`
+      - `allow_mcp_servers: optional boolean or null`
 
         Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-      - `allow_package_managers: optional boolean`
+      - `allow_package_managers: optional boolean or null`
 
         Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-      - `allowed_hosts: optional array of string`
+      - `allowed_hosts: optional array of string or null`
 
         Specifies domains the container can reach.
 
-  - `packages: optional BetaPackagesParams`
+  - `packages: optional BetaPackagesParams or null`
 
     Specify packages (and optionally their versions) available in this environment.
 
     When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-    - `apt: optional array of string`
+    - `apt: optional array of string or null`
 
       Ubuntu/Debian packages to install
 
-    - `cargo: optional array of string`
+    - `cargo: optional array of string or null`
 
       Rust packages to install
 
-    - `gem: optional array of string`
+    - `gem: optional array of string or null`
 
       Ruby packages to install
 
-    - `go: optional array of string`
+    - `go: optional array of string or null`
 
       Go packages to install
 
-    - `npm: optional array of string`
+    - `npm: optional array of string or null`
 
       Node.js packages to install
 
-    - `pip: optional array of string`
+    - `pip: optional array of string or null`
 
       Python packages to install
 
@@ -51936,7 +51936,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     Environment identifier (e.g., 'env_...')
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
@@ -52123,15 +52123,15 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
     - `"limited"`
 
-  - `allow_mcp_servers: optional boolean`
+  - `allow_mcp_servers: optional boolean or null`
 
     Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-  - `allow_package_managers: optional boolean`
+  - `allow_package_managers: optional boolean or null`
 
     Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-  - `allowed_hosts: optional array of string`
+  - `allowed_hosts: optional array of string or null`
 
     Specifies domains the container can reach.
 
@@ -52179,27 +52179,27 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/archive \
 
   When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-  - `apt: optional array of string`
+  - `apt: optional array of string or null`
 
     Ubuntu/Debian packages to install
 
-  - `cargo: optional array of string`
+  - `cargo: optional array of string or null`
 
     Rust packages to install
 
-  - `gem: optional array of string`
+  - `gem: optional array of string or null`
 
     Ruby packages to install
 
-  - `go: optional array of string`
+  - `go: optional array of string or null`
 
     Go packages to install
 
-  - `npm: optional array of string`
+  - `npm: optional array of string or null`
 
     Node.js packages to install
 
-  - `pip: optional array of string`
+  - `pip: optional array of string or null`
 
     Python packages to install
 
@@ -52351,7 +52351,7 @@ Retrieve detailed information about a specific work item.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -52377,7 +52377,7 @@ Retrieve detailed information about a specific work item.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -52385,11 +52385,11 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -52407,11 +52407,11 @@ Retrieve detailed information about a specific work item.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -52571,7 +52571,7 @@ Long poll for work items in the queue.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -52597,7 +52597,7 @@ Long poll for work items in the queue.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -52605,11 +52605,11 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -52627,11 +52627,11 @@ Long poll for work items in the queue.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -52779,7 +52779,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -52805,7 +52805,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -52813,11 +52813,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -52835,11 +52835,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -53154,7 +53154,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -53180,7 +53180,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -53188,11 +53188,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -53210,11 +53210,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -53372,7 +53372,7 @@ List work items in an environment.
 
       Work identifier (e.g., 'work_...')
 
-    - `acknowledged_at: string`
+    - `acknowledged_at: string or null`
 
       RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -53398,7 +53398,7 @@ List work items in an environment.
 
       Environment identifier this work belongs to (e.g., `env_...`)
 
-    - `latest_heartbeat_at: string`
+    - `latest_heartbeat_at: string or null`
 
       RFC 3339 timestamp of the most recent heartbeat
 
@@ -53406,11 +53406,11 @@ List work items in an environment.
 
       User-provided metadata key-value pairs associated with this work item
 
-    - `secret: string`
+    - `secret: string or null`
 
       Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-    - `started_at: string`
+    - `started_at: string or null`
 
       RFC 3339 timestamp when work execution started
 
@@ -53428,11 +53428,11 @@ List work items in an environment.
 
       - `"stopped"`
 
-    - `stop_requested_at: string`
+    - `stop_requested_at: string or null`
 
       RFC 3339 timestamp when stop was requested
 
-    - `stopped_at: string`
+    - `stopped_at: string or null`
 
       RFC 3339 timestamp when work execution stopped
 
@@ -53442,7 +53442,7 @@ List work items in an environment.
 
       - `"work"`
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor for fetching the next page of results
 
@@ -53595,7 +53595,7 @@ Update work item metadata with merge semantics.
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -53621,7 +53621,7 @@ Update work item metadata with merge semantics.
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -53629,11 +53629,11 @@ Update work item metadata with merge semantics.
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -53651,11 +53651,11 @@ Update work item metadata with merge semantics.
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -53803,7 +53803,7 @@ Get statistics about the work queue for an environment.
 
     Number of work items waiting to be picked up (lag from consumer group)
 
-  - `oldest_queued_at: string`
+  - `oldest_queued_at: string or null`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -53817,7 +53817,7 @@ Get statistics about the work queue for an environment.
 
     - `"work_queue_stats"`
 
-  - `workers_polling: number`
+  - `workers_polling: number or null`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
@@ -53858,7 +53858,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Work identifier (e.g., 'work_...')
 
-  - `acknowledged_at: string`
+  - `acknowledged_at: string or null`
 
     RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -53884,7 +53884,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Environment identifier this work belongs to (e.g., `env_...`)
 
-  - `latest_heartbeat_at: string`
+  - `latest_heartbeat_at: string or null`
 
     RFC 3339 timestamp of the most recent heartbeat
 
@@ -53892,11 +53892,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     User-provided metadata key-value pairs associated with this work item
 
-  - `secret: string`
+  - `secret: string or null`
 
     Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-  - `started_at: string`
+  - `started_at: string or null`
 
     RFC 3339 timestamp when work execution started
 
@@ -53914,11 +53914,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     - `"stopped"`
 
-  - `stop_requested_at: string`
+  - `stop_requested_at: string or null`
 
     RFC 3339 timestamp when stop was requested
 
-  - `stopped_at: string`
+  - `stopped_at: string or null`
 
     RFC 3339 timestamp when work execution stopped
 
@@ -53980,7 +53980,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       Work identifier (e.g., 'work_...')
 
-    - `acknowledged_at: string`
+    - `acknowledged_at: string or null`
 
       RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
 
@@ -54006,7 +54006,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       Environment identifier this work belongs to (e.g., `env_...`)
 
-    - `latest_heartbeat_at: string`
+    - `latest_heartbeat_at: string or null`
 
       RFC 3339 timestamp of the most recent heartbeat
 
@@ -54014,11 +54014,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       User-provided metadata key-value pairs associated with this work item
 
-    - `secret: string`
+    - `secret: string or null`
 
       Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
-    - `started_at: string`
+    - `started_at: string or null`
 
       RFC 3339 timestamp when work execution started
 
@@ -54036,11 +54036,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       - `"stopped"`
 
-    - `stop_requested_at: string`
+    - `stop_requested_at: string or null`
 
       RFC 3339 timestamp when stop was requested
 
-    - `stopped_at: string`
+    - `stopped_at: string or null`
 
       RFC 3339 timestamp when work execution stopped
 
@@ -54050,7 +54050,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       - `"work"`
 
-  - `next_page: string`
+  - `next_page: string or null`
 
     Opaque cursor for fetching the next page of results
 
@@ -54066,7 +54066,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Number of work items waiting to be picked up (lag from consumer group)
 
-  - `oldest_queued_at: string`
+  - `oldest_queued_at: string or null`
 
     RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
 
@@ -54080,7 +54080,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     - `"work_queue_stats"`
 
-  - `workers_polling: number`
+  - `workers_polling: number or null`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
@@ -54339,7 +54339,7 @@ Create Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more`
+        - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more or null`
 
           How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -54397,11 +54397,11 @@ Create Session
 
               - `"max"`
 
-        - `inference_geo: optional string`
+        - `inference_geo: optional string or null`
 
           Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-        - `speed: optional "standard" or "fast"`
+        - `speed: optional "standard" or "fast" or null`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -54425,7 +54425,7 @@ Create Session
 
           - `"anthropic"`
 
-        - `version: optional string`
+        - `version: optional string or null`
 
           Version to pin. Defaults to latest if omitted.
 
@@ -54441,11 +54441,11 @@ Create Session
 
           - `"custom"`
 
-        - `version: optional string`
+        - `version: optional string or null`
 
           Version to pin. Defaults to latest if omitted.
 
-    - `system: optional string`
+    - `system: optional string or null`
 
       Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
 
@@ -54485,11 +54485,11 @@ Create Session
 
             - `"web_search"`
 
-          - `enabled: optional boolean`
+          - `enabled: optional boolean or null`
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
             Permission policy for tool execution.
 
@@ -54509,15 +54509,15 @@ Create Session
 
                 - `"always_ask"`
 
-        - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+        - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
           Default configuration for all tools in a toolset.
 
-          - `enabled: optional boolean`
+          - `enabled: optional boolean or null`
 
             Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
             Permission policy for tool execution.
 
@@ -54549,11 +54549,11 @@ Create Session
 
             Name of the MCP tool to configure. 1-128 characters.
 
-          - `enabled: optional boolean`
+          - `enabled: optional boolean or null`
 
             Whether this tool is enabled. Overrides the `default_config` setting.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
             Permission policy for tool execution.
 
@@ -54565,15 +54565,15 @@ Create Session
 
               Tool calls require user confirmation before execution.
 
-        - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+        - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
           Default configuration for all tools from an MCP server.
 
-          - `enabled: optional boolean`
+          - `enabled: optional boolean or null`
 
             Whether tools are enabled by default. Defaults to true if not specified.
 
-          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+          - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
             Permission policy for tool execution.
 
@@ -54601,9 +54601,9 @@ Create Session
 
             - `"object"`
 
-          - `properties: optional map[unknown]`
+          - `properties: optional map[unknown] or null`
 
-          - `required: optional array of string`
+          - `required: optional array of string or null`
 
         - `name: string`
 
@@ -54789,11 +54789,11 @@ Create Session
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -54849,7 +54849,7 @@ Create Session
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -54877,7 +54877,7 @@ Create Session
 
       Github URL of the repository
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -54901,7 +54901,7 @@ Create Session
 
           - `"commit"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -54917,7 +54917,7 @@ Create Session
 
       - `"file"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -54933,7 +54933,7 @@ Create Session
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -54941,11 +54941,11 @@ Create Session
 
       - `"read_only"`
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-- `title: optional string`
+- `title: optional string or null`
 
   Human-readable session title.
 
@@ -54967,7 +54967,7 @@ Create Session
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -55105,7 +55105,7 @@ Create Session
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -55119,7 +55119,7 @@ Create Session
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -55161,7 +55161,7 @@ Create Session
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -55291,9 +55291,9 @@ Create Session
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -55335,7 +55335,7 @@ Create Session
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -55353,11 +55353,11 @@ Create Session
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -55391,7 +55391,7 @@ Create Session
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -55399,7 +55399,7 @@ Create Session
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -55441,7 +55441,7 @@ Create Session
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -55495,7 +55495,7 @@ Create Session
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -55507,15 +55507,15 @@ Create Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -55543,7 +55543,7 @@ Create Session
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -55581,7 +55581,7 @@ Create Session
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -55589,7 +55589,7 @@ Create Session
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -55605,7 +55605,7 @@ Create Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
@@ -55978,7 +55978,7 @@ List Sessions
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -56116,7 +56116,7 @@ List Sessions
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -56130,7 +56130,7 @@ List Sessions
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -56172,7 +56172,7 @@ List Sessions
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -56302,9 +56302,9 @@ List Sessions
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -56346,7 +56346,7 @@ List Sessions
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -56364,11 +56364,11 @@ List Sessions
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -56402,7 +56402,7 @@ List Sessions
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -56410,7 +56410,7 @@ List Sessions
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -56452,7 +56452,7 @@ List Sessions
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -56506,7 +56506,7 @@ List Sessions
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -56518,15 +56518,15 @@ List Sessions
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -56554,7 +56554,7 @@ List Sessions
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -56592,7 +56592,7 @@ List Sessions
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -56600,7 +56600,7 @@ List Sessions
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -56616,15 +56616,15 @@ List Sessions
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
-- `prev_page: optional string`
+- `prev_page: optional string or null`
 
   Opaque cursor for the previous page. Null when on the first page. Pass as the `page` parameter to navigate backward.
 
@@ -56935,7 +56935,7 @@ Get Session
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -57073,7 +57073,7 @@ Get Session
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -57087,7 +57087,7 @@ Get Session
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -57129,7 +57129,7 @@ Get Session
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -57259,9 +57259,9 @@ Get Session
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -57303,7 +57303,7 @@ Get Session
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -57321,11 +57321,11 @@ Get Session
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -57359,7 +57359,7 @@ Get Session
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -57367,7 +57367,7 @@ Get Session
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -57409,7 +57409,7 @@ Get Session
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -57463,7 +57463,7 @@ Get Session
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -57475,15 +57475,15 @@ Get Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -57511,7 +57511,7 @@ Get Session
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -57549,7 +57549,7 @@ Get Session
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -57557,7 +57557,7 @@ Get Session
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -57573,7 +57573,7 @@ Get Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
@@ -57922,11 +57922,11 @@ Update Session
 
           - `"web_search"`
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -57946,15 +57946,15 @@ Update Session
 
               - `"always_ask"`
 
-      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
         Default configuration for all tools in a toolset.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -57986,11 +57986,11 @@ Update Session
 
           Name of the MCP tool to configure. 1-128 characters.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -58002,15 +58002,15 @@ Update Session
 
             Tool calls require user confirmation before execution.
 
-      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
         Default configuration for all tools from an MCP server.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -58038,9 +58038,9 @@ Update Session
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -58050,7 +58050,7 @@ Update Session
 
         - `"custom"`
 
-- `budget: optional BetaManagedAgentsBudgetLimit`
+- `budget: optional BetaManagedAgentsBudgetLimit or null`
 
   A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -58072,11 +58072,11 @@ Update Session
 
     - `"limit"`
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
 
-- `title: optional string`
+- `title: optional string or null`
 
   Human-readable session title.
 
@@ -58098,7 +58098,7 @@ Update Session
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -58236,7 +58236,7 @@ Update Session
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -58250,7 +58250,7 @@ Update Session
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -58292,7 +58292,7 @@ Update Session
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -58422,9 +58422,9 @@ Update Session
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -58466,7 +58466,7 @@ Update Session
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -58484,11 +58484,11 @@ Update Session
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -58522,7 +58522,7 @@ Update Session
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -58530,7 +58530,7 @@ Update Session
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -58572,7 +58572,7 @@ Update Session
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -58626,7 +58626,7 @@ Update Session
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -58638,15 +58638,15 @@ Update Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -58674,7 +58674,7 @@ Update Session
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -58712,7 +58712,7 @@ Update Session
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -58720,7 +58720,7 @@ Update Session
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -58736,7 +58736,7 @@ Update Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
@@ -59162,7 +59162,7 @@ Archive Session
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -59300,7 +59300,7 @@ Archive Session
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -59314,7 +59314,7 @@ Archive Session
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -59356,7 +59356,7 @@ Archive Session
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -59486,9 +59486,9 @@ Archive Session
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -59530,7 +59530,7 @@ Archive Session
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -59548,11 +59548,11 @@ Archive Session
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -59586,7 +59586,7 @@ Archive Session
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -59594,7 +59594,7 @@ Archive Session
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -59636,7 +59636,7 @@ Archive Session
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -59690,7 +59690,7 @@ Archive Session
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -59702,15 +59702,15 @@ Archive Session
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -59738,7 +59738,7 @@ Archive Session
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -59776,7 +59776,7 @@ Archive Session
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -59784,7 +59784,7 @@ Archive Session
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -59800,7 +59800,7 @@ Archive Session
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
@@ -60174,7 +60174,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more`
+      - `effort: optional "low" or "medium" or "high" or 2 more or BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or 3 more or null`
 
         How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -60232,11 +60232,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
             - `"max"`
 
-      - `inference_geo: optional string`
+      - `inference_geo: optional string or null`
 
         Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -60260,7 +60260,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"anthropic"`
 
-      - `version: optional string`
+      - `version: optional string or null`
 
         Version to pin. Defaults to latest if omitted.
 
@@ -60276,11 +60276,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"custom"`
 
-      - `version: optional string`
+      - `version: optional string or null`
 
         Version to pin. Defaults to latest if omitted.
 
-  - `system: optional string`
+  - `system: optional string or null`
 
     Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
 
@@ -60320,11 +60320,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `"web_search"`
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -60344,15 +60344,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
               - `"always_ask"`
 
-      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
         Default configuration for all tools in a toolset.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -60384,11 +60384,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           Name of the MCP tool to configure. 1-128 characters.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -60400,15 +60400,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
             Tool calls require user confirmation before execution.
 
-      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
         Default configuration for all tools from an MCP server.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -60436,9 +60436,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -60612,7 +60612,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"file"`
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -60634,7 +60634,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     Github URL of the repository
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
     Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -60658,7 +60658,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"commit"`
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -60676,7 +60676,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"memory_store"`
 
-  - `access: optional "read_write" or "read_only"`
+  - `access: optional "read_write" or "read_only" or null`
 
     Access mode for an attached memory store.
 
@@ -60684,7 +60684,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"read_only"`
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -60828,7 +60828,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
   Evaluation state for a single outcome defined via a define_outcome event.
 
-  - `completed_at: string`
+  - `completed_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -60836,7 +60836,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     What the agent should produce.
 
-  - `explanation: string`
+  - `explanation: string or null`
 
     Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -60884,7 +60884,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -61022,7 +61022,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -61036,7 +61036,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -61078,7 +61078,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -61208,9 +61208,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -61252,7 +61252,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -61270,11 +61270,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `budget: BetaManagedAgentsBudgetLimit`
+  - `budget: BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -61308,7 +61308,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     Per-outcome evaluation state. One entry per define_outcome event sent to the session.
 
-    - `completed_at: string`
+    - `completed_at: string or null`
 
       A timestamp in RFC 3339 format
 
@@ -61316,7 +61316,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       What the agent should produce.
 
-    - `explanation: string`
+    - `explanation: string or null`
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
@@ -61358,7 +61358,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       - `url: string`
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -61412,7 +61412,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -61424,15 +61424,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `name: optional string`
+      - `name: optional string or null`
 
         Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -61460,7 +61460,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"terminated"`
 
-  - `title: string`
+  - `title: string or null`
 
   - `type: "session"`
 
@@ -61498,7 +61498,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -61506,7 +61506,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -61522,7 +61522,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     Vault IDs attached to the session at creation. Empty when no vaults were supplied.
 
-  - `deployment_id: optional string`
+  - `deployment_id: optional string or null`
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
@@ -61534,7 +61534,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
   - `id: string`
 
-  - `description: string`
+  - `description: string or null`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -61672,7 +61672,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       - `"fast"`
 
-  - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+  - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
     Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -61686,7 +61686,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `id: string`
 
-        - `description: string`
+        - `description: string or null`
 
         - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -61728,7 +61728,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
             - `version: string`
 
-        - `system: string`
+        - `system: string or null`
 
         - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -61858,9 +61858,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
                 - `"object"`
 
-              - `properties: optional map[unknown]`
+              - `properties: optional map[unknown] or null`
 
-              - `required: optional array of string`
+              - `required: optional array of string or null`
 
             - `name: string`
 
@@ -61902,7 +61902,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       A resolved user-created custom skill.
 
-  - `system: string`
+  - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -61978,11 +61978,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `"web_search"`
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -62002,15 +62002,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
               - `"always_ask"`
 
-      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsAgentToolsetDefaultConfigParams or null`
 
         Default configuration for all tools in a toolset.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -62042,11 +62042,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           Name of the MCP tool to configure. 1-128 characters.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -62058,15 +62058,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
             Tool calls require user confirmation before execution.
 
-      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams`
+      - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams or null`
 
         Default configuration for all tools from an MCP server.
 
-        - `enabled: optional boolean`
+        - `enabled: optional boolean or null`
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+        - `permission_policy: optional BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or null`
 
           Permission policy for tool execution.
 
@@ -62094,9 +62094,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `"object"`
 
-        - `properties: optional map[unknown]`
+        - `properties: optional map[unknown] or null`
 
-        - `required: optional array of string`
+        - `required: optional array of string or null`
 
       - `name: string`
 
@@ -62122,7 +62122,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -62288,7 +62288,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `version: string`
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -62418,9 +62418,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
               - `"object"`
 
-            - `properties: optional map[unknown]`
+            - `properties: optional map[unknown] or null`
 
-            - `required: optional array of string`
+            - `required: optional array of string or null`
 
           - `name: string`
 
@@ -62482,13 +62482,13 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"session.updated"`
 
-  - `agent: optional BetaManagedAgentsSessionAgent`
+  - `agent: optional BetaManagedAgentsSessionAgent or null`
 
     Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
     - `id: string`
 
-    - `description: string`
+    - `description: string or null`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -62626,7 +62626,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"fast"`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
       Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -62640,7 +62640,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
           - `id: string`
 
-          - `description: string`
+          - `description: string or null`
 
           - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -62682,7 +62682,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
               - `version: string`
 
-          - `system: string`
+          - `system: string or null`
 
           - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -62812,9 +62812,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
                   - `"object"`
 
-                - `properties: optional map[unknown]`
+                - `properties: optional map[unknown] or null`
 
-                - `required: optional array of string`
+                - `required: optional array of string or null`
 
               - `name: string`
 
@@ -62856,7 +62856,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         A resolved user-created custom skill.
 
-    - `system: string`
+    - `system: string or null`
 
     - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -62874,7 +62874,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `version: number`
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -62900,7 +62900,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-  - `title: optional string`
+  - `title: optional string or null`
 
     The session's new title. Present only when the update changed it.
 
@@ -62934,7 +62934,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     Total input tokens consumed across all turns.
 
-  - `list_cost: optional BetaMonetaryAmount`
+  - `list_cost: optional BetaMonetaryAmount or null`
 
     A monetary amount in a specific currency.
 
@@ -62952,7 +62952,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     Total output tokens generated across all turns.
 
-  - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+  - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
     Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -63040,7 +63040,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         Number of server-executed web search requests.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -63150,7 +63150,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
     - `"system.message"`
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -63310,11 +63310,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -63354,15 +63354,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/archive \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -63644,11 +63644,11 @@ List Events
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -63664,7 +63664,7 @@ List Events
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -63680,11 +63680,11 @@ List Events
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -63712,15 +63712,15 @@ List Events
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -63792,15 +63792,15 @@ List Events
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -63828,7 +63828,7 @@ List Events
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -63914,7 +63914,7 @@ List Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -63958,7 +63958,7 @@ List Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -63996,7 +63996,7 @@ List Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -64040,7 +64040,7 @@ List Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -64084,7 +64084,7 @@ List Events
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -64128,7 +64128,7 @@ List Events
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -64628,7 +64628,7 @@ List Events
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -64660,7 +64660,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -64716,7 +64716,7 @@ List Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -64904,15 +64904,15 @@ List Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -64956,13 +64956,13 @@ List Events
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -65100,7 +65100,7 @@ List Events
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -65114,7 +65114,7 @@ List Events
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -65156,7 +65156,7 @@ List Events
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -65286,9 +65286,9 @@ List Events
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -65330,7 +65330,7 @@ List Events
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -65348,7 +65348,7 @@ List Events
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -65374,7 +65374,7 @@ List Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -65402,7 +65402,7 @@ List Events
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -65470,11 +65470,11 @@ List Events
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -65753,11 +65753,11 @@ Send Events
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -65781,7 +65781,7 @@ Send Events
 
       - `"user.interrupt"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -65805,7 +65805,7 @@ Send Events
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
@@ -65873,7 +65873,7 @@ Send Events
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -65917,7 +65917,7 @@ Send Events
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -65953,7 +65953,7 @@ Send Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -66133,11 +66133,11 @@ Send Events
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -66153,7 +66153,7 @@ Send Events
 
         - `"user.message"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
@@ -66169,11 +66169,11 @@ Send Events
 
         - `"user.interrupt"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -66201,15 +66201,15 @@ Send Events
 
         - `"user.tool_confirmation"`
 
-      - `deny_message: optional string`
+      - `deny_message: optional string or null`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -66281,15 +66281,15 @@ Send Events
 
             - `"search_result"`
 
-      - `is_error: optional boolean`
+      - `is_error: optional boolean or null`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -66305,7 +66305,7 @@ Send Events
 
         What the agent should produce. Copied from the input event.
 
-      - `max_iterations: number`
+      - `max_iterations: number or null`
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -66385,15 +66385,15 @@ Send Events
 
           A block containing a web search result.
 
-      - `is_error: optional boolean`
+      - `is_error: optional boolean or null`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -66421,7 +66421,7 @@ Send Events
 
         - `"system.message"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
@@ -66716,11 +66716,11 @@ Stream Events
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -66736,7 +66736,7 @@ Stream Events
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -66752,11 +66752,11 @@ Stream Events
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -66784,15 +66784,15 @@ Stream Events
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -66864,15 +66864,15 @@ Stream Events
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -66900,7 +66900,7 @@ Stream Events
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -66986,7 +66986,7 @@ Stream Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -67030,7 +67030,7 @@ Stream Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -67068,7 +67068,7 @@ Stream Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -67112,7 +67112,7 @@ Stream Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -67156,7 +67156,7 @@ Stream Events
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -67200,7 +67200,7 @@ Stream Events
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -67700,7 +67700,7 @@ Stream Events
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -67732,7 +67732,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -67788,7 +67788,7 @@ Stream Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -67976,15 +67976,15 @@ Stream Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -68028,13 +68028,13 @@ Stream Events
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -68172,7 +68172,7 @@ Stream Events
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -68186,7 +68186,7 @@ Stream Events
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -68228,7 +68228,7 @@ Stream Events
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -68358,9 +68358,9 @@ Stream Events
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -68402,7 +68402,7 @@ Stream Events
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -68420,7 +68420,7 @@ Stream Events
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -68446,7 +68446,7 @@ Stream Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -68534,7 +68534,7 @@ Stream Events
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -68602,7 +68602,7 @@ Stream Events
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -68659,7 +68659,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"agent.custom_tool_use"`
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -68823,11 +68823,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -68867,7 +68867,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
@@ -68911,7 +68911,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"deny"`
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -69141,11 +69141,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -69169,7 +69169,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"agent.thread_message_received"`
 
-  - `from_agent_name: optional string`
+  - `from_agent_name: optional string or null`
 
     Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -69321,11 +69321,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -69349,7 +69349,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"agent.thread_message_sent"`
 
-  - `to_agent_name: optional string`
+  - `to_agent_name: optional string or null`
 
     Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -69513,11 +69513,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -69557,7 +69557,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
@@ -69597,7 +69597,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"deny"`
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -69801,11 +69801,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"document"`
 
-  - `context: optional string`
+  - `context: optional string or null`
 
     Additional context about the document for the model.
 
-  - `title: optional string`
+  - `title: optional string or null`
 
     The title of the document.
 
@@ -69957,11 +69957,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -69985,7 +69985,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.interrupt"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -70009,7 +70009,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
@@ -70077,7 +70077,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -70121,7 +70121,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -70157,7 +70157,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -70787,11 +70787,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -70807,7 +70807,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"user.message"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
@@ -70823,11 +70823,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"user.interrupt"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -70855,15 +70855,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"user.tool_confirmation"`
 
-      - `deny_message: optional string`
+      - `deny_message: optional string or null`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -70935,15 +70935,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
             - `"search_result"`
 
-      - `is_error: optional boolean`
+      - `is_error: optional boolean or null`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -70959,7 +70959,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         What the agent should produce. Copied from the input event.
 
-      - `max_iterations: number`
+      - `max_iterations: number or null`
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -71039,15 +71039,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           A block containing a web search result.
 
-      - `is_error: optional boolean`
+      - `is_error: optional boolean or null`
 
         Whether the tool execution resulted in an error.
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `session_thread_id: optional string`
+      - `session_thread_id: optional string or null`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -71075,7 +71075,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"system.message"`
 
-      - `processed_at: optional string`
+      - `processed_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
@@ -71543,11 +71543,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -71563,7 +71563,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -71579,11 +71579,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -71611,15 +71611,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -71691,15 +71691,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -71727,7 +71727,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -71813,7 +71813,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -71857,7 +71857,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -71895,7 +71895,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -71939,7 +71939,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -71983,7 +71983,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -72027,7 +72027,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -72527,7 +72527,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -72559,7 +72559,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -72615,7 +72615,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -72803,15 +72803,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -72855,13 +72855,13 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -72999,7 +72999,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -73013,7 +73013,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -73055,7 +73055,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -73185,9 +73185,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -73229,7 +73229,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -73247,7 +73247,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -73273,7 +73273,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -73301,7 +73301,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -73369,7 +73369,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -73749,7 +73749,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     Unique identifier for this event.
 
-  - `is_error: boolean`
+  - `is_error: boolean or null`
 
     Whether the model request resulted in an error.
 
@@ -73777,7 +73777,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       Output tokens generated by this request.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -73833,7 +73833,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     Output tokens generated by this request.
 
-  - `speed: optional "standard" or "fast"`
+  - `speed: optional "standard" or "fast" or null`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -73899,7 +73899,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       Output tokens generated by this request.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -74111,11 +74111,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -74131,7 +74131,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -74147,11 +74147,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -74179,15 +74179,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -74259,15 +74259,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -74295,7 +74295,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -74381,7 +74381,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -74425,7 +74425,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -74463,7 +74463,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -74507,7 +74507,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -74551,7 +74551,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -74595,7 +74595,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -75095,7 +75095,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -75127,7 +75127,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -75183,7 +75183,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -75371,15 +75371,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -75423,13 +75423,13 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -75567,7 +75567,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -75581,7 +75581,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -75623,7 +75623,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -75753,9 +75753,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -75797,7 +75797,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -75815,7 +75815,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -75841,7 +75841,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -75929,7 +75929,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -75997,7 +75997,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -76291,11 +76291,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -76335,15 +76335,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -76499,11 +76499,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -76543,7 +76543,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
@@ -76561,7 +76561,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     What the agent should produce. Copied from the input event.
 
-  - `max_iterations: number`
+  - `max_iterations: number or null`
 
     Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -76647,7 +76647,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.define_outcome"`
 
-  - `max_iterations: optional number`
+  - `max_iterations: optional number or null`
 
     Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -76665,11 +76665,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.interrupt"`
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -76683,7 +76683,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.interrupt"`
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -76835,11 +76835,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -76855,7 +76855,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.message"`
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -77003,11 +77003,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -77049,15 +77049,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.tool_confirmation"`
 
-  - `deny_message: optional string`
+  - `deny_message: optional string or null`
 
     Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-  - `processed_at: optional string`
+  - `processed_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `session_thread_id: optional string`
+  - `session_thread_id: optional string or null`
 
     When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -77083,7 +77083,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
     - `"user.tool_confirmation"`
 
-  - `deny_message: optional string`
+  - `deny_message: optional string or null`
 
     Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
@@ -77239,11 +77239,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -77283,7 +77283,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream \
 
         - `"search_result"`
 
-  - `is_error: optional boolean`
+  - `is_error: optional boolean or null`
 
     Whether the tool execution resulted in an error.
 
@@ -77385,7 +77385,7 @@ Add Session Resource
 
   - `"file"`
 
-- `mount_path: optional string`
+- `mount_path: optional string or null`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -77561,7 +77561,7 @@ List Session Resources
 
     - `url: string`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -77615,7 +77615,7 @@ List Session Resources
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -77627,19 +77627,19 @@ List Session Resources
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional string`
+    - `name: optional string or null`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -77792,7 +77792,7 @@ Get Session Resource
 
   - `url: string`
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
     - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -77846,7 +77846,7 @@ Get Session Resource
 
     - `"memory_store"`
 
-  - `access: optional "read_write" or "read_only"`
+  - `access: optional "read_write" or "read_only" or null`
 
     Access mode for an attached memory store.
 
@@ -77858,15 +77858,15 @@ Get Session Resource
 
     Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78012,7 +78012,7 @@ Update Session Resource
 
   - `url: string`
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
     - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -78066,7 +78066,7 @@ Update Session Resource
 
     - `"memory_store"`
 
-  - `access: optional "read_write" or "read_only"`
+  - `access: optional "read_write" or "read_only" or null`
 
     Access mode for an attached memory store.
 
@@ -78078,15 +78078,15 @@ Update Session Resource
 
     Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78297,7 +78297,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
   - `url: string`
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
     - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -78333,7 +78333,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
     - `"memory_store"`
 
-  - `access: optional "read_write" or "read_only"`
+  - `access: optional "read_write" or "read_only" or null`
 
     Access mode for an attached memory store.
 
@@ -78345,15 +78345,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
     Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78383,7 +78383,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
     - `url: string`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -78437,7 +78437,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -78449,15 +78449,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional string`
+    - `name: optional string or null`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78487,7 +78487,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
     - `url: string`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -78541,7 +78541,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -78553,15 +78553,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional string`
+    - `name: optional string or null`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78591,7 +78591,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
     - `url: string`
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       - `BetaManagedAgentsBranchCheckout object { name, type }`
 
@@ -78645,7 +78645,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -78657,15 +78657,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `name: optional string`
+    - `name: optional string or null`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
@@ -78787,7 +78787,7 @@ List Session Threads
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -78953,7 +78953,7 @@ List Session Threads
 
           - `version: string`
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -79083,9 +79083,9 @@ List Session Threads
 
               - `"object"`
 
-            - `properties: optional map[unknown]`
+            - `properties: optional map[unknown] or null`
 
-            - `required: optional array of string`
+            - `required: optional array of string or null`
 
           - `name: string`
 
@@ -79111,7 +79111,7 @@ List Session Threads
 
         - `"advisor"`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -79119,7 +79119,7 @@ List Session Threads
 
     A timestamp in RFC 3339 format
 
-  - `parent_thread_id: string`
+  - `parent_thread_id: string or null`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -79127,7 +79127,7 @@ List Session Threads
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats or null`
 
     Timing statistics for a session thread.
 
@@ -79163,7 +79163,7 @@ List Session Threads
 
     A timestamp in RFC 3339 format
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage or null`
 
     Cumulative token usage for a session thread across all turns.
 
@@ -79191,7 +79191,7 @@ List Session Threads
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -79209,7 +79209,7 @@ List Session Threads
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -79221,7 +79221,7 @@ List Session Threads
 
         Number of server-executed web search requests.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -79435,7 +79435,7 @@ Get Session Thread
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -79601,7 +79601,7 @@ Get Session Thread
 
           - `version: string`
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -79731,9 +79731,9 @@ Get Session Thread
 
               - `"object"`
 
-            - `properties: optional map[unknown]`
+            - `properties: optional map[unknown] or null`
 
-            - `required: optional array of string`
+            - `required: optional array of string or null`
 
           - `name: string`
 
@@ -79759,7 +79759,7 @@ Get Session Thread
 
         - `"advisor"`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -79767,7 +79767,7 @@ Get Session Thread
 
     A timestamp in RFC 3339 format
 
-  - `parent_thread_id: string`
+  - `parent_thread_id: string or null`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -79775,7 +79775,7 @@ Get Session Thread
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats or null`
 
     Timing statistics for a session thread.
 
@@ -79811,7 +79811,7 @@ Get Session Thread
 
     A timestamp in RFC 3339 format
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage or null`
 
     Cumulative token usage for a session thread across all turns.
 
@@ -79839,7 +79839,7 @@ Get Session Thread
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -79857,7 +79857,7 @@ Get Session Thread
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -80074,7 +80074,7 @@ Archive Session Thread
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -80240,7 +80240,7 @@ Archive Session Thread
 
           - `version: string`
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -80370,9 +80370,9 @@ Archive Session Thread
 
               - `"object"`
 
-            - `properties: optional map[unknown]`
+            - `properties: optional map[unknown] or null`
 
-            - `required: optional array of string`
+            - `required: optional array of string or null`
 
           - `name: string`
 
@@ -80398,7 +80398,7 @@ Archive Session Thread
 
         - `"advisor"`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -80406,7 +80406,7 @@ Archive Session Thread
 
     A timestamp in RFC 3339 format
 
-  - `parent_thread_id: string`
+  - `parent_thread_id: string or null`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -80414,7 +80414,7 @@ Archive Session Thread
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats or null`
 
     Timing statistics for a session thread.
 
@@ -80450,7 +80450,7 @@ Archive Session Thread
 
     A timestamp in RFC 3339 format
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage or null`
 
     Cumulative token usage for a session thread across all turns.
 
@@ -80478,7 +80478,7 @@ Archive Session Thread
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -80496,7 +80496,7 @@ Archive Session Thread
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -80628,7 +80628,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -80794,7 +80794,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           - `version: string`
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -80924,9 +80924,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
               - `"object"`
 
-            - `properties: optional map[unknown]`
+            - `properties: optional map[unknown] or null`
 
-            - `required: optional array of string`
+            - `required: optional array of string or null`
 
           - `name: string`
 
@@ -80952,7 +80952,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
         - `"advisor"`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -80960,7 +80960,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
     A timestamp in RFC 3339 format
 
-  - `parent_thread_id: string`
+  - `parent_thread_id: string or null`
 
     Parent thread that spawned this thread. Null for the primary thread.
 
@@ -80968,7 +80968,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
     The session this thread belongs to.
 
-  - `stats: BetaManagedAgentsSessionThreadStats`
+  - `stats: BetaManagedAgentsSessionThreadStats or null`
 
     Timing statistics for a session thread.
 
@@ -81004,7 +81004,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
     A timestamp in RFC 3339 format
 
-  - `usage: BetaManagedAgentsSessionThreadUsage`
+  - `usage: BetaManagedAgentsSessionThreadUsage or null`
 
     Cumulative token usage for a session thread across all turns.
 
@@ -81032,7 +81032,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional BetaMonetaryAmount`
+    - `list_cost: optional BetaMonetaryAmount or null`
 
       A monetary amount in a specific currency.
 
@@ -81050,7 +81050,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+    - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -81124,7 +81124,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
     Total input tokens consumed across all turns.
 
-  - `list_cost: optional BetaMonetaryAmount`
+  - `list_cost: optional BetaMonetaryAmount or null`
 
     A monetary amount in a specific currency.
 
@@ -81142,7 +81142,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
     Total output tokens generated across all turns.
 
-  - `server_tool_use: optional BetaManagedAgentsServerToolUsage`
+  - `server_tool_use: optional BetaManagedAgentsServerToolUsage or null`
 
     Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -81306,11 +81306,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -81326,7 +81326,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -81342,11 +81342,11 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -81374,15 +81374,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -81454,15 +81454,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -81490,7 +81490,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -81576,7 +81576,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -81620,7 +81620,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -81658,7 +81658,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -81702,7 +81702,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -81746,7 +81746,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -81790,7 +81790,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -82290,7 +82290,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -82322,7 +82322,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -82378,7 +82378,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -82566,15 +82566,15 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -82618,13 +82618,13 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -82762,7 +82762,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -82776,7 +82776,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -82818,7 +82818,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -82948,9 +82948,9 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -82992,7 +82992,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -83010,7 +83010,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -83036,7 +83036,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -83124,7 +83124,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -83192,7 +83192,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archiv
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -83448,11 +83448,11 @@ List Session Thread Events
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -83468,7 +83468,7 @@ List Session Thread Events
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -83484,11 +83484,11 @@ List Session Thread Events
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -83516,15 +83516,15 @@ List Session Thread Events
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -83596,15 +83596,15 @@ List Session Thread Events
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -83632,7 +83632,7 @@ List Session Thread Events
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -83718,7 +83718,7 @@ List Session Thread Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -83762,7 +83762,7 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -83800,7 +83800,7 @@ List Session Thread Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -83844,7 +83844,7 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -83888,7 +83888,7 @@ List Session Thread Events
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -83932,7 +83932,7 @@ List Session Thread Events
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -84432,7 +84432,7 @@ List Session Thread Events
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -84464,7 +84464,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -84520,7 +84520,7 @@ List Session Thread Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -84708,15 +84708,15 @@ List Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -84760,13 +84760,13 @@ List Session Thread Events
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -84904,7 +84904,7 @@ List Session Thread Events
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -84918,7 +84918,7 @@ List Session Thread Events
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -84960,7 +84960,7 @@ List Session Thread Events
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -85090,9 +85090,9 @@ List Session Thread Events
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -85134,7 +85134,7 @@ List Session Thread Events
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -85152,7 +85152,7 @@ List Session Thread Events
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -85178,7 +85178,7 @@ List Session Thread Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -85206,7 +85206,7 @@ List Session Thread Events
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -85274,11 +85274,11 @@ List Session Thread Events
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -85562,11 +85562,11 @@ Stream Session Thread Events
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -85582,7 +85582,7 @@ Stream Session Thread Events
 
       - `"user.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -85598,11 +85598,11 @@ Stream Session Thread Events
 
       - `"user.interrupt"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
@@ -85630,15 +85630,15 @@ Stream Session Thread Events
 
       - `"user.tool_confirmation"`
 
-    - `deny_message: optional string`
+    - `deny_message: optional string or null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
@@ -85710,15 +85710,15 @@ Stream Session Thread Events
 
           - `"search_result"`
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
@@ -85746,7 +85746,7 @@ Stream Session Thread Events
 
       - `"agent.custom_tool_use"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
@@ -85832,7 +85832,7 @@ Stream Session Thread Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -85876,7 +85876,7 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -85914,7 +85914,7 @@ Stream Session Thread Events
 
       - `"deny"`
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
@@ -85958,7 +85958,7 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
@@ -86002,7 +86002,7 @@ Stream Session Thread Events
 
       - `"agent.thread_message_received"`
 
-    - `from_agent_name: optional string`
+    - `from_agent_name: optional string or null`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
@@ -86046,7 +86046,7 @@ Stream Session Thread Events
 
       - `"agent.thread_message_sent"`
 
-    - `to_agent_name: optional string`
+    - `to_agent_name: optional string or null`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
@@ -86546,7 +86546,7 @@ Stream Session Thread Events
 
         Output tokens generated by this request.
 
-      - `speed: optional "standard" or "fast"`
+      - `speed: optional "standard" or "fast" or null`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -86578,7 +86578,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `is_error: boolean`
+    - `is_error: boolean or null`
 
       Whether the model request resulted in an error.
 
@@ -86634,7 +86634,7 @@ Stream Session Thread Events
 
       What the agent should produce. Copied from the input event.
 
-    - `max_iterations: number`
+    - `max_iterations: number or null`
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
@@ -86822,15 +86822,15 @@ Stream Session Thread Events
 
         A block containing a web search result.
 
-    - `is_error: optional boolean`
+    - `is_error: optional boolean or null`
 
       Whether the tool execution resulted in an error.
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `session_thread_id: optional string`
+    - `session_thread_id: optional string or null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
@@ -86874,13 +86874,13 @@ Stream Session Thread Events
 
       - `"session.updated"`
 
-    - `agent: optional BetaManagedAgentsSessionAgent`
+    - `agent: optional BetaManagedAgentsSessionAgent or null`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
       - `id: string`
 
-      - `description: string`
+      - `description: string or null`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -87018,7 +87018,7 @@ Stream Session Thread Events
 
           - `"fast"`
 
-      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or null`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -87032,7 +87032,7 @@ Stream Session Thread Events
 
             - `id: string`
 
-            - `description: string`
+            - `description: string or null`
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -87074,7 +87074,7 @@ Stream Session Thread Events
 
                 - `version: string`
 
-            - `system: string`
+            - `system: string or null`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -87204,9 +87204,9 @@ Stream Session Thread Events
 
                     - `"object"`
 
-                  - `properties: optional map[unknown]`
+                  - `properties: optional map[unknown] or null`
 
-                  - `required: optional array of string`
+                  - `required: optional array of string or null`
 
                 - `name: string`
 
@@ -87248,7 +87248,7 @@ Stream Session Thread Events
 
           A resolved user-created custom skill.
 
-      - `system: string`
+      - `system: string or null`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
@@ -87266,7 +87266,7 @@ Stream Session Thread Events
 
       - `version: number`
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -87292,7 +87292,7 @@ Stream Session Thread Events
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
 
-    - `title: optional string`
+    - `title: optional string or null`
 
       The session's new title. Present only when the update changed it.
 
@@ -87380,7 +87380,7 @@ Stream Session Thread Events
 
       - `"system.message"`
 
-    - `processed_at: optional string`
+    - `processed_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -87448,7 +87448,7 @@ Stream Session Thread Events
 
           Number of server-executed web search requests.
 
-    - `budget: optional BetaManagedAgentsBudgetLimit`
+    - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -87735,11 +87735,11 @@ Create Deployment
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -87795,7 +87795,7 @@ Create Deployment
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -87823,7 +87823,7 @@ Create Deployment
 
   Human-readable name for the deployment.
 
-- `budget: optional BetaManagedAgentsBudgetLimit`
+- `budget: optional BetaManagedAgentsBudgetLimit or null`
 
   A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -87845,7 +87845,7 @@ Create Deployment
 
     - `"limit"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Description of what the deployment does.
 
@@ -87873,7 +87873,7 @@ Create Deployment
 
       Github URL of the repository
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -87897,7 +87897,7 @@ Create Deployment
 
           - `"commit"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -87913,7 +87913,7 @@ Create Deployment
 
       - `"file"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -87929,7 +87929,7 @@ Create Deployment
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -87937,11 +87937,11 @@ Create Deployment
 
       - `"read_only"`
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-- `schedule: optional BetaManagedAgentsScheduleParams`
+- `schedule: optional BetaManagedAgentsScheduleParams or null`
 
   5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
 
@@ -87983,7 +87983,7 @@ Create Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -87991,7 +87991,7 @@ Create Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -88145,11 +88145,11 @@ Create Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -88205,7 +88205,7 @@ Create Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -88237,7 +88237,7 @@ Create Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -88389,7 +88389,7 @@ Create Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -88413,7 +88413,7 @@ Create Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -88429,7 +88429,7 @@ Create Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -88445,7 +88445,7 @@ Create Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -88453,11 +88453,11 @@ Create Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -88473,7 +88473,7 @@ Create Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -88501,7 +88501,7 @@ Create Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -88754,7 +88754,7 @@ List Deployments
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -88762,7 +88762,7 @@ List Deployments
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -88916,11 +88916,11 @@ List Deployments
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -88976,7 +88976,7 @@ List Deployments
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -89008,7 +89008,7 @@ List Deployments
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -89160,7 +89160,7 @@ List Deployments
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -89184,7 +89184,7 @@ List Deployments
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -89200,7 +89200,7 @@ List Deployments
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -89216,7 +89216,7 @@ List Deployments
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -89224,11 +89224,11 @@ List Deployments
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -89244,7 +89244,7 @@ List Deployments
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -89272,7 +89272,7 @@ List Deployments
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -89294,7 +89294,7 @@ List Deployments
 
       - `"limit"`
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -89487,7 +89487,7 @@ Get Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -89495,7 +89495,7 @@ Get Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -89649,11 +89649,11 @@ Get Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -89709,7 +89709,7 @@ Get Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -89741,7 +89741,7 @@ Get Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -89893,7 +89893,7 @@ Get Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -89917,7 +89917,7 @@ Get Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -89933,7 +89933,7 @@ Get Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -89949,7 +89949,7 @@ Get Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -89957,11 +89957,11 @@ Get Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -89977,7 +89977,7 @@ Get Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -90005,7 +90005,7 @@ Get Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -90213,7 +90213,7 @@ Update Deployment
 
       The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
-- `budget: optional BetaManagedAgentsBudgetLimit`
+- `budget: optional BetaManagedAgentsBudgetLimit or null`
 
   A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -90235,7 +90235,7 @@ Update Deployment
 
     - `"limit"`
 
-- `description: optional string`
+- `description: optional string or null`
 
   Description. Omit to preserve; send empty string or null to clear.
 
@@ -90389,11 +90389,11 @@ Update Deployment
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -90449,7 +90449,7 @@ Update Deployment
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -90473,7 +90473,7 @@ Update Deployment
 
       - `"system.message"`
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
@@ -90481,7 +90481,7 @@ Update Deployment
 
   Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
-- `resources: optional array of BetaManagedAgentsGitHubRepositoryResourceParams or BetaManagedAgentsFileResourceParams or BetaManagedAgentsMemoryStoreResourceParam`
+- `resources: optional array of BetaManagedAgentsGitHubRepositoryResourceParams or BetaManagedAgentsFileResourceParams or BetaManagedAgentsMemoryStoreResourceParam or null`
 
   Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
@@ -90501,7 +90501,7 @@ Update Deployment
 
       Github URL of the repository
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -90525,7 +90525,7 @@ Update Deployment
 
           - `"commit"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -90541,7 +90541,7 @@ Update Deployment
 
       - `"file"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -90557,7 +90557,7 @@ Update Deployment
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -90565,11 +90565,11 @@ Update Deployment
 
       - `"read_only"`
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-- `schedule: optional BetaManagedAgentsScheduleParams`
+- `schedule: optional BetaManagedAgentsScheduleParams or null`
 
   5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
 
@@ -90585,7 +90585,7 @@ Update Deployment
 
     - `"cron"`
 
-- `vault_ids: optional array of string`
+- `vault_ids: optional array of string or null`
 
   Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
 
@@ -90611,7 +90611,7 @@ Update Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -90619,7 +90619,7 @@ Update Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -90773,11 +90773,11 @@ Update Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -90833,7 +90833,7 @@ Update Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -90865,7 +90865,7 @@ Update Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -91017,7 +91017,7 @@ Update Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -91041,7 +91041,7 @@ Update Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -91057,7 +91057,7 @@ Update Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -91073,7 +91073,7 @@ Update Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -91081,11 +91081,11 @@ Update Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -91101,7 +91101,7 @@ Update Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -91129,7 +91129,7 @@ Update Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -91337,7 +91337,7 @@ Archive Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -91345,7 +91345,7 @@ Archive Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -91499,11 +91499,11 @@ Archive Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -91559,7 +91559,7 @@ Archive Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -91591,7 +91591,7 @@ Archive Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -91743,7 +91743,7 @@ Archive Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -91767,7 +91767,7 @@ Archive Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -91783,7 +91783,7 @@ Archive Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -91799,7 +91799,7 @@ Archive Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -91807,11 +91807,11 @@ Archive Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -91827,7 +91827,7 @@ Archive Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -91855,7 +91855,7 @@ Archive Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -92070,7 +92070,7 @@ Run Deployment Now
 
     ID of the deployment that produced this run.
 
-  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more`
+  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more or null`
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
@@ -92266,7 +92266,7 @@ Run Deployment Now
 
         - `"mcp_egress_blocked_error"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
     Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
 
@@ -92441,7 +92441,7 @@ Pause Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -92449,7 +92449,7 @@ Pause Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -92603,11 +92603,11 @@ Pause Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -92663,7 +92663,7 @@ Pause Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -92695,7 +92695,7 @@ Pause Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -92847,7 +92847,7 @@ Pause Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -92871,7 +92871,7 @@ Pause Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -92887,7 +92887,7 @@ Pause Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -92903,7 +92903,7 @@ Pause Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -92911,11 +92911,11 @@ Pause Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -92931,7 +92931,7 @@ Pause Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -92959,7 +92959,7 @@ Pause Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -93166,7 +93166,7 @@ Unpause Deployment
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -93174,7 +93174,7 @@ Unpause Deployment
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -93328,11 +93328,11 @@ Unpause Deployment
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -93388,7 +93388,7 @@ Unpause Deployment
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -93420,7 +93420,7 @@ Unpause Deployment
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -93572,7 +93572,7 @@ Unpause Deployment
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -93596,7 +93596,7 @@ Unpause Deployment
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -93612,7 +93612,7 @@ Unpause Deployment
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -93628,7 +93628,7 @@ Unpause Deployment
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -93636,11 +93636,11 @@ Unpause Deployment
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -93656,7 +93656,7 @@ Unpause Deployment
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -93684,7 +93684,7 @@ Unpause Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -93813,7 +93813,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"cron"`
 
-  - `last_run_at: optional string`
+  - `last_run_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -93861,7 +93861,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `version: number`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -93869,7 +93869,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     A timestamp in RFC 3339 format
 
-  - `description: string`
+  - `description: string or null`
 
     Description of what the deployment does.
 
@@ -94023,11 +94023,11 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
             - `"document"`
 
-          - `context: optional string`
+          - `context: optional string or null`
 
             Additional context about the document for the model.
 
-          - `title: optional string`
+          - `title: optional string or null`
 
             The title of the document.
 
@@ -94083,7 +94083,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"user.define_outcome"`
 
-      - `max_iterations: optional number`
+      - `max_iterations: optional number or null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -94115,7 +94115,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     Human-readable name.
 
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason`
+  - `paused_reason: BetaManagedAgentsDeploymentPausedReason or null`
 
     Why a deployment is paused. Non-null exactly when `status` is `paused`.
 
@@ -94267,7 +94267,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         Github URL of the repository
 
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -94291,7 +94291,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
             - `"commit"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -94307,7 +94307,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"file"`
 
-      - `mount_path: optional string`
+      - `mount_path: optional string or null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -94323,7 +94323,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"memory_store"`
 
-      - `access: optional "read_write" or "read_only"`
+      - `access: optional "read_write" or "read_only" or null`
 
         Access mode for an attached memory store.
 
@@ -94331,11 +94331,11 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"read_only"`
 
-      - `instructions: optional string`
+      - `instructions: optional string or null`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `schedule: BetaManagedAgentsSchedule`
+  - `schedule: BetaManagedAgentsSchedule or null`
 
     5-field POSIX cron schedule with computed runtime timestamps.
 
@@ -94351,7 +94351,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"cron"`
 
-    - `last_run_at: optional string`
+    - `last_run_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
@@ -94379,7 +94379,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-  - `budget: optional BetaManagedAgentsBudgetLimit`
+  - `budget: optional BetaManagedAgentsBudgetLimit or null`
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
@@ -94549,11 +94549,11 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -94609,7 +94609,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -94781,11 +94781,11 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
           - `"document"`
 
-        - `context: optional string`
+        - `context: optional string or null`
 
           Additional context about the document for the model.
 
-        - `title: optional string`
+        - `title: optional string or null`
 
           The title of the document.
 
@@ -94841,7 +94841,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"user.define_outcome"`
 
-    - `max_iterations: optional number`
+    - `max_iterations: optional number or null`
 
       Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -95195,7 +95195,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"user.define_outcome"`
 
-  - `max_iterations: optional number`
+  - `max_iterations: optional number or null`
 
     Eval→revision cycles before giving up. Default 3, max 20.
 
@@ -95343,11 +95343,11 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"document"`
 
-      - `context: optional string`
+      - `context: optional string or null`
 
         Additional context about the document for the model.
 
-      - `title: optional string`
+      - `title: optional string or null`
 
         The title of the document.
 
@@ -95533,7 +95533,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"file"`
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -95551,7 +95551,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     Github URL of the repository
 
-  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+  - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
     Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -95575,7 +95575,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
         - `"commit"`
 
-  - `mount_path: optional string`
+  - `mount_path: optional string or null`
 
     Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -95623,7 +95623,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"memory_store"`
 
-  - `access: optional "read_write" or "read_only"`
+  - `access: optional "read_write" or "read_only" or null`
 
     Access mode for an attached memory store.
 
@@ -95631,7 +95631,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"read_only"`
 
-  - `instructions: optional string`
+  - `instructions: optional string or null`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -95663,7 +95663,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
     - `"cron"`
 
-  - `last_run_at: optional string`
+  - `last_run_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -95717,7 +95717,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       Github URL of the repository
 
-    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+    - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
       Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -95741,7 +95741,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
           - `"commit"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -95757,7 +95757,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"file"`
 
-    - `mount_path: optional string`
+    - `mount_path: optional string or null`
 
       Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -95773,7 +95773,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"memory_store"`
 
-    - `access: optional "read_write" or "read_only"`
+    - `access: optional "read_write" or "read_only" or null`
 
       Access mode for an attached memory store.
 
@@ -95781,7 +95781,7 @@ curl https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID/unpause \
 
       - `"read_only"`
 
-    - `instructions: optional string`
+    - `instructions: optional string or null`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -96001,7 +96001,7 @@ List Deployment Runs
 
     ID of the deployment that produced this run.
 
-  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more`
+  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more or null`
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
@@ -96197,7 +96197,7 @@ List Deployment Runs
 
         - `"mcp_egress_blocked_error"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
     Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
 
@@ -96229,7 +96229,7 @@ List Deployment Runs
 
     - `"deployment_run"`
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page. Null when no more results.
 
@@ -96388,7 +96388,7 @@ Get Deployment Run
 
     ID of the deployment that produced this run.
 
-  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more`
+  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more or null`
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
@@ -96584,7 +96584,7 @@ Get Deployment Run
 
         - `"mcp_egress_blocked_error"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
     Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
 
@@ -96696,7 +96696,7 @@ curl https://api.anthropic.com/v1/deployment_runs/$DEPLOYMENT_RUN_ID \
 
     ID of the deployment that produced this run.
 
-  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more`
+  - `error: BetaManagedAgentsEnvironmentArchivedRunError or BetaManagedAgentsAgentArchivedRunError or BetaManagedAgentsEnvironmentNotFoundRunError or 13 more or null`
 
     Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
 
@@ -96892,7 +96892,7 @@ curl https://api.anthropic.com/v1/deployment_runs/$DEPLOYMENT_RUN_ID \
 
         - `"mcp_egress_blocked_error"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
     Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
 
@@ -97298,7 +97298,7 @@ Create Vault
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -97460,7 +97460,7 @@ List Vaults
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -97484,7 +97484,7 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Pagination token for the next page, or null if no more results.
 
@@ -97614,7 +97614,7 @@ Get Vault
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -97751,11 +97751,11 @@ Update Vault
 
 ### Body Parameters
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Updated human-readable name for the vault. 1-255 characters.
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -97769,7 +97769,7 @@ Update Vault
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -98040,7 +98040,7 @@ Archive Vault
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -98116,7 +98116,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/archive \
 
     Unique identifier for the vault.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -98250,11 +98250,11 @@ Create Credential
 
       - `"mcp_oauth"`
 
-    - `expires_at: optional string`
+    - `expires_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams or null`
 
       OAuth refresh token parameters for creating a credential with refresh support.
 
@@ -98306,11 +98306,11 @@ Create Credential
 
             - `"client_secret_post"`
 
-      - `resource: optional string`
+      - `resource: optional string or null`
 
         OAuth resource indicator.
 
-      - `scope: optional string`
+      - `scope: optional string or null`
 
         OAuth scope for the refresh request.
 
@@ -98382,7 +98382,7 @@ Create Credential
 
         Substitute when the placeholder appears in a request header value.
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Human-readable name for the credential. Up to 255 characters.
 
@@ -98400,7 +98400,7 @@ Create Credential
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -98420,11 +98420,11 @@ Create Credential
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -98464,11 +98464,11 @@ Create Credential
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -98552,7 +98552,7 @@ Create Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
@@ -98708,7 +98708,7 @@ List Credentials
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -98728,11 +98728,11 @@ List Credentials
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -98772,11 +98772,11 @@ List Credentials
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -98860,11 +98860,11 @@ List Credentials
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Pagination token for the next page, or null if no more results.
 
@@ -99001,7 +99001,7 @@ Get Credential
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -99021,11 +99021,11 @@ Get Credential
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -99065,11 +99065,11 @@ Get Credential
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -99153,7 +99153,7 @@ Get Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
@@ -99289,23 +99289,23 @@ Update Credential
 
       - `"mcp_oauth"`
 
-    - `access_token: optional string`
+    - `access_token: optional string or null`
 
       Updated OAuth access token.
 
-    - `expires_at: optional string`
+    - `expires_at: optional string or null`
 
       A timestamp in RFC 3339 format
 
-    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams`
+    - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams or null`
 
       Parameters for updating OAuth refresh token configuration.
 
-      - `refresh_token: optional string`
+      - `refresh_token: optional string or null`
 
         Updated OAuth refresh token.
 
-      - `scope: optional string`
+      - `scope: optional string or null`
 
         Updated OAuth scope for the refresh request.
 
@@ -99321,7 +99321,7 @@ Update Credential
 
             - `"client_secret_basic"`
 
-          - `client_secret: optional string`
+          - `client_secret: optional string or null`
 
             Updated OAuth client secret.
 
@@ -99333,7 +99333,7 @@ Update Credential
 
             - `"client_secret_post"`
 
-          - `client_secret: optional string`
+          - `client_secret: optional string or null`
 
             Updated OAuth client secret.
 
@@ -99345,7 +99345,7 @@ Update Credential
 
       - `"static_bearer"`
 
-    - `token: optional string`
+    - `token: optional string or null`
 
       Updated static bearer token value.
 
@@ -99369,7 +99369,7 @@ Update Credential
 
         Substitute when the placeholder appears in a request header value.
 
-    - `networking: optional BetaManagedAgentsCredentialNetworkingParams`
+    - `networking: optional BetaManagedAgentsCredentialNetworkingParams or null`
 
       Updated networking scope. Full replacement.
 
@@ -99393,15 +99393,15 @@ Update Credential
 
           - `"limited"`
 
-    - `secret_value: optional string`
+    - `secret_value: optional string or null`
 
       Updated secret value.
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Updated human-readable name for the credential. 1-255 characters.
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
@@ -99415,7 +99415,7 @@ Update Credential
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -99435,11 +99435,11 @@ Update Credential
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -99479,11 +99479,11 @@ Update Credential
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -99567,7 +99567,7 @@ Update Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
@@ -99827,7 +99827,7 @@ Archive Credential
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -99847,11 +99847,11 @@ Archive Credential
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -99891,11 +99891,11 @@ Archive Credential
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -99979,7 +99979,7 @@ Archive Credential
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
@@ -100116,11 +100116,11 @@ Validate Credential
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: BetaManagedAgentsMCPProbe`
+  - `mcp_probe: BetaManagedAgentsMCPProbe or null`
 
     The failing step of an MCP validation probe.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
       An HTTP response captured during a credential validation probe.
 
@@ -100144,11 +100144,11 @@ Validate Credential
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: BetaManagedAgentsRefreshObject`
+  - `refresh: BetaManagedAgentsRefreshObject or null`
 
     Outcome of a refresh-token exchange attempted during credential validation.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
       An HTTP response captured during a credential validation probe.
 
@@ -100239,7 +100239,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     Unique identifier for the credential.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -100259,11 +100259,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"mcp_oauth"`
 
-      - `expires_at: optional string`
+      - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+      - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -100303,11 +100303,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
               - `"client_secret_post"`
 
-        - `resource: optional string`
+        - `resource: optional string or null`
 
           OAuth resource indicator.
 
-        - `scope: optional string`
+        - `scope: optional string or null`
 
           OAuth scope for the refresh request.
 
@@ -100391,7 +100391,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     Identifier of the vault this credential belongs to.
 
-  - `display_name: optional string`
+  - `display_name: optional string or null`
 
     Human-readable name for the credential.
 
@@ -100435,11 +100435,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: BetaManagedAgentsMCPProbe`
+  - `mcp_probe: BetaManagedAgentsMCPProbe or null`
 
     The failing step of an MCP validation probe.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
       An HTTP response captured during a credential validation probe.
 
@@ -100463,11 +100463,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: BetaManagedAgentsRefreshObject`
+  - `refresh: BetaManagedAgentsRefreshObject or null`
 
     Outcome of a refresh-token exchange attempted during credential validation.
 
-    - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+    - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
       An HTTP response captured during a credential validation probe.
 
@@ -100657,7 +100657,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
       Substitute when the placeholder appears in a request header value.
 
-  - `networking: optional BetaManagedAgentsCredentialNetworkingParams`
+  - `networking: optional BetaManagedAgentsCredentialNetworkingParams or null`
 
     Updated networking scope. Full replacement.
 
@@ -100681,7 +100681,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"limited"`
 
-  - `secret_value: optional string`
+  - `secret_value: optional string or null`
 
     Updated secret value.
 
@@ -100769,11 +100769,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"mcp_oauth"`
 
-  - `expires_at: optional string`
+  - `expires_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
     OAuth refresh token configuration returned in credential responses.
 
@@ -100813,11 +100813,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
           - `"client_secret_post"`
 
-    - `resource: optional string`
+    - `resource: optional string or null`
 
       OAuth resource indicator.
 
-    - `scope: optional string`
+    - `scope: optional string or null`
 
       OAuth scope for the refresh request.
 
@@ -100839,11 +100839,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"mcp_oauth"`
 
-  - `expires_at: optional string`
+  - `expires_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshParams or null`
 
     OAuth refresh token parameters for creating a credential with refresh support.
 
@@ -100895,11 +100895,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
           - `"client_secret_post"`
 
-    - `resource: optional string`
+    - `resource: optional string or null`
 
       OAuth resource indicator.
 
-    - `scope: optional string`
+    - `scope: optional string or null`
 
       OAuth scope for the refresh request.
 
@@ -100957,11 +100957,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"client_secret_post"`
 
-  - `resource: optional string`
+  - `resource: optional string or null`
 
     OAuth resource indicator.
 
-  - `scope: optional string`
+  - `scope: optional string or null`
 
     OAuth scope for the refresh request.
 
@@ -101007,11 +101007,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"client_secret_post"`
 
-  - `resource: optional string`
+  - `resource: optional string or null`
 
     OAuth resource indicator.
 
-  - `scope: optional string`
+  - `scope: optional string or null`
 
     OAuth scope for the refresh request.
 
@@ -101021,11 +101021,11 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
   Parameters for updating OAuth refresh token configuration.
 
-  - `refresh_token: optional string`
+  - `refresh_token: optional string or null`
 
     Updated OAuth refresh token.
 
-  - `scope: optional string`
+  - `scope: optional string or null`
 
     Updated OAuth scope for the refresh request.
 
@@ -101041,7 +101041,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"client_secret_basic"`
 
-      - `client_secret: optional string`
+      - `client_secret: optional string or null`
 
         Updated OAuth client secret.
 
@@ -101053,7 +101053,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
         - `"client_secret_post"`
 
-      - `client_secret: optional string`
+      - `client_secret: optional string or null`
 
         Updated OAuth client secret.
 
@@ -101067,23 +101067,23 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"mcp_oauth"`
 
-  - `access_token: optional string`
+  - `access_token: optional string or null`
 
     Updated OAuth access token.
 
-  - `expires_at: optional string`
+  - `expires_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
-  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams`
+  - `refresh: optional BetaManagedAgentsMCPOAuthRefreshUpdateParams or null`
 
     Parameters for updating OAuth refresh token configuration.
 
-    - `refresh_token: optional string`
+    - `refresh_token: optional string or null`
 
       Updated OAuth refresh token.
 
-    - `scope: optional string`
+    - `scope: optional string or null`
 
       Updated OAuth scope for the refresh request.
 
@@ -101099,7 +101099,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
           - `"client_secret_basic"`
 
-        - `client_secret: optional string`
+        - `client_secret: optional string or null`
 
           Updated OAuth client secret.
 
@@ -101111,7 +101111,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
           - `"client_secret_post"`
 
-        - `client_secret: optional string`
+        - `client_secret: optional string or null`
 
           Updated OAuth client secret.
 
@@ -101121,7 +101121,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
   The failing step of an MCP validation probe.
 
-  - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+  - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
     An HTTP response captured during a credential validation probe.
 
@@ -101173,7 +101173,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
   Outcome of a refresh-token exchange attempted during credential validation.
 
-  - `http_response: BetaManagedAgentsRefreshHTTPResponse`
+  - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
     An HTTP response captured during a credential validation probe.
 
@@ -101247,7 +101247,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"static_bearer"`
 
-  - `token: optional string`
+  - `token: optional string or null`
 
     Updated static bearer token value.
 
@@ -101285,7 +101285,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"client_secret_basic"`
 
-  - `client_secret: optional string`
+  - `client_secret: optional string or null`
 
     Updated OAuth client secret.
 
@@ -101343,7 +101343,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/mc
 
     - `"client_secret_post"`
 
-  - `client_secret: optional string`
+  - `client_secret: optional string or null`
 
     Updated OAuth client secret.
 
@@ -101491,7 +101491,7 @@ Create a memory store
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -101663,7 +101663,7 @@ List memory stores
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -101675,7 +101675,7 @@ List memory stores
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
 
@@ -101822,7 +101822,7 @@ Retrieve a memory store
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -101948,15 +101948,15 @@ Update a memory store
 
 ### Body Parameters
 
-- `description: optional string`
+- `description: optional string or null`
 
   New description for the store, up to 1024 characters. Pass an empty string to clear it.
 
-- `metadata: optional map[string]`
+- `metadata: optional map[string] or null`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-- `name: optional string`
+- `name: optional string or null`
 
   New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
 
@@ -101986,7 +101986,7 @@ Update a memory store
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -102257,7 +102257,7 @@ Archive a memory store
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -102338,7 +102338,7 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/archive \
 
     A timestamp in RFC 3339 format
 
-  - `archived_at: optional string`
+  - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -102450,7 +102450,7 @@ Create a memory
 
 ### Body Parameters
 
-- `content: string`
+- `content: string or null`
 
   UTF-8 text content for the new memory. Maximum 100 kB (102,400 bytes). Required; pass `""` explicitly to create an empty memory.
 
@@ -102500,7 +102500,7 @@ Create a memory
 
     A timestamp in RFC 3339 format
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -102693,7 +102693,7 @@ List memories
 
       A timestamp in RFC 3339 format
 
-    - `content: optional string`
+    - `content: optional string or null`
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -102709,7 +102709,7 @@ List memories
 
       - `"memory_prefix"`
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
 
@@ -102884,7 +102884,7 @@ Retrieve a memory
 
     A timestamp in RFC 3339 format
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -103014,11 +103014,11 @@ Update a memory
 
 ### Body Parameters
 
-- `content: optional string`
+- `content: optional string or null`
 
   New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-- `path: optional string`
+- `path: optional string or null`
 
   New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
@@ -103076,7 +103076,7 @@ Update a memory
 
     A timestamp in RFC 3339 format
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -103421,7 +103421,7 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/memories/$MEMOR
 
     A timestamp in RFC 3339 format
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -103471,7 +103471,7 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/memories/$MEMOR
 
       A timestamp in RFC 3339 format
 
-    - `content: optional string`
+    - `content: optional string or null`
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -103721,15 +103721,15 @@ List memory versions
 
     - `"memory_version"`
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional string`
+  - `content_sha256: optional string or null`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional number`
+  - `content_size_bytes: optional number or null`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -103773,11 +103773,11 @@ List memory versions
 
         ID of the user who performed the write (a `user_...` value).
 
-  - `path: optional string`
+  - `path: optional string or null`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional string`
+  - `redacted_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -103785,7 +103785,7 @@ List memory versions
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-- `next_page: optional string`
+- `next_page: optional string or null`
 
   Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
 
@@ -103963,15 +103963,15 @@ Retrieve a memory version
 
     - `"memory_version"`
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional string`
+  - `content_sha256: optional string or null`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional number`
+  - `content_size_bytes: optional number or null`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -104015,11 +104015,11 @@ Retrieve a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
-  - `path: optional string`
+  - `path: optional string or null`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional string`
+  - `redacted_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -104186,15 +104186,15 @@ Redact a memory version
 
     - `"memory_version"`
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional string`
+  - `content_sha256: optional string or null`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional number`
+  - `content_size_bytes: optional number or null`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -104238,11 +104238,11 @@ Redact a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
-  - `path: optional string`
+  - `path: optional string or null`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional string`
+  - `redacted_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -104380,15 +104380,15 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/memory_versions
 
     - `"memory_version"`
 
-  - `content: optional string`
+  - `content: optional string or null`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `content_sha256: optional string`
+  - `content_sha256: optional string or null`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `content_size_bytes: optional number`
+  - `content_size_bytes: optional number or null`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
@@ -104432,11 +104432,11 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/memory_versions
 
         ID of the user who performed the write (a `user_...` value).
 
-  - `path: optional string`
+  - `path: optional string or null`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `redacted_at: optional string`
+  - `redacted_at: optional string or null`
 
     A timestamp in RFC 3339 format
 
@@ -104606,7 +104606,7 @@ Upload File
 
     Whether the file can be downloaded.
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope or null`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -104791,7 +104791,7 @@ List Files
 
     Whether the file can be downloaded.
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope or null`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -104805,7 +104805,7 @@ List Files
 
       - `"session"`
 
-- `first_id: optional string`
+- `first_id: optional string or null`
 
   ID of the first file in this page of results.
 
@@ -104813,7 +104813,7 @@ List Files
 
   Whether there are more results available.
 
-- `last_id: optional string`
+- `last_id: optional string or null`
 
   ID of the last file in this page of results.
 
@@ -105074,7 +105074,7 @@ Get File Metadata
 
     Whether the file can be downloaded.
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope or null`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -105308,7 +105308,7 @@ curl https://api.anthropic.com/v1/files/$FILE_ID \
 
     Whether the file can be downloaded.
 
-  - `scope: optional BetaFileScope`
+  - `scope: optional BetaFileScope or null`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -105418,13 +105418,13 @@ Create Skill
 
   ISO 8601 timestamp of when the skill was created.
 
-- `display_title: string`
+- `display_title: string or null`
 
   Display title for the skill.
 
   This is a human-readable label that is not included in the prompt sent to the model.
 
-- `latest_version: string`
+- `latest_version: string or null`
 
   The latest version identifier for the skill.
 
@@ -105595,13 +105595,13 @@ List Skills
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string`
+  - `display_title: string or null`
 
     Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `latest_version: string`
+  - `latest_version: string or null`
 
     The latest version identifier for the skill.
 
@@ -105632,7 +105632,7 @@ List Skills
 
   If `true`, there are additional results that can be fetched using the `next_page` token.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token for fetching the next page of results.
 
@@ -105769,13 +105769,13 @@ Get Skill
 
   ISO 8601 timestamp of when the skill was created.
 
-- `display_title: string`
+- `display_title: string or null`
 
   Display title for the skill.
 
   This is a human-readable label that is not included in the prompt sent to the model.
 
-- `latest_version: string`
+- `latest_version: string or null`
 
   The latest version identifier for the skill.
 
@@ -105962,13 +105962,13 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID \
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string`
+  - `display_title: string or null`
 
     Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `latest_version: string`
+  - `latest_version: string or null`
 
     The latest version identifier for the skill.
 
@@ -106007,13 +106007,13 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID \
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string`
+  - `display_title: string or null`
 
     Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `latest_version: string`
+  - `latest_version: string or null`
 
     The latest version identifier for the skill.
 
@@ -106052,13 +106052,13 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID \
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string`
+  - `display_title: string or null`
 
     Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `latest_version: string`
+  - `latest_version: string or null`
 
     The latest version identifier for the skill.
 
@@ -106419,7 +106419,7 @@ List Skill Versions
 
   Indicates if there are more results in the requested page direction.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Token to provide in as `page` in the subsequent request to retrieve the next page of data.
 
@@ -107101,7 +107101,7 @@ Create User Profile
 
 ### Body Parameters
 
-- `external_id: optional string`
+- `external_id: optional string or null`
 
   Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
@@ -107109,7 +107109,7 @@ Create User Profile
 
   Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
-- `name: optional string`
+- `name: optional string or null`
 
   Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
 
@@ -107173,11 +107173,11 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
@@ -107367,15 +107367,15 @@ List User Profiles
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
-- `next_page: string`
+- `next_page: string or null`
 
   Cursor for the next page, or `null` when there are no more results.
 
@@ -107549,11 +107549,11 @@ Get User Profile
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
@@ -107674,7 +107674,7 @@ Update User Profile
 
 ### Body Parameters
 
-- `external_id: optional string`
+- `external_id: optional string or null`
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
@@ -107682,11 +107682,11 @@ Update User Profile
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
 
-- `name: optional string`
+- `name: optional string or null`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
-- `relationship: optional "external" or "resold" or "internal"`
+- `relationship: optional "external" or "resold" or "internal" or null`
 
   How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
@@ -107746,11 +107746,11 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
@@ -107963,11 +107963,11 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID/enrollment_url 
 
     A timestamp in RFC 3339 format
 
-  - `external_id: optional string`
+  - `external_id: optional string or null`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `name: optional string`
+  - `name: optional string or null`
 
     Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
 
@@ -108125,7 +108125,7 @@ Create a Dream
 
       Model identifier, e.g. "claude-opus-4-7". 1-256 characters.
 
-    - `speed: optional "standard" or "fast"`
+    - `speed: optional "standard" or "fast" or null`
 
       Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -108133,7 +108133,7 @@ Create a Dream
 
       - `"fast"`
 
-- `instructions: optional string`
+- `instructions: optional string or null`
 
 ### Returns
 
@@ -108143,7 +108143,7 @@ Create a Dream
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -108151,11 +108151,11 @@ Create a Dream
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -108185,7 +108185,7 @@ Create a Dream
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -108211,7 +108211,7 @@ Create a Dream
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -108435,7 +108435,7 @@ List Dreams
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -108443,11 +108443,11 @@ List Dreams
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -108477,7 +108477,7 @@ List Dreams
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -108503,7 +108503,7 @@ List Dreams
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -108543,7 +108543,7 @@ List Dreams
 
       Total output tokens generated across every pipeline stage.
 
-- `next_page: string`
+- `next_page: string or null`
 
 ### Example
 
@@ -108694,7 +108694,7 @@ Get a Dream
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -108702,11 +108702,11 @@ Get a Dream
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -108736,7 +108736,7 @@ Get a Dream
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -108762,7 +108762,7 @@ Get a Dream
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -108946,7 +108946,7 @@ Cancel a Dream
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -108954,11 +108954,11 @@ Cancel a Dream
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -108988,7 +108988,7 @@ Cancel a Dream
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -109014,7 +109014,7 @@ Cancel a Dream
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -109199,7 +109199,7 @@ Archive a Dream
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -109207,11 +109207,11 @@ Archive a Dream
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -109241,7 +109241,7 @@ Archive a Dream
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -109267,7 +109267,7 @@ Archive a Dream
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -109368,7 +109368,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
   - `id: string`
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -109376,11 +109376,11 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
     A timestamp in RFC 3339 format
 
-  - `ended_at: string`
+  - `ended_at: string or null`
 
     A timestamp in RFC 3339 format
 
-  - `error: BetaDreamError`
+  - `error: BetaDreamError or null`
 
     Failure detail for a Dream whose `status` is `failed`.
 
@@ -109410,7 +109410,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
         - `"sessions"`
 
-  - `instructions: string`
+  - `instructions: string or null`
 
   - `model: BetaDreamModelConfig`
 
@@ -109436,7 +109436,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       - `"memory_store"`
 
-  - `session_id: string`
+  - `session_id: string or null`
 
   - `status: BetaDreamStatus`
 
@@ -109564,7 +109564,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
     Model identifier, e.g. "claude-opus-4-7". 1-256 characters.
 
-  - `speed: optional "standard" or "fast"`
+  - `speed: optional "standard" or "fast" or null`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -109722,7 +109722,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 ### Body Parameters
 
-- `display_name: optional string`
+- `display_name: optional string or null`
 
   Optional human-readable name for the tunnel (1-255 characters).
 
@@ -109736,7 +109736,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -109744,7 +109744,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -109878,7 +109878,7 @@ Fetches a tunnel by ID.
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -109886,7 +109886,7 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -110028,7 +110028,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110036,7 +110036,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -110048,7 +110048,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"tunnel"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Pagination cursor for the next page, or null if no more results.
 
@@ -110177,7 +110177,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110185,7 +110185,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -110436,7 +110436,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Body Parameters
 
-- `reason: optional string`
+- `reason: optional string or null`
 
   Optional free-text reason for the rotation, recorded for audit.
 
@@ -110491,7 +110491,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/rotate_token \
 
     Unique identifier for the tunnel, prefixed with `tnl_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110499,7 +110499,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/rotate_token \
 
     A timestamp in RFC 3339 format
 
-  - `display_name: string`
+  - `display_name: string or null`
 
     Human-readable name for the tunnel (1-255 characters). Null if unset.
 
@@ -110635,7 +110635,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110643,7 +110643,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110786,7 +110786,7 @@ Fetches a tunnel certificate by ID.
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110794,7 +110794,7 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110945,7 +110945,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110953,7 +110953,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -110969,7 +110969,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `"tunnel_certificate"`
 
-- `next_page: string`
+- `next_page: string or null`
 
   Pagination cursor for the next page, or null if no more results.
 
@@ -111101,7 +111101,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -111109,7 +111109,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -111161,7 +111161,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_I
 
     Unique identifier for the certificate, prefixed with `tcrt_`.
 
-  - `archived_at: string`
+  - `archived_at: string or null`
 
     A timestamp in RFC 3339 format
 
@@ -111169,7 +111169,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_I
 
     A timestamp in RFC 3339 format
 
-  - `expires_at: string`
+  - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
 

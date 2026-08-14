@@ -197,7 +197,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   An object describing metadata about the request.
 
-  - `user_id: optional string`
+  - `user_id: optional string or null`
 
     An external identifier for the user who is associated with the request.
 
@@ -329,7 +329,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `string`
 
-  - `stop_reason: string`
+  - `stop_reason: string or null`
 
     The reason that we stopped.
 
@@ -466,7 +466,7 @@ curl https://api.anthropic.com/v1/complete \
 
     - `string`
 
-  - `stop_reason: string`
+  - `stop_reason: string or null`
 
     The reason that we stopped.
 

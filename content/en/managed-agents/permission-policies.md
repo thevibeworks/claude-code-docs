@@ -98,12 +98,12 @@ When creating an agent, you can apply a policy to every tool in `agent_toolset_2
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Coding Assistant",
-      Model = new("claude-opus-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5,
       Tools =
       [
           new BetaManagedAgentsAgentToolset20260401Params
           {
-              Type = "agent_toolset_20260401",
+              Type = BetaManagedAgentsAgentToolset20260401ParamsType.AgentToolset20260401,
               DefaultConfig = new()
               {
                   PermissionPolicy = new BetaManagedAgentsAlwaysAskPolicy { Type = "always_ask" },
@@ -296,20 +296,25 @@ This example connects a GitHub MCP server and allows its tools to run without co
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Dev Assistant",
-      Model = new("claude-opus-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5,
       McpServers =
       [
-          new() { Type = "url", Name = "github", Url = "https://mcp.example.com/github" },
+          new()
+          {
+              Type = BetaManagedAgentsUrlMcpServerParamsType.Url,
+              Name = "github",
+              Url = "https://mcp.example.com/github",
+          },
       ],
       Tools =
       [
           new BetaManagedAgentsAgentToolset20260401Params
           {
-              Type = "agent_toolset_20260401",
+              Type = BetaManagedAgentsAgentToolset20260401ParamsType.AgentToolset20260401,
           },
           new BetaManagedAgentsMcpToolsetParams
           {
-              Type = "mcp_toolset",
+              Type = BetaManagedAgentsMcpToolsetParamsType.McpToolset,
               McpServerName = "github",
               DefaultConfig = new()
               {
@@ -529,7 +534,7 @@ Use the `configs` array to override the default for individual tools. The `name`
   [
       new BetaManagedAgentsAgentToolset20260401Params
       {
-          Type = "agent_toolset_20260401",
+          Type = BetaManagedAgentsAgentToolset20260401ParamsType.AgentToolset20260401,
           DefaultConfig = new()
           {
               PermissionPolicy = new BetaManagedAgentsAlwaysAllowPolicy { Type = "always_allow" },
@@ -765,7 +770,7 @@ In the following examples, the tool-use event IDs come from the `stop_reason.eve
       [
           new BetaManagedAgentsUserToolConfirmationEventParams
           {
-              Type = "user.tool_confirmation",
+              Type = BetaManagedAgentsUserToolConfirmationEventParamsType.UserToolConfirmation,
               ToolUseID = agentToolUseEvent.ID,
               Result = "allow",
           },
@@ -779,7 +784,7 @@ In the following examples, the tool-use event IDs come from the `stop_reason.eve
       [
           new BetaManagedAgentsUserToolConfirmationEventParams
           {
-              Type = "user.tool_confirmation",
+              Type = BetaManagedAgentsUserToolConfirmationEventParamsType.UserToolConfirmation,
               ToolUseID = mcpToolUseEvent.ID,
               Result = "deny",
               DenyMessage = "Don't create issues in the production project. Use the staging project.",
