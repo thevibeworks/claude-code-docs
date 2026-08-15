@@ -79,7 +79,6 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 
 * Workbench in the Claude Console is disabled.
 * Portions of the Compliance API that return raw content, such as prompts, responses, and files, are disabled.
-* In Claude Managed Agents, [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) and [dreams](https://platform.claude.com/docs/en/managed-agents/dreams) are disabled. Requests to these endpoints from a CMEK-protected workspace return an `invalid_request_error` (HTTP 400). To use memory stores or dreams, send requests from a workspace without CMEK.
 * Other beta and research preview features may not be covered by CMEK.
 
 **Claude Enterprise**
@@ -115,18 +114,18 @@ On both products, account data for users in your organization (such as names, em
 
 The following Claude Platform APIs and tools store data at rest under your key when CMEK is enabled:
 
-| APIs                                                           | Tools and features                                                                                  |
-| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Messages                                                       | Web search                                                                                          |
-| Models                                                         | Web fetch                                                                                           |
-| Files                                                          | Code execution                                                                                      |
-| Batch                                                          | Bash tool                                                                                           |
-| Skills                                                         | Text editor tool                                                                                    |
-| Claude Managed Agents (memory stores and dreams not available) | MCP connector                                                                                       |
-|                                                                | Structured outputs (not available for Claude Fable 5 or Claude Mythos models in CMEK organizations) |
-|                                                                | Advisor tool                                                                                        |
-|                                                                | Computer use                                                                                        |
-|                                                                | Context management                                                                                  |
+| APIs                  | Tools and features                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------------- |
+| Messages              | Web search                                                                                          |
+| Models                | Web fetch                                                                                           |
+| Files                 | Code execution                                                                                      |
+| Batch                 | Bash tool                                                                                           |
+| Skills                | Text editor tool                                                                                    |
+| Claude Managed Agents | MCP connector                                                                                       |
+|                       | Structured outputs (not available for Claude Fable 5 or Claude Mythos models in CMEK organizations) |
+|                       | Advisor tool                                                                                        |
+|                       | Computer use                                                                                        |
+|                       | Context management                                                                                  |
 
 ## Limited preservation outside your key
 

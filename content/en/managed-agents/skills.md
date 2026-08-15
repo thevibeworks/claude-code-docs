@@ -380,18 +380,22 @@ Skills can also live in your codebase. When a session mounts a repository throug
 
 Discovery finds skills at exactly `.claude/skills/<skill-name>/SKILL.md`, one directory level deep at the repository root:
 
-```text wrap
-your-repo/
-├── .claude/
-│   └── skills/
-│       ├── code-review/
-│       │   └── SKILL.md
-│       └── release-process/
-│           ├── SKILL.md
-│           └── scripts/
-│               └── run_checks.sh
-└── src/
-```
+* `your-repo/`
+
+  * `.claude/`
+
+    * `skills/`
+
+      * `code-review/`
+        * `SKILL.md`
+
+      * `release-process/`
+
+        * `SKILL.md`
+        * `scripts/`
+          * `run_checks.sh`
+
+  * `src/`
 
 Locations that don't match this layout aren't discovered at session start:
 

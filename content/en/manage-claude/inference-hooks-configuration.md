@@ -15,7 +15,7 @@ Inference hooks send prompts from your organization to an AI security server you
 You need:
 
 * The `organization:manage` permission in claude.ai. The built-in **Admin**, **Owner**, and **Primary owner** roles hold it, as does any custom role it has been granted.
-* An AI security server HTTPS endpoint that accepts verdict requests: an `https://` URL on port 443, on a publicly routable host, reachable without redirects. For the full [hosting requirements](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#receive-a-request), and to build the server and verify signed requests, see [Develop an Inference hooks integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
+* An AI security server HTTPS endpoint that accepts verdict requests: an `https://` URL on port 443, on a publicly routable host, reachable without redirects. Reverse-tunnel hosts (ngrok and similar tunnel services) are not supported: Anthropic's network policy blocks them. Don't test through a tunnel; host your server on a domain you control. For the full [hosting requirements](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#receive-a-request), and to build the server and verify signed requests, see [Develop an Inference hooks integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
 
 ## Set up Inference hooks
 

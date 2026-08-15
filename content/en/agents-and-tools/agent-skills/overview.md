@@ -85,14 +85,13 @@ When you request something that matches a Skill's description, Claude reads SKIL
 
 Skills can bundle additional materials:
 
-```text
-pdf-processing/
-├── SKILL.md (main instructions)
-├── FORMS.md (form-filling guide)
-├── REFERENCE.md (detailed API reference)
-└── scripts/
-    └── fill_form.py (utility script)
-```
+* `pdf-processing/`
+
+  * `SKILL.md` (main instructions)
+  * `FORMS.md` (form-filling guide)
+  * `REFERENCE.md` (detailed API reference)
+  * `scripts/`
+    * `fill_form.py` (utility script)
 
 **Instructions:** Additional markdown files (FORMS.md, REFERENCE.md) containing specialized guidance and workflows
 
