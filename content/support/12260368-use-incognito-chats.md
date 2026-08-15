@@ -30,7 +30,7 @@ Incognito chats are temporary conversations that aren't saved to your chat histo
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719768744/c7a2fa56cf284e48472f3b9c4dbf/030563f8-9f97-4891-a749-9ae95968a063?expires=1786776300&amp;signature=e05d68848230c82e72e77925da70831c1c124177aa8c3a2c94148c079dd1ba45&amp;req=dScmH854lYZbXfMW1HO4zeUcuwS6aeOIDCAt3Cx%2FSO2RVPhN7kkNmXOoAi5%2F%0A%2BQG8WfkwBIlp3mWQofE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719768744/c7a2fa56cf284e48472f3b9c4dbf/030563f8-9f97-4891-a749-9ae95968a063?expires=1786794300&amp;signature=1b0f8b7c883c645f017e4a02ef715d7b67bdc1c931e7cea6a69ec0daab601d4d&amp;req=dScmH854lYZbXfMW1HO4zeUcuwS6Z%2BGIDCAt3Cx%2FSO1V%2ByUgH89qu7j7JzNE%0AYuwvThSdtZmjTf8FGxU%3D%0A)
 
 1. Click the ghost icon to enable incognito mode.
 
