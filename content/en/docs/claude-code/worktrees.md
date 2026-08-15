@@ -49,7 +49,7 @@ When you exit an interactive worktree session, Claude checks the worktree for wo
 * **The worktree is clean**: for an unnamed session, Claude removes the worktree and its branch automatically. A [named](/docs/en/sessions#name-your-sessions) session prompts you first so you can keep the worktree for later
 * **The worktree has work in it**: Claude prompts you to keep or remove the worktree. Keeping preserves the directory and branch so you can return later. Removing deletes the worktree directory and its branch, along with all the work in them
 
-Non-interactive runs with `-p` have no exit prompt, so Claude doesn't clean up their worktrees. Remove them with `git worktree remove`.
+Non-interactive runs with `-p` have no exit prompt, so Claude doesn't clean up their worktrees, and Claude Code leaves the lock it took on each one at creation in place until a later session's [stale-lock sweep](#clean-up-subagent-and-background-session-worktrees) releases it. To remove one, run `git worktree remove`; if git refuses because the worktree is locked, run `git worktree unlock` on it first.
 
 On Windows, removing a worktree doesn't delete files outside it. If a folder inside the worktree is really a link to somewhere else, such as an NTFS junction or a directory symlink, Claude Code deletes only the link and keeps the folder it points to. Before v2.1.205, removing a worktree with a link nested in a subdirectory could delete the folder it pointed to.
 
@@ -146,11 +146,19 @@ This example makes every new worktree branch from your current work:
 
 ### Branch from a pull request
 
-To branch from a specific pull request, pass `--worktree` the PR number prefixed with `#`, or a full GitHub pull request URL. Claude Code fetches `pull/<number>/head` from `origin` and creates the worktree at `.claude/worktrees/pr-<number>`. Quote the argument so your shell doesn't treat `#` as the start of a comment:
+To branch from a specific pull request or merge request, pass `--worktree` the number prefixed with `#`, a GitHub pull request URL, or a GitLab merge request URL such as `https://gitlab.com/group/repo/-/merge_requests/123`. Claude Code fetches that change's head commit from `origin` and creates the worktree at `.claude/worktrees/pr-<number>`. Quote the argument so your shell doesn't treat `#` as the start of a comment:
 
 ```bash theme={null}
 claude --worktree "#1234"
 ```
+
+Claude Code reads only the number from the URL. It always fetches from your repository's `origin` remote, and picks the fetch path by `origin`'s host:
+
+* **github.com**: fetches `pull/<number>/head`
+* **gitlab.com**: fetches `merge-requests/<number>/head`
+* **GitHub Enterprise, self-managed GitLab, or any other host**: tries `pull/<number>/head` first, then `merge-requests/<number>/head`
+
+Before v2.1.233, Claude Code accepted only `#<number>` and GitHub-style pull request URLs for `--worktree`, and always fetched `pull/<number>/head`.
 
 ### Copy gitignored files into worktrees
 
@@ -176,11 +184,18 @@ With the default `"fresh"` [base](#choose-the-base-branch), a reopened worktree 
 
 * It has no uncommitted changes or untracked files.
 * It is still on the branch Claude Code created for it.
-* It has no commits of its own, or its pull request was merged and its remote branch deleted.
+* It has no commits of its own, or its pull request or merge request was merged and its remote branch deleted.
 
 Claude Code detects the merged case from git state alone: the remote branch the worktree pushed to no longer exists, and every commit in the worktree is already on the default branch.
 
-Anything else reopens at the old tip: a worktree that fails any of the conditions, one whose state can't be verified, and any reuse when `worktree.baseRef` is `"head"` or the name is a pull request number. Before v2.1.208, a reused name always reopened the old worktree at its old tip.
+In every other case, Claude Code reopens the worktree at its old tip:
+
+* The worktree fails any of the conditions.
+* Claude Code can't verify the worktree's state.
+* `worktree.baseRef` is `"head"`.
+* The name is a pull request or merge request reference.
+
+Before v2.1.208, when you reused a name, Claude Code always reopened the old worktree at its old tip.
 
 ### Replace worktree creation with a hook
 

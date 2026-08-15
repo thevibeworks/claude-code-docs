@@ -43,7 +43,7 @@ The check is anything that returns a signal Claude can read in the conversation:
 Once the check exists, decide how hard it gates the stop:
 
 * **In one prompt**: ask Claude to run the check and iterate in the same message, as in the table above.
-* **Across a session**: set the check as a [`/goal` condition](/docs/en/goal). A separate evaluator re-checks it after every turn and Claude keeps working until it holds.
+* **Across a session**: set the check as a [`/goal` condition](/docs/en/goal). A separate evaluator re-checks it after every turn and Claude keeps working until the goal resolves. If Claude stalls, Claude Code eventually stops the run with the goal still set — see [how /goal evaluation works](/docs/en/goal#how-evaluation-works).
 * **As a deterministic gate**: a [Stop hook](/docs/en/hooks#stop) runs your check as a script and blocks the turn from ending until it passes. Claude Code overrides the hook and ends the turn after 8 consecutive blocks.
 * **By a second opinion**: a [verification subagent](/docs/en/sub-agents) or a [dynamic workflow](/docs/en/workflows) that checks its own findings has a fresh model try to refute the result, so the agent doing the work isn't the one grading it.
 
@@ -157,8 +157,6 @@ A few setup steps make Claude Code significantly more effective across all your 
 
 CLAUDE.md is a special file that Claude reads at the start of every conversation. Include Bash commands, code style, and workflow rules. This gives Claude persistent context it can't infer from code alone.
 
-The `/init` command analyzes your codebase to detect build systems, test frameworks, and code patterns, giving you a solid foundation to refine.
-
 There's no required format for CLAUDE.md files, but keep it short and human-readable. For example:
 
 ```markdown CLAUDE.md theme={null}
@@ -189,23 +187,7 @@ If Claude keeps doing something you don't want despite having a rule against it,
 
 You can tune instructions by adding emphasis (e.g., "IMPORTANT" or "YOU MUST") to improve adherence. Check CLAUDE.md into git so your team can contribute. The file compounds in value over time.
 
-CLAUDE.md files can import additional files using `@path/to/import` syntax:
-
-```markdown CLAUDE.md theme={null}
-See @README.md for project overview and @package.json for available npm commands.
-
-# Additional Instructions
-- Git workflow: @docs/git-instructions.md
-- Personal overrides: @~/.claude/my-project-instructions.md
-```
-
-You can place CLAUDE.md files in several locations:
-
-* **Home folder (`~/.claude/CLAUDE.md`)**: applies to all Claude sessions
-* **Project root (`./CLAUDE.md`)**: check into git to share with your team
-* **Project root (`./CLAUDE.local.md`)**: personal project-specific notes; add this file to your `.gitignore` so it isn't shared with your team
-* **Parent directories**: useful for monorepos where both `root/CLAUDE.md` and `root/foo/CLAUDE.md` are pulled in automatically
-* **Child directories**: Claude pulls in child CLAUDE.md files on demand when it reads a file in those directories
+CLAUDE.md files can import additional files using `@path/to/import` syntax. For import rules and where CLAUDE.md files can live, see [CLAUDE.md files](/docs/en/memory#claude-md-files).
 
 ### Configure permissions
 
@@ -333,7 +315,7 @@ For guidance on choosing between skills, subagents, hooks, and MCP, see [Extend 
 
 ## Communicate effectively
 
-The way you communicate with Claude Code significantly impacts the quality of results.
+Ask Claude the questions you'd ask another engineer, and for larger features have Claude interview you and write a spec before you start implementing.
 
 ### Ask codebase questions
 
@@ -422,13 +404,7 @@ Use subagents to investigate how our authentication system handles token
 refresh, and whether we have any existing OAuth utilities I should reuse.
 ```
 
-The subagent explores the codebase, reads relevant files, and reports back with findings, all without cluttering your main conversation.
-
-You can also use subagents for verification after Claude implements something:
-
-```text wrap theme={null}
-use a subagent to review this code for edge cases
-```
+You can also use subagents for verification after Claude implements something. See [Add an adversarial review step](#add-an-adversarial-review-step).
 
 ### Rewind with checkpoints
 
@@ -457,8 +433,6 @@ Claude Code saves conversations locally, so when a task spans multiple sittings 
 ## Automate and scale
 
 Once you're effective with one Claude, multiply your output with parallel sessions, non-interactive mode, and fan-out patterns.
-
-Everything so far assumes one human, one Claude, and one conversation. But Claude Code scales horizontally. The techniques in this section show how you can get more done.
 
 ### Run non-interactive mode
 

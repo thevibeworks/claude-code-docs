@@ -257,10 +257,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -269,7 +265,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -728,10 +728,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -740,7 +736,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -951,10 +951,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux.
-    </Note>
-
     First, make sure you have Claude for Desktop installed.
     [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -965,7 +961,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1384,10 +1384,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -1398,7 +1394,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1647,17 +1647,17 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1947,10 +1947,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -1958,7 +1954,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2371,10 +2371,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -2382,7 +2378,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2804,10 +2804,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/2026-07-28/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -2815,7 +2811,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2913,16 +2913,21 @@ When you ask a question:
   <Accordion title="Claude for Desktop Integration Issues">
     **Getting logs from Claude for Desktop**
 
-    Claude.app logging related to MCP is written to log files in `~/Library/Logs/Claude`:
+    Claude.app logging related to MCP is written to log files in `~/Library/Logs/Claude` (macOS) or `~/.config/Claude/logs/` (Linux):
 
     * `mcp.log` will contain general logging about MCP connections and connection failures.
     * Files named `mcp-server-SERVERNAME.log` will contain the stderr output from the named server. Stdio servers may use stderr for all their logging, so these files are not limited to errors.
 
     You can run the following command to list recent logs and follow along with any new ones:
 
-    ```bash theme={null}
+    ```bash macOS theme={null}
     # Check Claude's logs for errors
     tail -n 20 -f ~/Library/Logs/Claude/mcp*.log
+    ```
+
+    ```bash Linux theme={null}
+    # Check Claude's logs for errors
+    tail -n 20 -f ~/.config/Claude/logs/mcp*.log
     ```
 
     **Server not showing up in Claude**
@@ -2936,6 +2941,7 @@ When you ask a question:
 
       * **Windows**: Right-click the Claude icon in the system tray (which may be hidden in the "hidden icons" menu) and select "Quit" or "Exit".
       * **macOS**: Use Cmd+Q or select "Quit Claude" from the menu bar.
+      * **Linux**: Right-click the Claude icon in the system tray and select "Quit", or run `pkill -f claude-desktop` from a terminal.
 
       Simply closing the window does not fully quit the application, and your MCP server configuration changes will not take effect.
     </Warning>

@@ -14,7 +14,7 @@ For turning Inference hooks on and pointing them at your endpoint, see [Configur
 
 ## Get a first verdict round trip
 
-The smallest working integration is a server that reads each request and allows it. Run one of the following servers, expose it at a public `https://` URL (for example, behind a TLS-terminating reverse proxy or a tunnel), then have your administrator [set it as the endpoint and test the connection](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration): the **Test connection** result reports the allow verdict your server returned.
+The smallest working integration is a server that reads each request and allows it. Run one of the following servers, expose it at a public `https://` URL (for example, behind a TLS-terminating reverse proxy on a host you control, not a reverse-tunnel service; see [Receive a request](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#receive-a-request)), then have your administrator [set it as the endpoint and test the connection](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration): the **Test connection** result reports the allow verdict your server returned.
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -148,7 +148,7 @@ The smallest working integration is a server that reads each request and allows 
 
 Anthropic sends an HTTPS `POST` to the URL your administrator configures. The whole configured URL is the endpoint: there is no fixed path suffix, so choose any path that suits your server.
 
-Host your AI security server where Anthropic can reach it: an `https://` URL on port 443, on a publicly routable host (private, loopback, and carrier-grade NAT ranges are refused at connect time), with a certificate that validates against the public CA trust store, responding without redirects. The configured URL must be the final destination. [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) covers how your administrator sets and tests the URL.
+Host your AI security server where Anthropic can reach it: an `https://` URL on port 443, on a publicly routable host (private, loopback, and carrier-grade NAT ranges are refused at connect time), with a certificate that validates against the public CA trust store, responding without redirects. The configured URL must be the final destination. Reverse-tunnel hosts (ngrok and similar tunnel services) are not supported: Anthropic's network policy blocks them. Host your server on a domain you control. [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) covers how your administrator sets and tests the URL.
 
 Every request carries these fixed headers, along with any [custom request headers](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) your administrator configured and, once your organization has a signing secret, the `webhook-*` signature headers described in [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature):
 

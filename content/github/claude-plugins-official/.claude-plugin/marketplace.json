@@ -223,7 +223,7 @@
         "url": "https://github.com/amd/skills.git",
         "path": "skills",
         "ref": "main",
-        "sha": "11c8edb0aee051b87640146bae38c82b22dff86f"
+        "sha": "b641e5fbd17ec2bf8a8f1256dc3acbd7f97b0ce4"
       },
       "strict": false,
       "skills": [
@@ -386,7 +386,7 @@
         "url": "https://github.com/aws/agent-toolkit-for-aws.git",
         "path": "plugins/aws-agents",
         "ref": "main",
-        "sha": "e2588f4b494416e68c5a991e51b21c2d99038de3"
+        "sha": "957cf377ea1dffccf1f8a54ded2be8666b6db41c"
       },
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
@@ -452,22 +452,6 @@
       "homepage": "https://github.com/aws/agent-toolkit-for-aws"
     },
     {
-      "name": "aws-dev-toolkit",
-      "description": "AWS development toolkit — 34 skills, 11 agents, and 3 MCP servers for building, migrating, and performing architecture reviews on AWS.",
-      "author": {
-        "name": "aws-samples"
-      },
-      "category": "development",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups.git",
-        "path": "plugins/aws-dev-toolkit",
-        "ref": "main",
-        "sha": "3360d439a94e59fbf13eb0019eaf5735e4a23d8a"
-      },
-      "homepage": "https://github.com/aws-samples/sample-claude-code-plugins-for-startups"
-    },
-    {
       "name": "aws-serverless",
       "description": "Design, build, deploy, test, and debug serverless applications with AWS Serverless services.",
       "category": "development",
@@ -519,7 +503,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/microsoft/azure-skills.git",
-        "sha": "db28f0ed1d05d23056b86d536d9a5e6967f68ef3"
+        "sha": "16dc8c51ba7fda44c18781b5e4c0ca40a7a06a55"
       },
       "homepage": "https://github.com/microsoft/azure-skills"
     },
@@ -705,7 +689,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "49150339f8246e846eb668e375fa96dbe9c24581"
+        "sha": "dd0c286b6d25392ab0dcd9a0f237b28095608937"
       },
       "homepage": "https://carta.com"
     },
@@ -721,7 +705,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "49150339f8246e846eb668e375fa96dbe9c24581"
+        "sha": "820f497ab37d4cf943bb9c35626f4627ed861c22"
       },
       "homepage": "https://carta.com"
     },
@@ -737,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "cec8bc8b44d1637b3269ba383dbf1ad88d0d36ff"
+        "sha": "e9bb21cb3f16e1b152c98edb8c8ae2029997b82a"
       },
       "homepage": "https://carta.com"
     },
@@ -1484,7 +1468,7 @@
         "url": "https://github.com/expo/skills.git",
         "path": "plugins/expo",
         "ref": "main",
-        "sha": "948115e9e0148af1a966531530e9e948c804a3e7"
+        "sha": "0814f2c6375f873b07f144c93e855198915d5426"
       },
       "homepage": "https://github.com/expo/skills/blob/main/plugins/expo/README.md"
     },
@@ -1815,7 +1799,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "9ba528914dafc05c54e2191c19f99847c8f4420a"
+        "sha": "12fd6d9087fab1347f8737c34901e3db61e4dfee"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -2060,7 +2044,7 @@
         "url": "https://github.com/LogRocket/logrocket-claude-plugin.git",
         "path": "plugins/logrocket",
         "ref": "main",
-        "sha": "60c1b83ea558771fa92d80d2e756920286c430f7"
+        "sha": "2e44dbb47faf9bb54e3405a8ae2714e7c5ce9791"
       },
       "homepage": "https://logrocket.com"
     },
@@ -2270,7 +2254,7 @@
         "url": "https://github.com/awslabs/startups.git",
         "path": "migrate/plugins/migration-to-aws",
         "ref": "main",
-        "sha": "63f5d2c3a47c745d430f5e6047ad16cfc6d85b36"
+        "sha": "3408f10f51785634cf28944e44fc313127884c33"
       },
       "homepage": "https://github.com/awslabs/startups"
     },
@@ -2648,7 +2632,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/pinecone-io/pinecone-claude-code-plugin.git",
-        "sha": "d4b0ef622190d0174fc9113e55a5ee1a5fe5f109"
+        "sha": "c48ac3f67a9b672654f24a976de60c87ebeb6468"
       },
       "homepage": "https://github.com/pinecone-io/pinecone-claude-code-plugin"
     },
@@ -2960,7 +2944,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/render-oss/render-plugin-claude-code.git",
-        "sha": "da2a2491d3e5a5db83bb1f3cc68cb402371822fe"
+        "sha": "e8f889396634dbc8c368448a7f3de993ed4a5ac1"
       },
       "homepage": "https://render.com"
     },
@@ -3101,7 +3085,7 @@
         "url": "https://github.com/forcedotcom/sf-skills.git",
         "path": "plugins/builder/salesforce-development",
         "ref": "main",
-        "sha": "81dc38272470fa835cdb19a868f359f548472232"
+        "sha": "697c208e169e6c542f3d542377939744b651ed87"
       },
       "homepage": "https://github.com/forcedotcom/sf-skills/tree/main/plugins/builder/salesforce-development"
     },
@@ -3367,7 +3351,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/SonarSource/sonarqube-agent-plugins.git",
-        "sha": "acaa5772276cd8e3ee622e54e2ebcb5dbf6f68ba"
+        "sha": "e596969a083cf27bfe439ee2e9459f7ef4124a70"
       },
       "homepage": "https://www.sonarsource.com"
     },
@@ -3403,7 +3387,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/gemini-cli-extensions/spanner.git",
-        "sha": "1a92c0f2ee20e3c51c43e0a30e7ed40f303db2f9"
+        "sha": "290f70f172bb4841a91519b140deb35f97fd4a66"
       },
       "homepage": "https://github.com/gemini-cli-extensions/spanner"
     },
@@ -3851,7 +3835,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "6a19174cd727ea6faf6e23f0584261c6d32ddbeb"
+        "sha": "1c0cebc07eb52740461591e05ba1c176ee25ac6e"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
@@ -3958,7 +3942,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/zscaler/zscaler-mcp-server.git",
-        "sha": "1b9d63a3e00e9bd7878da4dd436ec897c0c425bf"
+        "sha": "ee6354bfd20f797f3e77b69566f500e83c04f723"
       },
       "homepage": "https://github.com/zscaler/zscaler-mcp-server"
     },
