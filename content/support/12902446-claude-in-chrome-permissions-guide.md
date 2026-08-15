@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786794300&amp;signature=5552d345ee6d392e99d16642383868c12eb557cbfb3f99134e11256e837fe402&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRK9Ya0gN0ADj5oqFCDZ8e64qRpzlb4lgVa%0ADbH%2BoS1ArX%2B%2Ff5hcj2I%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786812300&amp;signature=034b77c9d91446391bb8f189f59d23f511e60b760ed65d120e799008e06b32b1&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRF%2FYC0gN0ADj5oqFCF7G5Jkc8FPFjcbFqi%0AO9cbIB3byZeAigGr6d0%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786794300&amp;signature=cdb2dbfe831311441ab5f6f2b3f3af17f0a47d21e50c4bbf64463db4a2f40828&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB3gSjv7A4lHPBihAUsELEwq83deH6Keioq%0Acj1tTdLjspJXk5qthAY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786812300&amp;signature=5a3bc872603242e5de2158c77a3216a4a51c046ccef978e53505a25199ec0169&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB4iS7v7A4lHPBihAWfxhRyIj6HqKbkED43%0A0BmoOQdbD5hD0yPpnZs%3D%0A)
 
 ### Permission options
 
