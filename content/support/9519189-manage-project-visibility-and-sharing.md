@@ -12,7 +12,7 @@ When creating a project on a Team or Enterprise plan, you can choose between two
 
 - **Private:** Only invited members can view and use the project.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370991/2b6b16e5deff094e073a5b4bb0ea/63197103-24c0-41e5-aebd-9b8f431837bb?expires=1786795200&amp;signature=df1aa6a662bb5d2f198abfb43ffae1dec3db0d8401cb76056da9a9351af98cd9&amp;req=dScjFsp5nYhWWPMW3nq%2BgeZJIc%2BBN8s71WEWc7sTq%2BmOKBISuCP3KqSh1kWS%0ABjNoptKfk20rR4kFb3FOul9O2zE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370991/2b6b16e5deff094e073a5b4bb0ea/63197103-24c0-41e5-aebd-9b8f431837bb?expires=1786812300&amp;signature=1806c6b4b0c2a322f2ce44726f7bc1d2db91af9fe01c6fd12a10ce9b997b5438&amp;req=dScjFsp5nYhWWPMW1HO4zd3a2VosJYykHK95%2FTFaPymlD5QFqTtz%2F9J5HiYV%0AAok4daLortqdYPkV0UI%3D%0A)
 
 ## What are public projects?
 
@@ -22,11 +22,11 @@ If you choose to share a project with the rest of your organization upon creatio
 
 Yes, you can switch the visibility of a project you created as public to private at any time by opening the project and clicking the “Share” button to the right of the project name:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370987/5d5db997e6b42e627ffa62fddf75/4823906b-9535-4a19-b89e-a1003f1e6e68?expires=1786795200&amp;signature=e0709c0c77f805f9f6114d1cf92a9dd7922e3af32d81f9a455915b5b9f23fb90&amp;req=dScjFsp5nYhXXvMW3nq%2BgauQysBNV8SOzUd7xHMI3oRUAxhS4cTvgXPF%2FSZO%0APFkxLjrcJFvhpv71EO9IpwGs9jo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370987/5d5db997e6b42e627ffa62fddf75/4823906b-9535-4a19-b89e-a1003f1e6e68?expires=1786812300&amp;signature=53df105e0bbce2672c0cd91e0a3741349d6c273029a904db9caecfa92bf6d04b&amp;req=dScjFsp5nYhXXvMW1HO4zUiDoi%2F%2FgAQqE8Kp5wh0MSA0whrDNOCxMuGFhh2r%0AKWKZgJMP9NtPBgu0fIE%3D%0A)
 
 Click “Everyone at [your organization]” under **General access** and select “Only people invited” to change the project from public to private:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370988/386407facbf3e73d2f5538623a18/69d8ffcd-e1ca-470f-a219-5b88704e41f2?expires=1786795200&amp;signature=37bb3196881000192f1c0a268799e00baf2352e93475024f837c5641d4bc5732&amp;req=dScjFsp5nYhXUfMW3nq%2BgR4SCqCCdr2BQaVU7vfwvzSz0dyLbwyzQuo%2BmiNu%0A7XlMd7hKwaxsG0CnYAXmVXfHzEE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370988/386407facbf3e73d2f5538623a18/69d8ffcd-e1ca-470f-a219-5b88704e41f2?expires=1786812300&amp;signature=119eef0fc4ac2733692993a402af6b248f6fb714d2a55307797e060bd8217f96&amp;req=dScjFsp5nYhXUfMW1HO4zckCIfRqYyCnl3XeGelDRW2AEapq8UIUbSL8ply0%0A0PGQnTSdoaTNSuw%2Fli0%3D%0A)
 
 ## What are private projects?
 
@@ -36,11 +36,11 @@ Choosing “Only people invited” keeps your project private so that you are th
 
 Yes, you can switch the visibility of a project you created as private to public at any time by opening the project and clicking the “Share” button to the right of the project name:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370989/f829dcd8bdd88e944322f678323f/9d25eff1-6df3-40be-82eb-ba7fe09187e8?expires=1786795200&amp;signature=087dd528b54074f6a5b10349540346437f72011ca2777b981cdf6702db72d44f&amp;req=dScjFsp5nYhXUPMW3nq%2BgUpONNyv4ciG%2FtM665d8ozYjKU15hA4h%2B1p5GU8S%0AhNmZCQu2lFzFq4FxQk8VVnVWnwg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370989/f829dcd8bdd88e944322f678323f/9d25eff1-6df3-40be-82eb-ba7fe09187e8?expires=1786812300&amp;signature=d07d62f6686da240a99b4904ac5ebef806d1ac3773da86be521bb4ee2f5fd4ee&amp;req=dScjFsp5nYhXUPMW1HO4zaSEGlWUS7oO2JrJefVtywkcA7trGJLNtLsB%2FmDA%0AJQAG4OO957xXHgTnHgQ%3D%0A)
 
 Click “Only people invited” under General access and select “Everyone at [your organization]” to change the project from private to public:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370990/d173fbc6f030780d30c6d7b8e204/7e47b9d1-89fe-4607-8b5b-f7b06e7ad0d6?expires=1786795200&amp;signature=aca4e3e736992473333a5c8ef73ea54fc3fa5bd93d72a37288b426f3438d672b&amp;req=dScjFsp5nYhWWfMW3nq%2BgTfr6qmRN1RVWgf62YaZuU9Ztv%2FhoFL03Zj7ROjd%0Aqb5J3GIdv4L2dBnldV7tG8rHXc8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370990/d173fbc6f030780d30c6d7b8e204/7e47b9d1-89fe-4607-8b5b-f7b06e7ad0d6?expires=1786812300&amp;signature=ab71fabba972c29228571f5536858877dbb282064b58abb704f5845cbd4cd5bb&amp;req=dScjFsp5nYhWWfMW1HO4zT7Q086zvA4VAmYRPrgMBZnF%2Fckta9T5FfIxCD4N%0AcX4YZlq%2Fj5tJ2%2Bgw0pY%3D%0A)
 
 ## Add and remove access to private projects
 
