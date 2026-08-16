@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786880700&amp;signature=9f337b58a30d6b0b8b8bfb99be78df45846c699b6e26ab5a6b179874cc5b93c8&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRF9IKwgN0ADj5oqFDHp7QI%2F7aQouh0QzDD%0Ax9D7UCykgH%2B%2Bju%2F%2BQo8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1786898700&amp;signature=4fc0edf0a5292ca8588853718410208ba1c00802d2047f2f46eb792d9b5184a7&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcRF9YqwgN0ADj5oqFAawsZw4wSf4ca35UuF%0AgLBXPLJeL1ThZQ%2Fdq4A%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786880700&amp;signature=f2e701b7e99121a4abdfdbe16f813d78f99e15ecba8db9fd68e3f9348b8aff15&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB4gCzr7A4lHPBihAVKDbAfr0%2BnxQKCrKhX%0A05OCDaZnWTmXwL4wh1w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1786898700&amp;signature=6072126e857e96e7628b18c26fd46a5f74a296e2e287a0ebfd83289421763282&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmB4gSTr7A4lHPBihAV5k06hjIRWmzj0v0sE%0ALEXWMctqosbYioTAEfM%3D%0A)
 
 ### Permission options
 
