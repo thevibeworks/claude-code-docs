@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786862700&amp;signature=d2747b537dff55ea4066eb018f2871cdcee149d8171d95e646c4a23f6d8d9304&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPVNfdSxakFVfq5WwyJV0Ybhq%2BBniWdkiwT%0AY69u0ZIoqok4Iac1B3w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786880700&amp;signature=aa24b906a14c0f3b559fe5eb20ce4fd608cc2611aaf26f4bdcb0e4d4edf07b0d&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPVO%2FVSxakFVfq5WwyUeOZL7Bbkq5mBaa9K%0AU2O4sBnGEotcs81i%2BN0%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786862700&amp;signature=d998f8c9d204a8db7fcb06ff542fbf2fe542064d793f20eb365f273dfadf67e0&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD0hUKTmKUxugP2BQszVxEMegXjxRWT7gVW%0AdZYpF%2BkbUP8g2HXkB34%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786880700&amp;signature=38094311fa9ab4be01c82b5b6cecc89ad957d33360ffd2920bec8f81529e649a&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD0i0CTmKUxugP2BQsx7V4hn6bABFtFFVx0%0AnHihwrh4%2BKLzbdHcakQ%3D%0A)
 
 ---
 
