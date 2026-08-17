@@ -88,7 +88,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/AikidoSec/aikido-claude-plugin.git",
-        "sha": "1f40742cc1300986462e1160bfc2a8ef08e7cb54"
+        "sha": "868d7ce08e6ee6fc4fbb539a07d2ec7bc1d7482d"
       },
       "homepage": "https://github.com/AikidoSec/aikido-claude-plugin"
     },
@@ -643,7 +643,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/buildkite/skills.git",
-        "sha": "5bbd53d496b9dd5cd7b3e0a2d8345daa333c3f4e"
+        "sha": "a4bb20c6bf9ae535335f782015f65b9975065f27"
       },
       "homepage": "https://buildkite.com"
     },
@@ -1189,7 +1189,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/dash0hq/dash0-agent-plugin.git",
-        "sha": "67003e69ebe5be15f36323a490cf7fa414dc38aa"
+        "sha": "c8fe573a52601014fee3fe220a3a86980b4e7f48"
       },
       "homepage": "https://dash0.com/"
     },
@@ -3835,7 +3835,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "3e94eae0e1125fea1329ea6d8c8a739a164bffc0"
+        "sha": "3973a100295fa2b3b32b1f127c6a10dae41da4d8"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
