@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786950000&amp;signature=ac9f1bd2a46d7dc27a167a4ae5d863ac111dae7f6792f6a9331c8596fbd15334&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPUNvVVxakFVfq5WwxIxJjEaUeHMvH1w%2BXR%0Ag90QF0GGHpXg3%2BT2gV0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1786967100&amp;signature=b49b95b849943d9dc17ec7938374618e3b6bd289ecd75809fde2c00dc6ea1381&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhPUNfJUxakFVfq5WwwKJBcCLe%2B1mz223pvQ%0A5QKkw3lYvG4uEXRyqRI%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786950000&amp;signature=9cd1215e3451c46d0862902b8ab1380e09ed5199bc3bc2a87f57981bc1b77fe0&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD1hkCUmKUxugP2BQueVs%2FZs72bdEBFIGpw%0A%2BR5%2FUtxRU4wyNqeN%2B%2BU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1786967100&amp;signature=737ce24badea630a965e0d8206e51e2494478b7d3fe611b88d0ad9d5b8af21cb&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPD1hUeVmKUxugP2BQvhbkNvgSLYKBmJjVEs%0AutQ2QUu7R2Kx5drEAeQ%3D%0A)
 
 ---
 
