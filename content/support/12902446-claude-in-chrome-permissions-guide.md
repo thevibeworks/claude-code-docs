@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787035500&amp;signature=e4f1fe53c9d516a3760ca867f407f38aa215e5a573dc6dd186a7d242c0edd90c&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVN%2F4eygN0ADj5oqFBslgTTTew0YghSEEHG%0AU32CWBh81eYY73MxG04%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787053500&amp;signature=96bdc28856f20a8441385ec46d23d6fea638093be390eb778809d5f8d484077e&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVN%2BYGygN0ADj5oqFBM3CP0gG%2FHN9Tk9hog%0AKiyqPuJPwApCn7aV5us%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787035500&amp;signature=22741c8578a6be0935f61b5d69fac49aaa125a156d6b0ae14af139f24174ed32&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFwiynp7A4lHPBihAUQamHrW2JtzNwoEqEg%0AZDJOYMRU0vmW%2B%2FtyLA4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787053500&amp;signature=d2565f5c72230456aa1d6cba35498041e121c703f9d4aef7d4bcdbaadad214d6&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFwjS%2Fp7A4lHPBihAV8VhIkNifYQbU0akkV%0AQjSppaNw3UDnO3uTkMo%3D%0A)
 
 ### Permission options
 
