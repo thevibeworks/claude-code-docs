@@ -29,15 +29,7 @@ Run independent reads and searches in parallel rather than one at a time.
 
 Every finding names the exact sink line, quotes that line verbatim in `snippet`, and names the enclosing function in `symbol`. These are how findings from different researchers get deduplicated and re-anchored when line numbers move — a finding that points at the wrong line is worse than no finding, because it wastes the reviewer's trust.
 
-Use the category slug that matches, from this vocabulary:
-
-- injection: `sql-injection`, `command-injection`, `code-injection`, `xss`, `xxe`, `redos`, `insecure-deserialization`, `template-injection`, `header-injection`, `log-injection`, `format-string`, `improper-input-validation`, `prompt-injection`
-- authorization: `auth-bypass`, `improper-authorization`, `idor`, `privilege-escalation`, `csrf`, `ssrf`, `open-redirect`, `path-traversal`, `race-condition`
-- memory: `buffer-overflow`, `out-of-bounds-read`, `out-of-bounds-write`, `use-after-free`, `double-free`, `integer-overflow`, `null-dereference`, `uninitialized-memory`, `type-confusion`, `unsafe-ffi`
-- crypto: `timing-side-channel`, `weak-crypto`, `weak-randomness`, `key-nonce-reuse`, `hardcoded-secret`
-- exposure: `info-disclosure`, `insecure-file-permissions`, `dos`, `prototype-pollution`
-
-An off-list slug is allowed as a last resort, but prefer one of these: the dedupe key is (file, line, category), so a novel spelling silently fails to merge with the same finding reported by another researcher.
+Give every finding the single most specific CWE id for its weakness in `cweId` (`CWE-89`, not a list): a Base or Class entry the CWE catalog allows for mapping, never a Pillar or a category; name the weakness the code has, not the attack or its impact. The plugin derives the finding's category from that id, so two researchers who agree on the weakness agree on the category.
 
 ## Severity
 

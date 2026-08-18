@@ -1,6 +1,6 @@
 # Use Google Workspace connectors
 
-Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search emails, manage your calendar, work with documents, and save files—all without leaving the conversation.
+Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search and send emails, manage your calendar, work with documents, and save files—all without leaving the conversation.
 
 Google Workspace connectors (Gmail, Google Calendar, and Google Drive) are available for all users on Claude and Claude Desktop.
 
@@ -12,7 +12,9 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 - **Search and read emails** using natural language queries
 
-- **Draft emails** with proper formatting and context — Claude creates drafts in your Gmail account, but cannot send emails on your behalf
+- **Draft emails** with proper formatting and context
+
+- **Send, reply to, and forward emails** from Gmail. By default, Claude asks for your approval before each of these actions. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
 
 - **Access email metadata**, including attachment metadata (not attachment content)
 
@@ -36,6 +38,8 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 - **Search and retrieve Google Docs** from your Drive.
 
+- **Share, move, and trash files** in Google Drive. By default, Claude asks for your approval before each of these actions. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
+
 - **Look up file metadata** and preview directly without searching first.
 
 - **Read** Sheets, Slides, PDFs, images, and MS Office files.
@@ -56,7 +60,7 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 ## How to use the connectors
 
-Ask Claude a question that requires access to your Gmail, Calendar, or Drive. Claude automatically detects which tools it needs and uses them to respond. Each action Claude takes on your behalf requires your explicit approval.
+Ask Claude a question that requires access to your Gmail, Calendar, or Drive. Claude automatically detects which tools it needs and uses them to respond. By default, each action Claude takes on your behalf requires your explicit approval. On Team and Enterprise plans, owners decide whether members can allow certain actions to run without asking each time.
 
 Claude's response includes citations indicating which emails, calendar events, or documents were used as sources, with links to the originals when available. You can ask follow-up questions to dig deeper into any source.
 
@@ -122,7 +126,7 @@ You can enable or disable specific connectors from below the chat interface:
 
 ### A note on Gmail permissions
 
-During authentication, Google's OAuth screen mentions email sending permissions. Claude only reads emails and creates drafts with your explicit approval. The send function is not enabled—all emails must be sent manually through your Gmail account.
+During authentication, Google's OAuth screen mentions email sending permissions. Claude can send, reply to, and forward emails, but only does so with your explicit approval by default. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
 
 ---
 
@@ -194,7 +198,7 @@ No. Claude extracts the main text content only and cannot see images, comments, 
 
 ### Can Claude send emails on my behalf?
 
-No. Claude can create email drafts, but all emails must be sent manually through your Gmail account.
+Yes. Claude can send, reply to, and forward emails from Gmail, and asks for your approval by default before each of these actions. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
 
 ### Can I opt out of using these connectors?
 

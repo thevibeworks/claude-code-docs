@@ -2,6 +2,8 @@
 
 If you're using Claude with a personal account (Free, Pro, or Max) tied to your work email, you may be able to move that account into your organization's Team or Enterprise workspace. There are two paths: you can start a migration yourself (Team and Enterprise) or your admin can claim accounts on your domain (Enterprise only).
 
+**Note:** Enterprise organizations that have turned on HIPAA readiness or customer-managed encryption keys (CMEK) can't receive data from a personal account. If your organization uses either, you won't be offered the option to bring your data with you, and a domain claim won't offer to merge your account. You can export your data first if you want a copy. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
+
 ---
 
 ## What moves when you migrate
@@ -14,7 +16,7 @@ Both paths move the same content for each person.
 
 - Artifacts within chats
 
-- Projects, project instructions, and files, including projects created through or used with Cowork.
+- Projects, project instructions, and files, including projects created through or used with Cowork
 
 - Uploaded files and attachments
 
@@ -25,6 +27,8 @@ Both paths move the same content for each person.
 - Claude's memory from chats and projects, unless your organization has memory turned off
 
 - Claude Code memory and personal settings such as tool settings, notification preferences, and consents, unless your organization account already has its own values set
+
+- Claude Design systems and projects migrated since 14 August 2026
 
 ### What doesn't move
 
@@ -46,7 +50,7 @@ Both paths move the same content for each person.
 
 - Claude Code cloud sessions (web, scheduled tasks, and mobile)
 
-- Claude Design systems and projects
+- Claude Design systems and projects migrated before 14 August 2026
 
 ### Before you migrate
 
@@ -74,13 +78,15 @@ If you have a personal Claude account on the same email address as your organiza
 
   - **Delete your data:** Your personal account closes (with a prorated refund if you had a paid subscription), but no content moves into the organization. You start with a clean account. You can choose to download your account data before deleting it.
 
+If your organization has turned on HIPAA readiness or CMEK, **Bring your data with you** isn't offered.
+
 ### How do refunds work for migrated accounts?
 
 What happens to your Pro or Max plan after migrating depends on where you bought it:
 
 - **Directly (not through a mobile app):** Your Pro or Max subscription is canceled automatically when your personal account closes, and you receive a prorated refund for unused time.
 
-- **Google Play Store:** Your Pro or Max subscription is canceled automatically, but it runs to the end of your current billing period. There's no prorated refund. To avoid paying for time you can't use, cancel through Google Play before you migrate.
+- **Google Play Store:** Your Pro or Max subscription is canceled automatically when your personal account closes, and you receive a prorated refund for unused time. Refunds for Google Play purchases can take a few days to appear.
 
 - **Apple App Store:** Your Pro or Max subscription isn't canceled. Apple doesn't allow third-party cancellation, so you'll need to cancel it yourself through your Apple ID settings. If you don't, Apple keeps charging you after your personal account closes.
 
@@ -110,7 +116,7 @@ If you subscribed to the Pro or Max plan through the Apple App Store, **Keep bot
 
 Domain claiming is supported on Claude Enterprise plans only.
 
-Enterprise admins can claim all existing personal accounts on their organization's verified domain and move them into the Enterprise workspace. If your admin initiates a domain claim, you'll receive an email and in-product notification with a deadline (at least 30 days out) to choose between merging your data into a new Enterprise account or starting fresh.
+Enterprise admins can claim all existing personal accounts on their organization's verified domain and move them into the Enterprise workspace. If your admin initiates a domain claim, you'll receive an email and in-product notification with a deadline (at least 30 days out) to choose between merging your data into a new Enterprise account or starting fresh. If your organization has turned on HIPAA readiness or CMEK, you'll still get the notification and deadline, but merging isn't offered. Export anything you want to keep before the deadline, then start fresh.
 
 For the full walkthrough of your options, deadlines, and what happens to your subscription, see **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626-respond-to-an-enterprise-domain-claim-on-your-claude-account)**.
 
@@ -120,7 +126,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1786967100&amp;signature=b0e64752d213ddba8c8d8d30cd70d20142eb03a31abcfe5fddabad439a582605&amp;req=diMmFMh3noJbXvMW1HO4zXhPndY%2FzhhgufhmlOXMdYZAvTTX7f8IIYTzwUad%0APetVNLTuE3ATZFMP278%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1787119200&amp;signature=898ef4c774efbb3ecca2d660605b3d250f90c8a6ae2b35cfe8f8cb4031523f80&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01U60YPCu5l6PawEbn%2FRKjD8NpLl96d70TV%0A%2B17jtTb88cxSxX%2BRopqhw98sYl0%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

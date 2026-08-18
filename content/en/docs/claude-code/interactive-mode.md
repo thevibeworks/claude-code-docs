@@ -31,8 +31,8 @@
 | `Ctrl+S`                                                                                     | Stash or restore prompt                                                                                                                                    | With text in the input, stashes it and clears the prompt. Pressed again on an empty prompt, restores the stashed text, cursor position, and pasted content                                                                                                                                                                                                                                                                               |
 | `Ctrl+Z`                                                                                     | Suspend Claude Code                                                                                                                                        | Unix only. Suspends the process to your shell; run `fg` to resume                                                                                                                                                                                                                                                                                                                                                                        |
 | `Left/Right arrows`                                                                          | Cycle through dialog tabs                                                                                                                                  | Navigate between tabs in permission dialogs and menus                                                                                                                                                                                                                                                                                                                                                                                    |
-| `Up/Down arrows` or `Ctrl+P`/`Ctrl+N`                                                        | Move cursor or navigate command history                                                                                                                    | When the input spans more than one visual row, whether wrapped or multiline, first moves the cursor within the prompt. Once the cursor is on the first or last visual row, pressing again navigates command history                                                                                                                                                                                                                      |
-| `Esc`                                                                                        | Interrupt Claude, or close a dialog                                                                                                                        | Stop the current response or tool call mid-turn so you can redirect. Claude keeps the work done so far. When a dialog such as a permission prompt is open, `Esc` closes the dialog rather than interrupting Claude                                                                                                                                                                                                                       |
+| `Up/Down arrows` or `Ctrl+P`/`Ctrl+N`                                                        | Move cursor or navigate command history                                                                                                                    | When the input spans more than one visual row, whether wrapped or multiline, first moves the cursor within the prompt. Once the cursor is on the first or last visual row, pressing again navigates command history. While you have messages queued, `Up` from the first row instead [takes them back](#take-back-what-you-queued)                                                                                                       |
+| `Esc`                                                                                        | Interrupt Claude, or close a dialog                                                                                                                        | Stop the current response or tool call mid-turn so you can redirect. Claude keeps the work done so far. If you have [messages queued](#queue-messages-while-claude-works), Claude Code sends them next. When a dialog such as a permission prompt is open, `Esc` closes the dialog rather than interrupting Claude                                                                                                                       |
 | `Esc` + `Esc`                                                                                | Clear input draft, or rewind                                                                                                                               | When the prompt input contains text, double `Esc` clears it and saves the draft to history so `Up` recalls it. When the input is empty, double `Esc` opens the [rewind menu](/docs/en/checkpointing) to restore or summarize code and conversation from a previous point                                                                                                                                                                      |
 | `Shift+Tab`, or `Alt+M` on Windows when the Node or Bun runtime doesn't enable VT input mode | Cycle permission modes                                                                                                                                     | Cycle through `default` (labeled Manual in the mode indicator), `acceptEdits`, `plan`, and, when available, `bypassPermissions` and then `auto`. From `auto`, the first press switches to `default`. See [permission modes](/docs/en/permission-modes).                                                                                                                                                                                       |
 | `Option+P` (macOS) or `Alt+P` (Windows/Linux)                                                | Switch model                                                                                                                                               | Switch models without clearing your prompt                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -310,6 +310,25 @@ Shell mode:
 
 Claude responds to the command output automatically once it lands in the transcript, so you can run `! npm test` and get an explanation of the failures without a second prompt. The response costs the same as sending a normal prompt. To restore the earlier behavior where the output is added to context without a response, set [`respondToBashCommands`](/docs/en/settings#available-settings) to `false` in `settings.json`. Before v2.1.186, shell mode always added output to context without a response.
 
+## Queue messages while Claude works
+
+Type a message and press `Enter` while Claude is working. Claude Code queues the message instead of interrupting the turn, and lists the queued entries above the input box until it sends them. You can queue `!` [shell commands](#shell-mode-with-prefix) and most [commands](/docs/en/commands) the same way, apart from the commands, such as `/status`, that Claude Code runs as soon as you send them.
+
+### When Claude Code sends what you queued
+
+When a queued entry reaches Claude depends on what you queued.
+
+* Messages: if you queue a message while Claude is running tool calls, Claude Code passes it to Claude as soon as those tool calls finish, within the same turn. When the turn ends, Claude Code sends the messages that are still queued as the next turn, each as a separate message
+* Commands and shell commands: Claude Code holds them until the turn ends, then runs them one at a time
+
+Press `Esc` to interrupt the turn instead. Claude Code keeps what you queued and sends it right away.
+
+### Take back what you queued
+
+Press `Up` from the first line of the input box to take back the queued messages and commands. Claude Code removes them from the queue and puts them in the input box, one per line, ahead of any text you had typed. Edit the text and press `Enter` to queue it again as one entry, or clear the input box to drop it.
+
+Claude Code takes back queued shell commands only when the input box is empty and you have nothing else queued, and it switches the input box to shell mode when it does. Otherwise it leaves them in the queue, listed with their `!` prefix, and runs them after the turn ends.
+
 ## Prompt suggestions
 
 When you first open a session, Claude Code shows a grayed-out example command in the prompt input to help you get started. It picks this from your project's git history, so the example reflects files you've been working on recently.
@@ -427,13 +446,36 @@ When working on a branch with an open pull request, Claude Code displays a click
 * Red: changes requested
 * Gray: draft
 
-The badge disappears once the pull request merges or closes. `Cmd+click` (macOS) or `Ctrl+click` (Windows/Linux) the link to open the pull request in your browser. The status refreshes every 60 seconds, and immediately after a `gh pr` or `git push` command runs in the session.
+The badge disappears once the pull request merges or closes. `Cmd+click` (macOS) or `Ctrl+click` (Windows/Linux) the link to open the pull request in your browser. How often Claude Code refreshes the status depends on your provider:
+
+* **Anthropic API with [feature-flag fetching](/docs/en/env-vars#features-that-need-feature-flag-fetching) on**: about every 90 seconds while you're active in the session, and less often while you're idle, while your terminal is unfocused, or while Claude Code keeps finding no pull request for the branch
+* **Amazon Bedrock, Google Cloud's Agent Platform, Microsoft Foundry, Claude Platform on AWS, or feature-flag fetching off**: every 60 seconds
+
+On either schedule, Claude Code also refreshes as soon as a `git push`, or a `gh pr` command that changes the pull request such as `gh pr create` or `gh pr merge`, succeeds in the session. After an hour without input from you, Claude Code stops refreshing, and your next prompt starts it again.
 
 Claude Code renders the badge as a hyperlink even when it can't detect hyperlink support in your terminal, which commonly happens over SSH or in tmux. Set [`FORCE_HYPERLINK=0`](/docs/en/env-vars) to render the badge as plain text.
 
 <Note>
-  PR status requires the `gh` CLI to be installed and authenticated (`gh auth login`).
+  PR status for GitHub repositories requires the `gh` CLI to be installed and authenticated with `gh auth login`.
 </Note>
+
+### GitLab merge requests
+
+When you work on a branch with an open GitLab merge request, Claude Code shows a clickable `MR !N` badge in the footer slot that otherwise holds the GitHub PR link. `!N` is GitLab's own reference syntax for merge request number N. The colored underline shows the merge request's state:
+
+* Green: GitLab reports the merge request as mergeable
+* Yellow: any other open state
+* Gray: draft
+
+The badge disappears once the merge request merges or closes. Claude Code checks merge request status on the same schedule as the GitHub badge, and refreshes as soon as a `glab mr create` or `git push` succeeds in the session.
+
+To get the badge, you need:
+
+* Claude Code v2.1.234 or later
+* A repository remote that points at your GitLab host, either gitlab.com or a self-managed instance
+* The [`glab` CLI](https://gitlab.com/gitlab-org/cli) on your `PATH`, authenticated with `glab auth login`
+
+Claude Code ignores `glab`'s token environment variables, such as `GITLAB_TOKEN`, when it checks status, so you get no badge from an exported token alone. Claude Code also looks for `glab` and for its login once per session, so restart Claude Code after you install `glab` or run `glab auth login`.
 
 ## See also
 

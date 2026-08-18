@@ -20,6 +20,7 @@ allowed-tools:
   - Bash(find . -maxdepth 1 -type d -name "CLAUDE-SECURITY-2*")
   - Bash(python3 "${CLAUDE_PLUGIN_ROOT}/scripts/render_report.py" *)
   - Bash(python3 "${CLAUDE_PLUGIN_ROOT}/scripts/write_scan_meta.py" *)
+  - Bash(bash "${CLAUDE_PLUGIN_ROOT}/scripts/keep-waiting.sh" *)
   - Bash(python3 "${CLAUDE_PLUGIN_ROOT}/scripts/patch_artifacts.py" *)
   - Bash(sleep *)
   - Bash(GIT_TERMINAL_PROMPT=0 git *)

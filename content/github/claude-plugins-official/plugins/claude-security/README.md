@@ -12,13 +12,12 @@ That makes it a natural fit for code you control — your own repositories, wher
 
 ## Installation
 
-Install from the official Anthropic marketplace:
+Install from the official Anthropic marketplace, then reload plugins in the same session:
 
     /plugin install claude-security@claude-plugins-official
+    /reload-plugins
 
-Claude Code registers the marketplace automatically if it isn't already registered, and the plugin is active as soon as the install finishes — no reload step.
-
-If Claude Code reports that the marketplace is not found (older Claude Code versions), run `/plugin marketplace add anthropics/claude-plugins-official` first, then retry, and finish with `/reload-plugins`.
+If Claude Code reports that the marketplace is not found, run `/plugin marketplace add anthropics/claude-plugins-official` first, then retry.
 
 
 ## Getting started
@@ -46,10 +45,11 @@ From there the scan sizes itself to the target. A small diff or a narrow scope g
 Every scan writes its results into a timestamped `CLAUDE-SECURITY-<timestamp>/` directory in the repository:
 
 - **`CLAUDE-SECURITY-RESULTS.md`** — the human-readable report: each finding with its impact, exploit scenario, preconditions, severity, confidence, and an outcome-focused recommendation.
-- **`CLAUDE-SECURITY-RESULTS.jsonl`** — the same findings in machine-readable form, one JSON object per line.
+- **`CLAUDE-SECURITY-RESULTS.jsonl`** — the same findings in machine-readable form, one JSON object per line. Neither this file nor the SARIF log quotes the source line of a hard-coded credential finding, since that line is the credential; file, line and symbol locate it.
+- **`CLAUDE-SECURITY-RESULTS.sarif`** — the same findings as a [SARIF 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html) log for GitHub code scanning, IDE SARIF viewers, and other tooling that speaks the standard.
 - **`CLAUDE-SECURITY-REVISION-<sha12>.json`** — the revision stamp: which commit was scanned, at what effort, the severity counts, and how thoroughly the run was verified. The filename carries `-dirty` when uncommitted changes were part of the scanned tree, so a report is always tied to the code it describes.
 
-Those three are the whole report — the run's working files are removed once it is written, so the directory holds only what you read. It carries its own `.gitignore`, so a stray `git add` never sweeps a report or a suggested patch into a commit; the report stays searchable where it sits, and if you want it in history, delete that one `.gitignore` and commit it like any other file.
+That is the whole report — the run's working files are removed once it is written, so the directory holds only what you read. It carries its own `.gitignore`, so a stray `git add` never sweeps a report or a suggested patch into a commit; the report stays searchable where it sits, and if you want it in history, delete that one `.gitignore` and commit it like any other file.
 
 A whole-repository scan accounts for the whole repository. Every top-level directory has to be either scanned or explicitly set aside with a reason — vendored code, generated code, documentation — and that accounting is checked before the search begins, not taken on trust. Whatever was left out, and why, is named in the report's Coverage section. A clean result tells you what was examined rather than leaving you to assume it.
 
@@ -71,7 +71,7 @@ Each fix is developed away from your working tree, in a scratch copy of the repo
 
 A patch is written only when that review can vouch for three things: the change addresses that one finding, it introduces no new vulnerability, and it leaves the code's behaviour otherwise unchanged — and a change to which inputs the code accepts counts as a behaviour change. When it cannot vouch for all three, you get a short note explaining why instead of a patch. When the patched code has no tests, the patch says so, so you know the claim rests on review rather than on a test run.
 
-The patches land in the report's `patches/` folder: one `F<n>.patch` per finding, a short note beside each explaining the change and how to apply it (`git apply CLAUDE-SECURITY-<ts>/patches/F<n>.patch`), and an index. Nothing is applied for you — job does not apply, commit, or push anything. If you want a patch applied or turned into a pull request, ask, and Claude does that as a separate request you can watch.
+The patches land in the report's `patches/` folder: one `F<n>.patch` per finding, a short note beside each explaining the change and how to apply it (`git apply CLAUDE-SECURITY-<ts>/patches/F<n>.patch`), and an index. Nothing is applied for you — the job does not apply, commit, or push anything. If you want a patch applied or turned into a pull request, ask, and Claude does that as a separate request you can watch.
 
 ## Requirements
 

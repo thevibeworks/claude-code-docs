@@ -36,17 +36,21 @@ You can selectively disable specific capabilities via Microsoft Entra Admin Cent
 
 Changes take effect immediately for all people in your organization. People can also choose to disable capabilities during a chat by selectively toggling off the connector's tools.
 
-**4. Microsoft conditional access integration**
+**4. Microsoft Conditional Access**
 
-The connector fully supports your existing Entra (Azure AD) policies:
+Your Conditional Access policies apply to the connector, but not always in the way they apply to a user working directly in Microsoft 365. When a user connects, Entra evaluates your policies against their sign-in. Every later request is made by Claude's servers. In our testing, Entra evaluates those requests as coming from Anthropic's IP range (`160.79.104.0/21`), identifying the member and carrying the device recorded when they connected, rather than the member's current device or network. What that means for each kind of policy:
 
-- **Multi-factor authentication (MFA)**: Enforce MFA for connector access
+- **Group-based access**: Supported. Scope your policy to specific security groups, or set **Assignment required** on both Claude applications as described in **[Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector)**.
 
-- **Device compliance**: Require managed/compliant devices
+- **Multi-factor authentication (MFA)**: Supported. MFA is enforced when the member signs in to connect. If your MFA policy doesn't apply to the connector sign-in, for example because it targets specific applications, or has conditions that can skip MFA there, create a separate policy with no conditions that requires MFA for the two Claude applications.
 
-- **IP restrictions**: Limit Microsoft authentication to corporate network or VPN
+- **Device compliance**: Supported, with a difference in when it's checked. In our testing, the policy is evaluated against the device the member connects from. A device that doesn't meet the policy isn't stopped at the connect screen; its requests fail from the first tool call afterwards. The connection then carries that device record, and ongoing access is checked against the record rather than the device currently in use, until the member next reconnects. Each member's most recent connection is the one that counts. The record is only created if the member's browser can prove the device to Entra, so a compliant device used with a browser profile that isn't signed in to your organization is treated as not compliant. Members who are blocked (`AADSTS53000`) fix it by reconnecting from a device that meets the policy, in a browser signed in to your organization. Keep the policy assigned to the Claude applications; excluding them removes the check.
 
-- **Group-based access**: Restrict to specific security groups
+- **Location and network restrictions**: Not supported. In our testing, the server-side requests always appear to come from Anthropic's IP range, wherever the member is, so a policy that limits sign-ins to your network or VPN blocks the connector for every member. The same applies to sign-in frequency policies. Learn how to exclude Anthropic's IP range in **[Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector)**.
+
+**Warning:** Don't change a device policy to require a compliant device *or* multi-factor authentication as a workaround. In our testing the MFA proof carries through the stored connection in the same way, so the policy can end up satisfied for every member and the device requirement stops doing anything reliable.
+
+To stop members from connecting a work Microsoft 365 account to a Claude account outside your organization, turn on **[Restrict verified-domain connectors to your enterprise](https://support.claude.com/en/articles/15402193-restrict-verified-domain-connectors-to-your-enterprise)**.
 
 **5. User-level permissions**
 
