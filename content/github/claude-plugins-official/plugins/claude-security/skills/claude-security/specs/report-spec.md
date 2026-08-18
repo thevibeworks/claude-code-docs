@@ -4,7 +4,7 @@
 
 The markdown report is the one artifact written as prose rather than generated. It is what a human actually reads, so it is written for a specific reader: an engineer who owns this code, is busy, and will decide in about ninety seconds whether to act on each finding.
 
-`render_report.py` generates the machine-readable companions from `findings.json` and `votes.json`. Do not hand-write the JSONL or the stamp, and do not restate the JSONL here — this file is the part a person reads.
+`render_report.py` generates the machine-readable companions from `findings.json` and `votes.json`. Do not hand-write the JSONL, the SARIF, or the stamp, and do not restate the JSONL here — this file is the part a person reads.
 
 ## Shape
 
@@ -18,7 +18,11 @@ were none.>
 ## Coverage
 
 <what was examined and what was not. Name the components. If the scope was
-narrowed, say to what and why. If a cap truncated anything -- unreviewed
+narrowed, say to what and why. If write_scan_meta.py reported a sparse
+checkout (`revision.not_checked_out_dirs` in the run dir's scan-meta.json
+holds the list), say that only the checked-out part of the repository was
+scanned and name those tracked top-level directories as not checked out.
+If a cap truncated anything -- unreviewed
 candidates, a skipped oversized file -- say so here, plainly. Name every
 area the scan deliberately did NOT examine, and WHY: each entry of
 coverage.skippedComponents carries the paths left out and the componentizer's

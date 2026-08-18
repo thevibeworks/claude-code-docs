@@ -12,6 +12,8 @@ You’ll receive an email and an in-product notification letting you know that y
 
 ## Your two options
 
+**Note:** If your organization has turned on HIPAA readiness or customer-managed encryption keys (CMEK), the merge and join option isn't available. Your only option is to join fresh. Export your data before the deadline if you want a copy. Your subscription is still canceled and refunded as described below. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
+
 ### Merge and join
 
 Bring your existing data into a new account within your organization's Enterprise workspace. Some things don't move. Most importantly, custom skills and your connected apps stay behind. For the full list of what does and doesn’t move to your new account, see **[What moves when you migrate](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.

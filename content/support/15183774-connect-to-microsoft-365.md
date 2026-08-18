@@ -84,6 +84,20 @@ When Claude sends an email, it includes a message header identifying it as agent
 
 **Note:** Attachments aren't currently supported in write tools—Claude can't send, forward, or draft emails with attachments.
 
+## Supported file types
+
+When reading files from SharePoint and OneDrive, Claude can open these formats:
+
+- **Word, Excel, and PowerPoint**, including older .doc, .xls, and .ppt files
+
+- **PDF**
+
+- **Plain-text files**: .txt, .md, .csv, .tsv, .json, .xml, .html, .htm, and .log
+
+Files in any other format can't be read. They still appear in search results because they're ordinary files in your libraries, but when Claude tries to open one, you'll see a "mime type '...' is not allowed" error.
+
+**Note:** OneNote isn't supported. Notebooks show up in search results, but read attempts return a "mime type 'application/msonenote' is not allowed" error. To bring OneNote content into Claude, export pages or sections to Word or PDF in the same library.
+
 ## Manage your connection
 
 ### Turn individual tools on or off
@@ -199,6 +213,10 @@ Be specific in your prompts:
 ### Can I point my project at a specific Sharepoint site?
 
 No, `Sites.Selected` is not supported, so you can't scope the Microsoft 365 connector to an allowlist of specific SharePoint sites. The connector searches across all SharePoint content you already have permission to access.
+
+### Why can't Claude read OneNote notebooks?
+
+OneNote isn't currently a supported file type. Notebooks show up in SharePoint search results because they're ordinary files in your libraries, but Claude can't open them, so read attempts return a "mime type 'application/msonenote' is not allowed" error. To work with OneNote content in Claude, export pages or sections to Word or PDF. For the full list of formats Claude can read, see **[Supported file types](#h_ddeb82923f)** above.
 
 ### Can Claude search shared mailboxes?
 
