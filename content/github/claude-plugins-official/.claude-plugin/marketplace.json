@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "37b9d30cf11965c4d7e4629e72acb29f716f2989"
+        "sha": "9aec72dafd243759daa6df098225524a288a3f65"
       },
       "homepage": "https://carta.com"
     },
@@ -1030,7 +1030,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/CodSpeedHQ/codspeed.git",
-        "sha": "60d8e487fe86cdfa5c5a0f4d2e6aadcc0803b239"
+        "sha": "745dc9a7b5aabd7a88090d7c550f22281b17ba7d"
       },
       "homepage": "https://codspeed.io"
     },
@@ -1799,7 +1799,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/heygen-com/hyperframes.git",
-        "sha": "4403b8beeff513424a91ee6acc680568f4df5d65"
+        "sha": "049f5618d7d2be09543754f71cb379e1c0c309ac"
       },
       "homepage": "https://hyperframes.heygen.com"
     },
@@ -1869,7 +1869,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/jfrog/claude-plugin.git",
-        "sha": "5410d332a147a6c023ec7a71fad265c76df49b02"
+        "sha": "b15bdaadc2e9d410098e6658f20c168b56689ac6"
       },
       "homepage": "https://jfrog.com"
     },
@@ -3457,7 +3457,7 @@
         "url": "https://github.com/stripe/ai.git",
         "path": "providers/claude/plugin",
         "ref": "main",
-        "sha": "f4abb4498d2e3298c6b9e52cdd4559cebfc70a2f"
+        "sha": "96cfe6bf30e661f674950cd8dbd47beaeadc5b6e"
       },
       "homepage": "https://github.com/stripe/ai/tree/main/providers/claude/plugin"
     },

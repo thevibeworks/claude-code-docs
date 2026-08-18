@@ -34,7 +34,7 @@ Use this table to help decide which provisioning mode is right for your organiza
 
 Both JIT and SCIM can be combined with **Enable group mappings** to control role or seat tier assignment based on IdP group membership. If you select either of these options for your provisioning mode, **Enable group mappings** will appear within the **User provisioning** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1787035500&amp;signature=47e4f88c093fe3d334d570197a706ee7827102596158379afc25eb19e174a5b3&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQ6xUDl9zxFMG%2BIEvQSegKqTTQANUwv2FCgeE%0A%2FUQraBLLcJdGN83oMkk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1787053500&amp;signature=691b6a76c2e8ec124b68c30fe64f5ce40f2e8d158835be106a42569f1dc649a4&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQ6xUCFlzxFMG%2BIEvQSfq4S2Jl2pvM3PFDIHb%0ALhK6pk%2BRF%2Fz44qja3lU%3D%0A)
 
 ### Available roles and seat tiers
 
@@ -118,7 +118,7 @@ Once your IdP is connected, continue to Step 3.
 
 4. Toggle **Enable group mappings** on (if it’s not already):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1787035500&amp;signature=0e72822e8c344c9f4b713968498617d7096e8fbe8cd460dcd07e0f83db5bb8ee&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEbsLYlP9Nyb72rapuHpOpoYrK4ILwHhhzmed9%0A0ubw%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1787053500&amp;signature=de0361d6a291f967038a4338ad4404e846366ee64c6f425ca489806fb809f95b&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEbsLYkvlNyb72rapuHpNt0jkiCUqb1GuGEZYd%0A1pau%0A)
 
 5. In the **Enable group mappings** section, click “Add” next to each role and select the corresponding group from your IdP in the dropdown.
 
@@ -170,7 +170,7 @@ Verify you have enough seats purchased and available to add members to your org.
 
 4. **For SCIM:** Click "Sync" to prompt an immediate sync, or wait for the automatic sync cycle:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1787035500&amp;signature=c0457a474cd2e1acd7d5d98881307ae9bcca888f0a1114a2d45332c44490b1b6&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9La1qtGs%2FH5hujYvMis4cYInL3PEtbd17RI6Af%0A%2Br0L%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1787053500&amp;signature=f9b4d92715c1577a4c54c579d96a85d8f9bc30325b7f595216b0c74889e4143c&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9La1qtHMnH5hujYvMis4dQbeFOcZV8UqCNV4At%0AEPaC%0A)
 
 ### I lost Admin/Owner access after enabling group mappings
 
