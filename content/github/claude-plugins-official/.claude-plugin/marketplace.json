@@ -285,7 +285,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/appwrite/claude-plugin.git",
-        "sha": "a42b16918159183a0d556e305fea4d240a9e3823"
+        "sha": "ab3c90b37c95b7068f0c064dc562cf21958e8e19"
       },
       "homepage": "https://appwrite.io"
     },
@@ -3232,7 +3232,7 @@
         "url": "https://github.com/getsentry/cli.git",
         "path": "packages/cli/plugins/sentry-cli",
         "ref": "main",
-        "sha": "be024e412dad1909a4a2178c5f27d55ddb64c209"
+        "sha": "c84e133a24f9bf6a85a74a86148c1bf40c7d0c1c"
       },
       "homepage": "https://sentry.io"
     },
@@ -3835,7 +3835,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/wix/skills.git",
-        "sha": "bda0b16b2070cd96c1fcd63e90b32a281800ecb7"
+        "sha": "b4cd5b59c5191c2116b7b388db4b5a095937a4f4"
       },
       "homepage": "https://dev.wix.com/docs/wix-cli/guides/development/about-wix-skills"
     },
