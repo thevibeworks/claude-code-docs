@@ -3310,66 +3310,6 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
       ```python Python
       client.beta.prompt_caching.messages.create(**params)
       ```
-
-      ```typescript TypeScript
-      const client = new Anthropic();
-
-      const response = await client.beta.promptCaching.messages.create({
-        model: "claude-opus-5",
-        max_tokens: 1024,
-        system: [
-          {
-            type: "text",
-            text: "You are an expert on this large document...",
-            cache_control: { type: "ephemeral" }
-          }
-        ],
-        messages: [{ role: "user", content: "Summarize the key points" }]
-      });
-
-      console.log(response);
-      ```
-
-      ```php PHP
-      $client = new Client();
-
-      $message = $client->beta->promptCaching->messages->create(
-          maxTokens: 1024,
-          messages: [
-              ['role' => 'user', 'content' => 'Summarize the key points']
-          ],
-          model: 'claude-opus-5',
-          system: [
-              [
-                  'type' => 'text',
-                  'text' => 'You are an expert on this large document...',
-                  'cache_control' => ['type' => 'ephemeral']
-              ]
-          ],
-      );
-
-      echo json_encode($message, JSON_PRETTY_PRINT), PHP_EOL;
-      ```
-
-      ```ruby Ruby
-      client = Anthropic::Client.new
-
-      message = client.beta.prompt_caching.messages.create(
-        model: "claude-opus-5",
-        max_tokens: 1024,
-        system: [
-          {
-            type: "text",
-            text: "You are an expert on this large document...",
-            cache_control: { type: "ephemeral" }
-          }
-        ],
-        messages: [
-          { role: "user", content: "Summarize the key points" }
-        ]
-      )
-      puts message.content.find { it.type == :text }.text
-      ```
     </CodeGroup>
 
     Use:
@@ -3377,66 +3317,6 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
     <CodeGroup>
       ```python Python
       client.messages.create(**params)
-      ```
-
-      ```typescript TypeScript
-      const client = new Anthropic();
-
-      const response = await client.messages.create({
-        model: "claude-opus-5",
-        max_tokens: 1024,
-        system: [
-          {
-            type: "text",
-            text: "You are an expert on this large document...",
-            cache_control: { type: "ephemeral" }
-          }
-        ],
-        messages: [{ role: "user", content: "Summarize the key points" }]
-      });
-
-      console.log(response);
-      ```
-
-      ```php PHP
-      $client = new Client();
-
-      $message = $client->messages->create(
-          maxTokens: 1024,
-          messages: [
-              ['role' => 'user', 'content' => 'Summarize the key points']
-          ],
-          model: 'claude-opus-5',
-          system: [
-              [
-                  'type' => 'text',
-                  'text' => 'You are an expert on this large document...',
-                  'cache_control' => ['type' => 'ephemeral']
-              ]
-          ],
-      );
-
-      echo json_encode($message, JSON_PRETTY_PRINT), PHP_EOL;
-      ```
-
-      ```ruby Ruby
-      client = Anthropic::Client.new
-
-      message = client.messages.create(
-        model: "claude-opus-5",
-        max_tokens: 1024,
-        system: [
-          {
-            type: "text",
-            text: "You are an expert on this large document...",
-            cache_control: { type: "ephemeral" }
-          }
-        ],
-        messages: [
-          { role: "user", content: "Summarize the key points" }
-        ]
-      )
-      puts message
       ```
     </CodeGroup>
   </Accordion>
