@@ -167,7 +167,7 @@ The following table lists which surfaces are covered by Access Transparency. Cov
 | Claude for Enterprise (claude.ai seats)         | No      | Not covered                                                                                                |
 | Claude for Work                                 | No      | Not covered                                                                                                |
 | Claude Free, Pro, Max                           | No      | Consumer plans are not eligible                                                                            |
-| Anthropic Workbench                             | No      | The Workbench stores data in data stores that are not covered by Access Transparency                       |
+| Playground (Claude Console)                     | No      | Not covered                                                                                                |
 | Microsoft Foundry                               | No      | Not available                                                                                              |
 | Amazon Bedrock, Google Cloud                    | No      | Partner-operated platforms; refer to those platforms' transparency controls                                |
 

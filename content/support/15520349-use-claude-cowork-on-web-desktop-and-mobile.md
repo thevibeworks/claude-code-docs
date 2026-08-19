@@ -2,7 +2,7 @@
 
 Claude Cowork is available on desktop, web, mobile, and in the Claude in Chrome side panel. Your sessions and files live with your Claude account and go where you go, on any device. This article explains how to start a Cowork session and what's available on each surface.
 
-Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans. On Enterprise plans, Cowork on web and mobile is available where an admin has enabled it. Cowork is also available in the Claude in Chrome side panel on Max and Team plans, on Pro plans as it rolls out, and on Enterprise plans where an admin has enabled it. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** for enablement steps.
+Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans, and on Enterprise plans where an admin has enabled it. Cowork is also available in the Claude in Chrome side panel on Max and Team plans, on Pro plans as it rolls out, and on Enterprise plans where an admin has enabled it. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** for enablement steps.
 
 ---
 

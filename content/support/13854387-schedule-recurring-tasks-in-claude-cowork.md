@@ -4,7 +4,7 @@ Scheduled tasks allow you to delegate work to Claude Cowork by creating tasks th
 
 Scheduled tasks are available in Cowork for all paid plans (Pro, Max, Team, Enterprise).
 
-Claude Cowork is in beta on web and mobile, and rolling out over the next several weeks starting with the Max plan, with more plans to follow.
+Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on desktop, and in beta on web and mobile for Pro, Max, and Team plans, and Enterprise plans when enabled by an owner.
 
 ## What scheduled tasks can do
 
@@ -52,7 +52,7 @@ There are two ways to create a scheduled task:
 
 6. You can explicitly confirm you want to schedule the task when prompted by Claude by clicking “Schedule":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1787071500&amp;signature=942fdd3aa63ffad41dfc0fb4a4676476b89b6f853fb1d9d6d6e2d2bbd997010d&amp;req=diEnEsl2mIJWUPMW1HO4zeLJBkLk%2BOuCPx%2FSrZI7l8yDDNQhvA6Wn%2FcpB1l1%0AnlIe%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1787184000&amp;signature=aea50382cbe37c85fa0194a073b4ed599bbf36a7cac8a1c14104b709716353f8&amp;req=diEnEsl2mIJWUPMW3nq%2BgUR7lfEEQ4XJvX3PHMydoUMukCBAf7T24d8OY0nm%0AHPtBpRS0a6dQ%2FcL8JEWE3JP0L54%3D%0A)
 
 7. Claude will create and schedule your task, and it will be added to the **Scheduled tasks** page.
 

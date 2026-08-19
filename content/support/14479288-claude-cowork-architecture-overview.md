@@ -4,11 +4,11 @@ This article explains where Claude Cowork runs, how each execution mode is isola
 
 This article is for Enterprise admins. The architecture described here is the same across all plans. The device-level admin controls at the end apply to Team and Enterprise plans.
 
-Claude Cowork is in beta on web and mobile for Max, Team, and Enterprise plans, and will be rolling out to Pro plans over the next several weeks.
+Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans, and Enterprise plans when enabled by an owner.
 
 ## Where Claude Cowork runs
 
-Cowork sessions run in the cloud by default: the agent loop and code execution run on Anthropic's servers, and sessions and files are saved to the member's Claude account. Cloud execution is in beta and rolling out gradually across plans.
+Cowork sessions run in the cloud by default: the agent loop and code execution run on Anthropic's servers, and sessions and files are saved to the member's Claude account.
 
 Local execution remains available for existing desktop deployments: the agent loop and code execution run on the member's device, as described below.
 

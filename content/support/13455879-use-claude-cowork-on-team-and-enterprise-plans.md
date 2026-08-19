@@ -4,21 +4,19 @@ This article explains important limitations and considerations for Team and Ente
 
 ## Availability
 
-Claude Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
+Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availability varies by surface:
 
-- **Claude Desktop for macOS**
+- **Claude Desktop for macOS** — Available on all paid plans. **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download.
 
-  - **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download
+- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](http://claude.com/download)**.
 
-- **Claude Desktop for Windows**
+- **Web (beta)**, at claude.ai — Available on Pro, Max, and Team plans. On Enterprise plans, available where an admin has enabled it.
 
-  - **Windows users:** Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
+- **Claude Mobile** **(beta)** — Available on Pro, Max, and Team plans, in the latest version of Claude for iOS and Claude for Android. On Enterprise plans, available where an admin has enabled it.
 
-- **Web**, at claude.ai
+- **Claude in Chrome side panel** — Available on Max and Team plans, and rolling out to Pro plans. On Enterprise plans, available where an admin has enabled it. For more information, see **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
 
-- **Claude Mobile**, in the latest version of Claude for iOS and Claude for Android
-
-Claude Cowork is in beta on web and mobile for Team and Enterprise plans. On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
+On web and mobile, Claude Cowork sessions run in Anthropic's cloud.
 
 ---
 
