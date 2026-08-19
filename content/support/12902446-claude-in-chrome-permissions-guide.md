@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787122800&amp;signature=fdb1a6bdbcb9c1f954ca0d366073ce2bc92446c36781491d2c09bbd5cf0d85f0&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVM%2FoC%2FgN0ADj5oqFCAMpNWzjfuXrxCjZMn%0A8LdnnKuZvGs%2FW54C3dg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787139900&amp;signature=7ad85a4cc7c5e429ab71b8038e60225a620913ad176a15d680dfeb160dee8397&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVM%2F4u%2BgN0ADj5oqFBRiocyR3FpB1r9QL4l%0AMP3XTnMqGSPvXy45gdo%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787122800&amp;signature=0f00a9bb5009374bad67eb17a0104a5236a7c56250061847816b0c9fdb8e8caa&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFxii7k7A4lHPBihAUwtDe9wmUNLUzwvJY6%0AiC0rZpSPdP3cDlNvG7k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787139900&amp;signature=184de506a38f29e2d57fe5467524d66024f9a68224244d449702c17e402add67&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFxiyXl7A4lHPBihAVaXZ2nRcZUqwBDCl0l%0A%2B9grWJW0PAiDCHOOrT4%3D%0A)
 
 ### Permission options
 
