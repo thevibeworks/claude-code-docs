@@ -1,6 +1,6 @@
 # How can I access the Claude API?
 
-Organizations interested in building with the Claude API can create a [Claude Console account](https://platform.claude.com). The Claude Console is where you can create API keys, add users to your team, set up billing, and experiment with Claude on the Workbench. Please note that access to the API is subject to our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms).
+Organizations interested in building with the Claude API can create a [Claude Console account](https://platform.claude.com). The Claude Console is where you can create API keys, add users to your team, set up billing, and experiment with Claude on the playground. Please note that access to the API is subject to our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms).
 
 Read more about [building with the Claude API here](https://claude.com/platform/api).
 

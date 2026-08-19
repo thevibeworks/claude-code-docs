@@ -2244,6 +2244,12 @@ Combine multiple Skills in a single request to handle complex workflows:
 
 ## Managing custom Skills
 
+<Warning id="workspace-scoped-access">
+  **Custom Skills are accessible to your entire workspace, not scoped to an end user, conversation, or session.** Any API key in the same workspace can read, invoke, and delete every custom Skill uploaded there, and all of your keys share your organization's Default Workspace unless you have assigned them to separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping).
+
+  If you are building a multi-tenant platform on the Skills API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for custom Skills, so a workspace per tenant gives each tenant's Skills hard isolation from every other tenant. Each organization can have up to 100 workspaces by default (see [How workspaces work](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work)); if you need more for tenant isolation, contact your account team.
+</Warning>
+
 ### Creating a Skill
 
 A Skill bundle is a directory containing a `SKILL.md` file at the top level with `name` and `description` YAML frontmatter, plus any supporting scripts or resources. See [Get started with Agent Skills in the API](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart) to author one, and the **Requirements** list following the examples for the full constraints.
@@ -3937,7 +3943,7 @@ Combine Skills when tasks involve multiple document types or domains:
 
 The SDK tabs in this section show the `container` value to include in a Messages request. The cURL and CLI tabs show the full request.
 
-**For production:** pin a specific version, so Skill updates never change your deployed behavior. The version ID comes from the create-version response in [Versioning](https://platform.claude.com/docs/en/build-with-claude/skills-guide#versioning) or from the [List Skill Versions API](https://platform.claude.com/docs/en/api/beta/skills/versions/list). The ID is always a string: quote epoch-timestamp IDs in JSON or YAML.
+**For production:** pin a specific version, so Skill updates never change your deployed behavior. If you omit `version` or set it to `"latest"`, requests use the newest version of the Skill, so a version uploaded by anyone in the [workspace](https://platform.claude.com/docs/en/build-with-claude/skills-guide#workspace-scoped-access) immediately changes what your production agents run. The version ID comes from the create-version response in [Versioning](https://platform.claude.com/docs/en/build-with-claude/skills-guide#versioning) or from the [List Skill Versions API](https://platform.claude.com/docs/en/api/beta/skills/versions/list). The ID is always a string: quote epoch-timestamp IDs in JSON or YAML.
 
 <CodeGroup>
   ```bash cURL
@@ -4948,6 +4954,10 @@ Handle Skill-related errors gracefully:
 Agent Skills are not covered by ZDR arrangements. Skill definitions and execution data are retained according to Anthropic's standard data retention policy.
 
 For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+
+## Audit logging
+
+If your organization has the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) enabled, its [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) records the creation and deletion of Skills and Skill versions made with a Claude API key or from the Claude Console. Operations that occur while the Compliance API is off are not recorded and cannot be recovered later, so [set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access) before you rely on this audit trail.
 
 ## Next steps
 

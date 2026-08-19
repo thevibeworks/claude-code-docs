@@ -42,7 +42,7 @@ With Cowork, you can describe an outcome, step away, and come back to finished w
 
 - If you're a Team or Enterprise plan admin, you can **[use OpenTelemetry (OTel) to monitor Claude Cowork activity](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry)** across your organization.
 
-- Please review **[Use Cowork safely](https://support.claude.com/en/articles/13364135-using-cowork-safely)** for more information.
+- For more information, review **[Use Cowork safely](https://support.claude.com/en/articles/13364135-using-cowork-safely)**.
 
 For important limitations and considerations for Team and Enterprise organizations using Cowork, see **[Cowork for Team and Enterprise plans](https://support.claude.com/en/articles/13455879-cowork-for-team-and-enterprise-plans)**.
 
@@ -178,7 +178,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1787071500&amp;signature=6235f7f16feeeb64748e94c5cf1d5046ab06a1b94339372df6d587355b4d2125&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t%2FsMVC18iWjaktE943cGo5Ps3WHSgOoCTBy%0AWcKTXw88xea48h41wyg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1787184000&amp;signature=9529a95f39fe9f78106192711ec59c3fb9ae4a7e57150173a2c8c654b20a9d9a&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD27fUb1GMqW%2FkK1chgZP9BieGa1m9iOda%0A6ccDHnIS3I4YHcwrj6LBdqUtjS0%3D%0A)
 
 ### Folder instructions
 
@@ -214,7 +214,7 @@ If you find yourself hitting usage limits frequently when using Cowork, consider
 
 - Monitoring your individual usage in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
-See **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)** for more information.
+For more information, see **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
 ---
 
@@ -297,10 +297,6 @@ We're iterating on Cowork based on feedback. If you encounter issues or have sug
 ### I'm seeing "Setting up Claude's workspace" when I start Cowork; what does this mean?
 
 This message is expected and indicates that Cowork is updating to the most recent version to apply any fixes and improvements.
-
-### I don't see Cowork on web or mobile
-
-Cowork on web and mobile is rolling out gradually across paid plans. Make sure you're on an eligible plan and, on mobile, that you've updated to the latest version of the app.
 
 ### Claude stopped working on my task
 

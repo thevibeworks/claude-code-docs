@@ -30,7 +30,7 @@ Under a ZDR arrangement, Anthropic does not store customer prompts or responses 
 
 ### What ZDR does not cover
 
-* **Console and Workbench:** Any usage on Claude Console or the Workbench prompt-testing interface.
+* **Claude Console:** Any usage in the Claude Console, including Playground.
 * **Claude Managed Agents:** Claude Managed Agents is a stateful resource; session transcripts persist until you delete them.
 * **Claude consumer products:** Claude Free, Pro, and Max plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code.
 * **Claude Teams and Claude Enterprise product interfaces:** These interfaces are not ZDR-eligible. The exception is Claude Code used through Claude Enterprise with ZDR enabled; see [What ZDR covers](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#what-zdr-covers).
@@ -59,7 +59,7 @@ The Claude API supports HIPAA-ready integrations for organizations that handle p
 ### What HIPAA readiness does not cover
 
 * **Claude consumer products:** Claude Free, Pro, and Max plans.
-* **Console and Workbench:** Usage through the Claude Console interface (enabling HIPAA readiness from Console settings is supported; processing PHI through the Console is not covered).
+* **Claude Console:** Usage through the Claude Console interface (enabling HIPAA readiness from Console settings is supported; processing PHI through the Console is not covered).
 * **Partner-operated platforms:** Amazon Bedrock and Google Cloud's Agent Platform. Refer to those platforms' compliance documentation.
 * **Claude Platform on AWS and Microsoft Foundry:** HIPAA readiness is not available on these platforms.
 * **Third-party integrations:** Data processed by external tools or services connected to your application.

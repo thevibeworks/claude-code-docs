@@ -96,7 +96,7 @@ Usage limits differ between Standard and Premium seats in the following ways:
 
 **Standard seats:** Team plan Standard seats offer 1.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
 
-**Premium seats:** Team plan Premium seats offer 6.25x more usage per session than the Pro plan. Users assigned to these seats ​​also have two weekly usage limits: one that applies across all models and another for Sonnet models only.
+**Premium seats:** Team plan Premium seats offer 6.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
 
 ### Do usage limits apply across the team or to individual members?
 

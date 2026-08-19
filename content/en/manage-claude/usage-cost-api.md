@@ -310,9 +310,9 @@ Code execution costs appear in the cost endpoint grouped under `Code Execution U
 
 Filter or group by `service_tier` in the usage endpoint and look for the `priority` value. Priority Tier costs are not available in the cost endpoint.
 
-### What happens with Anthropic Workbench usage?
+### What happens with Playground usage?
 
-API usage from the Workbench is not associated with an API key, so `api_key_id` will be `null` even when grouping by that dimension.
+API usage from Playground in the Claude Console (and from the legacy Workbench before it) is not associated with an API key, so `api_key_id` will be `null` even when grouping by that dimension.
 
 ### How is the default workspace represented?
 

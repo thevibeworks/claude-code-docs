@@ -1,8 +1,8 @@
 # How do I pay for my Claude API usage?
 
-Claude API and Workbench usage is billed via prepaid "usage credits." Credits must be purchased prior to using the API, and your credits will be applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. These credits can be used for API access, Workbench usage, and Claude Code. Failed requests are not charged, and you will only be billed for successful API calls and completed tasks.
+Claude API and the playground usage is billed via prepaid "usage credits." Credits must be purchased prior to using the API, and your credits will be applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. These credits can be used for API access, the playground usage, and Claude Code. Failed requests are not charged, and you will only be billed for successful API calls and completed tasks.
 
-You can track credit usage in your **[Claude Console settings on the Billing page](https://platform.claude.com/settings/billing)**. If you run out of credits, you will no longer be able to call the API or use Workbench. You can choose to set up an auto-reload that purchases additional credits when your balance falls below a set limit.
+You can track credit usage in your **[Claude Console settings on the Billing page](https://platform.claude.com/settings/billing)**. If you run out of credits, you will no longer be able to call the API or use the playground. You can choose to set up an auto-reload that purchases additional credits when your balance falls below a set limit.
 
 To add usage credits and adjust your auto-reload settings, navigate to your Billing page. Click on the “Buy credits” button, and enter in the amount of credits you would like to purchase. After you’ve purchased your credits, they will be immediately available to you.
 

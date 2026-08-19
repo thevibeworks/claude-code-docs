@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1787071500&amp;signature=ca09114c15dee0f3c1dd77be18b4754c9ea716073f8e33216e34134b606703eb&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhLdNPRQxakFVfq5Wwyc7r2H577qU%2FqGWKO5%0ARnmkRPz7QlV5UikStTE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1787107500&amp;signature=99422f275e021d99929eaa281c4a9be9ded6e36069e88f0fa4900f2bb90cae25&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhLcM%2FJQxakFVfq5WwxwrEkTFKdQvPG2%2F5CD%0ApbmEsi3WebMtqyQ6Hq4%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1787071500&amp;signature=6b096c71d3dd82b334a449625baa7f7d5cc2e25a4b46503974cebed9144c8337&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPH8hEGRmKUxugP2BQsqS1%2Bkyxe%2B2URyQGNJ%0ABR%2BfddTLeChOiUVLNyM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1787107500&amp;signature=c085de186505f16d764e95c292e616f45183e5cc107bee701894f3197dc90acd&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPH9g0eRmKUxugP2BQuW3VuGGh%2FS9NcrtG2A%0A6W3QEOMCkiZR9sHoPLk%3D%0A)
 
 ---
 

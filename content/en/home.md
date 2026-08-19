@@ -95,7 +95,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="message" href="https://platform.claude.com/playground">
-            Try the Workbench
+            Try the API in Playground
           </HomeJourneyLink>
         </HomeJourneyStep>
 

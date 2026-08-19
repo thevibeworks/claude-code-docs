@@ -38,7 +38,7 @@ Members can have different roles in each workspace, allowing fine-grained access
 
 | Role                        | Permissions                                                                                     |
 | --------------------------- | ----------------------------------------------------------------------------------------------- |
-| Workspace User              | Use the Anthropic Workbench only                                                                |
+| Workspace User              | Use Playground only                                                                             |
 | Workspace Limited Developer | Create and manage API keys, use the API. Cannot access session tracing views or download files. |
 | Workspace Developer         | Create and manage API keys, use the API                                                         |
 | Workspace Admin             | Full control over workspace settings and members                                                |
