@@ -213,7 +213,7 @@ response = await client.beta.messages.create(
 from anthropic.lib.tools.mcp import mcp_resource_to_file
 
 resource = await mcp_client.read_resource(uri="file:///path/to/data.json")
-uploaded = await client.beta.files.upload(file=mcp_resource_to_file(resource))
+uploaded = await client.files.upload(file=mcp_resource_to_file(resource))
 ```
 
 ### Error handling
@@ -316,9 +316,10 @@ async for work in client.beta.environments.work.poller(
 ):
     if work.data.type != "session":
         continue
-    # Passing `client` and `session_id` makes `AgentToolContext` fetch the session's resolved agent
-    # on enter and download each of its skills into `{workdir}/skills/<name>/`.
-    async with AgentToolContext(workdir="/workspace", client=client, session_id=work.data.id) as env:
+    # Fetch the session once; passing `client` and `session` makes `AgentToolContext` download
+    # each of the session agent's skills into `{workdir}/skills/<name>/` on enter.
+    session = await client.beta.sessions.retrieve(work.data.id)
+    async with AgentToolContext(workdir="/workspace", client=client, session=session) as env:
         async for call in client.beta.sessions.events.tool_runner(
             work.data.id,
             tools=beta_agent_toolset_20260401(env),

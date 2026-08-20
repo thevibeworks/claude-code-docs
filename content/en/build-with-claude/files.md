@@ -5,17 +5,11 @@ description: Upload files once, reference them by file_id in Messages requests, 
 ---
 
 ## Compatibility
-- Status: Beta
-- [Beta header](https://platform.claude.com/docs/en/api/beta-headers): `files-api-2025-04-14`
 - [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): not eligible
-- Platforms: Claude API (beta), Claude Platform on AWS (beta), Microsoft Foundry (beta) [1]; not available on Amazon Bedrock, Google Cloud
+- Platforms: Claude API, Claude Platform on AWS (beta), Microsoft Foundry (beta) [1]; not available on Amazon Bedrock, Google Cloud
 1. On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), the Files API requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
 
 The Files API lets you upload and manage files to use with the Claude API without re-uploading content with each request. This is particularly useful when using the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) to provide inputs (for example, datasets and documents) and then download outputs (for example, charts). You can [explore the API reference directly](https://platform.claude.com/docs/en/api/beta/files/upload), in addition to this guide.
-
-<Note>
-  Reach out through the [feedback form](https://forms.gle/tisHyierGwgN4DUE9) to share your experience with the Files API.
-</Note>
 
 ## File type support
 
@@ -39,7 +33,10 @@ The Files API provides a create-once, use-many-times approach for working with f
 ## How to use the Files API
 
 <Note>
-  To use the Files API, you'll need to include the beta feature header: `anthropic-beta: files-api-2025-04-14`. The SDKs add this header automatically when you call methods on the `beta.files` namespace, so the SDK examples on this page don't pass it explicitly for file operations. Messages requests that reference a file do need it, which the SDK examples pass through their `betas` parameter.
+  Requests to the Files API endpoints (`/v1/files`) don't need a beta header, and neither do Messages or Message Batches requests that reference an uploaded file. Two things to know about the `anthropic-beta: files-api-2025-04-14` header the examples on this page still send:
+
+  * **Referencing a file from the Messages API.** Requests that use an uploaded file as a `document` or `image` source, or in a `container_upload` block for the code execution tool, work with or without the header. The SDK examples on this page still pass it through their `betas` parameter, which continues to work.
+  * **Sending the header on Files API requests.** The SDK `beta.files` methods and the CLI `ant beta:files` commands add the header automatically, and the cURL examples on this page include it. Those requests keep working and return the earlier response format: the list endpoint paginates with `before_id` and `after_id`, returns `has_more`, `first_id`, and `last_id` instead of `next_page`, and rejects the `page` and `ids[]` parameters as unknown fields. File objects returned under the header omit `expires_at` instead of returning `null` when no expiration is set. To use `page` and `ids[]` as described under [List files](https://platform.claude.com/docs/en/build-with-claude/files#list-files), send the request without the beta header.
 </Note>
 
 ### Uploading a file
@@ -165,7 +162,8 @@ The response from uploading a file includes:
   "mime_type": "application/pdf",
   "size_bytes": 1024000,
   "created_at": "2025-01-01T00:00:00Z",
-  "downloadable": false
+  "downloadable": false,
+  "expires_at": null
 }
 ```
 
@@ -701,7 +699,7 @@ The following examples read a text file and send its contents as plain text:
 
 #### List files
 
-Retrieve a list of your uploaded files. The endpoint is paginated: each request returns up to `limit` files (20 by default), and the `before_id` and `after_id` parameters fetch the adjacent page. See the [List Files API reference](https://platform.claude.com/docs/en/api/beta/files/list). The SDKs return the first page and provide auto-pagination helpers. The CLI example bounds the total with `--max-items`:
+Retrieve a list of your uploaded files. The endpoint is paginated: each request returns up to `limit` files (20 by default, and at most 1,000), and the response's `next_page` cursor fetches the next page when passed back as the `page` parameter. Files are ordered newest first. See the [List Files API reference](https://platform.claude.com/docs/en/api/beta/files/list). The SDKs return the first page and provide auto-pagination helpers. The CLI example bounds the total with `--max-items`:
 
 <CodeGroup>
   ```bash cURL
@@ -770,6 +768,10 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
   puts files
   ```
 </CodeGroup>
+
+To check a known set of files in one request instead of paging, pass up to 100 file IDs as `ids[]` query parameters. An `ids[]` request always returns a single page (`next_page` is `null`), and any ID that does not resolve to a file in your workspace is silently omitted from `data`; compare the returned IDs against the requested IDs to detect misses. `ids[]` cannot be combined with `page` or `limit`.
+
+The `page` parameter, the `next_page` cursor, and the `ids[]` filter apply to requests sent without the `anthropic-beta: files-api-2025-04-14` header. The preceding examples send it (the SDKs and CLI add it for `beta.files` calls), so they receive the earlier list format described in the note under [How to use the Files API](https://platform.claude.com/docs/en/build-with-claude/files#how-to-use-the-files-api).
 
 #### Get file metadata
 
@@ -986,10 +988,27 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
 
 * Files are scoped to the workspace of the API key that uploaded them. Any API key in the same workspace can reference them; never accept file IDs from untrusted sources (see the [workspace access warning](https://platform.claude.com/docs/en/build-with-claude/files#workspace-scoped-access))
 * Files cannot be modified or renamed after upload. To change a file's content, upload a new file and delete the old one
-* Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint
+* Files persist until you delete them with the `DELETE /v1/files/{file_id}` endpoint or they reach their `expires_at`
 * Deleted files cannot be recovered
 * Files are inaccessible through the API shortly after deletion, but they may persist in active Messages API calls and associated tool uses
 * Files that users delete will be deleted in accordance with Anthropic's [data retention policy](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data). For ZDR eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention)
+
+### File expiration
+
+To have a file expire automatically, include an `expires_in_seconds` form field when you upload it. The value is an integer number of seconds between 3,600 (1 hour) and 7,776,000 (90 days). The resulting `expires_at` timestamp (RFC 3339) appears on every file response and is `null` for files uploaded without an expiration. Expiration is set once at upload and cannot be changed.
+
+When a file reaches its `expires_at`:
+
+* Downloading its content (`GET /v1/files/{file_id}/content`) returns a 404 error
+* A Messages request that references the file fails before inference
+* Its metadata (`GET /v1/files/{file_id}`) remains readable for up to 30 days, with `expires_at` in the past
+* It continues to appear in list responses during that window; compare `expires_at` to the current time to filter expired files
+
+Deleting an expired file with `DELETE /v1/files/{file_id}` removes its metadata immediately instead of waiting for the 30-day window to elapse.
+
+<Note>
+  Expiration is a lifecycle feature, not a guaranteed-deletion control. After `expires_at`, file content is no longer retrievable through the API and is released from your storage quota; the underlying content may be retained for a limited period thereafter for safety review before permanent deletion, and file metadata remains visible for up to 30 days after expiration. To remove a file before its scheduled expiration, use `DELETE /v1/files/{file_id}`.
+</Note>
 
 ### Audit logging
 

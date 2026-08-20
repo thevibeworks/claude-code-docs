@@ -364,10 +364,11 @@ The request includes the following parts:
 * **`skill_id: "pptx"`:** The PowerPoint Skill identifier
 * **`version: "latest"`:** The Skill version set to the most recently published
 * **`tools`:** Enables code execution (required for Skills)
-* **Beta header:** `skills-2025-10-02`
 
 <Note>
-  The examples on this page use the `code_execution_20260521` tool version, which is generally available and needs only the `skills-2025-10-02` beta header. The Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement. If you use a different version, keep its tool `type` and any beta header consistent with the code execution tool page, and always include `skills-2025-10-02`.
+  Skills are generally available on the Claude API and don't require a beta header. The examples on this page still send the `skills-2025-10-02` beta header and use the SDKs' `beta` namespace. Both remain valid, so you can run the examples as written and omit the header in your own requests.
+
+  The examples use the `code_execution_20260521` tool version, and the Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement without a beta header. If you use a different version, use the tool `type` listed on the code execution tool page.
 </Note>
 
 When you make this request, Claude automatically matches your task to the relevant Skill. Because you asked for a presentation, Claude determines the PowerPoint Skill is relevant and loads its full instructions: the second level of progressive disclosure. Then Claude runs the Skill's code to create your presentation.

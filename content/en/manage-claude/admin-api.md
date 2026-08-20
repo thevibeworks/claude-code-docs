@@ -20,7 +20,7 @@ The [Admin API](https://platform.claude.com/docs/en/api/admin) allows you to pro
 </Check>
 
 <Note>
-  **Claude Enterprise:** Claude Enterprise (claude.ai) organizations use the Admin API too, with a scoped API key created in claude.ai. Of the endpoints on this page, only members and invites are available to them (in beta), alongside Claude-Enterprise-only endpoints: groups and custom-role reads (beta), and [spend limits](https://platform.claude.com/docs/en/manage-claude/spend-limits-api). See [User management](https://platform.claude.com/docs/en/manage-claude/user-management) for Claude Enterprise.
+  **Claude Enterprise:** Claude Enterprise (claude.ai) organizations use the Admin API too, with a scoped API key created in claude.ai. Of the endpoints on this page, only members and invites are available to them, alongside Claude-Enterprise-only endpoints: groups and custom-role reads, and [spend limits](https://platform.claude.com/docs/en/manage-claude/spend-limits-api). See [User management](https://platform.claude.com/docs/en/manage-claude/user-management) for Claude Enterprise.
 </Note>
 
 <Note>

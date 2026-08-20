@@ -237,7 +237,7 @@ Constraints:
 
 ## Configure which MCP tools are available
 
-The `mcp_toolset` entry supports the same `default_config` and `configs` shape as the built-in agent toolset, applied to the tools the MCP server exposes. The `name` in each `configs` entry is the bare tool name as reported by the server.
+The `mcp_toolset` entry supports a `default_config` object and a `configs` array, applied to the tools the MCP server exposes. Each `configs` entry accepts only `name`, `enabled`, and `permission_policy`. Unlike entries in the built-in agent toolset, MCP tool entries do not take a `type` field, and the [web settings](https://platform.claude.com/docs/en/managed-agents/tools#restrict-web-search-and-web-fetch-domains) available on `web_search` and `web_fetch` do not apply to MCP tools. The `name` in each `configs` entry is the bare tool name as reported by the server.
 
 By default all tools exposed by the MCP server are enabled. To enable only specific tools, set `default_config.enabled` to `false` and explicitly enable the tools you want:
 

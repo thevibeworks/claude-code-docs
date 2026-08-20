@@ -83,7 +83,7 @@ Claude Managed Agents gives Claude access to a set of built-in tools:
 
 * **Bash:** Run shell commands in the sandbox
 * **File operations:** Read, write, edit, glob, and grep files in the sandbox
-* **Web search and fetch:** Search the web and retrieve content from URLs
+* **Web search and fetch:** Search the web and retrieve content from URLs, optionally restricted to an allowlist or blocklist of domains
 * **MCP servers:** Connect to external tool providers
 
 See [Tools](https://platform.claude.com/docs/en/managed-agents/tools) for the full list and configuration options.

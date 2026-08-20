@@ -24,6 +24,8 @@ When you choose "Yes, and don't ask again" and the approval saves permanently, s
 
 Before v2.1.211, Claude Code always saved the rule in the starting directory, so an approval granted in a worktree or subdirectory didn't apply to the rest of the repository. Rules that earlier versions saved in a subdirectory or worktree still apply to sessions started there.
 
+Sometimes a permission prompt offers only a one-time approval, with no "don't ask again" option and no option to allow the action for the rest of the session. Claude Code offers those options only when the prompt can show you everything they would allow, so a rule you save from a prompt covers only what its option named. Claude Code leaves the options out when the command or edit is too large to show in full, or when the option's label can't fit every command or path the rule would cover. Approve the action once, or add the rule yourself in [`/permissions`](#manage-permissions).
+
 On a Bash or PowerShell permission prompt, press `Ctrl+E` to show an explanation of the command: what it does, why Claude is running it, and what could go wrong, labeled **Low risk**, **Med risk**, or **High risk**. Claude Code sends the command and Claude's own description of the call to the model to generate the explanation only when you press `Ctrl+E`, not on every prompt. Showing the explanation doesn't run the command; press `Ctrl+E` again to hide it.
 
 To turn the shortcut off, set [`permissionExplainerEnabled`](/docs/en/settings#global-config-settings) to `false` in `~/.claude.json`.

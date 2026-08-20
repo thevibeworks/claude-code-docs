@@ -13,7 +13,7 @@ Every organization has a **Default Workspace** that cannot be renamed, archived,
 Key characteristics:
 
 * **Workspace identifiers** use the `wrkspc_` prefix (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`)
-* **Maximum 100 workspaces** per organization (archived workspaces don't count)
+* **Maximum 100 workspaces** per organization by default (archived workspaces don't count); contact your account team if you need more
 * **Default Workspace** has a `wrkspc_` ID like any other workspace (returned in the [`anthropic-workspace-id` response header](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response) and accepted by [Get Workspace](https://platform.claude.com/docs/en/api/admin/workspaces/retrieve)), but it doesn't appear in [List Workspaces](https://platform.claude.com/docs/en/api/admin/workspaces/list) results, and API keys, usage reports, and cost reports show `null` for its `workspace_id`
 * **API keys** are scoped to a single workspace and can only access resources within that workspace
 
@@ -477,7 +477,7 @@ Create workspaces for specific projects or products to track usage and costs sep
   </Accordion>
 
   <Accordion title="Are there limits on workspaces?">
-    Yes, you can have a maximum of 100 workspaces per organization. Archived workspaces do not count toward this limit.
+    Yes. Each organization can have up to 100 workspaces by default, and archived workspaces don't count toward this limit. If you need more, contact your account team.
   </Accordion>
 
   <Accordion title="How do organization roles affect workspace access?">

@@ -1,6 +1,6 @@
 # Understanding Claude's personalization features
 
-Claude offers several ways to personalize your experience: profile instructions, project instructions, and styles. Each serves a different purpose in helping Claude better understand and meet your needs.
+Claude offers several ways to personalize your experience. Each serves a different purpose in helping Claude better understand and meet your needs.
 
 ## Instructions for Claude
 
@@ -70,6 +70,6 @@ For more information, see **[What are skills?](https://support.claude.com/en/art
 
 - Use project instructions when you need specific guidance or context for a particular project (paid plans only).
 
-- Use styles when you want to customize how Claude formats and delivers its responses.
+- Use skills when you want to customize how Claude formats and delivers its responses.
 
 You can use these features independently or in combination to create the most effective experience for your needs.

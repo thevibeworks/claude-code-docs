@@ -47,7 +47,7 @@ You can use Skills from two sources:
 | ------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
 | **Type value**     | `anthropic`                                | `custom`                                                                                               |
 | **Skill IDs**      | Short names: `pptx`, `xlsx`, `docx`, `pdf` | Generated: `skill_01AbCdEfGhIjKlMnOpQrStUv`                                                            |
-| **Version format** | Date-based: `20251013` or `latest`         | Epoch timestamp: `1759178010641129` or `latest`                                                        |
+| **Version format** | Date-based: `20251013` or `latest`         | Version ID: `skver_01AbCdEfGhIjKlMnOpQrStUv` or `latest`                                               |
 | **Management**     | Pre-built and maintained by Anthropic      | Upload and manage through the [Skills API](https://platform.claude.com/docs/en/api/beta/skills/create) |
 | **Availability**   | Available to all users                     | Private to your workspace                                                                              |
 
@@ -58,14 +58,9 @@ Both skill sources are returned by the [List Skills endpoint](https://platform.c
 To use Skills, you need:
 
 1. **Claude API key** from the [Claude Console](https://platform.claude.com/settings/keys)
+2. **[Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool)** enabled in your requests
 
-2. **Beta headers:**
-
-   * `code-execution-2025-08-25` - Enables code execution (required for Skills)
-   * `skills-2025-10-02` - Enables Skills API
-   * `files-api-2025-04-14` - Required only when you use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to upload input files or download files a Skill produces
-
-3. **[Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool)** enabled in your requests
+Skills are generally available on the Claude API and don't require an `anthropic-beta` header, either for the Skills API or for `container.skills` in Messages requests. The examples in this guide still send the `skills-2025-10-02` beta header (plus `code-execution-2025-08-25` in Messages requests) and use the SDKs' `beta` namespace. Both headers remain valid opt-ins, so the examples work as written, and you can omit them in your own requests.
 
 Skills require the code execution tool, so use a model from its [model compatibility list](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility).
 
@@ -75,7 +70,7 @@ Skills require the code execution tool, so use a model from its [model compatibi
 
 ### Container parameter
 
-Skills are specified using the `container` parameter in the Messages API. You can include up to 8 Skills for each request.
+Skills are specified using the `container` parameter in the Messages API. You can include up to 20 Skills for each request.
 
 The structure is identical for both Anthropic and custom Skills. Specify the required `type` and `skill_id`, and optionally include `version` to pin to a specific version:
 
@@ -2256,7 +2251,7 @@ A Skill bundle is a directory containing a `SKILL.md` file at the top level with
 
 Upload your custom Skill to make it available in your workspace. You can upload a zip archive or individual file objects. The Python SDK also provides a `files_from_dir` helper that accepts a directory path.
 
-Files are identified by the filename you attach. Per-file uploads must keep a common top-level directory in their paths (the `;filename=` suffix in the cURL example and the filename arguments in the SDK examples). A zip archive must contain the skill directory as its single top-level entry. For the walkthrough's skill, create one with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
+Files are identified by the filename you attach (the `;filename=` suffix in the cURL example and the filename arguments in the SDK examples). For the walkthrough's skill, create a zip with `zip -r financial_skill.zip financial_skill/` and substitute it for the `example_skill.zip` placeholder in the zip-upload options.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -2526,13 +2521,9 @@ Files are identified by the filename you attach. Per-file uploads must keep a co
 
 **Requirements:**
 
-* Must include a `SKILL.md` file at the top level
+* Must include a `SKILL.md` file at the upload root (or at the top of a single enclosing folder)
 
-* All files must specify a common root directory in their paths
-
-* The top-level directory name must match the `name` in `SKILL.md` frontmatter (case and underscore insensitive: `Financial_Skill` matches `financial-skill`)
-
-* `display_title` is optional: when omitted, it derives from the `SKILL.md` `name`; an explicit value must be unique among the custom skills in your workspace
+* `display_name` is optional: when omitted, it derives from the `SKILL.md` `name`; an explicit value may be up to 255 characters and does not need to be unique within the workspace
 
 * Total upload size must be under 30 MB (uncompressed)
 
@@ -2796,128 +2787,44 @@ Get details about a specific Skill:
 
 ### Deleting a Skill
 
-To delete a Skill, you must first delete all its versions:
+Deleting a Skill also removes all of its versions. The cascade is GA-only behavior, so unlike the other examples in this guide, these call the GA surface directly rather than the `beta` namespace.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  # Step 1: List the versions, then delete each one
-  curl "https://api.anthropic.com/v1/skills/skill_01AbCdEfGhIjKlMnOpQrStUv/versions" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02"
-
-  # Repeat for each version the list returned
-  curl -X DELETE "https://api.anthropic.com/v1/skills/skill_01AbCdEfGhIjKlMnOpQrStUv/versions/1759178010641129" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02"
-
-  # Step 2: Delete the Skill
   curl -X DELETE "https://api.anthropic.com/v1/skills/skill_01AbCdEfGhIjKlMnOpQrStUv" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02"
+    -H "anthropic-version: 2023-06-01"
   ```
 
   ```bash CLI
-  # Step 1: List the versions, then delete each one
-  ant beta:skills:versions list \
-    --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv \
-    --transform version \
-    --raw-output
-
-  # Repeat for each version id the list returned
-  ant beta:skills:versions delete \
-    --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv \
-    --version 1759178010641129 >/dev/null
-
-  # Step 2: Delete the Skill
-  ant beta:skills delete \
+  ant skills delete \
     --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv >/dev/null
   ```
 
   ```python Python
   client = anthropic.Anthropic()
 
-  # Step 1: Delete all versions
-  for version in client.beta.skills.versions.list(
-      skill_id="skill_01AbCdEfGhIjKlMnOpQrStUv"
-  ):
-      client.beta.skills.versions.delete(
-          skill_id="skill_01AbCdEfGhIjKlMnOpQrStUv",
-          version=version.version,
-      )
-
-  # Step 2: Delete the Skill
-  client.beta.skills.delete(skill_id="skill_01AbCdEfGhIjKlMnOpQrStUv")
+  client.skills.delete(skill_id="skill_01AbCdEfGhIjKlMnOpQrStUv")
   ```
 
   ```typescript TypeScript
   const client = new Anthropic();
 
-  // Step 1: Delete all versions
-  for await (const version of client.beta.skills.versions.list(
-    "skill_01AbCdEfGhIjKlMnOpQrStUv"
-  )) {
-    await client.beta.skills.versions.delete(version.version, {
-      skill_id: "skill_01AbCdEfGhIjKlMnOpQrStUv"
-    });
-  }
-
-  // Step 2: Delete the Skill
-  await client.beta.skills.delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
+  await client.skills.delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
   ```
 
   ```csharp C#
-  using Anthropic.Models.Beta.Skills.Versions;
-  // ...
   AnthropicClient client = new();
 
-  // Step 1: Delete all versions
-  await foreach (var version in (await client.Beta.Skills.Versions.List("skill_01AbCdEfGhIjKlMnOpQrStUv")).Paginate())
-  {
-      await client.Beta.Skills.Versions.Delete(
-          version.Version,
-          new VersionDeleteParams { SkillID = "skill_01AbCdEfGhIjKlMnOpQrStUv" }
-      );
-  }
-
-  // Step 2: Delete the Skill
-  await client.Beta.Skills.Delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
+  await client.Skills.Delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
   ```
 
   ```go Go
   client := anthropic.NewClient()
 
-  // Step 1: Delete all versions
-  versions := client.Beta.Skills.Versions.ListAutoPaging(
+  _, err := client.Skills.Delete(
   	context.TODO(),
   	"skill_01AbCdEfGhIjKlMnOpQrStUv",
-  	anthropic.BetaSkillVersionListParams{},
-  )
-
-  for versions.Next() {
-  	version := versions.Current()
-  	_, err := client.Beta.Skills.Versions.Delete(
-  		context.TODO(),
-  		version.Version,
-  		anthropic.BetaSkillVersionDeleteParams{
-  			SkillID: "skill_01AbCdEfGhIjKlMnOpQrStUv",
-  		},
-  	)
-  	if err != nil {
-  		log.Fatal(err)
-  	}
-  }
-  if versions.Err() != nil {
-  	log.Fatal(versions.Err())
-  }
-
-  // Step 2: Delete the Skill
-  _, err := client.Beta.Skills.Delete(
-  	context.TODO(),
-  	"skill_01AbCdEfGhIjKlMnOpQrStUv",
-  	anthropic.BetaSkillDeleteParams{},
   )
   if err != nil {
   	log.Fatal(err)
@@ -2925,46 +2832,17 @@ To delete a Skill, you must first delete all its versions:
   ```
 
   ```java Java
-  import com.anthropic.models.beta.skills.versions.VersionListPage;
-  import com.anthropic.models.beta.skills.versions.VersionDeleteParams;
-  // ...
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      // Step 1: Delete all versions
-      VersionListPage versions = client.beta().skills().versions().list("skill_01AbCdEfGhIjKlMnOpQrStUv");
-
-      for (var version : versions.autoPager()) {
-          client.beta().skills().versions().delete(
-              version.version(),
-              VersionDeleteParams.builder()
-                  .skillId("skill_01AbCdEfGhIjKlMnOpQrStUv")
-                  .build()
-          );
-      }
-
-      // Step 2: Delete the Skill
-      client.beta().skills().delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
+      client.skills().delete("skill_01AbCdEfGhIjKlMnOpQrStUv");
   }
   ```
 
   ```php PHP
   $client = new Client();
 
-  // Step 1: Delete all versions
-  $versions = $client->beta->skills->versions->list(
-      skillID: 'skill_01AbCdEfGhIjKlMnOpQrStUv',
-  );
-
-  foreach ($versions->pagingEachItem() as $version) {
-      $client->beta->skills->versions->delete(
-          skillID: 'skill_01AbCdEfGhIjKlMnOpQrStUv',
-          version: $version->version,
-      );
-  }
-
-  // Step 2: Delete the Skill
-  $client->beta->skills->delete(
+  $client->skills->delete(
       skillID: 'skill_01AbCdEfGhIjKlMnOpQrStUv',
   );
   ```
@@ -2972,20 +2850,9 @@ To delete a Skill, you must first delete all its versions:
   ```ruby Ruby
   client = Anthropic::Client.new
 
-  # Step 1: Delete all versions
-  client.beta.skills.versions.list("skill_01AbCdEfGhIjKlMnOpQrStUv").auto_paging_each do |version|
-    client.beta.skills.versions.delete(
-      version.version,
-      skill_id: "skill_01AbCdEfGhIjKlMnOpQrStUv"
-    )
-  end
-
-  # Step 2: Delete the Skill
-  client.beta.skills.delete("skill_01AbCdEfGhIjKlMnOpQrStUv")
+  client.skills.delete("skill_01AbCdEfGhIjKlMnOpQrStUv")
   ```
 </CodeGroup>
-
-Attempting to delete a Skill with existing versions returns a 400 error.
 
 ### Versioning
 
@@ -2999,11 +2866,11 @@ Skills support versioning to manage updates safely:
 
 **Custom Skills:**
 
-* Auto-generated epoch timestamps: `1759178010641129`
+* Auto-generated version IDs: `skver_01AbCdEfGhIjKlMnOpQrStUv`
 * Use `"latest"` to always get the most recent version
 * Create new versions when updating Skill files
 
-A new version is a complete snapshot, not a delta: upload the Skill's full file set each time, under the same top-level directory name used at creation. Files you omit are not carried over. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](https://platform.claude.com/docs/en/build-with-claude/skills-guide#creating-a-skill).
+A new version is a complete snapshot, not a delta: upload the Skill's full file set each time. Files you omit are not carried over, and the `name` in the new version's `SKILL.md` must match the Skill's existing name. The following examples re-upload the complete `financial_skill/` bundle from [Creating a Skill](https://platform.claude.com/docs/en/build-with-claude/skills-guide#creating-a-skill).
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -3902,7 +3769,7 @@ Combine Excel and custom DCF analysis Skills:
 
 ### Request limits
 
-* **Maximum Skills per request:** 8
+* **Maximum Skills per request:** 20
 
 * **Maximum Skill upload size:** 30 MB (all files combined, uncompressed)
 
