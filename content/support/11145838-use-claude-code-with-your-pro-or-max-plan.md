@@ -70,7 +70,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Pro plan after hitting the included usage limit.
 
-- You will have the flexibility to switch to **[pay-as-you-go usage](https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use)** with a Claude Console account for intensive coding sprints.
+- Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
 - Wait until your usage limits reset.
 
@@ -80,7 +80,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Max plan after hitting the included usage limit.
 
-- You will have the flexibility to switch to **[pay-as-you-go usage](https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use)** with a Claude Console account for intensive coding sprints.
+- Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
 - Wait until your usage limits reset.
 

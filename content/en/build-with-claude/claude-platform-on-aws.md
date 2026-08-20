@@ -550,9 +550,10 @@ See the [comparison table](https://platform.claude.com/docs/en/build-with-claude
 
 [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) is available on Claude Platform on AWS, including [agents](https://platform.claude.com/docs/en/managed-agents/agent-setup), [environments](https://platform.claude.com/docs/en/managed-agents/environments), [sessions](https://platform.claude.com/docs/en/managed-agents/sessions), [credential vaults](https://platform.claude.com/docs/en/managed-agents/vaults), [memory stores](https://platform.claude.com/docs/en/managed-agents/memory), [webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks), [multiagent orchestration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), and [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes).
 
-Session behavior on Claude Platform on AWS differs from first-party Claude Managed Agents in one way:
+Session behavior on Claude Platform on AWS differs from first-party Claude Managed Agents in two ways:
 
 * **Autonomous-session reauthentication:** A session can run autonomously, without any [user events](https://platform.claude.com/docs/en/managed-agents/reference#event-types), for up to 6 hours. After 6 hours, the session requires reauthentication before it continues. To reauthenticate, send any user-role event to the session (see [Events and streaming](https://platform.claude.com/docs/en/managed-agents/events-and-streaming)). First-party Claude Managed Agents has no autonomous-session runtime limit.
+* **[Memory stores on self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores):** A session that runs on a self-hosted environment cannot attach memory stores; a session that includes one is rejected at creation. Sessions on cloud environments attach memory stores as usual. On first-party Claude Managed Agents, sessions on both cloud and self-hosted environments can attach memory stores.
 
 ### Features not supported
 

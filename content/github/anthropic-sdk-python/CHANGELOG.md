@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.125.0 (2026-08-19)
+
+Full Changelog: [v0.124.0...v0.125.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.124.0...v0.125.0)
+
+### Features
+
+* **api:** managed agents web search config and self hosted sandbox memory ([b75afd6](https://github.com/anthropics/anthropic-sdk-python/commit/b75afd6ffa210ff2e98bc5e90d6f1f3367038f0b))
+
+## 0.124.0 (2026-08-19)
+
+Full Changelog: [v0.123.0...v0.124.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.123.0...v0.124.0)
+
+### Features
+
+* **api:** Files and Skills APIs are now GA; add computer use and browser use toolsets ([9a09e84](https://github.com/anthropics/anthropic-sdk-python/commit/9a09e84608944172088acf371e7584133ca19844))
+
 ## 0.123.0 (2026-08-18)
 
 Full Changelog: [v0.122.0...v0.123.0](https://github.com/anthropics/anthropic-sdk-python/compare/v0.122.0...v0.123.0)

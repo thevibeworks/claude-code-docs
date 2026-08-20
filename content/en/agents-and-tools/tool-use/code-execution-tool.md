@@ -278,7 +278,7 @@ If you want Claude to run code for a borderline request, ask explicitly (for exa
 To analyze your own data files (such as CSV, Excel, or images), upload them through the Files API and reference them in your request:
 
 <Note>
-  Using the Files API with code execution requires the Files API beta header: `"anthropic-beta": "files-api-2025-04-14"`
+  This workflow doesn't require a beta header: uploading and downloading files through the Files API and referencing them in `container_upload` blocks are all generally available. The examples on this page send `anthropic-beta: files-api-2025-04-14`, which the API accepts but doesn't require.
 </Note>
 
 The Python environment can process various file types uploaded through the Files API, including:
