@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787226300&amp;signature=982a4fabcaf52d37d747556a20b40fcb1be4e16c31924fb230fd6745e2275f86&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVP%2FoS0gN0ADj5oqFBwly0gqyjdeiCv4wOi%0Aj9gLXuswEGjKagF8LKE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787244300&amp;signature=9f3b63cfc2b3e541d3c3856c96d7675db05c3cffa4b36cdc3f0a398bfc9acd67&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVP%2BIa0gN0ADj5oqFAhqSEBi0%2F2TakFzLFy%0AimyuNH2Zyzu4DtNzl5E%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787226300&amp;signature=e3de33ec6195d4d9812a1670fd95113d4ef153d02cbf267ae79a36ca49b625c0&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFyiirv7A4lHPBihAUqpDeahSpqPj0vLDam%0Ak6tgB3TRNUR%2F6b9Dp6E%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787244300&amp;signature=962d470751c1979c50c59e97be6a8119e00b96735f50a4bcc756468d9a662c69&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFyjCjv7A4lHPBihAVR21VRheinIOUhV7bN%0A9KCBLEDqbGFKPdfVgCo%3D%0A)
 
 ### Permission options
 
