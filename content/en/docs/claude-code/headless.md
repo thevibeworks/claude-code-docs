@@ -70,7 +70,14 @@ Background [subagents](/docs/en/sub-agents) and workflows are exempt from the fi
 
 ### Stop a run with SIGTERM
 
-If you stop a `claude -p` run with SIGTERM, for example from `kill` or a process supervisor, Claude Code terminates the process tree of any running Bash command, runs [`SessionEnd` hooks](/docs/en/hooks#sessionend), and exits with code 143. It doesn't interrupt the in-progress turn or record a result for it: a command that was running is recorded as killed, a permission prompt that was waiting for an answer is left unanswered, and no new tool, model request, or hook other than `SessionEnd` is started once the process has begun exiting, so resuming the session picks up from that point. An SDK host that closes the session ends Claude Code's input first, which cancels a waiting prompt before any signal arrives; to end the turn cleanly yourself, send SIGINT, or the SDK's `interrupt()`, before stopping the process.
+If you stop a `claude -p` run with SIGTERM, for example with `kill` or from a process supervisor, Claude Code exits with code 143. Claude Code leaves the turn that was in progress unfinished and records no result for it. To end the turn instead, send SIGINT, or call the Agent SDK's `interrupt()`, before you stop the process.
+
+On SIGTERM, Claude Code terminates the process tree of any Bash command that is still running. Claude Code then runs [`SessionEnd` hooks](/docs/en/hooks#sessionend) and exits. While exiting, Claude Code starts no new tool call, sends no new model request, and runs no hook other than `SessionEnd`. If the run was in the middle of a command or waiting on a permission prompt when the signal arrived, Claude Code handles that step as follows:
+
+* **Running a command**: Claude Code records the command as killed in the session.
+* **Waiting for an answer to a permission prompt**: if you send SIGTERM to the process, Claude Code leaves the prompt unanswered. If your program closes the session through the Agent SDK, the SDK ends Claude Code's input before sending any signal, and Claude Code cancels the prompt as soon as the input ends.
+
+When you [resume the session](#continue-conversations), Claude Code continues the turn that SIGTERM left unfinished.
 
 ## Examples
 

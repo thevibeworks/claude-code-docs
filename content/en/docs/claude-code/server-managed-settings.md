@@ -227,6 +227,8 @@ With a saved claude.ai login:
 
 If an interactive session can't show the dialog, Claude Code doesn't apply the delivered settings and keeps the last-approved settings; the dialog appears in the next session that can show it. Requires Claude Code v2.1.211 or later.
 
+If an error closes the dialog before you answer, Claude Code doesn't apply the delivered settings and keeps the last-approved settings; Claude Code shows the dialog again in the next session that can show it.
+
 <Note>
   A non-interactive run, such as `claude -p` or an Agent SDK session, can't show the dialog. When the delivered settings would require approval, Claude Code applies them for that run only: it doesn't record them as approved or write them to the [local cache](#fetch-and-caching-behavior), and the next interactive session shows the dialog. Until a user approves in an interactive session, each non-interactive run fetches the settings again at startup. Before v2.1.207, a non-interactive run saved the settings as approved, so later interactive sessions never showed the dialog for them.
 </Note>

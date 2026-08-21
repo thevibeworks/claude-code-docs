@@ -88,6 +88,14 @@ In interactive sessions, Claude Code shows a consent prompt before a Fable 5 req
 
 After you choose to continue on Fable 5 using usage credits, Claude Code doesn't show the prompt again.
 
+In a session with [Remote Control](/docs/en/remote-control) connected, a [background session](/docs/en/agent-view), or an [agent team](/docs/en/agent-teams) teammate's session, nobody may be at the terminal, so Claude Code holds the mid-session consent prompt for the [`dialogExpiry`](/docs/en/settings#available-settings) deadline, five minutes by default. If nobody has answered by the deadline, Claude Code ends the turn without sending the request and adds a notice to the transcript, which the Remote Control client also shows. Your model selection is unchanged, and Claude Code asks for consent again on your next message.
+
+What you can do while the prompt is waiting depends on the session:
+
+* With Remote Control connected or in a teammate's session, press any key at the terminal to cancel the deadline, and Claude Code waits for your answer.
+* In a background session, answer before the deadline.
+* If you send a new message from the remote client before anyone has typed at the terminal, Claude Code ends the turn the same way, and your new message starts the next turn. After someone types at the terminal, Claude Code keeps waiting for the answer and queues your new message behind it.
+
 In [non-interactive mode](/docs/en/headless) with the `-p` flag and through the Agent SDK, Claude Code never shows the consent prompt. When a Fable 5 request there would bill to usage credits, Claude Code bills it without asking.
 
 ### Setting your model

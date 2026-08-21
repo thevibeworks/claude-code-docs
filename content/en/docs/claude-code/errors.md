@@ -36,6 +36,7 @@ Match the message you see to a section below.
 | `Agent terminated early due to an API error`                                                                                                                                                  | [Server errors](#agent-terminated-early-due-to-an-api-error)                                                                  |
 | `You've hit your session limit` / `You've hit your weekly limit`                                                                                                                              | [Usage limits](#youve-hit-your-session-limit)                                                                                 |
 | `Usage credits required for 1M context`                                                                                                                                                       | [Usage limits](#usage-credits-required-for-1m-context)                                                                        |
+| `the prompt to confirm went unanswered — nothing was sent`                                                                                                                                    | [Usage limits](#the-prompt-to-confirm-went-unanswered)                                                                        |
 | `Server is temporarily limiting requests`                                                                                                                                                     | [Usage limits](#server-is-temporarily-limiting-requests)                                                                      |
 | `Request rejected (429)`                                                                                                                                                                      | [Usage limits](#request-rejected-429)                                                                                         |
 | `Credit balance is too low`                                                                                                                                                                   | [Usage limits](#credit-balance-is-too-low)                                                                                    |
@@ -150,6 +151,9 @@ Match the message you see to a section below.
 | `Failed to write to <name>'s inbox — nothing was sent`                                                                                                                                        | [Tool errors](#failed-to-write-to-a-teammate-inbox)                                                                           |
 | `Failed to write the plan approval request to the lead's inbox — plan not submitted`                                                                                                          | [Tool errors](#failed-to-write-to-a-teammate-inbox)                                                                           |
 | `Message too large for cross-session delivery`                                                                                                                                                | [Tool errors](#message-too-large-for-cross-session-delivery)                                                                  |
+| `Too many messages to this session just now`                                                                                                                                                  | [Tool errors](#too-many-messages-to-this-session-just-now)                                                                    |
+| `Refusing to send: reply target is a symlink` / `Refusing to send: cannot vet reply target`                                                                                                   | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
+| `Refusing to send: connected endpoint is not the expected process` / `Refusing to send: connected endpoint identity could not be read`                                                        | [Tool errors](#refusing-to-send-a-cross-session-message)                                                                      |
 | `Can't open MCP settings while no terminal is attached to this background session`                                                                                                            | [Background session errors](#commands-refused-in-a-background-session)                                                        |
 | `Can't open MCP settings in a background session`                                                                                                                                             | [Background session errors](#commands-refused-in-a-background-session)                                                        |
 | `blocked because the path is spelled in a form that cannot be safely resolved`                                                                                                                | [Background session errors](#write-or-command-blocked-because-the-path-cannot-be-safely-resolved)                             |
@@ -394,7 +398,7 @@ When a rate limit, overload, or server error interrupts a foreground subagent th
 
 ## Usage limits
 
-Most errors in this section mean a quota tied to your account or plan has been reached. Two work differently: [`Server is temporarily limiting requests`](#server-is-temporarily-limiting-requests) is a server-side throttle unrelated to your plan quota, and [`Usage credits required for 1M context`](#usage-credits-required-for-1m-context) is an entitlement check rather than an exhausted quota.
+Most errors in this section mean a quota tied to your account or plan has been reached. Three work differently: [`Server is temporarily limiting requests`](#server-is-temporarily-limiting-requests) is a server-side throttle unrelated to your plan quota, [`Usage credits required for 1M context`](#usage-credits-required-for-1m-context) is an entitlement check rather than an exhausted quota, and [`The prompt to confirm went unanswered`](#the-prompt-to-confirm-went-unanswered) means a usage-credits consent prompt closed unanswered, whether or not a quota was reached.
 
 <h3 id="youve-hit-your-session-limit">
   You've hit your session limit
@@ -441,6 +445,25 @@ When this error appears mid-conversation because the context grew past 200K toke
 * Run `/usage-credits` to turn on metered billing for the 1M variant on Pro and Max, or to request it from your admin on Team and Enterprise
 * If the error persists after `/model`, a 1M model ID may be set elsewhere. See [Setting your model](/docs/en/model-config#setting-your-model) for the configuration locations to check in priority order.
 * To remove 1M variants from the model picker entirely, set [`CLAUDE_CODE_DISABLE_1M_CONTEXT=1`](/docs/en/env-vars)
+
+### The prompt to confirm went unanswered
+
+On plans where Fable 5 usage [bills to usage credits](/docs/en/model-config#fable-5-and-usage-credits), Claude Code asks you to confirm before a request bills them. When nobody answers that consent prompt in a session that may have no one at its terminal, Claude Code closes the prompt and ends the turn with one of these messages:
+
+```text theme={null}
+Fable 5 limit reached · continuing on Fable 5 uses usage credits, and the prompt to confirm went unanswered — nothing was sent · answer it where this session is running, or /model to change
+Fable 5 now uses usage credits · the prompt to confirm went unanswered — nothing was sent · answer it where this session is running, or /model to change
+```
+
+This happens in [Remote Control](/docs/en/remote-control) sessions, [background sessions](/docs/en/agent-view), and [agent team](/docs/en/agent-teams) teammate sessions. Claude Code shows the consent prompt only in the session's own interactive view: the terminal where it runs, or, for a background session, the [agents view](/docs/en/agent-view) once you attach. A Remote Control client can't display it. Claude Code closes the prompt at the [`dialogExpiry`](/docs/en/settings#available-settings) deadline, five minutes by default, or as soon as a new prompt arrives while nobody has typed at that terminal, such as a prompt sent from a Remote Control client. Typing at the terminal where the session runs cancels the deadline, and Claude Code waits for your answer. In a background session's attached view, typing doesn't cancel the deadline, so answer before it passes. Claude Code sends nothing and keeps your model, so when you send your next prompt, Claude Code shows the consent prompt again.
+
+**What to do:**
+
+* At the terminal where the session runs, send another prompt and answer the consent prompt when it reappears. For a background session, attach to it from the [agents view](/docs/en/agent-view) first. Resending from a Remote Control client shows this message again, because the client can't display the prompt.
+* Run `/model` to switch to a model that doesn't bill usage credits
+* To give yourself more time to reach that terminal, set [`dialogExpiry`](/docs/en/settings#available-settings) to a longer value or `"never"`
+
+Before v2.1.236, this message didn't appear: while a Remote Control client was connected, Claude Code waited 60 seconds for an answer and then continued the turn on your default model.
 
 ### Server is temporarily limiting requests
 
@@ -2086,6 +2109,43 @@ Resending the same text fails the same way.
 * Ask Claude to split the content across several shorter messages
 
 Before v2.1.235, Claude Code reported an oversized message as sent. The receiving session dropped it unread.
+
+### Too many messages to this session just now
+
+Claude sent a rapid burst of [cross-session messages](/docs/en/cross-session-messaging) to one of your sessions on this machine, and the burst reached what that session's inbox accepts. Claude Code refused the next send, and the receiving session got nothing from it. The refusal appears in the sending session's tool result, not as a banner in your terminal:
+
+```text wrap theme={null}
+Failed to send to api-worker: Too many messages to this session just now: 30 were sent recently and more would be dropped by its rate limit, so this one was not sent. Batch what remains into one message, or wait a little before sending more.
+```
+
+**What to do:**
+
+* Usually nothing: Claude batches the remaining content into one message, or waits before sending more
+* If you prompted the burst yourself, ask Claude to combine what's left into a single message
+
+Before v2.1.236, Claude Code reported these sends as sent. The receiving session dropped them unread.
+
+### Refusing to send a cross-session message
+
+Before Claude Code writes a [cross-session message](/docs/en/cross-session-messaging) to another of your sessions on this machine, it checks that the target session's inbox socket is the endpoint the message was addressed to. When a check fails, Claude Code refuses the send in the sending session, and the target session receives nothing. For a message Claude sends, the refusal appears in the sending session's tool result:
+
+```text theme={null}
+Failed to send to api-worker: Refusing to send: reply target is a symlink
+```
+
+The text after `Refusing to send:` names the check that failed:
+
+* `reply target is a symlink`: a symbolic link sits at the target session's socket path. Claude Code doesn't deliver through it, because a link there could redirect the message to an endpoint the target session didn't create.
+* `cannot vet reply target`: Claude Code couldn't inspect the target path at all, for example because reading it failed with a permission error.
+* `connected endpoint is not the expected process`: the process holding the socket isn't the session the message was addressed to, so the address is stale or another process replaced the socket.
+* `connected endpoint identity could not be read`: Claude Code connected but couldn't read which process holds the other end, so it couldn't confirm the target. This can be transient.
+
+**What to do:**
+
+* Usually nothing: the checks keep a message from reaching an endpoint other than the session it was addressed to, and nothing was sent
+* Ask Claude to list your sessions again and resend; a refusal caused by a stale address clears once Claude sends to the current one
+* If `reply target is a symlink` repeats for one session, check what created a link at that session's socket path, shown in its `/status` under `Peer address`
+* For `connected endpoint identity could not be read`, resend; the condition can be transient
 
 ## Background session errors
 

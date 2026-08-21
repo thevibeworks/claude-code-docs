@@ -42,18 +42,34 @@
 
 ### Text editing
 
-| Shortcut                   | Description                          | Context                                                                                                                                                                               |
-| :------------------------- | :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Ctrl+A`                   | Move cursor to start of current line | In multiline input, moves to the start of the current logical line                                                                                                                    |
-| `Ctrl+E`                   | Move cursor to end of current line   | In multiline input, moves to the end of the current logical line                                                                                                                      |
-| `Ctrl+K`                   | Delete to end of line                | Stores deleted text for pasting                                                                                                                                                       |
-| `Ctrl+U`                   | Delete from cursor to line start     | Stores deleted text for pasting. Repeat to clear across lines in multiline input. On macOS, terminal emulators including iTerm2 and Terminal.app map `Cmd+Backspace` to this shortcut |
-| `Ctrl+W`                   | Delete previous word                 | Stores deleted text for pasting. On macOS, `Option+Delete` also deletes the previous word, and on Windows, `Ctrl+Backspace` does                                                      |
-| `Ctrl+Y`                   | Paste deleted text                   | Paste text deleted with `Ctrl+K`, `Ctrl+U`, or `Ctrl+W`                                                                                                                               |
-| `Alt+Y` (after `Ctrl+Y`)   | Cycle paste history                  | After pasting, cycle through previously deleted text. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                         |
-| `Alt+B`                    | Move cursor back one word            | Word navigation. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                                                              |
-| `Alt+F`                    | Move cursor forward one word         | Word navigation. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                                                              |
-| `Ctrl+_` or `Ctrl+Shift+-` | Undo last input edit                 | Restores the previous input text and cursor position                                                                                                                                  |
+| Shortcut                   | Description                          | Context                                                                                                                                                                                                                                                                        |
+| :------------------------- | :----------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Ctrl+A`                   | Move cursor to start of current line | In multiline input, moves to the start of the current logical line                                                                                                                                                                                                             |
+| `Ctrl+E`                   | Move cursor to end of current line   | In multiline input, moves to the end of the current logical line                                                                                                                                                                                                               |
+| `Ctrl+K`                   | Delete to end of line                | Stores deleted text for pasting                                                                                                                                                                                                                                                |
+| `Ctrl+U`                   | Delete from cursor to line start     | Stores deleted text for pasting. Repeat to clear across lines in multiline input. On macOS, terminal emulators including iTerm2 and Terminal.app map `Cmd+Backspace` to this shortcut                                                                                          |
+| `Ctrl+W`                   | Delete previous word                 | Stores deleted text for pasting. On macOS, `Option+Delete` deletes the previous word, and on Windows, `Ctrl+Backspace` does. To make `Ctrl+W` delete back to the previous whitespace instead, [set `keybindingFlavor` to `"readline"`](#make-ctrl-w-delete-back-to-whitespace) |
+| `Ctrl+Y`                   | Paste deleted text                   | Paste text deleted with `Ctrl+K`, `Ctrl+U`, or `Ctrl+W`                                                                                                                                                                                                                        |
+| `Alt+Y` (after `Ctrl+Y`)   | Cycle paste history                  | After pasting, cycle through previously deleted text. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                                                                                                                  |
+| `Alt+B`                    | Move cursor back one word            | Word navigation. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                                                                                                                                                       |
+| `Alt+F`                    | Move cursor forward one word         | Word navigation. Requires [Option as Meta](#keyboard-shortcuts) on macOS                                                                                                                                                                                                       |
+| `Ctrl+_` or `Ctrl+Shift+-` | Undo last input edit                 | Restores the previous input text and cursor position                                                                                                                                                                                                                           |
+
+<h3 id="make-ctrl-w-delete-back-to-whitespace">
+  Make Ctrl+W delete back to whitespace
+</h3>
+
+By default, `Ctrl+W` deletes the previous word, stopping at punctuation such as `/`. Set [`keybindingFlavor`](/docs/en/settings#available-settings) to `"readline"` to make `Ctrl+W` delete back to the previous whitespace instead, as Bash does. The default value is `"classic"`. Requires Claude Code v2.1.238 or later.
+
+Add the setting to `~/.claude/settings.json`:
+
+```json theme={null}
+{
+  "keybindingFlavor": "readline"
+}
+```
+
+To confirm, type `fix the bug in src/utils/foo.ts` in the prompt and press `Ctrl+W`. Claude Code removes `src/utils/foo.ts`. Under `"classic"` it removes only `foo.ts`.
 
 ### Theme and display
 
