@@ -463,7 +463,9 @@ To change the session's primary working directory instead of adding another, use
 
 Adding a directory extends where Claude can read and edit files. It doesn't make that directory a full configuration root: most `.claude/` configuration is not discovered from additional directories, though a few types are loaded as exceptions.
 
-These exceptions apply only to directories added with the `--add-dir` flag or the `/add-dir` command. Directories listed in `permissions.additionalDirectories` in a settings file grant file access only and don't load any of the configuration below.
+These exceptions apply only to directories added with the `--add-dir` flag or the `/add-dir` command, including directories the Agent SDK adds through the flag. Directories listed in `permissions.additionalDirectories` in a settings file grant file access only and don't load any of the configuration below.
+
+The Agent SDK's [`additionalDirectories`](/docs/en/agent-sdk/typescript#options) option in TypeScript and [`add_dirs`](/docs/en/agent-sdk/python#claudeagentoptions) option in Python receive the exceptions too, even though the TypeScript option shares its name with the settings key. The SDK passes each entry to Claude Code as `--add-dir`, so those directories behave like flag-added directories. Skills, commands, and subagents from any flag-added directory load through the `project` [setting source](/docs/en/agent-sdk/claude-code-features#control-filesystem-settings-with-settingsources), so they don't load when you exclude that source with [`--setting-sources`](/docs/en/cli-reference) on the CLI or `settingSources` in the SDK, and [bare mode](/docs/en/headless#start-faster-with-bare-mode) skips the commands and subagents among them.
 
 The following configuration types are loaded from `--add-dir` directories:
 
@@ -597,7 +599,7 @@ For the rows that need this exact folder trusted, trust it by hand: set `project
 Before you run `claude -p` in a repository you didn't write, decide what it may run on your machine:
 
 * Pass `--setting-sources user`, or set the SDK's `settingSources` without project settings, so Claude Code reads neither the project's settings files nor its `.mcp.json`
-* Start with [`--bare`](/docs/en/headless#start-faster-with-bare-mode) so Claude Code reads no hooks, skills, plugins, or `.mcp.json` servers from the project. The project's `env` block and helpers such as `awsAuthRefresh` in its settings files still apply, and Claude Code reads `apiKeyHelper` only from `--settings`
+* Start with [`--bare`](/docs/en/headless#start-faster-with-bare-mode) so Claude Code reads no hooks, skills, custom commands, subagents, plugins, or `.mcp.json` servers from the project. The project's `env` block and helpers such as `awsAuthRefresh` in its settings files still apply, and Claude Code reads `apiKeyHelper` only from `--settings`
 * Pass `--settings '{"disableAllHooks": true}'` to [turn hooks off](/docs/en/hooks#disable-or-remove-hooks) for that run. Setting it in your user settings alone isn't enough, because the repository's project settings take precedence over yours and can set it back to `false`
 * Add a [`disabledMcpjsonServers`](/docs/en/settings#available-settings) entry to reject a `.mcp.json` server by name in every session type
 
