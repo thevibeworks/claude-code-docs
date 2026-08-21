@@ -127,6 +127,7 @@ The following Claude Platform APIs and tools store data at rest under your key w
 |                       | Structured outputs (not available for Claude Fable 5 or Claude Mythos models in CMEK organizations) |
 |                       | Advisor tool                                                                                        |
 |                       | Computer use                                                                                        |
+|                       | Browser use                                                                                         |
 |                       | Context management                                                                                  |
 
 ## Limited preservation outside your key

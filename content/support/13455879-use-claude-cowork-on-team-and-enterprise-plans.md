@@ -54,6 +54,14 @@ For Team and Enterprise plans, there's a separate organization-wide toggle in **
 
 - **Enterprise plans:** off by default. An owner turns on "Run Cowork in the cloud," then grants the Cowork in the cloud capability to a group with custom roles. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
+### Auto mode availability
+
+The organization setting **Allow “Automatically approve” mode** in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)** (under Permissions) controls whether members can use "Automatically approve" mode in Cowork. This setting is on by default, so the mode is available to your members unless you turn it off.
+
+When the setting is off, "Automatically approve" doesn't appear in your members' mode selector.
+
+Learn more about how the modes differ in **[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_e1353133dd)**.
+
 ### Connector tool approvals
 
 The organization setting **Allow "Always allow" for connector tools** in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)** (under **Permissions**) controls whether members can skip per-task approval for write-capable connector tools in Cowork. This setting is off by default.

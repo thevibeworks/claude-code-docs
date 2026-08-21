@@ -54,10 +54,6 @@ Example rubric:
 
 Pass the rubric as inline text on `user.define_outcome` (see [Create a session with an outcome](https://platform.claude.com/docs/en/managed-agents/define-outcomes#create-a-session-with-an-outcome)), or upload it through the Files API for reuse across sessions.
 
-<Note>
-  Uploading through the Files API doesn't require a beta header. The cURL example sends the `managed-agents-2026-04-01` header it uses throughout this walkthrough, which the Files API also accepts.
-</Note>
-
 <CodeGroup>
   ```bash cURL
   rubric=$(curl -fsSL https://api.anthropic.com/v1/files \
@@ -70,7 +66,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   ```
 
   ```bash CLI
-  RUBRIC_ID=$(ant beta:files upload \
+  RUBRIC_ID=$(ant files upload \
     --file /tmp/rubric.md \
     --transform id --raw-output)
   ```
@@ -94,7 +90,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   """
   Path("/tmp/rubric.md").write_text(RUBRIC)
 
-  rubric = client.beta.files.upload(file=Path("/tmp/rubric.md"))
+  rubric = client.files.upload(file=Path("/tmp/rubric.md"))
   print(f"Uploaded rubric: {rubric.id}")
   ```
 
@@ -117,7 +113,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   `;
   await writeFile("/tmp/rubric.md", RUBRIC);
 
-  const rubric = await client.beta.files.upload({
+  const rubric = await client.files.upload({
     file: await toFile(readFile("/tmp/rubric.md"), "/tmp/rubric.md"),
   });
   console.log(`Uploaded rubric: ${rubric.id}`);
@@ -127,9 +123,9 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   using Anthropic;
   using Anthropic.Models.Beta.Agents;
   using Anthropic.Models.Beta.Environments;
-  using Anthropic.Models.Beta.Files;
   using Anthropic.Models.Beta.Sessions;
   using Anthropic.Models.Beta.Sessions.Events;
+  using Anthropic.Models.Files;
 
   var client = new AnthropicClient();
 
@@ -145,7 +141,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
       """;
   await File.WriteAllTextAsync("/tmp/rubric.md", Rubric);
 
-  var rubric = await client.Beta.Files.Upload(new()
+  var rubric = await client.Files.Upload(new()
   {
       File = File.OpenRead("/tmp/rubric.md"),
   });
@@ -188,7 +184,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   		panic(err)
   	}
 
-  	uploaded, err := client.Beta.Files.Upload(ctx, anthropic.BetaFileUploadParams{
+  	uploaded, err := client.Files.Upload(ctx, anthropic.FileUploadParams{
   		File: anthropic.File(f, "rubric.md", "text/markdown"),
   	})
   	if err != nil {
@@ -207,12 +203,12 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   import com.anthropic.models.beta.environments.BetaCloudConfigParams;
   import com.anthropic.models.beta.environments.EnvironmentCreateParams;
   import com.anthropic.models.beta.files.FileListParams;
-  import com.anthropic.models.beta.files.FileUploadParams;
   import com.anthropic.models.beta.sessions.SessionCreateParams;
   import com.anthropic.models.beta.sessions.events.BetaManagedAgentsTextRubricParams;
   import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserDefineOutcomeEventParams;
   import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserInterruptEventParams;
   import com.anthropic.models.beta.sessions.events.EventSendParams;
+  import com.anthropic.models.files.FileUploadParams;
 
   import java.io.InputStream;
   import java.nio.file.Files;
@@ -234,7 +230,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
           """;
       Files.writeString(Path.of("/tmp/rubric.md"), RUBRIC);
 
-      var rubric = client.beta().files().upload(
+      var rubric = client.files().upload(
           FileUploadParams.builder()
               .file(Path.of("/tmp/rubric.md"))
               .build());
@@ -242,6 +238,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   ```
 
   ```php PHP
+  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   use Anthropic\Client;
   use Anthropic\Core\FileParam;
 
@@ -283,7 +280,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   MD
   File.write("/tmp/rubric.md", RUBRIC)
 
-  rubric = client.beta.files.upload(file: Pathname.new("/tmp/rubric.md"))
+  rubric = client.files.upload(file: Pathname.new("/tmp/rubric.md"))
   puts "Uploaded rubric: #{rubric.id}"
   ```
 </CodeGroup>
@@ -715,11 +712,7 @@ You can either listen on the [event stream](https://platform.claude.com/docs/en/
 
 ## Retrieve deliverables
 
-The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Once the session is idle, fetch them through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) scoped to the session.
-
-<Note>
-  Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header on the files request. The SDK files methods send only the files beta automatically, so the examples pass it explicitly.
-</Note>
+The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Once the session is idle, fetch them through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) scoped to the session. Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header on the list request, so the SDK and CLI examples make that call through the `beta` namespace and pass the header explicitly.
 
 <CodeGroup>
   ```bash cURL
@@ -753,7 +746,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
     --beta managed-agents-2026-04-01 \
     --transform 'data[0].id' --raw-output)
   if [[ -n $FILE_ID ]]; then
-    ant beta:files download --file-id "$FILE_ID" --output /tmp/output.txt
+    ant files download --file-id "$FILE_ID" --output /tmp/output.txt
   fi
   ```
 
@@ -766,7 +759,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 
   # Download a file
   if files.data:
-      content = client.beta.files.download(files.data[0].id)
+      content = client.files.download(files.data[0].id)
       content.write_to_file("/tmp/output.txt")
   ```
 
@@ -783,7 +776,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 
   // Download a file
   if (files.data.length > 0) {
-    const content = await client.beta.files.download(files.data[0].id);
+    const content = await client.files.download(files.data[0].id);
     await writeFile("/tmp/output.txt", new Uint8Array(await content.arrayBuffer()));
   }
   ```
@@ -804,7 +797,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
   // Download a file
   if (files.Items.Count > 0)
   {
-      using var download = await client.Beta.Files.Download(files.Items[0].ID);
+      using var download = await client.Files.Download(files.Items[0].ID);
       await using var output = File.Create("/tmp/output.txt");
       await (await download.ReadAsStream()).CopyToAsync(output);
   }
@@ -826,7 +819,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 
   // Download a file
   if len(files.Data) > 0 {
-  	resp, err := client.Beta.Files.Download(ctx, files.Data[0].ID, anthropic.BetaFileDownloadParams{})
+  	resp, err := client.Files.Download(ctx, files.Data[0].ID)
   	if err != nil {
   		panic(err)
   	}
@@ -856,7 +849,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 
   // Download a file
   if (!files.data().isEmpty()) {
-      try (HttpResponse response = client.beta().files().download(files.data().getFirst().id())) {
+      try (HttpResponse response = client.files().download(files.data().getFirst().id())) {
           try (InputStream body = response.body()) {
               Files.copy(body, Path.of("/tmp/output.txt"), StandardCopyOption.REPLACE_EXISTING);
           }
@@ -865,6 +858,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
   ```
 
   ```php PHP
+  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // List files produced by this session
   // scope_id filtering requires the managed-agents beta on the files request
   $files = $client->beta->files->list(scopeID: $session->id, betas: ['managed-agents-2026-04-01']);
@@ -887,7 +881,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
 
   # Download a file
   if (first = files.data.first)
-    content = client.beta.files.download(first.id)
+    content = client.files.download(first.id)
     File.binwrite("/tmp/output.txt", content.read)
   end
   ```

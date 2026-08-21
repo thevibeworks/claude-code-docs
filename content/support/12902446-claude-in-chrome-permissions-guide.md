@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787244300&amp;signature=9f3b63cfc2b3e541d3c3856c96d7675db05c3cffa4b36cdc3f0a398bfc9acd67&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVP%2BIa0gN0ADj5oqFAhqSEBi0%2F2TakFzLFy%0AimyuNH2Zyzu4DtNzl5E%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787280300&amp;signature=806e0e776c9c52a1f23852436a0e0cc00b9529210b84a1c1f32cc3d9e287a768&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVP9IK0gN0ADj5oqFA%2FmVlukfbamVvkodqM%0AK%2FawBCrhR2f%2FqXX5ato%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787244300&amp;signature=962d470751c1979c50c59e97be6a8119e00b96735f50a4bcc756468d9a662c69&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFyjCjv7A4lHPBihAVR21VRheinIOUhV7bN%0A9KCBLEDqbGFKPdfVgCo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787280300&amp;signature=97c24db794e0c1a0729249cf132da70b8510da9a975f975aad83e92ea5de742e&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFygCzv7A4lHPBihAVS%2BQEOAUt199mUTC%2Fi%0Ae4M3oi3F4sxEH%2Fo1KGo%3D%0A)
 
 ### Permission options
 

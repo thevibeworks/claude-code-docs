@@ -1046,6 +1046,10 @@ Claude can read both text and images in requests. You can supply images using th
     Control desktop computer environments with the Messages API.
   </Card>
 
+  <Card title="Browser use tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool">
+    Let Claude navigate, read, and interact with webpages in a browser you run.
+  </Card>
+
   <Card title="Structured outputs" icon="code-brackets" href="https://platform.claude.com/docs/en/build-with-claude/structured-outputs">
     Get guaranteed, schema-validated JSON output from Claude.
   </Card>

@@ -47,16 +47,28 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   )
   ```
 
-  ```bash CLI
-  AGENT_ID=$(ant beta:agents create \
-    --name "Code Reviewer" \
-    --model '{id: claude-opus-5}' \
-    --system "You are a code review assistant with access to GitHub." \
-    --mcp-server '{type: url, name: github, url: https://api.githubcopilot.com/mcp/}' \
-    --tool '{type: agent_toolset_20260401}' \
-    --tool '{type: mcp_toolset, mcp_server_name: github}' \
-    --transform id --raw-output)
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    AGENT_ID=$(ant beta:agents create --transform id --raw-output < code-reviewer.agent.yaml)
+    ```
+
+    <File filename="code-reviewer.agent.yaml">
+      ```yaml
+      name: Code Reviewer
+      model:
+        id: claude-opus-5
+      system: You are a code review assistant with access to GitHub.
+      mcp_servers:
+        - type: url
+          name: github
+          url: https://api.githubcopilot.com/mcp/
+      tools:
+        - type: agent_toolset_20260401
+        - type: mcp_toolset
+          mcp_server_name: github
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   agent = client.beta.agents.create(

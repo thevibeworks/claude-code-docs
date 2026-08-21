@@ -53,7 +53,7 @@ Search surfaces candidate URLs; fetch retrieves full page content for the releva
 
 This pairing is useful when the answer lives in long-form content (documentation pages, articles, specifications) that a search snippet can't fully capture. Fetch pulls the complete page so Claude can cite specific passages.
 
-## Long-running agent: memory + any toolset
+## Long-running agent: memory + any other tools
 
 Memory persists state across conversations; the other tools do the work. Add memory to any agent that needs to remember prior sessions, such as a support agent that recalls a customer's earlier issues or a project assistant that tracks decisions made last week.
 
@@ -65,7 +65,7 @@ Memory persists state across conversations; the other tools do the work. Add mem
 
 Add your other tools alongside `memory` in the same array.
 
-Memory is orthogonal to the rest of your toolset. It doesn't change how other tools behave; it gives Claude a place to write down and later retrieve facts that would otherwise be lost when the context window resets. See [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) for the storage model.
+Memory is orthogonal to your other tools. It doesn't change how they behave; it gives Claude a place to write down and later retrieve facts that would otherwise be lost when the context window resets. See [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) for the storage model.
 
 ## All-in-one: computer\_use
 
@@ -73,18 +73,25 @@ The computer use tool subsumes most others by operating a full desktop. Claude s
 
 ```json
 {
-  "tools": [
-    {
-      "type": "computer_20250124",
-      "name": "computer",
-      "display_width_px": 1280,
-      "display_height_px": 800
-    }
-  ]
+  "tools": [{ "type": "computer_toolset_20260801" }]
 }
 ```
 
-Computer use is the most general option and also the slowest, because every action requires a screenshot roundtrip. Prefer narrower tools when they cover your use case, and reach for computer use when nothing else fits. See [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) for the sandbox setup.
+The toolset entry takes no `name` or display dimensions: coordinates are expressed in the pixel space of the screenshots you return, and you can turn individual actions off through the entry's `configs` field.
+
+Computer use is the most general option and also the slowest, because Claude typically needs a fresh screenshot after each batch of actions. Prefer narrower tools when they cover your use case, and reach for computer use when nothing else fits. If the task stays inside a web browser, use the browser agent pattern in the next section. See [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) for the sandbox setup.
+
+## Browser agent: browser\_use
+
+When the whole task happens inside webpages (filling forms, reading page content, working across tabs), the browser use tool is a closer fit than computer use. Your application drives a browser it controls and returns screenshots or page state; Claude calls page-aware member tools such as `read_page`, `find`, `form_input`, and `get_page_text` alongside clicks and typing, so it can act on element references in addition to pixel coordinates.
+
+```json
+{
+  "tools": [{ "type": "browser_toolset_20260801" }]
+}
+```
+
+Like the computer use toolset, the entry takes no `name`, and you turn individual member tools off through its `configs` field. See [Browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) for the execution contract.
 
 ## Next steps
 

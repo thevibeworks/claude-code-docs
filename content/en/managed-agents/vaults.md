@@ -37,13 +37,20 @@ A vault is the collection of `credentials` associated with an end user. Give it 
   echo "$vault_id"  # "vlt_01ABC..."
   ```
 
-  ```bash CLI
-  VAULT_ID=$(ant beta:vaults create \
-    --display-name "Alice" \
-    --metadata '{external_user_id: usr_abc123}' \
-    --transform id --raw-output)
-  echo "$VAULT_ID"  # "vlt_01ABC..."
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    VAULT_ID=$(ant beta:vaults create --transform id --raw-output < alice.vault.yaml)
+    echo "$VAULT_ID"  # "vlt_01ABC..."
+    ```
+
+    <File filename="alice.vault.yaml">
+      ```yaml
+      display_name: Alice
+      metadata:
+        external_user_id: usr_abc123
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   vault = client.beta.vaults.create(

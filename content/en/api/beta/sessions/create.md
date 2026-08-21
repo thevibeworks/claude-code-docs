@@ -17,7 +17,7 @@ Create Session
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 31 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -62,6 +62,8 @@ Create Session
     - `"output-300k-2026-03-24"`
 
     - `"user-profiles-2026-03-24"`
+
+    - `"user-profiles-2026-08-18"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -139,7 +141,7 @@ Create Session
 
     - `model: optional BetaManagedAgentsModel or BetaManagedAgentsModelConfigParams`
 
-      Replacement model. Accepts the model string, e.g. `claude-opus-4-6`, or a `model_config` object. Omit to use the agent's model.
+      Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
 
       - `BetaManagedAgentsModel = "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
 
@@ -1518,7 +1520,7 @@ curl https://api.anthropic.com/v1/sessions \
       }
     ],
     "model": {
-      "id": "claude-sonnet-4-6",
+      "id": "claude-opus-5",
       "effort": {
         "type": "low"
       },
@@ -1538,7 +1540,7 @@ curl https://api.anthropic.com/v1/sessions \
             }
           ],
           "model": {
-            "id": "claude-sonnet-4-6",
+            "id": "claude-opus-5",
             "effort": {
               "type": "low"
             },

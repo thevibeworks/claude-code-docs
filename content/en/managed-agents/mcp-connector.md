@@ -51,15 +51,27 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` ar
   agent_id=$(jq -r '.id' <<<"$agent_response")
   ```
 
-  ```bash CLI
-  AGENT_ID=$(ant beta:agents create \
-    --name "GitHub Assistant" \
-    --model '{id: claude-opus-5}' \
-    --mcp-server '{type: url, name: github, url: "https://api.githubcopilot.com/mcp/"}' \
-    --tool '{type: agent_toolset_20260401}' \
-    --tool '{type: mcp_toolset, mcp_server_name: github}' \
-    --transform id --raw-output)
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    AGENT_ID=$(ant beta:agents create --transform id --raw-output < github-assistant.agent.yaml)
+    ```
+
+    <File filename="github-assistant.agent.yaml">
+      ```yaml
+      name: GitHub Assistant
+      model:
+        id: claude-opus-5
+      mcp_servers:
+        - type: url
+          name: github
+          url: https://api.githubcopilot.com/mcp/
+      tools:
+        - type: agent_toolset_20260401
+        - type: mcp_toolset
+          mcp_server_name: github
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   agent = client.beta.agents.create(

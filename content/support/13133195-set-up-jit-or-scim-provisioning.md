@@ -24,17 +24,21 @@ Once SSO is configured, you need to decide how users will be provisioned to your
 
 Use this table to help decide which provisioning mode is right for your organization:
 
-| **Mode**              | **Provisioning**                                                                                                                                                | **Role and seat type changes**                                                | **Removal**                                                                                                                                            |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Invite only           | Users are manually added                                                                                                                                        | Roles and seat types are manually changed                                     | Users are manually removed                                                                                                                             |
-| Just-in-time (JIT)    | Users assigned to your IdP app are provisioned at login with the User role                                                                                      | Roles and seat types are manually changed                                     | Manual removal required: users removed from your IdP app can no longer log in, but remain in the user list until they attempt to log in or are removed |
-| JIT + group mappings  | Users in at least one mapped group are provisioned at login with the highest-permissioned role from their group memberships                                     | Roles and seat types update on next login based on group membership           | Users without group access can't log in but remain in the list until login attempt or manual removal                                                   |
-| SCIM directory sync   | Users assigned to your IdP app are automatically provisioned to all organizations joined to your parent org.                                                    | Roles and seat types are manually changed                                     | Users removed from your IdP app are automatically removed                                                                                              |
-| SCIM + group mappings | Users in at least one mapped group are automatically provisioned, with appropriate role, to just the org(s) joined to the parent org where that group is added. | Role and seat types changes automatically propagate based on group membership | Automatic removal when group access is revoked                                                                                                         |
+| **Mode**              | **Provisioning**                                                                                                                                                | **Role and seat type changes**                                                | **Removal**                                                                                                                                                                                                                                                                                            |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Invite only           | Users are manually added                                                                                                                                        | Roles and seat types are manually changed                                     | Users are manually removed                                                                                                                                                                                                                                                                             |
+| Just-in-time (JIT)    | Users assigned to your IdP app are provisioned at login with the User role                                                                                      | Roles and seat types are manually changed                                     | Manual removal required. JIT never removes members automatically. If you unassign someone from your IdP app, they can no longer log in, but they stay in your member list and keep their seat until an admin removes them.                                                                             |
+| JIT + group mappings  | Users in at least one mapped group are provisioned at login with the highest-permissioned role from their group memberships                                     | Roles and seat types update on next login based on group membership           | Mostly manual. A user who is removed from all of your mapped groups (but still assigned to the app) is removed from the org the next time they log in. A user you unassign from the app entirely can no longer log in, but stays in your member list and keeps their seat until an admin removes them. |
+| SCIM directory sync   | Users assigned to your IdP app are automatically provisioned to all organizations joined to your parent org.                                                    | Roles and seat types are manually changed                                     | Users removed from your IdP app are automatically removed                                                                                                                                                                                                                                              |
+| SCIM + group mappings | Users in at least one mapped group are automatically provisioned, with appropriate role, to just the org(s) joined to the parent org where that group is added. | Role and seat types changes automatically propagate based on group membership | Automatic removal when group access is revoked                                                                                                                                                                                                                                                         |
+
+**Note:** To remove a JIT user permanently, remove them in Claude and unassign them in your IdP. A user you remove only in Claude will be re-added the next time they log in with SSO.
 
 Both JIT and SCIM can be combined with **Enable group mappings** to control role or seat tier assignment based on IdP group membership. If you select either of these options for your provisioning mode, **Enable group mappings** will appear within the **User provisioning** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1787244300&amp;signature=4fbe7e90d7d5b2dea1a339f664660bdf9bcb40777b4ee6b634f5f0dcef448083&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQ6xWCV51xFMG%2BIEvQScZ0zo68iMWEE06evEC%0AwC8Y2IAfTcKABUsyymI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1787313600&amp;signature=9443e89a178c77e3c730700e0de2072791590d7d2abb0b07c67b971b5842e90e&amp;req=diMmFM5%2Bm4FWUPMW3nq%2BgfvyY15K9gpEjr449Ml26XSC1kOFPRQVc6ECDB%2B5%0AVwHwYbf4LllgDAqG%2BXrNtTeNoso%3D%0A)
+
+**Important:** Group mappings set a user’s role type and seat tier only. Users with the Custom role get their permissions from groups in Claude, and those groups sync from your IdP only when your provisioning mode is SCIM directory sync. With JIT, you need to create groups and add users to them manually in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**. If you map an IdP group to the Custom role under JIT without doing this, those users have no permissions when they log in. Learn more about **[managing groups on Enterprise plans](https://support.claude.com/en/articles/13799932)**.
 
 ### Available roles and seat tiers
 
@@ -118,13 +122,13 @@ Once your IdP is connected, continue to Step 3.
 
 4. Toggle **Enable group mappings** on (if it’s not already):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1787244300&amp;signature=ffa12d3aa9ac56a7309c9c70742a020d0778d1fd8d13079ccfc16b9c491db1c8&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEbsLak%2F5Lyb72rapuHpPlYL0bTe6x5kC2LH2Y%0AwxSr%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1787313600&amp;signature=c19a4b1bfc622b2fb9fab2bd38b4c51cf453c628200feb70ec7d1d78ec2d07fb&amp;req=diMmFM5%2FmYdcXPMW3nq%2BgQ152WYnPUjzZjkgm2WmwAIO8BxCUO4GfZdJ%2B78l%0ANSKzXtUlVSCt0H5rIJlr2%2BCNgS8%3D%0A)
 
 5. In the **Enable group mappings** section, click “Add” next to each role and select the corresponding group from your IdP in the dropdown.
 
   1. When using group mappings, you *must* assign all users to a role-based group in order to ensure they’re provisioned an account. Assigning users to seat-tier based groups is optional.
 
-  2. You can map an IdP group to the “Custom” role. Members assigned this role have no default permissions—their access is determined entirely by the custom roles assigned to their groups in Claude.
+  2. You can map an IdP group to the “Custom” role. Users assigned this role have no default permissions; their access is determined entirely by the custom roles assigned to their groups in Claude. If you use JIT, add these users to groups manually in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)** before they log in, since JIT doesn't sync group memberships from your IdP.
 
 6. **For all plans except single-seat Enterprise:** In the **Assign seat tiers to IdP groups** section (optional), click "Add" next to each seat type and select the corresponding group from your IdP. If a user isn't assigned to a seat type group, they will be assigned to the highest available type by default.
 
@@ -170,13 +174,23 @@ Verify you have enough seats purchased and available to add members to your org.
 
 4. **For SCIM:** Click "Sync" to prompt an immediate sync, or wait for the automatic sync cycle:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1787244300&amp;signature=ec72215e2635e65177739ac8dbef0a3aab645b45e9383484bbf0b34680313efc&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9La1qvHc7B5hujYvMis4f%2BMx9jP%2F1onlykhKPH%0AE7nd%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1787313600&amp;signature=a9819ba34099b0b2998e9df76dd611101b93e169b719424efec46184f1520bd1&amp;req=diMmFM5%2FmoVdWPMW3nq%2BgREJfJk7qyYnKUy7lv2I5oeHsKxypvOOBfR8ddxc%0AX4TN8aokENf%2B57rRmLG65koUomE%3D%0A)
+
+### Users mapped to the Custom role can't access anything after logging in
+
+This happens when your provisioning mode is JIT and an IdP group is mapped to the Custom role. JIT assigns the role type but doesn't sync group memberships from your IdP, so these users aren't in any group with a custom role attached and have no permissions.
+
+To fix this, do one of the following:
+
+1. Add the affected users to the appropriate groups manually in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**. Learn more about **[managing groups on Enterprise plans](https://support.claude.com/en/articles/13799932)**.
+
+2. Switch your provisioning mode to SCIM directory sync, which syncs groups and their memberships from your IdP. Learn more about **[how SCIM sync works](https://support.claude.com/en/articles/14499648)**.
 
 ### I lost Admin/Owner access after enabling group mappings
 
 This happens when the person configuring group mappings isn't assigned to a group mapped to an Admin or Owner role, causing their permissions to be downgraded to User.
 
-To fix this:
+To fix this, do one of the following:
 
 **Option 1: Have another Admin/Owner reinstate your role**
 

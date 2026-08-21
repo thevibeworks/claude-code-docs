@@ -365,7 +365,7 @@ The following example includes the tool search tool and two deferred tools:
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java
@@ -592,6 +592,8 @@ Mark tools for on-demand loading by adding `defer_loading: true`:
 * Tools with `defer_loading: true` load only when Claude discovers them through search.
 * Never set `defer_loading: true` on the tool search tool itself.
 * Keep your 3–5 most frequently used tools non-deferred so Claude can call them without searching first.
+
+The computer use and browser use toolsets (`computer_toolset_20260801` and `browser_toolset_20260801`) take `defer_loading` per member tool inside the entry's `configs` object, not on the entry itself; a request that sets it at the entry level is rejected. Because a toolset defers and expands as a unit, `defer_loading` must resolve to the same value on every enabled member, and when Claude discovers the toolset through search, every enabled member loads at once. See [Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets) for the `configs` format.
 
 Both tool search variants (`regex` and `bm25`) search tool names, descriptions, argument names, and argument descriptions.
 

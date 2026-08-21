@@ -1,8 +1,8 @@
 # Use skills in Claude
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
-
 Skills extend Claude's capabilities by giving it access to specialized knowledge and workflows. This guide shows you how to enable, discover, and use skills in Claude.
+
+Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
 
 ## Prerequisites
 
@@ -166,7 +166,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1787244300&amp;signature=501f6d01ecca468c237aa208c4a5f411795fcf1d80836935517c0e6cddf30b9f&amp;req=diEnE8p3nINYWvMW1HO4zSOgDywqxuKuH%2BdCnFXB0ui%2F4PSpMiHVPa3Q6Ns5%0AefSJ%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1787378400&amp;signature=a067c243a24ee0d76f01c73964e70b9b6f8829ac778c6bdb2ed0c5ea9155f6d5&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bph2JLzFUT2ztkCRgPkugoXQus21l028t8%0AWih%2FRUlZvsZJXvDMdeCdRsvuO4s%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 
@@ -208,6 +208,14 @@ Ensure code execution is enabled in **[Settings > Capabilities](https://claude.a
 
 - Try being more explicit in your request (e.g., "Use my brand guidelines skill to create a presentation").
 
+### Can't create or upload a skill
+
+On Team and Enterprise plans, an organization owner can turn off skill creation for users. If the option to create or upload a skill is missing, your organization may have **User-created skills** turned off, or—on Enterprise plans with custom roles—your role may not include the **Create skills** capability. You can still enable and use skills your owner has provisioned. Contact your organization owner if you need to create your own.
+
+### Skills greyed out
+
+If skills appear greyed out, code execution may be disabled at the organization level (for Team and Enterprise plans) or individually. Check with your organization's Owner (Team, Enterprise) or make sure to enable code execution in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max).
+
 ### Upload errors
 
 Common reasons for upload failures:
@@ -219,10 +227,6 @@ Common reasons for upload failures:
 - Missing required skill.md file
 
 - Invalid characters in skill name or description
-
-### Skills greyed out
-
-If skills appear greyed out, code execution may be disabled at the organization level (for Team and Enterprise plans) or individually. Check with your organization's Owner (Team, Enterprise) or make sure to enable code execution in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max).
 
 ### Group doesn't appear when I try to share a skill
 

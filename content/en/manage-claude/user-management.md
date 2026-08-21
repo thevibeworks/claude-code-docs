@@ -7,7 +7,7 @@ description: "Manage the people in your Claude Enterprise organization with the 
 This page covers managing the people in your **Claude Enterprise** (claude.ai) organization programmatically, using the [Admin API](https://platform.claude.com/docs/en/api/admin): list members and look them up by email address, change a member's role, remove members, send and withdraw invites, manage your enterprise's groups and their membership, and read your organization's custom roles. For Claude Console (Claude Platform) organizations, see the [Admin API guide for Claude Console](https://platform.claude.com/docs/en/manage-claude/admin-api).
 
 <Note>
-  **The endpoints on this page are generally available for Claude Enterprise organizations.** The [beta header](https://platform.claude.com/docs/en/api/beta-headers) `anthropic-beta: ce-user-management-2026-07-13` is no longer required on group and custom-role requests; requests that still send it are accepted and behave identically. The group and custom-role examples on this page still send the header, which continues to work.
+  **The endpoints on this page are generally available for Claude Enterprise organizations.** The [beta header](https://platform.claude.com/docs/en/api/beta-headers) `anthropic-beta: ce-user-management-2026-07-13` is no longer required on group and custom-role requests; requests that still send it are accepted and behave identically.
 </Note>
 
 ## Which endpoints can your organization use?
@@ -255,8 +255,7 @@ For complete parameter details and response schemas, see [List groups](https://p
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json
@@ -285,8 +284,7 @@ For complete parameter details and response schemas, see [Get group](https://pla
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ### Create a group
@@ -299,7 +297,6 @@ For complete parameter details and response schemas, see [Create group](https://
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13" \
   -d '{"name": "Engineering"}'
 ```
 
@@ -325,7 +322,6 @@ For complete parameter details and response schemas, see [Update group](https://
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13" \
   -d '{"name": "Platform Engineering"}'
 ```
 
@@ -337,8 +333,7 @@ For complete parameter details and response schemas, see [Delete group](https://
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json
@@ -356,8 +351,7 @@ For complete parameter details and response schemas, see [List group members](ht
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members?limit=100" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json
@@ -386,7 +380,6 @@ For complete parameter details and response schemas, see [Add group member](http
 curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
   -H "content-type: application/json" \
   -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13" \
   -d '{"user_id": "user_01AbCdEfGhIjKlMnOpQrSt"}'
 ```
 
@@ -408,8 +401,7 @@ For complete parameter details and response schemas, see [Remove group member](h
 
 ```bash cURL
 curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json
@@ -432,8 +424,7 @@ For complete parameter details and response schemas, see [List roles](https://pl
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json
@@ -460,8 +451,7 @@ For complete parameter details and response schemas, see [Get role](https://plat
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ### List a role's permissions
@@ -474,8 +464,7 @@ For complete parameter details and response schemas, see [List role permissions]
 
 ```bash cURL
 curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv/permissions?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-beta: ce-user-management-2026-07-13"
+  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
 ```
 
 ```json

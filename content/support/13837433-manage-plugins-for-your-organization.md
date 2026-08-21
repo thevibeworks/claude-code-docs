@@ -70,9 +70,13 @@ GitHub syncing lets you manage plugins as code in a repository. When you push ch
 
 **Prepare your repository**
 
-Your repository must be **private or internal**—public repos aren't allowed for organization marketplaces. You can connect a repo hosted on github.com or on a self-hosted GitHub Enterprise Server instance.
+Your repository must be **private or internal**—public repos aren't allowed for organization marketplaces. You can connect a repo hosted on github.com or on your organization’s GitHub Enterprise host.
 
-GitHub-synced marketplaces support a narrower set of `source` types in `marketplace.json` than the Claude Code CLI does. Relative paths to plugin folders inside the connected repository (for example, `"source": "./plugins/my-plugin"`) are fully supported. The `github`, `url`, and `git-subdir` source types are supported only when the target repository is public. The `npm` and `pip` source types are not supported. If your plugin code lives in separate private repositories, copy those plugin folders into the marketplace repository (a git submodule, git subtree, or a CI step works well) and reference them with relative paths.
+GitHub-synced marketplaces support a narrower set of `source` types in `marketplace.json` than Claude Code does. Relative paths to plugin folders inside the marketplace repository (for example, `"source": "./plugins/my-plugin"`) are fully supported, and are the simplest option. The `github`, `url`, and `git-subdir` source types are also supported. The `npm`, `archive`, and `command` source types are not supported.
+
+A plugin source can be private in two cases: a github.com source that shares your marketplace repository's owner, which organization sync fetches through the Claude GitHub App, or a source on your organization's GitHub Enterprise host with your organization's GitHub Enterprise App installed on that repository. Every other source is fetched without credentials, so github.com repositories under a different owner and repositories on other hosts (such as GitLab or Bitbucket) must be public.
+
+If your plugin code lives in a private repository that doesn't meet the criteria above, copy those plugin folders into the marketplace repository and change each plugin's source to a relative path (a git subtree or a CI step that vendors the files works well).
 
 For details on plugin structure and formatting, see the **[plugin reference documentation](https://code.claude.com/docs/en/plugins-reference)**.
 
@@ -94,7 +98,7 @@ Additional resources:
 
 2. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
 
-3. Click "Add plugin" and select "GitHub" as the source.
+3. Click "Add plugins" and select "GitHub" as the source.
 
 4. Enter the repository in `owner/repo` format (for example, `acme-corp/claude-plugins`).
 
@@ -106,7 +110,7 @@ Your personal GitHub token is verified to confirm you have access, then Cowork u
 
 An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1787244300&amp;signature=dfa1b1a70240d399e058a2347fb369160303cf4f02b36e903ebbb727add1412b&amp;req=diEuFct%2BnYFeXPMW1HO4zUYv5tr7xXsXRDH%2FtUo5ov5veMUZTb2Y2rjuQnOz%0AUd7wH7CJoaoz6TDW7Gs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1787378400&amp;signature=de049f555592c3c87094b2bf8ea60092a85ebb210e715a6931a57682c5431ed0&amp;req=diEuFct%2BnYFeXPMW3nq%2BgXWVtEoAmkDfgbmKhAZwUoCwsclsARUakwdGilhn%0ANuSZcu1fx3S7%2F5xz5DplRSGK%2FR8%3D%0A)
 
 Enabling automatic sync creates a webhook on the connected repository. The person turning the toggle on must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
 
@@ -273,9 +277,11 @@ Changes take effect on each member's next session or plugin refresh. If the upda
 
 One or more plugins in your repo is likely formatted incorrectly. Fix the formatting issue, push the update to GitHub, and trigger the sync again. For plugin structure requirements, see the **[plugin reference documentation](https://code.claude.com/docs/en/plugins-reference)**.
 
-### Sync fails with "External plugin sources are not yet supported," or plugins are skipped with "Repository not found on github.com. Check the URL and make sure the repository is public."
+### Sync fails with "External plugin source is not yet supported," or plugins are skipped with "Repository not found on github.com. Check the URL and make sure the repository is public."
 
-One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and the target repository is private. The organization sync can currently only fetch external sources from public repositories. Move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Customize > Add plugin > Create plugin > Upload plugin**.
+One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and organization sync can't fetch it. A private source only works in two cases: a github.com repository shares your marketplace repository's owner, or a repository on your organization's GitHub Enterprise host with your GitHub Enterprise App installed on it.
+
+For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Organization settings > Plugins > Add plugins > Upload a file**, then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization.
 
 ### Plugins disappeared after a failed sync
 

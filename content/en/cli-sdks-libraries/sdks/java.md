@@ -15,7 +15,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
 <Tabs>
   <Tab title="Gradle">
     ```kotlin
-    implementation("com.anthropic:anthropic-java:2.53.0")
+    implementation("com.anthropic:anthropic-java:2.57.0")
     ```
   </Tab>
 
@@ -24,7 +24,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
     <dependency>
         <groupId>com.anthropic</groupId>
         <artifactId>anthropic-java</artifactId>
-        <version>2.53.0</version>
+        <version>2.57.0</version>
     </dependency>
     ```
   </Tab>
@@ -466,8 +466,8 @@ The SDK defines methods that accept files through the `MultipartField` class:
 
 ```java
 import com.anthropic.core.MultipartField;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileUploadParams;
+import com.anthropic.models.files.FileMetadata;
+import com.anthropic.models.files.FileUploadParams;
 
 FileUploadParams params = FileUploadParams.builder()
   .file(
@@ -478,15 +478,15 @@ FileUploadParams params = FileUploadParams.builder()
   )
   .build();
 
-FileMetadata fileMetadata = client.beta().files().upload(params);
+FileMetadata fileMetadata = client.files().upload(params);
 ```
 
 Or from an `InputStream`:
 
 ```java
 import com.anthropic.core.MultipartField;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileUploadParams;
+import com.anthropic.models.files.FileMetadata;
+import com.anthropic.models.files.FileUploadParams;
 
 FileUploadParams params = FileUploadParams.builder()
   .file(
@@ -498,15 +498,15 @@ FileUploadParams params = FileUploadParams.builder()
   )
   .build();
 
-FileMetadata fileMetadata = client.beta().files().upload(params);
+FileMetadata fileMetadata = client.files().upload(params);
 ```
 
 Or from in-memory bytes:
 
 ```java
 import com.anthropic.core.MultipartField;
-import com.anthropic.models.beta.files.FileMetadata;
-import com.anthropic.models.beta.files.FileUploadParams;
+import com.anthropic.models.files.FileMetadata;
+import com.anthropic.models.files.FileUploadParams;
 
 FileUploadParams params = FileUploadParams.builder()
   .file(
@@ -518,7 +518,7 @@ FileUploadParams params = FileUploadParams.builder()
   )
   .build();
 
-FileMetadata fileMetadata = client.beta().files().upload(params);
+FileMetadata fileMetadata = client.files().upload(params);
 ```
 
 ### Binary responses
@@ -528,7 +528,7 @@ The SDK defines methods that return binary responses for API responses that aren
 ```java
 import com.anthropic.core.http.HttpResponse;
 
-HttpResponse response = client.beta().files().download("file_abc123");
+HttpResponse response = client.files().download("file_abc123");
 ```
 
 To save the response content to a file:
@@ -536,7 +536,7 @@ To save the response content to a file:
 ```java
 import com.anthropic.core.http.HttpResponse;
 
-try (HttpResponse response = client.beta().files().download(params)) {
+try (HttpResponse response = client.files().download(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -553,7 +553,7 @@ Or transfer the response content to any `OutputStream`:
 ```java
 import com.anthropic.core.http.HttpResponse;
 
-try (HttpResponse response = client.beta().files().download(params)) {
+try (HttpResponse response = client.files().download(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     IO.println("Something went wrong!");
@@ -1137,7 +1137,7 @@ export ANTHROPIC_LOG=debug
 ```
 
 <Accordion title="Jackson compatibility">
-  The SDK depends on Jackson for JSON serialization/deserialization. It is compatible with version 2.13.4 or higher, but depends on version 2.18.2 by default.
+  The SDK depends on Jackson for JSON serialization/deserialization. It is compatible with version 2.13.4 or higher, but depends on version 2.19.4 by default.
 
   The SDK throws an exception if it detects an incompatible Jackson version at runtime (for example, if the default version was overridden in your Maven or Gradle config).
 
@@ -1200,14 +1200,11 @@ Beta features are available before general release to get early feedback and tes
 
 You can access most beta API features through the `beta()` method on the client. To enable a particular beta feature, add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) with `.addBeta()` when building the message params.
 
-For example, to use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
+For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 
 ```java
 import com.anthropic.models.beta.AnthropicBeta;
-import com.anthropic.models.beta.messages.BetaContentBlockParam;
 import com.anthropic.models.beta.messages.BetaMessage;
-import com.anthropic.models.beta.messages.BetaRequestDocumentBlock;
-import com.anthropic.models.beta.messages.BetaTextBlockParam;
 import com.anthropic.models.beta.messages.MessageCreateParams;
 // ...
 void main() {
@@ -1217,16 +1214,8 @@ void main() {
         MessageCreateParams.builder()
             .model(Model.CLAUDE_OPUS_5)
             .maxTokens(1024L)
-            .addBeta(AnthropicBeta.FILES_API_2025_04_14)
-            .addUserMessageOfBetaContentBlockParams(List.of(
-                BetaContentBlockParam.ofText(
-                    BetaTextBlockParam.builder()
-                        .text("Please summarize this document for me.")
-                        .build()),
-                BetaContentBlockParam.ofDocument(
-                    BetaRequestDocumentBlock.builder()
-                        .fileSource("file_abc123")
-                        .build())))
+            .addBeta(AnthropicBeta.CONTEXT_MANAGEMENT_2025_06_27)
+            .addUserMessage("Hello, Claude")
             .build());
 }
 ```

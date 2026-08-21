@@ -355,21 +355,35 @@ Example token usage for typical content:
 
 Computer use follows the standard [tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing). When using the computer use tool:
 
-**System prompt overhead:** The computer use beta adds 466–499 tokens to the system prompt
+**Toolset definition overhead:** Declaring `computer_toolset_20260801` with its default members adds about 4,500 input tokens to a request (about 4,520 on Claude Fable 5, Claude Mythos 5, Claude Opus 5, and Claude Opus 4.8, and about 4,590 on Claude Sonnet 5), which covers the member tool definitions and the tool use system prompt. Disabling `zoom` with `configs` removes about 410 of those tokens. The exact count for a request is reported in the response `usage`, and you can estimate it in advance with the [token counting endpoint](https://platform.claude.com/docs/en/build-with-claude/token-counting).
 
-**Computer use tool token usage:**
+**Earlier tool versions:** The following figures apply to the `computer_20251124` and `computer_20250124` tool versions, not to `computer_toolset_20260801`:
 
-| Model             | Input tokens per tool definition |
-| ----------------- | -------------------------------- |
-| Claude 4.x models | 735 tokens                       |
+* System prompt overhead: 466–499 tokens added to the system prompt
+* Tool definition: about 735 input tokens per tool definition (measured with `computer_20250124`)
 
 **Additional token consumption:**
 
-* Screenshot images (see [Vision pricing](https://platform.claude.com/docs/en/build-with-claude/vision))
+* Screenshot and zoom images returned in tool results, billed as image input (see [Vision pricing](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size))
 * Tool execution results returned to Claude
 
 <Note>
   If you're also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages.
+</Note>
+
+#### Browser use tool
+
+Browser use follows the standard [tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing). When using the browser use tool:
+
+**Toolset definition overhead:** Declaring `browser_toolset_20260801` with its default members adds about 6,600 input tokens to a request (about 6,610 on Claude Fable 5, Claude Mythos 5, Claude Opus 5, and Claude Opus 4.8, and about 6,670 on Claude Sonnet 5), which covers the member tool definitions and the tool use system prompt. Enabling all four optional members adds about 880 tokens, and disabling members with `configs` reduces the count. The exact count for a request is reported in the response `usage`, and you can estimate it in advance with the [token counting endpoint](https://platform.claude.com/docs/en/build-with-claude/token-counting).
+
+**Additional token consumption:**
+
+* Screenshot and zoom images returned in tool results, billed as image input (see [Vision pricing](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size))
+* Text tool results returned to Claude, such as accessibility trees, page text, and console or network entries
+
+<Note>
+  If you also use the computer use tool, bash tool, text editor tool, or your own tools alongside browser use, those tools have their own token costs as documented on their respective pages.
 </Note>
 
 ## Claude Managed Agents pricing

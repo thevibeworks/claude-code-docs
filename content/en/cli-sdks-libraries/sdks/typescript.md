@@ -270,7 +270,7 @@ await anthropic.beta.messages.create({
 
 // Upload MCP resources as files
 const fileResource = await mcpClient.readResource({ uri: "file:///path/to/data.json" });
-await anthropic.beta.files.upload({ file: mcpResourceToFile(fileResource) });
+await anthropic.files.upload({ file: mcpResourceToFile(fileResource) });
 ```
 
 ### MCP error handling
@@ -339,26 +339,26 @@ import Anthropic, { toFile } from "@anthropic-ai/sdk";
 const client = new Anthropic();
 
 // If you have access to Node `fs`, use `fs.createReadStream()`:
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(fs.createReadStream("/path/to/file"), undefined, {
     type: "application/json"
   })
 });
 
 // Or if you have the web `File` API you can pass a `File` instance:
-await client.beta.files.upload({
+await client.files.upload({
   file: new File(["my bytes"], "file.txt", { type: "text/plain" })
 });
 // You can also pass a `fetch` `Response`:
-await client.beta.files.upload({
+await client.files.upload({
   file: await fetch("https://somesite/file")
 });
 
 // Or a `Buffer` / `Uint8Array`
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(Buffer.from("my bytes"), "file", { type: "text/plain" })
 });
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(new Uint8Array([0, 1, 2]), "file", { type: "text/plain" })
 });
 ```
@@ -730,29 +730,15 @@ Beta features are available before general release to get early feedback and tes
 
 You can access most beta API features through the beta property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
-For example, to use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
+For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 
 ```typescript
 const client = new Anthropic();
 const response = await client.beta.messages.create({
   model: "claude-opus-5",
   max_tokens: 1024,
-  messages: [
-    {
-      role: "user",
-      content: [
-        { type: "text", text: "Please summarize this document for me." },
-        {
-          type: "document",
-          source: {
-            type: "file",
-            file_id: "file_abc123"
-          }
-        }
-      ]
-    }
-  ],
-  betas: ["files-api-2025-04-14"]
+  messages: [{ role: "user", content: "Hello, Claude" }],
+  betas: ["context-management-2025-06-27"]
 });
 ```
 
