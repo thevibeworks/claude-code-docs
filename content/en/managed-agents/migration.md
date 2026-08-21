@@ -300,32 +300,40 @@ If you built an agent by calling `messages.create` in a `while` loop, running to
   kill "${stream_pid}" 2>/dev/null || true
   ```
 
-  ```bash CLI
-  { read -r _ agent_id; read -r _ agent_version; } < <(ant beta:agents create \
-    --name "Task Runner" \
-    --model claude-opus-5 \
-    --tool '{type: agent_toolset_20260401}' \
-    --transform '{id,version}' --format yaml)
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    { read -r _ agent_id; read -r _ agent_version; } < <(ant beta:agents create \
+      --transform '{id,version}' --format yaml < task-runner.agent.yaml)
 
-  session_id=$(ant beta:sessions create \
-    --agent "{type: agent, id: $agent_id, version: $agent_version}" \
-    --environment-id "$environment_id" \
-    --transform id --raw-output)
+    session_id=$(ant beta:sessions create \
+      --agent "{type: agent, id: $agent_id, version: $agent_version}" \
+      --environment-id "$environment_id" \
+      --transform id --raw-output)
 
-  # Open the stream first, then send the user message
-  exec {stream}< <(ant beta:sessions:events stream \
-    --session-id "$session_id" \
-    --transform type --raw-output)
+    # Open the stream first, then send the user message
+    exec {stream}< <(ant beta:sessions:events stream \
+      --session-id "$session_id" \
+      --transform type --raw-output)
 
-  ant beta:sessions:events send \
-    --session-id "$session_id" \
-    --event "{type: user.message, content: [{type: text, text: \"$task\"}]}" \
-  > /dev/null
+    ant beta:sessions:events send \
+      --session-id "$session_id" \
+      --event "{type: user.message, content: [{type: text, text: \"$task\"}]}" \
+    > /dev/null
 
-  # Wait for the session to go idle (grep exits at the first match)
-  grep -m1 -x 'session.status_idle' <&"$stream" > /dev/null
-  exec {stream}<&-
-  ```
+    # Wait for the session to go idle (grep exits at the first match)
+    grep -m1 -x 'session.status_idle' <&"$stream" > /dev/null
+    exec {stream}<&-
+    ```
+
+    <File filename="task-runner.agent.yaml">
+      ```yaml
+      name: Task Runner
+      model: claude-opus-5
+      tools:
+        - type: agent_toolset_20260401
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   agent = client.beta.agents.create(
@@ -1324,12 +1332,21 @@ When a new Claude model is released, migrating a Claude Managed Agents integrati
     --json "$(jq -n --argjson version "$AGENT_VERSION" '{version: $version, model: "claude-opus-5"}')"
   ```
 
-  ```bash CLI
-  ant beta:agents update \
-    --agent-id "$AGENT_ID" \
-    --version "$AGENT_VERSION" \
-    --model claude-opus-5
-  ```
+  <MultiFileExample language="cli" label="CLI">
+    ```bash CLI
+    ant beta:agents update --agent-id "$AGENT_ID" < agent.yaml
+    ```
+
+    <File filename="agent.yaml">
+      ```yaml
+      name: Task Runner
+      model: claude-opus-5
+      system: You are a task automation agent. Complete the task you are given end to end.
+      tools:
+        - type: agent_toolset_20260401
+      ```
+    </File>
+  </MultiFileExample>
 
   ```python Python
   client.beta.agents.update(

@@ -53,7 +53,7 @@ List Dreams
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 31 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -98,6 +98,8 @@ List Dreams
     - `"output-300k-2026-03-24"`
 
     - `"user-profiles-2026-03-24"`
+
+    - `"user-profiles-2026-08-18"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -151,7 +153,7 @@ List Dreams
 
     - `BetaDreamMemoryStoreInput object { memory_store_id, type }`
 
-      An input memory store the dream reads from. The dream never mutates this store.
+      An input memory store the dream reads from. The dream never mutates this store unless it is also the destination: with output_behavior {type: "update_existing"} the job consolidates this store in place.
 
       - `memory_store_id: string`
 
@@ -177,7 +179,7 @@ List Dreams
 
     - `id: string`
 
-      Model identifier, e.g. "claude-opus-4-7". 1-256 characters.
+      Model identifier, e.g. "claude-opus-5". 1-256 characters.
 
     - `speed: optional "standard" or "fast"`
 
@@ -186,6 +188,28 @@ List Dreams
       - `"standard"`
 
       - `"fast"`
+
+  - `output_behavior: BetaOutputBehavior`
+
+    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
+
+    - `BetaOutputBehaviorCreateNew object { type }`
+
+      The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
+
+      - `type: "create_new"`
+
+        - `"create_new"`
+
+    - `BetaOutputBehaviorUpdateExisting object { memory_store_id, type }`
+
+      The job writes the consolidated memories into this existing memory store instead of creating one. In EAP the store must be the job's own memory_store input, so the job consolidates the store in place.
+
+      - `memory_store_id: string`
+
+      - `type: "update_existing"`
+
+        - `"update_existing"`
 
   - `outputs: array of BetaDreamOutput`
 
@@ -270,6 +294,9 @@ curl https://api.anthropic.com/v1/dreams \
       "model": {
         "id": "x",
         "speed": "standard"
+      },
+      "output_behavior": {
+        "type": "create_new"
       },
       "outputs": [
         {

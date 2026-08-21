@@ -330,12 +330,12 @@ from anthropic import Anthropic
 client = Anthropic()
 
 # Upload using a file path
-client.beta.files.upload(
+client.files.upload(
     file=Path("/path/to/file"),
 )
 
 # Upload using bytes
-client.beta.files.upload(
+client.files.upload(
     file=("file.txt", b"my bytes", "text/plain"),
 )
 ```
@@ -713,7 +713,7 @@ Beta features are available before general release to get early feedback and tes
 
 You can access most beta API features through the `beta` property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
-For example, to use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files):
+For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 
 ```python
 client = Anthropic()
@@ -721,22 +721,8 @@ client = Anthropic()
 response = client.beta.messages.create(
     model="claude-opus-5",
     max_tokens=1024,
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {"type": "text", "text": "Please summarize this document for me."},
-                {
-                    "type": "document",
-                    "source": {
-                        "type": "file",
-                        "file_id": "file_abc123",
-                    },
-                },
-            ],
-        },
-    ],
-    betas=["files-api-2025-04-14"],
+    messages=[{"role": "user", "content": "Hello, Claude"}],
+    betas=["context-management-2025-06-27"],
 )
 ```
 

@@ -39,6 +39,14 @@ How you apply depends on how you access Claude. Once you submit your application
 
 **Are you a platform owner?** If you use Claude to power products or services available to your customers and want to learn whether your platform is eligible to participate in the Cyber Verification Program, please **[fill out this Platform CVP Interest Form](https://claude.com/form/platform-cvp-interest)**.
 
+## Enabling access on Amazon Bedrock
+
+If your application is approved and you'd like to use the Cyber Verification Program on Amazon Bedrock, you'll need to enable data retention for the project or workspace you plan to use. Follow the steps below.
+
+1. Make your requests with the header `anthropic-beta: cvp-data-retention-2026-06-24`.
+
+2. Set your account or workspace data retention mode to `default` (or `provider_data_share` if you also use Fable). Requests will error otherwise. See the **[Bedrock data retention documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/data-retention.html#data-retention-modes)** for more information.
+
 ## Appeals
 
 We expect to occasionally decline eligible applications incorrectly, and approved users may still experience blocks on legitimate work. We’re actively working to reduce both.

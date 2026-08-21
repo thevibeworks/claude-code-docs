@@ -50,7 +50,7 @@ When you add the web fetch tool to your API request:
 4. Claude analyzes the fetched content and provides a response with optional citations.
 
 <Note>
-  The web fetch tool currently does not support websites dynamically rendered with JavaScript.
+  The web fetch tool currently does not support websites dynamically rendered with JavaScript. For pages that need a real browser (JavaScript rendering, clicking, or filling forms), consider the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool), a client tool where your application drives the browser and returns page text or screenshots to Claude as tool results.
 </Note>
 
 ### When Claude fetches
@@ -183,7 +183,7 @@ To enable dynamic filtering, use `web_fetch_20260209` or any later version. The 
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java
@@ -348,7 +348,7 @@ Provide the web fetch tool in your API request:
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java
@@ -800,7 +800,7 @@ When both the web search and web fetch tools are enabled, and the user names a s
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java

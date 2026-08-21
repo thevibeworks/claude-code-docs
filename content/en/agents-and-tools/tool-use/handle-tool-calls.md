@@ -20,6 +20,8 @@ The response will have a `stop_reason` of `tool_use` and one or more `tool_use` 
 * `name`: The name of the tool being used.
 * `input`: An object containing the input being passed to the tool, conforming to the tool's `input_schema`.
 
+A `tool_use` block for a member of the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) or [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolset also carries a `toolset_name` field (`"computer"` or `"browser"`). Its `name` is the member tool Claude is calling, such as `screenshot` or `navigate`, so dispatch those blocks on both fields.
+
 <Accordion title="Example API response with a `tool_use` content block">
   ```json JSON
   {
@@ -54,6 +56,8 @@ When you receive a tool use response for a client tool, you should:
    * `tool_use_id`: The `id` of the tool use request this is a result for.
    * `content` (optional): The result of the tool, as a string (for example, `"content": "15 degrees"`), a list of nested content blocks (for example, `"content": [{"type": "text", "text": "15 degrees"}]`), or a list of document blocks (for example, `"content": [{"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": "15 degrees"}}]`). These content blocks can use the `text`, `image`, `document`, or [`search_result`](https://platform.claude.com/docs/en/build-with-claude/search-results) types.
    * `is_error` (optional): Set to `true` if the tool execution resulted in an error.
+
+A `tool_result` that answers a computer use or browser use member block must also echo the same `toolset_name` value as the `tool_use` block; a member result that omits it is rejected. Its `content` is also narrower: a member result may contain only `text` and `image` blocks, and a browser use result may add one [`browser_state`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#track-tabs-and-page-state) block (the [tab-management members](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#tab-management-results) return only that block).
 
 <Note>
   **Important formatting requirements:**

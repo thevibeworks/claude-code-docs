@@ -13,7 +13,7 @@ Each Managed Agents session starts with a fresh context by default. When a sessi
 <Note>
   Don't combine `agent-memory-2026-07-22` with `managed-agents-2026-04-01` on a memory store request: sending both returns a `400` error. If your code sets beta headers explicitly, replace `managed-agents-2026-04-01` with `agent-memory-2026-07-22` on memory store calls rather than adding a second value. Session endpoints, including attaching a memory store to a session, still use `managed-agents-2026-04-01`.
 
-  On July 22, 2026, the `managed-agents-2026-04-01` header adopts the same list behavior on `GET /v1/memory_stores/{memory_store_id}/memories`; sending `agent-memory-2026-07-22` opts you into that behavior now. Page cursors from requests made without the header aren't valid with it, so restart from the first page.
+  `GET /v1/memory_stores/{memory_store_id}/memories` behaves the same under either header: results come back in a stable, server-defined order, and `path_prefix` and `depth` apply the same way.
 </Note>
 
 ## Overview
@@ -377,7 +377,7 @@ A maximum of **8 memory stores** are supported per session. Attach multiple stor
 
 ### How the agent accesses memory
 
-Each attached store is mounted inside the session's sandbox as a directory under `/mnt/memory/`. The directory name is the store's display name sanitized to a filesystem-safe slug (lowercased; non-alphanumeric runs become a single hyphen), so a store named "Demo Memory" mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` field on the session's memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` land in container-local scratch and are lost when the session ends. A short description of each mount (display name, mount path, access mode, store `description`, and any `instructions`) is automatically added to the system prompt.
+Each attached store is mounted inside the session's sandbox as a directory under `/mnt/memory/`. The directory name is the store's display name sanitized to a filesystem-safe slug (lowercased; non-alphanumeric runs become a single hyphen), so a store named "Demo Memory" mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` field on the session's memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` fail, because the sandbox mounts that parent directory read-only. A short description of each mount (display name, mount path, access mode, store `description`, and any `instructions`) is automatically added to the system prompt.
 
 `access` is enforced at the filesystem level: a `read_only` mount rejects writes, while writes to a `read_write` mount produce [memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes) attributed to the session.
 

@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview
 description: Connect Claude to external tools and APIs. See where tools execute, when Claude calls them, and which tool fits your task.
 ---
 
-Tool use lets Claude call functions that you define or that Anthropic provides. Claude determines when to call a tool based on the user's request and the tool's description. It then returns a structured call that your application executes (client tools) or that Anthropic executes (server tools).
+Tool use (also called function calling) lets Claude call functions that you define or that Anthropic provides. Claude determines when to call a tool based on the user's request and the tool's description. It then returns a structured call that your application executes (client tools) or that Anthropic executes (server tools).
 
 Here's a minimal example using a server tool, the [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool), which Anthropic executes for you:
 
@@ -175,8 +175,9 @@ Here's that round trip in full for a client tool. The first request defines a `g
   echo "Claude called $(echo "$TOOL_USE" | jq -r '.name') with $(echo "$TOOL_USE" | jq -c '.input')"
 
   # Run the tool, then send the result back in a tool_result block.
+  # Claude uses the result to answer the original question.
   WEATHER="15 degrees Celsius, partly cloudy"
-  FOLLOWUP=$(curl -s https://api.anthropic.com/v1/messages \
+  curl -s https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
@@ -198,10 +199,7 @@ Here's that round trip in full for a client tool. The first request defines a `g
             {type: "tool_result", tool_use_id: $tool_use_id, content: $weather}
           ]}
         ]
-      }')")
-
-  # Claude uses the result to answer the original question.
-  echo "$FOLLOWUP" | jq -r '.content[] | select(.type == "text") | .text'
+      }')"
   ```
 
   ```bash CLI
@@ -246,10 +244,9 @@ Here's that round trip in full for a client tool. The first request defines a `g
         {type: "tool_result", tool_use_id: $tool_use_id, content: $weather}
       ]}
     ]' <<<"$MESSAGES")
-  FOLLOWUP=$(call_api)
 
   # Claude uses the result to answer the original question.
-  jq -r '.content[] | select(.type == "text") | .text' <<<"$FOLLOWUP"
+  call_api
   ```
 
   ```python Python
@@ -809,6 +806,10 @@ Anthropic publishes the schema and trains Claude on it. Your application still e
   <Card title="Computer use tool" icon="computer" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool">
     Take screenshots and control the mouse and keyboard in a desktop environment.
   </Card>
+
+  <Card title="Browser use tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool">
+    Navigate, read, and interact with webpages in your own browser environment.
+  </Card>
 </CardGroup>
 
 ### Server tools
@@ -816,7 +817,7 @@ Anthropic publishes the schema and trains Claude on it. Your application still e
 Server tools run on Anthropic's infrastructure, with no handler code in your application. See [Server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) for the mechanics they share.
 
 <CardGroup cols={2}>
-  <Card title="Web search tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">
+  <Card title="Web search tool" icon="magnifying-glass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">
     Search the web for information beyond the knowledge cutoff, with cited sources.
   </Card>
 

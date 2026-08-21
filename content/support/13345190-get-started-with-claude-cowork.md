@@ -143,14 +143,12 @@ Cowork has three modes that control when Claude asks your permission before taki
 |                   | **Connector tool permission: "Always allow"**                          | **Connector tool permission: "Needs approval"** | **Connector tool permission: "Blocked"** |
 | ----------------- | ---------------------------------------------------------------------- | ----------------------------------------------- | ---------------------------------------- |
 | **"Manual" mode** | Approved                                                               | Asks for permission                             | Denied                                   |
-| **"Auto" mode\*** | Read-only tools are approved<br>For write/delete tools, Claude decides | Claude decides                                  | Denied                                   |
+| **"Auto" mode**   | Read-only tools are approved<br>For write/delete tools, Claude decides | Claude decides                                  | Denied                                   |
 | **"Skip" mode**   | Approved                                                               | Approved                                        | Denied                                   |
 
-**Currently available for Pro and Max plans only.*
+As a reminder, you control which connectors Claude can use via the "+" menu in the chat box or the **[Customize > Connectors](https://claude.ai/customize/connectors)** page.
 
-As a reminder, you control which connectors Claude can use via the + menu in the chat box or the **[Customize > Connectors](https://claude.ai/customize/connectors)** page.
-
-**Note:** On Team and Enterprise plans, your organization may require per-task approval for write-capable connector tools, so "Always allow" preferences may not apply. See **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans#h_1bd1fa754d)**.
+**Note:** On Team and Enterprise plans, your admin controls whether "Automatically approve" is available to your organization. It's available by default, and if your admin turns it off, the mode doesn't appear in your mode selector. Your organization may also require per-task approval for write-capable connector tools, so "Always allow" preferences may not apply. See **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans#h_1bd1fa754d)**.
 
 **Manually approve (Manual)**, formerly "Ask before acting." Claude pauses and asks for approval for actions. You review each request and choose Allow or Deny.
 
@@ -178,7 +176,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1787244300&amp;signature=1855993c34ba75d48fc064d443d5abf00e9a37b1f14df0aa86c71321e00ce039&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t%2FuMlWz8iWjaktE942f8u44p9iOlXkULp9G%0ARTEUEABivcnZ9CmaHDU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1787378400&amp;signature=1f23915e9782c371111ad74e940c112b9d65fa60bfdba49e6b4ab5030643482e&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BD27XbY1WMqW%2FkK1ejkPq%2F%2FgmD4VVDpr87%0APryXtSd63sDxuIdFr2LO7%2BIc2i4%3D%0A)
 
 ### Folder instructions
 

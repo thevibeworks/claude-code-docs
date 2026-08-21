@@ -7,7 +7,7 @@
 > Continue a local Claude Code session from your phone, tablet, or any browser using Remote Control. Works with claude.ai/code and the Claude mobile app.
 
 <Note>
-  Remote Control is in research preview and available on all plans. On Team and Enterprise, it is off by default until an Owner enables the Remote Control toggle in [Claude Code admin settings](https://claude.ai/admin-settings/claude-code).
+  Remote Control is available on all plans. On Team and Enterprise, it is off by default until an Owner enables the Remote Control toggle in [Claude Code admin settings](https://claude.ai/admin-settings/claude-code).
 </Note>
 
 Remote Control connects [claude.ai/code](https://claude.ai/code) or the Claude app for [iOS](https://apps.apple.com/us/app/claude-by-anthropic/id6473753684) and [Android](https://play.google.com/store/apps/details?id=com.anthropic.claude) to a Claude Code session running on your machine. Start a task at your desk, then pick it up from your phone on the couch or a browser on another computer.
@@ -142,7 +142,7 @@ Once a Remote Control session is active, you have a few ways to connect from ano
 * **Scan the QR code** shown alongside the session URL to open it directly in the Claude app. With `claude remote-control`, press spacebar to toggle the QR code display.
 * **Open [claude.ai/code](https://claude.ai/code) or the Claude app** and find the session by name in the session list. In the Claude mobile app, tap **Code** in the navigation to reach the session list. Remote Control sessions show a computer icon with a green status dot when online.
 
-When you connect, the device shows any subagents and workflows the session already has running in the background.
+When you connect, the device shows any subagents and workflows the session already has running in the background. Stop one of them from the device, and Claude Code stops that task on your machine.
 
 The remote session title is chosen in this order:
 
@@ -164,6 +164,8 @@ A connected device shows the conversation in your terminal as it happens. These 
 * **Compaction and `/clear`**: while Claude Code [compacts the conversation](/docs/en/context-window#what-survives-compaction), connected devices show the progress and then where the conversation was compacted. When you run `/clear`, the conversation resets on connected devices too.
 * **Switching conversations with `/resume`**: the connected device doesn't receive the switched-to conversation's title or earlier history, but new messages in both directions go to and from whichever conversation is open in your terminal. To work on the original conversation from the device again, run `/resume` in your terminal and switch back to it.
 * **Messages from your other sessions**: with [cross-session messaging](/docs/en/cross-session-messaging), the same connection carries messages between your own sessions on different machines and from your [Claude Code on the web](/docs/en/claude-code-on-the-web) sessions, through Anthropic servers like the rest of Remote Control traffic. [Message sessions on other machines](/docs/en/cross-session-messaging#message-sessions-on-other-machines) covers the delivery rules and [Control inbound messages](/docs/en/cross-session-messaging#control-inbound-messages) covers the inbound controls. Requires Claude Code v2.1.224 or later.
+* **Prompts you send mid-turn**: when you send a prompt from a connected device before the current turn ends, Claude Code queues it and keeps it in the device's transcript after that turn finishes.
+* **Model**: when you pick a [model](/docs/en/model-config) from a connected device, Claude Code runs the session on that model. The terminal's `/model` picker, `/status`, and `/config` show that model. A pick from the device's model control lasts for the current session only. `/model <name>` sent from the device also sets your default for new sessions, the same as typing it in the terminal.
 * **Effort level**: when you set the [effort level](/docs/en/model-config#adjust-effort-level) from a connected device, with `/effort` or the device's effort control, Claude Code applies it to the session on your machine, and claude.ai/code shows the level the session is using. If you pinned a level with `CLAUDE_CODE_EFFORT_LEVEL`, the session keeps that level, and Claude Code refuses a different pick from the effort control. A level you pick from the effort control applies to the current session only and doesn't change your saved default. Picking a level from the effort control requires Claude Code v2.1.234 or later on your machine.
 * **Reconnecting after a connection failure**: run `/remote-control` to reconnect. If compaction rewrote the conversation or you switched conversations with `/resume` in the meantime, Claude Code archives the server session it was using instead of leaving it in the session list. You can still find it by [filtering for archived sessions](/docs/en/claude-code-on-the-web#archive-sessions). Switching conversations while a device is still connected doesn't archive the session.
 
@@ -309,6 +311,8 @@ Claude Code skips mobile push notifications while you are typing in or focused o
 
 * **One remote session per interactive process**: outside of server mode, each Claude Code instance supports one remote session at a time. Use [server mode](#start-a-remote-control-session) to run multiple concurrent sessions from a single process.
 * **Local process must keep running**: Remote Control runs as a local process. If you close the terminal, quit VS Code, or otherwise stop the `claude` process, the session goes offline until you [bring it back](#resume-sessions-after-stopping-the-server). To keep a session running on a remote machine after you disconnect from SSH, start it inside `tmux` or `screen`.
+* **Crashed sessions in server mode**: if a session served by `claude remote-control` crashes, send it a message from a connected device. Claude Code serves it again. You don't have to restart the server.
+* **HTTP 403 refusals on a connected session**: once an interactive session is connected, Claude Code keeps retrying for up to three minutes when something between your machine and Anthropic's servers answers with HTTP 403, as can happen after a VPN or network change. If the refusals last longer, Claude Code disconnects, and the reason names what refused: a network edge, or a proxy, VPN, or firewall on your own network.
 * **Extended network outage**: if your machine is awake but can't reach the network, what you do next depends on the mode:
   * **Server mode**: Claude Code gives up after roughly 10 minutes and the `claude remote-control` process exits. Run `claude remote-control` again to start a new session.
   * **Interactive session**: keep working locally. Claude Code retries for as long as the outage lasts and reconnects on its own when the network returns.
@@ -338,9 +342,13 @@ You're authenticated with a long-lived token from `claude setup-token` or the `C
 
 Your cached account information is stale or incomplete. Run `claude auth login` to refresh it.
 
-### "Remote Control is not yet enabled for your account"
+### "Remote Control isn't enabled for this account"
 
-The Remote Control rollout has not reached your account, or your cached entitlements are out of date. If you recently changed plans, run `claude auth logout` then `claude auth login` to refresh them. Run `claude doctor` to see which individual eligibility check failed. Environment-variable conflicts, unreachable checks, and organization policy each produce their own message, so this error means the rollout gate itself. Before v2.1.154, a variable that disables feature-flag evaluation, such as `DISABLE_TELEMETRY` or `DO_NOT_TRACK`, also produced this message; the "Remote Control requires feature-flag evaluation" entry below covers that configuration.
+Claude Code checked Remote Control availability for the account you're signed in with and the check came back off. The usual cause is cached entitlements that are out of date after a plan change. Run `claude auth logout` then `claude auth login` to refresh them, and update Claude Code if you're on an old version.
+
+Run `claude doctor` to see which individual eligibility check failed. Environment-variable conflicts, unreachable checks, and your organization's Remote Control setting each produce their own message, so this error means the account-level check itself.
+
+Before v2.1.239, this message read "Remote Control is not yet enabled for your account". Before v2.1.154, a variable that disables feature-flag evaluation, such as `DISABLE_TELEMETRY` or `DO_NOT_TRACK`, also produced this message; the "Remote Control requires feature-flag evaluation" entry below covers that configuration.
 
 ### "Couldn't verify Remote Control eligibility"
 

@@ -34,46 +34,44 @@ First, check what Skills are available. Use the Skills API to list all Anthropic
   # List Anthropic-managed Skills
   curl --fail-with-body -sS "https://api.anthropic.com/v1/skills?source=anthropic" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02" |
-    jq -r '.data[] | "\(.id): \(.display_title)"'
+    -H "anthropic-version: 2023-06-01"
   ```
 
   ```bash CLI
   # List Anthropic-managed Skills
-  ant beta:skills list --source anthropic
+  ant skills list --source anthropic
   ```
 
   ```python Python
   # List Anthropic-managed Skills
-  skills = client.beta.skills.list(source="anthropic")
+  skills = client.skills.list(source="anthropic")
 
   for skill in skills.data:
-      print(f"{skill.id}: {skill.display_title}")
+      print(f"{skill.id}: {skill.display_name}")
   ```
 
   ```typescript TypeScript
   // List Anthropic-managed Skills
-  const skills = await client.beta.skills.list({ source: "anthropic" });
+  const skills = await client.skills.list({ source: "anthropic" });
 
   for (const skill of skills.data) {
-    console.log(`${skill.id}: ${skill.display_title}`);
+    console.log(`${skill.id}: ${skill.display_name}`);
   }
   ```
 
   ```csharp C#
   // List Anthropic-managed Skills
-  var skills = await client.Beta.Skills.List(new SkillListParams { Source = "anthropic" });
+  var skills = await client.Skills.List(new SkillListParams { Source = "anthropic" });
 
   foreach (var skill in skills.Items)
   {
-      Console.WriteLine($"{skill.ID}: {skill.DisplayTitle}");
+      Console.WriteLine($"{skill.ID}: {skill.DisplayName}");
   }
   ```
 
   ```go Go
   // List Anthropic-managed Skills
-  skills, err := client.Beta.Skills.List(ctx, anthropic.BetaSkillListParams{
+  skills, err := client.Skills.List(ctx, anthropic.SkillListParams{
   	Source: anthropic.String("anthropic"),
   })
   if err != nil {
@@ -81,22 +79,23 @@ First, check what Skills are available. Use the Skills API to list all Anthropic
   }
 
   for _, skill := range skills.Data {
-  	fmt.Printf("%s: %s\n", skill.ID, skill.DisplayTitle)
+  	fmt.Printf("%s: %s\n", skill.ID, skill.DisplayName)
   }
   ```
 
   ```java Java
   // List Anthropic-managed Skills
-  SkillListPage skills = client.beta().skills().list(
+  SkillListPage skills = client.skills().list(
       SkillListParams.builder().source("anthropic").build()
   );
 
-  for (SkillListResponse skill : skills.data()) {
-      IO.println(skill.id() + ": " + skill.displayTitle().orElse(""));
+  for (Skill skill : skills.data()) {
+      IO.println(skill.id() + ": " + skill.displayName());
   }
   ```
 
   ```php PHP
+  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   // List Anthropic-managed Skills
   $skills = $client->beta->skills->list(source: 'anthropic');
 
@@ -107,10 +106,10 @@ First, check what Skills are available. Use the Skills API to list all Anthropic
 
   ```ruby Ruby
   # List Anthropic-managed Skills
-  skills = client.beta.skills.list(source: "anthropic")
+  skills = client.skills.list(source: "anthropic")
 
   skills.data.each do |skill|
-    puts "#{skill.id}: #{skill.display_title}"
+    puts "#{skill.id}: #{skill.display_name}"
   end
   ```
 </CodeGroup>
@@ -131,7 +130,6 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
       -H "content-type: application/json" \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: skills-2025-10-02" \
       -d @- <<'EOF'
   {
     "model": "claude-opus-5",
@@ -146,13 +144,11 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
   }
   EOF
   )
-  jq -r '"stop_reason=\(.stop_reason), blocks=\(.content | length)"' <<<"$response"
   ```
 
   ```bash CLI
   # Create a message with the PowerPoint Skill
-  response=$(ant beta:messages create --format json \
-    --beta skills-2025-10-02 <<'YAML'
+  response=$(ant messages create --format json <<'YAML'
   model: claude-opus-5
   max_tokens: 16000
   container:
@@ -168,16 +164,13 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
       name: code_execution
   YAML
   )
-
-  jq -r '"stop_reason=\(.stop_reason), blocks=\(.content | length)"' <<<"$response"
   ```
 
   ```python Python
   # Create a message with the PowerPoint Skill
-  response = client.beta.messages.create(
+  response = client.messages.create(
       model="claude-opus-5",
       max_tokens=16000,
-      betas=["skills-2025-10-02"],
       container={
           "skills": [{"type": "anthropic", "skill_id": "pptx", "version": "latest"}]
       },
@@ -195,10 +188,9 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
   ```typescript TypeScript
   // Create a message with the PowerPoint Skill
-  const response = await client.beta.messages.create({
+  const response = await client.messages.create({
     model: "claude-opus-5",
     max_tokens: 16000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{ type: "anthropic", skill_id: "pptx", version: "latest" }],
     },
@@ -218,18 +210,17 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
   ```csharp C#
   // Create a message with the PowerPoint Skill
-  var response = await client.Beta.Messages.Create(new MessageCreateParams
+  var response = await client.Messages.Create(new MessageCreateParams
   {
       Model = Model.ClaudeOpus5,
       MaxTokens = 16000,
-      Betas = ["skills-2025-10-02"],
-      Container = new BetaContainerParams
+      Container = new ContainerParams
       {
           Skills =
           [
-              new BetaSkillParams
+              new SkillParams
               {
-                  Type = BetaSkillParamsType.Anthropic,
+                  Type = SkillParamsType.Anthropic,
                   SkillID = "pptx",
                   Version = "latest",
               },
@@ -237,13 +228,13 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
       },
       Messages =
       [
-          new BetaMessageParam
+          new MessageParam
           {
               Role = Role.User,
               Content = "Create a presentation about renewable energy with 5 slides",
           },
       ],
-      Tools = [new BetaCodeExecutionTool20260521()],
+      Tools = [new CodeExecutionTool20260521()],
   });
 
   Console.WriteLine($"stop_reason={response.StopReason?.Raw()}, blocks={response.Content.Count}");
@@ -251,30 +242,27 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
   ```go Go
   // Create a message with the PowerPoint Skill
-  response, err := client.Beta.Messages.New(ctx, anthropic.BetaMessageNewParams{
+  response, err := client.Messages.New(ctx, anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5,
   	MaxTokens: 16000,
-  	Betas: []anthropic.AnthropicBeta{
-  		anthropic.AnthropicBetaSkills2025_10_02,
-  	},
-  	Container: anthropic.BetaMessageNewParamsContainerUnion{
-  		OfContainers: &anthropic.BetaContainerParams{
-  			Skills: []anthropic.BetaSkillParams{
+  	Container: anthropic.MessageCreateParamsContainerUnion{
+  		OfContainers: &anthropic.ContainerParams{
+  			Skills: []anthropic.SkillParams{
   				{
-  					Type:    anthropic.BetaSkillParamsTypeAnthropic,
+  					Type:    anthropic.SkillParamsTypeAnthropic,
   					SkillID: "pptx",
   					Version: anthropic.String("latest"),
   				},
   			},
   		},
   	},
-  	Messages: []anthropic.BetaMessageParam{
-  		anthropic.NewBetaUserMessage(
-  			anthropic.NewBetaTextBlock("Create a presentation about renewable energy with 5 slides"),
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(
+  			anthropic.NewTextBlock("Create a presentation about renewable energy with 5 slides"),
   		),
   	},
-  	Tools: []anthropic.BetaToolUnionParam{
-  		{OfCodeExecutionTool20260521: &anthropic.BetaCodeExecutionTool20260521Param{}},
+  	Tools: []anthropic.ToolUnionParam{
+  		{OfCodeExecutionTool20260521: &anthropic.CodeExecutionTool20260521Param{}},
   	},
   })
   if err != nil {
@@ -286,16 +274,15 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
   ```java Java
   // Create a message with the PowerPoint Skill
-  BetaMessage response = client.beta().messages().create(
+  Message response = client.messages().create(
       MessageCreateParams.builder()
           .model(Model.CLAUDE_OPUS_5)
           .maxTokens(16000)
-          .addBeta(AnthropicBeta.SKILLS_2025_10_02)
           .container(
-              BetaContainerParams.builder()
+              ContainerParams.builder()
                   .addSkill(
-                      BetaSkillParams.builder()
-                          .type(BetaSkillParams.Type.ANTHROPIC)
+                      SkillParams.builder()
+                          .type(SkillParams.Type.ANTHROPIC)
                           .skillId("pptx")
                           .version("latest")
                           .build()
@@ -303,7 +290,7 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
                   .build()
           )
           .addUserMessage("Create a presentation about renewable energy with 5 slides")
-          .addTool(BetaCodeExecutionTool20260521.builder().build())
+          .addTool(CodeExecutionTool20260521.builder().build())
           .build()
   );
 
@@ -314,6 +301,7 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
   ```
 
   ```php PHP
+  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   // Create a message with the PowerPoint Skill
   $response = $client->beta->messages->create(
       model: 'claude-opus-5',
@@ -336,10 +324,9 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
 
   ```ruby Ruby
   # Create a message with the PowerPoint Skill
-  response = client.beta.messages.create(
+  response = client.messages.create(
     model: "claude-opus-5",
     max_tokens: 16_000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{type: "anthropic", skill_id: "pptx", version: "latest"}]
     },
@@ -366,9 +353,7 @@ The request includes the following parts:
 * **`tools`:** Enables code execution (required for Skills)
 
 <Note>
-  Skills are generally available on the Claude API and don't require a beta header. The examples on this page still send the `skills-2025-10-02` beta header and use the SDKs' `beta` namespace. Both remain valid, so you can run the examples as written and omit the header in your own requests.
-
-  The examples use the `code_execution_20260521` tool version, and the Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement without a beta header. If you use a different version, use the tool `type` listed on the code execution tool page.
+  The examples use the `code_execution_20260521` tool version, and the Step 3 code parses the result types that current tool versions return. Skills also work with older [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) versions such as `code_execution_20250825`: any current code execution tool version satisfies the Skills requirement. If you use a different version, use the tool `type` listed on the code execution tool page.
 </Note>
 
 When you make this request, Claude automatically matches your task to the relevant Skill. Because you asked for a presentation, Claude determines the PowerPoint Skill is relevant and loads its full instructions: the second level of progressive disclosure. Then Claude runs the Skill's code to create your presentation.
@@ -398,7 +383,6 @@ The presentation was created in the code execution container and saved as a file
     curl --fail-with-body -sS "https://api.anthropic.com/v1/files/$file_id/content" \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: files-api-2025-04-14" \
       -o "$output_path"
     echo "Presentation saved to $output_path"
   fi
@@ -421,7 +405,7 @@ The presentation was created in the code execution container and saved as a file
   if [[ -n "$file_id" ]]; then
     # Download the file and save it
     output_path="${TMPDIR:-/tmp}/renewable_energy.pptx"
-    ant beta:files download --file-id "$file_id" --output "$output_path"
+    ant files download --file-id "$file_id" --output "$output_path"
     echo "Presentation saved to $output_path"
   fi
   ```
@@ -440,7 +424,7 @@ The presentation was created in the code execution container and saved as a file
   if file_id:
       # Download the file and save it
       output_path = Path(tempfile.gettempdir()) / "renewable_energy.pptx"
-      file_content = client.beta.files.download(file_id=file_id)
+      file_content = client.files.download(file_id=file_id)
       file_content.write_to_file(output_path)
       print(f"Presentation saved to {output_path}")
   ```
@@ -464,7 +448,7 @@ The presentation was created in the code execution container and saved as a file
   if (fileId) {
     // Download the file and save it
     const outputPath = path.join(os.tmpdir(), "renewable_energy.pptx");
-    const fileContent = await client.beta.files.download(fileId);
+    const fileContent = await client.files.download(fileId);
     await fs.writeFile(outputPath, Buffer.from(await fileContent.arrayBuffer()));
     console.log(`Presentation saved to ${outputPath}`);
   }
@@ -478,7 +462,7 @@ The presentation was created in the code execution container and saved as a file
   foreach (var block in response.Content)
   {
       if (block.TryPickBashCodeExecutionToolResult(out var bashResult)
-          && bashResult.Content.TryPickBetaBashCodeExecutionResultBlock(out var bashResultBlock))
+          && bashResult.Content.TryPickBashCodeExecutionResultBlock(out var bashResultBlock))
       {
           foreach (var output in bashResultBlock.Content)
           {
@@ -491,7 +475,7 @@ The presentation was created in the code execution container and saved as a file
   {
       // Download the file and save it
       var outputPath = Path.Combine(Path.GetTempPath(), "renewable_energy.pptx");
-      using var download = await client.Beta.Files.Download(fileId);
+      using var download = await client.Files.Download(fileId);
       await using var source = await download.ReadAsStream();
       await using var destination = File.Create(outputPath);
       await source.CopyToAsync(destination);
@@ -506,7 +490,7 @@ The presentation was created in the code execution container and saved as a file
   var fileID string
   for _, block := range response.Content {
   	switch result := block.AsAny().(type) {
-  	case anthropic.BetaBashCodeExecutionToolResultBlock:
+  	case anthropic.BashCodeExecutionToolResultBlock:
   		if result.Content.Type == "bash_code_execution_result" {
   			for _, output := range result.Content.Content {
   				fileID = output.FileID
@@ -518,7 +502,7 @@ The presentation was created in the code execution container and saved as a file
   if fileID != "" {
   	// Download the file and save it
   	outputPath := filepath.Join(os.TempDir(), "renewable_energy.pptx")
-  	fileContent, err := client.Beta.Files.Download(ctx, fileID, anthropic.BetaFileDownloadParams{})
+  	fileContent, err := client.Files.Download(ctx, fileID)
   	if err != nil {
   		panic(err)
   	}
@@ -540,11 +524,11 @@ The presentation was created in the code execution container and saved as a file
   // its Bash sub-tool, and generated files appear as bash_code_execution_output
   // items inside the bash_code_execution_tool_result block.
   String fileId = null;
-  for (BetaContentBlock block : response.content()) {
+  for (ContentBlock block : response.content()) {
       if (block.isBashCodeExecutionToolResult()) {
           var content = block.asBashCodeExecutionToolResult().content();
-          if (content.isBetaBashCodeExecutionResultBlock()) {
-              for (var output : content.asBetaBashCodeExecutionResultBlock().content()) {
+          if (content.isBashCodeExecutionResultBlock()) {
+              for (var output : content.asBashCodeExecutionResultBlock().content()) {
                   fileId = output.fileId();
               }
           }
@@ -554,7 +538,7 @@ The presentation was created in the code execution container and saved as a file
   if (fileId != null) {
       // Download the file and save it
       Path outputPath = Files.createTempFile("renewable_energy", ".pptx");
-      try (HttpResponse fileContent = client.beta().files().download(fileId)) {
+      try (HttpResponse fileContent = client.files().download(fileId)) {
           Files.copy(fileContent.body(), outputPath, StandardCopyOption.REPLACE_EXISTING);
       }
       IO.println("Presentation saved to " + outputPath);
@@ -562,6 +546,7 @@ The presentation was created in the code execution container and saved as a file
   ```
 
   ```php PHP
+  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // Extract the file ID. The code execution tool runs the Skill's code through
   // its Bash sub-tool, and generated files appear as bash_code_execution_output
   // items inside the bash_code_execution_tool_result block.
@@ -604,7 +589,7 @@ The presentation was created in the code execution container and saved as a file
   if file_id
     # Download the file and save it
     output_path = File.join(Dir.tmpdir, "renewable_energy.pptx")
-    file_content = client.beta.files.download(file_id)
+    file_content = client.files.download(file_id)
     File.binwrite(output_path, file_content.read)
     puts "Presentation saved to #{output_path}"
   end
@@ -627,7 +612,6 @@ Try these variations:
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02" \
     -d '{
       "model": "claude-opus-5",
       "max_tokens": 16000,
@@ -638,12 +622,11 @@ Try these variations:
         {"role": "user", "content": "Create a quarterly sales tracking spreadsheet with sample data"}
       ],
       "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
-    }' | jq -r '"stop_reason=\(.stop_reason)"'
+    }'
   ```
 
   ```bash CLI
-  ant beta:messages create --format json \
-    --beta skills-2025-10-02 <<'YAML' | jq -r '"stop_reason=\(.stop_reason)"'
+  ant messages create <<'YAML'
   model: claude-opus-5
   max_tokens: 16000
   container:
@@ -661,10 +644,9 @@ Try these variations:
   ```
 
   ```python Python
-  response = client.beta.messages.create(
+  response = client.messages.create(
       model="claude-opus-5",
       max_tokens=16000,
-      betas=["skills-2025-10-02"],
       container={
           "skills": [{"type": "anthropic", "skill_id": "xlsx", "version": "latest"}]
       },
@@ -679,10 +661,9 @@ Try these variations:
   ```
 
   ```typescript TypeScript
-  const response = await client.beta.messages.create({
+  const response = await client.messages.create({
     model: "claude-opus-5",
     max_tokens: 16000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{ type: "anthropic", skill_id: "xlsx", version: "latest" }]
     },
@@ -697,19 +678,18 @@ Try these variations:
   ```
 
   ```csharp C#
-  var response = await client.Beta.Messages.Create(
+  var response = await client.Messages.Create(
       new MessageCreateParams
       {
           Model = Model.ClaudeOpus5,
           MaxTokens = 16000,
-          Betas = ["skills-2025-10-02"],
-          Container = new BetaContainerParams
+          Container = new ContainerParams
           {
               Skills =
               [
-                  new BetaSkillParams
+                  new SkillParams
                   {
-                      Type = BetaSkillParamsType.Anthropic,
+                      Type = SkillParamsType.Anthropic,
                       SkillID = "xlsx",
                       Version = "latest",
                   },
@@ -717,41 +697,38 @@ Try these variations:
           },
           Messages =
           [
-              new BetaMessageParam
+              new MessageParam
               {
                   Role = Role.User,
                   Content = "Create a quarterly sales tracking spreadsheet with sample data",
               },
           ],
-          Tools = [new BetaCodeExecutionTool20260521()],
+          Tools = [new CodeExecutionTool20260521()],
       }
   );
   ```
 
   ```go Go
-  response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
+  response, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5,
   	MaxTokens: 16000,
-  	Betas: []anthropic.AnthropicBeta{
-  		anthropic.AnthropicBetaSkills2025_10_02,
-  	},
-  	Container: anthropic.BetaMessageNewParamsContainerUnion{
-  		OfContainers: &anthropic.BetaContainerParams{
-  			Skills: []anthropic.BetaSkillParams{
+  	Container: anthropic.MessageCreateParamsContainerUnion{
+  		OfContainers: &anthropic.ContainerParams{
+  			Skills: []anthropic.SkillParams{
   				{
-  					Type:    anthropic.BetaSkillParamsTypeAnthropic,
+  					Type:    anthropic.SkillParamsTypeAnthropic,
   					SkillID: "xlsx",
   					Version: anthropic.String("latest"),
   				},
   			},
   		},
   	},
-  	Messages: []anthropic.BetaMessageParam{
-  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Create a quarterly sales tracking spreadsheet with sample data")),
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Create a quarterly sales tracking spreadsheet with sample data")),
   	},
-  	Tools: []anthropic.BetaToolUnionParam{
+  	Tools: []anthropic.ToolUnionParam{
   		{
-  			OfCodeExecutionTool20260521: &anthropic.BetaCodeExecutionTool20260521Param{},
+  			OfCodeExecutionTool20260521: &anthropic.CodeExecutionTool20260521Param{},
   		},
   	},
   })
@@ -761,15 +738,14 @@ Try these variations:
   ```
 
   ```java Java
-  BetaMessage response = client.beta().messages().create(
+  Message response = client.messages().create(
       MessageCreateParams.builder()
           .model(CLAUDE_OPUS_5)
           .maxTokens(16000)
-          .addBeta(AnthropicBeta.SKILLS_2025_10_02)
           .container(
-              BetaContainerParams.builder()
+              ContainerParams.builder()
                   .addSkill(
-                      BetaSkillParams.builder()
+                      SkillParams.builder()
                           .type(ANTHROPIC)
                           .skillId("xlsx")
                           .version("latest")
@@ -778,13 +754,14 @@ Try these variations:
                   .build()
           )
           .addUserMessage("Create a quarterly sales tracking spreadsheet with sample data")
-          .addTool(BetaCodeExecutionTool20260521.builder().build())
+          .addTool(CodeExecutionTool20260521.builder().build())
           .build()
   );
 
   ```
 
   ```php PHP
+  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $response = $client->beta->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
@@ -805,10 +782,9 @@ Try these variations:
   ```
 
   ```ruby Ruby
-  response = client.beta.messages.create(
+  response = client.messages.create(
     model: "claude-opus-5",
     max_tokens: 16_000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{type: "anthropic", skill_id: "xlsx", version: "latest"}]
     },
@@ -831,7 +807,6 @@ Try these variations:
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02" \
     -d '{
       "model": "claude-opus-5",
       "max_tokens": 16000,
@@ -842,12 +817,11 @@ Try these variations:
         {"role": "user", "content": "Write a 2-page report on the benefits of renewable energy"}
       ],
       "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
-    }' | jq -r '"stop_reason=\(.stop_reason)"'
+    }'
   ```
 
   ```bash CLI
-  ant beta:messages create --format json \
-    --beta skills-2025-10-02 <<'YAML' | jq -r '"stop_reason=\(.stop_reason)"'
+  ant messages create <<'YAML'
   model: claude-opus-5
   max_tokens: 16000
   container:
@@ -865,10 +839,9 @@ Try these variations:
   ```
 
   ```python Python
-  response = client.beta.messages.create(
+  response = client.messages.create(
       model="claude-opus-5",
       max_tokens=16000,
-      betas=["skills-2025-10-02"],
       container={
           "skills": [{"type": "anthropic", "skill_id": "docx", "version": "latest"}]
       },
@@ -883,10 +856,9 @@ Try these variations:
   ```
 
   ```typescript TypeScript
-  const response = await client.beta.messages.create({
+  const response = await client.messages.create({
     model: "claude-opus-5",
     max_tokens: 16000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{ type: "anthropic", skill_id: "docx", version: "latest" }]
     },
@@ -901,19 +873,18 @@ Try these variations:
   ```
 
   ```csharp C#
-  var response = await client.Beta.Messages.Create(
+  var response = await client.Messages.Create(
       new MessageCreateParams
       {
           Model = Model.ClaudeOpus5,
           MaxTokens = 16000,
-          Betas = ["skills-2025-10-02"],
-          Container = new BetaContainerParams
+          Container = new ContainerParams
           {
               Skills =
               [
-                  new BetaSkillParams
+                  new SkillParams
                   {
-                      Type = BetaSkillParamsType.Anthropic,
+                      Type = SkillParamsType.Anthropic,
                       SkillID = "docx",
                       Version = "latest",
                   },
@@ -921,41 +892,38 @@ Try these variations:
           },
           Messages =
           [
-              new BetaMessageParam
+              new MessageParam
               {
                   Role = Role.User,
                   Content = "Write a 2-page report on the benefits of renewable energy",
               },
           ],
-          Tools = [new BetaCodeExecutionTool20260521()],
+          Tools = [new CodeExecutionTool20260521()],
       }
   );
   ```
 
   ```go Go
-  response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
+  response, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5,
   	MaxTokens: 16000,
-  	Betas: []anthropic.AnthropicBeta{
-  		anthropic.AnthropicBetaSkills2025_10_02,
-  	},
-  	Container: anthropic.BetaMessageNewParamsContainerUnion{
-  		OfContainers: &anthropic.BetaContainerParams{
-  			Skills: []anthropic.BetaSkillParams{
+  	Container: anthropic.MessageCreateParamsContainerUnion{
+  		OfContainers: &anthropic.ContainerParams{
+  			Skills: []anthropic.SkillParams{
   				{
-  					Type:    anthropic.BetaSkillParamsTypeAnthropic,
+  					Type:    anthropic.SkillParamsTypeAnthropic,
   					SkillID: "docx",
   					Version: anthropic.String("latest"),
   				},
   			},
   		},
   	},
-  	Messages: []anthropic.BetaMessageParam{
-  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Write a 2-page report on the benefits of renewable energy")),
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Write a 2-page report on the benefits of renewable energy")),
   	},
-  	Tools: []anthropic.BetaToolUnionParam{
+  	Tools: []anthropic.ToolUnionParam{
   		{
-  			OfCodeExecutionTool20260521: &anthropic.BetaCodeExecutionTool20260521Param{},
+  			OfCodeExecutionTool20260521: &anthropic.CodeExecutionTool20260521Param{},
   		},
   	},
   })
@@ -965,15 +933,14 @@ Try these variations:
   ```
 
   ```java Java
-  BetaMessage response = client.beta().messages().create(
+  Message response = client.messages().create(
       MessageCreateParams.builder()
           .model(CLAUDE_OPUS_5)
           .maxTokens(16000)
-          .addBeta(AnthropicBeta.SKILLS_2025_10_02)
           .container(
-              BetaContainerParams.builder()
+              ContainerParams.builder()
                   .addSkill(
-                      BetaSkillParams.builder()
+                      SkillParams.builder()
                           .type(ANTHROPIC)
                           .skillId("docx")
                           .version("latest")
@@ -982,13 +949,14 @@ Try these variations:
                   .build()
           )
           .addUserMessage("Write a 2-page report on the benefits of renewable energy")
-          .addTool(BetaCodeExecutionTool20260521.builder().build())
+          .addTool(CodeExecutionTool20260521.builder().build())
           .build()
   );
 
   ```
 
   ```php PHP
+  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $response = $client->beta->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
@@ -1009,10 +977,9 @@ Try these variations:
   ```
 
   ```ruby Ruby
-  response = client.beta.messages.create(
+  response = client.messages.create(
     model: "claude-opus-5",
     max_tokens: 16_000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{type: "anthropic", skill_id: "docx", version: "latest"}]
     },
@@ -1035,7 +1002,6 @@ Try these variations:
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: skills-2025-10-02" \
     -d '{
       "model": "claude-opus-5",
       "max_tokens": 16000,
@@ -1046,12 +1012,11 @@ Try these variations:
         {"role": "user", "content": "Generate a PDF invoice template"}
       ],
       "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
-    }' | jq -r '"stop_reason=\(.stop_reason)"'
+    }'
   ```
 
   ```bash CLI
-  ant beta:messages create --format json \
-    --beta skills-2025-10-02 <<'YAML' | jq -r '"stop_reason=\(.stop_reason)"'
+  ant messages create <<'YAML'
   model: claude-opus-5
   max_tokens: 16000
   container:
@@ -1069,10 +1034,9 @@ Try these variations:
   ```
 
   ```python Python
-  response = client.beta.messages.create(
+  response = client.messages.create(
       model="claude-opus-5",
       max_tokens=16000,
-      betas=["skills-2025-10-02"],
       container={
           "skills": [{"type": "anthropic", "skill_id": "pdf", "version": "latest"}]
       },
@@ -1087,10 +1051,9 @@ Try these variations:
   ```
 
   ```typescript TypeScript
-  const response = await client.beta.messages.create({
+  const response = await client.messages.create({
     model: "claude-opus-5",
     max_tokens: 16000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{ type: "anthropic", skill_id: "pdf", version: "latest" }]
     },
@@ -1105,19 +1068,18 @@ Try these variations:
   ```
 
   ```csharp C#
-  var response = await client.Beta.Messages.Create(
+  var response = await client.Messages.Create(
       new MessageCreateParams
       {
           Model = Model.ClaudeOpus5,
           MaxTokens = 16000,
-          Betas = ["skills-2025-10-02"],
-          Container = new BetaContainerParams
+          Container = new ContainerParams
           {
               Skills =
               [
-                  new BetaSkillParams
+                  new SkillParams
                   {
-                      Type = BetaSkillParamsType.Anthropic,
+                      Type = SkillParamsType.Anthropic,
                       SkillID = "pdf",
                       Version = "latest",
                   },
@@ -1125,41 +1087,38 @@ Try these variations:
           },
           Messages =
           [
-              new BetaMessageParam
+              new MessageParam
               {
                   Role = Role.User,
                   Content = "Generate a PDF invoice template",
               },
           ],
-          Tools = [new BetaCodeExecutionTool20260521()],
+          Tools = [new CodeExecutionTool20260521()],
       }
   );
   ```
 
   ```go Go
-  response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
+  response, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5,
   	MaxTokens: 16000,
-  	Betas: []anthropic.AnthropicBeta{
-  		anthropic.AnthropicBetaSkills2025_10_02,
-  	},
-  	Container: anthropic.BetaMessageNewParamsContainerUnion{
-  		OfContainers: &anthropic.BetaContainerParams{
-  			Skills: []anthropic.BetaSkillParams{
+  	Container: anthropic.MessageCreateParamsContainerUnion{
+  		OfContainers: &anthropic.ContainerParams{
+  			Skills: []anthropic.SkillParams{
   				{
-  					Type:    anthropic.BetaSkillParamsTypeAnthropic,
+  					Type:    anthropic.SkillParamsTypeAnthropic,
   					SkillID: "pdf",
   					Version: anthropic.String("latest"),
   				},
   			},
   		},
   	},
-  	Messages: []anthropic.BetaMessageParam{
-  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Generate a PDF invoice template")),
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Generate a PDF invoice template")),
   	},
-  	Tools: []anthropic.BetaToolUnionParam{
+  	Tools: []anthropic.ToolUnionParam{
   		{
-  			OfCodeExecutionTool20260521: &anthropic.BetaCodeExecutionTool20260521Param{},
+  			OfCodeExecutionTool20260521: &anthropic.CodeExecutionTool20260521Param{},
   		},
   	},
   })
@@ -1169,15 +1128,14 @@ Try these variations:
   ```
 
   ```java Java
-  BetaMessage response = client.beta().messages().create(
+  Message response = client.messages().create(
       MessageCreateParams.builder()
           .model(CLAUDE_OPUS_5)
           .maxTokens(16000)
-          .addBeta(AnthropicBeta.SKILLS_2025_10_02)
           .container(
-              BetaContainerParams.builder()
+              ContainerParams.builder()
                   .addSkill(
-                      BetaSkillParams.builder()
+                      SkillParams.builder()
                           .type(ANTHROPIC)
                           .skillId("pdf")
                           .version("latest")
@@ -1186,13 +1144,14 @@ Try these variations:
                   .build()
           )
           .addUserMessage("Generate a PDF invoice template")
-          .addTool(BetaCodeExecutionTool20260521.builder().build())
+          .addTool(CodeExecutionTool20260521.builder().build())
           .build()
   );
 
   ```
 
   ```php PHP
+  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $response = $client->beta->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
@@ -1213,10 +1172,9 @@ Try these variations:
   ```
 
   ```ruby Ruby
-  response = client.beta.messages.create(
+  response = client.messages.create(
     model: "claude-opus-5",
     max_tokens: 16_000,
-    betas: ["skills-2025-10-02"],
     container: {
       skills: [{type: "anthropic", skill_id: "pdf", version: "latest"}]
     },
@@ -1242,7 +1200,7 @@ Try these variations:
     Learn how to use Agent Skills to extend Claude's capabilities through the API.
   </Card>
 
-  <Card title="Create custom Skills" icon="code" href="https://platform.claude.com/docs/en/api/skills/create-skill">
+  <Card title="Create custom Skills" icon="code" href="https://platform.claude.com/docs/en/api/skills/create">
     Upload your own Skills for specialized tasks.
   </Card>
 

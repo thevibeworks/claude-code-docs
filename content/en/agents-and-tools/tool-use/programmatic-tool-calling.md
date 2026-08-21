@@ -249,7 +249,7 @@ Here's an example where Claude programmatically queries a database multiple time
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java
@@ -874,7 +874,7 @@ Send the full conversation history plus your tool result. Three details matter o
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
   	Model:     anthropic.ModelClaudeOpus5,
   	MaxTokens: 4096,
-  	Container: anthropic.MessageNewParamsContainerUnion{
+  	Container: anthropic.MessageCreateParamsContainerUnion{
   		OfString: anthropic.String("container_xyz789"),
   	},
   	Messages: []anthropic.MessageParam{
@@ -936,7 +936,7 @@ Send the full conversation history plus your tool result. Three details matter o
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(response)
+  fmt.Println(response.RawJSON())
   ```
 
   ```java Java
@@ -1367,6 +1367,7 @@ To work around this, do one of the following:
 The following tools cannot be called programmatically:
 
 * Tools provided by an [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector)
+* The [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets (`computer_toolset_20260801` and `browser_toolset_20260801`), whose `allowed_callers` field accepts only `"direct"`
 
 ### Message formatting restrictions
 

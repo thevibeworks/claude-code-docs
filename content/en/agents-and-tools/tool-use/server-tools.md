@@ -45,13 +45,13 @@ Here's how to handle the `pause_turn` stop reason:
         }
       ],
       "tools": [{"type": "web_search_20250305", "name": "web_search", "max_uses": 10}]
-    }' | jq '{stop_reason, content}'
+    }'
   ```
 
   ```bash CLI
   # Initial request. If "stop_reason" in the output is "pause_turn", re-run with
   # the assistant content appended to messages (see the SDK tabs).
-  ant messages create --format json <<'YAML' | jq '{stop_reason, content}'
+  ant messages create <<'YAML'
   model: claude-opus-5
   max_tokens: 1024
   tools:
@@ -530,14 +530,14 @@ The following example enables web fetch together with a user-defined `run_comman
           }
         }
       ]
-    }' | jq '{stop_reason, content}'
+    }'
   ```
 
   ```bash CLI
   # If "stop_reason" is "tool_use" and a server_tool_use block has no matching
   # result block, run the client tools and re-run with a user message of only
   # their tool_result blocks appended (see the SDK tabs).
-  ant messages create --format json <<'YAML' | jq '{stop_reason, content}'
+  ant messages create <<'YAML'
   model: claude-opus-4-8
   max_tokens: 1024
   messages:
@@ -1064,7 +1064,7 @@ When using domain filters:
 Invalid domain formats are rejected at request time with a 400 `invalid_request_error`.
 
 <Note>
-  Request-level domain restrictions work together with any organization-level domain restrictions configured in Claude Console. Request-level `allowed_domains` must be a subset of the organization-level allowed list; entries outside it cause the API to return a validation error. Domains your organization blocks are removed from a request-level allowed list rather than returning an error.
+  Request-level domain restrictions work together with any organization-level domain restrictions configured in Claude Console. Request-level `allowed_domains` must be a subset of the organization-level allowed list; entries outside it cause the API to return a validation error. A request-level allowed list that includes a domain your organization blocks is rejected with a `400` error that names the conflicting entries.
 </Note>
 
 <Warning>
@@ -1102,7 +1102,7 @@ Common batch workloads include enriching a dataset with information from the web
     Fix the most common tool-use errors with symptom-to-fix diagnostic tables.
   </Card>
 
-  <Card title="Web search tool" icon="browser" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">
+  <Card title="Web search tool" icon="magnifying-glass" href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool">
     Search the web and cite results.
   </Card>
 

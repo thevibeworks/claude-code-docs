@@ -22,7 +22,7 @@ Use messaging when one of your sessions has something another session needs mid-
 
 * **Hand over a finding**: when one session discovers a breaking change or makes a decision, Claude summarizes it for the session working on the affected area, instead of you re-explaining it there.
 * **Coordinate parallel worktrees**: when sessions work the same repository in separate [worktrees](/docs/en/worktrees), Claude can tell the other sessions what landed.
-* **Get status from long-running work**: have a migration or test run report back to the session you're watching, or ask it yourself from there.
+* **Get status from long-running work**: have a migration or test run report back to the session you're watching, or ask it yourself from there. If that session is on this machine, Claude can also [ask it for one notice when it next goes idle or exits](#get-a-notice-when-another-session-goes-idle).
 * **Message across machines**: reach one of your sessions on another machine or on the web.
 
 Use messaging between independent sessions that you start and steer yourself. Claude Code has a dedicated feature for each of the other ways to run or reach multiple sessions, so use the one built for what you're doing instead:
@@ -73,12 +73,41 @@ Once delivered, the message counts toward [usage](/docs/en/costs) like a prompt 
 
 Permission boundaries stay per-session. Claude is instructed never to ask another session for an action that was denied or blocked in its own session, or that its own permission settings would block, and to route that work back to you instead. On the receiving side, the [receiving session's own permission prompts and rules still apply](#how-a-session-treats-an-incoming-message) to anything the message asks for.
 
+### Get a notice when another session goes idle
+
+Claude can ask one of your sessions on this machine to send back one notice when that session next goes idle or exits. Idle here means the session finished a turn with nothing queued. Use it when you're waiting on a long task in another session and want to hear when it's done instead of checking. Requires Claude Code v2.1.236 or later in both sessions.
+
+#### Ask for a notice
+
+Tell Claude what you're waiting on. This prompt asks for a notice from the migration session:
+
+```text wrap theme={null}
+Tell me when the migration session finishes what it's working on
+```
+
+Claude subscribes with the `SendMessage` tool's `notify_when_idle` input, either attached to a message it's sending anyway or on its own. On its own, Claude Code subscribes without starting a turn or spending tokens in the watched session, and sends the notice right away if that session is already idle. Attached to a message, Claude Code delivers the message first and sends the notice later.
+
+#### What each session shows
+
+The watched session shows a line saying another process asked to be told when the session is next idle. The asking session shows the notice as a line naming the watched session. The line can include the time that session's turn finished and a one-line status from that turn. If the asking session is idle, Claude Code starts a new turn with the notice.
+
+#### Limits
+
+The notice is one-shot: Claude Code sends it once from the watched session, and neither session polls the other. If no notice arrives within 12 hours, Claude Code drops the subscription and tells Claude, so it doesn't keep waiting.
+
+Each side's [inbound controls](#control-inbound-messages) apply to a notice like a message:
+
+* **`refuse` on either side**: nothing arrives. The watched session drops the request without recording or answering it, so the subscription expires unanswered after 12 hours, and an asking session with `refuse` never subscribes.
+* **`hold` on either side**: the notice arrives with less. The watched session leaves the one-line status out, and the asking session shows the notice in your transcript without delivering it to Claude.
+
+Only the Claude in your main conversation can subscribe, and only to your sessions on this machine. When a subagent or an agent team teammate sets `notify_when_idle`, Claude Code makes no subscription and tells it so. When Claude asks for a notice from any other agent, such as a teammate, a subagent, or a session beyond this machine, Claude Code refuses the whole call, including any message attached to it, and reports the refusal to Claude so it can resend the message without the request.
+
 ### See which sessions Claude can reach
 
 Claude finds a message's target on its own, so you don't need to run anything before asking it to send. To see for yourself which sessions Claude can reach, run the `/list-agents` command. It lists each session with the name it answers to, and that name is where Claude addresses a message. The listing covers:
 
 * **Subagents**: agents running inside the current session. [Agent team](/docs/en/agent-teams) teammates aren't listed; Claude messages them through the team's own roster.
-* **Your other local sessions**: Claude Code sessions running on the same machine, including [background sessions](/docs/en/agent-view). A session appears only when it binds an [inbox socket](#the-sessions-inbox-socket).
+* **Your other local sessions**: Claude Code sessions running on the same machine, including [background sessions](/docs/en/agent-view). A session appears only when it binds an [inbox socket](#the-sessions-inbox-socket). The worker process that the [supervisor process](/docs/en/agent-view#the-supervisor-process) keeps ready for your next background session appears once you dispatch work to it.
 * **Your cloud sessions**: your [Claude Code on the web](/docs/en/claude-code-on-the-web) sessions, shown while this session is connected to [Remote Control](/docs/en/remote-control). Claude Code labels them `cloud` in the listing.
 * **Your Remote Control sessions on other machines**: shown while this session is connected to [Remote Control](/docs/en/remote-control), and labeled `Remote Control`. Claude Code shows `offline` as the status of a session whose Remote Control connection has dropped.
 
@@ -157,9 +186,9 @@ When the default holds a message, Claude Code opens an approval dialog in the re
 * **Deny**, or dismissing the dialog, drops it.
 * When the dialog stays unanswered past the [`dialogExpiry`](/docs/en/settings#available-settings) deadline, Claude Code closes it and drops the message. The deadline defaults to five minutes. While no terminal is attached to a [background session](/docs/en/agent-view), Claude Code leaves the dialog open past the deadline. After you attach, Claude Code closes the dialog and drops the message only if it stays unanswered for a full deadline period.
 * If this session's permission-mode class changes while messages are held, Claude Code re-applies the inbound rules, delivers the messages they now accept, and shows a notice.
-* If a change makes `refuse` apply while messages are held, Claude Code drops every held message and reports a denial to each sender it can reach.
+* If a settings change makes `refuse` apply while messages are held, Claude Code drops every held message and reports a refusal to each sender it can reach.
 
-When the sender runs on the same machine, Claude Code tells the sending session what happened. A notice appears there when the message is held, and a follow-up reports the outcome when the receiver later delivers, denies, or expires it. A message refused on arrival produces no sender-side notice.
+When the sender is an interactive session on the same machine, Claude Code shows a notice there when the receiver holds the message, and a follow-up when the receiver later delivers, denies, or expires it. If the receiver refuses it, Claude Code shows a notice there that the receiver isn't accepting cross-session messages and tells the sender's Claude not to wait or resend.
 
 Claude Code holds at most 100 messages, separately from the delivery queue, and past that drops the oldest.
 
@@ -238,7 +267,7 @@ Administrators can turn both sides off for an organization in [managed settings]
 }
 ```
 
-With this in place, Claude Code still binds each session's inbox socket, but drops every message that arrives on it without delivering anything to Claude. Denying `SendMessage` also removes messaging to subagents and agent-team teammates, since the same tool serves both. A refusing session shows no visible change, in its own `/status` or in other sessions' listings, so confirm the setting from the session's configuration.
+With this in place, Claude Code still binds each session's inbox socket, but drops every message that arrives on it without delivering anything to Claude. Denying `SendMessage` also removes messaging to subagents and agent-team teammates, since the same tool serves both. A refusing session shows no visible change, in its own `/status` or in the listings of other sessions on the same machine, so to confirm it, check the settings files that apply to that session rather than its status.
 
 ## Availability
 
@@ -266,7 +295,7 @@ The limits here are properties of the messaging channel itself and apply whereve
 
 * **Plain text only**: Claude sends only plain text across sessions. Structured [agent team](/docs/en/agent-teams) protocol messages stay within a team.
 * **Same-machine message size is capped**: Claude Code refuses a message to a session on this machine once its serialized form passes about a million characters. The refusal [names the exact sizes](/docs/en/errors#message-too-large-for-cross-session-delivery). Nothing reaches the receiving session.
-* **Message loops are throttled**: Claude Code rate-limits repeated messages per sender, drops identical repeats arriving within a short window, and caps accepted messages waiting for Claude to read them at 50 per session. A message loop between two sessions therefore stops on its own.
+* **Message loops are throttled**: in the receiving session, Claude Code rate-limits repeated messages per sender, drops identical repeats arriving within a short window, and queues at most 50 accepted messages for Claude to read. A message loop between two sessions therefore stops on its own. When the rate limit, repeat check, or queue cap drops a message from an interactive session on this machine, Claude Code tells that session which one dropped it and tells its Claude not to resend right away.
 
 ## Related resources
 

@@ -21,7 +21,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 30 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 31 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -66,6 +66,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `"output-300k-2026-03-24"`
 
     - `"user-profiles-2026-03-24"`
+
+    - `"user-profiles-2026-08-18"`
 
     - `"advisor-tool-2026-03-01"`
 
@@ -201,9 +203,9 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     RFC 3339 timestamp when environment was created
 
-  - `description: string`
+  - `description: string or null`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
