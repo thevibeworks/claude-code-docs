@@ -148,8 +148,7 @@ The CLI is designed to compose with standard shell tooling.
 `--transform id --raw-output` on a list endpoint emits one bare ID per line, so standard tools such as `head` and `xargs` apply directly. Capture the first result, then pass it to a follow-up command:
 
 ```bash
-FIRST_AGENT=$(ant beta:agents list \
-  --transform id --raw-output | head -1)
+FIRST_AGENT=$(ant beta:agents list --transform id --raw-output | head -1)
 
 ant beta:agents:versions list \
   --agent-id "$FIRST_AGENT" \

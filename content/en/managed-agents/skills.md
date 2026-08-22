@@ -32,8 +32,7 @@ These examples omit the optional `display_name` field, so the skill's display na
   ```
 
   ```bash CLI
-  ant skills create \
-    --file example_skill.zip
+  ant skills create --file example_skill.zip
   ```
 
   ```python Python
@@ -149,20 +148,19 @@ These examples omit the optional `display_name` field, so the skill's display na
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   use Anthropic\Client;
   use Anthropic\Core\FileParam;
 
   $client = new Client();
 
-  $skill = $client->beta->skills->create(
+  $skill = $client->skills->create(
       files: [
-          FileParam::fromResource(fopen('example_skill.zip', 'r'))
+          FileParam::fromResource(fopen('example_skill.zip', 'r')),
       ],
   );
 
   echo "Created skill: {$skill->id}\n";
-  echo "Latest version: {$skill->latestVersion}\n";
+  echo "Latest version: {$skill->latestVersionID}\n";
   ```
 
   ```ruby Ruby
@@ -349,8 +347,8 @@ Each entry in the `skills` array uses the following fields:
       model: 'claude-opus-5',
       system: 'You are a financial analysis agent.',
       skills: [
-          ['type' => 'anthropic', 'skill_id' => 'xlsx'],
-          ['type' => 'custom', 'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv', 'version' => 'latest'],
+          ['type' => 'anthropic', 'skillID' => 'xlsx'],
+          ['type' => 'custom', 'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv', 'version' => 'latest'],
       ],
   );
   ```

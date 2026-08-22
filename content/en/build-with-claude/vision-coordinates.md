@@ -444,9 +444,39 @@ First check which resolution tier your model is on (see [Resolution and token co
   The [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint estimates an image's token cost from its dimensions without fully processing it, so a successful count doesn't mean the image is within the Messages API's [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits). An image can count successfully and still be rejected when you send it.
 </Note>
 
+## Turn resizing into an error with `transformations`
+
+Pre-resizing only protects your coordinates while your pipeline keeps producing the right sizes. A new image source or a switch to a model on a different resolution tier can quietly reintroduce server-side resizing. To turn that silent drift into a visible error, set the optional `transformations` field on an image content block in a [Messages](https://platform.claude.com/docs/en/api/messages) request:
+
+```json
+{
+  "type": "image",
+  "source": { "type": "base64", "media_type": "image/png", "data": "..." },
+  "transformations": { "oversized_image": "error" }
+}
+```
+
+A request whose marked image (any block that sets `"oversized_image": "error"`) would be resized is rejected with a 400 `invalid_request_error` naming the image's dimensions and the largest dimensions that fit. Whether an image triggers the rejection depends on the [limits of every model the request names](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images): the 1920×1080 example below is rejected by a standard-tier model but fits within the high-resolution tier:
+
+```text wrap
+messages.0.content.0: image dimensions 1920x1080 exceed the maximum image size of a model named on this request and would be downsized to 1456x819; scale the image to at most 1456x819 or set the image's oversized_image setting to "downsize"
+```
+
+Rescale to the reported target and resend: the target is the largest size, at your image's aspect ratio, that every model named on the request accepts. How marked images interact with the [server-side fallback beta](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) is described with that feature; in every mode, a marked image is never served resized.
+
+The setting is per image. `"oversized_image": "downsize"` (the default when the field is omitted) keeps automatic resizing as described on this page. Each image block is checked only against its own setting, so one request can mix images whose dimensions are load-bearing (a screenshot you'll click on) with images where resizing is harmless (a logo). What the setting does and does not change:
+
+* Padding ([which never discards content](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images)), format conversion, and orientation correction proceed as usual.
+* The hard limits (8000 px on the longest side, and the stricter per-image limit on [many-image requests](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits)) are separate rejections; this setting never lets an image past them.
+* Images supplied by URL or file ID are checked once their bytes have been fetched; those rejections carry the same message without the leading position, so they don't identify which image failed; only embedded base64 images are named by position in the error.
+* [PDF pages](https://platform.claude.com/docs/en/build-with-claude/pdf-support) are rasterized server-side at dimensions you don't control; the `document` block does not accept the field (an image block nested inside a document's content accepts it like any other).
+* A marked image whose dimensions cannot be determined is rejected rather than passed through: that rejection reports that the image's source dimensions could not be determined, not the resize message quoted above. No image that sets `"error"` reaches the model resized.
+
+The [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint honors `transformations` too, rejecting an embedded image exactly as the Messages API would, so you can check whether an embedded image fits without being resized, before running inference. Counting never fetches images supplied by URL or file ID, so a marked image from those sources is checked only at Messages time, as described above.
+
 ## Rescale coordinates when you cannot pre-resize
 
-If you cannot pre-resize (for example, when the image comes from an upstream system you can't modify), use the resize helper from [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading) to recover the dimensions Claude saw, then map the coordinates Claude returns into normalized coordinates or back onto your original image. Claude resizes oversized images rather than rejecting them, up to the API's [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits). Beyond those limits the request fails with a validation error instead. Pass the tier limits that match the model you called: the wrong tier's limits recover the wrong resized dimensions and silently shift every coordinate. This approach requires knowing the pixel dimensions of the image you uploaded, so it does not apply to PDF uploads.
+If you cannot pre-resize (for example, when the image comes from an upstream system you can't modify), use the resize helper from [Resize your image before uploading](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#resize-your-image-before-uploading) to recover the dimensions Claude saw, then map the coordinates Claude returns into normalized coordinates or back onto your original image. Unless an image [opts into an error instead](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error), Claude resizes oversized images rather than rejecting them, up to the API's [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits). Beyond those limits the request fails with a validation error instead. Pass the tier limits that match the model you called: the wrong tier's limits recover the wrong resized dimensions and silently shift every coordinate. This approach requires knowing the pixel dimensions of the image you uploaded, so it does not apply to PDF uploads.
 
 Screenshots and zoom images that you return to the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#targets-and-coordinates) toolsets are an exception to automatic resizing. The API rejects a `tool_result` image that exceeds the model's limits with a validation error instead of resizing it. Resize those images in your application before returning them, then scale the coordinates Claude returns back to your screen's dimensions.
 

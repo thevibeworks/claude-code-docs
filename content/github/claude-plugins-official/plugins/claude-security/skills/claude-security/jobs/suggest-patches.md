@@ -21,7 +21,7 @@ Whichever door opened the job, the rest of this recipe is the same engine: auto-
 ## Arguments
 
 - `all` — patch every finding in the report
-- `high` — patch the high-severity findings
+- `high` — patch the CRITICAL and HIGH findings
 - `F1,F3` — patch specific findings, by id
 
 Each finding gets its own patch, so every one applies (or is declined) alone.

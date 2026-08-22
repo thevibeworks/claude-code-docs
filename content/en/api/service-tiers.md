@@ -75,9 +75,7 @@ You can control which service tiers can be used for a request by setting the `se
   ```
 
   ```bash CLI
-  ant messages create \
-    --transform usage.service_tier \
-    --raw-output <<'YAML'
+  ant messages create --transform usage.service_tier --raw-output <<'YAML'
   model: claude-opus-4-8
   max_tokens: 1024
   messages:

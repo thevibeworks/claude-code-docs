@@ -6,7 +6,7 @@ Organization-wide skill management is available to Team and Enterprise plans.
 
 ## Prerequisites
 
-Before you can provision skills for your organization, you must navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and enable both **Code execution and file creation** and **Skills** by toggling them on. Skills require code execution to function, so if code execution is disabled, skills will not be available.
+Before you can provision skills for your organization, navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and check that both **Code execution and file creation** and **Skills** are toggled on. Skills require code execution to function, so if code execution is disabled, skills will not be available.
 
 ---
 
@@ -70,9 +70,9 @@ In addition to provisioning skills top-down, you can let users share skills they
 
 - **Share with groups:** Users can share a skill with an entire group. Recipients see the skill in the **Shared with you** section of their skills list, the same as skills shared with individuals.
 
-Group and organization sharing toggles are off by default. You can enable them in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. The **Share with organization** and **Share with groups** toggles are also off by default and can be enabled by an admin.
 
-**Note:** Shared skills are view-only. Recipients can enable and use a shared skill but can't edit its contents.
+**Note:** Shared skills are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill but can't edit its contents.
 
 ### Share skills with a group
 

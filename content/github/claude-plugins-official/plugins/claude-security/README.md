@@ -44,7 +44,7 @@ From there the scan sizes itself to the target. A small diff or a narrow scope g
 
 Every scan writes its results into a timestamped `CLAUDE-SECURITY-<timestamp>/` directory in the repository:
 
-- **`CLAUDE-SECURITY-RESULTS.md`** — the human-readable report: each finding with its impact, exploit scenario, preconditions, severity, confidence, and an outcome-focused recommendation.
+- **`CLAUDE-SECURITY-RESULTS.md`** — the human-readable report: each finding with its impact, exploit scenario, preconditions, severity (CRITICAL, HIGH, MEDIUM or LOW, assigned from exploitability and impact along the lines of the [CVSS v4.0](https://www.first.org/cvss/v4-0/specification-document) qualitative scale), confidence, and an outcome-focused recommendation.
 - **`CLAUDE-SECURITY-RESULTS.jsonl`** — the same findings in machine-readable form, one JSON object per line. Neither this file nor the SARIF log quotes the source line of a hard-coded credential finding, since that line is the credential; file, line and symbol locate it.
 - **`CLAUDE-SECURITY-RESULTS.sarif`** — the same findings as a [SARIF 2.1.0](https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.html) log for GitHub code scanning, IDE SARIF viewers, and other tooling that speaks the standard.
 - **`CLAUDE-SECURITY-REVISION-<sha12>.json`** — the revision stamp: which commit was scanned, at what effort, the severity counts, and how thoroughly the run was verified. The filename carries `-dirty` when uncommitted changes were part of the scanned tree, so a report is always tied to the code it describes.

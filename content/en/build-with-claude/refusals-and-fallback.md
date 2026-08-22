@@ -218,6 +218,8 @@ Server-side fallback retries a refused request inside a single API call. In the 
 
 Set the `fallbacks` parameter to the string `"default"` and send the `server-side-fallback-2026-07-01` beta header. The API then applies the requested model's server-defined default routing, which selects a recommended fallback model based on the refusal category the classifier reports, so refused requests are served without you maintaining a model list as recommendations change.
 
+Default routing never draws the up-front [oversized-image rejection](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error) for models you did not choose: a routed model that would resize an image marked `"oversized_image": "error"` is dropped from the routing instead, so a marked image is never served resized.
+
 <CodeGroup>
   ```bash cURL
   curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
@@ -484,6 +486,8 @@ Only a safety classifier decline triggers the fallback. A rate limit, overload, 
 ### Naming your own fallback models
 
 Instead of default routing, you can set `fallbacks` to a list of up to three models. When the requested model declines, the API runs the next model in the chain on the same request. Use this form when you want to control exactly which models serve refused requests, such as pinning a model your application has qualified.
+
+Named fallback models count toward the [oversized-image check](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error): a request whose image block sets `"oversized_image": "error"` is checked up front against the requested model and every named fallback, is rejected if any of them would resize that image, and the rejection's reported rescale target fits them all.
 
 <CodeGroup>
   ```bash cURL

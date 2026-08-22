@@ -423,9 +423,7 @@ The citation blocks generated in responses cannot be cached directly, but the so
   ```
 
   ```bash CLI
-  ant messages create \
-    --model claude-opus-5 \
-    --max-tokens 1024 <<'YAML'
+  ant messages create --model claude-opus-5 --max-tokens 1024 <<'YAML'
   messages:
     - role: user
       content:
@@ -920,8 +918,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
       ```
 
       ```php PHP
-      // The PHP SDK supports file_id document and image sources only through $client->beta->messages with the files beta.
-      $citedResponse = $client->beta->messages->create(
+      $citedResponse = $client->messages->create(
           maxTokens: 1024,
           messages: [
               [
@@ -929,7 +926,7 @@ Plain text documents are automatically chunked into sentences. You can provide t
                   'content' => [
                       [
                           'type' => 'document',
-                          'source' => ['type' => 'file', 'file_id' => $fileId],
+                          'source' => ['type' => 'file', 'fileID' => $fileId],
                           'title' => 'Document Title',
                           'context' => 'Context about the document that will not be cited from',
                           'citations' => ['enabled' => true],
@@ -939,10 +936,9 @@ Plain text documents are automatically chunked into sentences. You can provide t
               ],
           ],
           model: 'claude-opus-5',
-          betas: ['files-api-2025-04-14'],
       );
 
-      print_r($citedResponse);
+      echo $citedResponse;
       ```
 
       ```ruby Ruby
@@ -1743,8 +1739,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
       ```
 
       ```php PHP
-      // The PHP SDK supports file_id document and image sources only through $client->beta->messages with the files beta.
-      $citedResponse = $client->beta->messages->create(
+      $citedResponse = $client->messages->create(
           maxTokens: 1024,
           messages: [
               [
@@ -1752,7 +1747,7 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
                   'content' => [
                       [
                           'type' => 'document',
-                          'source' => ['type' => 'file', 'file_id' => $fileId],
+                          'source' => ['type' => 'file', 'fileID' => $fileId],
                           'title' => 'Document Title',
                           'context' => 'Context about the document that will not be cited from',
                           'citations' => ['enabled' => true],
@@ -1762,10 +1757,9 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
               ],
           ],
           model: 'claude-opus-5',
-          betas: ['files-api-2025-04-14'],
       );
 
-      print_r($citedResponse);
+      echo $citedResponse;
       ```
 
       ```ruby Ruby

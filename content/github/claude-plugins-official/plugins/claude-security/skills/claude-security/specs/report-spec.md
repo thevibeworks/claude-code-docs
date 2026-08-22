@@ -102,7 +102,7 @@ it -- do not bury it.>
 
 ## Rules
 
-**Severity is impact, not confidence.** HIGH means system control or broad cross-user data exposure. MEDIUM means real harm with limits. LOW means defense in depth. Uncertainty belongs in `confidence` — a word, `low`, `medium`, or `high` — which the panel's vote clamps: a finding two of three voters confirmed cannot claim `high`, and `render_report.py` will lower it if you try; only a unanimous panel earns `high`.
+**Severity is exploitability and impact, not confidence.** CRITICAL means severe impact with nothing in the attacker's way. HIGH means severe impact behind one real hurdle. MEDIUM means bounded impact, or serious impact behind several conditions. LOW means limited impact and demanding exploitation. Uncertainty belongs in `confidence` — a word, `low`, `medium`, or `high` — which the panel's vote clamps: a finding two of three voters confirmed cannot claim `high`, and `render_report.py` will lower it if you try; only a unanimous panel earns `high`.
 
 **Order by severity, then by confidence.** The reader stops partway down; put what matters at the top.
 

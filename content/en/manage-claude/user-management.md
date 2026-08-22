@@ -7,7 +7,7 @@ description: "Manage the people in your Claude Enterprise organization with the 
 This page covers managing the people in your **Claude Enterprise** (claude.ai) organization programmatically, using the [Admin API](https://platform.claude.com/docs/en/api/admin): list members and look them up by email address, change a member's role, remove members, send and withdraw invites, manage your enterprise's groups and their membership, and read your organization's custom roles. For Claude Console (Claude Platform) organizations, see the [Admin API guide for Claude Console](https://platform.claude.com/docs/en/manage-claude/admin-api).
 
 <Note>
-  **The endpoints on this page are generally available for Claude Enterprise organizations.** The [beta header](https://platform.claude.com/docs/en/api/beta-headers) `anthropic-beta: ce-user-management-2026-07-13` is no longer required on group and custom-role requests; requests that still send it are accepted and behave identically.
+  Group and custom-role requests don't require the `anthropic-beta: ce-user-management-2026-07-13` [beta header](https://platform.claude.com/docs/en/api/beta-headers). Requests that still send it are accepted and behave identically.
 </Note>
 
 ## Which endpoints can your organization use?
@@ -458,7 +458,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIj
 
 `GET /v1/organizations/rbac_roles/{role_id}/permissions` returns the role's permissions. Each permission pairs a `resource` (what it applies to: the organization's product features, a connector tool, a connector OAuth scope, one connector, or every connector) with an `action` (what it grants on that resource). Rows for features not enabled for your organization are omitted, so a page might contain fewer than `limit` rows while `has_more` is `true`. Requires the `read:members` scope.
 
-Two `action` values need special care: an `organization` permission whose action is `capability_access_all` (every product feature) or `capability_access_all_ga` (every generally available product feature) is a blanket grant (one that covers neither model access nor the `permission_`-prefixed admin-panel permissions) and is listed as that single row rather than expanded. When you tally what a role grants, treat a blanket row as covering everything its variant describes, not just the features named in other rows.
+Two `action` values need special care: an `organization` permission whose action is `capability_access_all` (every product feature) or `capability_access_all_ga` (every stable product feature, that is, every feature not labeled beta or research preview) is a blanket grant (one that covers neither model access nor the `permission_`-prefixed admin-panel permissions) and is listed as that single row rather than expanded. When you tally what a role grants, treat a blanket row as covering everything its variant describes, not just the features named in other rows.
 
 For complete parameter details and response schemas, see [List role permissions](https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions/list) in the API reference.
 

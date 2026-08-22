@@ -24,9 +24,7 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
   ```
 
   ```bash CLI
-  FILE_ID=$(ant files upload \
-    --file data.csv \
-    --transform id --raw-output)
+  FILE_ID=$(ant files upload --file data.csv --transform id --raw-output)
   ```
 
   ```python Python
@@ -71,9 +69,8 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  $file = $client->beta->files->upload(
-      FileParam::fromResource(fopen($csvPath, 'r'), filename: 'data.csv', contentType: 'text/csv'),
+  $file = $client->files->upload(
+      file: FileParam::fromResource(fopen($csvPath, 'r'), filename: 'data.csv', contentType: 'text/csv'),
   );
   echo "File ID: {$file->id}\n";
   ```
@@ -317,9 +314,9 @@ Mount multiple files by adding entries to the `resources` array:
 
   ```php PHP
   $resources = [
-      ['type' => 'file', 'file_id' => 'file_abc123', 'mount_path' => '/data.csv'],
-      ['type' => 'file', 'file_id' => 'file_def456', 'mount_path' => '/config.json'],
-      ['type' => 'file', 'file_id' => 'file_ghi789', 'mount_path' => '/src/main.py'],
+      ['type' => 'file', 'fileID' => 'file_abc123', 'mountPath' => '/data.csv'],
+      ['type' => 'file', 'fileID' => 'file_def456', 'mountPath' => '/config.json'],
+      ['type' => 'file', 'fileID' => 'file_ghi789', 'mountPath' => '/src/main.py'],
   ];
   ```
 
@@ -538,7 +535,9 @@ List all resources on a session with `resources.list`. To remove a file, call `r
 
 ## Listing and downloading session files
 
-Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to list files scoped to a session and download them. Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header, so the list examples use the `beta` files namespace and pass that header explicitly.
+Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to list files scoped to a session and download them. Files the agent writes to `/mnt/session/outputs/` appear in the list shortly after the agent finishes writing them, sometimes a few seconds after the session goes idle. If an output file you expect is missing, list again after a short delay; once it appears in the list, its upload has finished.
+
+Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header, so the list examples use the `beta` files namespace and pass that header explicitly.
 
 <CodeGroup>
   ```bash cURL
@@ -557,8 +556,7 @@ Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
 
   ```bash CLI
   # List files associated with a session
-  ant beta:files list --scope-id sesn_abc123 \
-    --beta managed-agents-2026-04-01
+  ant beta:files list --scope-id sesn_abc123 --beta managed-agents-2026-04-01
 
   # Download a file
   ant files download --file-id "$FILE_ID" --output output.txt
@@ -651,15 +649,17 @@ Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // List files associated with a session
   $files = $client->beta->files->list(
       scopeID: 'sesn_abc123',
       betas: ['managed-agents-2026-04-01'],
   );
+  foreach ($files->getItems() as $file) {
+      echo "{$file->id} {$file->filename}\n";
+  }
 
   // Download a file
-  $content = $client->beta->files->download($files->data[0]->id);
+  $content = $client->files->download($files->getItems()[0]->id);
   file_put_contents('output.txt', $content);
   ```
 
@@ -696,3 +696,4 @@ The agent can work with any file type, including:
 * If you omit `mount_path`, the file is placed at `/mnt/session/uploads/<file_id>`
 * Parent directories are created automatically
 * Paths should be absolute (starting with `/`)
+* Files the agent writes to `/mnt/session/outputs/` become available through the Files API, scoped to the session; see [Listing and downloading session files](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files)

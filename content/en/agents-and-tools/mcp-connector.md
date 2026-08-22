@@ -1317,7 +1317,6 @@ Convert MCP resources into content blocks to include in messages, or into file o
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // As a content block in a message
   $resource = $mcp->readResource('file:///path/to/doc.txt');
 
@@ -1339,7 +1338,7 @@ Convert MCP resources into content blocks to include in messages, or into file o
 
   // As a file upload
   $fileResource = $mcp->readResource('file:///path/to/data.json');
-  $file = $anthropic->beta->files->upload(file: BetaMcp::resourceToFile($fileResource));
+  $file = $anthropic->files->upload(file: BetaMcp::resourceToFile($fileResource));
   echo $file->id, "\n";
   ```
 

@@ -326,8 +326,9 @@ The following examples show how to generate text from Claude on Bedrock:
         # Temporary credentials can be used with aws_session_token.
         # Read more at https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html.
         aws_session_token="<session_token>",
-        # aws_region changes the aws region to which the request is made. By default, the SDK reads AWS_REGION,
-        # and if that's not present, defaults to us-east-1. Note that the SDK does not read ~/.aws/config for the region.
+        # aws_region changes the aws region to which the request is made. If it is not provided, the SDK reads
+        # AWS_REGION / AWS_DEFAULT_REGION, then the region configured for your boto3 session or AWS profile
+        # (including ~/.aws/config), and raises ValueError if no region can be resolved.
         aws_region="us-west-2",
     )
 

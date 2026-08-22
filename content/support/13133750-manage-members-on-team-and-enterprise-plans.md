@@ -96,7 +96,7 @@ Admins can enable or disable member-to-member invites from the admin settings. W
 
 ## Remove members
 
-You can remove a member by navigating to **[Organization settings > Members](https://claude.ai/admin-settings/members)**, clicking the menu button to the right of the member, then selecting "Remove from team."
+You can remove a member by navigating to **[Organization settings > Members](https://claude.ai/admin-settings/members)**, clicking the menu button to the right of the member, then selecting "Remove from team." However, if you are an Owner or Primary Owner, you can't remove yourself from your organization. Another Primary Owner or Owner must remove you from the team.
 
 For Enterprise organizations using SCIM provisioning, members are automatically removed from Claude when they are removed from your Identity Provider.
 
@@ -110,7 +110,7 @@ When a member is removed:
 
 Removing a member frees up their seat for reassignment, but does not automatically reduce your plan's total seat count. See our guides for **[Team plans](https://support.claude.com/en/articles/12004354-purchasing-and-managing-seats)** and **[Enterprise plans](https://support.claude.com/en/articles/13393991-purchasing-and-managing-seats-on-enterprise-plans)** for information on reducing seats.
 
-**Note:** You cannot remove yourself as a Primary Owner or Owner. Another Primary Owner or Owner must remove you from the team.
+**Note:** If you're on a Team plan, the option to remove members from **[Organization settings > Members](https://claude.ai/admin-settings/members)** will no longer be available after you cancel your plan. For more information, see **[Cancel your organization's Team plan subscription](https://support.claude.com/en/articles/9267323)**.
 
 ---
 

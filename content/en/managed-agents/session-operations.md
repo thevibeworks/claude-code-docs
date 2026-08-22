@@ -29,7 +29,7 @@ Only the agent's `tools` and `mcp_servers` can change after a session is created
 
 The semantics of a `tools` or `mcp_servers` update are full replacement: the provided array is the new value. To preserve existing entries, `GET` the session, modify the array, and `POST` it back.
 
-The session must be `idle` to update the agent. [Interrupt](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) the session if you need to update the agent while it's running.
+The session must be `idle` to update the agent. To update the agent while the session is running, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) by itself and wait for the session to become `idle`.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -532,7 +532,7 @@ A `page` cursor is opaque and encodes the `order` of the request that produced i
 
 ## Archiving a session
 
-Archive a session to prevent new events from being sent while preserving its history. A `running` session cannot be archived; send an [interrupt event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) if you need to archive it immediately.
+Archive a session to prevent new events from being sent while preserving its history. A `running` session cannot be archived; to archive one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) by itself and wait for the session to become `idle`.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -581,9 +581,9 @@ Archive a session to prevent new events from being sent while preserving its his
 
 ## Deleting a session
 
-Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; send an [interrupt event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) if you need to delete it immediately.
+Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; to delete one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) by itself and wait for the session to become `idle`.
 
-Memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion. Files you uploaded through the Files API are also unaffected, but files the session itself produced are scoped to it and are permanently deleted along with its filesystem. Download anything you need to keep before deleting the session.
+Memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion. Files you uploaded through the Files API are also unaffected, but files the session itself produced are scoped to it and are permanently deleted along with its filesystem. Download anything you need to keep before deleting the session. An output file written at the end of the last turn can take a few seconds after the session goes idle to appear in the [session's file list](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files), so check that the files you expect are listed first.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL

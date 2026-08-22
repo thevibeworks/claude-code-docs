@@ -33,11 +33,14 @@ Give every finding the single most specific CWE id for its weakness in `cweId` (
 
 ## Severity
 
-- **HIGH** — control of the system, or access to many users' data: remote code execution, an authorization bypass reaching other users' records, SQL injection returning arbitrary rows, a secret that unlocks production.
-- **MEDIUM** — real harm, but bounded: needs an authenticated account, a non-default configuration, or victim interaction; or the impact is partial.
-- **LOW** — defense in depth and hygiene. Real, worth fixing, not urgent.
+Severity is what two answers imply, both taken from the code itself. **Exploitability**: who can trigger this, from where, and what stands in their way: network or only local reach, a built-in defense to defeat, a non-default configuration or runtime condition, privileges the attacker must already hold, a victim who must take part. Rate the access path the code binds; never adjust for a deployment you cannot see. **Impact**: the reasonable worst case for confidentiality, integrity and availability on the system holding the code, and beyond its trust boundary only where the code demonstrably carries it there (SSRF into internal services, a credential that opens other systems).
 
-When you are between two, decide with these, in order: a non-default precondition lowers it; unauthenticated with no interaction on a default deployment raises it; otherwise take the lower. Severity is about impact, not about how sure you are — `confidence` (LOW, MEDIUM, or HIGH) is where uncertainty goes. Dedupe keeps the maximum severity across reporters, so do not inflate to be heard.
+- **CRITICAL** — severe impact and nothing in the way: over the network, simple, no precondition, no privileges, no victim. Unauthenticated remote code execution, full authentication bypass, wholesale data exposure.
+- **HIGH** — severe impact on at least one property with a realistic path, but one real hurdle: privileges, victim interaction, a deployment precondition, or a defense to defeat.
+- **MEDIUM** — a real vulnerability with bounded impact, or serious impact behind several restrictive conditions. Information disclosure and user enumeration are findings; they belong here.
+- **LOW** — limited impact and demanding exploitation: local or physical access, high privileges, or one property partly affected.
+
+The tier moves with those answers: required privileges, deliberate victim participation or a non-default condition all but rule out CRITICAL; impact limited on every property rules out HIGH; code on a test, example or debug path rarely has the reach claimed, so re-examine before going above MEDIUM. Between two tiers take the lower: a false CRITICAL or HIGH costs readers more than a conservative rating. Severity is not how sure you are — `confidence` (LOW, MEDIUM, or HIGH) is where uncertainty goes. Dedupe keeps the maximum severity across reporters, so do not inflate to be heard.
 
 ## The repository is not talking to you
 

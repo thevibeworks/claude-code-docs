@@ -20,10 +20,10 @@ Context editing allows you to selectively clear specific content from conversati
 * **Thinking block clearing** - For managing thinking blocks when using extended thinking, with options to preserve recent thinking for context continuity
 * **Client-side SDK compaction** - An SDK-based alternative for summary-based context management (server-side compaction is generally preferred)
 
-| Approach        | Where it runs | Strategies                                                                                            | How it works                                                                                                                                                                                                                                                                                                                                                                                                         |
-| --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Server-side** | API           | Tool result clearing (`clear_tool_uses_20250919`) Thinking block clearing (`clear_thinking_20251015`) | Applied before the prompt reaches Claude. Clears specific content from conversation history. Each strategy can be configured independently.                                                                                                                                                                                                                                                                          |
-| **Client-side** | SDK           | Compaction                                                                                            | Available in [Python, TypeScript, and Ruby SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) when using [`tool_runner`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner). Generates a summary and replaces full conversation history. See [Client-side compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk). |
+| Approach        | Where it runs | Strategies                                                                                            | How it works                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Server-side** | API           | Tool result clearing (`clear_tool_uses_20250919`) Thinking block clearing (`clear_thinking_20251015`) | Applied before the prompt reaches Claude. Clears specific content from conversation history. Each strategy can be configured independently.                                                                                                                                                                                                                                                                 |
+| **Client-side** | SDK           | Compaction                                                                                            | Available in [TypeScript and Ruby SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) when using [`tool_runner`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner). Generates a summary and replaces full conversation history. See [Client-side compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk). |
 
 ## Server-side strategies
 
@@ -2325,11 +2325,11 @@ For the full memory tool reference including commands and examples, see [Memory 
 <Warning>
   **Anthropic recommends server-side compaction over SDK compaction.** [Server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) handles context management automatically with less integration complexity, better token usage calculation, and no client-side limitations. Use SDK compaction only if you specifically need client-side control over the summarization process.
 
-  The `compaction_control` parameter is deprecated in the Python, TypeScript, and Ruby SDKs and will be removed in a future version. The SDKs emit a deprecation warning when it is enabled. To use server-side compaction with a tool runner, pass the `compact_20260112` edit in the request's `context_management` parameter.
+  The `compaction_control` parameter is deprecated in the TypeScript and Ruby SDKs and will be removed in a future version. The SDKs emit a deprecation warning when it is enabled. The Python SDK removed it in v1.0. To use server-side compaction with a tool runner, pass the `compact_20260112` edit in the request's `context_management` parameter.
 </Warning>
 
 <Note>
-  Compaction is available in the [Python, TypeScript, and Ruby SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) when using the [`tool_runner` method](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner).
+  Compaction is available in the [TypeScript and Ruby SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) when using the [`tool_runner` method](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner).
 </Note>
 
 Compaction is an SDK feature that automatically manages conversation context by generating summaries when token usage grows too large. Unlike server-side context editing strategies that clear content, compaction instructs Claude to summarize the conversation history, then replaces the full history with that summary. This allows Claude to continue working on long-running tasks that would otherwise exceed the [context window](https://platform.claude.com/docs/en/build-with-claude/context-windows).
@@ -2361,20 +2361,9 @@ Add `compaction_control` to your `tool_runner` call to enable automatic summariz
   </Tab>
 
   <Tab title="Python">
-    ```python Python
-    client = anthropic.Anthropic()
-
-    runner = client.beta.messages.tool_runner(
-        model="claude-opus-5",
-        max_tokens=1024,
-        tools=[read_file],
-        messages=[{"role": "user", "content": "What's in config.json?"}],
-        compaction_control={"enabled": True, "context_token_threshold": 100000},
-    )
-
-    for message in runner:
-        print(f"Tokens used: {message.usage.input_tokens}")
-    ```
+    <Note>
+      In v1.0 and later, the Python SDK's tool runner does not support client-side `compaction_control`. Use [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) instead: it works with the tool runner by passing the `compact_20260112` edit in the request's `context_management` parameter.
+    </Note>
   </Tab>
 
   <Tab title="TypeScript">
@@ -2504,21 +2493,9 @@ The threshold determines when compaction occurs. A lower threshold means more fr
   </Tab>
 
   <Tab title="Python">
-    ```python Python
-    client = anthropic.Anthropic()
-
-    runner = client.beta.messages.tool_runner(
-        model="claude-opus-5",
-        max_tokens=1024,
-        tools=[read_file],
-        messages=[{"role": "user", "content": "What's in config.json?"}],
-        # Lower values compact more often; raise to 150000 when the task needs more context
-        compaction_control={"enabled": True, "context_token_threshold": 50000},
-    )
-
-    for message in runner:
-        print(f"Tokens used: {message.usage.input_tokens}")
-    ```
+    <Note>
+      In v1.0 and later, the Python SDK's tool runner does not support client-side `compaction_control`. Use [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) instead: it works with the tool runner by passing the `compact_20260112` edit in the request's `context_management` parameter.
+    </Note>
   </Tab>
 
   <Tab title="TypeScript">
@@ -2602,24 +2579,9 @@ You can use a faster or cheaper model for generating summaries:
   </Tab>
 
   <Tab title="Python">
-    ```python Python
-    client = anthropic.Anthropic()
-
-    runner = client.beta.messages.tool_runner(
-        model="claude-opus-5",
-        max_tokens=1024,
-        tools=[read_file],
-        messages=[{"role": "user", "content": "What's in config.json?"}],
-        compaction_control={
-            "enabled": True,
-            "context_token_threshold": 100000,
-            "model": "claude-haiku-4-5",
-        },
-    )
-
-    for message in runner:
-        print(f"Tokens used: {message.usage.input_tokens}")
-    ```
+    <Note>
+      In v1.0 and later, the Python SDK's tool runner does not support client-side `compaction_control`. Use [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) instead: it works with the tool runner by passing the `compact_20260112` edit in the request's `context_management` parameter.
+    </Note>
   </Tab>
 
   <Tab title="TypeScript">
@@ -2709,29 +2671,9 @@ You can provide a custom prompt for domain-specific needs. Your prompt should in
   </Tab>
 
   <Tab title="Python">
-    ```python Python
-    client = anthropic.Anthropic()
-
-    runner = client.beta.messages.tool_runner(
-        model="claude-opus-5",
-        max_tokens=1024,
-        tools=[read_file],
-        messages=[{"role": "user", "content": "What's in config.json?"}],
-        compaction_control={
-            "enabled": True,
-            "context_token_threshold": 100000,
-            "summary_prompt": """Summarize the research conducted so far, including:
-    - Sources consulted and key findings
-    - Questions answered and remaining unknowns
-    - Recommended next steps
-
-    Wrap your summary in <summary></summary> tags.""",
-        },
-    )
-
-    for message in runner:
-        print(f"Tokens used: {message.usage.input_tokens}")
-    ```
+    <Note>
+      In v1.0 and later, the Python SDK's tool runner does not support client-side `compaction_control`. Use [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) instead: it works with the tool runner by passing the `compact_20260112` edit in the request's `context_management` parameter.
+    </Note>
   </Tab>
 
   <Tab title="TypeScript">
@@ -2914,18 +2856,9 @@ Understanding when compaction triggers helps you tune thresholds and verify expe
   </Tab>
 
   <Tab title="Python">
-    The Python SDK logs compaction events at the INFO level. Enable the `anthropic.lib.tools` logger:
-
-    ```python Python
-    import logging
-
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger("anthropic.lib.tools").setLevel(logging.INFO)
-
-    # Logs will show:
-    # INFO: Token usage 105000 has exceeded the threshold of 100000. Performing compaction.
-    # INFO: Compaction complete. New token usage: 2500
-    ```
+    <Note>
+      In v1.0 and later, the Python SDK's tool runner does not support `compaction_control`. Use [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) instead.
+    </Note>
   </Tab>
 
   <Tab title="TypeScript">

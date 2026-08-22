@@ -44,7 +44,7 @@ Organizations on the Custom tier have no monthly spend cap; limits are arranged 
 
 ### Reaching your spend cap
 
-Once you reach your tier's spend cap, API usage pauses until 00UTC on the first day of the next month, unless you request a higher limit sooner. While usage is paused, API requests return HTTP 429:
+Once you reach your tier's spend cap, API usage pauses until 00:00 UTC on the first day of the next month, unless you request a higher limit sooner. While usage is paused, API requests return HTTP 429:
 
 ```json
 {

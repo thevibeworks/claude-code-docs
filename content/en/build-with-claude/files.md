@@ -123,9 +123,8 @@ Upload a file to be referenced in future API calls:
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  $file = $client->beta->files->upload(
-      FileParam::fromResource(fopen('/path/to/document.pdf', 'rb'), contentType: 'application/pdf'),
+  $file = $client->files->upload(
+      file: FileParam::fromResource(fopen('/path/to/document.pdf', 'rb'), contentType: 'application/pdf'),
   );
 
   $fileId = $file->id;
@@ -330,8 +329,7 @@ Once uploaded, reference the file by passing the `id` from the upload response a
   ```
 
   ```php PHP
-  // The PHP SDK supports file_id document and image sources only through $client->beta->messages with the files beta.
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       maxTokens: 1024,
       messages: [
           [
@@ -342,17 +340,16 @@ Once uploaded, reference the file by passing the `id` from the upload response a
                       'type' => 'document',
                       'source' => [
                           'type' => 'file',
-                          'file_id' => $fileId
-                      ]
-                  ]
-              ]
-          ]
+                          'fileID' => $fileId,
+                      ],
+                  ],
+              ],
+          ],
       ],
       model: 'claude-opus-5',
-      betas: ['files-api-2025-04-14'],
   );
 
-  print_r($response);
+  echo $response;
   ```
 
   ```ruby Ruby
@@ -694,8 +691,7 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
   ```
 
   ```bash CLI
-  ant files list \
-    --max-items 10
+  ant files list --max-items 10
   ```
 
   ```python Python
@@ -739,11 +735,9 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  // list() paginates with afterID, beforeID, and limit; page and ids[] are not parameters here.
   $client = new Client();
 
-  $files = $client->beta->files->list();
+  $files = $client->files->list();
   echo $files;
   ```
 
@@ -804,8 +798,7 @@ Retrieve information about a specific file:
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  $file = $client->beta->files->retrieveMetadata($fileId);
+  $file = $client->files->retrieveMetadata($fileId);
   echo $file;
   ```
 
@@ -855,8 +848,7 @@ Remove a file from your workspace:
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  $client->beta->files->delete($fileId);
+  $client->files->delete($fileId);
   ```
 
   ```ruby Ruby
@@ -932,10 +924,9 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  $fileContent = $client->beta->files->download($fileId);
+  $fileContent = $client->files->download($fileId);
 
-  file_put_contents("downloaded_file.txt", $fileContent);
+  file_put_contents('downloaded_file.txt', $fileContent);
   ```
 
   ```ruby Ruby

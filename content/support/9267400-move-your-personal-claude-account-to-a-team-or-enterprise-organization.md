@@ -20,8 +20,6 @@ Both paths move the same content for each person.
 
 - Uploaded files and attachments
 
-- Tasks
-
 - Project sync configurations (which Drive folders and repositories a project syncs)
 
 - Claude's memory from chats and projects, unless your organization has memory turned off
@@ -44,9 +42,9 @@ Both paths move the same content for each person.
 
 - Pending share invites
 
-- Cowork tasks and session history
+- Cowork sessions in the desktop app. Desktop sessions and the folders you've connected are stored locally, not in the cloud, so they stay on your computer. Copy anything you want to keep after you migrate.
 
-- Anything Cowork stored on your computer. Local session data and the folders you've connected stay on your machine. Copy anything you want to keep after you migrate.
+- Cowork cloud sessions (web and mobile). Download any files or outputs you want to keep before you migrate.
 
 - Claude Code cloud sessions (web, scheduled tasks, and mobile)
 
@@ -126,7 +124,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1787330700&amp;signature=0df0468c2e814a5f586085e814dcd54a1e82e8f77554238bfe80e7b8433a86c0&amp;req=diMmFMh3noJbXvMW1HO4zXhPndc1yx9mufhmlOXMdYYLQ%2FyQlZhQNhk0nkab%0AIK3k2dF7ttYfJeXDVJk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1787508000&amp;signature=8cd6b18123872d2cbd5da398c7b1f3d1caa3636f106ba98217c3a447f4e50d7b&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01U60IOC%2Bxl6PawEbnoSP2qUUrumH1HMbsz%0AJ7yMJroNygBczvDiuNt3dVdmPjE%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

@@ -64,6 +64,10 @@ You decide what Claude Tag can reach by setting credentials and repository acces
 
 To configure access, see **[Claude Tag identity and access](https://claude.com/docs/claude-tag/concepts/agent-identity)**.
 
+### Channels with guests
+
+Channels that include Slack guests have a separate **Allow Claude to respond to guests** setting that controls whether Claude responds there, and what access Claude has when it does. Choose **Restrict** (the default, which blocks Claude from those channels entirely), **Channel only** (Claude replies, but while a guest is present it runs with channel-only access), or **Allow** (Claude replies with the full access configured for it, as in any other channel). For the full guide, see[**Restrict guest channels**](https://claude.com/docs/claude-tag/admins/restrict-access#restrict-guest-channels).
+
 ## Review memory and activity for Claude Tag
 
 Claude Tag keeps context per channel and per workspace. Admins can view, edit, and delete that memory.

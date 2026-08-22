@@ -241,8 +241,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
         `ant beta:worker poll` claims work items assigned to the environment, downloads skills, executes tool calls in the working directory, and posts results back. It reads `ANTHROPIC_ENVIRONMENT_KEY` and `ANTHROPIC_ENVIRONMENT_ID` from the environment.
 
         ```bash
-        ant beta:worker poll \
-          --workdir "/workspace"
+        ant beta:worker poll --workdir "/workspace"
         ```
 
         The worker exits cleanly on SIGTERM or SIGINT: it cancels any in-flight tool call, posts its error result, and releases the work item before stopping.
@@ -281,8 +280,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
         Start the poller pointing at the script:
 
         ```bash
-        ant beta:worker poll \
-          --on-work ./spawn.sh
+        ant beta:worker poll --on-work ./spawn.sh
         ```
       </Step>
     </Steps>
@@ -427,7 +425,6 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
           ```python Python
           import asyncio
           import os
-          import signal
           import anthropic
           import standardwebhooks  # installed by the anthropic[webhooks] extra
 
@@ -436,14 +433,18 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
           client = anthropic.AsyncAnthropic(
               auth_token=environment_key,
           )
-          # Cancelled on SIGINT or SIGTERM (wired in handle) so an in-flight work item can upload
-          # changed memory files and remove its store directories before the process exits.
+          # Cancelled by shutdown() so an in-flight work item can upload changed memory files and
+          # remove its store directories before the process exits.
           inflight: set[asyncio.Task[None]] = set()
 
 
-          def cancel_inflight() -> None:
+          # Await this from the host's shutdown hook, such as an ASGI lifespan shutdown (the code after
+          # `yield` in a FastAPI lifespan), which uvicorn runs on SIGTERM. uvicorn lets open requests
+          # finish before that hook runs, so set --timeout-graceful-shutdown to bound the wait.
+          async def shutdown() -> None:
               for task in inflight:
                   task.cancel()
+              await asyncio.gather(*inflight, return_exceptions=True)
 
 
           async def handle(raw: bytes, headers: dict[str, str]) -> tuple[dict[str, str], int]:
@@ -453,14 +454,12 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
                   return {"error": "signature verification failed"}, 401
               if event.data.type != "session.status_run_started":
                   return {"status": "ignored"}, 200
-              loop = asyncio.get_running_loop()
-              for signum in (signal.SIGINT, signal.SIGTERM):
-                  loop.add_signal_handler(signum, cancel_inflight)
               task = asyncio.create_task(run_queued_work())
               inflight.add(task)
               task.add_done_callback(inflight.discard)
               try:
-                  await task
+                  # Shielded: a dropped or timed-out delivery must not cancel the item; shutdown() does.
+                  await asyncio.shield(task)
               except asyncio.CancelledError:
                   return {"status": "shutting down"}, 503
               return {"status": "ok"}, 200
@@ -493,13 +492,16 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
           const client = new Anthropic({
             authToken: environmentKey
           });
-          // Aborted on SIGINT or SIGTERM so an in-flight work item can upload changed memory
-          // files and remove its store directories before the process exits.
-          const shutdown = new AbortController();
-          process.once("SIGINT", () => shutdown.abort());
-          process.once("SIGTERM", () => shutdown.abort());
+          // Call shutdown.abort() from the host's SIGTERM/SIGINT handler, alongside closing the server,
+          // then wait for in-flight handle() calls before exiting: the abort lets a running work item
+          // upload changed memory files and remove its store directories first.
+          export const shutdown = new AbortController();
 
           export async function handle(req: Request): Promise<Response> {
+            // Never acknowledge a delivery whose work will not run here; a 503 makes the sender retry.
+            if (shutdown.signal.aborted) {
+              return Response.json({ status: "shutting down" }, { status: 503 });
+            }
             const body = await req.text();
             let event;
             try {
@@ -529,6 +531,10 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
                 workSecret: work.secret ?? undefined,
                 signal: shutdown.signal
               });
+            }
+            // The poller and handleItem return quietly on abort, so a drain cut short lands here.
+            if (shutdown.signal.aborted) {
+              return Response.json({ status: "shutting down" }, { status: 503 });
             }
             return Response.json({ status: "ok" });
           }
@@ -685,7 +691,7 @@ The SDK provides three helpers at different levels of control. `EnvironmentWorke
   * `drain`: whether to stop polling once the queue is empty rather than waiting for new work.
   * `block_ms`: how long to wait for work to arrive before returning, in milliseconds. Must be between 1 and 999 (per-poll wait; the helper re-polls automatically). Pass `null` (`None` in Python, `param.Null[int64]()` in Go) for a non-blocking check; omitting the parameter uses the default 999 ms long-poll.
   * `reclaim_older_than_ms`: re-claim work items that were claimed but never acknowledged within this many milliseconds.
-  * `auto_stop` (`autoStop` in TypeScript, `AutoStop` in Go): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off when the process you launch for the session, rather than the loop body, runs the work item to completion.
+  * `auto_stop` (`autoStop` in TypeScript, `AutoStop` in Go): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off whenever whatever runs the work item posts the stop itself: `handle_item()` does, so set it to false when you hand claimed items to `handle_item()` as the webhook handlers on this page do, and so does a sandbox you launch that owns the stop call.
 
 * **`client.beta.sessions.events.tool_runner()`:** runs tool calls for a single session, given the session ID and a tool list. Use when you've already claimed the work and only need the execution layer.
 
@@ -1150,7 +1156,7 @@ sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 Do not create the per-store directories yourself. The worker creates each store's `mount_path` directory (for example, `/mnt/memory/user-preferences`) when a session starts, refuses to start the session's work if something already exists at that path, and removes the directory when the session ends. Two operating rules follow:
 
 * **Run one session per filesystem when sessions attach the same store.** Two sessions cannot mount the same store on one host at the same time, because both need the same path. Giving each session its own sandbox, as described in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session), satisfies this rule.
-* **Stop workers gracefully.** When you stop a worker while a session runs, `EnvironmentWorker` uploads the session's changed memory files and removes its store directories only if it is cancelled rather than killed: a killed process runs no teardown, and the worker does not install signal handlers itself. Wire SIGTERM and SIGINT to cancellation in the process that runs it: abort the `signal` you pass to the worker in TypeScript, cancel the context in Go, and in Python cancel the task that runs `run()` or `handle_item()` from a signal handler. Then stop workers with SIGTERM and give them at least 30 seconds to exit before any hard kill, because the final upload can take that long. If a worker is killed before its teardown runs, remove the leftover store directory under `/mnt/memory/` before the next session that attaches that store; any edits in it that had not synced are lost.
+* **Stop workers gracefully.** When you stop a worker while a session runs, `EnvironmentWorker` uploads the session's changed memory files and removes its store directories only if it is cancelled rather than killed: a killed process runs no teardown, and the worker does not install signal handlers itself. Wire SIGTERM and SIGINT to cancellation in the process that runs it: abort the `signal` you pass to the worker in TypeScript, cancel the context in Go, and in Python cancel the task that runs `run()` or `handle_item()`. Do that from a signal handler when your worker is the process, as the standalone workers on this page do, or from your server's own shutdown hook when the worker runs inside a webhook handler, which must not take over the server's signals. Then stop workers with SIGTERM and give them at least 30 seconds to exit before any hard kill, because the final upload can take that long. If a worker is killed before its teardown runs, remove the leftover store directory under `/mnt/memory/` before the next session that attaches that store; any edits in it that had not synced are lost.
 
 ### Run one sandbox per session
 
@@ -1342,7 +1348,7 @@ For example, to sync every 10 seconds and only log the deletes the worker would 
 
 ### Read-only stores and conflicts
 
-For a store attached with `access: "read_only"`, the `write` and `edit` tools refuse to change files inside its directory, and the worker never uploads anything from it. Changes made through `bash` are not blocked locally: they are never synced to the store, and the next remote change to that memory overwrites them. If you need the local copy itself to stay unchanged during the session, disable the `bash` tool for that agent; do not mount the store path read-only, because the worker itself must create the directory and write the downloaded memories into it.
+For a store attached with `access: "read_only"`, the `write` and `edit` tools refuse to change files inside its directory, and the worker never uploads anything from it. Changes made through `bash`, or through a custom tool or MCP server you serve from the sandbox, are not blocked locally: they are never synced to the store, and the next remote change to that memory overwrites them. If you need the local copy itself to stay unchanged during the session, disable the `bash` tool for that agent and give it no custom tool that writes to the sandbox's filesystem; do not mount the store path read-only, because the worker itself must create the directory and write the downloaded memories into it.
 
 Conflicts resolve in favor of the store. When the agent changes a memory file that also changed in the store since the session last synced it, the worker keeps the store's version at the next sync, overwrites the local file with it, and logs a warning; the `write` and `edit` tools themselves succeed and no error reaches the agent. If the agent's change still applies, it can re-read the file after the sync and make the change again.
 
