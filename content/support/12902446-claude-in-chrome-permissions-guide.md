@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787365800&amp;signature=949d1e75c81e1906d8adef4bd299ada295f6601c11f2fc9aaa81f7ce7a5fd26b&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVO%2Boe%2FgN0ADj5oqFDm410oRcwbtHh64Hew%0AF%2BVa1H1wxHx2phZhmF8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787381100&amp;signature=597a72418a9f0b8015293b4a4910b410e29d73c518ae0ec9573422c31682973e&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVO9IO2gN0ADj5oqFBXNB4mVn6roLXMkl%2B4%0AnpEpV47n4Ei4rv2PBSU%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787365800&amp;signature=0d758db128879b261eebeab127e54310806beaa7d6778d1d7e96abe60290661d&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFzjink7A4lHPBihAUapuZa4spzZMztQfvI%0AcuSeAFo7ODYYcs3x72w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787381100&amp;signature=448e73f78a09b3b65a80e6a844573e662eb5a0ac1f5852ea00be6ebd23e067a3&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmFzgC3t7A4lHPBihAX7lSBbBsgwJWmTgoEp%0ADc0%2FQ1LyP7K8cYpEx2U%3D%0A)
 
 ### Permission options
 
