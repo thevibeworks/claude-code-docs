@@ -897,8 +897,7 @@ Claude stopped because it reached the `max_tokens` limit specified in your reque
 
   <CodeGroup exclude="shell:cURL">
     ```bash CLI
-    RESPONSE=$(ant messages create --max-tokens 1024 \
-      --format jsonl < request.yaml)
+    RESPONSE=$(ant messages create --max-tokens 1024 --format jsonl < request.yaml)
 
     # Check if the response was truncated mid tool use
     STOP_REASON=$(jq -r '.stop_reason' <<<"$RESPONSE")

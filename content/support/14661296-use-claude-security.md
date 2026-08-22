@@ -114,6 +114,10 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 - **Product price and cost** — Scans are charged at direct token cost only. There is no additional platform fee for Claude Security.
 
+- **Models** — Claude Security runs scans on Claude Mythos 5. Users receive findings without direct model access. Suggested patches open in Claude Code on the Web and can be implemented with whichever models are available in your account.
+
+- **Claude Security plugin for Claude Code** — The plugin uses whichever models you have access to in Claude Code. Only the Claude Security product at **[claude.ai/security](https://claude.ai/security)** runs scans on Claude Mythos 5.
+
 - **Scan length** — Scan time varies based on the repository and the agent's actions.
 
 - **Severity configuration** — as of today, severity is not configurable.

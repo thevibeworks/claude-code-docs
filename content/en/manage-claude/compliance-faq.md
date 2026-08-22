@@ -130,7 +130,7 @@ description: Answers to common questions about Compliance API access, scopes, re
 
 <AccordionGroup>
   <Accordion title="How do I correlate Compliance API records with my SIEM?">
-    Join `Activity` records to your SIEM on `actor.user_id`, `actor.email_address`, `actor.ip_address`, and `created_at`. See [Design your compliance integration](https://platform.claude.com/docs/en/manage-claude/compliance-integration-patterns#correlate-with-your-siem) for the join-key table and consumption patterns.
+    Join `Activity` records to your SIEM on `actor.user_id`, `actor.email_address`, `actor.ip_address`, `actor.user_agent`, and `created_at`. See [Design your compliance integration](https://platform.claude.com/docs/en/manage-claude/compliance-integration-patterns#correlate-with-your-siem) for the join-key table and consumption patterns.
   </Accordion>
 
   <Accordion title="Can one customer have multiple organizations under one parent?">

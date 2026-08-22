@@ -95,12 +95,11 @@ First, check what Skills are available. Use the Skills API to list all Anthropic
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   // List Anthropic-managed Skills
-  $skills = $client->beta->skills->list(source: 'anthropic');
+  $skills = $client->skills->list(source: 'anthropic');
 
-  foreach ($skills->data as $skill) {
-      echo "{$skill->id}: {$skill->displayTitle}\n";
+  foreach ($skills->getItems() as $skill) {
+      echo "{$skill->id}: {$skill->displayName}\n";
   }
   ```
 
@@ -301,14 +300,12 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   // Create a message with the PowerPoint Skill
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
-      betas: ['skills-2025-10-02'],
       container: [
-          'skills' => [['type' => 'anthropic', 'skill_id' => 'pptx', 'version' => 'latest']],
+          'skills' => [['type' => 'anthropic', 'skillID' => 'pptx', 'version' => 'latest']],
       ],
       messages: [
           [
@@ -546,7 +543,6 @@ The presentation was created in the code execution container and saved as a file
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // Extract the file ID. The code execution tool runs the Skill's code through
   // its Bash sub-tool, and generated files appear as bash_code_execution_output
   // items inside the bash_code_execution_tool_result block.
@@ -567,7 +563,7 @@ The presentation was created in the code execution container and saved as a file
   if ($fileId !== null) {
       // Download the file and save it
       $outputPath = sys_get_temp_dir() . '/renewable_energy.pptx';
-      $fileContent = $client->beta->files->download($fileId);
+      $fileContent = $client->files->download($fileId);
       file_put_contents($outputPath, $fileContent);
       echo "Presentation saved to {$outputPath}\n";
   }
@@ -761,14 +757,12 @@ Try these variations:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
-      betas: ['skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest'],
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest'],
           ],
       ],
       messages: [
@@ -777,7 +771,7 @@ Try these variations:
               'content' => 'Create a quarterly sales tracking spreadsheet with sample data',
           ],
       ],
-      tools: [new BetaCodeExecutionTool20260521()],
+      tools: [['type' => 'code_execution_20260521', 'name' => 'code_execution']],
   );
   ```
 
@@ -956,14 +950,12 @@ Try these variations:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
-      betas: ['skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'docx', 'version' => 'latest'],
+              ['type' => 'anthropic', 'skillID' => 'docx', 'version' => 'latest'],
           ],
       ],
       messages: [
@@ -972,7 +964,7 @@ Try these variations:
               'content' => 'Write a 2-page report on the benefits of renewable energy',
           ],
       ],
-      tools: [new BetaCodeExecutionTool20260521()],
+      tools: [['type' => 'code_execution_20260521', 'name' => 'code_execution']],
   );
   ```
 
@@ -1151,14 +1143,12 @@ Try these variations:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       model: 'claude-opus-5',
       maxTokens: 16000,
-      betas: ['skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'pdf', 'version' => 'latest'],
+              ['type' => 'anthropic', 'skillID' => 'pdf', 'version' => 'latest'],
           ],
       ],
       messages: [
@@ -1167,7 +1157,7 @@ Try these variations:
               'content' => 'Generate a PDF invoice template',
           ],
       ],
-      tools: [new BetaCodeExecutionTool20260521()],
+      tools: [['type' => 'code_execution_20260521', 'name' => 'code_execution']],
   );
   ```
 

@@ -749,9 +749,7 @@ When enabled, the API returns a message with the `compaction` stop reason after 
   # summary so you can adjust the messages before continuing. The continue
   # step doesn't translate well to a one-off CLI command; see the SDK tabs
   # for the full pause-and-continue flow. Single paused request:
-  ant beta:messages create \
-    --beta compact-2026-01-12 \
-    --format jsonl <<'YAML'
+  ant beta:messages create --beta compact-2026-01-12 --format jsonl <<'YAML'
   model: claude-opus-5
   max_tokens: 4096
   messages:

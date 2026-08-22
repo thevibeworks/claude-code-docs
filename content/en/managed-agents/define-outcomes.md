@@ -238,7 +238,6 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   use Anthropic\Client;
   use Anthropic\Core\FileParam;
 
@@ -256,7 +255,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   MD;
   file_put_contents('/tmp/rubric.md', $rubricText);
 
-  $rubric = $client->beta->files->upload(
+  $rubric = $client->files->upload(
       file: FileParam::fromResource(fopen('/tmp/rubric.md', 'r'), contentType: 'text/markdown'),
   );
   echo "Uploaded rubric: {$rubric->id}\n";
@@ -336,8 +335,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     --transform id --raw-output)
 
   # Define the outcome — agent starts working on receipt
-  ant beta:sessions:events send \
-    --session-id "$SESSION_ID" <<YAML
+  ant beta:sessions:events send --session-id "$SESSION_ID" <<YAML
   events:
     - type: user.define_outcome
       description: Build a DCF model for Costco in .xlsx
@@ -712,7 +710,7 @@ You can either listen on the [event stream](https://platform.claude.com/docs/en/
 
 ## Retrieve deliverables
 
-The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Once the session is idle, fetch them through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) scoped to the session. Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header on the list request, so the SDK and CLI examples make that call through the `beta` namespace and pass the header explicitly.
+The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To retrieve them, list files through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) with the session ID as the `scope_id`, then download them by ID. Filtering by `scope_id` requires the `managed-agents-2026-04-01` beta header on the list request, so the SDK and CLI examples make that call through the `beta` namespace and pass the header explicitly. Files appear in the list shortly after the agent finishes writing them, sometimes a few seconds after the session goes idle. If a file you expect is not listed yet, list again after a short delay; once it appears in the list, its upload has finished.
 
 <CodeGroup>
   ```bash cURL
@@ -738,8 +736,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
   ```bash CLI
   # List files produced by this session
   # scope_id filtering requires the managed-agents beta on the files request
-  ant beta:files list --scope-id "$SESSION_ID" \
-    --beta managed-agents-2026-04-01
+  ant beta:files list --scope-id "$SESSION_ID" --beta managed-agents-2026-04-01
 
   # Download a file
   FILE_ID=$(ant beta:files list --scope-id "$SESSION_ID" \
@@ -858,17 +855,16 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. Onc
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   // List files produced by this session
   // scope_id filtering requires the managed-agents beta on the files request
   $files = $client->beta->files->list(scopeID: $session->id, betas: ['managed-agents-2026-04-01']);
-  foreach ($files->data as $file) {
+  foreach ($files->getItems() as $file) {
       echo "{$file->id} {$file->filename}\n";
   }
 
   // Download a file
-  if (count($files->data) > 0) {
-      $content = $client->beta->files->download($files->data[0]->id);
+  if (count($files->getItems()) > 0) {
+      $content = $client->files->download($files->getItems()[0]->id);
       file_put_contents('/tmp/output.txt', $content);
   }
   ```

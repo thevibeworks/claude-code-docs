@@ -648,6 +648,7 @@ These settings use the same `allowed_domains` and `blocked_domains` vocabulary a
 
 * Each list is capped at 64 domains.
 * Domains listed for `web_fetch` cannot include a path.
+* Domains must be ASCII: use the `xn--` (Punycode) form for internationalized domain names. The Messages API accepts Unicode entries, though it recommends against them.
 * `max_uses`, `citations`, and `cache_control` are not available on the toolset.
 
 ## Custom tools

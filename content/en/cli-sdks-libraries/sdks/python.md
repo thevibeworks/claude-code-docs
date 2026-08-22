@@ -36,7 +36,7 @@ pip install "anthropic[aiohttp]"
 
 ## Requirements
 
-Python 3.9 or later is required.
+Python 3.10 or later is required. If you are upgrading from a 0.x release of the SDK, see the [v1 migration guide](https://github.com/anthropics/anthropic-sdk-python/blob/main/MIGRATION.md) for the list of breaking changes.
 
 ## Usage
 
@@ -102,7 +102,7 @@ asyncio.run(main())
 
 ### Using aiohttp for better concurrency
 
-For improved async performance, you can use the `aiohttp` HTTP backend instead of the default `httpx`:
+For improved async performance, you can use the `aiohttp` HTTP backend instead of the default `httpx2`:
 
 ```python
 import os
@@ -362,7 +362,7 @@ try:
     )
 except anthropic.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx2
 except anthropic.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except anthropic.APIStatusError as e:
@@ -426,10 +426,10 @@ client.with_options(max_retries=5).messages.create(
 
 ## Timeouts
 
-By default requests time out after 10 minutes. You can configure this with a `timeout` option, which accepts a float or an `httpx.Timeout` object:
+By default requests time out after 10 minutes. You can configure this with a `timeout` option, which accepts a float or an `httpx2.Timeout` object:
 
 ```python
-import httpx
+import httpx2
 from anthropic import Anthropic
 
 # Configure the default for all requests:
@@ -439,7 +439,7 @@ client = Anthropic(
 
 # More granular control:
 client = Anthropic(
-    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    timeout=httpx2.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
@@ -588,7 +588,7 @@ if response.my_field is None:
 
 ### Accessing raw response data (for example, headers)
 
-The "raw" `Response` returned by `httpx` can be accessed through the `.with_raw_response` property on the client. This is useful for accessing response headers or other metadata:
+The "raw" `Response` returned by `httpx2` can be accessed through the `.with_raw_response` property on the client. This is useful for accessing response headers or other metadata:
 
 ```python
 client = Anthropic()
@@ -606,7 +606,7 @@ message = (
 print(message.content)
 ```
 
-These methods return an `APIResponse` object.
+These methods return an `APIResponse` object. On the async client they return an `AsyncAPIResponse`, and `.parse()`, `.read()`, `.text()`, and `.json()` must be awaited.
 
 ### Streaming response body
 
@@ -645,11 +645,11 @@ This library is typed for convenient access to the documented API. If you need t
 To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs. Options on the client, such as retries, are respected when making these requests.
 
 ```python
-import httpx
+import httpx2
 
 response = client.post(
     "/foo",
-    cast_to=httpx.Response,
+    cast_to=httpx2.Response,
     body={"my_param": True},
 )
 
@@ -670,10 +670,10 @@ To access undocumented response properties, you can access the extra fields like
 
 ### Configuring the HTTP client
 
-You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including support for proxies and transports:
+The SDK sends requests with [httpx2](https://httpx2.pydantic.dev), an API-compatible fork of `httpx`. To customize the HTTP client, including proxies and transports, pass your own [httpx2 client](https://httpx2.pydantic.dev/api/#client) as `http_client`:
 
 ```python
-import httpx
+import httpx2
 from anthropic import Anthropic, DefaultHttpxClient
 
 client = Anthropic(
@@ -681,7 +681,7 @@ client = Anthropic(
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
-        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+        transport=httpx2.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
 ```
@@ -693,8 +693,10 @@ client.with_options(http_client=DefaultHttpxClient(...))
 ```
 
 <Note>
-  Use `DefaultHttpxClient` and `DefaultAsyncHttpxClient` instead of raw `httpx.Client` and `httpx.AsyncClient` to ensure the SDK's default configuration (such as timeouts and connection limits) is preserved.
+  Use `DefaultHttpxClient` and `DefaultAsyncHttpxClient` instead of raw `httpx2.Client` and `httpx2.AsyncClient` to ensure the SDK's default configuration (such as timeouts and connection limits) is preserved. The `http_client` argument must be an `httpx2` client. Passing a client from the separate `httpx` package raises a `TypeError`.
 </Note>
+
+Tracing and mocking tools that patch `httpx` itself, such as OpenTelemetry's `HTTPXClientInstrumentor`, Sentry's `httpx` integration, `respx`, or `pytest-httpx`, do not see the SDK's requests by default. To use them, call `httpx2.alias_httpx()` once at startup, before anything imports `httpx`. This makes `import httpx` resolve to `httpx2` for the whole process.
 
 ### Managing HTTP resources
 

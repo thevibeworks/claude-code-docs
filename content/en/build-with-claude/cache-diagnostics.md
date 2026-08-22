@@ -30,11 +30,11 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
   ```bash cURL
   # Turn 1: establish the cache and opt in to diagnostics
   response=$(curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    --header "anthropic-version: 2023-06-01" \
-    --header "anthropic-beta: cache-diagnosis-2026-04-07" \
-    --header "content-type: application/json" \
-    --data '{
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: cache-diagnosis-2026-04-07" \
+    -H "content-type: application/json" \
+    -d '{
       "model": "claude-opus-5",
       "max_tokens": 1024,
       "cache_control": {"type": "ephemeral"},
@@ -47,11 +47,11 @@ Send the beta header on every turn. On the first turn, pass `"previous_message_i
 
   # Turn 2: reference the previous turn so the API can compare prefixes
   curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    --header "anthropic-version: 2023-06-01" \
-    --header "anthropic-beta: cache-diagnosis-2026-04-07" \
-    --header "content-type: application/json" \
-    --data @- <<EOF | jq '{id, diagnostics}'  # diagnostics: null means no divergence was found
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: cache-diagnosis-2026-04-07" \
+    -H "content-type: application/json" \
+    -d @- <<EOF | jq '{id, diagnostics}'  # diagnostics: null means no divergence was found
   {
     "model": "claude-opus-5",
     "max_tokens": 1024,
@@ -427,11 +427,11 @@ In streaming responses, `diagnostics` appears on the `message_start` event.
   # Turn 2: stream the response. diagnostics arrives on the message_start event;
   # a null value means no divergence was found.
   curl -sS --fail-with-body https://api.anthropic.com/v1/messages \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    --header "anthropic-version: 2023-06-01" \
-    --header "anthropic-beta: cache-diagnosis-2026-04-07" \
-    --header "content-type: application/json" \
-    --data @- <<EOF | jq -R 'select(startswith("data: ")) | ltrimstr("data: ") | fromjson | select(.type == "message_start") | .message.diagnostics'
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: cache-diagnosis-2026-04-07" \
+    -H "content-type: application/json" \
+    -d @- <<EOF | jq -R 'select(startswith("data: ")) | ltrimstr("data: ") | fromjson | select(.type == "message_start") | .message.diagnostics'
   {
     "model": "claude-opus-5",
     "max_tokens": 1024,
@@ -1078,7 +1078,7 @@ This matrix applies to turns where you passed a real `previous_message_id`. On t
 
 ## Limitations
 
-* **Beta:** Field names and semantics may change before general availability.
+* **Beta:** Field names and semantics may change while this feature is in beta.
 * **Claude API only:** Not available on Amazon Bedrock or Google Cloud.
 * **Limited retention:** Fingerprints for `previous_message_id` lookup expire after a short period. Run diagnostic comparisons between closely spaced requests.
 * **Same workspace:** The previous request must have been made with an API key from the same organization and workspace. To check, compare the `anthropic-workspace-id` [response header](https://platform.claude.com/docs/en/api/overview#response-headers) on the two responses.

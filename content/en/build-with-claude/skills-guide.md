@@ -250,21 +250,19 @@ The structure is identical for both Anthropic and custom Skills. Specify the req
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
-  $message = $client->beta->messages->create(
+  $message = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Create a presentation about renewable energy']
       ],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
               [
                   'type' => 'anthropic',
-                  'skill_id' => 'pptx',
+                  'skillID' => 'pptx',
                   'version' => 'latest'
               ]
           ]
@@ -389,9 +387,7 @@ To provide input files for Skills to work on, [upload them with the Files API](h
     --raw-output)
 
   # Step 4: Download the file using Files API
-  ant files download \
-    --file-id "$FILE_ID" \
-    --output "$FILENAME" > /dev/null
+  ant files download --file-id "$FILE_ID" --output "$FILENAME" > /dev/null
 
   printf 'Downloaded: %s\n' "$FILENAME"
   ```
@@ -667,21 +663,18 @@ To provide input files for Skills to work on, [upload them with the Files API](h
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
   // Step 1: Use a Skill to create a file
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Create an Excel file with a simple budget spreadsheet']
       ],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest']
           ]
       ],
       tools: [
@@ -707,8 +700,8 @@ To provide input files for Skills to work on, [upload them with the Files API](h
 
   // Step 3: Download the file using Files API
   foreach (extractFileIds($response) as $fileId) {
-      $fileMetadata = $client->beta->files->retrieveMetadata($fileId);
-      $fileContent  = $client->beta->files->download($fileId);
+      $fileMetadata = $client->files->retrieveMetadata($fileId);
+      $fileContent = $client->files->download($fileId);
 
       // Step 4: Save to disk
       file_put_contents($fileMetadata->filename, $fileContent);
@@ -792,9 +785,7 @@ To provide input files for Skills to work on, [upload them with the Files API](h
     --format yaml
 
   # List all files
-  ant files list \
-    --transform '{filename,created_at}' \
-    --format yaml
+  ant files list --transform '{filename,created_at}' --format yaml
 
   # Delete a file
   ant files delete --file-id "$FILE_ID" >/dev/null
@@ -903,22 +894,20 @@ To provide input files for Skills to work on, [upload them with the Files API](h
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Files API under the beta namespace; field names can differ from other SDKs.
   $client = new Client();
   $fileId = 'file_011CNha8iCJcU1wXNR6q4V8w';
 
   // Get file metadata
-  $fileInfo = $client->beta->files->retrieveMetadata($fileId);
+  $fileInfo = $client->files->retrieveMetadata($fileId);
   echo "Filename: {$fileInfo->filename}, Size: {$fileInfo->sizeBytes} bytes\n";
 
   // List files (first page)
-  $files = $client->beta->files->list();
-  foreach ($files->data as $file) {
+  foreach ($client->files->list()->getItems() as $file) {
       echo "{$file->filename} - {$file->createdAt->format(DATE_ATOM)}\n";
   }
 
   // Delete a file
-  $client->beta->files->delete($fileId);
+  $client->files->delete($fileId);
   ```
 
   ```ruby Ruby
@@ -1260,19 +1249,17 @@ The response's `container` object carries the container's `id` and `expires_at` 
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
-  $response1 = $client->beta->messages->create(
+  $response1 = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Create a sample sales dataset and analyze it']
       ],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest']
           ]
       ],
       tools: [
@@ -1290,15 +1277,14 @@ The response's `container` object carries the container's `id` and `expires_at` 
       ['role' => 'user', 'content' => 'What was the total revenue?']
   ];
 
-  $response2 = $client->beta->messages->create(
+  $response2 = $client->messages->create(
       maxTokens: 4096,
       messages: $messages,
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'id' => $response1->container->id,
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest']
           ]
       ],
       tools: [
@@ -1739,7 +1725,6 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
   $messages = [
@@ -1747,16 +1732,15 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
   ];
   $maxRetries = 10;
 
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       maxTokens: 4096,
       messages: $messages,
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
               [
                   'type' => 'custom',
-                  'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+                  'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
                   'version' => 'latest'
               ]
           ]
@@ -1771,17 +1755,16 @@ Skills may perform operations that require multiple turns. Handle `pause_turn` s
 
       $messages[] = ['role' => 'assistant', 'content' => $response->content];
 
-      $response = $client->beta->messages->create(
+      $response = $client->messages->create(
           maxTokens: 4096,
           messages: $messages,
           model: 'claude-opus-5',
-          betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
           container: [
               'id' => $response->container->id,
               'skills' => [
                   [
                       'type' => 'custom',
-                      'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+                      'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
                       'version' => 'latest'
                   ]
               ]
@@ -2094,31 +2077,29 @@ Combine multiple Skills in a single request to handle complex workflows:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
-  $message = $client->beta->messages->create(
+  $message = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Analyze sales data and create a presentation']
       ],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
               [
                   'type' => 'anthropic',
-                  'skill_id' => 'xlsx',
+                  'skillID' => 'xlsx',
                   'version' => 'latest'
               ],
               [
                   'type' => 'anthropic',
-                  'skill_id' => 'pptx',
+                  'skillID' => 'pptx',
                   'version' => 'latest'
               ],
               [
                   'type' => 'custom',
-                  'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+                  'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
                   'version' => 'latest'
               ]
           ]
@@ -2408,29 +2389,36 @@ Files are identified by the filename you attach (the `;filename=` suffix in the 
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   use Anthropic\Core\FileParam;
   // ...
 
   $client = new Client();
 
   // Option 1: Using a zip file
-  $skill = $client->beta->skills->create(
+  $skill = $client->skills->create(
       files: [
-          FileParam::fromResource(fopen('example_skill.zip', 'r'))
+          FileParam::fromResource(fopen('example_skill.zip', 'r')),
       ],
   );
 
   // Option 2: Using individual files
-  $skill = $client->beta->skills->create(
+  $skill = $client->skills->create(
       files: [
-          FileParam::fromResource(fopen('financial_skill/SKILL.md', 'r'), 'financial_skill/SKILL.md', 'text/markdown'),
-          FileParam::fromResource(fopen('financial_skill/analyze.py', 'r'), 'financial_skill/analyze.py', 'text/x-python')
+          FileParam::fromResource(
+              fopen('financial_skill/SKILL.md', 'r'),
+              filename: 'financial_skill/SKILL.md',
+              contentType: 'text/markdown',
+          ),
+          FileParam::fromResource(
+              fopen('financial_skill/analyze.py', 'r'),
+              filename: 'financial_skill/analyze.py',
+              contentType: 'text/x-python',
+          ),
       ],
   );
 
   echo "Created skill: {$skill->id}\n";
-  echo "Latest version: {$skill->latestVersion}\n";
+  echo "Latest version: {$skill->latestVersionID}\n";
   ```
 
   ```ruby Ruby
@@ -2595,18 +2583,15 @@ Retrieve all Skills available to your workspace, including both Anthropic pre-bu
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   $client = new Client();
 
   // List Skills (first page)
-  $skills = $client->beta->skills->list();
-
-  foreach ($skills->data as $skill) {
-      echo "{$skill->id}: {$skill->displayTitle} (source: {$skill->source})\n";
+  foreach ($client->skills->list()->getItems() as $skill) {
+      echo "{$skill->id}: {$skill->displayName} (source: {$skill->source->type})\n";
   }
 
   // List only custom Skills
-  $customSkills = $client->beta->skills->list(
+  $customSkills = $client->skills->list(
       source: 'custom',
   );
   ```
@@ -2640,8 +2625,7 @@ Get details about a specific Skill:
   ```
 
   ```bash CLI
-  ant skills retrieve \
-    --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv
+  ant skills retrieve --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv
   ```
 
   ```python Python
@@ -2705,16 +2689,13 @@ Get details about a specific Skill:
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   $client = new Client();
 
-  $skill = $client->beta->skills->retrieve(
-      skillID: 'skill_01AbCdEfGhIjKlMnOpQrStUv',
-  );
+  $skill = $client->skills->retrieve('skill_01AbCdEfGhIjKlMnOpQrStUv');
 
-  echo "Skill: " . $skill->displayTitle . "\n";
-  echo "Latest version: " . $skill->latestVersion . "\n";
-  echo "Created: " . $skill->createdAt . "\n";
+  echo "Skill: {$skill->displayName}\n";
+  echo "Latest version: {$skill->latestVersionID}\n";
+  echo "Created: {$skill->createdAt->format(DATE_ATOM)}\n";
   ```
 
   ```ruby Ruby
@@ -2740,8 +2721,7 @@ Deleting a Skill also removes all of its versions.
   ```
 
   ```bash CLI
-  ant skills delete \
-    --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv >/dev/null
+  ant skills delete --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv >/dev/null
   ```
 
   ```python Python
@@ -2783,15 +2763,9 @@ Deleting a Skill also removes all of its versions.
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
   $client = new Client();
 
-  // In the beta namespace, a Skill's versions must be deleted before the Skill itself.
-  $skillId = 'skill_01AbCdEfGhIjKlMnOpQrStUv';
-  foreach ($client->beta->skills->versions->list($skillId)->pagingEachItem() as $version) {
-      $client->beta->skills->versions->delete($version->version, skillID: $skillId);
-  }
-  $client->beta->skills->delete($skillId);
+  $client->skills->delete('skill_01AbCdEfGhIjKlMnOpQrStUv');
   ```
 
   ```ruby Ruby
@@ -3229,33 +3203,38 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
   ```
 
   ```php PHP
-  // The PHP SDK exposes the Skills API under the beta namespace; field names can differ from other SDKs.
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   use Anthropic\Core\FileParam;
-
   // ...
+
   $client = new Client();
 
   // Create a new version
-  $newVersion = $client->beta->skills->versions->create(
+  $newVersion = $client->skills->versions->create(
       skillID: 'skill_01AbCdEfGhIjKlMnOpQrStUv',
       files: [
-          FileParam::fromResource(fopen('financial_skill/SKILL.md', 'r'), 'financial_skill/SKILL.md', 'text/markdown'),
-          FileParam::fromResource(fopen('financial_skill/analyze.py', 'r'), 'financial_skill/analyze.py', 'text/x-python'),
+          FileParam::fromResource(
+              fopen('financial_skill/SKILL.md', 'r'),
+              filename: 'financial_skill/SKILL.md',
+              contentType: 'text/markdown',
+          ),
+          FileParam::fromResource(
+              fopen('financial_skill/analyze.py', 'r'),
+              filename: 'financial_skill/analyze.py',
+              contentType: 'text/x-python',
+          ),
       ],
   );
 
   // Use specific version
-  $response = $client->beta->messages->create(
+  $response = $client->messages->create(
       maxTokens: 4096,
       messages: [['role' => 'user', 'content' => 'Use updated Skill']],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [[
               'type' => 'custom',
-              'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
-              'version' => $newVersion->version
+              'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+              'version' => $newVersion->id
           ]]
       ],
       tools: [['type' => 'code_execution_20250825', 'name' => 'code_execution']]
@@ -3263,15 +3242,14 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
   echo $response;
 
   // Use latest version
-  $latestResponse = $client->beta->messages->create(
+  $latestResponse = $client->messages->create(
       maxTokens: 4096,
       messages: [['role' => 'user', 'content' => 'Use latest Skill version']],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [[
               'type' => 'custom',
-              'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+              'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
               'version' => 'latest'
           ]]
       ],
@@ -3621,24 +3599,22 @@ Combine Excel and custom DCF analysis Skills:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
   // Custom DCF analysis Skill (ID obtained from Skills API create response)
-  $dcfSkillId = "skill_01AbCdEfGhIjKlMnOpQrStUv";
+  $dcfSkillId = 'skill_01AbCdEfGhIjKlMnOpQrStUv';
 
   // Use with Excel to create financial model
-  $message = $client->beta->messages->create(
+  $message = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Build a DCF valuation model for a SaaS company']
       ],
       model: 'claude-opus-5',
-      betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest'],
-              ['type' => 'custom', 'skill_id' => $dcfSkillId, 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest'],
+              ['type' => 'custom', 'skillID' => $dcfSkillId, 'version' => 'latest']
           ]
       ],
       tools: [
@@ -3851,8 +3827,8 @@ The SDK tabs in this section show the `container` value to include in a Messages
   $container = [
       'skills' => [[
           'type' => 'custom',
-          'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
-          'version' => '1759178010641129'
+          'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+          'version' => 'skver_01AbCdEfGhIjKlMnOpQrStUv'
       ]]
   ];
   ```
@@ -3992,7 +3968,7 @@ The SDK tabs in this section show the `container` value to include in a Messages
   $container = [
       'skills' => [[
           'type' => 'custom',
-          'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+          'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
           'version' => 'latest'
       ]]
   ];
@@ -4330,23 +4306,18 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   $client = new Client();
 
   // Skills render into the system prompt in a fixed, cache-friendly order
-  $response1 = $client->beta->messages->create(
+  $response1 = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Analyze sales data']
       ],
       model: 'claude-opus-5',
-      betas: [
-          'code-execution-2025-08-25',
-          'skills-2025-10-02',
-      ],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest']
           ]
       ],
       tools: [
@@ -4356,20 +4327,16 @@ If you use [Prompt caching](https://platform.claude.com/docs/en/build-with-claud
   echo $response1;
 
   // Changing the Skills list ([xlsx] vs [xlsx, pptx]) changes the prefix: a cache miss, while an identical list is a cache hit
-  $response2 = $client->beta->messages->create(
+  $response2 = $client->messages->create(
       maxTokens: 4096,
       messages: [
           ['role' => 'user', 'content' => 'Create a presentation']
       ],
       model: 'claude-opus-5',
-      betas: [
-          'code-execution-2025-08-25',
-          'skills-2025-10-02',
-      ],
       container: [
           'skills' => [
-              ['type' => 'anthropic', 'skill_id' => 'xlsx', 'version' => 'latest'],
-              ['type' => 'anthropic', 'skill_id' => 'pptx', 'version' => 'latest']
+              ['type' => 'anthropic', 'skillID' => 'xlsx', 'version' => 'latest'],
+              ['type' => 'anthropic', 'skillID' => 'pptx', 'version' => 'latest']
           ]
       ],
       tools: [
@@ -4621,24 +4588,22 @@ Handle Skill-related errors gracefully:
   ```
 
   ```php PHP
-  // The PHP SDK supports container skills only through $client->beta->messages with the skills beta.
   use Anthropic\Core\Exceptions\BadRequestException;
 
   $client = new Client();
 
   try {
-      $message = $client->beta->messages->create(
+      $message = $client->messages->create(
           maxTokens: 4096,
           messages: [
               ['role' => 'user', 'content' => 'Process data']
           ],
           model: 'claude-opus-5',
-          betas: ['code-execution-2025-08-25', 'skills-2025-10-02'],
           container: [
               'skills' => [
                   [
                       'type' => 'custom',
-                      'skill_id' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
+                      'skillID' => 'skill_01AbCdEfGhIjKlMnOpQrStUv',
                       'version' => 'latest'
                   ]
               ]

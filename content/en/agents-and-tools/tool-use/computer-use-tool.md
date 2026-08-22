@@ -18,7 +18,7 @@ The computer use tool is an Anthropic-defined [client toolset](https://platform.
 For tasks that stay inside webpages, the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) is the closer fit: its member tools read and act on the page itself, and it doesn't need a full desktop environment.
 
 <Note>
-  Computer use is generally available on the Claude API as the `computer_toolset_20260801` toolset, with no beta header; see [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#compatibility) for the supported models.
+  Computer use is available on the Claude API as the `computer_toolset_20260801` toolset, with no beta header; see [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#compatibility) for the supported models.
 
   Existing `computer_20251124` integrations keep working, and earlier tool versions remain available in beta for models and platforms that don't support the toolset. See [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) to upgrade, or [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) for the beta headers.
 </Note>
@@ -1495,8 +1495,7 @@ The computer use tool is implemented as a schema-less tool. When using this tool
           $failed = false;
           foreach ($response->content as $block) {
               // This example declares only the computer toolset; route other tools here if you add them.
-              // Read toolset_name through array access: the SDK keeps it as raw data until a release types it.
-              if (!($block instanceof ToolUseBlock) || ($block['toolsetName'] ?? $block['toolset_name'] ?? null) !== 'computer') {
+              if (!($block instanceof ToolUseBlock) || $block->toolsetName !== 'computer') {
                   continue;
               }
               $result = ['type' => 'tool_result', 'tool_use_id' => $block->id, 'toolset_name' => 'computer'];
