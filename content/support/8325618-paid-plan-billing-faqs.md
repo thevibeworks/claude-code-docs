@@ -50,7 +50,7 @@ There's no separate option to remove a card, and updating to a new card replaces
 
 If you want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1787467500&amp;signature=e6702a4270da35b2be37957ae77bfc71236326cf521f8c50edb212649ba23184&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8GqvbTTJQoNvNFTb5cc02BufJ2bIMjDx3wNw%0ACXvcQ0T0omhlPq3H33M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1787485500&amp;signature=d31a805ffe16ccf97b5daa1150d02fc0aca7e392b5c449efd72b3b61eaaed29f&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8GqvYzbJQoNvNFTb5ccpuEibC0ahbw9XuVRs%0AHT1nl9F4IS7RiNV4tPY%3D%0A)
 
 ## How can I edit a paid invoice?
 
