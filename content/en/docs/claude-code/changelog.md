@@ -10,6 +10,14 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.241" description="August 23, 2026">
+  * Bug fixes and reliability improvements
+</Update>
+
+<Update label="2.1.240" description="August 22, 2026">
+  * Bug fixes and reliability improvements
+</Update>
+
 <Update label="2.1.239" description="August 21, 2026">
   * Cost estimates (`/cost`, status line, `--max-budget-usd`) now include the 1.1× US-only-inference premium for data-residency workspaces
   * Added the one-time fullscreen renderer offer on Bedrock, Vertex, Foundry and other previously excluded setups; new installs there now start in fullscreen
